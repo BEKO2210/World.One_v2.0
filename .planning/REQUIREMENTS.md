@@ -72,7 +72,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **ECON-01**: Topic inequality -- Hero: Gini index (World Bank), 100-person wealth distribution animation, country Gini ranking (toggle income/wealth), billionaire counter
 - [x] **ECON-02**: Topic poverty -- Hero: extreme poverty % (World Bank $2.15/day), dramatic trend 38%->8% animated line, regional stacked area chart
-- [ ] **ECON-03**: Topic currencies -- Hero: key exchange rates (Open ER API), currency converter (client-side from cache), 12-month EUR/USD + USD/CNY charts, hyperinflation countries highlighted
+- [x] **ECON-03**: Topic currencies -- Hero: key exchange rates (Open ER API), currency converter (client-side from cache), 12-month EUR/USD + USD/CNY charts, hyperinflation countries highlighted
 
 ### Progress Topics (Akt 05)
 
@@ -181,7 +181,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | SOC-04 | Phase 6 | Complete |
 | ECON-01 | Phase 6 | Complete |
 | ECON-02 | Phase 6 | Complete |
-| ECON-03 | Phase 7 | Pending |
+| ECON-03 | Phase 7 | Complete |
 | PROG-01 | Phase 7 | Pending |
 | PROG-02 | Phase 7 | Pending |
 | PROG-03 | Phase 7 | Pending |
