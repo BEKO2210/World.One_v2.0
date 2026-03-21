@@ -1,7 +1,7 @@
 # Requirements: World.One Detail Pages & Data Expansion
 
 **Defined:** 2026-03-21
-**Core Value:** Every number on the dashboard becomes explorable with live data, historical trends, and visual context — no data point is ever invisible or broken.
+**Core Value:** Every number on the dashboard becomes explorable with live data, historical trends, and visual context -- no data point is ever invisible or broken.
 
 ## v1 Requirements
 
@@ -9,8 +9,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **INFRA-01**: Central data-loader utility (utils/data-loader.js) with fetchWithTimeout (5s) and 3-tier fallback (live → cache → static)
-- [ ] **INFRA-02**: Badge renderer (utils/badge.js) — LIVE pulsing red, Cache gray/orange (>24h), Static gray reference
+- [ ] **INFRA-01**: Central data-loader utility (utils/data-loader.js) with fetchWithTimeout (5s) and 3-tier fallback (live -> cache -> static)
+- [ ] **INFRA-02**: Badge renderer (utils/badge.js) -- LIVE pulsing red, Cache gray/orange (>24h), Static gray reference
 - [ ] **INFRA-03**: Static fallback values file (data/fallback/static-values.json) with value, year, source for every data point
 - [ ] **INFRA-04**: Chart.js 4.x loaded via CDN (jsDelivr primary, cdnjs fallback) with defer and global dark-theme defaults
 - [ ] **INFRA-05**: Chart instance registry with mandatory destroy() lifecycle to prevent canvas memory leaks
@@ -34,78 +34,78 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Main Page Extensions
 
-- [ ] **MAIN-01**: All data points, tiles, and chart sections become clickable → detail/?topic={id}
-- [ ] **MAIN-02**: Hover state: +10% brightness, border glow, tooltip "Klicken für Details →"
-- [ ] **MAIN-03**: Act 12 "Das Schweigen der Arten" — new scroll section with biodiversity tiles
-- [ ] **MAIN-04**: Act 13 "Die Ozeane" — new scroll section with ocean tiles (temp, pH, plastic)
+- [ ] **MAIN-01**: All data points, tiles, and chart sections become clickable -> detail/?topic={id}
+- [ ] **MAIN-02**: Hover state: +10% brightness, border glow, tooltip "Klicken fur Details ->"
+- [ ] **MAIN-03**: Act 12 "Das Schweigen der Arten" -- new scroll section with biodiversity tiles
+- [ ] **MAIN-04**: Act 13 "Die Ozeane" -- new scroll section with ocean tiles (temp, pH, plastic)
 - [ ] **MAIN-05**: New act sections link tiles to their respective detail pages
 
 ### GitHub Actions
 
 - [ ] **ACTIONS-01**: Extended workflow with staggered cron jobs (30min gaps) for new cache files
-- [ ] **ACTIONS-02**: Job: update-biodiversity (03:00 UTC) → data/cache/biodiversity.json
-- [ ] **ACTIONS-03**: Job: update-environment-ext (03:30 UTC) → co2-history.json, ocean.json, solar.json
-- [ ] **ACTIONS-04**: Job: update-society-ext (04:00 UTC) → population.json, freedom.json, conflicts.json
-- [ ] **ACTIONS-05**: Job: update-economy-ext (04:30 UTC) → currencies.json, inequality.json, poverty.json
-- [ ] **ACTIONS-06**: Job: update-progress-ext (05:00 UTC) → arxiv-ai.json, space-news.json
-- [ ] **ACTIONS-07**: Job: update-disasters (05:30 UTC) → disasters.json, hunger.json
+- [ ] **ACTIONS-02**: Job: update-biodiversity (03:00 UTC) -> data/cache/biodiversity.json
+- [ ] **ACTIONS-03**: Job: update-environment-ext (03:30 UTC) -> co2-history.json, ocean.json, solar.json
+- [ ] **ACTIONS-04**: Job: update-society-ext (04:00 UTC) -> population.json, freedom.json, conflicts.json
+- [ ] **ACTIONS-05**: Job: update-economy-ext (04:30 UTC) -> currencies.json, inequality.json, poverty.json
+- [ ] **ACTIONS-06**: Job: update-progress-ext (05:00 UTC) -> arxiv-ai.json, space-news.json
+- [ ] **ACTIONS-07**: Job: update-disasters (05:30 UTC) -> disasters.json, hunger.json
 - [ ] **ACTIONS-08**: All jobs: timeout 10min, continue-on-error: true, never block deployment
 - [ ] **ACTIONS-09**: data/cache/meta.json with last_full_update, jobs_ok, jobs_failed, total_cache_files, total_data_points
 
 ### Environment Topics (Akt 02)
 
-- [ ] **ENV-01**: Topic co2 — Hero: current ppm (Open-Meteo), Keeling Curve 1958–today, emissions by country (World Bank), greenhouse effect infographic
-- [ ] **ENV-02**: Topic temperature — Hero: anomaly (NASA GISTEMP), interactive warming stripes with event tooltips, regional warming SVG choropleth, 9 tipping points timeline
-- [ ] **ENV-03**: Topic biodiversity — Hero: threatened species (GBIF), Living Planet Index trend, IUCN category browser with CR species list
-- [ ] **ENV-04**: Topic airquality — Hero: global AQI (OpenAQ), cities ranking, AQI vs GDP scatter, PM2.5/PM10/NO2 explainer
-- [ ] **ENV-05**: Topic forests — Hero: forest cover % (World Bank), annual loss since 2000, deforestation causes (stacked bar chart)
-- [ ] **ENV-06**: Topic renewables — Hero: renewable energy % (World Bank), live carbon intensity (Electricity Maps DE), country ranking, solar+wind growth curves
+- [ ] **ENV-01**: Topic co2 -- Hero: current ppm (Open-Meteo), Keeling Curve 1958-today, emissions by country (World Bank), greenhouse effect infographic
+- [ ] **ENV-02**: Topic temperature -- Hero: anomaly (NASA GISTEMP), interactive warming stripes with event tooltips, regional warming SVG choropleth, 9 tipping points timeline
+- [ ] **ENV-03**: Topic biodiversity -- Hero: threatened species (GBIF), Living Planet Index trend, IUCN category browser with CR species list
+- [ ] **ENV-04**: Topic airquality -- Hero: global AQI (OpenAQ), cities ranking, AQI vs GDP scatter, PM2.5/PM10/NO2 explainer
+- [ ] **ENV-05**: Topic forests -- Hero: forest cover % (World Bank), annual loss since 2000, deforestation causes (stacked bar chart)
+- [ ] **ENV-06**: Topic renewables -- Hero: renewable energy % (World Bank), live carbon intensity (Electricity Maps DE), country ranking, solar+wind growth curves
 
 ### Society Topics (Akt 03)
 
-- [ ] **SOC-01**: Topic population — Hero: live counter (calculated), births/deaths clock, population pyramid (1960/2000/2026/2050 toggle, country comparison), urbanization chart
-- [ ] **SOC-02**: Topic conflicts — Hero: active conflicts (UCDP cached), SVG conflict map with intensity dots, historical trend 1946–today with event markers, refugees/displaced doughnut chart
-- [ ] **SOC-03**: Topic health — Hero: life expectancy (World Bank), causes of death treemap, health spending vs life expectancy scatter (bubble=population), vaccination choropleth
-- [ ] **SOC-04**: Topic freedom — Hero: Freedom House score (cached), SVG choropleth (green/yellow/red), 18-year decline trend chart
+- [ ] **SOC-01**: Topic population -- Hero: live counter (calculated), births/deaths clock, population pyramid (1960/2000/2026/2050 toggle, country comparison), urbanization chart
+- [ ] **SOC-02**: Topic conflicts -- Hero: active conflicts (UCDP cached), SVG conflict map with intensity dots, historical trend 1946-today with event markers, refugees/displaced doughnut chart
+- [ ] **SOC-03**: Topic health -- Hero: life expectancy (World Bank), causes of death treemap, health spending vs life expectancy scatter (bubble=population), vaccination choropleth
+- [ ] **SOC-04**: Topic freedom -- Hero: Freedom House score (cached), SVG choropleth (green/yellow/red), 18-year decline trend chart
 
 ### Economy Topics (Akt 04)
 
-- [ ] **ECON-01**: Topic inequality — Hero: Gini index (World Bank), 100-person wealth distribution animation, country Gini ranking (toggle income/wealth), billionaire counter
-- [ ] **ECON-02**: Topic poverty — Hero: extreme poverty % (World Bank $2.15/day), dramatic trend 38%→8% animated line, regional stacked area chart
-- [ ] **ECON-03**: Topic currencies — Hero: key exchange rates (Open ER API), currency converter (client-side from cache), 12-month EUR/USD + USD/CNY charts, hyperinflation countries highlighted
+- [ ] **ECON-01**: Topic inequality -- Hero: Gini index (World Bank), 100-person wealth distribution animation, country Gini ranking (toggle income/wealth), billionaire counter
+- [ ] **ECON-02**: Topic poverty -- Hero: extreme poverty % (World Bank $2.15/day), dramatic trend 38%->8% animated line, regional stacked area chart
+- [ ] **ECON-03**: Topic currencies -- Hero: key exchange rates (Open ER API), currency converter (client-side from cache), 12-month EUR/USD + USD/CNY charts, hyperinflation countries highlighted
 
 ### Progress Topics (Akt 05)
 
-- [ ] **PROG-01**: Topic science — Hero: total arXiv papers, exponential growth curve animated, hot research fields bar chart (daily cached), Nobel prizes by country bubble chart
-- [ ] **PROG-02**: Topic internet — Hero: internet users % (World Bank), real-time calculated counters (emails/YouTube/Google today), digital divide SVG choropleth
-- [ ] **PROG-03**: Topic space — Hero: ISS position live (10s refresh), SVG map with moving ISS dot + orbit trail, crew list, spaceflight news feed (cached), satellite count visualization
+- [ ] **PROG-01**: Topic science -- Hero: total arXiv papers, exponential growth curve animated, hot research fields bar chart (daily cached), Nobel prizes by country bubble chart
+- [ ] **PROG-02**: Topic internet -- Hero: internet users % (World Bank), real-time calculated counters (emails/YouTube/Google today), digital divide SVG choropleth
+- [ ] **PROG-03**: Topic space -- Hero: ISS position live (10s refresh), SVG map with moving ISS dot + orbit trail, crew list, spaceflight news feed (cached), satellite count visualization
 
 ### Realtime Topics (Akt 06)
 
-- [ ] **RT-01**: Topic earthquakes — Extended: interactive SVG map (USGS 24h, magnitude=size, depth=color, click popup), 7-day magnitude histogram
-- [ ] **RT-02**: Topic weather — Extended: 24 cities (all continents), hourly sparklines, extreme weather warnings (code>65 rain, >75 blizzard, >95 thunderstorm)
-- [ ] **RT-03**: Topic solar — Hero: solar activity (NOAA), solar cycle 25 chart with sunspot count, aurora Kp-index map with visibility latitude
-- [ ] **RT-04**: Topic crypto_sentiment — Extended: 30-day Fear & Greed history chart with color zones (red=fear, green=greed)
+- [ ] **RT-01**: Topic earthquakes -- Extended: interactive SVG map (USGS 24h, magnitude=size, depth=color, click popup), 7-day magnitude histogram
+- [ ] **RT-02**: Topic weather -- Extended: 24 cities (all continents), hourly sparklines, extreme weather warnings (code>65 rain, >75 blizzard, >95 thunderstorm)
+- [ ] **RT-03**: Topic solar -- Hero: solar activity (NOAA), solar cycle 25 chart with sunspot count, aurora Kp-index map with visibility latitude
+- [ ] **RT-04**: Topic crypto_sentiment -- Extended: 30-day Fear & Greed history chart with color zones (red=fear, green=greed)
 
 ### Momentum Topics (Akt 07)
 
-- [ ] **MOM-01**: Topic momentum_detail — All 20 indicators as mini-cards: value, trend arrow, % change, 10-year sparkline, improvement/stagnation/decline assessment, clickable to topic detail
+- [ ] **MOM-01**: Topic momentum_detail -- All 20 indicators as mini-cards: value, trend arrow, % change, 10-year sparkline, improvement/stagnation/decline assessment, clickable to topic detail
 
 ### Crisis Topics (Akt 08)
 
-- [ ] **CRISIS-01**: Topic hunger — Hero: hunger index (World Bank), SVG choropleth by malnutrition rate with click popups, FAO Food Price Index trend + correlation visualization
-- [ ] **CRISIS-02**: Topic disasters — Hero: natural disasters 2026 (EM-DAT cached), chronological timeline with type/country/affected/damage, historical trend dual-axis chart (frequency + cost)
+- [ ] **CRISIS-01**: Topic hunger -- Hero: hunger index (World Bank), SVG choropleth by malnutrition rate with click popups, FAO Food Price Index trend + correlation visualization
+- [ ] **CRISIS-02**: Topic disasters -- Hero: natural disasters 2026 (EM-DAT cached), chronological timeline with type/country/affected/damage, historical trend dual-axis chart (frequency + cost)
 
-### Ocean Topics (Akt 13 — New)
+### Ocean Topics (Akt 13 -- New)
 
-- [ ] **OCEAN-01**: Topic ocean_temp — Hero: SST anomaly (NOAA cached), SVG heatmap choropleth, coral bleaching threshold explainer infographic
-- [ ] **OCEAN-02**: Topic ocean_ph — Hero: pH value (8.2→8.1 trend), pH scale visualization with ocean position, acidification impact infographic
-- [ ] **OCEAN-03**: Topic ocean_plastic — Hero: ocean plastic estimate (GESAMP cached), daily counter animated, 5 garbage patches SVG map, decomposition time animation (bottle: 450 years)
+- [ ] **OCEAN-01**: Topic ocean_temp -- Hero: SST anomaly (NOAA cached), SVG heatmap choropleth, coral bleaching threshold explainer infographic
+- [ ] **OCEAN-02**: Topic ocean_ph -- Hero: pH value (8.2->8.1 trend), pH scale visualization with ocean position, acidification impact infographic
+- [ ] **OCEAN-03**: Topic ocean_plastic -- Hero: ocean plastic estimate (GESAMP cached), daily counter animated, 5 garbage patches SVG map, decomposition time animation (bottle: 450 years)
 
-### Biodiversity Topics (Akt 12 — New)
+### Biodiversity Topics (Akt 12 -- New)
 
-- [ ] **BIO-01**: Topic extinction — Species extinction rate detail with historical mass extinctions context
-- [ ] **BIO-02**: Topic endangered — Endangered species by IUCN category with GBIF cached species lists
+- [ ] **BIO-01**: Topic extinction -- Species extinction rate detail with historical mass extinctions context
+- [ ] **BIO-02**: Topic endangered -- Endangered species by IUCN category with GBIF cached species lists
 
 ## v2 Requirements
 
@@ -115,7 +115,7 @@ Deferred to future release. Tracked but not in current roadmap.
 
 - **ADV-01**: Historical event annotations overlay on timeline charts (Paris Agreement, COVID, etc.)
 - **ADV-02**: Before/after comparison sliders for temporal data (temperature, forests, inequality)
-- **ADV-03**: Country drill-down on map click → filter chart data to that country vs global average
+- **ADV-03**: Country drill-down on map click -> filter chart data to that country vs global average
 - **ADV-04**: Data export CSV/PNG per chart (Chart.js toBase64Image + CSV generation)
 - **ADV-05**: Automated trend narration ("CO2 has risen 2.4 ppm this year, continuing...")
 - **ADV-06**: Keyboard shortcut navigation (J/K between charts, T toggle range, Esc back)
@@ -146,8 +146,8 @@ Deferred to future release. Tracked but not in current roadmap.
 | INFRA-03 | Phase 1 | Pending |
 | INFRA-04 | Phase 1 | Pending |
 | INFRA-05 | Phase 1 | Pending |
-| INFRA-06 | Phase 1 | Pending |
-| INFRA-07 | Phase 1 | Pending |
+| INFRA-06 | Phase 5 | Pending |
+| INFRA-07 | Phase 3 | Pending |
 | DETAIL-01 | Phase 2 | Pending |
 | DETAIL-02 | Phase 2 | Pending |
 | DETAIL-03 | Phase 2 | Pending |
@@ -202,14 +202,12 @@ Deferred to future release. Tracked but not in current roadmap.
 | OCEAN-03 | Phase 10 | Pending |
 | BIO-01 | Phase 10 | Pending |
 | BIO-02 | Phase 10 | Pending |
-| INFRA-06 | Phase 5 | Pending |
-| INFRA-07 | Phase 3 | Pending |
 
 **Coverage:**
-- v1 requirements: 58 total
-- Mapped to phases: 58
-- Unmapped: 0 ✓
+- v1 requirements: 61 total
+- Mapped to phases: 61
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-21*
-*Last updated: 2026-03-21 after initial definition*
+*Last updated: 2026-03-21 after roadmap creation*
