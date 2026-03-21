@@ -803,6 +803,73 @@ const translations = {
     'detail.disasters.sourceEMDAT': 'EM-DAT -- International Disaster Database',
     'detail.disasters.sourceReliefWeb': 'ReliefWeb / OCHA',
 
+    // ─── Phase 10: Biodiversity (Act 12) ───
+    'act12.label': 'AKT 12 — BIODIVERSITAET',
+    'act12.title': 'Das Schweigen der Arten',
+    'act12.desc': 'Artensterben, bedrohte Spezies, das sechste Massenaussterben.',
+    'act12.extinctionLabel': 'AUSSTERBERATE',
+    'act12.extinctionExplain': 'Die aktuelle Aussterberate liegt 100-1.000x ueber dem natuerlichen Hintergrund.',
+    'act12.endangeredLabel': 'BEDROHTE ARTEN',
+    'act12.endangeredExplain': 'Auf der Roten Liste der IUCN als gefaehrdet eingestuft.',
+
+    // ─── Phase 10: Oceans (Act 13) ───
+    'act13.label': 'AKT 13 — OZEANE',
+    'act13.title': 'Die Ozeane',
+    'act13.desc': 'SST-Anomalie, Versauerung, Plastik — die Gesundheit unserer Meere.',
+    'act13.sstLabel': 'SST-ANOMALIE',
+    'act13.sstExplain': 'Meeresoberflaechen-Temperaturabweichung. Korallen bleichen ab +1C.',
+    'act13.phLabel': 'OZEAN-PH',
+    'act13.phExplain': 'Vorindustriell: 8.25. Jeder 0.1-Schritt = 26% saeurer.',
+    'act13.plasticLabel': 'PLASTIK IM MEER',
+    'act13.plasticExplain': 'Geschaetzte Gesamtmenge. 8-12 Mio Tonnen kommen jaehrlich dazu.',
+    'nav.biodiversity': 'Biodiversitaet',
+    'nav.oceans': 'Ozeane',
+
+    // ─── Phase 10: Detail Pages — Extinction ───
+    'detail.extinction.title': 'Artensterben',
+    'detail.extinction.heroLabel': 'Aussterberate',
+    'detail.extinction.heroExplain': 'Faktor ueber der natuerlichen Hintergrundrate (IPBES).',
+    'detail.extinction.massTitle': 'Die fuenf grossen Massenaussterben',
+    'detail.extinction.currentTitle': 'Das sechste Massenaussterben',
+    'detail.extinction.currentExplain': 'Die heutige Aussterberate uebertrifft alle frueheren Massenaussterben -- angetrieben durch Lebensraumverlust, Klimawandel, Uebernutzung und invasive Arten.',
+    'detail.extinction.sources': 'IPBES Global Assessment, IUCN Red List',
+
+    // ─── Phase 10: Detail Pages — Endangered ───
+    'detail.endangered.title': 'Bedrohte Arten',
+    'detail.endangered.heroLabel': 'Bedrohte Arten',
+    'detail.endangered.heroExplain': 'Auf der Roten Liste der IUCN als gefaehrdet eingestuft.',
+    'detail.endangered.categoriesTitle': 'Bedrohungskategorien',
+    'detail.endangered.speciesTitle': 'Am staerksten bedrohte Artengruppen',
+    'detail.endangered.sources': 'IUCN Red List, GBIF',
+
+    // ─── Phase 10: Detail Pages — Ocean Temperature ───
+    'detail.ocean_temp.title': 'Meeresoberflaechen-Temperatur',
+    'detail.ocean_temp.heroLabel': 'SST-Anomalie',
+    'detail.ocean_temp.heroExplain': 'Abweichung der Meeresoberflaechen-Temperatur vom Langzeitmittel.',
+    'detail.ocean_temp.trendTitle': 'SST-Anomalie im Zeitverlauf',
+    'detail.ocean_temp.coralTitle': 'Korallenbleiche-Schwelle',
+    'detail.ocean_temp.coralExplain': 'Korallen beginnen bei einer Anomalie von +1C zu bleichen. Ab +2C droht Massensterben.',
+    'detail.ocean_temp.sources': 'NOAA Climate at a Glance, Coral Reef Watch',
+
+    // ─── Phase 10: Detail Pages — Ocean pH ───
+    'detail.ocean_ph.title': 'Ozean-Versauerung',
+    'detail.ocean_ph.heroLabel': 'Aktueller pH-Wert',
+    'detail.ocean_ph.heroExplain': 'pH-Wert der Meeresoberflaeche (vorindustriell: 8.25).',
+    'detail.ocean_ph.trendTitle': 'pH-Wert im Zeitverlauf',
+    'detail.ocean_ph.scaleTitle': 'Die pH-Skala',
+    'detail.ocean_ph.acidTitle': 'Versauerung und marine Oekosysteme',
+    'detail.ocean_ph.acidExplain': 'Jeder Rueckgang um 0.1 pH bedeutet 26% mehr Saeure. Muscheln, Korallen und Plankton koennen ihre Kalkschalen nicht mehr bilden.',
+    'detail.ocean_ph.sources': 'NOAA PMEL, IPCC AR6',
+
+    // ─── Phase 10: Detail Pages — Ocean Plastic ───
+    'detail.ocean_plastic.title': 'Plastik im Meer',
+    'detail.ocean_plastic.heroLabel': 'Gesamtmenge im Ozean',
+    'detail.ocean_plastic.heroExplain': 'Geschaetzte kumulative Plastikmenge in den Weltmeeren.',
+    'detail.ocean_plastic.counterTitle': 'Plastik-Eintrag in Echtzeit',
+    'detail.ocean_plastic.patchesTitle': 'Die fuenf Muellstrudel',
+    'detail.ocean_plastic.decompTitle': 'Zersetzungszeiten',
+    'detail.ocean_plastic.sources': 'GESAMP, UNEP, The Ocean Cleanup',
+
     // ─── Main Page ───
     'main.clickForDetails': 'Klicken fur Details ->'
   },
@@ -1606,6 +1673,73 @@ const translations = {
     'detail.disasters.comparison': 'Economic damages from natural disasters exceeded $300 billion in 2024. Developing countries bear disproportionate costs despite lower CO2 emissions.',
     'detail.disasters.sourceEMDAT': 'EM-DAT -- International Disaster Database',
     'detail.disasters.sourceReliefWeb': 'ReliefWeb / OCHA',
+
+    // ─── Phase 10: Biodiversity (Act 12) ───
+    'act12.label': 'ACT 12 — BIODIVERSITY',
+    'act12.title': 'The Silence of Species',
+    'act12.desc': 'Extinction, endangered species, the sixth mass extinction.',
+    'act12.extinctionLabel': 'EXTINCTION RATE',
+    'act12.extinctionExplain': 'Current extinction rate is 100-1,000x above the natural background rate.',
+    'act12.endangeredLabel': 'ENDANGERED SPECIES',
+    'act12.endangeredExplain': 'Listed as threatened on the IUCN Red List.',
+
+    // ─── Phase 10: Oceans (Act 13) ───
+    'act13.label': 'ACT 13 — OCEANS',
+    'act13.title': 'The Oceans',
+    'act13.desc': 'SST anomaly, acidification, plastic — the health of our seas.',
+    'act13.sstLabel': 'SST ANOMALY',
+    'act13.sstExplain': 'Sea surface temperature deviation. Corals bleach above +1C.',
+    'act13.phLabel': 'OCEAN PH',
+    'act13.phExplain': 'Pre-industrial: 8.25. Each 0.1 step = 26% more acidic.',
+    'act13.plasticLabel': 'OCEAN PLASTIC',
+    'act13.plasticExplain': 'Estimated total. 8-12 million tonnes are added annually.',
+    'nav.biodiversity': 'Biodiversity',
+    'nav.oceans': 'Oceans',
+
+    // ─── Phase 10: Detail Pages — Extinction ───
+    'detail.extinction.title': 'Species Extinction',
+    'detail.extinction.heroLabel': 'Extinction Rate',
+    'detail.extinction.heroExplain': 'Factor above the natural background rate (IPBES).',
+    'detail.extinction.massTitle': 'The Five Great Mass Extinctions',
+    'detail.extinction.currentTitle': 'The Sixth Mass Extinction',
+    'detail.extinction.currentExplain': 'Today\'s extinction rate surpasses all previous mass extinctions -- driven by habitat loss, climate change, overexploitation, and invasive species.',
+    'detail.extinction.sources': 'IPBES Global Assessment, IUCN Red List',
+
+    // ─── Phase 10: Detail Pages — Endangered ───
+    'detail.endangered.title': 'Endangered Species',
+    'detail.endangered.heroLabel': 'Threatened Species',
+    'detail.endangered.heroExplain': 'Listed as threatened on the IUCN Red List.',
+    'detail.endangered.categoriesTitle': 'Threat Categories',
+    'detail.endangered.speciesTitle': 'Most Threatened Species Groups',
+    'detail.endangered.sources': 'IUCN Red List, GBIF',
+
+    // ─── Phase 10: Detail Pages — Ocean Temperature ───
+    'detail.ocean_temp.title': 'Sea Surface Temperature',
+    'detail.ocean_temp.heroLabel': 'SST Anomaly',
+    'detail.ocean_temp.heroExplain': 'Sea surface temperature deviation from long-term average.',
+    'detail.ocean_temp.trendTitle': 'SST Anomaly Over Time',
+    'detail.ocean_temp.coralTitle': 'Coral Bleaching Threshold',
+    'detail.ocean_temp.coralExplain': 'Corals begin bleaching at an anomaly of +1C. Above +2C, mass die-off occurs.',
+    'detail.ocean_temp.sources': 'NOAA Climate at a Glance, Coral Reef Watch',
+
+    // ─── Phase 10: Detail Pages — Ocean pH ───
+    'detail.ocean_ph.title': 'Ocean Acidification',
+    'detail.ocean_ph.heroLabel': 'Current pH Level',
+    'detail.ocean_ph.heroExplain': 'Sea surface pH level (pre-industrial: 8.25).',
+    'detail.ocean_ph.trendTitle': 'pH Level Over Time',
+    'detail.ocean_ph.scaleTitle': 'The pH Scale',
+    'detail.ocean_ph.acidTitle': 'Acidification and Marine Ecosystems',
+    'detail.ocean_ph.acidExplain': 'Each 0.1 pH decrease means 26% more acidity. Shellfish, corals, and plankton can no longer form their calcium shells.',
+    'detail.ocean_ph.sources': 'NOAA PMEL, IPCC AR6',
+
+    // ─── Phase 10: Detail Pages — Ocean Plastic ───
+    'detail.ocean_plastic.title': 'Ocean Plastic',
+    'detail.ocean_plastic.heroLabel': 'Total in Oceans',
+    'detail.ocean_plastic.heroExplain': 'Estimated cumulative plastic mass in the world\'s oceans.',
+    'detail.ocean_plastic.counterTitle': 'Real-time Plastic Input',
+    'detail.ocean_plastic.patchesTitle': 'The Five Garbage Patches',
+    'detail.ocean_plastic.decompTitle': 'Decomposition Times',
+    'detail.ocean_plastic.sources': 'GESAMP, UNEP, The Ocean Cleanup',
 
     // ─── Main Page ───
     'main.clickForDetails': 'Click for details ->'
