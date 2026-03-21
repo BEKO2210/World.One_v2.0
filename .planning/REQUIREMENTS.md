@@ -36,9 +36,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **MAIN-01**: All data points, tiles, and chart sections become clickable -> detail/?topic={id}
 - [x] **MAIN-02**: Hover state: +10% brightness, border glow, tooltip "Klicken fur Details ->"
-- [ ] **MAIN-03**: Act 12 "Das Schweigen der Arten" -- new scroll section with biodiversity tiles
-- [ ] **MAIN-04**: Act 13 "Die Ozeane" -- new scroll section with ocean tiles (temp, pH, plastic)
-- [ ] **MAIN-05**: New act sections link tiles to their respective detail pages
+- [x] **MAIN-03**: Act 12 "Das Schweigen der Arten" -- new scroll section with biodiversity tiles
+- [x] **MAIN-04**: Act 13 "Die Ozeane" -- new scroll section with ocean tiles (temp, pH, plastic)
+- [x] **MAIN-05**: New act sections link tiles to their respective detail pages
 
 ### GitHub Actions
 
@@ -194,9 +194,9 @@ Deferred to future release. Tracked but not in current roadmap.
 | CRISIS-02 | Phase 8 | Complete |
 | MAIN-01 | Phase 9 | Complete |
 | MAIN-02 | Phase 9 | Complete |
-| MAIN-03 | Phase 10 | Pending |
-| MAIN-04 | Phase 10 | Pending |
-| MAIN-05 | Phase 10 | Pending |
+| MAIN-03 | Phase 10 | Complete |
+| MAIN-04 | Phase 10 | Complete |
+| MAIN-05 | Phase 10 | Complete |
 | OCEAN-01 | Phase 10 | Pending |
 | OCEAN-02 | Phase 10 | Pending |
 | OCEAN-03 | Phase 10 | Pending |
