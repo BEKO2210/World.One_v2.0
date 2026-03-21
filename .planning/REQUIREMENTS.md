@@ -34,8 +34,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Main Page Extensions
 
-- [ ] **MAIN-01**: All data points, tiles, and chart sections become clickable -> detail/?topic={id}
-- [ ] **MAIN-02**: Hover state: +10% brightness, border glow, tooltip "Klicken fur Details ->"
+- [x] **MAIN-01**: All data points, tiles, and chart sections become clickable -> detail/?topic={id}
+- [x] **MAIN-02**: Hover state: +10% brightness, border glow, tooltip "Klicken fur Details ->"
 - [ ] **MAIN-03**: Act 12 "Das Schweigen der Arten" -- new scroll section with biodiversity tiles
 - [ ] **MAIN-04**: Act 13 "Die Ozeane" -- new scroll section with ocean tiles (temp, pH, plastic)
 - [ ] **MAIN-05**: New act sections link tiles to their respective detail pages
@@ -192,8 +192,8 @@ Deferred to future release. Tracked but not in current roadmap.
 | MOM-01 | Phase 8 | Complete |
 | CRISIS-01 | Phase 8 | Complete |
 | CRISIS-02 | Phase 8 | Complete |
-| MAIN-01 | Phase 9 | Pending |
-| MAIN-02 | Phase 9 | Pending |
+| MAIN-01 | Phase 9 | Complete |
+| MAIN-02 | Phase 9 | Complete |
 | MAIN-03 | Phase 10 | Pending |
 | MAIN-04 | Phase 10 | Pending |
 | MAIN-05 | Phase 10 | Pending |
