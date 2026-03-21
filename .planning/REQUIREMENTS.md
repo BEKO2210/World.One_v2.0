@@ -55,7 +55,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Environment Topics (Akt 02)
 
 - [x] **ENV-01**: Topic co2 -- Hero: current ppm (Open-Meteo), Keeling Curve 1958-today, emissions by country (World Bank), greenhouse effect infographic
-- [ ] **ENV-02**: Topic temperature -- Hero: anomaly (NASA GISTEMP), interactive warming stripes with event tooltips, regional warming SVG choropleth, 9 tipping points timeline
+- [x] **ENV-02**: Topic temperature -- Hero: anomaly (NASA GISTEMP), interactive warming stripes with event tooltips, regional warming SVG choropleth, 9 tipping points timeline
 - [ ] **ENV-03**: Topic biodiversity -- Hero: threatened species (GBIF), Living Planet Index trend, IUCN category browser with CR species list
 - [ ] **ENV-04**: Topic airquality -- Hero: global AQI (OpenAQ), cities ranking, AQI vs GDP scatter, PM2.5/PM10/NO2 explainer
 - [ ] **ENV-05**: Topic forests -- Hero: forest cover % (World Bank), annual loss since 2000, deforestation causes (stacked bar chart)
@@ -63,7 +63,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Society Topics (Akt 03)
 
-- [ ] **SOC-01**: Topic population -- Hero: live counter (calculated), births/deaths clock, population pyramid (1960/2000/2026/2050 toggle, country comparison), urbanization chart
+- [x] **SOC-01**: Topic population -- Hero: live counter (calculated), births/deaths clock, population pyramid (1960/2000/2026/2050 toggle, country comparison), urbanization chart
 - [x] **SOC-02**: Topic conflicts -- Hero: active conflicts (UCDP cached), SVG conflict map with intensity dots, historical trend 1946-today with event markers, refugees/displaced doughnut chart
 - [ ] **SOC-03**: Topic health -- Hero: life expectancy (World Bank), causes of death treemap, health spending vs life expectancy scatter (bubble=population), vaccination choropleth
 - [ ] **SOC-04**: Topic freedom -- Hero: Freedom House score (cached), SVG choropleth (green/yellow/red), 18-year decline trend chart
@@ -170,12 +170,12 @@ Deferred to future release. Tracked but not in current roadmap.
 | ACTIONS-08 | Phase 3 | Complete |
 | ACTIONS-09 | Phase 3 | Complete |
 | ENV-01 | Phase 4 | Complete |
-| ENV-02 | Phase 4 | Pending |
+| ENV-02 | Phase 4 | Complete |
 | ENV-03 | Phase 5 | Pending |
 | ENV-04 | Phase 5 | Pending |
 | ENV-05 | Phase 5 | Pending |
 | ENV-06 | Phase 5 | Pending |
-| SOC-01 | Phase 4 | Pending |
+| SOC-01 | Phase 4 | Complete |
 | SOC-02 | Phase 4 | Complete |
 | SOC-03 | Phase 6 | Pending |
 | SOC-04 | Phase 6 | Pending |

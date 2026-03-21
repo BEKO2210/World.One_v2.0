@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-03-PLAN.md
-last_updated: "2026-03-21T16:23:51.897Z"
+stopped_at: Completed 04-02-PLAN.md
+last_updated: "2026-03-21T16:24:42.452Z"
 last_activity: 2026-03-21 -- Completed plan 04-03 (Earthquakes + Conflicts topic modules)
 progress:
   total_phases: 10
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 11
-  completed_plans: 10
+  completed_plans: 11
   percent: 91
 ---
 
@@ -52,6 +52,7 @@ Progress: [█████████░] 91%
 | Phase 03 P02 | 4min | 2 tasks | 4 files |
 | Phase 03 P03 | 3min | 2 tasks | 3 files |
 | Phase 04 P01 | 4min | 2 tasks | 3 files |
+| Phase 04 P02 | 6min | 2 tasks | 2 files |
 | Phase 04 P03 | 4min | 2 tasks | 2 files |
 
 **Recent Trend:**
@@ -99,6 +100,10 @@ Recent decisions affecting current work:
 - [Phase 04]: CO2 module uses Open-Meteo Air Quality API for live ppm with 3-tier fallback to cache/static
 - [Phase 04]: Greenhouse infographic uses pure DOMUtils.create (no innerHTML, no images) for security
 - [Phase 04]: Top 10 emitters per capita hardcoded from World Bank 2020 -- no live API for supplementary bar chart
+- [Phase 04]: Hardcoded NASA GISTEMP annual anomalies (1880-2024, 145 entries) as Pattern 6 -- no browser CSV fetch
+- [Phase 04]: Regional warming SVG choropleth: fetch world.svg, color ~55 country paths by ISO-2 anomaly data using tempToColor
+- [Phase 04]: Population pyramid rendered directly in render() for interactive year toggle; urbanization chart uses lazy getChartConfigs
+- [Phase 04]: Population module has 3 independently tracked setInterval calls (counter + births + deaths) for proper cleanup
 - [Phase 04]: Earthquakes fetches USGS GeoJSON directly in browser (CORS-friendly) with 8s fetchWithTimeout
 - [Phase 04]: Simplified continent outlines as SVG path approximations shared between earthquake and conflict maps
 - [Phase 04]: Conflict trend chart rendered directly in render() for timerangechange interactivity; refugees doughnut lazy via getChartConfigs
@@ -116,6 +121,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T16:23:51.894Z
-Stopped at: Completed 04-03-PLAN.md
+Last session: 2026-03-21T16:24:42.449Z
+Stopped at: Completed 04-02-PLAN.md
 Resume file: None
