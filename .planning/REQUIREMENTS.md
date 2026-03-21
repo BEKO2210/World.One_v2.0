@@ -9,9 +9,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **INFRA-01**: Central data-loader utility (utils/data-loader.js) with fetchWithTimeout (5s) and 3-tier fallback (live -> cache -> static)
+- [x] **INFRA-01**: Central data-loader utility (utils/data-loader.js) with fetchWithTimeout (5s) and 3-tier fallback (live -> cache -> static)
 - [ ] **INFRA-02**: Badge renderer (utils/badge.js) -- LIVE pulsing red, Cache gray/orange (>24h), Static gray reference
-- [ ] **INFRA-03**: Static fallback values file (data/fallback/static-values.json) with value, year, source for every data point
+- [x] **INFRA-03**: Static fallback values file (data/fallback/static-values.json) with value, year, source for every data point
 - [x] **INFRA-04**: Chart.js 4.x loaded via CDN (jsDelivr primary, cdnjs fallback) with defer and global dark-theme defaults
 - [x] **INFRA-05**: Chart instance registry with mandatory destroy() lifecycle to prevent canvas memory leaks
 - [ ] **INFRA-06**: Reusable SVG choropleth component extending existing maps.js for detail page use
@@ -141,9 +141,9 @@ Deferred to future release. Tracked but not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | Phase 1 | Pending |
+| INFRA-01 | Phase 1 | Complete |
 | INFRA-02 | Phase 1 | Pending |
-| INFRA-03 | Phase 1 | Pending |
+| INFRA-03 | Phase 1 | Complete |
 | INFRA-04 | Phase 1 | Complete |
 | INFRA-05 | Phase 1 | Complete |
 | INFRA-06 | Phase 5 | Pending |
