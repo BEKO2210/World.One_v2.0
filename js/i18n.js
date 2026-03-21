@@ -801,7 +801,10 @@ const translations = {
     'detail.disasters.explanation': 'Die Zahl gemeldeter Naturkatastrophen hat sich seit 1980 mehr als verdreifacht. Haupttreiber: bessere Erfassung und Klimawandel. Ueberschwemmungen und Stuerme machen ueber 80% der wetterbedingten Katastrophen aus.',
     'detail.disasters.comparison': 'Die wirtschaftlichen Schaeden durch Naturkatastrophen erreichten 2024 ueber 300 Mrd. USD. Entwicklungslaender tragen ueberproportional die Kosten trotz geringerem CO2-Ausstoss.',
     'detail.disasters.sourceEMDAT': 'EM-DAT -- International Disaster Database',
-    'detail.disasters.sourceReliefWeb': 'ReliefWeb / OCHA'
+    'detail.disasters.sourceReliefWeb': 'ReliefWeb / OCHA',
+
+    // ─── Main Page ───
+    'main.clickForDetails': 'Klicken fur Details ->'
   },
 
   en: {
@@ -1602,7 +1605,10 @@ const translations = {
     'detail.disasters.explanation': 'The number of reported natural disasters has more than tripled since 1980. Main drivers: better recording and climate change. Floods and storms account for over 80% of weather-related disasters.',
     'detail.disasters.comparison': 'Economic damages from natural disasters exceeded $300 billion in 2024. Developing countries bear disproportionate costs despite lower CO2 emissions.',
     'detail.disasters.sourceEMDAT': 'EM-DAT -- International Disaster Database',
-    'detail.disasters.sourceReliefWeb': 'ReliefWeb / OCHA'
+    'detail.disasters.sourceReliefWeb': 'ReliefWeb / OCHA',
+
+    // ─── Main Page ───
+    'main.clickForDetails': 'Click for details ->'
   }
 };
 
