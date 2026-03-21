@@ -824,6 +824,31 @@ class BelkisOne {
       this._momentumBuilt = true;
       const mom = data.momentum;
 
+      // Map indicator names (German) to detail topic IDs
+      const MAIN_INDICATOR_TOPIC_MAP = {
+        'CO2-Konzentration': 'co2',
+        'Temperaturanomalie': 'temperature',
+        'Erneuerbare Energien': 'renewables',
+        'Waldfläche': 'forests',
+        'Waldflache': 'forests',
+        'Artenvielfalt': 'biodiversity',
+        'Lebenserwartung': 'health',
+        'Kindersterblichkeit': 'health',
+        'Alphabetisierung': 'internet',
+        'Internet-Zugang': 'internet',
+        'Extreme Armut': 'poverty',
+        'Ungleichheit (Gini)': 'inequality',
+        'Demokratie-Index': 'freedom',
+        'Konflikte': 'conflicts',
+        'Hunger': 'hunger',
+        'Sauberes Wasser': 'health',
+        'Strom-Zugang': 'renewables',
+        'Mobilfunk': 'internet',
+        'Wissenschaftl. Publikationen': 'science',
+        'BIP pro Kopf': 'currencies',
+        'Arbeitslosigkeit': 'poverty',
+      };
+
       const momList = document.getElementById('momentum-list');
       if (momList) {
         momList.innerHTML = '';
@@ -838,6 +863,14 @@ class BelkisOne {
               <span class="momentum-item__change" style="color:${isUp ? '#34c759' : '#ff3b30'}">${ind.change}</span>
             `
           });
+          const topic = MAIN_INDICATOR_TOPIC_MAP[ind.name] || null;
+          if (topic) {
+            item.classList.add('detail-link');
+            item.dataset.topic = topic;
+            item.dataset.tooltip = i18n.t('main.clickForDetails');
+            item.setAttribute('role', 'link');
+            item.setAttribute('tabindex', '0');
+          }
           momList.appendChild(item);
         });
         this.scrollEngine.observeReveals(momList);
@@ -875,6 +908,14 @@ class BelkisOne {
               </span>
             `
           });
+          const compTopic = MAIN_INDICATOR_TOPIC_MAP[item.name] || null;
+          if (compTopic) {
+            card.classList.add('detail-link');
+            card.dataset.topic = compTopic;
+            card.dataset.tooltip = i18n.t('main.clickForDetails');
+            card.setAttribute('role', 'link');
+            card.setAttribute('tabindex', '0');
+          }
           compGrid.appendChild(card);
         });
         this.scrollEngine.observeReveals(compGrid);
@@ -1320,6 +1361,11 @@ class BelkisOne {
     this._societyBuilt = false;
     this._economyBuilt = false;
     this._progressBuilt = false;
+
+    // Re-render detail link tooltips for new language
+    document.querySelectorAll('.detail-link[data-tooltip]').forEach(el => {
+      el.dataset.tooltip = i18n.t('main.clickForDetails');
+    });
 
     // Update world indicator with new data
     if (this.worldIndicator) {
