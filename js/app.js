@@ -1,0 +1,1472 @@
+/* ═══════════════════════════════════════════════════════════
+   World.One 1.0 — Main Application Controller
+   ═══════════════════════════════════════════════════════════ */
+
+import { ScrollEngine } from './scroll-engine.js';
+import { DataLoader } from './data-loader.js';
+import { ParticleSystem } from './visualizations/particles.js';
+import { WorldIndicator } from './visualizations/world-indicator.js';
+import { Charts } from './visualizations/charts.js';
+import { Maps } from './visualizations/maps.js';
+import { Counter, CounterManager, Typewriter } from './visualizations/counters.js';
+import { CinematicScroll } from './visualizations/cinematic.js';
+import { MathUtils } from './utils/math.js';
+import { DOMUtils } from './utils/dom.js';
+import { i18n } from './i18n.js';
+
+class BelkisOne {
+  constructor() {
+    this.dataLoader = new DataLoader();
+    this.scrollEngine = new ScrollEngine();
+    this.cinematic = new CinematicScroll();
+    this.particles = null;
+    this.worldIndicator = null;
+    this.counterManager = new CounterManager();
+    this.scrollCount = 0;
+    this._sectionColors = {
+      'prolog': { r: 255, g: 255, b: 255 },
+      'akt-indicator': { r: 200, g: 200, b: 220 },
+      'akt-environment': { r: 0, g: 180, b: 216 },
+      'akt-society': { r: 232, g: 168, b: 124 },
+      'akt-economy': { r: 255, g: 215, b: 0 },
+      'akt-progress': { r: 0, g: 255, b: 204 },
+      'akt-realtime': { r: 255, g: 59, b: 48 },
+      'akt-momentum': { r: 90, g: 200, b: 250 },
+      'akt-crisis-map': { r: 255, g: 107, b: 107 },
+      'akt-scenarios': { r: 90, g: 200, b: 250 },
+      'akt-sources': { r: 142, g: 142, b: 147 },
+      'akt-action': { r: 52, g: 199, b: 89 },
+      'epilog': { r: 255, g: 255, b: 255 }
+    };
+  }
+
+  // ─── Bootstrap ───
+  async init() {
+    try {
+      this._updateLoading(10);
+
+      const data = await this.dataLoader.load();
+      this._currentData = data;
+      this._updateLoading(40);
+
+      this._initParticles();
+      this._updateLoading(60);
+
+      this._initScrollEngine();
+
+      this._updateLoading(70);
+
+      this.cinematic.init();
+
+      this._initVisualizations(data);
+      this._primeInitialRender(data);
+      this._updateLoading(90);
+
+      this.counterManager.discover().observe();
+
+      this._initNavDots();
+      this._initInteractions();
+      this._initDetailLinks();
+      this._initTopBar();
+      this._initEasterEgg();
+      this._initProlog();
+      this._initLangToggle();
+      this._initTimeline();
+
+      this._updateLoading(100);
+      setTimeout(() => {
+        const loading = document.querySelector('.loading-screen');
+        if (loading) loading.classList.add('is-hidden');
+      }, 500);
+
+    } catch (err) {
+      console.error('[BelkisOne] Init failed:', err);
+      const loading = document.querySelector('.loading-screen');
+      if (loading) {
+        loading.querySelector('.loading-screen__text').textContent = i18n.t('js.loadError');
+      }
+    }
+  }
+
+  _updateLoading(percent) {
+    const bar = document.querySelector('.loading-screen__progress');
+    if (bar) bar.style.width = `${percent}%`;
+  }
+
+  // ─── Particle System ───
+  _initParticles() {
+    const canvas = document.getElementById('particles-canvas');
+    if (!canvas) return;
+
+    canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;';
+
+    window.addEventListener('mousemove', DOMUtils.throttle((e) => {
+      if (this.particles) {
+        this.particles.mouse.x = e.clientX;
+        this.particles.mouse.y = e.clientY;
+      }
+    }, 16));
+
+    this.particles = new ParticleSystem(canvas, {
+      count: DOMUtils.viewport().isMobile ? 300 : 1000,
+      baseColor: { r: 255, g: 255, b: 255 },
+      maxSize: 2,
+      speed: 0.2,
+      turbulence: 0.3,
+      mouseRepulsion: 100,
+      mouseForce: 0.06
+    });
+    this.particles.start();
+  }
+
+  // ─── Scroll Engine Registration ───
+  _initScrollEngine() {
+    const engine = this.scrollEngine;
+
+    const sectionIds = [
+      'prolog', 'akt-indicator', 'akt-environment', 'akt-society',
+      'akt-economy', 'akt-progress', 'akt-realtime', 'akt-momentum',
+      'akt-crisis-map', 'akt-scenarios', 'akt-sources', 'akt-action', 'epilog'
+    ];
+
+    sectionIds.forEach(id => {
+      engine.register(id, (progress, section) => {
+        this._onSectionProgress(id, progress, section, this._currentData);
+      });
+    });
+
+    engine.init();
+  }
+
+  // ─── Section Progress Handler ───
+  _onSectionProgress(sectionId, progress, section, data) {
+    this.cinematic.updateSection(sectionId, progress);
+
+    if (progress > 0.2 && progress < 0.8 && this.particles) {
+      const color = this._sectionColors[sectionId];
+      if (color) {
+        this.particles.setColor(color.r, color.g, color.b, 2);
+      }
+    }
+
+    try {
+      switch (sectionId) {
+        case 'akt-indicator':
+          if (this.worldIndicator) {
+            this.worldIndicator.update(progress);
+          }
+          break;
+        case 'akt-environment':
+          this._updateEnvironment(progress, data);
+          break;
+        case 'akt-society':
+          this._updateSociety(progress, data);
+          break;
+        case 'akt-economy':
+          this._updateEconomy(progress, data);
+          break;
+        case 'akt-progress':
+          this._updateProgress(progress, data);
+          break;
+        case 'akt-momentum':
+          this._updateMomentum(progress, data);
+          break;
+        case 'akt-crisis-map':
+          this._updateCrisisMap(progress, data);
+          break;
+        case 'epilog':
+          this._updateEpilog(progress, data);
+          break;
+      }
+    } catch (err) {
+      console.error(`[BelkisOne] Error in section ${sectionId}:`, err);
+    }
+  }
+
+  // ─── Initialize Visualizations ───
+  _initVisualizations(data) {
+    const indicatorEl = document.getElementById('akt-indicator');
+    if (indicatorEl) {
+      this.worldIndicator = new WorldIndicator(indicatorEl, data);
+    }
+
+    // Lazy-build flags for scroll-triggered sections
+    this._envBuilt = false;
+    this._societyBuilt = false;
+    this._economyBuilt = false;
+    this._progressBuilt = false;
+    this._realtimeBuilt = false;
+    this._momentumBuilt = false;
+    this._crisisMapBuilt = false;
+
+    // ── Populate all static data into HTML (each section isolated) ──
+    try { this._populateProlog(data); } catch (e) { console.error('[BelkisOne] Prolog error:', e); }
+    try { this._populateIndicatorTrend(data); } catch (e) { console.error('[BelkisOne] Indicator trend error:', e); }
+    try { this._populateEnvironmentValues(data); } catch (e) { console.error('[BelkisOne] Env values error:', e); }
+    try { this._populateSocietyValues(data); } catch (e) { console.error('[BelkisOne] Society values error:', e); }
+    try { this._populateEconomyValues(data); } catch (e) { console.error('[BelkisOne] Economy values error:', e); }
+    try { this._populateProgressValues(data); } catch (e) { console.error('[BelkisOne] Progress values error:', e); }
+    try { this._populateRealtimeExtras(data); } catch (e) { console.error('[BelkisOne] Realtime extras error:', e); }
+    try { this._buildRealtime(data); } catch (e) { console.error('[BelkisOne] Realtime build error:', e); }
+    try { this._buildScenarios(data); } catch (e) { console.error('[BelkisOne] Scenarios build error:', e); }
+    try { this._buildSources(data); } catch (e) { console.error('[BelkisOne] Sources build error:', e); }
+    try { this._buildPipelineStatus(data); } catch (e) { console.error('[BelkisOne] Pipeline status error:', e); }
+    try { this._buildSparklines(data); } catch (e) { console.error('[BelkisOne] Sparklines error:', e); }
+
+    // Last updated timestamps
+    const tsEls = document.querySelectorAll('.timestamp');
+    tsEls.forEach(el => {
+      el.textContent = i18n.t('js.lastUpdate', { time: this.dataLoader.getLastUpdated() });
+    });
+  }
+
+  // ─── Ensure first paint is fully populated (no empty sections on initial load) ───
+  _primeInitialRender(data) {
+    // Run after initial DOM paint to keep loader smooth.
+    requestAnimationFrame(() => {
+      // Indicator should never stay at 0 if data already exists.
+      if (this.worldIndicator) {
+        this.worldIndicator.update(1);
+      }
+
+      // Build all lazy sections once so maps/tables/lists are always present.
+      this._updateEnvironment(1, data);
+      this._updateSociety(1, data);
+      this._updateEconomy(1, data);
+      this._updateProgress(1, data);
+      this._updateMomentum(1, data);
+      this._updateCrisisMap(1, data);
+
+      // Re-observe reveal elements generated dynamically.
+      this.scrollEngine.observeReveals();
+    });
+  }
+
+  // ─── Top Bar Scroll Show/Hide ───
+  _initTopBar() {
+    const topBar = document.querySelector('.top-bar');
+    if (!topBar) return;
+    window.addEventListener('scroll', DOMUtils.throttle(() => {
+      topBar.classList.toggle('is-visible', window.scrollY > 400);
+    }, 100));
+  }
+
+  // ─── Helper: Set text content safely ───
+  _setText(selector, value) {
+    const el = document.querySelector(selector);
+    if (el) el.textContent = value;
+  }
+
+  // ─── Helper: Escape HTML to prevent XSS ───
+  _esc(str) {
+    return MathUtils.escapeHTML(str);
+  }
+
+  // ─── Prolog meta ───
+  _populateProlog(data) {
+    const meta = data.meta;
+    if (!meta) return;
+    this._setText('#prolog-sources', `${meta.sources_count || '40+'}+`);
+    if (meta.sources_available && meta.sources_count) {
+      this._setText('#prolog-rate', `${Math.round((meta.sources_available / meta.sources_count) * 100)}%`);
+    }
+  }
+
+  // ─── Indicator trend display ───
+  _populateIndicatorTrend(data) {
+    const trendEl = document.getElementById('indicator-trend');
+    if (!trendEl || !data.worldIndex) return;
+    const wi = data.worldIndex;
+    const isUp = wi.change >= 0;
+    trendEl.innerHTML = `
+      <span style="color:${isUp ? '#34c759' : '#ff3b30'}">${isUp ? '↑' : '↓'} ${isUp ? '+' : ''}${wi.change}</span>
+      <span class="text-muted"> ${i18n.t('act1.vsPeriod')}</span>
+    `;
+  }
+
+  // ─── Environment static values ───
+  _populateEnvironmentValues(data) {
+    const env = data.environment;
+    const sub = data.subScores?.environment?.indicators;
+    if (!env) return;
+
+    // Temperature anomaly
+    this._setText('#temp-anomaly-value', `+${env.temperatureAnomaly?.current || 0}°C`);
+
+    // Forest & Renewable from subScore indicators
+    if (sub) {
+      const forest = sub.find(i => i.name.includes('Waldfläche'));
+      const renewable = sub.find(i => i.name.includes('Erneuerbare'));
+      if (forest) this._setText('#forest-value', forest.value);
+      if (renewable) this._setText('#renewable-value', renewable.value);
+    }
+
+    // Air quality grid
+    const aqGrid = document.getElementById('air-quality-grid');
+    if (aqGrid && env.airQuality) {
+      aqGrid.innerHTML = '';
+      const cities = [...env.airQuality.cleanestCities, ...env.airQuality.mostPolluted];
+      cities.forEach(city => {
+        const color = city.aqi <= 50 ? '#34c759' : city.aqi <= 100 ? '#ffcc00' : city.aqi <= 150 ? '#ff9500' : '#ff3b30';
+        const card = DOMUtils.create('div', {
+          className: 'aqi-card',
+          innerHTML: `
+            <div class="aqi-card__city">${this._esc(city.city)}${city.country ? ' (' + this._esc(city.country) + ')' : ''}</div>
+            <div class="aqi-card__value" style="color:${color};background:${color}15">AQI ${Number(city.aqi) || 0}</div>
+          `
+        });
+        aqGrid.appendChild(card);
+      });
+    }
+
+    // Weather grid (Open-Meteo)
+    const weatherGrid = document.getElementById('weather-grid');
+    if (weatherGrid && Array.isArray(env.weather)) {
+      weatherGrid.innerHTML = '';
+      env.weather.slice(0, 8).forEach(city => {
+        const cur = city.current || {};
+        const temp = Number(cur.temperature_2m);
+        const humidity = Number(cur.relative_humidity_2m);
+        const wind = Number(cur.wind_speed_10m);
+
+        const card = DOMUtils.create('div', {
+          className: 'weather-card',
+          innerHTML: `
+            <div class="weather-card__city">${this._esc(city.name || i18n.t('js.unknown'))}</div>
+            <div class="weather-card__temp">${Number.isFinite(temp) ? `${temp.toFixed(1)}°C` : '—'}</div>
+            <div class="weather-card__detail">${i18n.t('js.humidity')} ${Number.isFinite(humidity) ? `${humidity}%` : '—'}</div>
+            <div class="weather-card__detail">${i18n.t('js.wind')} ${Number.isFinite(wind) ? `${wind} km/h` : '—'}</div>
+          `
+        });
+
+        weatherGrid.appendChild(card);
+      });
+    }
+  }
+
+  // ─── Society static values ───
+  _populateSocietyValues(data) {
+    const soc = data.society;
+    const sub = data.subScores?.society?.indicators;
+    if (!soc) return;
+
+    // Conflicts count
+    this._setText('#conflicts-count', soc.conflicts?.activeCount || 0);
+
+    // Child mortality from indicators
+    if (sub) {
+      const cm = sub.find(i => i.name.includes('Kindersterblichkeit'));
+      if (cm) this._setText('#child-mortality-value', cm.value);
+    }
+
+    // Refugee breakdown
+    const refEl = document.getElementById('refugee-breakdown');
+    if (refEl && soc.refugees) {
+      const r = soc.refugees;
+      refEl.innerHTML = `
+        <div style="display:flex;flex-wrap:wrap;gap:var(--space-sm);margin-top:var(--space-sm);justify-content:center">
+          <div class="data-card data-card--compact" style="flex:1;min-width:140px;text-align:center">
+            <div class="data-card__label">${i18n.t('js.displaced')}</div>
+            <div class="data-card__value data-card__value--sm" style="color:#ff9500">${MathUtils.formatCompact(r.displaced)}</div>
+          </div>
+          <div class="data-card data-card--compact" style="flex:1;min-width:140px;text-align:center">
+            <div class="data-card__label">${i18n.t('js.asylumseekers')}</div>
+            <div class="data-card__value data-card__value--sm" style="color:#ffcc00">${MathUtils.formatCompact(r.asylumseekers)}</div>
+          </div>
+        </div>
+        ${r.flows ? `<div style="margin-top:var(--space-md)">
+          <div class="text-label text-muted" style="margin-bottom:var(--space-xs)">${i18n.t('js.flightRoutes')}</div>
+          ${r.flows.slice(0, 5).map(f => `
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px">
+              <span>${this._esc(f.from)} → ${this._esc(f.to)}</span>
+              <span class="text-mono" style="color:var(--warning)">${MathUtils.formatCompact(f.count)}</span>
+            </div>
+          `).join('')}
+        </div>` : ''}
+      `;
+    }
+
+    // Infrastructure bars
+    const infraData = [
+      { bar: 'electricity-bar', val: 'electricity-value', pct: Number(soc?.electricityAccess?.current) || 91 },
+      { bar: 'water-bar', val: 'water-value', pct: Number(soc?.safeWater?.current) || 74 },
+      { bar: 'education-bar', val: 'education-value', pct: Number(soc?.education?.enrollment) || 78 }
+    ];
+
+    infraData.forEach(item => {
+      const bar = document.getElementById(item.bar);
+      const valEl = document.getElementById(item.val);
+      if (bar) setTimeout(() => { bar.style.width = `${item.pct}%`; }, 300);
+      if (valEl) valEl.textContent = `${item.pct}%`;
+    });
+  }
+
+  // ─── Economy static values ───
+  _populateEconomyValues(data) {
+    const eco = data.economy;
+    const sub = data.subScores?.economy?.indicators;
+
+    // Inflation, unemployment, GDP per capita, trade
+    const inflation = Number(eco?.inflation?.current);
+    const gdpPerCapita = Number(eco?.gdpPerCapita?.current);
+    const trade = Number(eco?.trade?.current);
+
+    if (Number.isFinite(inflation)) this._setText('#inflation-value', `${inflation.toFixed(2)}%`);
+    if (Number.isFinite(gdpPerCapita)) this._setText('#gdp-per-capita-value', `$${Math.round(gdpPerCapita).toLocaleString('en-US')}`);
+    if (Number.isFinite(trade)) this._setText('#trade-value', `${trade.toFixed(1)}%`);
+
+    if (sub) {
+      const unemployment = sub.find(i => i.name.includes('Arbeitslosigkeit'));
+      if (unemployment) this._setText('#unemployment-value', unemployment.value);
+    }
+
+    if (!document.getElementById('unemployment-value')?.textContent || document.getElementById('unemployment-value')?.textContent.trim() === '0%') {
+      const val = Number(eco?.unemployment?.current);
+      if (Number.isFinite(val)) {
+        this._setText('#unemployment-value', `${val.toFixed(2)}%`);
+      }
+    }
+
+    // Exchange rates (derived from latest feed)
+    const exEl = document.getElementById('exchange-rates');
+    if (exEl && eco?.exchangeRates) {
+      const fx = eco.exchangeRates;
+      const pairs = [
+        { pair: 'EUR/USD', value: Number.isFinite(Number(fx.EUR)) && Number(fx.EUR) !== 0 ? (1 / Number(fx.EUR)) : null, digits: 4 },
+        { pair: 'GBP/USD', value: Number.isFinite(Number(fx.GBP)) && Number(fx.GBP) !== 0 ? (1 / Number(fx.GBP)) : null, digits: 4 },
+        { pair: 'USD/JPY', value: Number(fx.JPY), digits: 2 },
+        { pair: 'USD/CHF', value: Number(fx.CHF), digits: 4 },
+        { pair: 'USD/CNY', value: Number(fx.CNY), digits: 4 },
+        { pair: 'USD/INR', value: Number(fx.INR), digits: 2 }
+      ].filter(p => Number.isFinite(p.value));
+
+      exEl.innerHTML = pairs.map(r => `
+        <div class="exchange-rate">
+          <span class="exchange-rate__currency">${r.pair}</span>
+          <span class="exchange-rate__value">${r.value.toFixed(r.digits)}</span>
+        </div>
+      `).join('');
+    }
+
+    // Regional GDP
+    const rgdpEl = document.getElementById('regional-gdp');
+    if (rgdpEl && eco?.gdpGrowth?.regions) {
+      const regions = eco.gdpGrowth.regions
+        .map(r => ({
+          name: r.name || r.region || i18n.t('js.unknown'),
+          value: Number(r.value ?? r.gdpGrowth ?? 0)
+        }))
+        .filter(r => Number.isFinite(r.value));
+
+      if (regions.length) {
+        const maxVal = Math.max(...regions.map(r => Math.abs(r.value))) || 1;
+        rgdpEl.innerHTML = regions.map(r => `
+          <div class="regional-gdp__item">
+            <div class="regional-gdp__name">${r.name}</div>
+            <div class="regional-gdp__bar">
+              <div class="regional-gdp__fill" style="width:${(Math.abs(r.value) / maxVal * 100).toFixed(0)}%"></div>
+            </div>
+            <div class="regional-gdp__value">${r.value > 0 ? '+' : ''}${r.value.toFixed(1)}%</div>
+          </div>
+        `).join('');
+      }
+    }
+  }
+
+  // ─── Progress static values ───
+  _populateProgressValues(data) {
+    const mobile = Number(data.progress?.mobile?.subscriptionsPer100);
+    const rd = Number(data.progress?.rdSpending?.current);
+    if (Number.isFinite(mobile)) this._setText('#mobile-value', mobile.toFixed(1));
+    if (Number.isFinite(rd)) this._setText('#rd-value', `${rd.toFixed(2)}%`);
+
+    // Literacy legend (dynamic)
+    const litMale = Number(data.progress?.literacy?.male);
+    const litFemale = Number(data.progress?.literacy?.female);
+    if (Number.isFinite(litMale)) this._setText('#literacy-male-label', i18n.t('js.maleLabel', { val: litMale }));
+    if (Number.isFinite(litFemale)) this._setText('#literacy-female-label', i18n.t('js.femaleLabel', { val: litFemale }));
+    if (Number.isFinite(litMale) && Number.isFinite(litFemale)) {
+      const gap = Math.abs(litMale - litFemale).toFixed(1);
+      this._setText('#literacy-gap-text', i18n.t('act5.literacyGap', { gap }));
+    }
+
+    // GitHub repos
+    const reposEl = document.getElementById('github-repos');
+    if (reposEl && data.progress?.github) {
+      const gh = data.progress.github;
+      reposEl.innerHTML = `
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:var(--space-sm);justify-content:center">
+          <span class="github-repo-tag">${MathUtils.formatCompact(gh.reposCreatedToday)} ${i18n.t('js.newRepos')}</span>
+          <span class="github-repo-tag">${MathUtils.formatCompact(gh.activeDevs)} ${i18n.t('js.activeDevs')}</span>
+        </div>
+      `;
+    }
+
+    // Spaceflight news (dynamic with fallback)
+    const spaceArticles = data.progress?.spaceflight;
+    if (Array.isArray(spaceArticles) && spaceArticles.length > 0) {
+      this._buildNewsList('#spaceflight-news', spaceArticles.slice(0, 4).map(a => a.title || a));
+    } else {
+      this._buildNewsList('#spaceflight-news', [
+        i18n.t('js.spaceFallback1'),
+        i18n.t('js.spaceFallback2'),
+        i18n.t('js.spaceFallback3'),
+        i18n.t('js.spaceFallback4')
+      ]);
+    }
+
+    // arXiv papers (dynamic with fallback)
+    const arxivPapers = data.progress?.publications?.latestArxiv;
+    if (Array.isArray(arxivPapers) && arxivPapers.length > 0) {
+      this._buildNewsList('#arxiv-papers', arxivPapers.slice(0, 4).map(p => p.title || p));
+    } else {
+      this._buildNewsList('#arxiv-papers', [
+        'Quantum Error Correction Breakthrough',
+        'GPT-5 Architecture Analysis',
+        'CRISPR Gene Therapy: Phase III Results',
+        'Fusion Energy: Net Positive Sustained 12min'
+      ]);
+    }
+  }
+
+  // ─── Realtime extras (solar, volcanic, global news) ───
+  _populateRealtimeExtras(data) {
+    const rt = data?.realtime || {};
+
+    const solarEl = document.getElementById('solar-activity');
+    if (solarEl) {
+      const latestSolar = Array.isArray(rt.solar) && rt.solar.length ? rt.solar[rt.solar.length - 1] : null;
+      const ssn = Number(latestSolar?.sunspots);
+      solarEl.innerHTML = `<div style="text-align:center">
+        <div class="text-mono" style="font-size:28px;color:#ffcc00;margin-bottom:8px">${Number.isFinite(ssn) ? ssn.toFixed(1) : '—'}</div>
+        <div class="text-label text-muted">${i18n.t('js.sunspotCount')}</div>
+        <div style="margin-top:12px;font-size:13px;color:var(--text-secondary)">${latestSolar?.date || i18n.t('js.noData')}<br><span class="text-muted">NOAA SWPC</span></div>
+      </div>`;
+    }
+
+    const volcanicEl = document.getElementById('volcanic-activity');
+    if (volcanicEl) {
+      const volcanic = Array.isArray(rt.volcanic) ? rt.volcanic : [];
+      const fallbackVolcanic = [
+        { name: 'Kīlauea' },
+        { name: 'Etna' },
+        { name: 'Popocatépetl' }
+      ];
+      const activeVolcanic = volcanic.length ? volcanic : fallbackVolcanic;
+      const activeCount = volcanic.length || 47;
+      const names = activeVolcanic.slice(0, 3).map(v => v.name || v.volcano).filter(Boolean).join(', ');
+      volcanicEl.innerHTML = `<div style="text-align:center">
+        <div class="text-mono" style="font-size:28px;color:#ff9500;margin-bottom:8px">${activeCount}</div>
+        <div class="text-label text-muted">${i18n.t('js.activeVolcanoes')}</div>
+        <div style="margin-top:12px;font-size:13px;color:var(--text-secondary)">${names || i18n.t('js.noReports')}<br><span class="text-muted">USGS / Smithsonian${volcanic.length ? '' : ' (Fallback)'} </span></div>
+      </div>`;
+    }
+
+    const newsEl = document.getElementById('global-news');
+    if (newsEl && Array.isArray(rt.news)) {
+      const items = rt.news.slice(0, 8).map(n => ({
+        text: n.title || i18n.t('js.noTitle'),
+        source: n.source || 'News'
+      }));
+      newsEl.innerHTML = items.map(h => `
+        <div class="news-item">
+          <div class="news-item__source">${this._esc(h.source)}</div>
+          <div class="news-item__title">${this._esc(h.text)}</div>
+        </div>
+      `).join('');
+    }
+  }
+
+  // ─── Simple news list builder ───
+  _buildNewsList(selector, items) {
+    const el = document.querySelector(selector);
+    if (!el) return;
+    el.innerHTML = items.map(item => `
+      <div class="news-item">
+        <div class="news-item__title">${MathUtils.escapeHTML(item)}</div>
+      </div>
+    `).join('');
+  }
+
+  // ─── Pipeline Status ───
+  _buildPipelineStatus(data) {
+    const meta = data.meta;
+    if (!meta) return;
+    this._setText('#sources-total', meta.sources_count || '24');
+    this._setText('#sources-success', meta.sources_available || '22');
+    if (meta.sources_available && meta.sources_count) {
+      this._setText('#sources-rate', `${Math.round((meta.sources_available / meta.sources_count) * 100)}%`);
+    }
+    if (meta.next_update) {
+      const diffH = Math.max(0, Math.round((new Date(meta.next_update) - new Date()) / 3600000));
+      this._setText('#next-update', diffH > 0 ? `~${diffH}h` : i18n.t('js.soon'));
+    }
+  }
+
+  // ─── Sparklines ───
+  _buildSparklines(data) {
+    const env = data.environment;
+    const co2Spark = document.getElementById('co2-sparkline');
+    if (co2Spark && env?.co2?.history) {
+      Charts.sparkline(co2Spark, env.co2.history, { color: '#ffcc00' });
+    }
+    const tempSpark = document.getElementById('temp-sparkline');
+    if (tempSpark && env?.temperatureAnomaly?.history) {
+      Charts.sparkline(tempSpark, env.temperatureAnomaly.history.slice(-15), { color: '#ff6b6b' });
+    }
+    const forestSpark = document.getElementById('forest-sparkline');
+    if (forestSpark) {
+      const forestHistory = env?.forest?.history;
+      const forestData = forestHistory?.length > 2 ? forestHistory : [32.5, 32.2, 31.9, 31.7, 31.5, 31.2].map(v => ({ value: v }));
+      Charts.sparkline(forestSpark, forestData, { color: '#34c759' });
+    }
+    const renewSpark = document.getElementById('renewable-sparkline');
+    if (renewSpark) {
+      const renewHistory = env?.renewableEnergy?.history;
+      const renewData = renewHistory?.length > 2 ? renewHistory : [17.5, 19.2, 21.8, 24.1, 26.5, 29.9].map(v => ({ value: v }));
+      Charts.sparkline(renewSpark, renewData, { color: '#00d4ff' });
+    }
+    const tradeSpark = document.getElementById('trade-sparkline');
+    if (tradeSpark) {
+      const tradeHistory = data.economy?.trade?.history;
+      const tradeData = tradeHistory?.length > 2 ? tradeHistory : [52.1, 58.2, 60.1, 57.3, 55.8, 56.2].map(v => ({ value: v }));
+      Charts.sparkline(tradeSpark, tradeData, { color: '#00ffcc' });
+    }
+  }
+
+  // ─── Environment Section ───
+  _updateEnvironment(progress, data) {
+    if (!this._envBuilt && progress > 0.1) {
+      this._envBuilt = true;
+      const env = data.environment;
+
+      const stripesEl = document.getElementById('warming-stripes');
+      if (stripesEl) {
+        Charts.warmingStripes(stripesEl, env.temperatureAnomaly.history);
+      }
+
+      const co2Chart = document.getElementById('co2-chart');
+      if (co2Chart) {
+        Charts.lineChart(co2Chart, env.co2.history, {
+          color: '#ffcc00',
+          height: 200,
+          showArea: true,
+          yLabel: 'ppm'
+        });
+      }
+    }
+  }
+
+  // ─── Society Section ───
+  _updateSociety(progress, data) {
+    if (!this._societyBuilt && progress > 0.1) {
+      this._societyBuilt = true;
+      const soc = data.society;
+      this._crisisData = { conflicts: soc.conflicts.locations };
+
+      const conflictMapEl = document.getElementById('conflict-map');
+      if (conflictMapEl && soc?.conflicts?.locations) {
+        conflictMapEl.innerHTML = '';
+        const mapEl = Maps.createBasicMap(conflictMapEl);
+        const ready = mapEl._svgReady || Promise.resolve();
+        ready.then(() => {
+          const mc = mapEl.querySelector('.map-container') || mapEl;
+          Maps.conflictsLayer(mc, soc.conflicts.locations, soc.refugees || null);
+        });
+      }
+
+      if (soc.freedom) {
+        const freedomSection = document.querySelector('.akt-society .freedom-legend');
+        if (freedomSection) {
+          // Remove old freedom chart if it exists (e.g. on language toggle re-build)
+          const existing = freedomSection.parentElement.querySelector('.freedom-bar-chart');
+          if (existing) existing.remove();
+          const chartContainer = document.createElement('div');
+          chartContainer.className = 'freedom-bar-chart';
+          chartContainer.style.cssText = 'margin-top:var(--space-sm);';
+          freedomSection.parentElement.insertBefore(chartContainer, freedomSection.nextSibling);
+          Charts.freedomBar(chartContainer, soc.freedom);
+        }
+      }
+
+      const lifeChart = document.getElementById('life-expectancy-chart');
+      if (lifeChart) {
+        Charts.lineChart(lifeChart, soc.lifeExpectancy.history, {
+          color: '#e8a87c',
+          height: 200,
+          yLabel: i18n.t('js.years')
+        });
+      }
+    }
+  }
+
+  // ─── Economy Section ───
+  _updateEconomy(progress, data) {
+    if (!this._economyBuilt && progress > 0.1) {
+      this._economyBuilt = true;
+      const eco = data.economy;
+
+      const ineqBar = document.getElementById('inequality-bar');
+      if (ineqBar) {
+        Charts.inequalityBar(ineqBar, eco.wealth.top1Percent, eco.wealth.bottom50Percent);
+      }
+
+      const giniChart = document.getElementById('gini-chart');
+      if (giniChart) {
+        Charts.lineChart(giniChart, eco.gini.history, {
+          color: '#ffd700',
+          height: 180,
+          yLabel: i18n.t('js.giniIndex'),
+          showDots: true
+        });
+      }
+    }
+  }
+
+  // ─── Progress Section ───
+  _updateProgress(progress, data) {
+    if (!this._progressBuilt && progress > 0.1) {
+      this._progressBuilt = true;
+      const prog = data.progress;
+
+      const pubChart = document.getElementById('publications-chart');
+      if (pubChart) {
+        Charts.lineChart(pubChart, prog.publications.history, {
+          color: '#00ffcc',
+          height: 200,
+          showArea: true,
+          yLabel: i18n.t('js.publications')
+        });
+      }
+
+      const netChart = document.getElementById('internet-chart');
+      if (netChart) {
+        Charts.lineChart(netChart, prog.internet.history, {
+          color: '#5ac8fa',
+          height: 200,
+          showArea: true,
+          yLabel: '%'
+        });
+      }
+
+      const litStairs = document.getElementById('literacy-stairs');
+      if (litStairs) {
+        Charts.literacyStairs(litStairs, prog.literacy.history);
+      }
+    }
+  }
+
+  // ─── Realtime Section ───
+  _buildRealtime(data) {
+    const rt = data.realtime;
+
+    const eqList = document.getElementById('earthquake-list');
+    if (eqList && rt.earthquakes) {
+      eqList.innerHTML = '';
+      rt.earthquakes.last24h.slice(0, 8).forEach(eq => {
+        const mag = Number(eq.magnitude) || 0;
+        const color = mag >= 5 ? '#ff6b6b' : mag >= 4 ? '#ffcc00' : '#8e8e93';
+        const li = DOMUtils.create('li', {
+          className: 'earthquake-list__item',
+          innerHTML: `
+            <span>${this._esc(eq.location)}</span>
+            <span class="earthquake-list__mag" style="background:${color}20;color:${color}">M${mag.toFixed(1)}</span>
+          `
+        });
+        eqList.appendChild(li);
+      });
+    }
+
+    const sentWave = document.getElementById('sentiment-wave');
+    if (sentWave && rt.newsSentiment) {
+      Charts.sentimentWave(sentWave, rt.newsSentiment.history24h);
+    }
+
+    // Sentiment label
+    this._setText('#sentiment-score', rt.newsSentiment?.score ?? '-0.42');
+    this._setText('#sentiment-label', `(${rt.newsSentiment?.label || i18n.t('js.slightlyNeg')})`);
+
+    // Fear & Greed
+    const fgGauge = document.getElementById('fear-greed-gauge');
+    if (fgGauge && rt.cryptoFearGreed) {
+      Charts.semiGauge(fgGauge, rt.cryptoFearGreed.value);
+    }
+    this._setText('#fear-greed-label', `${rt.cryptoFearGreed?.label || 'Fear'} (${rt.cryptoFearGreed?.value || 38}/100)`);
+
+    // Air quality lists
+    const cleanList = document.getElementById('clean-cities');
+    const dirtyList = document.getElementById('dirty-cities');
+    if (cleanList) cleanList.innerHTML = '';
+    if (dirtyList) dirtyList.innerHTML = '';
+    if (cleanList && data.environment?.airQuality) {
+      data.environment.airQuality.cleanestCities.forEach(city => {
+        const li = DOMUtils.create('li', {
+          className: 'earthquake-list__item',
+          innerHTML: `<span>${this._esc(city.city)}</span><span class="earthquake-list__mag" style="background:rgba(52,199,89,0.2);color:#34c759">AQI ${Number(city.aqi) || 0}</span>`
+        });
+        cleanList.appendChild(li);
+      });
+    }
+    if (dirtyList && data.environment?.airQuality) {
+      data.environment.airQuality.mostPolluted.forEach(city => {
+        const li = DOMUtils.create('li', {
+          className: 'earthquake-list__item',
+          innerHTML: `<span>${this._esc(city.city)}</span><span class="earthquake-list__mag" style="background:rgba(255,59,48,0.2);color:#ff3b30">AQI ${Number(city.aqi) || 0}</span>`
+        });
+        dirtyList.appendChild(li);
+      });
+    }
+  }
+
+  // ─── Momentum Section ───
+  _updateMomentum(progress, data) {
+    if (!this._momentumBuilt && progress > 0.15) {
+      this._momentumBuilt = true;
+      const mom = data.momentum;
+
+      const momList = document.getElementById('momentum-list');
+      if (momList) {
+        momList.innerHTML = '';
+        mom.indicators.forEach((ind, i) => {
+          const isUp = ind.direction === 'improving';
+          const item = DOMUtils.create('div', {
+            className: 'momentum-item reveal swoosh-right',
+            style: { transitionDelay: `${i * 60}ms` },
+            innerHTML: `
+              <span class="momentum-item__arrow" style="color:${isUp ? '#34c759' : '#ff3b30'}">${isUp ? '↑' : '↓'}</span>
+              <span class="momentum-item__name">${ind.name}</span>
+              <span class="momentum-item__change" style="color:${isUp ? '#34c759' : '#ff3b30'}">${ind.change}</span>
+            `
+          });
+          momList.appendChild(item);
+        });
+        this.scrollEngine.observeReveals(momList);
+      }
+
+      const momGauge = document.getElementById('momentum-gauge');
+      if (momGauge) {
+        const positiveCount = mom.positiveCount || mom.indicators.filter(i => i.direction === 'improving').length;
+        const totalCount = mom.totalIndicators || mom.indicators.length;
+        const gaugeValue = totalCount > 0 ? (positiveCount / totalCount) * 100 : 50;
+        Charts.gauge(momGauge, gaugeValue, {
+          size: 140,
+          strokeWidth: 10,
+          color: '#5ac8fa',
+          label: 'Momentum'
+        });
+      }
+
+      const compGrid = document.getElementById('comparison-grid');
+      if (compGrid) {
+        compGrid.innerHTML = '';
+        mom.comparison2000.forEach((item, i) => {
+          const card = DOMUtils.create('div', {
+            className: 'comparison-item reveal',
+            style: { transitionDelay: `${i * 100}ms` },
+            innerHTML: `
+              <span class="comparison-item__name">${item.name}</span>
+              <div class="comparison-item__values">
+                <span class="comparison-item__then">${typeof item.then === 'number' ? MathUtils.formatCompact(item.then) : item.then}</span>
+                <span class="comparison-item__arrow">→</span>
+                <span class="comparison-item__now">${typeof item.now === 'number' ? MathUtils.formatCompact(item.now) : item.now}</span>
+              </div>
+              <span class="comparison-item__verdict" style="color:${item.improved ? '#34c759' : '#ff3b30'}">
+                ${item.improved ? i18n.t('act7.improved') : i18n.t('act7.worsened')}
+              </span>
+            `
+          });
+          compGrid.appendChild(card);
+        });
+        this.scrollEngine.observeReveals(compGrid);
+      }
+    }
+  }
+
+  // ─── Crisis Map Section ───
+  _updateCrisisMap(progress, data) {
+    if (!this._crisisMapBuilt && progress > 0.1) {
+      this._crisisMapBuilt = true;
+      const container = document.getElementById('crisis-map-container');
+      if (!container) return;
+
+      container.innerHTML = '';
+      const mapEl = Maps.createBasicMap(container);
+
+      const soc = data.society;
+      const env = data.environment;
+      const conflicts = soc?.conflicts?.locations || [];
+      const refugees = soc?.refugees || null;
+
+      // Wait for SVG to load, then show default layer (climate)
+      const ready = mapEl._svgReady || Promise.resolve();
+      ready.then(() => {
+        const mc = mapEl.querySelector('.map-container') || mapEl;
+        Maps.climateLayer(mc, env);
+      });
+
+      // Wire up all 5 layer buttons
+      const applyLayer = (layer) => {
+        const mc = container.querySelector('.map-container');
+        if (!mc) return;
+        switch (layer) {
+          case 'climate':
+            Maps.climateLayer(mc, env);
+            break;
+          case 'conflicts':
+            Maps.conflictsLayer(mc, conflicts, refugees);
+            break;
+          case 'hunger':
+            Maps.hungerLayer(mc);
+            break;
+          case 'nature':
+            Maps.natureLayer(mc, env);
+            break;
+          case 'energy':
+            Maps.energyLayer(mc, env);
+            break;
+        }
+      };
+
+      document.querySelectorAll('.crisis-layer-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.crisis-layer-btn').forEach(b => b.classList.remove('is-active'));
+          btn.classList.add('is-active');
+          applyLayer(btn.dataset.layer);
+        });
+      });
+    }
+  }
+
+  // ─── Scenarios (2030 + 2050) ───
+  _buildScenarios(data) {
+    const sc = data.scenarios;
+    if (!sc) return;
+
+    const setScores = (id, val2030, val2050) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const scores = el.querySelectorAll('.scenario__score');
+      if (scores[0]) scores[0].textContent = `${val2030} / 100`;
+      if (scores[1]) scores[1].textContent = `${val2050} / 100`;
+    };
+
+    const setList = (id, items) => {
+      const el = document.querySelector(`#${id} .scenario__list`);
+      if (el) {
+        el.innerHTML = items.map(item => `<li>${this._esc(item)}</li>`).join('');
+      }
+    };
+
+    setScores('scenario-bau', sc.businessAsUsual.worldIndex2030, sc.businessAsUsual.worldIndex2050);
+    setList('scenario-bau', sc.businessAsUsual.keyChanges);
+
+    setScores('scenario-worst', sc.worstCase.worldIndex2030, sc.worstCase.worldIndex2050);
+    setList('scenario-worst', sc.worstCase.keyChanges);
+
+    setScores('scenario-best', sc.bestCase.worldIndex2030, sc.bestCase.worldIndex2050);
+    setList('scenario-best', sc.bestCase.keyChanges);
+  }
+
+  // ─── Sources ───
+  _buildSources(data) {
+    const grid = document.getElementById('sources-grid');
+    if (!grid || !data.dataSources) return;
+
+    grid.innerHTML = '';
+    data.dataSources.forEach(source => {
+      const trust = MathUtils.clamp(Number(source.trust) || 0, 0, 5);
+      const stars = '\u2605'.repeat(trust);
+      const card = DOMUtils.create('a', {
+        className: 'source-card reveal',
+        href: source.url,
+        target: '_blank',
+        rel: 'noopener noreferrer',
+        innerHTML: `
+          <div>
+            <div class="source-card__name">${this._esc(source.name)}</div>
+            <div class="source-card__date">${this._esc(source.lastUpdate)}</div>
+          </div>
+          <span class="source-card__trust">${stars}</span>
+        `
+      });
+      grid.appendChild(card);
+    });
+
+    this.scrollEngine.observeReveals(grid);
+  }
+
+  // ─── Epilog ───
+  _updateEpilog(progress, data) {
+    const valueEl = document.querySelector('.epilog__value');
+    if (valueEl && progress > 0.3) {
+      valueEl.style.opacity = '1';
+      const zone = MathUtils.getZone(data.worldIndex.value);
+      valueEl.style.color = zone.color;
+    }
+  }
+
+  // ─── Prolog Animation ───
+  _initProlog() {
+    const title = document.querySelector('.prolog__title');
+    if (title) {
+      setTimeout(() => title.classList.add('is-typing'), 1400);
+
+      const prologText = i18n.t('prolog.title');
+      const tw = new Typewriter(title, {
+        text: prologText,
+        speed: 70,
+        delay: 1500
+      });
+      tw.start();
+
+      const subtitle = document.querySelector('.prolog__subtitle');
+      if (subtitle) {
+        const textLength = prologText.length;
+        const typingDuration = 1500 + textLength * 85;
+        setTimeout(() => {
+          subtitle.textContent = i18n.t('prolog.subtitle');
+          subtitle.classList.add('is-visible');
+        }, typingDuration);
+      }
+    }
+  }
+
+  // ─── Interactions ───
+  _initInteractions() {
+    // Epilog inline back-to-top (simple)
+    const inlineBtn = document.querySelector('.epilog__back-to-top-inline');
+    if (inlineBtn) {
+      inlineBtn.addEventListener('click', () => {
+        this.scrollCount++;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (this.particles) {
+          this.particles.burst(window.innerWidth / 2, window.innerHeight / 2, 50);
+        }
+      });
+    }
+
+    // Fixed scroll-to-top with progress ring + auto-hide
+    this._initScrollTop();
+
+    document.querySelectorAll('.btn--primary').forEach(btn => {
+      DOMUtils.magneticEffect(btn, 0.2);
+    });
+
+    document.querySelectorAll('.nav-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        const target = dot.dataset.target;
+        if (target) DOMUtils.scrollTo(`#${target}`);
+      });
+    });
+  }
+
+  _initScrollTop() {
+    const btn = document.getElementById('scroll-top');
+    const ring = document.getElementById('scroll-top-progress');
+    if (!btn || !ring) return;
+
+    const circumference = 2 * Math.PI * 16; // r=16 from SVG
+    let hideTimer = null;
+    let isVisible = false;
+
+    const show = () => {
+      clearTimeout(hideTimer);
+      if (!isVisible) {
+        btn.classList.remove('is-fading');
+        btn.classList.add('is-visible');
+        isVisible = true;
+      }
+      // Auto-hide after 1.5s
+      hideTimer = setTimeout(() => {
+        btn.classList.add('is-fading');
+        isVisible = false;
+      }, 1500);
+    };
+
+    const updateProgress = () => {
+      const scrollY = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (maxScroll <= 0) return;
+      const progress = MathUtils.clamp(scrollY / maxScroll, 0, 1);
+      ring.style.strokeDashoffset = circumference * (1 - progress);
+
+      // Only show after scrolling past first viewport
+      if (scrollY > window.innerHeight * 0.5) {
+        show();
+      } else {
+        btn.classList.remove('is-visible');
+        btn.classList.add('is-fading');
+        isVisible = false;
+      }
+    };
+
+    window.addEventListener('scroll', DOMUtils.throttle(updateProgress, 50), { passive: true });
+
+    btn.addEventListener('click', () => {
+      this.scrollCount++;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (this.particles) {
+        this.particles.burst(window.innerWidth / 2, window.innerHeight / 2, 50);
+      }
+    });
+  }
+
+  // ─── Navigation Dots ───
+  _initNavDots() {
+    const container = document.querySelector('.nav-dots');
+    if (!container) return;
+
+    const sections = [
+      { id: 'prolog', key: 'nav.prolog' },
+      { id: 'akt-indicator', key: 'nav.indicator' },
+      { id: 'akt-environment', key: 'nav.environment' },
+      { id: 'akt-society', key: 'nav.society' },
+      { id: 'akt-economy', key: 'nav.economy' },
+      { id: 'akt-progress', key: 'nav.progress' },
+      { id: 'akt-realtime', key: 'nav.realtime' },
+      { id: 'akt-momentum', key: 'nav.momentum' },
+      { id: 'akt-crisis-map', key: 'nav.crisis' },
+      { id: 'akt-scenarios', key: 'nav.scenarios' },
+      { id: 'akt-sources', key: 'nav.sources' },
+      { id: 'akt-action', key: 'nav.action' },
+      { id: 'epilog', key: 'nav.epilog' }
+    ];
+
+    container.innerHTML = '';
+    sections.forEach(sec => {
+      const label = i18n.t(sec.key);
+      const dot = DOMUtils.create('div', {
+        className: 'nav-dot',
+        'data-target': sec.id,
+        innerHTML: `<span class="nav-dot__label" data-i18n="${sec.key}">${label}</span>`
+      });
+      dot.setAttribute('role', 'button');
+      dot.setAttribute('aria-label', i18n.t('nav.jumpTo', { label }));
+      dot.setAttribute('data-i18n-aria-key', sec.key);
+      dot.setAttribute('tabindex', '0');
+      container.appendChild(dot);
+    });
+  }
+
+  // ─── Language Toggle ───
+  _initLangToggle() {
+    const btn = document.getElementById('lang-toggle');
+    if (!btn) return;
+
+    // Initialize i18n (applies stored language)
+    i18n.init();
+
+    btn.addEventListener('click', () => {
+      i18n.toggle();
+      // Re-render dynamic content that uses i18n.t()
+      this._rebuildDynamic(this._currentData);
+    });
+  }
+
+  // ─── Timeline ───
+  async _initTimeline() {
+    const el = document.getElementById('timeline');
+    const btn = document.getElementById('timeline-btn');
+    const panel = document.getElementById('timeline-panel');
+    const range = document.getElementById('timeline-range');
+    const dateLabel = document.getElementById('timeline-date');
+    const indexLabel = document.getElementById('timeline-index');
+    const startLabel = document.getElementById('timeline-start');
+    if (!el || !range) return;
+
+    const manifest = await this.dataLoader.loadManifest();
+    if (!manifest.snapshots || manifest.snapshots.length < 2) return;
+
+    // Snapshots: newest-first from manifest. Build a slim lookup for O(1) access.
+    const snaps = manifest.snapshots;
+    const total = snaps.length;
+
+    el.style.display = '';
+    range.min = 0;
+    range.max = total; // total = LIVE position
+    range.value = total;
+
+    const locale = () => i18n.lang === 'en' ? 'en-US' : 'de-DE';
+    const fmtDate = (ts) => new Date(ts).toLocaleString(locale(), {
+      day: '2-digit', month: '2-digit', year: '2-digit',
+      hour: '2-digit', minute: '2-digit'
+    });
+
+    startLabel.textContent = fmtDate(snaps[total - 1].timestamp);
+
+    // Toggle
+    btn.addEventListener('click', () => {
+      const open = panel.classList.toggle('is-open');
+      btn.classList.toggle('is-active', open);
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e) => {
+      if (!el.contains(e.target)) {
+        panel.classList.remove('is-open');
+        btn.classList.remove('is-active');
+      }
+    });
+
+    // Map slider position → snapshot (0=oldest, total=LIVE)
+    const snapAt = (idx) => idx >= total ? null : snaps[total - 1 - idx];
+
+    // Visual update (no fetch — instant, runs on every input tick)
+    const updateLabel = (idx) => {
+      const isLive = idx >= total;
+      const snap = snapAt(idx);
+      dateLabel.textContent = isLive ? 'LIVE' : fmtDate(snap.timestamp);
+      dateLabel.classList.toggle('is-historical', !isLive);
+      btn.classList.toggle('is-historical', !isLive);
+      indexLabel.textContent = isLive ? '' : `Index ${snap.worldIndex}`;
+    };
+
+    range.addEventListener('input', () => updateLabel(parseInt(range.value)));
+
+    // Fetch + render (debounced, runs only on release)
+    let pending = null;
+    const loadSnapshot = async (idx) => {
+      const myId = pending = {};
+      try {
+        const snap = snapAt(idx);
+        const newData = snap
+          ? await this.dataLoader.loadSnapshot(snap.id)
+          : await this.dataLoader.load();
+        if (pending !== myId) return; // superseded by newer request
+        this._rebuildDynamic(newData);
+      } catch (err) {
+        console.warn('[Timeline] Snapshot load failed:', err.message);
+      }
+    };
+
+    let debounce;
+    range.addEventListener('change', () => {
+      clearTimeout(debounce);
+      debounce = setTimeout(() => loadSnapshot(parseInt(range.value)), 200);
+    });
+  }
+
+  _rebuildDynamic(data) {
+    this._currentData = data;
+
+    // Re-render prolog title and subtitle (no typewriter on toggle — instant text)
+    const prologTitle = document.querySelector('.prolog__title');
+    if (prologTitle) {
+      prologTitle.textContent = i18n.t('prolog.title');
+    }
+    const prologSub = document.querySelector('.prolog__subtitle');
+    if (prologSub) {
+      prologSub.textContent = i18n.t('prolog.subtitle');
+    }
+
+    // Re-render timestamp
+    const tsEls = document.querySelectorAll('.timestamp');
+    tsEls.forEach(el => {
+      el.textContent = i18n.t('js.lastUpdate', { time: this.dataLoader.getLastUpdated() });
+    });
+
+    // Re-render nav dots
+    this._initNavDots();
+    document.querySelectorAll('.nav-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        const target = dot.dataset.target;
+        if (target) DOMUtils.scrollTo(`#${target}`);
+      });
+    });
+
+    // Re-render indicator trend
+    this._populateIndicatorTrend(data);
+
+    // Re-render weather cards
+    this._populateEnvironmentValues(data);
+
+    // Re-render society data
+    this._populateSocietyValues(data);
+
+    // Re-render economy data
+    this._populateEconomyValues(data);
+
+    // Re-render progress data
+    this._populateProgressValues(data);
+
+    // Re-render realtime extras
+    this._populateRealtimeExtras(data);
+
+    // Re-render realtime section
+    this._realtimeBuilt = false;
+    this._buildRealtime(data);
+
+    // Re-render momentum (if already built)
+    if (this._momentumBuilt) {
+      this._momentumBuilt = false;
+      this._updateMomentum(1, data);
+    }
+
+    // Re-render crisis map layers (legends are in German)
+    if (this._crisisMapBuilt) {
+      this._crisisMapBuilt = false;
+      this._updateCrisisMap(1, data);
+    }
+
+    // Re-render pipeline status
+    this._buildPipelineStatus(data);
+
+    // Re-render scenarios and sources (contain i18n text)
+    this._buildScenarios(data);
+    this._buildSources(data);
+
+    // Reset lazy-built chart sections so they re-render with new labels
+    this._envBuilt = false;
+    this._societyBuilt = false;
+    this._economyBuilt = false;
+    this._progressBuilt = false;
+
+    // Update world indicator with new data
+    if (this.worldIndicator) {
+      this.worldIndicator.setData(data);
+      this.worldIndicator.update(1);
+    }
+  }
+
+  // ─── Detail Links (clickable data points) ───
+  _initDetailLinks() {
+    // Part A: Static element-to-topic mapping
+    const STATIC_TOPIC_MAP = [
+      // Act 1 -- Sub-scores: momentum links to detail
+      { selector: '.sub-score[data-subscore="momentum"]', topic: 'momentum_detail' },
+
+      // Act 2 -- Environment
+      { selector: '#akt-environment .bento-grid--2 .data-card--featured', topic: 'co2' },
+      { selector: '#akt-environment .bento-grid--2 .data-card:not(.data-card--featured)', topic: 'temperature' },
+      { selector: '#co2-chart', topic: 'co2', wrapClosest: '.reveal' },
+      { selector: '#warming-stripes', topic: 'temperature', wrapClosest: '.reveal' },
+      { selector: '#akt-environment .bento-grid--3 .data-card:nth-child(1)', topic: 'temperature' },
+      { selector: '#akt-environment .bento-grid--3 .data-card:nth-child(2)', topic: 'forests' },
+      { selector: '#akt-environment .bento-grid--3 .data-card:nth-child(3)', topic: 'renewables' },
+      { selector: '#air-quality-grid', topic: 'airquality', wrapClosest: '.reveal' },
+      { selector: '#weather-grid', topic: 'weather', wrapClosest: '.reveal' },
+
+      // Act 3 -- Society
+      { selector: '#akt-society .bento-grid--4 .data-card:nth-child(1)', topic: 'population' },
+      { selector: '#akt-society .bento-grid--4 .data-card:nth-child(2)', topic: 'conflicts' },
+      { selector: '#akt-society .bento-grid--4 .data-card:nth-child(3)', topic: 'health' },
+      { selector: '#akt-society .bento-grid--4 .data-card:nth-child(4)', topic: 'health' },
+      { selector: '#conflict-map', topic: 'conflicts', wrapClosest: '.reveal' },
+      { selector: '.refugee-counter', topic: 'conflicts' },
+      { selector: '.freedom-legend', topic: 'freedom', wrapClosest: '.reveal' },
+      { selector: '#life-expectancy-chart', topic: 'health', wrapClosest: '.data-card' },
+
+      // Act 4 -- Economy
+      { selector: '.wealth-comparison', topic: 'inequality' },
+      { selector: '#inequality-bar', topic: 'inequality', wrapClosest: '.reveal' },
+      { selector: '#gini-chart', topic: 'inequality', wrapClosest: '.data-card' },
+      { selector: '#exchange-rates', topic: 'currencies', wrapClosest: '.data-card' },
+
+      // Act 5 -- Progress
+      { selector: '#akt-progress .bento-grid--4 .data-card:nth-child(1)', topic: 'internet' },
+      { selector: '#akt-progress .bento-grid--4 .data-card:nth-child(4)', topic: 'science' },
+      { selector: '#publications-chart', topic: 'science', wrapClosest: '.reveal' },
+      { selector: '#internet-chart', topic: 'internet', wrapClosest: '.data-card' },
+      { selector: '#spaceflight-news', topic: 'space', wrapClosest: '.data-card' },
+      { selector: '#arxiv-papers', topic: 'science', wrapClosest: '.data-card' },
+
+      // Act 6 -- Realtime
+      { selector: '#earthquake-list', topic: 'earthquakes', wrapClosest: '.widget' },
+      { selector: '#clean-cities', topic: 'airquality', wrapClosest: '.widget' },
+      { selector: '#dirty-cities', topic: 'airquality', wrapClosest: '.widget' },
+      { selector: '#fear-greed-gauge', topic: 'crypto_sentiment', wrapClosest: '.widget' },
+      { selector: '#solar-activity', topic: 'solar', wrapClosest: '.widget' },
+
+      // Act 7 -- Momentum gauge
+      { selector: '#momentum-gauge', topic: 'momentum_detail', wrapClosest: '.reveal' },
+    ];
+
+    let count = 0;
+    STATIC_TOPIC_MAP.forEach(({ selector, topic, wrapClosest }) => {
+      const el = document.querySelector(selector);
+      if (!el) return;
+      const target = wrapClosest ? (el.closest(wrapClosest) || el) : el;
+      if (target.classList.contains('detail-link')) return; // already wired
+      target.dataset.topic = topic;
+      target.classList.add('detail-link');
+      target.setAttribute('role', 'link');
+      target.setAttribute('tabindex', '0');
+      target.dataset.tooltip = i18n.t('main.clickForDetails');
+      count++;
+    });
+
+    // Part B: Sub-score category scroll links (not detail pages)
+    const SECTION_SCROLL_MAP = [
+      { selector: '.sub-score[data-subscore="environment"]', scrollTo: 'akt-environment' },
+      { selector: '.sub-score[data-subscore="society"]', scrollTo: 'akt-society' },
+      { selector: '.sub-score[data-subscore="economy"]', scrollTo: 'akt-economy' },
+      { selector: '.sub-score[data-subscore="progress"]', scrollTo: 'akt-progress' },
+    ];
+
+    SECTION_SCROLL_MAP.forEach(({ selector, scrollTo }) => {
+      const el = document.querySelector(selector);
+      if (!el) return;
+      el.dataset.scrollTo = scrollTo;
+      el.classList.add('detail-link');
+      el.setAttribute('role', 'link');
+      el.setAttribute('tabindex', '0');
+      el.dataset.tooltip = i18n.t('main.clickForDetails');
+      count++;
+    });
+
+    console.log('[BelkisOne] Detail links wired:', count);
+
+    // Part C: Event delegation (click + keyboard)
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('.detail-link');
+      if (!link) return;
+      // Don't navigate if user is selecting text
+      if (window.getSelection().toString()) return;
+
+      if (link.dataset.topic) {
+        window.location.href = `detail/?topic=${link.dataset.topic}`;
+      } else if (link.dataset.scrollTo) {
+        DOMUtils.scrollTo(`#${link.dataset.scrollTo}`);
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      const link = e.target.closest('.detail-link');
+      if (!link) return;
+      e.preventDefault();
+
+      if (link.dataset.topic) {
+        window.location.href = `detail/?topic=${link.dataset.topic}`;
+      } else if (link.dataset.scrollTo) {
+        DOMUtils.scrollTo(`#${link.dataset.scrollTo}`);
+      }
+    });
+  }
+
+  // ─── Easter Egg ───
+  _initEasterEgg() {
+    let lastScroll = 0;
+    let bottomCount = 0;
+
+    window.addEventListener('scroll', DOMUtils.throttle(() => {
+      const atBottom = (window.innerHeight + window.scrollY) >= document.body.scrollHeight - 100;
+      if (atBottom && !lastScroll) {
+        bottomCount++;
+        lastScroll = 1;
+      }
+      if (!atBottom) lastScroll = 0;
+
+      if (bottomCount >= 3) {
+        const egg = document.querySelector('.easter-egg');
+        if (egg) egg.classList.add('is-active');
+      }
+    }, 300));
+  }
+}
+
+// ─── Boot ───
+document.addEventListener('DOMContentLoaded', () => {
+  const app = new BelkisOne();
+  app.init();
+});
