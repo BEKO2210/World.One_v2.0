@@ -35,12 +35,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. A data request with no API and no cache falls back to static values and displays a Static badge with reference year
   4. Chart.js loads from CDN with dark-theme defaults and every chart instance is tracked for mandatory destroy() cleanup
   5. Static fallback file contains value, year, and source for every data point used across all planned topics
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
-- [ ] 01-03: TBD
+- [ ] 01-01-PLAN.md -- Data loader with 3-tier fallback and static fallback values file
+- [ ] 01-02-PLAN.md -- Badge renderer with CSS styles and i18n translations
+- [ ] 01-03-PLAN.md -- Chart.js CDN loader, dark-theme defaults, and instance registry
 
 ### Phase 2: Detail Page Shell
 **Goal**: Users can navigate to detail/index.html?topic=X and see a fully structured page with loading states, error handling, navigation, and consistent design -- even before any real topic content exists
