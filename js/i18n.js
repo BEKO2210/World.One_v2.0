@@ -371,7 +371,33 @@ const translations = {
     'badge.live': 'LIVE',
     'badge.cache': 'Cache',
     'badge.static': 'Statisch',
-    'badge.staleWarning': 'Daten aelter als 24h'
+    'badge.staleWarning': 'Daten aelter als 24h',
+
+    // ─── Detail Page ───
+    'detail.back': 'Zurueck',
+    'detail.backToTop': 'Nach oben scrollen',
+    'detail.breadcrumb.home': 'World.One',
+    'detail.share': 'Teilen',
+    'detail.shareText': 'Schau dir {topic} an auf World.One',
+    'detail.copied': 'Link kopiert!',
+    'detail.error.title': 'Thema nicht gefunden',
+    'detail.error.invalidTopic': 'Das Thema "{topic}" existiert nicht.',
+    'detail.error.loadFailed': 'Das Thema "{topic}" konnte nicht geladen werden.',
+    'detail.error.backHome': 'Zurueck zur Startseite',
+    'detail.range.label': 'Zeitraum waehlen',
+    'detail.range.1y': '1J',
+    'detail.range.5y': '5J',
+    'detail.range.20y': '20J',
+    'detail.range.max': 'Max',
+    'detail.langToggle': 'Sprache wechseln',
+    'detail.hero': 'Hauptindikator',
+    'detail.chart': 'Hauptdiagramm',
+    'detail.trend': 'Historischer Trend',
+    'detail.tiles': 'Kontext',
+    'detail.explanation': 'Erklaerung',
+    'detail.comparison': 'Vergleich',
+    'detail.sources': 'Quellen',
+    'detail.loading': 'Lade Daten...'
   },
 
   en: {
@@ -742,7 +768,33 @@ const translations = {
     'badge.live': 'LIVE',
     'badge.cache': 'Cache',
     'badge.static': 'Static',
-    'badge.staleWarning': 'Data older than 24h'
+    'badge.staleWarning': 'Data older than 24h',
+
+    // ─── Detail Page ───
+    'detail.back': 'Back',
+    'detail.backToTop': 'Scroll to top',
+    'detail.breadcrumb.home': 'World.One',
+    'detail.share': 'Share',
+    'detail.shareText': 'Check out {topic} on World.One',
+    'detail.copied': 'Link copied!',
+    'detail.error.title': 'Topic not found',
+    'detail.error.invalidTopic': 'The topic "{topic}" does not exist.',
+    'detail.error.loadFailed': 'The topic "{topic}" could not be loaded.',
+    'detail.error.backHome': 'Back to homepage',
+    'detail.range.label': 'Select time range',
+    'detail.range.1y': '1Y',
+    'detail.range.5y': '5Y',
+    'detail.range.20y': '20Y',
+    'detail.range.max': 'Max',
+    'detail.langToggle': 'Switch language',
+    'detail.hero': 'Key indicator',
+    'detail.chart': 'Primary chart',
+    'detail.trend': 'Historical trend',
+    'detail.tiles': 'Context',
+    'detail.explanation': 'Explanation',
+    'detail.comparison': 'Comparison',
+    'detail.sources': 'Sources',
+    'detail.loading': 'Loading data...'
   }
 };
 
