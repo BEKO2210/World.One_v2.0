@@ -18,7 +18,10 @@
     "displaced_millions": { "value": 117, "year": 2024, "source": "UNHCR" }
   },
   "crypto_sentiment": null,
-  "currencies": null,
+  "currencies": {
+    "eur_usd": { "value": 0.92, "year": 2025, "source": "Open ER API" },
+    "usd_cny": { "value": 7.24, "year": 2025, "source": "Open ER API" }
+  },
   "disasters": null,
   "earthquakes": {
     "significant_24h": { "value": 4, "year": 2025, "source": "USGS" },
@@ -41,7 +44,10 @@
     "gini_global": { "value": 38.5, "year": 2024, "source": "World Bank estimate" },
     "billionaires": { "value": 3028, "year": 2025, "source": "Forbes" }
   },
-  "internet": null,
+  "internet": {
+    "users_pct": { "value": 67, "unit": "%", "year": 2024, "source": "World Bank" },
+    "total_users_b": { "value": 5.4, "unit": "billion", "year": 2024, "source": "ITU" }
+  },
   "momentum_detail": null,
   "ocean_ph": null,
   "ocean_plastic": null,
@@ -56,13 +62,21 @@
     "people_in_poverty_m": { "value": 700, "unit": "million", "year": 2024, "source": "World Bank" }
   },
   "renewables": { "value": 29.6, "unit": "%", "year": 2022, "source": "World Bank" },
-  "science": null,
+  "science": {
+    "total_papers": { "value": 2990000, "year": 2026, "source": "arXiv" },
+    "daily_submissions": { "value": 1800, "year": 2025, "source": "arXiv stats" }
+  },
   "solar": null,
-  "space": null,
+  "space": {
+    "iss_altitude_km": { "value": 408, "year": 2025, "source": "NASA" },
+    "satellites": { "value": 13000, "year": 2025, "source": "UCS" }
+  },
   "temperature": {
     "anomaly_c": { "value": 1.29, "year": 2024, "source": "NASA GISTEMP" },
     "warmest_year": { "value": 2024, "year": 2024, "source": "NASA/NOAA" },
     "pre_industrial_baseline": { "value": "1850-1900", "year": null, "source": "IPCC AR6" }
   },
-  "weather": null
+  "weather": {
+    "cities_tracked": { "value": 24, "year": 2025, "source": "Open-Meteo" }
+  }
 }
