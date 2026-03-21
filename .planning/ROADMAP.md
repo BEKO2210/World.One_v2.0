@@ -118,12 +118,12 @@ Plans:
   2. User visits detail/?topic=freedom and sees Freedom House score, green/yellow/red SVG choropleth, and 18-year decline trend chart
   3. User visits detail/?topic=inequality and sees Gini index, 100-person wealth distribution animation, country Gini ranking (toggle income/wealth), and billionaire counter
   4. User visits detail/?topic=poverty and sees extreme poverty % ($2.15/day), animated 38%-to-8% trend line, and regional stacked area chart
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 06-01: TBD
-- [ ] 06-02: TBD
-- [ ] 06-03: TBD
+- [ ] 06-01-PLAN.md -- Phase 6 i18n keys + static fallbacks, and health topic module (treemap, bubble chart, vaccination choropleth)
+- [ ] 06-02-PLAN.md -- Freedom topic module (choropleth, trend chart) and poverty topic module (animated trend, stacked area)
+- [ ] 06-03-PLAN.md -- Inequality topic module (wealth distribution grid, income/wealth toggle, billionaire counter)
 
 ### Phase 7: Economy, Progress & Weather
 **Goal**: Users can explore currencies, scientific progress, internet usage, space exploration, and global weather -- topics with live data feeds and interactive elements
