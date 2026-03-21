@@ -19,8 +19,8 @@ const SECTION_IMAGES = {
   'akt-scenarios': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80&auto=format',   // Sich gabelnder Weg/Berge
   'akt-sources': 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1920&q=80&auto=format',   // Buecher/Bibliothek
   'akt-action': 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&q=80&auto=format',    // Haende/Zusammenhalt
-  'akt-biodiversity': 'https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=1920&q=80&auto=format', // Regenwald/Artenvielfalt
-  'akt-oceans': 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=1920&q=80&auto=format',       // Ozean/Unterwasser
+  'akt-biodiversity': 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=80&auto=format', // Sonnenlicht durch Blatterdach
+  'akt-oceans': 'https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=1920&q=80&auto=format',       // Unterwasser-Lichtstrahlen
   epilog: 'https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=1920&q=80&auto=format'           // Sternenhimmel/Mond
 };
 
