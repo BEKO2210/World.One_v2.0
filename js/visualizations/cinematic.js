@@ -7,21 +7,7 @@ import { MathUtils } from '../utils/math.js';
 
 // Unsplash-Bilder: Hochwertige S/W Fotografien (lizenzfrei)
 const SECTION_IMAGES = {
-  prolog: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80&auto=format',     // Erde aus dem All
-  'akt-indicator': 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=1920&q=80&auto=format', // Kompass/Waage
-  'akt-environment': 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1920&q=80&auto=format', // Nebel-Wald
-  'akt-society': 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1920&q=80&auto=format',   // Menschen/Silhouetten
-  'akt-economy': 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&q=80&auto=format',   // Wolkenkratzer
-  'akt-progress': 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1920&q=80&auto=format',   // Schaltkreise/Tech
-  'akt-realtime': 'https://images.unsplash.com/photo-1557683316-973673baf926?w=1920&q=80&auto=format',     // Abstrakte Wellen
-  'akt-momentum': 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&q=80&auto=format',   // Sonnenaufgang
-  'akt-crisis-map': 'https://images.unsplash.com/photo-1534088568595-a066f410bcda?w=1920&q=80&auto=format', // Sturm/Blitz
-  'akt-scenarios': 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&q=80&auto=format',   // Sich gabelnder Weg/Berge
-  'akt-sources': 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=1920&q=80&auto=format',   // Buecher/Bibliothek
-  'akt-action': 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&q=80&auto=format',    // Haende/Zusammenhalt
-  'akt-biodiversity': 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=80&auto=format', // Sonnenlicht durch Blatterdach
-  'akt-oceans': 'https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=1920&q=80&auto=format',       // Unterwasser-Lichtstrahlen
-  epilog: 'https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=1920&q=80&auto=format'           // Sternenhimmel/Mond
+  prolog: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80&auto=format'     // Erde aus dem All
 };
 
 export class CinematicScroll {
