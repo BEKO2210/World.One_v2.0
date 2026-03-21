@@ -187,7 +187,7 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 10-01-PLAN.md -- Main page Acts 12+13 HTML sections, all 7 registration points (scroll engine, nav dots, particle colors, cinematic, detail links), Phase 10 i18n keys + static fallbacks
+- [x] 10-01-PLAN.md -- Main page Acts 12+13 HTML sections, all 7 registration points (scroll engine, nav dots, particle colors, cinematic, detail links), Phase 10 i18n keys + static fallbacks (completed 2026-03-21)
 - [ ] 10-02-PLAN.md -- Ocean topic modules: ocean_temp (SST timeline, choropleth, coral explainer), ocean_ph (pH trend, scale, acidification), ocean_plastic (daily counter, garbage patches SVG, decomposition)
 - [ ] 10-03-PLAN.md -- Biodiversity topic modules: extinction (Big Five timeline, current rate comparison, taxonomic groups) and endangered (IUCN category doughnut, species examples)
 
@@ -207,4 +207,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 7. Economy, Progress & Weather | 1/3 | In Progress|  |
 | 8. Remaining Topics | 3/4 | Gap closure | - |
 | 9. Main Page Clickable Data Points | 2/2 | Complete | 2026-03-21 |
-| 10. New Acts & Bio/Ocean Topics | 3/3 | Complete   | 2026-03-21 |
+| 10. New Acts & Bio/Ocean Topics | 3/3 | Complete    | 2026-03-21 |
