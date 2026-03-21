@@ -13,7 +13,7 @@ This roadmap transforms World.One from a scroll-driven dashboard into an explora
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: Data Layer & Utilities** - 3-tier data fallback, badge renderer, static fallback values, and Chart.js lifecycle management
-- [ ] **Phase 2: Detail Page Shell** - Single-page router, topic module loader, base layout, navigation, sharing, print, lazy-loading, error states, i18n, time range selector, and design system
+- [x] **Phase 2: Detail Page Shell** - Single-page router, topic module loader, base layout, navigation, sharing, print, lazy-loading, error states, i18n, time range selector, and design system (completed 2026-03-21)
 - [ ] **Phase 3: GitHub Actions Pipeline** - Extended cron workflows for all cache file groups, pipeline health monitoring via meta.json
 - [ ] **Phase 4: First Topics -- CO2, Temperature, Earthquakes, Population, Conflicts** - Prove the topic module pattern across 5 diverse topics spanning environment, realtime, and society
 - [ ] **Phase 5: Environment & Forests Topics** - Biodiversity, air quality, forests, renewables -- complete the environment topic set with SVG choropleth maps
@@ -197,7 +197,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Data Layer & Utilities | 0/3 | Not started | - |
-| 2. Detail Page Shell | 0/2 | Not started | - |
+| 2. Detail Page Shell | 2/2 | Complete   | 2026-03-21 |
 | 3. GitHub Actions Pipeline | 0/3 | Not started | - |
 | 4. First Topics (CO2, Temp, Quakes, Pop, Conflicts) | 0/3 | Not started | - |
 | 5. Environment & Forests Topics | 0/3 | Not started | - |
