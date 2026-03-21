@@ -98,9 +98,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Ocean Topics (Akt 13 -- New)
 
-- [ ] **OCEAN-01**: Topic ocean_temp -- Hero: SST anomaly (NOAA cached), SVG heatmap choropleth, coral bleaching threshold explainer infographic
-- [ ] **OCEAN-02**: Topic ocean_ph -- Hero: pH value (8.2->8.1 trend), pH scale visualization with ocean position, acidification impact infographic
-- [ ] **OCEAN-03**: Topic ocean_plastic -- Hero: ocean plastic estimate (GESAMP cached), daily counter animated, 5 garbage patches SVG map, decomposition time animation (bottle: 450 years)
+- [x] **OCEAN-01**: Topic ocean_temp -- Hero: SST anomaly (NOAA cached), SVG heatmap choropleth, coral bleaching threshold explainer infographic
+- [x] **OCEAN-02**: Topic ocean_ph -- Hero: pH value (8.2->8.1 trend), pH scale visualization with ocean position, acidification impact infographic
+- [x] **OCEAN-03**: Topic ocean_plastic -- Hero: ocean plastic estimate (GESAMP cached), daily counter animated, 5 garbage patches SVG map, decomposition time animation (bottle: 450 years)
 
 ### Biodiversity Topics (Akt 12 -- New)
 
@@ -197,9 +197,9 @@ Deferred to future release. Tracked but not in current roadmap.
 | MAIN-03 | Phase 10 | Complete |
 | MAIN-04 | Phase 10 | Complete |
 | MAIN-05 | Phase 10 | Complete |
-| OCEAN-01 | Phase 10 | Pending |
-| OCEAN-02 | Phase 10 | Pending |
-| OCEAN-03 | Phase 10 | Pending |
+| OCEAN-01 | Phase 10 | Complete |
+| OCEAN-02 | Phase 10 | Complete |
+| OCEAN-03 | Phase 10 | Complete |
 | BIO-01 | Phase 10 | Complete |
 | BIO-02 | Phase 10 | Complete |
 

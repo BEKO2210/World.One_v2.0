@@ -21,7 +21,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 7: Economy, Progress & Weather** - Currencies, science, internet, space, weather -- mixed-domain topics with live data and interactive elements
 - [ ] **Phase 8: Remaining Topics** - Solar, crypto sentiment, momentum dashboard, hunger, disasters -- complete all 28 topic pages (gap closure in progress)
 - [x] **Phase 9: Main Page Clickable Data Points** - All existing tiles/charts become clickable links to detail pages with hover states and tooltips (completed 2026-03-21)
-- [ ] **Phase 10: New Acts & Biodiversity/Ocean Topics** - Acts 12+13 as new main page scroll sections, plus their dedicated detail topic pages
+- [x] **Phase 10: New Acts & Biodiversity/Ocean Topics** - Acts 12+13 as new main page scroll sections, plus their dedicated detail topic pages (completed 2026-03-21)
 
 ## Phase Details
 
@@ -207,4 +207,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 7. Economy, Progress & Weather | 1/3 | In Progress|  |
 | 8. Remaining Topics | 3/4 | Gap closure | - |
 | 9. Main Page Clickable Data Points | 2/2 | Complete | 2026-03-21 |
-| 10. New Acts & Bio/Ocean Topics | 2/3 | In Progress|  |
+| 10. New Acts & Bio/Ocean Topics | 3/3 | Complete   | 2026-03-21 |
