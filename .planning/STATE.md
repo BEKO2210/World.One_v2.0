@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: completed
-stopped_at: Completed 10-02-PLAN.md
-last_updated: "2026-03-21T22:53:10.460Z"
-last_activity: 2026-03-21 -- Completed plan 10-02 (Ocean Detail Topics)
+stopped_at: Completed 10-04-PLAN.md
+last_updated: "2026-03-21T23:22:35.731Z"
+last_activity: 2026-03-22 -- Completed plan 10-04 (Cinematic Background Observer Fix)
 progress:
   total_phases: 10
   completed_phases: 10
-  total_plans: 29
-  completed_plans: 29
+  total_plans: 30
+  completed_plans: 30
   percent: 100
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-21)
 
 **Core value:** Every number on the dashboard becomes explorable -- users click any data point and get rich, interactive context with live data, historical trends, and visual explanations. No data point is ever invisible or broken.
-**Current focus:** Phase 10 -- New Acts & Biodiversity/Ocean Topics (All 3 plans complete)
+**Current focus:** Phase 10 -- New Acts & Biodiversity/Ocean Topics (All 4 plans complete, including gap closure)
 
 ## Current Position
 
 Phase: 10 of 10 (New Acts & Biodiversity/Ocean Topics)
-Plan: 3 of 3 in current phase (all complete)
+Plan: 4 of 4 in current phase (all complete)
 Status: Complete
-Last activity: 2026-03-21 -- Completed plan 10-02 (Ocean Detail Topics)
+Last activity: 2026-03-22 -- Completed plan 10-04 (Cinematic Background Observer Fix)
 
 Progress: [██████████] 100%
 
@@ -78,6 +78,7 @@ Progress: [██████████] 100%
 | Phase 10 P01 | 3min | 2 tasks | 5 files |
 | Phase 10 P03 | 4min | 2 tasks | 2 files |
 | Phase 10 P02 | 5min | 2 tasks | 3 files |
+| Phase 10 P04 | 2min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -169,6 +170,7 @@ Recent decisions affecting current work:
 - [Phase 10]: ocean_temp uses ocean.json cache for SST data; regional anomalies hardcoded from IPCC AR6
 - [Phase 10]: ocean_ph hardcodes 35-point pH trend from NOAA PMEL (no pH cache exists)
 - [Phase 10]: ocean_plastic daily counter follows population.js setInterval pattern; SVG map reuses CONTINENT_PATHS
+- [Phase 10]: Fixed register-before-init bug in scroll-engine.js init() rather than reordering app.js calls -- engine API supports both call orders
 
 ### Pending Todos
 
@@ -182,6 +184,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T22:48:54.955Z
-Stopped at: Completed 10-02-PLAN.md
+Last session: 2026-03-21T23:22:35.727Z
+Stopped at: Completed 10-04-PLAN.md
 Resume file: None
