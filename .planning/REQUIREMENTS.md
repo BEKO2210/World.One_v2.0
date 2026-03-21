@@ -65,7 +65,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **SOC-01**: Topic population -- Hero: live counter (calculated), births/deaths clock, population pyramid (1960/2000/2026/2050 toggle, country comparison), urbanization chart
 - [x] **SOC-02**: Topic conflicts -- Hero: active conflicts (UCDP cached), SVG conflict map with intensity dots, historical trend 1946-today with event markers, refugees/displaced doughnut chart
-- [ ] **SOC-03**: Topic health -- Hero: life expectancy (World Bank), causes of death treemap, health spending vs life expectancy scatter (bubble=population), vaccination choropleth
+- [x] **SOC-03**: Topic health -- Hero: life expectancy (World Bank), causes of death treemap, health spending vs life expectancy scatter (bubble=population), vaccination choropleth
 - [ ] **SOC-04**: Topic freedom -- Hero: Freedom House score (cached), SVG choropleth (green/yellow/red), 18-year decline trend chart
 
 ### Economy Topics (Akt 04)
@@ -177,7 +177,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | ENV-06 | Phase 5 | Complete |
 | SOC-01 | Phase 4 | Complete |
 | SOC-02 | Phase 4 | Complete |
-| SOC-03 | Phase 6 | Pending |
+| SOC-03 | Phase 6 | Complete |
 | SOC-04 | Phase 6 | Pending |
 | ECON-01 | Phase 6 | Pending |
 | ECON-02 | Phase 6 | Pending |

@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 05-02-PLAN.md
-last_updated: "2026-03-21T18:31:06.776Z"
-last_activity: 2026-03-21 -- Completed plan 05-02 (Air quality and forests topic modules)
+stopped_at: Completed 06-01-PLAN.md
+last_updated: "2026-03-21T19:17:14.553Z"
+last_activity: 2026-03-21 -- Completed plan 06-01 (Phase 6 i18n + static values + health topic module)
 progress:
   total_phases: 10
   completed_phases: 5
-  total_plans: 14
-  completed_plans: 14
-  percent: 93
+  total_plans: 17
+  completed_plans: 15
+  percent: 88
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-21)
 
 **Core value:** Every number on the dashboard becomes explorable -- users click any data point and get rich, interactive context with live data, historical trends, and visual explanations. No data point is ever invisible or broken.
-**Current focus:** Phase 5 - Environment & Forests Topics (2 of 3 plans complete, renewables remaining)
+**Current focus:** Phase 6 - Society & Economy Core Topics (1 of 3 plans complete, freedom+poverty and inequality remaining)
 
 ## Current Position
 
-Phase: 5 of 10 (Environment & Forests Topics)
-Plan: 2 of 3 in current phase
+Phase: 6 of 10 (Society & Economy Core)
+Plan: 1 of 3 in current phase
 Status: Executing
-Last activity: 2026-03-21 -- Completed plan 05-02 (Air quality and forests topic modules)
+Last activity: 2026-03-21 -- Completed plan 06-01 (Phase 6 i18n + static values + health topic module)
 
-Progress: [█████████░] 93%
+Progress: [█████████░] 88%
 
 ## Performance Metrics
 
@@ -63,6 +63,7 @@ Progress: [█████████░] 93%
 | Phase 05 P02 | 3min | 2 tasks | 2 files |
 
 *Updated after each plan completion*
+| Phase 06 P01 | 4min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -118,6 +119,10 @@ Recent decisions affecting current work:
 - [Phase 05]: AQI-vs-GDP scatter uses logarithmic x-axis + per-point color (green/yellow/orange/red thresholds)
 - [Phase 05]: Forest loss chart absolute values with tooltip negative net loss; deforestation causes lazy via getChartConfigs
 - [Phase 05]: Top-5 forest countries use proportional DOM bars (not Chart.js) to keep lightweight
+- [Phase 06]: Health data hardcoded (no health.json cache) -- follows temperature.js/conflicts.js pattern
+- [Phase 06]: DOM treemap for causes-of-death uses flexbox (no Chart.js treemap plugin) to keep CDN deps minimal
+- [Phase 06]: Phase 6 i18n keys added upfront for all 4 topics to unblock parallel Plans 02 and 03
+- [Phase 06]: Bubble chart uses logarithmic x-axis with per-point color coding by life expectancy threshold
 
 ### Pending Todos
 
@@ -131,6 +136,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T18:24:38Z
-Stopped at: Completed 05-02-PLAN.md
+Last session: 2026-03-21T19:17:14.550Z
+Stopped at: Completed 06-01-PLAN.md
 Resume file: None
