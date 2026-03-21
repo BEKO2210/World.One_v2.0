@@ -155,7 +155,7 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 08-01-PLAN.md -- Phase 8 i18n keys + static fallbacks, and solar topic module (NOAA live data, cycle 25 chart, aurora Kp map)
+- [x] 08-01-PLAN.md -- Phase 8 i18n keys + static fallbacks, and solar topic module (NOAA live data, cycle 25 chart, aurora Kp map) (completed 2026-03-21)
 - [ ] 08-02-PLAN.md -- Crypto sentiment topic module (30-day F&G chart with color zones) and momentum detail topic module (24 indicator mini-cards with SVG sparklines)
 - [ ] 08-03-PLAN.md -- Hunger topic module (choropleth, FAO trend) and disasters topic module (timeline, dual-axis trend chart)
 

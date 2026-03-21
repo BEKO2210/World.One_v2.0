@@ -93,8 +93,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Crisis Topics (Akt 08)
 
-- [ ] **CRISIS-01**: Topic hunger -- Hero: hunger index (World Bank), SVG choropleth by malnutrition rate with click popups, FAO Food Price Index trend + correlation visualization
-- [ ] **CRISIS-02**: Topic disasters -- Hero: natural disasters 2026 (EM-DAT cached), chronological timeline with type/country/affected/damage, historical trend dual-axis chart (frequency + cost)
+- [x] **CRISIS-01**: Topic hunger -- Hero: hunger index (World Bank), SVG choropleth by malnutrition rate with click popups, FAO Food Price Index trend + correlation visualization
+- [x] **CRISIS-02**: Topic disasters -- Hero: natural disasters 2026 (EM-DAT cached), chronological timeline with type/country/affected/damage, historical trend dual-axis chart (frequency + cost)
 
 ### Ocean Topics (Akt 13 -- New)
 
@@ -190,8 +190,8 @@ Deferred to future release. Tracked but not in current roadmap.
 | RT-03 | Phase 8 | Complete |
 | RT-04 | Phase 8 | Complete |
 | MOM-01 | Phase 8 | Complete |
-| CRISIS-01 | Phase 8 | Pending |
-| CRISIS-02 | Phase 8 | Pending |
+| CRISIS-01 | Phase 8 | Complete |
+| CRISIS-02 | Phase 8 | Complete |
 | MAIN-01 | Phase 9 | Pending |
 | MAIN-02 | Phase 9 | Pending |
 | MAIN-03 | Phase 10 | Pending |
