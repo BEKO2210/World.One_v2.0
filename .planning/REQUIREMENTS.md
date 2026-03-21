@@ -76,8 +76,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Progress Topics (Akt 05)
 
-- [ ] **PROG-01**: Topic science -- Hero: total arXiv papers, exponential growth curve animated, hot research fields bar chart (daily cached), Nobel prizes by country bubble chart
-- [ ] **PROG-02**: Topic internet -- Hero: internet users % (World Bank), real-time calculated counters (emails/YouTube/Google today), digital divide SVG choropleth
+- [x] **PROG-01**: Topic science -- Hero: total arXiv papers, exponential growth curve animated, hot research fields bar chart (daily cached), Nobel prizes by country bubble chart
+- [x] **PROG-02**: Topic internet -- Hero: internet users % (World Bank), real-time calculated counters (emails/YouTube/Google today), digital divide SVG choropleth
 - [ ] **PROG-03**: Topic space -- Hero: ISS position live (10s refresh), SVG map with moving ISS dot + orbit trail, crew list, spaceflight news feed (cached), satellite count visualization
 
 ### Realtime Topics (Akt 06)
@@ -182,8 +182,8 @@ Deferred to future release. Tracked but not in current roadmap.
 | ECON-01 | Phase 6 | Complete |
 | ECON-02 | Phase 6 | Complete |
 | ECON-03 | Phase 7 | Complete |
-| PROG-01 | Phase 7 | Pending |
-| PROG-02 | Phase 7 | Pending |
+| PROG-01 | Phase 7 | Complete |
+| PROG-02 | Phase 7 | Complete |
 | PROG-03 | Phase 7 | Pending |
 | RT-01 | Phase 4 | Complete |
 | RT-02 | Phase 7 | Pending |
