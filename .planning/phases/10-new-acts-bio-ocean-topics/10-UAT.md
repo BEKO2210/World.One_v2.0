@@ -1,5 +1,5 @@
 ---
-status: complete
+status: diagnosed
 phase: 10-new-acts-bio-ocean-topics
 source: [10-01-SUMMARY.md, 10-02-SUMMARY.md, 10-03-SUMMARY.md]
 started: 2026-03-21T23:10:00Z
@@ -77,7 +77,12 @@ skipped: 0
   reason: "User reported: no image, und bitte auch kein billiges image laden mach es im gleichem syle wie die webseite passend"
   severity: major
   test: 4
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
+  root_cause: "Register-before-init ordering bug: app.js calls engine.register() before engine.init(), so IntersectionObserver is null when sections are registered. Observer never watches elements, isVisible stays false, cinematic backgrounds never reveal."
+  artifacts:
+    - path: "js/app.js"
+      issue: "engine.init() called after sectionIds.forEach(register) — must be called before"
+    - path: "js/scroll-engine.js"
+      issue: "register() guards observation behind if(this._observer) which is null pre-init"
+  missing:
+    - "Fix call order in app.js: engine.init() before register loop, OR fix scroll-engine.js init() to retroactively observe already-registered sections"
+  debug_session: ".planning/debug/cinematic-bg-acts-12-13.md"
