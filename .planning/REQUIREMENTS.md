@@ -104,8 +104,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Biodiversity Topics (Akt 12 -- New)
 
-- [ ] **BIO-01**: Topic extinction -- Species extinction rate detail with historical mass extinctions context
-- [ ] **BIO-02**: Topic endangered -- Endangered species by IUCN category with GBIF cached species lists
+- [x] **BIO-01**: Topic extinction -- Species extinction rate detail with historical mass extinctions context
+- [x] **BIO-02**: Topic endangered -- Endangered species by IUCN category with GBIF cached species lists
 
 ## v2 Requirements
 
@@ -200,8 +200,8 @@ Deferred to future release. Tracked but not in current roadmap.
 | OCEAN-01 | Phase 10 | Pending |
 | OCEAN-02 | Phase 10 | Pending |
 | OCEAN-03 | Phase 10 | Pending |
-| BIO-01 | Phase 10 | Pending |
-| BIO-02 | Phase 10 | Pending |
+| BIO-01 | Phase 10 | Complete |
+| BIO-02 | Phase 10 | Complete |
 
 **Coverage:**
 - v1 requirements: 61 total

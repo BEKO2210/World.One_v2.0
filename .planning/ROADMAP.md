@@ -207,4 +207,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 7. Economy, Progress & Weather | 1/3 | In Progress|  |
 | 8. Remaining Topics | 3/4 | Gap closure | - |
 | 9. Main Page Clickable Data Points | 2/2 | Complete | 2026-03-21 |
-| 10. New Acts & Bio/Ocean Topics | 1/3 | In Progress|  |
+| 10. New Acts & Bio/Ocean Topics | 2/3 | In Progress|  |
