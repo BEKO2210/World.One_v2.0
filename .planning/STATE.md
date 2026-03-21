@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-03-PLAN.md
-last_updated: "2026-03-21T15:19:40.948Z"
-last_activity: 2026-03-21 -- Completed plan 03-03 (Workflow, Meta Script, and Service Worker)
+stopped_at: Completed 04-01-PLAN.md
+last_updated: "2026-03-21T16:15:30.438Z"
+last_activity: 2026-03-21 -- Completed plan 04-01 (CO2 topic module, data-loader fix, i18n keys)
 progress:
   total_phases: 10
   completed_phases: 3
-  total_plans: 8
-  completed_plans: 8
-  percent: 100
+  total_plans: 11
+  completed_plans: 9
+  percent: 82
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-21)
 
 **Core value:** Every number on the dashboard becomes explorable -- users click any data point and get rich, interactive context with live data, historical trends, and visual explanations. No data point is ever invisible or broken.
-**Current focus:** Phase 3 - GitHub Actions Pipeline (complete)
+**Current focus:** Phase 4 - First Topics (CO2 complete, temperature + earthquakes/population/conflicts next)
 
 ## Current Position
 
-Phase: 3 of 10 (GitHub Actions Pipeline)
-Plan: 3 of 3 in current phase (PHASE COMPLETE)
+Phase: 4 of 10 (First Topics)
+Plan: 1 of 3 in current phase
 Status: Executing
-Last activity: 2026-03-21 -- Completed plan 03-03 (Workflow, Meta Script, and Service Worker)
+Last activity: 2026-03-21 -- Completed plan 04-01 (CO2 topic module, data-loader fix, i18n keys)
 
-Progress: [██████████] 100%
+Progress: [████████░░] 82%
 
 ## Performance Metrics
 
@@ -51,9 +51,10 @@ Progress: [██████████] 100%
 | Phase 03 P01 | 3min | 2 tasks | 5 files |
 | Phase 03 P02 | 4min | 2 tasks | 4 files |
 | Phase 03 P03 | 3min | 2 tasks | 3 files |
+| Phase 04 P01 | 4min | 2 tasks | 3 files |
 
 **Recent Trend:**
-- Last 5 plans: 3min, 3min, 3min, 4min, 3min
+- Last 5 plans: 3min, 3min, 4min, 3min, 4min
 - Trend: Steady
 
 *Updated after each plan completion*
@@ -92,6 +93,11 @@ Recent decisions affecting current work:
 - [Phase 03]: Single workflow file with 6 cron triggers and github.event.schedule conditionals
 - [Phase 03]: data/cache/ routing reuses existing /data/ entry in DATA_PATHS via includes() match
 - [Phase 03]: Detail page assets added to PRECACHE_ASSETS alongside cache name bump to worldone-v2
+- [Phase 04]: Added _basePath() helper for subdirectory fetch resolution -- window.location.pathname check
+- [Phase 04]: All 5 topic i18n keys added upfront in Plan 01 to unblock parallel execution of Plans 02 and 03
+- [Phase 04]: CO2 module uses Open-Meteo Air Quality API for live ppm with 3-tier fallback to cache/static
+- [Phase 04]: Greenhouse infographic uses pure DOMUtils.create (no innerHTML, no images) for security
+- [Phase 04]: Top 10 emitters per capita hardcoded from World Bank 2020 -- no live API for supplementary bar chart
 
 ### Pending Todos
 
@@ -105,6 +111,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T15:13:49.000Z
-Stopped at: Completed 03-03-PLAN.md
+Last session: 2026-03-21T16:15:30.435Z
+Stopped at: Completed 04-01-PLAN.md
 Resume file: None

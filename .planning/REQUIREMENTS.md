@@ -54,7 +54,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Environment Topics (Akt 02)
 
-- [ ] **ENV-01**: Topic co2 -- Hero: current ppm (Open-Meteo), Keeling Curve 1958-today, emissions by country (World Bank), greenhouse effect infographic
+- [x] **ENV-01**: Topic co2 -- Hero: current ppm (Open-Meteo), Keeling Curve 1958-today, emissions by country (World Bank), greenhouse effect infographic
 - [ ] **ENV-02**: Topic temperature -- Hero: anomaly (NASA GISTEMP), interactive warming stripes with event tooltips, regional warming SVG choropleth, 9 tipping points timeline
 - [ ] **ENV-03**: Topic biodiversity -- Hero: threatened species (GBIF), Living Planet Index trend, IUCN category browser with CR species list
 - [ ] **ENV-04**: Topic airquality -- Hero: global AQI (OpenAQ), cities ranking, AQI vs GDP scatter, PM2.5/PM10/NO2 explainer
@@ -169,7 +169,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | ACTIONS-07 | Phase 3 | Complete |
 | ACTIONS-08 | Phase 3 | Complete |
 | ACTIONS-09 | Phase 3 | Complete |
-| ENV-01 | Phase 4 | Pending |
+| ENV-01 | Phase 4 | Complete |
 | ENV-02 | Phase 4 | Pending |
 | ENV-03 | Phase 5 | Pending |
 | ENV-04 | Phase 5 | Pending |
