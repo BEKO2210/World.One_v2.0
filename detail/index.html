@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="de" data-lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0a0f">
+  <title>World.One - Detail</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/core.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/detail.css">
+</head>
+<body>
+
+  <!-- ═══ NAVIGATION BAR ═══ -->
+  <nav class="detail-nav" id="detail-nav">
+    <a href="../index.html" class="detail-nav__back" data-i18n-aria="detail.back">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    </a>
+
+    <div class="detail-nav__breadcrumb">
+      <span data-i18n="detail.breadcrumb.home">World.One</span>
+      <span class="detail-nav__separator">/</span>
+      <span id="detail-breadcrumb-topic"></span>
+    </div>
+
+    <div class="detail-nav__actions">
+      <button id="detail-share" class="detail-nav__btn" data-i18n-aria="detail.share">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8M16 6l-4-4-4 4M12 2v13"/></svg>
+      </button>
+      <button id="detail-lang-toggle" class="detail-nav__btn detail-nav__btn--lang">
+        <span class="detail-nav__lang-label">EN</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══ MAIN CONTENT — 7 Layout Blocks ═══ -->
+  <main class="detail-page" id="detail-main">
+    <section class="detail-block detail-block--skeleton" id="detail-hero" data-block="hero" aria-label="Key indicator"></section>
+    <section class="detail-block detail-block--skeleton" id="detail-chart" data-block="chart" aria-label="Primary chart"></section>
+    <section class="detail-block detail-block--skeleton" id="detail-trend" data-block="trend" aria-label="Historical trend"></section>
+    <section class="detail-block detail-block--skeleton" id="detail-tiles" data-block="tiles" aria-label="Context tiles"></section>
+    <section class="detail-block detail-block--skeleton" id="detail-explanation" data-block="explanation" aria-label="Explanation"></section>
+    <section class="detail-block detail-block--skeleton" id="detail-comparison" data-block="comparison" aria-label="Comparison"></section>
+    <footer class="detail-block detail-block--skeleton" id="detail-sources" data-block="sources" aria-label="Sources"></footer>
+  </main>
+
+  <!-- ═══ BACK TO TOP ═══ -->
+  <button class="detail-btt" id="detail-btt" data-i18n-aria="detail.backToTop" hidden>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <!-- ═══ TOAST NOTIFICATION ═══ -->
+  <div class="detail-toast" id="detail-toast" role="status" aria-live="polite" hidden></div>
+
+  <!-- ═══ ERROR STATE ═══ -->
+  <div class="detail-error" id="detail-error" hidden>
+    <div class="detail-error__card">
+      <h2 class="detail-error__title" data-i18n="detail.error.title">Thema nicht gefunden</h2>
+      <p class="detail-error__message" id="detail-error-message"></p>
+      <a class="detail-error__btn" href="../index.html" data-i18n="detail.error.backHome">Zurueck zur Startseite</a>
+    </div>
+  </div>
+
+  <!-- ═══ APPLICATION ═══ -->
+  <script type="module" src="./detail-app.js"></script>
+
+</body>
+</html>
