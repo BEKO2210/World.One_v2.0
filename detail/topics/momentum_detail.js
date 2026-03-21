@@ -26,6 +26,37 @@ export const meta = {
 let _indicators = null;
 let _momentumData = null;
 
+// --- Indicator-to-Topic Mapping ----------------------------------------
+// Maps subScores indicator names (German) to topic detail page IDs.
+// Indicators without an entry remain non-clickable (no broken links).
+
+const INDICATOR_TOPIC_MAP = {
+  'Globale Temperaturanomalie': 'temperature',
+  'CO2-Konzentration': 'co2',
+  'Waldfläche': 'forests',
+  'Erneuerbare Energie': 'renewables',
+  'Luftqualität (Global Avg AQI)': 'airquality',
+  'Arktis-Eisfläche': 'biodiversity',
+  'Lebenserwartung': 'health',
+  'Kindersterblichkeit': 'health',
+  'Aktive Konflikte': 'conflicts',
+  'Elektrizitätszugang': 'population',
+  'Trinkwasserzugang': 'population',
+  'Menschen auf der Flucht': 'conflicts',
+  'Politische Freiheit': 'freedom',
+  'BIP-Wachstum': 'currencies',
+  'Gini-Index': 'inequality',
+  'Inflation': 'currencies',
+  'Arbeitslosigkeit': 'poverty',
+  'Extreme Armut': 'poverty',
+  'Internet-Durchdringung': 'internet',
+  'Alphabetisierung': 'science',
+  'F&E Ausgaben (% BIP)': 'science',
+  'Mobilfunkverträge': 'internet',
+  'GitHub Repositories': 'science',
+  'Wissenschaftliche Papers': 'science',
+};
+
 // --- Category Config ---------------------------------------------------
 
 const CATEGORIES = {
@@ -109,13 +140,54 @@ export async function render(blocks) {
   // 2. Extract subScores
   const subScores = wsData?.subScores || {};
 
+  // 2b. Extract top-level momentum.indicators for % change data.
+  //     Names differ between subScores and momentum arrays, so we use two
+  //     lookup strategies: (a) exact momentum name match, (b) a manual alias
+  //     map for names that differ between the two arrays.
+  const momentumIndicators = wsData?.momentum?.indicators || [];
+
+  // Exact name -> change lookup
+  const changeByExact = {};
+  for (const mi of momentumIndicators) {
+    changeByExact[mi.name] = mi.change;
+  }
+
+  // Alias: subScores name -> momentum name (where they differ)
+  const MOMENTUM_ALIAS = {
+    'Globale Temperaturanomalie': null,        // no momentum counterpart
+    'Luftqualität (Global Avg AQI)': null,     // no momentum counterpart
+    'Arktis-Eisfläche': null,                  // no momentum counterpart
+    'Trinkwasserzugang': 'Trinkwasser',
+    'Aktive Konflikte': null,                  // no momentum counterpart
+    'Menschen auf der Flucht': null,           // no momentum counterpart
+    'Politische Freiheit': null,               // no momentum counterpart
+    'Gini-Index': null,                        // no momentum counterpart
+    'Extreme Armut': null,                     // no momentum counterpart
+    'Internet-Durchdringung': 'Internet-Zugang',
+    'F&E Ausgaben (% BIP)': 'F&E Ausgaben',
+    'Mobilfunkverträge': 'Mobilfunk',
+    'GitHub Repositories': null,               // no momentum counterpart
+    'Wissenschaftliche Papers': null,          // no momentum counterpart
+  };
+
+  function _lookupChange(indicatorName) {
+    // Direct match first
+    if (changeByExact[indicatorName] !== undefined) return changeByExact[indicatorName];
+    // Alias match
+    const alias = MOMENTUM_ALIAS[indicatorName];
+    if (alias && changeByExact[alias] !== undefined) return changeByExact[alias];
+    return null;
+  }
+
   // 3. CRITICAL: Aggregate indicators from 4 named categories (NOT momentum.indicators which is empty)
   const allIndicators = [];
   for (const catKey of ['environment', 'society', 'economy', 'progress']) {
     const catData = subScores[catKey];
     if (catData && Array.isArray(catData.indicators)) {
       for (const ind of catData.indicators) {
-        allIndicators.push({ ...ind, category: catKey });
+        // Cross-reference % change from momentum.indicators
+        const change = _lookupChange(ind.name);
+        allIndicators.push({ ...ind, category: catKey, change });
       }
     }
   }
@@ -255,6 +327,9 @@ function _buildMiniCard(indicator) {
   const catConfig = CATEGORIES[indicator.category] || { color: '#888', key: '' };
   const assessment = _assessIndicator(indicator.score || 0, indicator.trend || 'stable');
 
+  // Topic link lookup
+  const topicId = INDICATOR_TOPIC_MAP[indicator.name] || null;
+
   // Trend arrow
   let trendArrow, trendColor;
   if (indicator.trend === 'improving') {
@@ -286,6 +361,21 @@ function _buildMiniCard(indicator) {
     },
   });
 
+  // % change element (cross-referenced from momentum.indicators)
+  const changeEl = indicator.change
+    ? DOMUtils.create('span', {
+        textContent: indicator.change,
+        style: {
+          fontSize: '0.7rem',
+          fontWeight: '600',
+          color: indicator.change.startsWith('-')
+            ? (indicator.trend === 'improving' ? '#34c759' : '#ff3b30')
+            : (indicator.trend === 'declining' ? '#ff3b30' : '#34c759'),
+          marginLeft: '4px',
+        },
+      })
+    : null;
+
   // SVG sparkline
   const sparkline = _createSparkline(indicator.trend || 'stable', catConfig.color);
 
@@ -303,18 +393,51 @@ function _buildMiniCard(indicator) {
     },
   });
 
-  return DOMUtils.create('div', {
+  // Row 2 children: value, change (if available), score badge
+  const row2Children = [
+    DOMUtils.create('span', {
+      textContent: String(indicator.value || '--'),
+      style: { color: 'var(--text-secondary)', fontSize: '0.8rem', flex: '1' },
+    }),
+  ];
+  if (changeEl) row2Children.push(changeEl);
+  row2Children.push(scoreBadge);
+
+  // Row 1 right side: link icon (if clickable) + trend arrow
+  const row1Right = [];
+  if (topicId) {
+    row1Right.push(DOMUtils.create('span', {
+      textContent: '\u2197', // north-east arrow
+      style: {
+        fontSize: '0.7rem',
+        color: 'var(--text-secondary)',
+        opacity: '0.5',
+        marginLeft: '4px',
+      },
+    }));
+  }
+  row1Right.push(DOMUtils.create('span', {
+    textContent: trendArrow,
+    style: { color: trendColor, fontSize: '0.85rem', marginLeft: '8px' },
+  }));
+
+  const defaultBg = 'rgba(255, 255, 255, 0.04)';
+  const hoverBg = 'rgba(255, 255, 255, 0.08)';
+
+  const card = DOMUtils.create('div', {
     style: {
       padding: '12px',
-      background: 'rgba(255, 255, 255, 0.04)',
+      background: defaultBg,
       borderRadius: '8px',
       borderLeft: `3px solid ${catConfig.color}`,
       display: 'flex',
       flexDirection: 'column',
       gap: '6px',
+      cursor: topicId ? 'pointer' : 'default',
+      transition: 'background 0.15s ease',
     },
   }, [
-    // Row 1: Name + trend arrow
+    // Row 1: Name + link icon + trend arrow
     DOMUtils.create('div', {
       style: {
         display: 'flex',
@@ -326,25 +449,16 @@ function _buildMiniCard(indicator) {
         textContent: indicator.name,
         style: { color: 'var(--text-primary)', fontWeight: '600', fontSize: '0.85rem', flex: '1' },
       }),
-      DOMUtils.create('span', {
-        textContent: trendArrow,
-        style: { color: trendColor, fontSize: '0.85rem', marginLeft: '8px' },
-      }),
+      ...row1Right,
     ]),
-    // Row 2: Value + score badge
+    // Row 2: Value + % change + score badge
     DOMUtils.create('div', {
       style: {
         display: 'flex',
         alignItems: 'center',
         gap: '8px',
       },
-    }, [
-      DOMUtils.create('span', {
-        textContent: String(indicator.value || '--'),
-        style: { color: 'var(--text-secondary)', fontSize: '0.8rem', flex: '1' },
-      }),
-      scoreBadge,
-    ]),
+    }, row2Children),
     // Row 3: Sparkline + assessment
     DOMUtils.create('div', {
       style: {
@@ -358,6 +472,21 @@ function _buildMiniCard(indicator) {
       assessBadge,
     ]),
   ]);
+
+  // Click-to-topic navigation for clickable cards
+  if (topicId) {
+    card.addEventListener('click', () => {
+      window.location.href = _basePath() + 'detail/?topic=' + topicId;
+    });
+    card.addEventListener('mouseenter', () => {
+      card.style.background = hoverBg;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.background = defaultBg;
+    });
+  }
+
+  return card;
 }
 
 // --- Trend Block (Summary Stacked Bar) ---------------------------------
