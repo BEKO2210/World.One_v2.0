@@ -43,9 +43,9 @@ Requirements for initial release. Each maps to roadmap phases.
 ### GitHub Actions
 
 - [ ] **ACTIONS-01**: Extended workflow with staggered cron jobs (30min gaps) for new cache files
-- [ ] **ACTIONS-02**: Job: update-biodiversity (03:00 UTC) -> data/cache/biodiversity.json
-- [ ] **ACTIONS-03**: Job: update-environment-ext (03:30 UTC) -> co2-history.json, ocean.json, solar.json
-- [ ] **ACTIONS-04**: Job: update-society-ext (04:00 UTC) -> population.json, freedom.json, conflicts.json
+- [x] **ACTIONS-02**: Job: update-biodiversity (03:00 UTC) -> data/cache/biodiversity.json
+- [x] **ACTIONS-03**: Job: update-environment-ext (03:30 UTC) -> co2-history.json, ocean.json, solar.json
+- [x] **ACTIONS-04**: Job: update-society-ext (04:00 UTC) -> population.json, freedom.json, conflicts.json
 - [ ] **ACTIONS-05**: Job: update-economy-ext (04:30 UTC) -> currencies.json, inequality.json, poverty.json
 - [ ] **ACTIONS-06**: Job: update-progress-ext (05:00 UTC) -> arxiv-ai.json, space-news.json
 - [ ] **ACTIONS-07**: Job: update-disasters (05:30 UTC) -> disasters.json, hunger.json
@@ -161,9 +161,9 @@ Deferred to future release. Tracked but not in current roadmap.
 | DETAIL-11 | Phase 2 | Complete |
 | DETAIL-12 | Phase 2 | Complete |
 | ACTIONS-01 | Phase 3 | Pending |
-| ACTIONS-02 | Phase 3 | Pending |
-| ACTIONS-03 | Phase 3 | Pending |
-| ACTIONS-04 | Phase 3 | Pending |
+| ACTIONS-02 | Phase 3 | Complete |
+| ACTIONS-03 | Phase 3 | Complete |
+| ACTIONS-04 | Phase 3 | Complete |
 | ACTIONS-05 | Phase 3 | Pending |
 | ACTIONS-06 | Phase 3 | Pending |
 | ACTIONS-07 | Phase 3 | Pending |

@@ -198,7 +198,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 |-------|----------------|--------|-----------|
 | 1. Data Layer & Utilities | 0/3 | Not started | - |
 | 2. Detail Page Shell | 2/2 | Complete   | 2026-03-21 |
-| 3. GitHub Actions Pipeline | 0/3 | Not started | - |
+| 3. GitHub Actions Pipeline | 1/3 | In Progress | - |
 | 4. First Topics (CO2, Temp, Quakes, Pop, Conflicts) | 0/3 | Not started | - |
 | 5. Environment & Forests Topics | 0/3 | Not started | - |
 | 6. Society & Economy Core | 0/3 | Not started | - |
