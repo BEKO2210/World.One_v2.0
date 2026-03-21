@@ -19,18 +19,18 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Detail Page System
 
-- [ ] **DETAIL-01**: Single detail/index.html with URL parameter routing (?topic=co2)
+- [x] **DETAIL-01**: Single detail/index.html with URL parameter routing (?topic=co2)
 - [ ] **DETAIL-02**: Dynamic topic module loader via import() from detail/topics/{topic}.js
 - [ ] **DETAIL-03**: Topic module interface contract: { meta, render(), getChartConfigs(), cleanup() }
-- [ ] **DETAIL-04**: Base layout with 7 blocks: hero banner, primary chart, historical trend, context tiles, explanation, comparison, sources footer
+- [x] **DETAIL-04**: Base layout with 7 blocks: hero banner, primary chart, historical trend, context tiles, explanation, comparison, sources footer
 - [ ] **DETAIL-05**: Back navigation (fixed top-left), Back-to-Top button, breadcrumb trail
 - [ ] **DETAIL-06**: Web Share API integration with fallback to clipboard copy
-- [ ] **DETAIL-07**: Print-optimized CSS (@media print: white bg, black text, no animations)
-- [ ] **DETAIL-08**: Lazy-load charts via IntersectionObserver with CSS skeleton loaders
+- [x] **DETAIL-07**: Print-optimized CSS (@media print: white bg, black text, no animations)
+- [x] **DETAIL-08**: Lazy-load charts via IntersectionObserver with CSS skeleton loaders
 - [ ] **DETAIL-09**: Error states with graceful degradation (never show blank space)
-- [ ] **DETAIL-10**: Full DE/EN i18n support using existing i18n.js system
+- [x] **DETAIL-10**: Full DE/EN i18n support using existing i18n.js system
 - [ ] **DETAIL-11**: Time range selector (1Y / 5Y / 20Y / Max) for historical trend charts
-- [ ] **DETAIL-12**: Consistent design language matching main page (glass-morphism, CSS variables, BEM)
+- [x] **DETAIL-12**: Consistent design language matching main page (glass-morphism, CSS variables, BEM)
 
 ### Main Page Extensions
 
@@ -148,18 +148,18 @@ Deferred to future release. Tracked but not in current roadmap.
 | INFRA-05 | Phase 1 | Complete |
 | INFRA-06 | Phase 5 | Pending |
 | INFRA-07 | Phase 3 | Pending |
-| DETAIL-01 | Phase 2 | Pending |
+| DETAIL-01 | Phase 2 | Complete |
 | DETAIL-02 | Phase 2 | Pending |
 | DETAIL-03 | Phase 2 | Pending |
-| DETAIL-04 | Phase 2 | Pending |
+| DETAIL-04 | Phase 2 | Complete |
 | DETAIL-05 | Phase 2 | Pending |
 | DETAIL-06 | Phase 2 | Pending |
-| DETAIL-07 | Phase 2 | Pending |
-| DETAIL-08 | Phase 2 | Pending |
+| DETAIL-07 | Phase 2 | Complete |
+| DETAIL-08 | Phase 2 | Complete |
 | DETAIL-09 | Phase 2 | Pending |
-| DETAIL-10 | Phase 2 | Pending |
+| DETAIL-10 | Phase 2 | Complete |
 | DETAIL-11 | Phase 2 | Pending |
-| DETAIL-12 | Phase 2 | Pending |
+| DETAIL-12 | Phase 2 | Complete |
 | ACTIONS-01 | Phase 3 | Pending |
 | ACTIONS-02 | Phase 3 | Pending |
 | ACTIONS-03 | Phase 3 | Pending |
