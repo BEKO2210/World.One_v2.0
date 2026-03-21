@@ -135,12 +135,12 @@ Plans:
   3. User visits detail/?topic=internet and sees internet users %, real-time calculated counters (emails/YouTube/Google sent today), and digital divide SVG choropleth
   4. User visits detail/?topic=space and sees ISS position live on SVG map (10s refresh, orbit trail), crew list, spaceflight news feed, and satellite count visualization
   5. User visits detail/?topic=weather and sees 24 cities across all continents with hourly sparklines and extreme weather warnings (color-coded by severity)
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 07-01: TBD
-- [ ] 07-02: TBD
-- [ ] 07-03: TBD
+- [ ] 07-01-PLAN.md -- Phase 7 i18n keys + static fallbacks, and currencies topic module (converter, 12-month charts, hyperinflation)
+- [ ] 07-02-PLAN.md -- Science topic module (growth curve, fields bar, Nobel bubble) and internet topic module (real-time counters, digital divide choropleth)
+- [ ] 07-03-PLAN.md -- Space topic module (ISS live tracker, crew, news feed) and weather topic module (24 cities, SVG sparklines, warnings)
 
 ### Phase 8: Remaining Topics
 **Goal**: All 28 topic pages are complete -- solar activity, crypto sentiment, world momentum dashboard, hunger, and disasters fill the final gaps
