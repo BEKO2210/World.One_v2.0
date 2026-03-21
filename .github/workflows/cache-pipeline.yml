@@ -1,0 +1,314 @@
+# ═══════════════════════════════════════════════════════════
+# Cache Pipeline — Detail Page Data
+# Staggered cron jobs for per-topic cache file updates
+# Each job runs independently with its own checkout/setup
+# ═══════════════════════════════════════════════════════════
+
+name: Cache Pipeline — Detail Page Data
+
+on:
+  schedule:
+    - cron: '0 3 * * *'     # 03:00 UTC - biodiversity
+    - cron: '30 3 * * *'    # 03:30 UTC - environment-ext
+    - cron: '0 4 * * *'     # 04:00 UTC - society-ext
+    - cron: '30 4 * * *'    # 04:30 UTC - economy-ext
+    - cron: '0 5 * * *'     # 05:00 UTC - progress-ext
+    - cron: '30 5 * * *'    # 05:30 UTC - disasters
+  workflow_dispatch:
+    inputs:
+      job_group:
+        description: 'Which cache group to update (or "all")'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - biodiversity
+          - environment-ext
+          - society-ext
+          - economy-ext
+          - progress-ext
+          - disasters
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cache-pipeline-${{ github.event.schedule || 'manual' }}
+  cancel-in-progress: false   # Never cancel a running cache job
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  # ═══════════════════════════════════════════════════════════
+  # BIODIVERSITY — 03:00 UTC
+  # GBIF threatened species counts
+  # ═══════════════════════════════════════════════════════════
+  update-biodiversity:
+    if: >-
+      github.event.schedule == '0 3 * * *' ||
+      (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_group == 'all' || github.event.inputs.job_group == 'biodiversity'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Run cache script
+        run: node scripts/cache-biodiversity.js
+
+      - name: Update meta.json
+        if: always()
+        run: node scripts/generate-meta.js --job biodiversity --status ${{ job.status }}
+
+      - name: Commit and push cache files
+        if: always()
+        run: |
+          git config user.name "World.One Pipeline"
+          git config user.email "pipeline@world.one"
+          git add data/cache/*.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(cache): update biodiversity cache $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push || {
+              git pull --rebase origin $(git branch --show-current) && git push
+            }
+          fi
+
+  # ═══════════════════════════════════════════════════════════
+  # ENVIRONMENT-EXT — 03:30 UTC
+  # CO2 history, ocean SST, solar cycle
+  # ═══════════════════════════════════════════════════════════
+  update-environment-ext:
+    if: >-
+      github.event.schedule == '30 3 * * *' ||
+      (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_group == 'all' || github.event.inputs.job_group == 'environment-ext'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Run cache script
+        run: node scripts/cache-environment-ext.js
+
+      - name: Update meta.json
+        if: always()
+        run: node scripts/generate-meta.js --job environment-ext --status ${{ job.status }}
+
+      - name: Commit and push cache files
+        if: always()
+        run: |
+          git config user.name "World.One Pipeline"
+          git config user.email "pipeline@world.one"
+          git add data/cache/*.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(cache): update environment-ext cache $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push || {
+              git pull --rebase origin $(git branch --show-current) && git push
+            }
+          fi
+
+  # ═══════════════════════════════════════════════════════════
+  # SOCIETY-EXT — 04:00 UTC
+  # Population, freedom index, conflicts
+  # ═══════════════════════════════════════════════════════════
+  update-society-ext:
+    if: >-
+      github.event.schedule == '0 4 * * *' ||
+      (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_group == 'all' || github.event.inputs.job_group == 'society-ext'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Run cache script
+        env:
+          UCDP_API_TOKEN: ${{ secrets.UCDP_API_TOKEN }}
+        run: node scripts/cache-society-ext.js
+
+      - name: Update meta.json
+        if: always()
+        run: node scripts/generate-meta.js --job society-ext --status ${{ job.status }}
+
+      - name: Commit and push cache files
+        if: always()
+        run: |
+          git config user.name "World.One Pipeline"
+          git config user.email "pipeline@world.one"
+          git add data/cache/*.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(cache): update society-ext cache $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push || {
+              git pull --rebase origin $(git branch --show-current) && git push
+            }
+          fi
+
+  # ═══════════════════════════════════════════════════════════
+  # ECONOMY-EXT — 04:30 UTC
+  # Currencies, inequality, poverty
+  # ═══════════════════════════════════════════════════════════
+  update-economy-ext:
+    if: >-
+      github.event.schedule == '30 4 * * *' ||
+      (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_group == 'all' || github.event.inputs.job_group == 'economy-ext'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Run cache script
+        run: node scripts/cache-economy-ext.js
+
+      - name: Update meta.json
+        if: always()
+        run: node scripts/generate-meta.js --job economy-ext --status ${{ job.status }}
+
+      - name: Commit and push cache files
+        if: always()
+        run: |
+          git config user.name "World.One Pipeline"
+          git config user.email "pipeline@world.one"
+          git add data/cache/*.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(cache): update economy-ext cache $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push || {
+              git pull --rebase origin $(git branch --show-current) && git push
+            }
+          fi
+
+  # ═══════════════════════════════════════════════════════════
+  # PROGRESS-EXT — 05:00 UTC
+  # arXiv AI papers, spaceflight news
+  # ═══════════════════════════════════════════════════════════
+  update-progress-ext:
+    if: >-
+      github.event.schedule == '0 5 * * *' ||
+      (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_group == 'all' || github.event.inputs.job_group == 'progress-ext'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Run cache script
+        run: node scripts/cache-progress-ext.js
+
+      - name: Update meta.json
+        if: always()
+        run: node scripts/generate-meta.js --job progress-ext --status ${{ job.status }}
+
+      - name: Commit and push cache files
+        if: always()
+        run: |
+          git config user.name "World.One Pipeline"
+          git config user.email "pipeline@world.one"
+          git add data/cache/*.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(cache): update progress-ext cache $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push || {
+              git pull --rebase origin $(git branch --show-current) && git push
+            }
+          fi
+
+  # ═══════════════════════════════════════════════════════════
+  # DISASTERS — 05:30 UTC
+  # Disaster events, hunger/undernourishment
+  # ═══════════════════════════════════════════════════════════
+  update-disasters:
+    if: >-
+      github.event.schedule == '30 5 * * *' ||
+      (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_group == 'all' || github.event.inputs.job_group == 'disasters'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Run cache script
+        run: node scripts/cache-disasters.js
+
+      - name: Update meta.json
+        if: always()
+        run: node scripts/generate-meta.js --job disasters --status ${{ job.status }}
+
+      - name: Commit and push cache files
+        if: always()
+        run: |
+          git config user.name "World.One Pipeline"
+          git config user.email "pipeline@world.one"
+          git add data/cache/*.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(cache): update disasters cache $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push || {
+              git pull --rebase origin $(git branch --show-current) && git push
+            }
+          fi
