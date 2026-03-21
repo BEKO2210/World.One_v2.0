@@ -21,7 +21,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 7: Economy, Progress & Weather** - Currencies, science, internet, space, weather -- mixed-domain topics with live data and interactive elements
 - [ ] **Phase 8: Remaining Topics** - Solar, crypto sentiment, momentum dashboard, hunger, disasters -- complete all 28 topic pages (gap closure in progress)
 - [x] **Phase 9: Main Page Clickable Data Points** - All existing tiles/charts become clickable links to detail pages with hover states and tooltips (completed 2026-03-21)
-- [x] **Phase 10: New Acts & Biodiversity/Ocean Topics** - Acts 12+13 as new main page scroll sections, plus their dedicated detail topic pages (completed 2026-03-21)
+- [ ] **Phase 10: New Acts & Biodiversity/Ocean Topics** - Acts 12+13 as new main page scroll sections, plus their dedicated detail topic pages (gap closure in progress)
 
 ## Phase Details
 
@@ -184,12 +184,13 @@ Plans:
   3. Tiles in Acts 12 and 13 are clickable and navigate to their respective detail pages (extinction, endangered, ocean_temp, ocean_ph, ocean_plastic)
   4. User visits detail/?topic=ocean_temp and sees SST anomaly, SVG heatmap choropleth, and coral bleaching threshold explainer
   5. User visits detail/?topic=ocean_plastic and sees ocean plastic estimate, animated daily counter, 5 garbage patches SVG map, and decomposition time animation (bottle: 450 years)
-**Plans**: 3 plans
+**Plans**: 4 plans
 
 Plans:
 - [x] 10-01-PLAN.md -- Main page Acts 12+13 HTML sections, all 7 registration points (scroll engine, nav dots, particle colors, cinematic, detail links), Phase 10 i18n keys + static fallbacks (completed 2026-03-21)
-- [ ] 10-02-PLAN.md -- Ocean topic modules: ocean_temp (SST timeline, choropleth, coral explainer), ocean_ph (pH trend, scale, acidification), ocean_plastic (daily counter, garbage patches SVG, decomposition)
-- [ ] 10-03-PLAN.md -- Biodiversity topic modules: extinction (Big Five timeline, current rate comparison, taxonomic groups) and endangered (IUCN category doughnut, species examples)
+- [x] 10-02-PLAN.md -- Ocean topic modules: ocean_temp (SST timeline, choropleth, coral explainer), ocean_ph (pH trend, scale, acidification), ocean_plastic (daily counter, garbage patches SVG, decomposition) (completed 2026-03-21)
+- [x] 10-03-PLAN.md -- Biodiversity topic modules: extinction (Big Five timeline, current rate comparison, taxonomic groups) and endangered (IUCN category doughnut, species examples) (completed 2026-03-21)
+- [ ] 10-04-PLAN.md -- Gap closure: Fix register-before-init observer bug preventing cinematic backgrounds, curate high-quality images for Acts 12+13
 
 ## Progress
 
@@ -207,4 +208,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 7. Economy, Progress & Weather | 1/3 | In Progress|  |
 | 8. Remaining Topics | 3/4 | Gap closure | - |
 | 9. Main Page Clickable Data Points | 2/2 | Complete | 2026-03-21 |
-| 10. New Acts & Bio/Ocean Topics | 3/3 | Complete    | 2026-03-21 |
+| 10. New Acts & Bio/Ocean Topics | 3/4 | Gap closure | - |
