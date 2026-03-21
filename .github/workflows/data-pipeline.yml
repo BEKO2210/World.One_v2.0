@@ -1,0 +1,312 @@
+name: BELKIS ONE — Data Pipeline
+
+on:
+  schedule:
+    # Every 6 hours: 00:00, 06:00, 12:00, 18:00 UTC
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      force_refresh:
+        description: 'Force refresh all data sources'
+        required: false
+        default: 'false'
+        type: boolean
+      skip_deploy:
+        description: 'Skip GitHub Pages deployment'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+  issues: write
+
+concurrency:
+  group: data-pipeline
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '20'
+  DATA_DIR: data
+  PROCESSED_DIR: data/processed
+
+jobs:
+  # ═══════════════════════════════════════════════════════════
+  # COLLECT — Fetch data from 40+ free sources
+  # ═══════════════════════════════════════════════════════════
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      success_count: ${{ steps.collect.outputs.success_count }}
+      failed_count: ${{ steps.collect.outputs.failed_count }}
+      success_rate: ${{ steps.collect.outputs.success_rate }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Create data directories
+        run: |
+          mkdir -p data/raw/{environment,society,economy,tech,realtime}
+          mkdir -p data/processed
+
+      - name: Run data collection engine
+        id: collect
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FORCE_REFRESH: ${{ github.event.inputs.force_refresh || 'false' }}
+        run: |
+          echo "::group::Data Collection"
+          node scripts/collect-data.js 2>&1 | tee collect-output.log
+          EXIT_CODE=${PIPESTATUS[0]}
+          echo "::endgroup::"
+
+          # Parse manifest for outputs
+          if [ -f "data/raw/collection-manifest.json" ]; then
+            SUCCESS=$(node -e "const m=JSON.parse(require('fs').readFileSync('data/raw/collection-manifest.json','utf8')); console.log(m.success?.length||0)")
+            FAILED=$(node -e "const m=JSON.parse(require('fs').readFileSync('data/raw/collection-manifest.json','utf8')); console.log(m.failed?.length||0)")
+            RATE=$(node -e "const m=JSON.parse(require('fs').readFileSync('data/raw/collection-manifest.json','utf8')); console.log(m.successRate||0)")
+            echo "success_count=$SUCCESS" >> $GITHUB_OUTPUT
+            echo "failed_count=$FAILED" >> $GITHUB_OUTPUT
+            echo "success_rate=$RATE" >> $GITHUB_OUTPUT
+            echo "### Data Collection Results" >> $GITHUB_STEP_SUMMARY
+            echo "- **Sources fetched:** $SUCCESS" >> $GITHUB_STEP_SUMMARY
+            echo "- **Sources failed:** $FAILED" >> $GITHUB_STEP_SUMMARY
+            echo "- **Success rate:** ${RATE}%" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "success_count=0" >> $GITHUB_OUTPUT
+            echo "failed_count=0" >> $GITHUB_OUTPUT
+            echo "success_rate=0" >> $GITHUB_OUTPUT
+          fi
+
+          exit $EXIT_CODE
+
+      - name: Upload raw data
+        uses: actions/upload-artifact@v4
+        with:
+          name: raw-data
+          path: data/raw/
+          retention-days: 3
+
+  # ═══════════════════════════════════════════════════════════
+  # PROCESS — Transform raw data → world-state.json
+  # ═══════════════════════════════════════════════════════════
+  process:
+    needs: collect
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Download raw data
+        uses: actions/download-artifact@v4
+        with:
+          name: raw-data
+          path: data/raw/
+
+      - name: List collected data
+        run: |
+          echo "::group::Raw data files"
+          find data/raw -type f -name "*.json" | sort
+          echo "::endgroup::"
+          echo "Total files: $(find data/raw -type f -name '*.json' | wc -l)"
+
+      - name: Run data processing engine
+        run: |
+          echo "::group::Data Processing"
+          node scripts/process-data.js 2>&1 | tee process-output.log
+          echo "::endgroup::"
+
+      - name: Validate world-state.json
+        run: |
+          if [ ! -f "data/processed/world-state.json" ]; then
+            echo "::error::world-state.json was not generated!"
+            exit 1
+          fi
+          # Validate JSON
+          node -e "
+            const data = JSON.parse(require('fs').readFileSync('data/processed/world-state.json', 'utf8'));
+            const checks = [
+              ['worldIndex', !!data.worldIndex?.value],
+              ['subScores', !!data.subScores?.environment],
+              ['environment', !!data.environment?.co2],
+              ['society', !!data.society?.conflicts],
+              ['economy', !!data.economy?.gdpGrowth],
+              ['progress', !!data.progress?.internet],
+              ['realtime', !!data.realtime?.lastUpdated],
+              ['momentum', !!data.momentum?.indicators],
+              ['meta', !!data.meta?.generated]
+            ];
+            let passed = 0;
+            for (const [name, ok] of checks) {
+              console.log(ok ? '  ✓' : '  ✗', name);
+              if (ok) passed++;
+            }
+            console.log('\nValidation:', passed + '/' + checks.length, 'passed');
+            if (passed < 7) { console.error('Too many validation failures!'); process.exit(1); }
+          "
+
+          SIZE=$(wc -c < data/processed/world-state.json)
+          echo "### Processing Results" >> $GITHUB_STEP_SUMMARY
+          echo "- **World Index:** $(node -e "console.log(JSON.parse(require('fs').readFileSync('data/processed/world-state.json','utf8')).worldIndex.value)")" >> $GITHUB_STEP_SUMMARY
+          echo "- **File size:** $((SIZE / 1024)) KB" >> $GITHUB_STEP_SUMMARY
+          echo "- **Sources available:** ${{ needs.collect.outputs.success_count }}" >> $GITHUB_STEP_SUMMARY
+
+      - name: Self-heal data integrity
+        run: |
+          echo "::group::Self-Healing"
+          node scripts/self-heal.js 2>&1
+          HEAL_EXIT=$?
+          echo "::endgroup::"
+          if [ $HEAL_EXIT -eq 1 ]; then
+            echo "::warning::Self-heal applied many fixes — data may be degraded"
+          fi
+
+      - name: Generate README from live data
+        run: |
+          echo "::group::README Generation"
+          node scripts/generate-readme.js 2>&1
+          echo "::endgroup::"
+
+      - name: Commit updated data + README
+        run: |
+          git config user.name "World.One Pipeline"
+          git config user.email "pipeline@world.one"
+          git add data/processed/world-state.json data/processed/world-state.backup.json data/processed/heal-log.json data/history/ README.md
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            WORLD_INDEX=$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/processed/world-state.json','utf8')).worldIndex.value)")
+            SOURCES="${{ needs.collect.outputs.success_count }}/$((  ${{ needs.collect.outputs.success_count }} + ${{ needs.collect.outputs.failed_count }} ))"
+            git commit -m "chore: update world-state + README — Index ${WORLD_INDEX} [${SOURCES} sources] $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push || {
+              echo "Push failed, attempting pull and retry..."
+              git pull --rebase origin $(git branch --show-current) && git push
+            }
+          fi
+
+  # ═══════════════════════════════════════════════════════════
+  # ALERT — Create issue if too many sources fail
+  # ═══════════════════════════════════════════════════════════
+  alert:
+    needs: collect
+    runs-on: ubuntu-latest
+    if: needs.collect.outputs.success_rate != '' && needs.collect.outputs.success_rate < 50
+    steps:
+      - name: Create alert issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const success = '${{ needs.collect.outputs.success_count }}';
+            const failed = '${{ needs.collect.outputs.failed_count }}';
+            const rate = '${{ needs.collect.outputs.success_rate }}';
+            const total = parseInt(success) + parseInt(failed);
+
+            // Check for existing open alert
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: 'alert,data-pipeline',
+              state: 'open'
+            });
+
+            if (existing.data.length > 0) {
+              // Comment on existing issue
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.data[0].number,
+                body: `**Update ${new Date().toISOString()}:** Still degraded — ${success}/${total} sources (${rate}%)\n\n[Workflow run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId})`
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `⚠️ Data Pipeline Alert: ${success}/${total} sources available (${rate}%)`,
+                body: `## Data Pipeline Degraded\n\nMore than 50% of data sources failed to fetch.\n\n| Metric | Value |\n|--------|-------|\n| Total sources | ${total} |\n| Successful | ${success} |\n| Failed | ${failed} |\n| Success rate | ${rate}% |\n\n**Action required:** Check the [workflow run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}) for details.\n\nThis issue will auto-close when the success rate returns above 50%.`,
+                labels: ['alert', 'data-pipeline']
+              });
+            }
+
+  # ═══════════════════════════════════════════════════════════
+  # AUTO-CLOSE — Close alert if sources recover
+  # ═══════════════════════════════════════════════════════════
+  auto-close-alerts:
+    needs: collect
+    runs-on: ubuntu-latest
+    if: needs.collect.outputs.success_rate != '' && needs.collect.outputs.success_rate >= 80
+    steps:
+      - name: Close resolved alerts
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: 'alert,data-pipeline',
+              state: 'open'
+            });
+            for (const issue of issues.data) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                body: `✅ **Resolved** — Success rate back to ${{ needs.collect.outputs.success_rate }}% (${{ needs.collect.outputs.success_count }} sources)`
+              });
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issue.number,
+                state: 'closed'
+              });
+            }
+
+  # ═══════════════════════════════════════════════════════════
+  # DEPLOY — GitHub Pages
+  # ═══════════════════════════════════════════════════════════
+  deploy:
+    needs: process
+    if: github.event.inputs.skip_deploy != 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Pull latest data
+        run: git pull origin ${{ github.ref_name }} || true
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
