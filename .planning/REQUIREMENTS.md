@@ -15,7 +15,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **INFRA-04**: Chart.js 4.x loaded via CDN (jsDelivr primary, cdnjs fallback) with defer and global dark-theme defaults
 - [x] **INFRA-05**: Chart instance registry with mandatory destroy() lifecycle to prevent canvas memory leaks
 - [ ] **INFRA-06**: Reusable SVG choropleth component extending existing maps.js for detail page use
-- [ ] **INFRA-07**: Service worker updated with versioned cache name and data/cache/ route handling
+- [x] **INFRA-07**: Service worker updated with versioned cache name and data/cache/ route handling
 
 ### Detail Page System
 
@@ -42,15 +42,15 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### GitHub Actions
 
-- [ ] **ACTIONS-01**: Extended workflow with staggered cron jobs (30min gaps) for new cache files
+- [x] **ACTIONS-01**: Extended workflow with staggered cron jobs (30min gaps) for new cache files
 - [x] **ACTIONS-02**: Job: update-biodiversity (03:00 UTC) -> data/cache/biodiversity.json
 - [x] **ACTIONS-03**: Job: update-environment-ext (03:30 UTC) -> co2-history.json, ocean.json, solar.json
 - [x] **ACTIONS-04**: Job: update-society-ext (04:00 UTC) -> population.json, freedom.json, conflicts.json
 - [x] **ACTIONS-05**: Job: update-economy-ext (04:30 UTC) -> currencies.json, inequality.json, poverty.json
 - [x] **ACTIONS-06**: Job: update-progress-ext (05:00 UTC) -> arxiv-ai.json, space-news.json
 - [x] **ACTIONS-07**: Job: update-disasters (05:30 UTC) -> disasters.json, hunger.json
-- [ ] **ACTIONS-08**: All jobs: timeout 10min, continue-on-error: true, never block deployment
-- [ ] **ACTIONS-09**: data/cache/meta.json with last_full_update, jobs_ok, jobs_failed, total_cache_files, total_data_points
+- [x] **ACTIONS-08**: All jobs: timeout 10min, continue-on-error: true, never block deployment
+- [x] **ACTIONS-09**: data/cache/meta.json with last_full_update, jobs_ok, jobs_failed, total_cache_files, total_data_points
 
 ### Environment Topics (Akt 02)
 
@@ -147,7 +147,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | INFRA-04 | Phase 1 | Complete |
 | INFRA-05 | Phase 1 | Complete |
 | INFRA-06 | Phase 5 | Pending |
-| INFRA-07 | Phase 3 | Pending |
+| INFRA-07 | Phase 3 | Complete |
 | DETAIL-01 | Phase 2 | Complete |
 | DETAIL-02 | Phase 2 | Complete |
 | DETAIL-03 | Phase 2 | Complete |
@@ -160,15 +160,15 @@ Deferred to future release. Tracked but not in current roadmap.
 | DETAIL-10 | Phase 2 | Complete |
 | DETAIL-11 | Phase 2 | Complete |
 | DETAIL-12 | Phase 2 | Complete |
-| ACTIONS-01 | Phase 3 | Pending |
+| ACTIONS-01 | Phase 3 | Complete |
 | ACTIONS-02 | Phase 3 | Complete |
 | ACTIONS-03 | Phase 3 | Complete |
 | ACTIONS-04 | Phase 3 | Complete |
 | ACTIONS-05 | Phase 3 | Complete |
 | ACTIONS-06 | Phase 3 | Complete |
 | ACTIONS-07 | Phase 3 | Complete |
-| ACTIONS-08 | Phase 3 | Pending |
-| ACTIONS-09 | Phase 3 | Pending |
+| ACTIONS-08 | Phase 3 | Complete |
+| ACTIONS-09 | Phase 3 | Complete |
 | ENV-01 | Phase 4 | Pending |
 | ENV-02 | Phase 4 | Pending |
 | ENV-03 | Phase 5 | Pending |
