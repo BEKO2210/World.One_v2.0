@@ -52,12 +52,11 @@ Plans:
   3. The page renders all 7 layout blocks (hero, primary chart, trend, tiles, explanation, comparison, sources) in the correct order
   4. User can navigate back (fixed top-left button), scroll to top, share via Web Share API (or clipboard fallback), and print a clean light-background version
   5. Switching language (?lang=de/en) translates all UI chrome and the time range selector (1Y/5Y/20Y/Max) updates chart data ranges
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 02-01: TBD
-- [ ] 02-02: TBD
-- [ ] 02-03: TBD
+- [ ] 02-01-PLAN.md -- HTML shell with 7 layout blocks, CSS styles (layout, skeleton, print, nav), and i18n translation keys
+- [ ] 02-02-PLAN.md -- Application logic: URL routing, dynamic module loader, error states, nav controls, share, time range, stub topic module
 
 ### Phase 3: GitHub Actions Pipeline
 **Goal**: Every detail page topic has fresh cached data updated automatically via staggered GitHub Actions jobs, with pipeline health visible in meta.json
@@ -198,7 +197,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Data Layer & Utilities | 0/3 | Not started | - |
-| 2. Detail Page Shell | 0/3 | Not started | - |
+| 2. Detail Page Shell | 0/2 | Not started | - |
 | 3. GitHub Actions Pipeline | 0/3 | Not started | - |
 | 4. First Topics (CO2, Temp, Quakes, Pop, Conflicts) | 0/3 | Not started | - |
 | 5. Environment & Forests Topics | 0/3 | Not started | - |
