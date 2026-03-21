@@ -168,11 +168,11 @@ Plans:
   1. Clicking any data tile, counter, or chart section on the main page navigates to the corresponding detail page (detail/?topic={id})
   2. Hovering over a clickable element shows +10% brightness, border glow, pointer cursor, and a tooltip reading "Klicken fur Details" (DE) / "Click for details" (EN)
   3. All existing main page behavior remains identical -- no visual changes, no performance regression, no broken scroll-driven animations
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 09-01: TBD
-- [ ] 09-02: TBD
+- [ ] 09-01-PLAN.md -- CSS .detail-link hover styles, i18n tooltip key, and _initDetailLinks() for static elements (Acts 1-6)
+- [ ] 09-02-PLAN.md -- Dynamic element wiring (momentum items, comparison grid), tooltip refresh on language toggle, and full verification checkpoint
 
 ### Phase 10: New Acts & Biodiversity/Ocean Topics
 **Goal**: The main page gains two new scroll-driven acts (Biodiversity and Oceans) and users can drill from these new sections into five dedicated detail topic pages
