@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   World.One 1.0 — Scroll Engine
+   World.One 2.0 — Scroll Engine
    IntersectionObserver + requestAnimationFrame
    ═══════════════════════════════════════════════════════════ */
 

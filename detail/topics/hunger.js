@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Hunger Topic Module (CRISIS-01)
+   World.One 2.0 -- Hunger Topic Module (CRISIS-01)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: FAO/World Bank undernourishment trend (cached hunger.json),
          Malnutrition by country (hardcoded ~50 countries),

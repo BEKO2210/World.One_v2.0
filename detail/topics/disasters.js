@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Disasters Topic Module (CRISIS-02)
+   World.One 2.0 -- Disasters Topic Module (CRISIS-02)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: ReliefWeb disaster events (cached disasters.json),
          Supplementary affected/damage data (hardcoded, Pitfall 4 fix),

@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Earthquakes Topic Module (RT-01)
+   World.One 2.0 -- Earthquakes Topic Module (RT-01)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: USGS Earthquake Hazards (live GeoJSON feeds, CORS-friendly)
    =================================================================== */

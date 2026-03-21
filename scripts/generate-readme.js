@@ -91,7 +91,7 @@ function main() {
   const improving = indicators.filter(i => i.direction === 'improving');
   const declining = indicators.filter(i => i.direction === 'declining');
 
-  const readme = `# World.One 1.0
+  const readme = `# World.One 2.0
 
 > **Der Zustand der Welt in einem einzigen Scroll-Erlebnis.**
 > Ein Vermächtnis aus Daten, Code und der Überzeugung, dass Transparenz die Welt verbessert.

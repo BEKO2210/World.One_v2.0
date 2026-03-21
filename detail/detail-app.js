@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   World.One 1.0 — Detail Page Application
+   World.One 2.0 — Detail Page Application
    URL routing, dynamic topic loading, navigation, share,
    language toggle, time range selector, cleanup lifecycle
    ═══════════════════════════════════════════════════════════ */

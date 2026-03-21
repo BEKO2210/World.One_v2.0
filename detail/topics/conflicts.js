@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Conflicts Topic Module (SOC-02)
+   World.One 2.0 -- Conflicts Topic Module (SOC-02)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: UCDP/PRIO Armed Conflict Dataset (static fallback),
          UNHCR displacement data (hardcoded), USGS conflict centroids

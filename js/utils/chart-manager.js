@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   World.One 1.0 — Chart Manager
+   World.One 2.0 — Chart Manager
    CDN loader, dark-theme defaults, color palette, instance registry
    ═══════════════════════════════════════════════════════════ */
 

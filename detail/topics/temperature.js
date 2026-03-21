@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Temperature Topic Module (ENV-02)
+   World.One 2.0 -- Temperature Topic Module (ENV-02)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: NASA GISTEMP v4, Berkeley Earth, IPCC AR6
    Visualizations: Warming Stripes (DOM), Regional Choropleth (SVG),

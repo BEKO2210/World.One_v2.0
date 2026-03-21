@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Space Topic Module (PROG-03)
+   World.One 2.0 -- Space Topic Module (PROG-03)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: ISS position (wheretheiss.at, live 10s refresh),
          Spaceflight News (cache), Crew (hardcoded), Satellites (hardcoded)

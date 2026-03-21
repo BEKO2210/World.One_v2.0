@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Biodiversity Topic Module (ENV-03)
+   World.One 2.0 -- Biodiversity Topic Module (ENV-03)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: GBIF/IUCN threatened species counts (cache), WWF Living Planet
          Index 2024 (hardcoded), NATURE_SCORE choropleth (from maps.js)

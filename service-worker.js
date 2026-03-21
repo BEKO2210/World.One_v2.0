@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   World.One 1.0 — Service Worker
+   World.One 2.0 — Service Worker
    Strategy: Network-first for data, Cache-first for assets
    ═══════════════════════════════════════════════════════════ */
 

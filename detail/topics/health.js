@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Health Topic Module (SOC-03)
+   World.One 2.0 -- Health Topic Module (SOC-03)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: WHO/World Bank life expectancy (hardcoded), WHO top-10 causes
          of death (hardcoded), health spending vs life expectancy

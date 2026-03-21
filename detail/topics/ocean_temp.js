@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Ocean Temperature Topic Module (OCEAN-01)
+   World.One 2.0 -- Ocean Temperature Topic Module (OCEAN-01)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: NOAA Climate at a Glance (cache), NOAA Coral Reef Watch,
          IPCC AR6 WG1 (hardcoded regional anomalies)

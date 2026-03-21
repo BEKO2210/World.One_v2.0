@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- CO2 Topic Module (ENV-01)
+   World.One 2.0 -- CO2 Topic Module (ENV-01)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: NOAA Mauna Loa (Keeling Curve), World Bank (per-capita),
          Global Carbon Project (total emissions)

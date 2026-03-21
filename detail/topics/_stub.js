@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   World.One 1.0 — Stub Topic Module
+   World.One 2.0 — Stub Topic Module
    Proof-of-concept implementing the full topic module contract.
    Used for end-to-end testing of the detail page shell.
    ═══════════════════════════════════════════════════════════ */

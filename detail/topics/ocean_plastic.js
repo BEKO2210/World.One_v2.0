@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Ocean Plastic Topic Module (OCEAN-03)
+   World.One 2.0 -- Ocean Plastic Topic Module (OCEAN-03)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: GESAMP, UNEP 2023, Jambeck et al. 2015 (all hardcoded)
    Visualizations: Animated Daily Counter (DOM), 5 Garbage Patches

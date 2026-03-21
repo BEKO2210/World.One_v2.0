@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Endangered Species Topic Module (BIO-02)
+   World.One 2.0 -- Endangered Species Topic Module (BIO-02)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: IUCN Red List categories (cache + hardcoded), GBIF threatened
          species counts from biodiversity.json cache, bilingual species

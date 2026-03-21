@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Solar Topic Module (RT-03)
+   World.One 2.0 -- Solar Topic Module (RT-03)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: NOAA SWPC (live observed sunspots + Kp index),
          Cache pipeline (predicted solar cycle 25)

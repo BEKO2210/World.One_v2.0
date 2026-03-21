@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Internet Topic Module (PROG-02)
+   World.One 2.0 -- Internet Topic Module (PROG-02)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: Hardcoded internet penetration (World Bank IT.NET.USER.ZS 2024),
          Calculated real-time counters (Statista, Internet Live Stats),

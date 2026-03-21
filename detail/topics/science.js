@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Science Topic Module (PROG-01)
+   World.One 2.0 -- Science Topic Module (PROG-01)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: arXiv cache (arxiv-ai.json), hardcoded annual submissions,
          Nobel Prize counts by country

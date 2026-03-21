@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Reusable SVG Choropleth Component (INFRA-06)
+   World.One 2.0 -- Reusable SVG Choropleth Component (INFRA-06)
    Extracted from temperature.js pattern, parameterized for any data map.
    Renders colored SVG world map with tooltip and legend.
    =================================================================== */

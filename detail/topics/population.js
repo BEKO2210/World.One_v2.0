@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Population Topic Module (SOC-01)
+   World.One 2.0 -- Population Topic Module (SOC-01)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: UN DESA World Population Prospects 2024, World Bank
    Visualizations: Live counter, Births/Deaths clock, Population

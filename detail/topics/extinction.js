@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Extinction Rate Topic Module (BIO-01)
+   World.One 2.0 -- Extinction Rate Topic Module (BIO-01)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: IPBES 2019, Barnosky et al. 2011 (Big Five mass extinctions),
          Ceballos et al. 2015 (current rate), IUCN Red List (taxonomic)

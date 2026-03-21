@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   World.One 1.0 — Cinematic Scroll Transformations
+   World.One 2.0 — Cinematic Scroll Transformations
    S/W Bilder die sich beim Scrollen verwandeln
    ═══════════════════════════════════════════════════════════ */
 

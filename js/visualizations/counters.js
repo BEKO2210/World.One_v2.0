@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   World.One 1.0 — Animated Counter System
+   World.One 2.0 — Animated Counter System
    ═══════════════════════════════════════════════════════════ */
 
 import { MathUtils } from '../utils/math.js';

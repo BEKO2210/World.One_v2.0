@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Inequality Topic Module (ECON-01)
+   World.One 2.0 -- Inequality Topic Module (ECON-01)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: World Bank SI.POV.GINI (income), Credit Suisse Global Wealth
          Report 2024 (wealth), Oxfam/Forbes (billionaires)

@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Forests Topic Module (ENV-05)
+   World.One 2.0 -- Forests Topic Module (ENV-05)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: World Bank/FAO (forest cover %, annual net loss, deforestation
          causes), FAO Global Forest Resources Assessment

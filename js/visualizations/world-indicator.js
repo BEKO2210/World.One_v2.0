@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   World.One 1.0 — World Indicator (Das Herzstück)
+   World.One 2.0 — World Indicator (Das Herzstück)
    ═══════════════════════════════════════════════════════════ */
 
 import { MathUtils } from '../utils/math.js';

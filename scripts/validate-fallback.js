@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /* ═══════════════════════════════════════════════════════════
-   World.One 1.0 — Static Fallback Validator
+   World.One 2.0 — Static Fallback Validator
    ═══════════════════════════════════════════════════════════
    Validates data/fallback/static-values.json schema integrity.
    Exit 0 on success, exit 1 on any validation failure.

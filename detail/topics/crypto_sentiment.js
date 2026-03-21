@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Crypto Sentiment Topic Module (RT-04)
+   World.One 2.0 -- Crypto Sentiment Topic Module (RT-04)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: Hardcoded 30-day Fear & Greed history (alternative.me has no
          CORS headers -- Pattern 6)

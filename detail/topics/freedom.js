@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Freedom Topic Module (SOC-04)
+   World.One 2.0 -- Freedom Topic Module (SOC-04)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: Freedom House global score trend (cached freedom.json),
          Freedom House country scores (hardcoded ~60 countries),

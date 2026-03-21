@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Ocean pH Topic Module (OCEAN-02)
+   World.One 2.0 -- Ocean pH Topic Module (OCEAN-02)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: NOAA PMEL (hardcoded pH trend 1850-2025), IPCC AR6
    Visualizations: pH Trend Line (Chart.js), pH Scale (DOM),

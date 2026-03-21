@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   World.One 1.0 — Data Tier Badge Renderer
+   World.One 2.0 — Data Tier Badge Renderer
    ═══════════════════════════════════════════════════════════ */
 
 import { DOMUtils } from './dom.js';

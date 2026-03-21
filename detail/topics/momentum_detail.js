@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Momentum Detail Topic Module (MOM-01)
+   World.One 2.0 -- Momentum Detail Topic Module (MOM-01)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: world-state.json subScores (aggregated from 4 categories)
    Visualizations: DOM-only mini-card grid with SVG sparklines,

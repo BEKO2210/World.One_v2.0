@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Air Quality Topic Module (ENV-04)
+   World.One 2.0 -- Air Quality Topic Module (ENV-04)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: Open-Meteo Air Quality API (live AQI), WHO/World Bank 2023
          (hardcoded city AQI rankings, AQI-vs-GDP scatter)

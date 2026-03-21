@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Weather Topic Module (RT-02)
+   World.One 2.0 -- Weather Topic Module (RT-02)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: Open-Meteo forecast API (live, 24 cities worldwide)
    Visualizations: City cards with SVG sparklines, extreme weather

@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   World.One 1.0 — Internationalization (DE/EN)
+   World.One 2.0 — Internationalization (DE/EN)
    ═══════════════════════════════════════════════════════════ */
 
 const translations = {
@@ -26,7 +26,7 @@ const translations = {
 
     // ─── Prolog ───
     'prolog.title': 'Wie geht es der Welt? Wirklich?',
-    'prolog.subtitle': 'Ein datengetriebenes Scroll-Erlebnis.',
+    'prolog.subtitle': 'Datengetrieben. Echtzeit.',
     'prolog.sources': 'Datenquellen',
     'prolog.cycle': 'Update-Zyklus',
     'prolog.rate': 'Erfolgsrate',
@@ -272,7 +272,7 @@ const translations = {
 
     // ─── Dynamic JS strings ───
     'js.loadError': 'Daten konnten nicht geladen werden.',
-    'js.lastUpdate': 'Letzte Aktualisierung: {time}',
+    'js.lastUpdate': 'Stand: {time}',
     'js.unknown': 'Unbekannt',
     'js.humidity': 'Feuchte:',
     'js.wind': 'Wind:',

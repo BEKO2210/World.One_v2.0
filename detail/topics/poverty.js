@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Poverty Topic Module (ECON-02)
+   World.One 2.0 -- Poverty Topic Module (ECON-02)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: World Bank extreme poverty trend (cached poverty.json),
          Regional poverty breakdown (hardcoded World Bank PIP 2024),

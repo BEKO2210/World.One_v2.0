@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Renewables Topic Module (ENV-06)
+   World.One 2.0 -- Renewables Topic Module (ENV-06)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: World Bank renewable energy % (cache/static), Electricity Maps
          carbon intensity DE (hardcoded), IRENA solar+wind growth

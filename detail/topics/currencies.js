@@ -1,5 +1,5 @@
 /* ===================================================================
-   World.One 1.0 -- Currencies Topic Module (ECON-03)
+   World.One 2.0 -- Currencies Topic Module (ECON-03)
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: Open Exchange Rates API (cached currencies.json),
          12-month hardcoded EUR/USD and USD/CNY trends,
