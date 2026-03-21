@@ -68,12 +68,12 @@ Plans:
   3. data/cache/meta.json is updated after each run with last_full_update timestamp, jobs_ok/jobs_failed counts, total_cache_files, and total_data_points
   4. Service worker is updated with versioned cache name and correctly routes data/cache/ requests through its caching strategy
   5. Cache files written to data/cache/ match the schema expected by the data-loader's cache tier (valid JSON, expected field names)
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 03-01: TBD
-- [ ] 03-02: TBD
-- [ ] 03-03: TBD
+- [ ] 03-01-PLAN.md -- Shared cache utilities (cache-utils.js) and first 3 cache scripts (biodiversity, environment-ext, society-ext)
+- [ ] 03-02-PLAN.md -- Remaining 3 cache scripts (economy-ext, progress-ext, disasters) and cache validation utility
+- [ ] 03-03-PLAN.md -- GitHub Actions workflow (cache-pipeline.yml), meta.json generator, and service worker update
 
 ### Phase 4: First Topics -- CO2, Temperature, Earthquakes, Population, Conflicts
 **Goal**: Five diverse topic pages are fully functional end-to-end, proving the topic module pattern works across different data sources, chart types, and content structures
