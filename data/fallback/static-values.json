@@ -1,0 +1,55 @@
+{
+  "_meta": {
+    "version": "1.0.0",
+    "description": "Static fallback values for detail pages when live API and cache are unavailable",
+    "last_updated": "2026-03-21",
+    "schema": "Each topic key maps to an object of named data points. Each data point has { value, year, source }. Null topics are placeholders for future phases."
+  },
+  "airquality": null,
+  "biodiversity": null,
+  "co2": {
+    "current_ppm": { "value": 427.5, "year": 2025, "source": "NOAA Mauna Loa" },
+    "annual_increase_ppm": { "value": 2.4, "year": 2025, "source": "NOAA GML" },
+    "total_emissions_gt": { "value": 37.4, "year": 2024, "source": "Global Carbon Project" }
+  },
+  "conflicts": {
+    "active_conflicts": { "value": 56, "year": 2024, "source": "UCDP" },
+    "battle_deaths": { "value": 122000, "year": 2023, "source": "UCDP" },
+    "displaced_millions": { "value": 117, "year": 2024, "source": "UNHCR" }
+  },
+  "crypto_sentiment": null,
+  "currencies": null,
+  "disasters": null,
+  "earthquakes": {
+    "significant_24h": { "value": 4, "year": 2025, "source": "USGS" },
+    "magnitude_5_plus_annual": { "value": 1500, "year": 2024, "source": "USGS" }
+  },
+  "endangered": null,
+  "extinction": null,
+  "forests": null,
+  "freedom": null,
+  "health": null,
+  "hunger": null,
+  "inequality": null,
+  "internet": null,
+  "momentum_detail": null,
+  "ocean_ph": null,
+  "ocean_plastic": null,
+  "ocean_temp": null,
+  "population": {
+    "total": { "value": 8100000000, "year": 2025, "source": "UN DESA" },
+    "growth_rate_pct": { "value": 0.9, "year": 2025, "source": "UN DESA" },
+    "urban_pct": { "value": 57, "year": 2025, "source": "UN Habitat" }
+  },
+  "poverty": null,
+  "renewables": null,
+  "science": null,
+  "solar": null,
+  "space": null,
+  "temperature": {
+    "anomaly_c": { "value": 1.29, "year": 2024, "source": "NASA GISTEMP" },
+    "warmest_year": { "value": 2024, "year": 2024, "source": "NASA/NOAA" },
+    "pre_industrial_baseline": { "value": "1850-1900", "year": null, "source": "IPCC AR6" }
+  },
+  "weather": null
+}
