@@ -46,9 +46,9 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **ACTIONS-02**: Job: update-biodiversity (03:00 UTC) -> data/cache/biodiversity.json
 - [x] **ACTIONS-03**: Job: update-environment-ext (03:30 UTC) -> co2-history.json, ocean.json, solar.json
 - [x] **ACTIONS-04**: Job: update-society-ext (04:00 UTC) -> population.json, freedom.json, conflicts.json
-- [ ] **ACTIONS-05**: Job: update-economy-ext (04:30 UTC) -> currencies.json, inequality.json, poverty.json
-- [ ] **ACTIONS-06**: Job: update-progress-ext (05:00 UTC) -> arxiv-ai.json, space-news.json
-- [ ] **ACTIONS-07**: Job: update-disasters (05:30 UTC) -> disasters.json, hunger.json
+- [x] **ACTIONS-05**: Job: update-economy-ext (04:30 UTC) -> currencies.json, inequality.json, poverty.json
+- [x] **ACTIONS-06**: Job: update-progress-ext (05:00 UTC) -> arxiv-ai.json, space-news.json
+- [x] **ACTIONS-07**: Job: update-disasters (05:30 UTC) -> disasters.json, hunger.json
 - [ ] **ACTIONS-08**: All jobs: timeout 10min, continue-on-error: true, never block deployment
 - [ ] **ACTIONS-09**: data/cache/meta.json with last_full_update, jobs_ok, jobs_failed, total_cache_files, total_data_points
 
@@ -164,9 +164,9 @@ Deferred to future release. Tracked but not in current roadmap.
 | ACTIONS-02 | Phase 3 | Complete |
 | ACTIONS-03 | Phase 3 | Complete |
 | ACTIONS-04 | Phase 3 | Complete |
-| ACTIONS-05 | Phase 3 | Pending |
-| ACTIONS-06 | Phase 3 | Pending |
-| ACTIONS-07 | Phase 3 | Pending |
+| ACTIONS-05 | Phase 3 | Complete |
+| ACTIONS-06 | Phase 3 | Complete |
+| ACTIONS-07 | Phase 3 | Complete |
 | ACTIONS-08 | Phase 3 | Pending |
 | ACTIONS-09 | Phase 3 | Pending |
 | ENV-01 | Phase 4 | Pending |
