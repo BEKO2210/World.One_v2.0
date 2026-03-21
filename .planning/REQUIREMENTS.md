@@ -66,12 +66,12 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **SOC-01**: Topic population -- Hero: live counter (calculated), births/deaths clock, population pyramid (1960/2000/2026/2050 toggle, country comparison), urbanization chart
 - [x] **SOC-02**: Topic conflicts -- Hero: active conflicts (UCDP cached), SVG conflict map with intensity dots, historical trend 1946-today with event markers, refugees/displaced doughnut chart
 - [x] **SOC-03**: Topic health -- Hero: life expectancy (World Bank), causes of death treemap, health spending vs life expectancy scatter (bubble=population), vaccination choropleth
-- [ ] **SOC-04**: Topic freedom -- Hero: Freedom House score (cached), SVG choropleth (green/yellow/red), 18-year decline trend chart
+- [x] **SOC-04**: Topic freedom -- Hero: Freedom House score (cached), SVG choropleth (green/yellow/red), 18-year decline trend chart
 
 ### Economy Topics (Akt 04)
 
-- [ ] **ECON-01**: Topic inequality -- Hero: Gini index (World Bank), 100-person wealth distribution animation, country Gini ranking (toggle income/wealth), billionaire counter
-- [ ] **ECON-02**: Topic poverty -- Hero: extreme poverty % (World Bank $2.15/day), dramatic trend 38%->8% animated line, regional stacked area chart
+- [x] **ECON-01**: Topic inequality -- Hero: Gini index (World Bank), 100-person wealth distribution animation, country Gini ranking (toggle income/wealth), billionaire counter
+- [x] **ECON-02**: Topic poverty -- Hero: extreme poverty % (World Bank $2.15/day), dramatic trend 38%->8% animated line, regional stacked area chart
 - [ ] **ECON-03**: Topic currencies -- Hero: key exchange rates (Open ER API), currency converter (client-side from cache), 12-month EUR/USD + USD/CNY charts, hyperinflation countries highlighted
 
 ### Progress Topics (Akt 05)
@@ -178,9 +178,9 @@ Deferred to future release. Tracked but not in current roadmap.
 | SOC-01 | Phase 4 | Complete |
 | SOC-02 | Phase 4 | Complete |
 | SOC-03 | Phase 6 | Complete |
-| SOC-04 | Phase 6 | Pending |
-| ECON-01 | Phase 6 | Pending |
-| ECON-02 | Phase 6 | Pending |
+| SOC-04 | Phase 6 | Complete |
+| ECON-01 | Phase 6 | Complete |
+| ECON-02 | Phase 6 | Complete |
 | ECON-03 | Phase 7 | Pending |
 | PROG-01 | Phase 7 | Pending |
 | PROG-02 | Phase 7 | Pending |

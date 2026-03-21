@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 06-01-PLAN.md
-last_updated: "2026-03-21T19:17:14.553Z"
+stopped_at: Completed 06-02-PLAN.md
+last_updated: "2026-03-21T19:22:46.962Z"
 last_activity: 2026-03-21 -- Completed plan 06-01 (Phase 6 i18n + static values + health topic module)
 progress:
   total_phases: 10
-  completed_phases: 5
+  completed_phases: 6
   total_plans: 17
-  completed_plans: 15
+  completed_plans: 17
   percent: 88
 ---
 
@@ -64,6 +64,8 @@ Progress: [█████████░] 88%
 
 *Updated after each plan completion*
 | Phase 06 P01 | 4min | 2 tasks | 3 files |
+| Phase 06 P03 | 3min | 2 tasks | 1 files |
+| Phase 06 P02 | 3min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -123,6 +125,12 @@ Recent decisions affecting current work:
 - [Phase 06]: DOM treemap for causes-of-death uses flexbox (no Chart.js treemap plugin) to keep CDN deps minimal
 - [Phase 06]: Phase 6 i18n keys added upfront for all 4 topics to unblock parallel Plans 02 and 03
 - [Phase 06]: Bubble chart uses logarithmic x-axis with per-point color coding by life expectancy threshold
+- [Phase 06]: Global Gini ~38.5 hardcoded -- no World Bank global Gini time series available in API
+- [Phase 06]: 100-person wealth grid uses CSS transitions with staggered delays (not Canvas/Chart.js) for lightweight animation
+- [Phase 06]: Income/wealth toggle uses event delegation pattern from population.js year selector
+- [Phase 06]: Freedom country scores hardcoded (~60 countries) since Freedom House has no public API
+- [Phase 06]: Poverty uses full cache range 43.4% to 10.3% (1990-2024) rather than simplified 38% narrative
+- [Phase 06]: Regional poverty stacked area chart uses local _hexToRgb helper for hex-to-RGB conversion
 
 ### Pending Todos
 
@@ -136,6 +144,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T19:17:14.550Z
-Stopped at: Completed 06-01-PLAN.md
+Last session: 2026-03-21T19:22:46.959Z
+Stopped at: Completed 06-02-PLAN.md
 Resume file: None

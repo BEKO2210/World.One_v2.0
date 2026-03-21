@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 3: GitHub Actions Pipeline** - Extended cron workflows for all cache file groups, pipeline health monitoring via meta.json
 - [ ] **Phase 4: First Topics -- CO2, Temperature, Earthquakes, Population, Conflicts** - Prove the topic module pattern across 5 diverse topics spanning environment, realtime, and society
 - [ ] **Phase 5: Environment & Forests Topics** - Biodiversity, air quality, forests, renewables -- complete the environment topic set with SVG choropleth maps
-- [ ] **Phase 6: Society & Economy Core** - Health, freedom, inequality, poverty -- complete society and economy coverage
+- [x] **Phase 6: Society & Economy Core** - Health, freedom, inequality, poverty -- complete society and economy coverage (completed 2026-03-21)
 - [ ] **Phase 7: Economy, Progress & Weather** - Currencies, science, internet, space, weather -- mixed-domain topics with live data and interactive elements
 - [ ] **Phase 8: Remaining Topics** - Solar, crypto sentiment, momentum dashboard, hunger, disasters -- complete all 28 topic pages
 - [ ] **Phase 9: Main Page Clickable Data Points** - All existing tiles/charts become clickable links to detail pages with hover states and tooltips
@@ -201,7 +201,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 3. GitHub Actions Pipeline | 1/3 | In Progress | - |
 | 4. First Topics (CO2, Temp, Quakes, Pop, Conflicts) | 0/3 | Not started | - |
 | 5. Environment & Forests Topics | 2/3 | In Progress|  |
-| 6. Society & Economy Core | 0/3 | Not started | - |
+| 6. Society & Economy Core | 3/3 | Complete   | 2026-03-21 |
 | 7. Economy, Progress & Weather | 0/3 | Not started | - |
 | 8. Remaining Topics | 0/2 | Not started | - |
 | 9. Main Page Clickable Data Points | 0/2 | Not started | - |
