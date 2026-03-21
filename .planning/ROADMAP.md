@@ -102,12 +102,12 @@ Plans:
   3. User visits detail/?topic=forests and sees forest cover %, annual loss since 2000, and deforestation causes as stacked bar chart
   4. User visits detail/?topic=renewables and sees renewable energy %, live carbon intensity for DE, country ranking, and solar+wind growth curves
   5. Reusable SVG choropleth component works across biodiversity, air quality, and renewables maps extending the existing maps.js
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 05-01: TBD
-- [ ] 05-02: TBD
-- [ ] 05-03: TBD
+- [ ] 05-01-PLAN.md -- Reusable SVG choropleth component (INFRA-06), Phase 5 i18n keys + static fallbacks, and biodiversity topic module
+- [ ] 05-02-PLAN.md -- Air quality topic module (AQI, scatter, city rankings) and forests topic module (loss chart, deforestation causes)
+- [ ] 05-03-PLAN.md -- Renewables topic module (carbon intensity, country ranking, solar+wind growth, choropleth map)
 
 ### Phase 6: Society & Economy Core
 **Goal**: Users can explore health, political freedom, inequality, and poverty -- completing the society and core economy topic coverage
