@@ -152,11 +152,12 @@ Plans:
   3. User visits detail/?topic=momentum_detail and sees all 20 indicators as mini-cards with value, trend arrow, % change, 10-year sparkline, and improvement/stagnation/decline assessment
   4. User visits detail/?topic=hunger and sees hunger index, SVG choropleth by malnutrition rate with click popups, and FAO Food Price Index trend with correlation visualization
   5. User visits detail/?topic=disasters and sees 2026 natural disaster timeline (type/country/affected/damage), and historical trend dual-axis chart (frequency + economic cost)
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 08-01: TBD
-- [ ] 08-02: TBD
+- [ ] 08-01-PLAN.md -- Phase 8 i18n keys + static fallbacks, and solar topic module (NOAA live data, cycle 25 chart, aurora Kp map)
+- [ ] 08-02-PLAN.md -- Crypto sentiment topic module (30-day F&G chart with color zones) and momentum detail topic module (24 indicator mini-cards with SVG sparklines)
+- [ ] 08-03-PLAN.md -- Hunger topic module (choropleth, FAO trend) and disasters topic module (timeline, dual-axis trend chart)
 
 ### Phase 9: Main Page Clickable Data Points
 **Goal**: Every data point, tile, and chart section on the existing main page becomes a gateway to its detail page -- users discover the detail system through natural interaction with the dashboard they already know
@@ -203,6 +204,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 5. Environment & Forests Topics | 2/3 | In Progress|  |
 | 6. Society & Economy Core | 3/3 | Complete   | 2026-03-21 |
 | 7. Economy, Progress & Weather | 1/3 | In Progress|  |
-| 8. Remaining Topics | 0/2 | Not started | - |
+| 8. Remaining Topics | 0/3 | Not started | - |
 | 9. Main Page Clickable Data Points | 0/2 | Not started | - |
 | 10. New Acts & Bio/Ocean Topics | 0/3 | Not started | - |
