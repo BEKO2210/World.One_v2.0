@@ -14,6 +14,20 @@
 // ─── Module-level cache for static fallback ───
 let _staticCache = null;
 
+// ─── Base path detection for subdirectory fetch resolution ───
+
+/**
+ * Detects if the current page is in a subdirectory (e.g. /detail/)
+ * and returns the appropriate path prefix for data fetches.
+ * fetch() resolves relative to the HTML document URL, not the script URL,
+ * so pages at /detail/index.html need '../' to reach root-level data/.
+ *
+ * @returns {string} '' for root pages, '../' for subdirectory pages
+ */
+function _basePath() {
+  return window.location.pathname.includes('/detail') ? '../' : '';
+}
+
 // ─── Fetch with timeout ───
 
 /**
@@ -61,7 +75,7 @@ export async function fetchTopicData(topic, apiUrl = null) {
 
   // ─── Tier 2: Cached JSON file ───
   try {
-    const cacheUrl = `data/cache/${topic}.json`;
+    const cacheUrl = `${_basePath()}data/cache/${topic}.json`;
     const response = await fetch(cacheUrl);
     if (response.ok) {
       const data = await response.json();
@@ -110,7 +124,7 @@ function _getCacheAge(data) {
  */
 async function _getStaticFallback(topic) {
   if (!_staticCache) {
-    const response = await fetch('data/fallback/static-values.json');
+    const response = await fetch(`${_basePath()}data/fallback/static-values.json`);
     if (!response.ok) {
       throw new Error(`Static fallback fetch failed: ${response.status}`);
     }
