@@ -36,6 +36,8 @@ class BelkisOne {
       'akt-scenarios': { r: 90, g: 200, b: 250 },
       'akt-sources': { r: 142, g: 142, b: 147 },
       'akt-action': { r: 52, g: 199, b: 89 },
+      'akt-biodiversity': { r: 52, g: 199, b: 89 },   // green for nature
+      'akt-oceans': { r: 0, g: 122, b: 255 },          // ocean blue
       'epilog': { r: 255, g: 255, b: 255 }
     };
   }
@@ -126,7 +128,8 @@ class BelkisOne {
     const sectionIds = [
       'prolog', 'akt-indicator', 'akt-environment', 'akt-society',
       'akt-economy', 'akt-progress', 'akt-realtime', 'akt-momentum',
-      'akt-crisis-map', 'akt-scenarios', 'akt-sources', 'akt-action', 'epilog'
+      'akt-crisis-map', 'akt-scenarios', 'akt-sources', 'akt-action',
+      'akt-biodiversity', 'akt-oceans', 'epilog'
     ];
 
     sectionIds.forEach(id => {
@@ -173,6 +176,9 @@ class BelkisOne {
           break;
         case 'akt-crisis-map':
           this._updateCrisisMap(progress, data);
+          break;
+        case 'akt-biodiversity':
+        case 'akt-oceans':
           break;
         case 'epilog':
           this._updateEpilog(progress, data);
@@ -1170,6 +1176,8 @@ class BelkisOne {
       { id: 'akt-scenarios', key: 'nav.scenarios' },
       { id: 'akt-sources', key: 'nav.sources' },
       { id: 'akt-action', key: 'nav.action' },
+      { id: 'akt-biodiversity', key: 'nav.biodiversity' },
+      { id: 'akt-oceans', key: 'nav.oceans' },
       { id: 'epilog', key: 'nav.epilog' }
     ];
 
@@ -1425,6 +1433,15 @@ class BelkisOne {
 
       // Act 7 -- Momentum gauge
       { selector: '#momentum-gauge', topic: 'momentum_detail', wrapClosest: '.reveal' },
+
+      // Act 12 -- Biodiversity
+      { selector: '#akt-biodiversity .data-card--featured', topic: 'extinction' },
+      { selector: '#akt-biodiversity .data-card:not(.data-card--featured)', topic: 'endangered' },
+
+      // Act 13 -- Oceans
+      { selector: '#akt-oceans .data-card:nth-child(1)', topic: 'ocean_temp' },
+      { selector: '#akt-oceans .data-card:nth-child(2)', topic: 'ocean_ph' },
+      { selector: '#akt-oceans .data-card:nth-child(3)', topic: 'ocean_plastic' },
     ];
 
     let count = 0;
