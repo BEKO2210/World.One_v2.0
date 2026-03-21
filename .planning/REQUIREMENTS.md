@@ -14,7 +14,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **INFRA-03**: Static fallback values file (data/fallback/static-values.json) with value, year, source for every data point
 - [x] **INFRA-04**: Chart.js 4.x loaded via CDN (jsDelivr primary, cdnjs fallback) with defer and global dark-theme defaults
 - [x] **INFRA-05**: Chart instance registry with mandatory destroy() lifecycle to prevent canvas memory leaks
-- [ ] **INFRA-06**: Reusable SVG choropleth component extending existing maps.js for detail page use
+- [x] **INFRA-06**: Reusable SVG choropleth component extending existing maps.js for detail page use
 - [x] **INFRA-07**: Service worker updated with versioned cache name and data/cache/ route handling
 
 ### Detail Page System
@@ -56,7 +56,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **ENV-01**: Topic co2 -- Hero: current ppm (Open-Meteo), Keeling Curve 1958-today, emissions by country (World Bank), greenhouse effect infographic
 - [x] **ENV-02**: Topic temperature -- Hero: anomaly (NASA GISTEMP), interactive warming stripes with event tooltips, regional warming SVG choropleth, 9 tipping points timeline
-- [ ] **ENV-03**: Topic biodiversity -- Hero: threatened species (GBIF), Living Planet Index trend, IUCN category browser with CR species list
+- [x] **ENV-03**: Topic biodiversity -- Hero: threatened species (GBIF), Living Planet Index trend, IUCN category browser with CR species list
 - [ ] **ENV-04**: Topic airquality -- Hero: global AQI (OpenAQ), cities ranking, AQI vs GDP scatter, PM2.5/PM10/NO2 explainer
 - [ ] **ENV-05**: Topic forests -- Hero: forest cover % (World Bank), annual loss since 2000, deforestation causes (stacked bar chart)
 - [ ] **ENV-06**: Topic renewables -- Hero: renewable energy % (World Bank), live carbon intensity (Electricity Maps DE), country ranking, solar+wind growth curves
@@ -146,7 +146,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | INFRA-03 | Phase 1 | Complete |
 | INFRA-04 | Phase 1 | Complete |
 | INFRA-05 | Phase 1 | Complete |
-| INFRA-06 | Phase 5 | Pending |
+| INFRA-06 | Phase 5 | Complete |
 | INFRA-07 | Phase 3 | Complete |
 | DETAIL-01 | Phase 2 | Complete |
 | DETAIL-02 | Phase 2 | Complete |
@@ -171,7 +171,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | ACTIONS-09 | Phase 3 | Complete |
 | ENV-01 | Phase 4 | Complete |
 | ENV-02 | Phase 4 | Complete |
-| ENV-03 | Phase 5 | Pending |
+| ENV-03 | Phase 5 | Complete |
 | ENV-04 | Phase 5 | Pending |
 | ENV-05 | Phase 5 | Pending |
 | ENV-06 | Phase 5 | Pending |

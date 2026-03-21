@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-02-PLAN.md
-last_updated: "2026-03-21T16:30:08.692Z"
-last_activity: 2026-03-21 -- Completed plan 04-03 (Earthquakes + Conflicts topic modules)
+stopped_at: Completed 05-01-PLAN.md
+last_updated: "2026-03-21T18:19:18.629Z"
+last_activity: 2026-03-21 -- Completed plan 05-01 (Choropleth component, Phase 5 i18n/fallbacks, Biodiversity topic)
 progress:
   total_phases: 10
   completed_phases: 4
-  total_plans: 11
-  completed_plans: 11
-  percent: 91
+  total_plans: 14
+  completed_plans: 12
+  percent: 86
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-21)
 
 **Core value:** Every number on the dashboard becomes explorable -- users click any data point and get rich, interactive context with live data, historical trends, and visual explanations. No data point is ever invisible or broken.
-**Current focus:** Phase 4 - First Topics (CO2, temperature, earthquakes, conflicts complete -- all 3 plans done)
+**Current focus:** Phase 5 - Environment & Forests Topics (choropleth component + biodiversity done, 3 topics remaining)
 
 ## Current Position
 
-Phase: 4 of 10 (First Topics)
-Plan: 3 of 3 in current phase
+Phase: 5 of 10 (Environment & Forests Topics)
+Plan: 1 of 3 in current phase
 Status: Executing
-Last activity: 2026-03-21 -- Completed plan 04-03 (Earthquakes + Conflicts topic modules)
+Last activity: 2026-03-21 -- Completed plan 05-01 (Choropleth component, Phase 5 i18n/fallbacks, Biodiversity topic)
 
-Progress: [█████████░] 91%
+Progress: [█████████░] 86%
 
 ## Performance Metrics
 
@@ -54,9 +54,10 @@ Progress: [█████████░] 91%
 | Phase 04 P01 | 4min | 2 tasks | 3 files |
 | Phase 04 P02 | 6min | 2 tasks | 2 files |
 | Phase 04 P03 | 4min | 2 tasks | 2 files |
+| Phase 05 P01 | 5min | 2 tasks | 4 files |
 
 **Recent Trend:**
-- Last 5 plans: 4min, 3min, 4min, 4min, 4min
+- Last 5 plans: 3min, 4min, 4min, 4min, 5min
 - Trend: Steady
 
 *Updated after each plan completion*
@@ -108,6 +109,9 @@ Recent decisions affecting current work:
 - [Phase 04]: Simplified continent outlines as SVG path approximations shared between earthquake and conflict maps
 - [Phase 04]: Conflict trend chart rendered directly in render() for timerangechange interactivity; refugees doughnut lazy via getChartConfigs
 - [Phase 04]: 20 conflict countries hardcoded from UCDP/PRIO with 3-level intensity (API requires token)
+- [Phase 05]: Extracted SVG choropleth into reusable detail/utils/choropleth.js with parameterized dataMap, colorFn, tooltipFn, legendItems
+- [Phase 05]: Phase 5 i18n keys added upfront for all 4 topics (biodiversity, airquality, forests, renewables) to unblock parallel execution
+- [Phase 05]: NATURE_SCORE data copied inline from maps.js rather than importing main page module into detail pages
 
 ### Pending Todos
 
@@ -121,6 +125,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T16:24:42.449Z
-Stopped at: Completed 04-02-PLAN.md
+Last session: 2026-03-21T18:19:18.626Z
+Stopped at: Completed 05-01-PLAN.md
 Resume file: None
