@@ -5,8 +5,8 @@
     "last_updated": "2026-03-21",
     "schema": "Each topic key maps to an object of named data points. Each data point has { value, year, source }. Null topics are placeholders for future phases."
   },
-  "airquality": null,
-  "biodiversity": null,
+  "airquality": { "value": 42, "unit": "AQI", "year": 2024, "source": "Open-Meteo/WHO" },
+  "biodiversity": { "value": 129753, "unit": "species", "year": 2024, "source": "GBIF/IUCN" },
   "co2": {
     "current_ppm": { "value": 427.5, "year": 2025, "source": "NOAA Mauna Loa" },
     "annual_increase_ppm": { "value": 2.4, "year": 2025, "source": "NOAA GML" },
@@ -26,7 +26,7 @@
   },
   "endangered": null,
   "extinction": null,
-  "forests": null,
+  "forests": { "value": 31.2, "unit": "%", "year": 2022, "source": "World Bank" },
   "freedom": null,
   "health": null,
   "hunger": null,
@@ -42,7 +42,7 @@
     "urban_pct": { "value": 57, "year": 2025, "source": "UN Habitat" }
   },
   "poverty": null,
-  "renewables": null,
+  "renewables": { "value": 29.6, "unit": "%", "year": 2022, "source": "World Bank" },
   "science": null,
   "solar": null,
   "space": null,
