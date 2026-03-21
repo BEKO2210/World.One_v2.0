@@ -78,12 +78,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **PROG-01**: Topic science -- Hero: total arXiv papers, exponential growth curve animated, hot research fields bar chart (daily cached), Nobel prizes by country bubble chart
 - [x] **PROG-02**: Topic internet -- Hero: internet users % (World Bank), real-time calculated counters (emails/YouTube/Google today), digital divide SVG choropleth
-- [ ] **PROG-03**: Topic space -- Hero: ISS position live (10s refresh), SVG map with moving ISS dot + orbit trail, crew list, spaceflight news feed (cached), satellite count visualization
+- [x] **PROG-03**: Topic space -- Hero: ISS position live (10s refresh), SVG map with moving ISS dot + orbit trail, crew list, spaceflight news feed (cached), satellite count visualization
 
 ### Realtime Topics (Akt 06)
 
 - [x] **RT-01**: Topic earthquakes -- Extended: interactive SVG map (USGS 24h, magnitude=size, depth=color, click popup), 7-day magnitude histogram
-- [ ] **RT-02**: Topic weather -- Extended: 24 cities (all continents), hourly sparklines, extreme weather warnings (code>65 rain, >75 blizzard, >95 thunderstorm)
+- [x] **RT-02**: Topic weather -- Extended: 24 cities (all continents), hourly sparklines, extreme weather warnings (code>65 rain, >75 blizzard, >95 thunderstorm)
 - [ ] **RT-03**: Topic solar -- Hero: solar activity (NOAA), solar cycle 25 chart with sunspot count, aurora Kp-index map with visibility latitude
 - [ ] **RT-04**: Topic crypto_sentiment -- Extended: 30-day Fear & Greed history chart with color zones (red=fear, green=greed)
 
@@ -184,9 +184,9 @@ Deferred to future release. Tracked but not in current roadmap.
 | ECON-03 | Phase 7 | Complete |
 | PROG-01 | Phase 7 | Complete |
 | PROG-02 | Phase 7 | Complete |
-| PROG-03 | Phase 7 | Pending |
+| PROG-03 | Phase 7 | Complete |
 | RT-01 | Phase 4 | Complete |
-| RT-02 | Phase 7 | Pending |
+| RT-02 | Phase 7 | Complete |
 | RT-03 | Phase 8 | Pending |
 | RT-04 | Phase 8 | Pending |
 | MOM-01 | Phase 8 | Pending |
