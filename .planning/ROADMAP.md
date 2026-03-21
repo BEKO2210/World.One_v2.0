@@ -85,12 +85,12 @@ Plans:
   3. User visits detail/?topic=earthquakes and sees an interactive SVG map of USGS 24h earthquakes (magnitude=size, depth=color, click popup) and a 7-day magnitude histogram
   4. User visits detail/?topic=population and sees a live counter, births/deaths clock, toggleable population pyramid (1960/2000/2026/2050), and urbanization chart
   5. User visits detail/?topic=conflicts and sees active conflict count, SVG conflict map with intensity dots, 1946-today trend with event markers, and refugees doughnut chart
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 04-01: TBD
-- [ ] 04-02: TBD
-- [ ] 04-03: TBD
+- [ ] 04-01-PLAN.md -- Fix data-loader path resolution, add all Phase 4 i18n keys, and implement CO2 topic module
+- [ ] 04-02-PLAN.md -- Temperature topic module (warming stripes, tipping points) and Population topic module (live counter, pyramid)
+- [ ] 04-03-PLAN.md -- Earthquakes topic module (USGS live SVG map) and Conflicts topic module (conflict map, trend, refugees)
 
 ### Phase 5: Environment & Forests Topics
 **Goal**: Users can explore the full environment topic set -- biodiversity, air quality, forests, and renewables -- with SVG choropleths and interactive rankings
