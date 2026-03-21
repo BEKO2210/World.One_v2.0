@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-01-PLAN.md
-last_updated: "2026-03-21T16:15:30.438Z"
-last_activity: 2026-03-21 -- Completed plan 04-01 (CO2 topic module, data-loader fix, i18n keys)
+stopped_at: Completed 04-03-PLAN.md
+last_updated: "2026-03-21T16:23:51.897Z"
+last_activity: 2026-03-21 -- Completed plan 04-03 (Earthquakes + Conflicts topic modules)
 progress:
   total_phases: 10
   completed_phases: 3
   total_plans: 11
-  completed_plans: 9
-  percent: 82
+  completed_plans: 10
+  percent: 91
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-21)
 
 **Core value:** Every number on the dashboard becomes explorable -- users click any data point and get rich, interactive context with live data, historical trends, and visual explanations. No data point is ever invisible or broken.
-**Current focus:** Phase 4 - First Topics (CO2 complete, temperature + earthquakes/population/conflicts next)
+**Current focus:** Phase 4 - First Topics (CO2, temperature, earthquakes, conflicts complete -- all 3 plans done)
 
 ## Current Position
 
 Phase: 4 of 10 (First Topics)
-Plan: 1 of 3 in current phase
+Plan: 3 of 3 in current phase
 Status: Executing
-Last activity: 2026-03-21 -- Completed plan 04-01 (CO2 topic module, data-loader fix, i18n keys)
+Last activity: 2026-03-21 -- Completed plan 04-03 (Earthquakes + Conflicts topic modules)
 
-Progress: [████████░░] 82%
+Progress: [█████████░] 91%
 
 ## Performance Metrics
 
@@ -52,9 +52,10 @@ Progress: [████████░░] 82%
 | Phase 03 P02 | 4min | 2 tasks | 4 files |
 | Phase 03 P03 | 3min | 2 tasks | 3 files |
 | Phase 04 P01 | 4min | 2 tasks | 3 files |
+| Phase 04 P03 | 4min | 2 tasks | 2 files |
 
 **Recent Trend:**
-- Last 5 plans: 3min, 3min, 4min, 3min, 4min
+- Last 5 plans: 4min, 3min, 4min, 4min, 4min
 - Trend: Steady
 
 *Updated after each plan completion*
@@ -98,6 +99,10 @@ Recent decisions affecting current work:
 - [Phase 04]: CO2 module uses Open-Meteo Air Quality API for live ppm with 3-tier fallback to cache/static
 - [Phase 04]: Greenhouse infographic uses pure DOMUtils.create (no innerHTML, no images) for security
 - [Phase 04]: Top 10 emitters per capita hardcoded from World Bank 2020 -- no live API for supplementary bar chart
+- [Phase 04]: Earthquakes fetches USGS GeoJSON directly in browser (CORS-friendly) with 8s fetchWithTimeout
+- [Phase 04]: Simplified continent outlines as SVG path approximations shared between earthquake and conflict maps
+- [Phase 04]: Conflict trend chart rendered directly in render() for timerangechange interactivity; refugees doughnut lazy via getChartConfigs
+- [Phase 04]: 20 conflict countries hardcoded from UCDP/PRIO with 3-level intensity (API requires token)
 
 ### Pending Todos
 
@@ -111,6 +116,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T16:15:30.435Z
-Stopped at: Completed 04-01-PLAN.md
+Last session: 2026-03-21T16:23:51.894Z
+Stopped at: Completed 04-03-PLAN.md
 Resume file: None

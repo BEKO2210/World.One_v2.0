@@ -64,7 +64,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Society Topics (Akt 03)
 
 - [ ] **SOC-01**: Topic population -- Hero: live counter (calculated), births/deaths clock, population pyramid (1960/2000/2026/2050 toggle, country comparison), urbanization chart
-- [ ] **SOC-02**: Topic conflicts -- Hero: active conflicts (UCDP cached), SVG conflict map with intensity dots, historical trend 1946-today with event markers, refugees/displaced doughnut chart
+- [x] **SOC-02**: Topic conflicts -- Hero: active conflicts (UCDP cached), SVG conflict map with intensity dots, historical trend 1946-today with event markers, refugees/displaced doughnut chart
 - [ ] **SOC-03**: Topic health -- Hero: life expectancy (World Bank), causes of death treemap, health spending vs life expectancy scatter (bubble=population), vaccination choropleth
 - [ ] **SOC-04**: Topic freedom -- Hero: Freedom House score (cached), SVG choropleth (green/yellow/red), 18-year decline trend chart
 
@@ -82,7 +82,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Realtime Topics (Akt 06)
 
-- [ ] **RT-01**: Topic earthquakes -- Extended: interactive SVG map (USGS 24h, magnitude=size, depth=color, click popup), 7-day magnitude histogram
+- [x] **RT-01**: Topic earthquakes -- Extended: interactive SVG map (USGS 24h, magnitude=size, depth=color, click popup), 7-day magnitude histogram
 - [ ] **RT-02**: Topic weather -- Extended: 24 cities (all continents), hourly sparklines, extreme weather warnings (code>65 rain, >75 blizzard, >95 thunderstorm)
 - [ ] **RT-03**: Topic solar -- Hero: solar activity (NOAA), solar cycle 25 chart with sunspot count, aurora Kp-index map with visibility latitude
 - [ ] **RT-04**: Topic crypto_sentiment -- Extended: 30-day Fear & Greed history chart with color zones (red=fear, green=greed)
@@ -176,7 +176,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | ENV-05 | Phase 5 | Pending |
 | ENV-06 | Phase 5 | Pending |
 | SOC-01 | Phase 4 | Pending |
-| SOC-02 | Phase 4 | Pending |
+| SOC-02 | Phase 4 | Complete |
 | SOC-03 | Phase 6 | Pending |
 | SOC-04 | Phase 6 | Pending |
 | ECON-01 | Phase 6 | Pending |
@@ -185,7 +185,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | PROG-01 | Phase 7 | Pending |
 | PROG-02 | Phase 7 | Pending |
 | PROG-03 | Phase 7 | Pending |
-| RT-01 | Phase 4 | Pending |
+| RT-01 | Phase 4 | Complete |
 | RT-02 | Phase 7 | Pending |
 | RT-03 | Phase 8 | Pending |
 | RT-04 | Phase 8 | Pending |
