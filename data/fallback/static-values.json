@@ -27,10 +27,20 @@
   "endangered": null,
   "extinction": null,
   "forests": { "value": 31.2, "unit": "%", "year": 2022, "source": "World Bank" },
-  "freedom": null,
-  "health": null,
+  "freedom": {
+    "global_score": { "value": 42.3, "year": 2025, "source": "Freedom House" },
+    "free_countries": { "value": 83, "year": 2025, "source": "Freedom House" }
+  },
+  "health": {
+    "life_expectancy": { "value": 73.4, "year": 2024, "source": "WHO/World Bank" },
+    "child_mortality": { "value": 37, "unit": "per 1000", "year": 2024, "source": "WHO/UNICEF" },
+    "dtp3_coverage": { "value": 85, "unit": "%", "year": 2024, "source": "WHO/UNICEF" }
+  },
   "hunger": null,
-  "inequality": null,
+  "inequality": {
+    "gini_global": { "value": 38.5, "year": 2024, "source": "World Bank estimate" },
+    "billionaires": { "value": 3028, "year": 2025, "source": "Forbes" }
+  },
   "internet": null,
   "momentum_detail": null,
   "ocean_ph": null,
@@ -41,7 +51,10 @@
     "growth_rate_pct": { "value": 0.9, "year": 2025, "source": "UN DESA" },
     "urban_pct": { "value": 57, "year": 2025, "source": "UN Habitat" }
   },
-  "poverty": null,
+  "poverty": {
+    "extreme_poverty_pct": { "value": 10.3, "year": 2024, "source": "World Bank" },
+    "people_in_poverty_m": { "value": 700, "unit": "million", "year": 2024, "source": "World Bank" }
+  },
   "renewables": { "value": 29.6, "unit": "%", "year": 2022, "source": "World Bank" },
   "science": null,
   "solar": null,
