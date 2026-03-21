@@ -184,12 +184,12 @@ Plans:
   3. Tiles in Acts 12 and 13 are clickable and navigate to their respective detail pages (extinction, endangered, ocean_temp, ocean_ph, ocean_plastic)
   4. User visits detail/?topic=ocean_temp and sees SST anomaly, SVG heatmap choropleth, and coral bleaching threshold explainer
   5. User visits detail/?topic=ocean_plastic and sees ocean plastic estimate, animated daily counter, 5 garbage patches SVG map, and decomposition time animation (bottle: 450 years)
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 10-01: TBD
-- [ ] 10-02: TBD
-- [ ] 10-03: TBD
+- [ ] 10-01-PLAN.md -- Main page Acts 12+13 HTML sections, all 7 registration points (scroll engine, nav dots, particle colors, cinematic, detail links), Phase 10 i18n keys + static fallbacks
+- [ ] 10-02-PLAN.md -- Ocean topic modules: ocean_temp (SST timeline, choropleth, coral explainer), ocean_ph (pH trend, scale, acidification), ocean_plastic (daily counter, garbage patches SVG, decomposition)
+- [ ] 10-03-PLAN.md -- Biodiversity topic modules: extinction (Big Five timeline, current rate comparison, taxonomic groups) and endangered (IUCN category doughnut, species examples)
 
 ## Progress
 
