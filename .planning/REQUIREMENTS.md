@@ -59,7 +59,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **ENV-03**: Topic biodiversity -- Hero: threatened species (GBIF), Living Planet Index trend, IUCN category browser with CR species list
 - [ ] **ENV-04**: Topic airquality -- Hero: global AQI (OpenAQ), cities ranking, AQI vs GDP scatter, PM2.5/PM10/NO2 explainer
 - [ ] **ENV-05**: Topic forests -- Hero: forest cover % (World Bank), annual loss since 2000, deforestation causes (stacked bar chart)
-- [ ] **ENV-06**: Topic renewables -- Hero: renewable energy % (World Bank), live carbon intensity (Electricity Maps DE), country ranking, solar+wind growth curves
+- [x] **ENV-06**: Topic renewables -- Hero: renewable energy % (World Bank), live carbon intensity (Electricity Maps DE), country ranking, solar+wind growth curves
 
 ### Society Topics (Akt 03)
 
@@ -174,7 +174,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | ENV-03 | Phase 5 | Complete |
 | ENV-04 | Phase 5 | Pending |
 | ENV-05 | Phase 5 | Pending |
-| ENV-06 | Phase 5 | Pending |
+| ENV-06 | Phase 5 | Complete |
 | SOC-01 | Phase 4 | Complete |
 | SOC-02 | Phase 4 | Complete |
 | SOC-03 | Phase 6 | Pending |
