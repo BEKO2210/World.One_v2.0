@@ -1,0 +1,371 @@
+/* ═══════════════════════════════════════════════════════════
+   World.One 1.0 — Detail Page Styles
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── 1. Detail Nav ─── */
+.detail-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 0 var(--space-md);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.detail-nav__back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: background var(--duration-fast) ease;
+  text-decoration: none;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.detail-nav__back:hover {
+  background: var(--glass-bg-hover);
+  color: var(--text-primary);
+}
+
+.detail-nav__breadcrumb {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--text-label);
+  color: var(--text-secondary);
+  margin-left: var(--space-xs);
+  min-width: 0;
+}
+
+.detail-nav__separator {
+  color: var(--text-muted);
+}
+
+.detail-nav__actions {
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+
+.detail-nav__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--duration-fast) ease;
+}
+
+.detail-nav__btn:hover {
+  border-color: var(--glass-border-hover);
+  background: var(--glass-bg-hover);
+}
+
+.detail-nav__btn--lang {
+  width: auto;
+  padding: 0 12px;
+  border-radius: 20px;
+  font-size: var(--text-label);
+  font-weight: 600;
+}
+
+/* ─── 2. Detail Page Layout ─── */
+.detail-page {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 80px var(--space-md) var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+/* ─── 3. Detail Blocks ─── */
+.detail-block {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: var(--space-lg);
+  position: relative;
+}
+
+/* ─── 4. Skeleton Loaders ─── */
+.detail-block--skeleton {
+  overflow: hidden;
+}
+
+#detail-hero.detail-block--skeleton {
+  min-height: 300px;
+}
+
+#detail-chart.detail-block--skeleton,
+#detail-trend.detail-block--skeleton {
+  min-height: 400px;
+}
+
+#detail-tiles.detail-block--skeleton,
+#detail-explanation.detail-block--skeleton,
+#detail-comparison.detail-block--skeleton,
+#detail-sources.detail-block--skeleton {
+  min-height: 200px;
+}
+
+.detail-block--skeleton::after {
+  content: '';
+  position: absolute;
+  inset: var(--space-md);
+  border-radius: 12px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.02) 25%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.02) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.8s ease-in-out infinite;
+}
+
+.detail-block--loaded {
+  overflow: visible;
+}
+
+.detail-block--loaded::after {
+  display: none;
+}
+
+/* ─── 5. Skeleton Keyframes ─── */
+@keyframes skeletonShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ─── 6. Back-to-Top ─── */
+.detail-btt {
+  position: fixed;
+  bottom: var(--space-lg);
+  right: var(--space-lg);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: opacity var(--duration-normal) ease, transform var(--duration-normal) ease;
+}
+
+.detail-btt:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+}
+
+.detail-btt[hidden] {
+  display: flex;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px);
+}
+
+.detail-btt:not([hidden]) {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── 7. Toast ─── */
+.detail-toast {
+  position: fixed;
+  bottom: var(--space-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1001;
+  background: var(--bg-secondary);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--text-label);
+  color: var(--text-primary);
+  transition: opacity var(--duration-normal) ease, transform var(--duration-normal) ease;
+  white-space: nowrap;
+}
+
+.detail-toast[hidden] {
+  display: block;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.detail-toast:not([hidden]) {
+  opacity: 1;
+}
+
+/* ─── 8. Error State ─── */
+.detail-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.detail-error[hidden] {
+  display: none;
+}
+
+.detail-error__card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: var(--space-xl);
+  text-align: center;
+  max-width: 400px;
+}
+
+.detail-error__title {
+  font-size: var(--text-sub);
+  color: var(--text-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.detail-error__message {
+  font-size: var(--text-body);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg);
+}
+
+.detail-error__btn {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-md);
+  background: var(--glass-bg-hover);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: all var(--duration-fast) ease;
+}
+
+.detail-error__btn:hover {
+  border-color: var(--glass-border-hover);
+  color: var(--text-primary);
+}
+
+/* ─── 9. Time Range Selector ─── */
+.time-range {
+  display: flex;
+  gap: 4px;
+  background: var(--glass-bg);
+  border-radius: 8px;
+  padding: 4px;
+  border: 1px solid var(--glass-border);
+}
+
+.time-range__btn {
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: var(--text-label);
+  transition: all var(--duration-fast) ease;
+}
+
+.time-range__btn--active {
+  background: var(--glass-bg-hover);
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.time-range__btn:hover:not(.time-range__btn--active) {
+  color: var(--text-primary);
+}
+
+/* ─── 10. Print Stylesheet ─── */
+@media print {
+  :root {
+    --bg-primary: #fff;
+    --bg-secondary: #f5f5f5;
+    --text-primary: #000;
+    --text-secondary: #333;
+    --text-muted: #666;
+    --glass-bg: transparent;
+    --glass-border: #ddd;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .detail-nav,
+  .detail-btt,
+  .detail-toast,
+  .time-range {
+    display: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  canvas {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .detail-block {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    margin-bottom: 1rem;
+    border-color: #ddd;
+    background: transparent;
+  }
+
+  .detail-page {
+    padding-top: 0;
+  }
+}
+
+/* ─── 11. Responsive ─── */
+@media (max-width: 640px) {
+  .detail-nav {
+    padding: 0 var(--space-sm);
+  }
+
+  .detail-block {
+    padding: var(--space-md);
+  }
+
+  .detail-nav__breadcrumb .detail-nav__separator,
+  .detail-nav__breadcrumb [data-i18n="detail.breadcrumb.home"] {
+    display: none;
+  }
+}
