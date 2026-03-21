@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 07-02-PLAN.md
-last_updated: "2026-03-21T20:11:37.201Z"
-last_activity: 2026-03-21 -- Completed plan 07-03 (Space & Weather topic modules)
+stopped_at: Completed 08-01-PLAN.md
+last_updated: "2026-03-21T20:53:18.763Z"
+last_activity: 2026-03-21 -- Completed plan 08-01 (Phase 8 i18n + fallbacks & solar topic module)
 progress:
   total_phases: 10
   completed_phases: 7
-  total_plans: 20
-  completed_plans: 20
-  percent: 100
+  total_plans: 23
+  completed_plans: 21
+  percent: 91
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-21)
 
 **Core value:** Every number on the dashboard becomes explorable -- users click any data point and get rich, interactive context with live data, historical trends, and visual explanations. No data point is ever invisible or broken.
-**Current focus:** Phase 7 - Economy, Progress & Weather (3 of 3 plans complete)
+**Current focus:** Phase 8 - Remaining Topics (1 of 3 plans complete)
 
 ## Current Position
 
-Phase: 7 of 10 (Economy, Progress & Weather)
-Plan: 3 of 3 in current phase
+Phase: 8 of 10 (Remaining Topics)
+Plan: 1 of 3 in current phase
 Status: Executing
-Last activity: 2026-03-21 -- Completed plan 07-03 (Space & Weather topic modules)
+Last activity: 2026-03-21 -- Completed plan 08-01 (Phase 8 i18n + fallbacks & solar topic module)
 
-Progress: [██████████] 100%
+Progress: [█████████░] 91%
 
 ## Performance Metrics
 
@@ -69,6 +69,7 @@ Progress: [██████████] 100%
 | Phase 07 P01 | 5min | 2 tasks | 3 files |
 | Phase 07 P02 | 4min | 2 tasks | 2 files |
 | Phase 07 P03 | 4min | 2 tasks | 2 files |
+| Phase 08 P01 | 5min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -142,6 +143,8 @@ Recent decisions affecting current work:
 - [Phase 07]: [Phase 07]: ISS API: wheretheiss.at primary (documented browser CORS), no open-notify fallback
 - [Phase 07]: [Phase 07]: Weather sparklines use SVG polylines (not Chart.js) to avoid 24 canvas instances
 - [Phase 07]: [Phase 07]: ISS crew hardcoded (Expedition 74): changes ~6 months, not worth live API
+- [Phase 08]: Phase 8 i18n keys added upfront for all 5 topics to unblock parallel execution of Plans 02 and 03
+- [Phase 08]: Solar module uses two separate NOAA SWPC live fetches (observed sunspots + Kp index) with independent fallbacks
 
 ### Pending Todos
 
@@ -155,6 +158,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-21T20:06:35.355Z
-Stopped at: Completed 07-02-PLAN.md
+Last session: 2026-03-21T20:53:18.759Z
+Stopped at: Completed 08-01-PLAN.md
 Resume file: None

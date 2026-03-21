@@ -84,7 +84,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **RT-01**: Topic earthquakes -- Extended: interactive SVG map (USGS 24h, magnitude=size, depth=color, click popup), 7-day magnitude histogram
 - [x] **RT-02**: Topic weather -- Extended: 24 cities (all continents), hourly sparklines, extreme weather warnings (code>65 rain, >75 blizzard, >95 thunderstorm)
-- [ ] **RT-03**: Topic solar -- Hero: solar activity (NOAA), solar cycle 25 chart with sunspot count, aurora Kp-index map with visibility latitude
+- [x] **RT-03**: Topic solar -- Hero: solar activity (NOAA), solar cycle 25 chart with sunspot count, aurora Kp-index map with visibility latitude
 - [ ] **RT-04**: Topic crypto_sentiment -- Extended: 30-day Fear & Greed history chart with color zones (red=fear, green=greed)
 
 ### Momentum Topics (Akt 07)
@@ -187,7 +187,7 @@ Deferred to future release. Tracked but not in current roadmap.
 | PROG-03 | Phase 7 | Complete |
 | RT-01 | Phase 4 | Complete |
 | RT-02 | Phase 7 | Complete |
-| RT-03 | Phase 8 | Pending |
+| RT-03 | Phase 8 | Complete |
 | RT-04 | Phase 8 | Pending |
 | MOM-01 | Phase 8 | Pending |
 | CRISIS-01 | Phase 8 | Pending |
