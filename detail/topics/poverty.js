@@ -20,6 +20,7 @@ export const meta = {
   titleKey: 'detail.poverty.title',
   category: 'economy',
   icon: '',
+  supportsTimeRange: true,
 };
 
 // --- Module State ------------------------------------------------------

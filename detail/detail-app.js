@@ -110,8 +110,10 @@ async function loadTopic(topicId) {
     // Setup lazy chart loading if module provides configs
     setupLazyCharts(module.getChartConfigs());
 
-    // Add time range selector to trend block
-    setupTimeRange(document.getElementById('detail-trend'));
+    // Add time range selector only if topic supports it
+    if (module.meta.supportsTimeRange) {
+      setupTimeRange(document.getElementById('detail-trend'));
+    }
 
     console.log('[DetailApp] Topic loaded:', topicId);
   } catch (err) {

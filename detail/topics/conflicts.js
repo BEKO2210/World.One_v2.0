@@ -19,6 +19,7 @@ export const meta = {
   titleKey: 'detail.conflicts.title',
   category: 'society',
   icon: '',
+  supportsTimeRange: true,
 };
 
 // --- Module State ------------------------------------------------------

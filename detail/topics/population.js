@@ -20,6 +20,7 @@ export const meta = {
   titleKey: 'detail.population.title',
   category: 'society',
   icon: '',
+  supportsTimeRange: true,
 };
 
 // --- Module State ------------------------------------------------------

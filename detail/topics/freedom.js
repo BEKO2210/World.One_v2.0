@@ -21,6 +21,7 @@ export const meta = {
   titleKey: 'detail.freedom.title',
   category: 'society',
   icon: '',
+  supportsTimeRange: true,
 };
 
 // --- Module State ------------------------------------------------------

@@ -20,6 +20,7 @@ export const meta = {
   titleKey: 'detail.renewables.title',
   category: 'environment',
   icon: '',
+  supportsTimeRange: true,
 };
 
 // --- Module State ------------------------------------------------------

@@ -21,6 +21,7 @@ export const meta = {
   titleKey: 'detail.science.title',
   category: 'progress',
   icon: '',
+  supportsTimeRange: true,
 };
 
 // --- Module State ------------------------------------------------------
