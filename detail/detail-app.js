@@ -98,7 +98,7 @@ async function loadTopic(topicId) {
     });
 
     // Update breadcrumb with topic title
-    const titleText = i18n.t(module.meta.titleKey);
+    const titleText = module.meta?.titleKey ? i18n.t(module.meta.titleKey) : topicId;
     const breadcrumbEl = document.getElementById('detail-breadcrumb-topic');
     if (breadcrumbEl) {
       breadcrumbEl.textContent = titleText;
@@ -318,6 +318,10 @@ function showToast(message) {
 // ─── Cleanup ─────────────────────────────────────────────────
 
 function cleanup() {
+  if (_toastTimeout) {
+    clearTimeout(_toastTimeout);
+    _toastTimeout = null;
+  }
   if (_currentTopic && typeof _currentTopic.cleanup === 'function') {
     _currentTopic.cleanup();
   }
