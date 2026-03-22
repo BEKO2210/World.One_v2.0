@@ -10,6 +10,7 @@ import { MathUtils } from '../../js/utils/math.js';
 import { fetchTopicData, fetchWithTimeout } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { createMarkerMap } from '../utils/marker-map.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -25,25 +26,6 @@ export const meta = {
 let _intervals = [];
 let _chartData = null;
 let _tooltipEl = null;
-
-// --- Simplified continent outlines for SVG map -------------------------
-
-const CONTINENT_PATHS = [
-  // North America (simplified)
-  'M50,80 L130,55 L160,65 L175,110 L145,140 L130,180 L105,175 L85,145 L50,130 Z',
-  // South America (simplified)
-  'M130,195 L155,180 L170,195 L175,235 L165,290 L145,320 L120,305 L115,255 L120,220 Z',
-  // Europe (simplified)
-  'M410,65 L460,55 L480,70 L470,90 L490,100 L465,115 L430,105 L410,95 Z',
-  // Africa (simplified)
-  'M420,130 L470,120 L500,145 L505,190 L490,240 L470,280 L440,290 L420,260 L410,210 L415,165 Z',
-  // Asia (simplified)
-  'M490,55 L600,35 L700,50 L730,80 L710,115 L680,130 L640,135 L600,145 L540,140 L500,130 L485,105 L490,80 Z',
-  // Australia (simplified)
-  'M680,260 L730,250 L760,265 L765,290 L740,310 L700,310 L680,290 Z',
-  // Antarctica (simplified)
-  'M100,420 L300,415 L500,420 L700,415 L800,425 L700,445 L300,445 L100,440 Z',
-];
 
 // --- Depth to color mapping -------------------------------------------
 
@@ -128,7 +110,7 @@ export async function render(blocks) {
   _renderHero(blocks.hero, count24h, largest24h, tier, age);
 
   // --- 3. Chart Block (Interactive SVG Earthquake Map) ---
-  _renderMap(blocks.chart, quakes24h, usgsSuccess);
+  await _renderMap(blocks.chart, quakes24h, usgsSuccess);
 
   // --- 4. Trend Block (7-Day Magnitude Histogram) ---
   _renderHistogram(blocks.trend);
@@ -204,14 +186,16 @@ function _renderHero(heroEl, count24h, largest24h, tier, age) {
 
 // --- SVG Earthquake Map -------------------------------------------------
 
-function _renderMap(chartEl, quakes24h, usgsSuccess) {
+async function _renderMap(chartEl, quakes24h, usgsSuccess) {
+  const mapResult = await _buildSVGMap(quakes24h, usgsSuccess);
+
   chartEl.appendChild(
     DOMUtils.create('div', {}, [
       DOMUtils.create('h2', {
         textContent: i18n.t('detail.earthquakes.mapTitle'),
         style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)' },
       }),
-      _buildSVGMap(quakes24h, chartEl, usgsSuccess),
+      mapResult,
       _buildMapLegend(),
       DOMUtils.create('p', {
         textContent: i18n.t('detail.earthquakes.clickDot'),
@@ -221,69 +205,36 @@ function _renderMap(chartEl, quakes24h, usgsSuccess) {
   );
 }
 
-function _buildSVGMap(quakes, containerEl, usgsSuccess) {
-  const wrapper = DOMUtils.create('div', {
-    style: {
-      position: 'relative',
-      width: '100%',
-      maxWidth: '900px',
-      margin: '0 auto',
-    },
-  });
+async function _buildSVGMap(quakes, usgsSuccess) {
+  const map = await createMarkerMap();
 
-  const svg = DOMUtils.createSVG('svg', {
-    viewBox: '0 0 900 450',
-    width: '100%',
-    height: 'auto',
-    style: 'display:block; background: rgba(255,255,255,0.02); border-radius: 8px;',
-  });
-
-  // Draw simplified continent outlines
-  for (const pathData of CONTINENT_PATHS) {
-    const path = DOMUtils.createSVG('path', {
-      d: pathData,
-      fill: 'rgba(255,255,255,0.05)',
-      stroke: 'rgba(255,255,255,0.15)',
-      'stroke-width': '0.5',
+  if (!map) {
+    return DOMUtils.create('p', {
+      textContent: 'Map unavailable',
+      style: { color: 'var(--text-secondary)', fontStyle: 'italic', textAlign: 'center' },
     });
-    svg.appendChild(path);
   }
 
-  // Grid lines for reference
-  for (let lat = -60; lat <= 60; lat += 30) {
-    const { y } = MathUtils.geoToSVG(lat, 0, 900, 450);
-    const line = DOMUtils.createSVG('line', {
-      x1: '0', y1: String(y), x2: '900', y2: String(y),
-      stroke: 'rgba(255,255,255,0.04)',
-      'stroke-width': '0.5',
-    });
-    svg.appendChild(line);
-  }
-  for (let lng = -150; lng <= 150; lng += 30) {
-    const { x } = MathUtils.geoToSVG(0, lng, 900, 450);
-    const line = DOMUtils.createSVG('line', {
-      x1: String(x), y1: '0', x2: String(x), y2: '450',
-      stroke: 'rgba(255,255,255,0.04)',
-      'stroke-width': '0.5',
-    });
-    svg.appendChild(line);
-  }
+  const { wrapper, overlay, geoToXY, svgWidth } = map;
+
+  // Scale factor: radii designed for 900px width, now 2000px
+  const scaleFactor = svgWidth / 900;
 
   if (!usgsSuccess || quakes.length === 0) {
-    // Show "data unavailable" message
+    // Show "data unavailable" message on the overlay
     const text = DOMUtils.createSVG('text', {
-      x: '450', y: '225',
+      x: String(svgWidth / 2), y: '428',
       'text-anchor': 'middle',
       fill: 'rgba(255,255,255,0.5)',
-      'font-size': '16',
+      'font-size': '32',
     });
     text.textContent = 'Data unavailable -- USGS fetch failed';
-    svg.appendChild(text);
+    overlay.appendChild(text);
   } else {
-    // Plot earthquake dots
+    // Plot earthquake dots on the overlay
     for (const quake of quakes) {
-      const { x, y } = MathUtils.geoToSVG(quake.lat, quake.lng, 900, 450);
-      const radius = MathUtils.remap(quake.magnitude, 2.5, 8, 3, 16);
+      const { x, y } = geoToXY(quake.lat, quake.lng);
+      const radius = MathUtils.remap(quake.magnitude, 2.5, 8, 3, 16) * scaleFactor;
       const color = depthToColor(quake.depth);
 
       const circle = DOMUtils.createSVG('circle', {
@@ -293,8 +244,8 @@ function _buildSVGMap(quakes, containerEl, usgsSuccess) {
         fill: color,
         opacity: '0.7',
         stroke: color,
-        'stroke-width': '0.5',
-        style: 'cursor:pointer;',
+        'stroke-width': '1',
+        style: 'cursor:pointer; pointer-events:auto;',
       });
 
       circle.addEventListener('click', (e) => {
@@ -302,11 +253,9 @@ function _buildSVGMap(quakes, containerEl, usgsSuccess) {
         _showPopup(wrapper, quake, e);
       });
 
-      svg.appendChild(circle);
+      overlay.appendChild(circle);
     }
   }
-
-  wrapper.appendChild(svg);
 
   // Click outside removes popup
   wrapper.addEventListener('click', () => {
