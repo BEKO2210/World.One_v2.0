@@ -357,7 +357,18 @@
 /* ─── 11. Responsive ─── */
 @media (max-width: 640px) {
   .detail-nav {
+    height: 48px;
     padding: 0 var(--space-sm);
+  }
+
+  .detail-nav__back,
+  .detail-nav__btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .detail-page {
+    padding: 60px var(--space-sm) var(--space-lg);
   }
 
   .detail-block {

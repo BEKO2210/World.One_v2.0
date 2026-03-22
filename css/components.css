@@ -691,6 +691,11 @@
   z-index: 1;
 }
 @media (max-width: 640px) {
-  .scroll-top { bottom: 12px; width: 32px; height: 32px; }
-  .scroll-top__arrow { width: 12px; height: 12px; }
+  .scroll-top { bottom: 12px; width: 44px; height: 44px; }
+  .scroll-top__arrow { width: 14px; height: 14px; }
+  .air-quality-grid { grid-template-columns: 1fr; }
+  .weather-grid { grid-template-columns: repeat(2, 1fr); }
+  .aqi-card__value { font-size: 12px; }
+  .top-bar__brand { font-size: 11px; }
+  .top-bar__version { font-size: 10px; }
 }
