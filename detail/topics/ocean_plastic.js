@@ -10,6 +10,7 @@ import { i18n } from '../../js/i18n.js';
 import { DOMUtils } from '../../js/utils/dom.js';
 import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
+import { createMarkerMap } from '../utils/marker-map.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -54,25 +55,6 @@ const DECOMPOSITION_TIMES = [
   { item: 'Fishing line',    years: 600, color: '#b71c1c' },
 ];
 
-// --- Simplified Continent Outlines (shared with earthquakes/conflicts) --
-
-const CONTINENT_PATHS = [
-  // North America
-  'M50,80 L130,55 L160,65 L175,110 L145,140 L130,180 L105,175 L85,145 L50,130 Z',
-  // South America
-  'M130,195 L155,180 L170,195 L175,235 L165,290 L145,320 L120,305 L115,255 L120,220 Z',
-  // Europe
-  'M410,65 L460,55 L480,70 L470,90 L490,100 L465,115 L430,105 L410,95 Z',
-  // Africa
-  'M420,130 L470,120 L500,145 L505,190 L490,240 L470,280 L440,290 L420,260 L410,210 L415,165 Z',
-  // Asia
-  'M490,55 L600,35 L700,50 L730,80 L710,115 L680,130 L640,135 L600,145 L540,140 L500,130 L485,105 L490,80 Z',
-  // Australia
-  'M680,260 L730,250 L760,265 L765,290 L740,310 L700,310 L680,290 Z',
-  // Antarctica
-  'M100,420 L300,415 L500,420 L700,415 L800,425 L700,445 L300,445 L100,440 Z',
-];
-
 // --- Render ------------------------------------------------------------
 
 export async function render(blocks) {
@@ -87,7 +69,7 @@ export async function render(blocks) {
   _renderCounter(blocks.chart);
 
   // 3. Trend block -- garbage patches SVG map
-  _renderGarbagePatches(blocks.trend);
+  await _renderGarbagePatches(blocks.trend);
 
   // 4. Tiles block -- decomposition time bars
   _renderDecomposition(blocks.tiles);
@@ -222,7 +204,7 @@ function _renderCounter(chartEl) {
 
 // --- Trend Block (Garbage Patches SVG Map) -------------------------------
 
-function _renderGarbagePatches(trendEl) {
+async function _renderGarbagePatches(trendEl) {
   trendEl.appendChild(
     DOMUtils.create('h2', {
       textContent: i18n.t('detail.ocean_plastic.patchesTitle'),
@@ -230,18 +212,23 @@ function _renderGarbagePatches(trendEl) {
     })
   );
 
-  const svgNS = 'http://www.w3.org/2000/svg';
-  const svg = document.createElementNS(svgNS, 'svg');
-  svg.setAttribute('viewBox', '0 0 1000 500');
-  svg.setAttribute('role', 'img');
-  svg.setAttribute('aria-label', 'Ocean garbage patches world map');
-  svg.style.cssText = 'width:100%; height:auto; max-height:400px; border-radius:12px; background:rgba(10,30,60,0.4);';
+  const map = await createMarkerMap({ background: 'rgba(10,30,60,0.4)' });
 
-  // Ocean background gradient
-  const defs = document.createElementNS(svgNS, 'defs');
+  if (!map) {
+    trendEl.appendChild(
+      DOMUtils.create('p', {
+        textContent: 'Map unavailable',
+        style: { color: 'var(--text-secondary)', fontStyle: 'italic', textAlign: 'center' },
+      })
+    );
+    return;
+  }
 
-  // CSS animation for pulsing circles
-  const style = document.createElementNS(svgNS, 'style');
+  const { wrapper, overlay, svgWidth, svgHeight } = map;
+
+  // Add pulsing animation via defs
+  const defs = DOMUtils.createSVG('defs', {});
+  const style = DOMUtils.createSVG('style', {});
   style.textContent = `
     @keyframes pulse-patch {
       0%, 100% { opacity: 0.6; }
@@ -250,74 +237,70 @@ function _renderGarbagePatches(trendEl) {
     .patch-circle { animation: pulse-patch 3s ease-in-out infinite; }
   `;
   defs.appendChild(style);
-  svg.appendChild(defs);
+  overlay.appendChild(defs);
 
-  // Draw continent outlines
-  CONTINENT_PATHS.forEach(d => {
-    const path = document.createElementNS(svgNS, 'path');
-    path.setAttribute('d', d);
-    path.setAttribute('fill', 'rgba(100, 120, 140, 0.3)');
-    path.setAttribute('stroke', 'rgba(150, 170, 190, 0.4)');
-    path.setAttribute('stroke-width', '1');
-    svg.appendChild(path);
-  });
+  // Scale factors: original cx/cy in 1000x500 space -> new svgWidth x svgHeight
+  const scaleX = svgWidth / 1000;
+  const scaleY = svgHeight / 500;
+  const radiusScale = Math.min(scaleX, scaleY);
 
-  // Draw garbage patches as pulsing circles
+  // Draw garbage patches as pulsing circles on the overlay
   GARBAGE_PATCHES.forEach((patch, idx) => {
-    // Log scale radius: log(size) mapped to 15-45px range
+    const cx = patch.cx * scaleX;
+    const cy = patch.cy * scaleY;
+
+    // Log scale radius: log(size) mapped to 15-45px range, then scaled
     const logMin = Math.log(700000);
     const logMax = Math.log(2600000);
     const logVal = Math.log(patch.size);
-    const radius = 15 + ((logVal - logMin) / (logMax - logMin)) * 30;
+    const radius = (15 + ((logVal - logMin) / (logMax - logMin)) * 30) * radiusScale;
 
     // Outer glow
-    const glow = document.createElementNS(svgNS, 'circle');
-    glow.setAttribute('cx', patch.cx);
-    glow.setAttribute('cy', patch.cy);
-    glow.setAttribute('r', radius + 8);
-    glow.setAttribute('fill', 'none');
-    glow.setAttribute('stroke', patch.color);
-    glow.setAttribute('stroke-width', '2');
-    glow.setAttribute('opacity', '0.3');
-    glow.classList.add('patch-circle');
-    glow.style.animationDelay = `${idx * 0.6}s`;
-    svg.appendChild(glow);
+    const glow = DOMUtils.createSVG('circle', {
+      cx: String(cx), cy: String(cy), r: String(radius + 8 * radiusScale),
+      fill: 'none',
+      stroke: patch.color,
+      'stroke-width': String(2 * radiusScale),
+      opacity: '0.3',
+      class: 'patch-circle',
+      style: `animation-delay:${idx * 0.6}s; pointer-events:auto;`,
+    });
+    overlay.appendChild(glow);
 
     // Main circle
-    const circle = document.createElementNS(svgNS, 'circle');
-    circle.setAttribute('cx', patch.cx);
-    circle.setAttribute('cy', patch.cy);
-    circle.setAttribute('r', radius);
-    circle.setAttribute('fill', patch.color);
-    circle.setAttribute('opacity', '0.5');
-    circle.classList.add('patch-circle');
-    circle.style.animationDelay = `${idx * 0.6}s`;
-    svg.appendChild(circle);
+    const circle = DOMUtils.createSVG('circle', {
+      cx: String(cx), cy: String(cy), r: String(radius),
+      fill: patch.color,
+      opacity: '0.5',
+      class: 'patch-circle',
+      style: `animation-delay:${idx * 0.6}s; pointer-events:auto;`,
+    });
+    overlay.appendChild(circle);
 
     // Label text
-    const text = document.createElementNS(svgNS, 'text');
-    text.setAttribute('x', patch.cx);
-    text.setAttribute('y', patch.cy + radius + 16);
-    text.setAttribute('text-anchor', 'middle');
-    text.setAttribute('fill', 'rgba(255,255,255,0.8)');
-    text.setAttribute('font-size', '11');
-    text.setAttribute('font-family', 'system-ui, sans-serif');
+    const text = DOMUtils.createSVG('text', {
+      x: String(cx), y: String(cy + radius + 16 * radiusScale),
+      'text-anchor': 'middle',
+      fill: 'rgba(255,255,255,0.8)',
+      'font-size': String(11 * radiusScale),
+      'font-family': 'system-ui, sans-serif',
+    });
     text.textContent = patch.name;
-    svg.appendChild(text);
+    overlay.appendChild(text);
 
     // Size label
-    const sizeText = document.createElementNS(svgNS, 'text');
-    sizeText.setAttribute('x', patch.cx);
-    sizeText.setAttribute('y', patch.cy + radius + 28);
-    sizeText.setAttribute('text-anchor', 'middle');
-    sizeText.setAttribute('fill', 'rgba(255,255,255,0.5)');
-    sizeText.setAttribute('font-size', '9');
-    sizeText.setAttribute('font-family', 'system-ui, sans-serif');
+    const sizeText = DOMUtils.createSVG('text', {
+      x: String(cx), y: String(cy + radius + 28 * radiusScale),
+      'text-anchor': 'middle',
+      fill: 'rgba(255,255,255,0.5)',
+      'font-size': String(9 * radiusScale),
+      'font-family': 'system-ui, sans-serif',
+    });
     sizeText.textContent = `~${(patch.size / 1_000_000).toFixed(1)}M km\u00B2`;
-    svg.appendChild(sizeText);
+    overlay.appendChild(sizeText);
   });
 
-  trendEl.appendChild(svg);
+  trendEl.appendChild(wrapper);
 }
 
 // --- Tiles Block (Decomposition Time Bars) -------------------------------
