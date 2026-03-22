@@ -13,6 +13,7 @@ import { MathUtils } from '../../js/utils/math.js';
 import { fetchTopicData, fetchWithTimeout } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { createMarkerMap } from '../utils/marker-map.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -29,26 +30,6 @@ let _intervals = [];
 let _trail = [];
 let _chartData = null;
 const MAX_TRAIL = 30; // ~5 minutes of positions at 10s intervals
-
-// --- Simplified continent outlines for SVG map -------------------------
-// Copied from earthquakes.js (same base map)
-
-const CONTINENT_PATHS = [
-  // North America
-  'M50,80 L130,55 L160,65 L175,110 L145,140 L130,180 L105,175 L85,145 L50,130 Z',
-  // South America
-  'M130,195 L155,180 L170,195 L175,235 L165,290 L145,320 L120,305 L115,255 L120,220 Z',
-  // Europe
-  'M410,65 L460,55 L480,70 L470,90 L490,100 L465,115 L430,105 L410,95 Z',
-  // Africa
-  'M420,130 L470,120 L500,145 L505,190 L490,240 L470,280 L440,290 L420,260 L410,210 L415,165 Z',
-  // Asia
-  'M490,55 L600,35 L700,50 L730,80 L710,115 L680,130 L640,135 L600,145 L540,140 L500,130 L485,105 L490,80 Z',
-  // Australia
-  'M680,260 L730,250 L760,265 L765,290 L740,310 L700,310 L680,290 Z',
-  // Antarctica
-  'M100,420 L300,415 L500,420 L700,415 L800,425 L700,445 L300,445 L100,440 Z',
-];
 
 // --- ISS Crew (Expedition 74, early 2026 -- hardcoded, changes ~6 months) --
 
@@ -77,15 +58,14 @@ const TOTAL_SATELLITES = 13000;
 let _trailEl = null;
 let _dotEl = null;
 let _posTextEl = null;
+let _geoToXY = null;
 
 // --- Render ------------------------------------------------------------
 
 export async function render(blocks) {
   // --- 1. Build ISS SVG Map (block 0 -- primary chart, rendered directly) ---
-  const { svg, trail, dot, posText } = _buildISSMap();
-  _trailEl = trail;
-  _dotEl = dot;
-  _posTextEl = posText;
+  const mapResult = await _buildISSMap();
+  // _trailEl, _dotEl, _posTextEl, _geoToXY set inside _buildISSMap
 
   // Hero block: ISS altitude + live badge
   _renderHero(blocks.hero);
@@ -97,14 +77,8 @@ export async function render(blocks) {
         textContent: i18n.t('detail.space.issTitle'),
         style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)' },
       }),
-      DOMUtils.create('div', {
-        style: {
-          position: 'relative',
-          width: '100%',
-          maxWidth: '900px',
-          margin: '0 auto',
-        },
-      }, [svg, posText]),
+      mapResult.wrapper,
+      mapResult.posText,
     ])
   );
 
@@ -188,63 +162,10 @@ function _renderHero(heroEl) {
 
 // --- ISS SVG Map --------------------------------------------------------
 
-function _buildISSMap() {
-  const svg = DOMUtils.createSVG('svg', {
-    viewBox: '0 0 900 450',
-    width: '100%',
-    height: 'auto',
-    style: 'display:block; background: rgba(255,255,255,0.02); border-radius: 8px;',
-  });
+async function _buildISSMap() {
+  const map = await createMarkerMap();
 
-  // Continent outlines
-  for (const pathData of CONTINENT_PATHS) {
-    svg.appendChild(DOMUtils.createSVG('path', {
-      d: pathData,
-      fill: 'rgba(255,255,255,0.05)',
-      stroke: 'rgba(255,255,255,0.15)',
-      'stroke-width': '0.5',
-    }));
-  }
-
-  // Grid lines (latitude)
-  for (let lat = -60; lat <= 60; lat += 30) {
-    const { y } = MathUtils.geoToSVG(lat, 0, 900, 450);
-    svg.appendChild(DOMUtils.createSVG('line', {
-      x1: '0', y1: String(y), x2: '900', y2: String(y),
-      stroke: 'rgba(255,255,255,0.04)',
-      'stroke-width': '0.5',
-    }));
-  }
-  // Grid lines (longitude)
-  for (let lng = -150; lng <= 150; lng += 30) {
-    const { x } = MathUtils.geoToSVG(0, lng, 900, 450);
-    svg.appendChild(DOMUtils.createSVG('line', {
-      x1: String(x), y1: '0', x2: String(x), y2: '450',
-      stroke: 'rgba(255,255,255,0.04)',
-      'stroke-width': '0.5',
-    }));
-  }
-
-  // Orbit trail polyline (updated every 10s)
-  const trail = DOMUtils.createSVG('polyline', {
-    points: '',
-    fill: 'none',
-    stroke: 'rgba(0, 255, 204, 0.4)',
-    'stroke-width': '1.5',
-    'stroke-dasharray': '4,2',
-  });
-  svg.appendChild(trail);
-
-  // ISS dot
-  const dot = DOMUtils.createSVG('circle', {
-    cx: '450', cy: '225', r: '6',
-    fill: 'rgba(0, 255, 204, 0.9)',
-    stroke: 'rgba(0, 255, 204, 0.3)',
-    'stroke-width': '3',
-  });
-  svg.appendChild(dot);
-
-  // Position text display below the map
+  // Position text display below the map (always created)
   const posText = DOMUtils.create('div', {
     style: {
       textAlign: 'center',
@@ -256,18 +177,56 @@ function _buildISSMap() {
     textContent: 'ISS: --',
   });
 
-  return { svg, trail, dot, posText };
+  if (!map) {
+    const fallback = DOMUtils.create('p', {
+      textContent: 'Map unavailable',
+      style: { color: 'var(--text-secondary)', fontStyle: 'italic', textAlign: 'center' },
+    });
+    return { wrapper: fallback, posText };
+  }
+
+  const { wrapper, overlay, geoToXY, svgWidth } = map;
+
+  // Store geoToXY for interval updates
+  _geoToXY = geoToXY;
+
+  // Orbit trail polyline (updated every 10s)
+  const trail = DOMUtils.createSVG('polyline', {
+    points: '',
+    fill: 'none',
+    stroke: 'rgba(0, 255, 204, 0.4)',
+    'stroke-width': '3',
+    'stroke-dasharray': '8,4',
+  });
+  overlay.appendChild(trail);
+
+  // ISS dot -- scale radius for 2000px coordinate space
+  const dot = DOMUtils.createSVG('circle', {
+    cx: String(svgWidth / 2), cy: '428', r: '13',
+    fill: 'rgba(0, 255, 204, 0.9)',
+    stroke: 'rgba(0, 255, 204, 0.3)',
+    'stroke-width': '6',
+    style: 'pointer-events:auto;',
+  });
+  overlay.appendChild(dot);
+
+  _trailEl = trail;
+  _dotEl = dot;
+  _posTextEl = posText;
+
+  return { wrapper, posText };
 }
 
 // --- ISS Position Update ------------------------------------------------
 
 function _updateISSPosition(lat, lng) {
-  const { x, y } = MathUtils.geoToSVG(lat, lng, 900, 450);
+  if (!_geoToXY) return;
+  const { x, y } = _geoToXY(lat, lng);
 
-  // Date line detection: if consecutive points jump > 400px, clear trail
+  // Date line detection: if consecutive points jump > 900px, clear trail
   if (_trail.length > 0) {
     const last = _trail[_trail.length - 1];
-    if (Math.abs(x - last.x) > 400) {
+    if (Math.abs(x - last.x) > 900) {
       _trail = [];
     }
   }
@@ -647,5 +606,6 @@ export function cleanup() {
   _trailEl = null;
   _dotEl = null;
   _posTextEl = null;
+  _geoToXY = null;
   console.log('[Space] cleanup()');
 }
