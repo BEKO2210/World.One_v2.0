@@ -11,6 +11,7 @@ import { MathUtils } from '../../js/utils/math.js';
 import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { createMarkerMap } from '../utils/marker-map.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -88,18 +89,6 @@ const DISPLACEMENT = {
   total: 117,            // millions (includes others)
 };
 
-// --- Simplified continent outlines for SVG map -------------------------
-
-const CONTINENT_PATHS = [
-  'M50,80 L130,55 L160,65 L175,110 L145,140 L130,180 L105,175 L85,145 L50,130 Z',
-  'M130,195 L155,180 L170,195 L175,235 L165,290 L145,320 L120,305 L115,255 L120,220 Z',
-  'M410,65 L460,55 L480,70 L470,90 L490,100 L465,115 L430,105 L410,95 Z',
-  'M420,130 L470,120 L500,145 L505,190 L490,240 L470,280 L440,290 L420,260 L410,210 L415,165 Z',
-  'M490,55 L600,35 L700,50 L730,80 L710,115 L680,130 L640,135 L600,145 L540,140 L500,130 L485,105 L490,80 Z',
-  'M680,260 L730,250 L760,265 L765,290 L740,310 L700,310 L680,290 Z',
-  'M100,420 L300,415 L500,420 L700,415 L800,425 L700,445 L300,445 L100,440 Z',
-];
-
 // --- Intensity helpers -------------------------------------------------
 
 function intensityToRadius(intensity) {
@@ -139,7 +128,7 @@ export async function render(blocks) {
   _renderHero(blocks.hero, activeConflicts, conflictYear, tier, age);
 
   // --- 3. Chart Block (SVG Conflict Map) ---
-  _renderMap(blocks.chart);
+  await _renderMap(blocks.chart);
 
   // --- 4. Trend Block (Historical Trend -- rendered directly for interactivity) ---
   await _renderTrend(blocks.trend);
@@ -195,14 +184,16 @@ function _renderHero(heroEl, activeConflicts, year, tier, age) {
 
 // --- SVG Conflict Map ---------------------------------------------------
 
-function _renderMap(chartEl) {
+async function _renderMap(chartEl) {
+  const mapResult = await _buildConflictMap();
+
   chartEl.appendChild(
     DOMUtils.create('div', {}, [
       DOMUtils.create('h2', {
         textContent: i18n.t('detail.conflicts.mapTitle'),
         style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)' },
       }),
-      _buildConflictMap(chartEl),
+      mapResult,
       _buildConflictLegend(),
       DOMUtils.create('p', {
         textContent: i18n.t('detail.conflicts.clickCountry'),
@@ -212,65 +203,34 @@ function _renderMap(chartEl) {
   );
 }
 
-function _buildConflictMap(containerParent) {
-  const wrapper = DOMUtils.create('div', {
-    style: {
-      position: 'relative',
-      width: '100%',
-      maxWidth: '900px',
-      margin: '0 auto',
-    },
-  });
+async function _buildConflictMap() {
+  const map = await createMarkerMap();
 
-  const svg = DOMUtils.createSVG('svg', {
-    viewBox: '0 0 900 450',
-    width: '100%',
-    height: 'auto',
-    style: 'display:block; background: rgba(255,255,255,0.02); border-radius: 8px;',
-  });
-
-  // Draw simplified continent outlines
-  for (const pathData of CONTINENT_PATHS) {
-    const path = DOMUtils.createSVG('path', {
-      d: pathData,
-      fill: 'rgba(255,255,255,0.05)',
-      stroke: 'rgba(255,255,255,0.15)',
-      'stroke-width': '0.5',
+  if (!map) {
+    return DOMUtils.create('p', {
+      textContent: 'Map unavailable',
+      style: { color: 'var(--text-secondary)', fontStyle: 'italic', textAlign: 'center' },
     });
-    svg.appendChild(path);
   }
 
-  // Grid lines
-  for (let lat = -60; lat <= 60; lat += 30) {
-    const { y } = MathUtils.geoToSVG(lat, 0, 900, 450);
-    svg.appendChild(DOMUtils.createSVG('line', {
-      x1: '0', y1: String(y), x2: '900', y2: String(y),
-      stroke: 'rgba(255,255,255,0.04)', 'stroke-width': '0.5',
-    }));
-  }
-  for (let lng = -150; lng <= 150; lng += 30) {
-    const { x } = MathUtils.geoToSVG(0, lng, 900, 450);
-    svg.appendChild(DOMUtils.createSVG('line', {
-      x1: String(x), y1: '0', x2: String(x), y2: '450',
-      stroke: 'rgba(255,255,255,0.04)', 'stroke-width': '0.5',
-    }));
-  }
+  const { wrapper, overlay, geoToXY } = map;
 
-  // Plot conflict country dots
+  // Plot conflict country dots on the overlay
   for (const country of CONFLICT_COUNTRIES) {
-    const { x, y } = MathUtils.geoToSVG(country.lat, country.lng, 900, 450);
+    const { x, y } = geoToXY(country.lat, country.lng);
     const radius = intensityToRadius(country.intensity);
     const color = intensityToColor(country.intensity);
 
     // Outer glow for war-level conflicts
     if (country.intensity === 3) {
       const glow = DOMUtils.createSVG('circle', {
-        cx: String(x), cy: String(y), r: String(radius + 4),
+        cx: String(x), cy: String(y), r: String(radius + 8),
         fill: 'none',
         stroke: toRgba(CHART_COLORS.crisis, 0.3),
-        'stroke-width': '2',
+        'stroke-width': '4',
+        style: 'pointer-events:auto;',
       });
-      svg.appendChild(glow);
+      overlay.appendChild(glow);
     }
 
     const circle = DOMUtils.createSVG('circle', {
@@ -279,8 +239,8 @@ function _buildConflictMap(containerParent) {
       r: String(radius),
       fill: color,
       stroke: 'rgba(255,255,255,0.2)',
-      'stroke-width': '0.5',
-      style: 'cursor:pointer;',
+      'stroke-width': '1',
+      style: 'cursor:pointer; pointer-events:auto;',
     });
 
     circle.addEventListener('click', (e) => {
@@ -288,10 +248,8 @@ function _buildConflictMap(containerParent) {
       _showConflictPopup(wrapper, country, e);
     });
 
-    svg.appendChild(circle);
+    overlay.appendChild(circle);
   }
-
-  wrapper.appendChild(svg);
 
   // Click outside removes popup
   wrapper.addEventListener('click', () => {
