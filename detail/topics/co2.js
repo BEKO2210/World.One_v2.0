@@ -306,7 +306,7 @@ function _buildGreenhouseInfographic() {
       textContent: '\u2600\uFE0F',
     }),
     DOMUtils.create('span', {
-      textContent: 'Solar radiation',
+      textContent: i18n.t('detail.co2.solarRadiation'),
       style: { color: 'rgba(255, 215, 0, 0.9)', fontSize: '0.85rem', fontWeight: '600' },
     }),
   ]);
@@ -334,12 +334,12 @@ function _buildGreenhouseInfographic() {
     },
   }, [
     DOMUtils.create('span', {
-      textContent: 'CO2 + CH4 + N2O',
+      textContent: i18n.t('detail.co2.greenhouseGases'),
       style: { color: 'rgba(0, 180, 216, 0.9)', fontSize: '0.85rem', fontWeight: '600' },
     }),
     DOMUtils.create('span', {
       style: { color: 'var(--text-secondary)', fontSize: '0.75rem', marginLeft: '0.5rem' },
-      textContent: '(Greenhouse gases trap heat)',
+      textContent: i18n.t('detail.co2.gasesTrapped'),
     }),
   ]);
 
@@ -350,7 +350,7 @@ function _buildGreenhouseInfographic() {
       color: 'rgba(255, 107, 107, 0.6)',
       padding: '0.25rem 0',
     },
-    textContent: '\u2193 IR \u2191 re-radiated',
+    textContent: `\u2193 ${i18n.t('detail.co2.irRadiation')} \u2191`,
   });
 
   const earthLayer = DOMUtils.create('div', {
@@ -370,7 +370,7 @@ function _buildGreenhouseInfographic() {
       textContent: '\uD83C\uDF0D',
     }),
     DOMUtils.create('span', {
-      textContent: 'Earth surface absorbs & re-emits',
+      textContent: i18n.t('detail.co2.earthAbsorbs'),
       style: { color: 'rgba(0, 255, 100, 0.9)', fontSize: '0.85rem', fontWeight: '600' },
     }),
   ]);

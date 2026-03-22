@@ -420,6 +420,11 @@ const translations = {
     'detail.co2.ppm': 'ppm',
     'detail.co2.gt': 'Gt CO2/Jahr',
     'detail.co2.countryBarLabel': 'Tonnen CO2 pro Kopf (2020)',
+    'detail.co2.solarRadiation': 'Sonnenstrahlung',
+    'detail.co2.greenhouseGases': 'CO2 + CH4 + N2O',
+    'detail.co2.gasesTrapped': '(Treibhausgase speichern Waerme)',
+    'detail.co2.irRadiation': 'IR',
+    'detail.co2.earthAbsorbs': 'Erdoberflaeche absorbiert und strahlt zurueck',
 
     // ─── Detail: Temperature (~20 keys) ───
     'detail.temperature.title': 'Globale Temperatur',
@@ -1291,6 +1296,11 @@ const translations = {
     'detail.co2.ppm': 'ppm',
     'detail.co2.gt': 'Gt CO2/year',
     'detail.co2.countryBarLabel': 'Tonnes CO2 per capita (2020)',
+    'detail.co2.solarRadiation': 'Solar radiation',
+    'detail.co2.greenhouseGases': 'CO2 + CH4 + N2O',
+    'detail.co2.gasesTrapped': '(Greenhouse gases trap heat)',
+    'detail.co2.irRadiation': 'IR',
+    'detail.co2.earthAbsorbs': 'Earth surface absorbs & re-emits',
 
     // ─── Detail: Temperature (~20 keys) ───
     'detail.temperature.title': 'Global Temperature',
