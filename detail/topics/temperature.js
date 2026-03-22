@@ -12,6 +12,7 @@ import { MathUtils } from '../../js/utils/math.js';
 import { fetchTopicData, fetchWithTimeout } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { renderChoropleth } from '../utils/choropleth.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -28,7 +29,7 @@ let _intervals = [];
 let _chartData = null;
 let _allAnomalies = null;
 let _tooltipEl = null;
-let _choroplethTooltipEl = null;
+let _choroplethCleanup = null;
 
 // --- NASA GISTEMP v4 Annual Mean Global Anomalies (1880-2024) ----------
 // Source: NASA GISTEMP v4, base period 1951-1980
@@ -162,51 +163,7 @@ const ISO_NAMES = {
   LV: 'Latvia', EE: 'Estonia',
 };
 
-// --- Class name to ISO-2 mapping (for SVG paths without id) ------------
-
-const CLASS_TO_ISO = {
-  'Afghanistan': 'AF', 'Albania': 'AL', 'Algeria': 'DZ', 'Angola': 'AO',
-  'Argentina': 'AR', 'Armenia': 'AM', 'Australia': 'AU', 'Austria': 'AT',
-  'Azerbaijan': 'AZ', 'Bangladesh': 'BD', 'Belarus': 'BY', 'Belgium': 'BE',
-  'Benin': 'BJ', 'Bolivia': 'BO', 'Bosnia and Herzegovina': 'BA', 'Botswana': 'BW',
-  'Brazil': 'BR', 'Bulgaria': 'BG', 'Burkina Faso': 'BF', 'Burundi': 'BI',
-  'Cambodia': 'KH', 'Cameroon': 'CM', 'Canada': 'CA', 'Central African Republic': 'CF',
-  'Chad': 'TD', 'Chile': 'CL', 'China': 'CN', 'Colombia': 'CO',
-  'Congo': 'CG', 'Croatia': 'HR', 'Cuba': 'CU', 'Czech Republic': 'CZ',
-  'Czechia': 'CZ', 'DR Congo': 'CD',
-  'Democratic Republic of the Congo': 'CD', 'Denmark': 'DK',
-  'Dominican Republic': 'DO', 'Ecuador': 'EC', 'Egypt': 'EG',
-  'El Salvador': 'SV', 'Equatorial Guinea': 'GQ', 'Eritrea': 'ER',
-  'Estonia': 'EE', 'Ethiopia': 'ET', 'Finland': 'FI', 'France': 'FR',
-  'Gabon': 'GA', 'Georgia': 'GE', 'Germany': 'DE', 'Ghana': 'GH',
-  'Greece': 'GR', 'Greenland': 'GL', 'Guatemala': 'GT', 'Guinea': 'GN',
-  'Guyana': 'GY', 'Haiti': 'HT', 'Honduras': 'HN', 'Hungary': 'HU',
-  'Iceland': 'IS', 'India': 'IN', 'Indonesia': 'ID', 'Iran': 'IR',
-  'Iraq': 'IQ', 'Ireland': 'IE', 'Israel': 'IL', 'Italy': 'IT',
-  'Jamaica': 'JM', 'Japan': 'JP', 'Jordan': 'JO', 'Kazakhstan': 'KZ',
-  'Kenya': 'KE', 'Kuwait': 'KW', 'Kyrgyzstan': 'KG', 'Laos': 'LA',
-  'Latvia': 'LV', 'Lebanon': 'LB', 'Libya': 'LY', 'Lithuania': 'LT',
-  'Madagascar': 'MG', 'Malawi': 'MW', 'Malaysia': 'MY', 'Mali': 'ML',
-  'Mauritania': 'MR', 'Mexico': 'MX', 'Moldova': 'MD', 'Mongolia': 'MN',
-  'Morocco': 'MA', 'Mozambique': 'MZ', 'Myanmar': 'MM', 'Namibia': 'NA',
-  'Nepal': 'NP', 'Netherlands': 'NL', 'New Zealand': 'NZ', 'Nicaragua': 'NI',
-  'Niger': 'NE', 'Nigeria': 'NG', 'North Korea': 'KP', 'Norway': 'NO',
-  'Oman': 'OM', 'Pakistan': 'PK', 'Panama': 'PA', 'Papua New Guinea': 'PG',
-  'Paraguay': 'PY', 'Peru': 'PE', 'Philippines': 'PH', 'Poland': 'PL',
-  'Portugal': 'PT', 'Qatar': 'QA', 'Romania': 'RO', 'Russia': 'RU',
-  'Rwanda': 'RW', 'Saudi Arabia': 'SA', 'Senegal': 'SN', 'Serbia': 'RS',
-  'Sierra Leone': 'SL', 'Slovakia': 'SK', 'Slovenia': 'SI', 'Somalia': 'SO',
-  'South Africa': 'ZA', 'South Korea': 'KR', 'Spain': 'ES', 'Sri Lanka': 'LK',
-  'Sudan': 'SD', 'Suriname': 'SR', 'Sweden': 'SE', 'Switzerland': 'CH',
-  'Syria': 'SY', 'Taiwan': 'TW', 'Tajikistan': 'TJ', 'Tanzania': 'TZ',
-  'Thailand': 'TH', 'Togo': 'TG', 'Tunisia': 'TN', 'Turkey': 'TR',
-  'Turkmenistan': 'TM', 'Uganda': 'UG', 'Ukraine': 'UA',
-  'United Arab Emirates': 'AE', 'United Kingdom': 'GB', 'United States': 'US',
-  'Uruguay': 'UY', 'Uzbekistan': 'UZ', 'Venezuela': 'VE', 'Vietnam': 'VN',
-  'Yemen': 'YE', 'Zambia': 'ZM', 'Zimbabwe': 'ZW',
-};
-
-// --- Glass-morphism tooltip style (shared) -----------------------------
+// --- Glass-morphism tooltip style (for warming stripes tooltip) ---------
 
 const TOOLTIP_STYLE = {
   position: 'absolute',
@@ -661,148 +618,23 @@ function _renderExplanation(explEl) {
 // --- Regional Warming SVG Choropleth (comparison block) ------------------
 
 async function _renderChoropleth(compEl) {
-  // Heading
-  compEl.appendChild(
-    DOMUtils.create('h2', {
-      textContent: i18n.t('detail.temperature.choroplethTitle'),
-      style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)' },
-    })
-  );
-
-  // Fetch world.svg
-  const basePath = window.location.pathname.includes('/detail') ? '../' : '';
-  let svgText = null;
-  try {
-    const response = await fetch(`${basePath}assets/maps/world.svg`);
-    if (response.ok) {
-      svgText = await response.text();
-    }
-  } catch (_err) {
-    // Fallback handled below
-  }
-
-  if (!svgText) {
-    compEl.appendChild(
-      DOMUtils.create('p', {
-        textContent: 'Map unavailable',
-        style: { color: 'var(--text-secondary)', fontStyle: 'italic' },
-      })
-    );
-    return;
-  }
-
-  // SVG wrapper
-  const wrapper = DOMUtils.create('div', {
-    className: 'map-svg-wrapper',
-    style: {
-      position: 'relative',
-      borderRadius: '12px',
-      overflow: 'hidden',
-      background: 'rgba(255,255,255,0.02)',
-      border: '1px solid rgba(255,255,255,0.06)',
-      marginBottom: 'var(--space-sm)',
+  const { wrapper, cleanup: mapCleanup } = await renderChoropleth(compEl, {
+    dataMap: REGIONAL_WARMING,
+    colorFn: (value) => MathUtils.tempToColor(value),
+    tooltipFn: (iso, value) => {
+      const name = ISO_NAMES[iso] || iso;
+      const sign = value >= 0 ? '+' : '';
+      return `${name}: ${sign}${value}\u00B0C`;
     },
+    legendItems: [],  // We use custom gradient legend instead
+    title: i18n.t('detail.temperature.choroplethTitle'),
   });
 
-  // Inject SVG
-  wrapper.innerHTML = svgText;
+  if (mapCleanup) _choroplethCleanup = mapCleanup;
 
-  // Style the SVG element
-  const svgEl = wrapper.querySelector('svg');
-  if (svgEl) {
-    svgEl.style.width = '100%';
-    svgEl.style.height = 'auto';
-    svgEl.style.display = 'block';
-    svgEl.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-    svgEl.style.background = 'transparent';
-    // Remove default fill/stroke so our coloring shows
-    svgEl.removeAttribute('fill');
-    svgEl.removeAttribute('stroke');
-    svgEl.removeAttribute('stroke-width');
-    svgEl.removeAttribute('stroke-linecap');
-    svgEl.removeAttribute('stroke-linejoin');
-  }
-
-  // Create choropleth tooltip
-  _choroplethTooltipEl = DOMUtils.create('div', {
-    className: 'choropleth-tooltip',
-    style: { ...TOOLTIP_STYLE, opacity: '0' },
-  });
-  wrapper.appendChild(_choroplethTooltipEl);
-
-  // Color country paths (replicating Maps._colorSVG pattern)
-  const paths = wrapper.querySelectorAll('path');
-  for (const path of paths) {
-    // Extract ISO-2 from id or class
-    let iso = null;
-
-    // Try id first (2-letter ISO codes like "AF", "AL")
-    const pathId = path.getAttribute('id');
-    if (pathId && pathId.length === 2) {
-      iso = pathId;
-    }
-
-    // Try class name mapping
-    if (!iso) {
-      const className = path.getAttribute('class');
-      if (className && CLASS_TO_ISO[className]) {
-        iso = CLASS_TO_ISO[className];
-      }
-    }
-
-    // Try name attribute
-    if (!iso) {
-      const nameAttr = path.getAttribute('name');
-      if (nameAttr && CLASS_TO_ISO[nameAttr]) {
-        iso = CLASS_TO_ISO[nameAttr];
-      }
-    }
-
-    const warming = iso ? REGIONAL_WARMING[iso] : undefined;
-
-    if (warming !== undefined) {
-      path.style.fill = MathUtils.tempToColor(warming);
-      path.style.opacity = '0.85';
-      path.style.stroke = 'rgba(255,255,255,0.15)';
-      path.style.strokeWidth = '0.3';
-      path.style.cursor = 'pointer';
-      path.style.transition = 'opacity 0.15s ease';
-
-      // Hover handlers
-      path.addEventListener('mouseenter', (e) => {
-        path.style.opacity = '1';
-        const name = ISO_NAMES[iso] || iso;
-        const sign = warming >= 0 ? '+' : '';
-        _choroplethTooltipEl.textContent = `${name}: ${sign}${warming}\u00B0C`;
-        _choroplethTooltipEl.style.opacity = '1';
-      });
-
-      path.addEventListener('mousemove', (e) => {
-        if (!_choroplethTooltipEl) return;
-        const wrapperRect = wrapper.getBoundingClientRect();
-        _choroplethTooltipEl.style.left = (e.clientX - wrapperRect.left + 12) + 'px';
-        _choroplethTooltipEl.style.top = (e.clientY - wrapperRect.top - 30) + 'px';
-      });
-
-      path.addEventListener('mouseleave', () => {
-        path.style.opacity = '0.85';
-        if (_choroplethTooltipEl) _choroplethTooltipEl.style.opacity = '0';
-      });
-    } else {
-      // No data -- dim styling
-      path.style.fill = '#1a1a2e';
-      path.style.opacity = '0.3';
-      path.style.stroke = 'rgba(255,255,255,0.05)';
-      path.style.strokeWidth = '0.2';
-    }
-  }
-
-  compEl.appendChild(wrapper);
-
-  // Color legend
+  // Custom gradient legend (temperature-specific)
   _renderColorLegend(compEl);
 
-  // Explanatory note
   compEl.appendChild(
     DOMUtils.create('p', {
       textContent: i18n.t('detail.temperature.comparison'),
@@ -932,10 +764,10 @@ export function cleanup() {
   }
   _tooltipEl = null;
 
-  if (_choroplethTooltipEl && _choroplethTooltipEl.parentNode) {
-    _choroplethTooltipEl.parentNode.removeChild(_choroplethTooltipEl);
+  if (_choroplethCleanup) {
+    _choroplethCleanup();
+    _choroplethCleanup = null;
   }
-  _choroplethTooltipEl = null;
 
   // Remove injected style
   const pulseStyle = document.getElementById('tipping-pulse-style');
