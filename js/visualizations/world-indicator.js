@@ -70,7 +70,11 @@ export class WorldIndicator {
     // Set zone badge
     const zoneBadge = this.container.querySelector('.world-indicator__zone-label');
     if (zoneBadge && progress > 0.3) {
-      zoneBadge.innerHTML = `<span class="zone-badge zone-badge--${zone.zone}">${zone.label}</span>`;
+      zoneBadge.textContent = '';
+      const badge = document.createElement('span');
+      badge.className = `zone-badge zone-badge--${zone.zone}`;
+      badge.textContent = zone.label;
+      zoneBadge.appendChild(badge);
     }
   }
 

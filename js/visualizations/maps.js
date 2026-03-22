@@ -144,7 +144,7 @@ export class Maps {
     // Clean up tooltip + event listeners from previous layer
     const tip = container.querySelector('.map-tooltip');
     if (tip) tip.remove();
-    if (container._tooltipCleanup) { container._tooltipCleanup(); container._tooltipCleanup = null; }
+    if (typeof container._tooltipCleanup === 'function') { container._tooltipCleanup(); container._tooltipCleanup = null; }
     // Reset cursor on all paths
     const svg = container.querySelector('.map-svg-wrapper svg');
     if (svg) svg.querySelectorAll('path').forEach(p => { p.style.cursor = ''; });
@@ -498,7 +498,7 @@ export class Maps {
     // Remove any previous tooltip + listeners
     const old = container.querySelector('.map-tooltip');
     if (old) old.remove();
-    if (container._tooltipCleanup) { container._tooltipCleanup(); container._tooltipCleanup = null; }
+    if (typeof container._tooltipCleanup === 'function') { container._tooltipCleanup(); container._tooltipCleanup = null; }
 
     // Create tooltip element
     const tip = DOMUtils.create('div', { className: 'map-tooltip' });

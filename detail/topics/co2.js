@@ -23,7 +23,6 @@ export const meta = {
 
 // --- Module State ------------------------------------------------------
 
-let _intervals = [];
 let _chartData = null;
 
 // --- Top 10 emitters per capita (World Bank EN.ATM.CO2E.PC, 2020) ------
@@ -610,8 +609,6 @@ export function getChartConfigs() {
 // --- Cleanup -----------------------------------------------------------
 
 export function cleanup() {
-  _intervals.forEach(id => clearInterval(id));
-  _intervals = [];
   _chartData = null;
   console.log('[CO2] cleanup()');
 }
