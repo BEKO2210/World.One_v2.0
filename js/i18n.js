@@ -77,7 +77,7 @@ const translations = {
     'act2.weatherDesc': 'Echtzeitdaten aus 8 Metropolen via Open-Meteo',
 
     // ─── Act 3 — Society ───
-    'act3.label': 'AKT 03 — GESELLSCHAFT',
+    'act3.label': 'AKT 05 — GESELLSCHAFT',
     'act3.title': 'Wir Menschen',
     'act3.desc': '8.1 Milliarden. Konflikte, Flucht, Freiheit, Gesundheit — wie es uns geht.',
     'act3.population': 'WELTBEVÖLKERUNG',
@@ -108,7 +108,7 @@ const translations = {
     'act3.infraExplain': 'Milliarden haben heute Zugang zu Grundversorgung — historisch einzigartig.',
 
     // ─── Act 4 — Economy ───
-    'act4.label': 'AKT 04 — WIRTSCHAFT',
+    'act4.label': 'AKT 06 — WIRTSCHAFT',
     'act4.title': 'Der Motor',
     'act4.desc': 'Reichtum, Armut, Ungleichheit, Handel — die Zahlen hinter dem System.',
     'act4.billionaires': 'Milliardäre weltweit',
@@ -132,7 +132,7 @@ const translations = {
     'act4.regionalGdp': 'REGIONALES BIP-WACHSTUM',
 
     // ─── Act 5 — Progress ───
-    'act5.label': 'AKT 05 — FORTSCHRITT',
+    'act5.label': 'AKT 07 — FORTSCHRITT',
     'act5.title': 'Die Kurve',
     'act5.desc': 'Wissenschaft, Technologie, Bildung — der Fortschritt ist exponentiell.',
     'act5.internet': 'INTERNET-NUTZER',
@@ -156,7 +156,7 @@ const translations = {
     'act5.latestScience': 'NEUESTE WISSENSCHAFT',
 
     // ─── Act 6 — Realtime ───
-    'act6.label': 'AKT 06 — ECHTZEIT',
+    'act6.label': 'AKT 08 — ECHTZEIT',
     'act6.title': 'Echtzeit-Pulse',
     'act6.desc': 'Live-Daten aus aller Welt — aktualisiert alle 6 Stunden aus Dutzenden APIs.',
     'act6.earthquakes': 'Erdbeben (24h)',
@@ -174,7 +174,7 @@ const translations = {
     'act6.loading': 'Lade...',
 
     // ─── Act 7 — Momentum ───
-    'act7.label': 'AKT 07 — MOMENTUM',
+    'act7.label': 'AKT 09 — MOMENTUM',
     'act7.question': 'Wird es besser — oder schlechter?',
     'act7.desc': 'Nicht wo wir stehen — sondern wohin wir uns bewegen.',
     'act7.method': '<strong>Methodik:</strong> Vergleich der letzten 3 Jahre mit den 3 Jahren davor für jeden Indikator.',
@@ -188,7 +188,7 @@ const translations = {
     'act7.worsened': '✗ Verschlechtert',
 
     // ─── Act 8 — Crisis Map ───
-    'act8.label': 'AKT 08 — KRISEN',
+    'act8.label': 'AKT 10 — KRISEN',
     'act8.title': 'Die Karte der Krisen',
     'act8.desc': 'Klima, Konflikte, Hunger, Naturkatastrophen — und Hoffnung.',
     'act8.climate': 'Klimarisiko',
@@ -200,7 +200,7 @@ const translations = {
     'act8.infoText': 'Die Realität ist komplex. Es gibt Krisen und Fortschritt — gleichzeitig, überall. Die Frage ist nicht ob, sondern wie schnell wir reagieren.',
 
     // ─── Act 9 — Scenarios ───
-    'act9.label': 'AKT 09 — SZENARIEN',
+    'act9.label': 'AKT 11 — SZENARIEN',
     'act9.title': 'Drei Zukünfte',
     'act9.desc': 'Projektionen bis 2050 — basierend auf aktuellen Trends und wissenschaftlichen Modellen.',
     'act9.pathA': 'PFAD A',
@@ -214,7 +214,7 @@ const translations = {
     'act9.bestSub': 'Volle Kooperation',
 
     // ─── Act 10 — Sources ───
-    'act10.label': 'AKT 10 — TRANSPARENZ',
+    'act10.label': 'AKT 12 — TRANSPARENZ',
     'act10.title': 'Datenquellen & Transparenz',
     'act10.desc': 'Jeder Datenpunkt überprüfbar. Jede Quelle verlinkt. Open Source.',
     'act10.sources': 'Quellen',
@@ -226,7 +226,7 @@ const translations = {
     'act10.methodNote': 'Der Welt-Indikator basiert auf gewichteten normalisierten Sub-Scores (0–100).',
 
     // ─── Act 11 — Action ───
-    'act11.label': 'AKT 11 — HANDELN',
+    'act11.label': 'AKT 13 — HANDELN',
     'act11.question': 'Du hast die Daten gesehen.<br>Was kannst DU tun?',
     'act11.localTitle': 'Lokal handeln',
     'act11.localDesc': 'Wählen. Community-Projekte. Lokalpolitik mitgestalten.',
@@ -809,7 +809,7 @@ const translations = {
     'detail.disasters.sourceReliefWeb': 'ReliefWeb / OCHA',
 
     // ─── Phase 10: Biodiversity (Act 12) ───
-    'act12.label': 'AKT 12 — BIODIVERSITAET',
+    'act12.label': 'AKT 03 — BIODIVERSITAET',
     'act12.title': 'Das Schweigen der Arten',
     'act12.desc': 'Artensterben, bedrohte Spezies, das sechste Massenaussterben.',
     'act12.extinctionLabel': 'AUSSTERBERATE',
@@ -818,7 +818,7 @@ const translations = {
     'act12.endangeredExplain': 'Auf der Roten Liste der IUCN als gefaehrdet eingestuft.',
 
     // ─── Phase 10: Oceans (Act 13) ───
-    'act13.label': 'AKT 13 — OZEANE',
+    'act13.label': 'AKT 04 — OZEANE',
     'act13.title': 'Die Ozeane',
     'act13.desc': 'SST-Anomalie, Versauerung, Plastik — die Gesundheit unserer Meere.',
     'act13.sstLabel': 'SST-ANOMALIE',
@@ -953,7 +953,7 @@ const translations = {
     'act2.weatherDesc': 'Real-time data from 8 metropolises via Open-Meteo',
 
     // ─── Act 3 — Society ───
-    'act3.label': 'ACT 03 — SOCIETY',
+    'act3.label': 'ACT 05 — SOCIETY',
     'act3.title': 'We the People',
     'act3.desc': '8.1 billion. Conflicts, displacement, freedom, health — how we are doing.',
     'act3.population': 'WORLD POPULATION',
@@ -984,7 +984,7 @@ const translations = {
     'act3.infraExplain': 'Billions now have access to basic services — historically unique.',
 
     // ─── Act 4 — Economy ───
-    'act4.label': 'ACT 04 — ECONOMY',
+    'act4.label': 'ACT 06 — ECONOMY',
     'act4.title': 'The Engine',
     'act4.desc': 'Wealth, poverty, inequality, trade — the numbers behind the system.',
     'act4.billionaires': 'Billionaires worldwide',
@@ -1008,7 +1008,7 @@ const translations = {
     'act4.regionalGdp': 'REGIONAL GDP GROWTH',
 
     // ─── Act 5 — Progress ───
-    'act5.label': 'ACT 05 — PROGRESS',
+    'act5.label': 'ACT 07 — PROGRESS',
     'act5.title': 'The Curve',
     'act5.desc': 'Science, technology, education — progress is exponential.',
     'act5.internet': 'INTERNET USERS',
@@ -1032,7 +1032,7 @@ const translations = {
     'act5.latestScience': 'LATEST SCIENCE',
 
     // ─── Act 6 — Realtime ───
-    'act6.label': 'ACT 06 — REAL-TIME',
+    'act6.label': 'ACT 08 — REAL-TIME',
     'act6.title': 'Real-Time Pulse',
     'act6.desc': 'Live data from around the world — updated every 6 hours from dozens of APIs.',
     'act6.earthquakes': 'Earthquakes (24h)',
@@ -1050,7 +1050,7 @@ const translations = {
     'act6.loading': 'Loading...',
 
     // ─── Act 7 — Momentum ───
-    'act7.label': 'ACT 07 — MOMENTUM',
+    'act7.label': 'ACT 09 — MOMENTUM',
     'act7.question': 'Is it getting better — or worse?',
     'act7.desc': 'Not where we stand — but where we are heading.',
     'act7.method': '<strong>Methodology:</strong> Comparing the last 3 years with the 3 years before for each indicator.',
@@ -1064,7 +1064,7 @@ const translations = {
     'act7.worsened': '✗ Worsened',
 
     // ─── Act 8 — Crisis Map ───
-    'act8.label': 'ACT 08 — CRISES',
+    'act8.label': 'ACT 10 — CRISES',
     'act8.title': 'The Crisis Map',
     'act8.desc': 'Climate, conflicts, hunger, natural disasters — and hope.',
     'act8.climate': 'Climate Risk',
@@ -1076,7 +1076,7 @@ const translations = {
     'act8.infoText': 'Reality is complex. There are crises and progress — simultaneously, everywhere. The question is not if, but how fast we respond.',
 
     // ─── Act 9 — Scenarios ───
-    'act9.label': 'ACT 09 — SCENARIOS',
+    'act9.label': 'ACT 11 — SCENARIOS',
     'act9.title': 'Three Futures',
     'act9.desc': 'Projections to 2050 — based on current trends and scientific models.',
     'act9.pathA': 'PATH A',
@@ -1090,7 +1090,7 @@ const translations = {
     'act9.bestSub': 'Full cooperation',
 
     // ─── Act 10 — Sources ───
-    'act10.label': 'ACT 10 — TRANSPARENCY',
+    'act10.label': 'ACT 12 — TRANSPARENCY',
     'act10.title': 'Data Sources & Transparency',
     'act10.desc': 'Every data point verifiable. Every source linked. Open source.',
     'act10.sources': 'Sources',
@@ -1102,7 +1102,7 @@ const translations = {
     'act10.methodNote': 'The World Indicator is based on weighted normalized sub-scores (0–100).',
 
     // ─── Act 11 — Action ───
-    'act11.label': 'ACT 11 — ACT NOW',
+    'act11.label': 'ACT 13 — ACT NOW',
     'act11.question': 'You\'ve seen the data.<br>What can YOU do?',
     'act11.localTitle': 'Act Locally',
     'act11.localDesc': 'Vote. Community projects. Shape local politics.',
@@ -1685,7 +1685,7 @@ const translations = {
     'detail.disasters.sourceReliefWeb': 'ReliefWeb / OCHA',
 
     // ─── Phase 10: Biodiversity (Act 12) ───
-    'act12.label': 'ACT 12 — BIODIVERSITY',
+    'act12.label': 'ACT 03 — BIODIVERSITY',
     'act12.title': 'The Silence of Species',
     'act12.desc': 'Extinction, endangered species, the sixth mass extinction.',
     'act12.extinctionLabel': 'EXTINCTION RATE',
@@ -1694,7 +1694,7 @@ const translations = {
     'act12.endangeredExplain': 'Listed as threatened on the IUCN Red List.',
 
     // ─── Phase 10: Oceans (Act 13) ───
-    'act13.label': 'ACT 13 — OCEANS',
+    'act13.label': 'ACT 04 — OCEANS',
     'act13.title': 'The Oceans',
     'act13.desc': 'SST anomaly, acidification, plastic — the health of our seas.',
     'act13.sstLabel': 'SST ANOMALY',
