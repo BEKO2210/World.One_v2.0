@@ -14,6 +14,7 @@ import { MathUtils } from '../../js/utils/math.js';
 import { fetchTopicData, fetchWithTimeout } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { createMarkerMap } from '../utils/marker-map.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -38,26 +39,6 @@ const KP_BANDS = [
   { kp: 7, lat: 40, color: 'rgba(255, 100, 0, 0.12)', label: 'Kp 7 -- 40\u00B0' },
   { kp: 5, lat: 50, color: 'rgba(0, 255, 100, 0.10)', label: 'Kp 5 -- 50\u00B0' },
   { kp: 3, lat: 60, color: 'rgba(0, 100, 255, 0.08)', label: 'Kp 3 -- 60\u00B0' },
-];
-
-// --- Simplified continent outlines for SVG map -------------------------
-// Reused from earthquakes.js / space.js (same base map, 900x450 viewport)
-
-const CONTINENT_PATHS = [
-  // North America
-  'M50,80 L130,55 L160,65 L175,110 L145,140 L130,180 L105,175 L85,145 L50,130 Z',
-  // South America
-  'M130,195 L155,180 L170,195 L175,235 L165,290 L145,320 L120,305 L115,255 L120,220 Z',
-  // Europe
-  'M410,65 L460,55 L480,70 L470,90 L490,100 L465,115 L430,105 L410,95 Z',
-  // Africa
-  'M420,130 L470,120 L500,145 L505,190 L490,240 L470,280 L440,290 L420,260 L410,210 L415,165 Z',
-  // Asia
-  'M490,55 L600,35 L700,50 L730,80 L710,115 L680,130 L640,135 L600,145 L540,140 L500,130 L485,105 L490,80 Z',
-  // Australia
-  'M680,260 L730,250 L760,265 L765,290 L740,310 L700,310 L680,290 Z',
-  // Antarctica
-  'M100,420 L300,415 L500,420 L700,415 L800,425 L700,445 L300,445 L100,440 Z',
 ];
 
 // --- Render ------------------------------------------------------------
@@ -228,72 +209,50 @@ async function _renderKpMap(trendEl) {
   }
   _currentKp = currentKp;
 
-  // Build SVG map
-  const svg = DOMUtils.createSVG('svg', {
-    viewBox: '0 0 900 450',
-    width: '100%',
-    height: 'auto',
-    style: 'display:block; background: rgba(255,255,255,0.02); border-radius: 8px;',
-  });
+  // Build map using world.svg
+  const map = await createMarkerMap();
 
-  // Latitude bands colored by Kp level
+  if (!map) {
+    trendEl.appendChild(
+      DOMUtils.create('p', {
+        textContent: 'Map unavailable',
+        style: { color: 'var(--text-secondary)', fontStyle: 'italic', textAlign: 'center' },
+      })
+    );
+    return;
+  }
+
+  const { wrapper, overlay, geoToXY, svgWidth, svgHeight } = map;
+
+  // Draw latitude bands colored by Kp level on the overlay
   for (const band of KP_BANDS) {
     if (currentKp >= band.kp) {
-      const northPos = MathUtils.geoToSVG(band.lat, 0, 900, 450);
-      const southPos = MathUtils.geoToSVG(-band.lat, 0, 900, 450);
-      const polarNorth = MathUtils.geoToSVG(90, 0, 900, 450);
-      const polarSouth = MathUtils.geoToSVG(-90, 0, 900, 450);
+      const northPos = geoToXY(band.lat, 0);
+      const southPos = geoToXY(-band.lat, 0);
+      const polarNorth = geoToXY(90, 0);
+      const polarSouth = geoToXY(-90, 0);
 
       // Northern hemisphere band (from pole down to latitude)
-      svg.appendChild(DOMUtils.createSVG('rect', {
+      overlay.appendChild(DOMUtils.createSVG('rect', {
         x: '0',
         y: String(polarNorth.y),
-        width: '900',
+        width: String(svgWidth),
         height: String(northPos.y - polarNorth.y),
         fill: band.color,
       }));
 
       // Southern hemisphere band (from latitude down to pole)
-      svg.appendChild(DOMUtils.createSVG('rect', {
+      overlay.appendChild(DOMUtils.createSVG('rect', {
         x: '0',
         y: String(southPos.y),
-        width: '900',
+        width: String(svgWidth),
         height: String(polarSouth.y - southPos.y),
         fill: band.color,
       }));
     }
   }
 
-  // Grid lines (latitude)
-  for (let lat = -60; lat <= 60; lat += 30) {
-    const { y } = MathUtils.geoToSVG(lat, 0, 900, 450);
-    svg.appendChild(DOMUtils.createSVG('line', {
-      x1: '0', y1: String(y), x2: '900', y2: String(y),
-      stroke: 'rgba(255,255,255,0.04)',
-      'stroke-width': '0.5',
-    }));
-  }
-
-  // Continent outlines
-  for (const pathData of CONTINENT_PATHS) {
-    svg.appendChild(DOMUtils.createSVG('path', {
-      d: pathData,
-      fill: 'rgba(255,255,255,0.05)',
-      stroke: 'rgba(255,255,255,0.15)',
-      'stroke-width': '0.5',
-    }));
-  }
-
-  trendEl.appendChild(
-    DOMUtils.create('div', {
-      style: {
-        position: 'relative',
-        width: '100%',
-        maxWidth: '900px',
-        margin: '0 auto',
-      },
-    }, [svg])
-  );
+  trendEl.appendChild(wrapper);
 
   // Legend
   const legendItems = [];
