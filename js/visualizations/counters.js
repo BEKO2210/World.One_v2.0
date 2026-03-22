@@ -154,6 +154,7 @@ export class Typewriter {
     this.delay = options.delay || 0;
     this.cursor = options.cursor !== false;
     this._started = false;
+    this._timeouts = [];
   }
 
   start() {
@@ -166,20 +167,27 @@ export class Typewriter {
     }
 
     let i = 0;
-    setTimeout(() => {
+    this._timeouts.push(setTimeout(() => {
       const type = () => {
         if (i < this.text.length) {
           this.element.textContent += this.text[i];
           i++;
-          setTimeout(type, this.speed + Math.random() * 30);
+          this._timeouts.push(setTimeout(type, this.speed + Math.random() * 30));
         } else if (this.cursor) {
           // Keep cursor blinking for 2s then remove
-          setTimeout(() => {
+          this._timeouts.push(setTimeout(() => {
             this.element.classList.remove('typewriter');
-          }, 2000);
+          }, 2000));
         }
       };
       type();
-    }, this.delay);
+    }, this.delay));
+  }
+
+  destroy() {
+    if (this._timeouts) {
+      this._timeouts.forEach(id => clearTimeout(id));
+      this._timeouts.length = 0;
+    }
   }
 }

@@ -15,6 +15,7 @@ export class WorldIndicator {
     this.currentValue = 0;
     this.targetValue = data.worldIndex.value;
     this._counter = null;
+    this._animTimeouts = [];
   }
 
   // ─── Update data reference (called on timeline/language change) ───
@@ -88,14 +89,14 @@ export class WorldIndicator {
       // Animate gauge
       const gaugeEl = el.querySelector('.sub-score__gauge');
       if (gaugeEl) {
-        setTimeout(() => {
+        this._animTimeouts.push(setTimeout(() => {
           Charts.gauge(gaugeEl, scoreData.value, {
             size: 80,
             strokeWidth: 6,
             color: MathUtils.getZone(scoreData.value).color,
             label: ''
           });
-        }, i * 150);
+        }, i * 150));
       }
 
       // Animate value
@@ -106,8 +107,15 @@ export class WorldIndicator {
           decimals: 1,
           duration: 2000 + i * 200
         });
-        setTimeout(() => counter.start(), i * 150);
+        this._animTimeouts.push(setTimeout(() => counter.start(), i * 150));
       }
     });
+  }
+
+  destroy() {
+    if (this._animTimeouts) {
+      this._animTimeouts.forEach(id => clearTimeout(id));
+      this._animTimeouts.length = 0;
+    }
   }
 }
