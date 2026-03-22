@@ -126,10 +126,10 @@ class BelkisOne {
     const engine = this.scrollEngine;
 
     const sectionIds = [
-      'prolog', 'akt-indicator', 'akt-environment', 'akt-society',
-      'akt-economy', 'akt-progress', 'akt-realtime', 'akt-momentum',
-      'akt-crisis-map', 'akt-scenarios', 'akt-sources', 'akt-action',
-      'akt-biodiversity', 'akt-oceans', 'epilog'
+      'prolog', 'akt-indicator', 'akt-environment', 'akt-biodiversity',
+      'akt-oceans', 'akt-society', 'akt-economy', 'akt-progress',
+      'akt-realtime', 'akt-momentum', 'akt-crisis-map', 'akt-scenarios',
+      'akt-sources', 'akt-action', 'epilog'
     ];
 
     sectionIds.forEach(id => {
@@ -1167,6 +1167,8 @@ class BelkisOne {
       { id: 'prolog', key: 'nav.prolog' },
       { id: 'akt-indicator', key: 'nav.indicator' },
       { id: 'akt-environment', key: 'nav.environment' },
+      { id: 'akt-biodiversity', key: 'nav.biodiversity' },
+      { id: 'akt-oceans', key: 'nav.oceans' },
       { id: 'akt-society', key: 'nav.society' },
       { id: 'akt-economy', key: 'nav.economy' },
       { id: 'akt-progress', key: 'nav.progress' },
@@ -1176,8 +1178,6 @@ class BelkisOne {
       { id: 'akt-scenarios', key: 'nav.scenarios' },
       { id: 'akt-sources', key: 'nav.sources' },
       { id: 'akt-action', key: 'nav.action' },
-      { id: 'akt-biodiversity', key: 'nav.biodiversity' },
-      { id: 'akt-oceans', key: 'nav.oceans' },
       { id: 'epilog', key: 'nav.epilog' }
     ];
 
