@@ -133,7 +133,7 @@ function _renderHero(heroEl, latest, tier, age) {
         style: { color: 'var(--text-secondary)', fontSize: '0.9rem', margin: '0' },
       }),
       DOMUtils.create('span', {
-        textContent: `${latest.year} \u2022 NOAA Climate at a Glance`,
+        textContent: `${latest.year} \u2022 ${i18n.t('detail.ocean_temp.sourceNOAA')}`,
         style: { color: 'var(--text-tertiary)', fontSize: '0.8rem', marginTop: 'var(--space-xs)', display: 'block' },
       }),
     ])
@@ -218,7 +218,7 @@ async function _renderSSTChart(chartEl, sstData) {
               borderDash: [6, 4],
               label: {
                 display: true,
-                content: 'Baseline',
+                content: i18n.t('detail.ocean_temp.baseline'),
                 position: 'start',
                 color: 'rgba(255,255,255,0.5)',
                 font: { size: 10 },
@@ -236,7 +236,7 @@ async function _renderSSTChart(chartEl, sstData) {
 function _renderMilestones(trendEl, sstData, latest) {
   trendEl.appendChild(
     DOMUtils.create('h2', {
-      textContent: 'Key Milestones',
+      textContent: i18n.t('detail.ocean_temp.milestonesTitle'),
       style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)' },
     })
   );
@@ -247,7 +247,7 @@ function _renderMilestones(trendEl, sstData, latest) {
   if (sstData.length > 0) {
     const warmest = sstData.reduce((a, b) => a.anomaly > b.anomaly ? a : b);
     tiles.push(_createTile(
-      'Warmest Year',
+      i18n.t('detail.ocean_temp.warmestYear'),
       `${warmest.year}`,
       `+${warmest.anomaly.toFixed(2)} \u00B0C`,
       '#ff3b30'
@@ -267,9 +267,9 @@ function _renderMilestones(trendEl, sstData, latest) {
     }
     const slopePerDecade = (num / den) * 10;
     tiles.push(_createTile(
-      'Rate of Warming',
+      i18n.t('detail.ocean_temp.rateOfWarming'),
       `+${slopePerDecade.toFixed(2)} \u00B0C`,
-      'per decade (last 50 years)',
+      i18n.t('detail.ocean_temp.perDecade'),
       '#ff9500'
     ));
   }
@@ -280,9 +280,9 @@ function _renderMilestones(trendEl, sstData, latest) {
     const avgPreInd = preIndustrial.reduce((s, d) => s + d.anomaly, 0) / (preIndustrial.length || 1);
     const diff = latest.anomaly - avgPreInd;
     tiles.push(_createTile(
-      'Since Pre-industrial',
+      i18n.t('detail.ocean_temp.sincePreIndustrial'),
       `+${diff.toFixed(2)} \u00B0C`,
-      'vs. 1880-1900 average',
+      i18n.t('detail.ocean_temp.vsAverage'),
       '#ff6b6b'
     ));
   }
@@ -413,7 +413,7 @@ function _renderCoralThresholds(tilesEl) {
       },
     }),
     DOMUtils.create('div', {
-      textContent: `Current: ~${currentDHW} DHW`,
+      textContent: `${i18n.t('detail.ocean_temp.currentLabel')} ~${currentDHW} DHW`,
       style: {
         position: 'absolute',
         left: `calc(${currentPercent}% + 8px)`,
@@ -437,9 +437,9 @@ function _renderCoralThresholds(tilesEl) {
 
 function _renderExplanation(expEl) {
   const paragraphs = [
-    'SST anomaly measures how much ocean surface temperature deviates from the historical average. Positive anomalies indicate warming seas.',
-    'Rising ocean temperatures cause coral bleaching, disrupt marine food chains, intensify hurricanes, and contribute to sea level rise through thermal expansion.',
-    'The ocean absorbs over 90% of excess heat from greenhouse gas emissions, making it a critical indicator of global climate change.',
+    i18n.t('detail.ocean_temp.explainP1'),
+    i18n.t('detail.ocean_temp.explainP2'),
+    i18n.t('detail.ocean_temp.explainP3'),
   ];
 
   expEl.appendChild(
@@ -483,7 +483,7 @@ async function _renderChoropleth(compEl) {
     colorFn,
     tooltipFn,
     legendItems,
-    title: 'Regional SST Anomalies',
+    title: i18n.t('detail.ocean_temp.choroplethTitle'),
   });
 
   if (result && result.cleanup) {

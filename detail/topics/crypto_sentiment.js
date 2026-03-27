@@ -290,7 +290,7 @@ function _renderTiles(tilesEl, today, stats) {
       accent: _fgColorSolid(today.value),
     },
     {
-      label: '30d ' + (i18n.lang === 'de' ? 'Durchschnitt' : 'Average'),
+      label: i18n.t('detail.crypto_sentiment.avg30d'),
       value: String(stats.avg),
       unit: i18n.t('detail.crypto_sentiment.heroUnit'),
       accent: _fgColorSolid(stats.avg),
@@ -429,7 +429,7 @@ export function getChartConfigs() {
           labels,
           datasets: [
             {
-              label: 'Fear & Greed',
+              label: i18n.t('detail.crypto_sentiment.chartLabel'),
               data: FG_HISTORY.map(d => d.value),
               backgroundColor: FG_HISTORY.map(d => _fgColor(d.value)),
               borderColor: FG_HISTORY.map(d => _fgColorSolid(d.value)),
@@ -437,7 +437,7 @@ export function getChartConfigs() {
             },
             // Threshold line at 25 (Extreme Fear boundary)
             {
-              label: 'Extreme Fear',
+              label: i18n.t('detail.crypto_sentiment.extremeFear'),
               type: 'line',
               data: FG_HISTORY.map(() => 25),
               borderColor: 'rgba(255, 59, 48, 0.4)',
@@ -449,7 +449,7 @@ export function getChartConfigs() {
             },
             // Threshold line at 50 (Neutral midpoint)
             {
-              label: 'Neutral',
+              label: i18n.t('detail.crypto_sentiment.neutral'),
               type: 'line',
               data: FG_HISTORY.map(() => 50),
               borderColor: 'rgba(255, 204, 0, 0.4)',
@@ -461,7 +461,7 @@ export function getChartConfigs() {
             },
             // Threshold line at 75 (Extreme Greed boundary)
             {
-              label: 'Extreme Greed',
+              label: i18n.t('detail.crypto_sentiment.extremeGreed'),
               type: 'line',
               data: FG_HISTORY.map(() => 75),
               borderColor: 'rgba(0, 255, 127, 0.4)',
@@ -492,7 +492,7 @@ export function getChartConfigs() {
               max: 100,
               title: {
                 display: true,
-                text: 'Fear & Greed Index',
+                text: i18n.t('detail.crypto_sentiment.chartLabel'),
               },
             },
           },

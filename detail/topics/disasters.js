@@ -418,7 +418,7 @@ function _renderComparison(compEl) {
   compEl.appendChild(
     DOMUtils.create('div', {}, [
       DOMUtils.create('h2', {
-        textContent: '1970s vs 2010s',
+        textContent: i18n.t('detail.disasters.comparisonTitle'),
         style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)' },
       }),
       DOMUtils.create('p', {
@@ -533,7 +533,7 @@ export function getChartConfigs() {
         labels: DISASTER_TRENDS.map(d => d.decade),
         datasets: [
           {
-            label: 'Number of Events',
+            label: i18n.t('detail.disasters.eventCount'),
             data: DISASTER_TRENDS.map(d => d.count),
             backgroundColor: toRgba(CHART_COLORS.crisis, 0.5),
             borderColor: toRgba(CHART_COLORS.crisis),
@@ -543,7 +543,7 @@ export function getChartConfigs() {
           },
           {
             type: 'line',
-            label: 'Cost ($ Billion)',
+            label: i18n.t('detail.disasters.costBillion'),
             data: DISASTER_TRENDS.map(d => d.costB),
             borderColor: toRgba(economyColor),
             backgroundColor: toRgba(economyColor, 0.1),
@@ -568,7 +568,7 @@ export function getChartConfigs() {
             position: 'left',
             title: {
               display: true,
-              text: 'Number of Events',
+              text: i18n.t('detail.disasters.eventCount'),
             },
             beginAtZero: true,
           },
@@ -577,7 +577,7 @@ export function getChartConfigs() {
             position: 'right',
             title: {
               display: true,
-              text: 'Cost ($ Billion)',
+              text: i18n.t('detail.disasters.costBillion'),
             },
             grid: { drawOnChartArea: false },
             beginAtZero: true,

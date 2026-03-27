@@ -225,7 +225,7 @@ function _renderBirthsDeathsClock(chartEl) {
     }),
     birthCountEl,
     DOMUtils.create('div', {
-      textContent: `~${BIRTHS_PER_SEC}/sec`,
+      textContent: `~${BIRTHS_PER_SEC}${i18n.t('detail.population.perSecond')}`,
       style: { color: 'var(--text-secondary)', fontSize: '0.75rem', marginTop: '4px' },
     }),
   ]);
@@ -246,7 +246,7 @@ function _renderBirthsDeathsClock(chartEl) {
     }),
     deathCountEl,
     DOMUtils.create('div', {
-      textContent: `~${DEATHS_PER_SEC}/sec`,
+      textContent: `~${DEATHS_PER_SEC}${i18n.t('detail.population.perSecond')}`,
       style: { color: 'var(--text-secondary)', fontSize: '0.75rem', marginTop: '4px' },
     }),
   ]);
@@ -265,7 +265,7 @@ function _renderBirthsDeathsClock(chartEl) {
   const netGrowth = (BIRTHS_PER_SEC - DEATHS_PER_SEC).toFixed(1);
   chartEl.appendChild(
     DOMUtils.create('p', {
-      textContent: `Net growth: ~${netGrowth} people per second`,
+      textContent: i18n.t('detail.population.netGrowth', { count: netGrowth }),
       style: { color: 'var(--text-secondary)', fontSize: '0.85rem', textAlign: 'center' },
     })
   );
@@ -410,7 +410,7 @@ function _buildPyramidConfig(year) {
           },
           title: {
             display: true,
-            text: 'Population (millions)',
+            text: i18n.t('detail.population.chartAxisLabel'),
           },
           grid: {
             color: 'rgba(255,255,255,0.04)',

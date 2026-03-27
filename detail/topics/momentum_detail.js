@@ -592,7 +592,7 @@ function _renderTiles(tilesEl, subScores) {
     return {
       label: i18n.t(config.key),
       value: cat.value !== undefined ? cat.value.toFixed(1) : '--',
-      unit: `${indCount} ` + (i18n.lang === 'de' ? 'Indikatoren' : 'indicators'),
+      unit: `${indCount} ` + i18n.t('detail.momentum_detail.indicatorsUnit'),
       accent: config.color,
     };
   });

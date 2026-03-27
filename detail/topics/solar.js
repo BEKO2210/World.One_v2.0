@@ -215,7 +215,7 @@ async function _renderKpMap(trendEl) {
   if (!map) {
     trendEl.appendChild(
       DOMUtils.create('p', {
-        textContent: 'Map unavailable',
+        textContent: i18n.t('detail.solar.mapUnavailable'),
         style: { color: 'var(--text-secondary)', fontStyle: 'italic', textAlign: 'center' },
       })
     );
@@ -485,7 +485,7 @@ function _renderSources(srcEl) {
   srcEl.appendChild(
     DOMUtils.create('div', {}, [
       DOMUtils.create('h3', {
-        textContent: i18n.t('detail.sources') || 'Sources',
+        textContent: i18n.t('detail.sources'),
         style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)' },
       }),
       DOMUtils.create('ul', {

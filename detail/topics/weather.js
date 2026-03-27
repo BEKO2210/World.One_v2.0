@@ -65,31 +65,33 @@ const WEATHER_CITIES = [
 // --- WMO Weather Code Mapping (WMO Code Table 4677) -------------------
 
 const WMO_CODES = {
-  0:  { desc: 'Clear sky',         icon: 'sun',      severity: 0 },
-  1:  { desc: 'Mainly clear',      icon: 'sun',      severity: 0 },
-  2:  { desc: 'Partly cloudy',     icon: 'cloud-sun', severity: 0 },
-  3:  { desc: 'Overcast',          icon: 'cloud',    severity: 0 },
-  45: { desc: 'Fog',               icon: 'fog',      severity: 1 },
-  48: { desc: 'Rime fog',          icon: 'fog',      severity: 1 },
-  51: { desc: 'Light drizzle',     icon: 'drizzle',  severity: 1 },
-  53: { desc: 'Moderate drizzle',  icon: 'drizzle',  severity: 1 },
-  55: { desc: 'Dense drizzle',     icon: 'drizzle',  severity: 2 },
-  61: { desc: 'Slight rain',       icon: 'rain',     severity: 1 },
-  63: { desc: 'Moderate rain',     icon: 'rain',     severity: 2 },
-  65: { desc: 'Heavy rain',        icon: 'rain',     severity: 3 },
-  71: { desc: 'Slight snow',       icon: 'snow',     severity: 1 },
-  73: { desc: 'Moderate snow',     icon: 'snow',     severity: 2 },
-  75: { desc: 'Heavy snow',        icon: 'snow',     severity: 3 },
-  77: { desc: 'Snow grains',       icon: 'snow',     severity: 1 },
-  80: { desc: 'Slight showers',    icon: 'showers',  severity: 1 },
-  81: { desc: 'Moderate showers',  icon: 'showers',  severity: 2 },
-  82: { desc: 'Violent showers',   icon: 'showers',  severity: 3 },
-  85: { desc: 'Slight snow showers', icon: 'snow',   severity: 2 },
-  86: { desc: 'Heavy snow showers', icon: 'snow',    severity: 3 },
-  95: { desc: 'Thunderstorm',      icon: 'thunder',  severity: 3 },
-  96: { desc: 'Thunderstorm + hail', icon: 'thunder', severity: 4 },
-  99: { desc: 'Severe thunderstorm', icon: 'thunder', severity: 4 },
+  0:  { icon: 'sun',      severity: 0 },
+  1:  { icon: 'sun',      severity: 0 },
+  2:  { icon: 'cloud-sun', severity: 0 },
+  3:  { icon: 'cloud',    severity: 0 },
+  45: { icon: 'fog',      severity: 1 },
+  48: { icon: 'fog',      severity: 1 },
+  51: { icon: 'drizzle',  severity: 1 },
+  53: { icon: 'drizzle',  severity: 1 },
+  55: { icon: 'drizzle',  severity: 2 },
+  61: { icon: 'rain',     severity: 1 },
+  63: { icon: 'rain',     severity: 2 },
+  65: { icon: 'rain',     severity: 3 },
+  71: { icon: 'snow',     severity: 1 },
+  73: { icon: 'snow',     severity: 2 },
+  75: { icon: 'snow',     severity: 3 },
+  77: { icon: 'snow',     severity: 1 },
+  80: { icon: 'showers',  severity: 1 },
+  81: { icon: 'showers',  severity: 2 },
+  82: { icon: 'showers',  severity: 3 },
+  85: { icon: 'snow',     severity: 2 },
+  86: { icon: 'snow',     severity: 3 },
+  95: { icon: 'thunder',  severity: 3 },
+  96: { icon: 'thunder',  severity: 4 },
+  99: { icon: 'thunder',  severity: 4 },
 };
+
+const wmoDescription = (code) => i18n.t(`detail.weather.wmo${code}`) || `WMO ${code}`;
 
 function severityColor(severity) {
   if (severity >= 4) return '#ff3b30';   // Red -- severe
@@ -325,7 +327,7 @@ function _buildCityCard(city) {
     }),
     // Weather description
     DOMUtils.create('div', {
-      textContent: city.available ? currentWeather.desc : 'Unavailable',
+      textContent: city.available ? wmoDescription(city.currentCode) : i18n.t('detail.weather.unavailable'),
       style: { color: 'var(--text-secondary)', fontSize: '0.75rem', marginBottom: '8px' },
     }),
     // SVG sparkline
@@ -384,9 +386,9 @@ function _createSparkline(hourlyTemps, width = 120, height = 40) {
 // --- Warning Helpers -----------------------------------------------------
 
 function _getWarningInfo(maxCode) {
-  if (maxCode >= 95) return { label: 'Thunderstorm', severity: (WMO_CODES[maxCode] || WMO_CODES[95]).severity };
-  if (maxCode >= 75) return { label: 'Heavy snow', severity: (WMO_CODES[maxCode] || WMO_CODES[75]).severity };
-  if (maxCode >= 65) return { label: 'Heavy rain', severity: (WMO_CODES[maxCode] || WMO_CODES[65]).severity };
+  if (maxCode >= 95) return { label: wmoDescription(maxCode), severity: (WMO_CODES[maxCode] || WMO_CODES[95]).severity };
+  if (maxCode >= 75) return { label: wmoDescription(maxCode), severity: (WMO_CODES[maxCode] || WMO_CODES[75]).severity };
+  if (maxCode >= 65) return { label: wmoDescription(maxCode), severity: (WMO_CODES[maxCode] || WMO_CODES[65]).severity };
   return null;
 }
 
@@ -427,7 +429,7 @@ function _renderWarnings(trendEl, cityResults) {
           fontSize: '0.9rem',
           textAlign: 'center',
         },
-        textContent: 'No severe weather warnings',
+        textContent: i18n.t('detail.weather.noWarnings'),
       })
     );
     return;

@@ -40,7 +40,7 @@ const CAUSES_OF_DEATH = [
   { name: { de: 'Diabetes', en: 'Diabetes' }, deaths: 2000000, color: '#f9a825' },
   { name: { de: 'Durchfallerkrankungen', en: 'Diarrheal Diseases' }, deaths: 1800000, color: '#4e342e' },
   { name: { de: 'Tuberkulose', en: 'Tuberculosis' }, deaths: 1300000, color: '#546e7a' },
-  { name: { de: 'Verkehrsunfaelle', en: 'Road Injuries' }, deaths: 1200000, color: '#37474f' },
+  { name: { de: 'Verkehrsunfälle', en: 'Road Injuries' }, deaths: 1200000, color: '#37474f' },
 ];
 
 // --- Health Spending vs Life Expectancy (~25 countries, World Bank 2022) -
@@ -275,7 +275,7 @@ async function _renderBubbleChart(trendEl) {
     type: 'bubble',
     data: {
       datasets: [{
-        label: 'Health Spending vs Life Expectancy',
+        label: i18n.t('detail.health.chartLabel'),
         data: bubbleData,
         backgroundColor: bgColors,
         borderColor: borderColors,
@@ -289,7 +289,7 @@ async function _renderBubbleChart(trendEl) {
           min: 10,
           title: {
             display: true,
-            text: 'Health spending per capita (USD)',
+            text: i18n.t('detail.health.xAxisLabel'),
           },
           grid: { display: false },
         },
@@ -298,7 +298,7 @@ async function _renderBubbleChart(trendEl) {
           max: 90,
           title: {
             display: true,
-            text: 'Life expectancy (years)',
+            text: i18n.t('detail.health.yAxisLabel'),
           },
         },
       },
@@ -337,7 +337,7 @@ function _renderTiles(tilesEl) {
     {
       label: i18n.t('detail.health.tileChildMort'),
       value: '37',
-      unit: 'per 1,000 live births',
+      unit: i18n.t('detail.health.unitPerBirths'),
     },
     {
       label: i18n.t('detail.health.tileVaccDTP3'),
@@ -347,7 +347,7 @@ function _renderTiles(tilesEl) {
     {
       label: i18n.t('detail.health.tileHealthSpend'),
       value: '$1,122',
-      unit: 'global avg.',
+      unit: i18n.t('detail.health.globalAvg'),
     },
   ];
 

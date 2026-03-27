@@ -288,7 +288,7 @@ function _renderComparison(compEl) {
   compEl.appendChild(
     DOMUtils.create('div', {}, [
       DOMUtils.create('h2', {
-        textContent: '2000 vs 2023',
+        textContent: i18n.t('detail.hunger.comparisonLabel'),
         style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)' },
       }),
       DOMUtils.create('p', {
@@ -463,7 +463,7 @@ export function getChartConfigs() {
             position: 'left',
             title: {
               display: true,
-              text: 'Food Price Index',
+              text: i18n.t('detail.hunger.foodPriceIndex'),
             },
           },
           y1: {

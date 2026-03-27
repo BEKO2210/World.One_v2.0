@@ -30,30 +30,39 @@ let _cacheData = null;
 // CR/EN/VU counts filled dynamically from biodiversity.json cache
 
 const IUCN_CATEGORIES = [
-  { code: 'EX', name: 'Extinct', nameDE: 'Ausgestorben', color: '#000000', count: 905 },
-  { code: 'EW', name: 'Extinct in Wild', nameDE: 'In Natur ausgestorben', color: '#3d0c11', count: 83 },
-  { code: 'CR', name: 'Critically Endangered', nameDE: 'Vom Aussterben bedroht', color: '#cc3333', count: 0 },
-  { code: 'EN', name: 'Endangered', nameDE: 'Stark gefaehrdet', color: '#cc6633', count: 0 },
-  { code: 'VU', name: 'Vulnerable', nameDE: 'Gefaehrdet', color: '#cc9900', count: 0 },
-  { code: 'NT', name: 'Near Threatened', nameDE: 'Potenziell gefaehrdet', color: '#99cc33', count: 8500 },
-  { code: 'LC', name: 'Least Concern', nameDE: 'Nicht gefaehrdet', color: '#33cc33', count: 67000 },
+  { code: 'EX', color: '#000000', count: 905 },
+  { code: 'EW', color: '#3d0c11', count: 83 },
+  { code: 'CR', color: '#cc3333', count: 0 },
+  { code: 'EN', color: '#cc6633', count: 0 },
+  { code: 'VU', color: '#cc9900', count: 0 },
+  { code: 'NT', color: '#99cc33', count: 8500 },
+  { code: 'LC', color: '#33cc33', count: 67000 },
 ];
 
-// --- Species Examples (bilingual) --------------------------------------
+// --- Species Examples (keys for i18n lookup) ---------------------------
 
-const SPECIES_EXAMPLES = {
-  CR: {
-    de: ['Sumatra-Orang-Utan', 'Schwarzes Nashorn', 'Vaquita (Hafenschweinswal)', 'Sumatra-Tiger', 'Berggorilla'],
-    en: ['Sumatran Orangutan', 'Black Rhino', 'Vaquita', 'Sumatran Tiger', 'Mountain Gorilla'],
-  },
-  EN: {
-    de: ['Grosser Panda', 'Schneeleopard', 'Blauwal', 'Schimpanse', 'Gruene Meeresschildkroete'],
-    en: ['Giant Panda', 'Snow Leopard', 'Blue Whale', 'Chimpanzee', 'Green Sea Turtle'],
-  },
-  VU: {
-    de: ['Eisbaer', 'Flusspferd', 'Weisser Hai', 'Komodowaran', 'Gepard'],
-    en: ['Polar Bear', 'Hippopotamus', 'Great White Shark', 'Komodo Dragon', 'Cheetah'],
-  },
+const SPECIES_EXAMPLE_KEYS = {
+  CR: [
+    'detail.endangered.species.CR.0',
+    'detail.endangered.species.CR.1',
+    'detail.endangered.species.CR.2',
+    'detail.endangered.species.CR.3',
+    'detail.endangered.species.CR.4',
+  ],
+  EN: [
+    'detail.endangered.species.EN.0',
+    'detail.endangered.species.EN.1',
+    'detail.endangered.species.EN.2',
+    'detail.endangered.species.EN.3',
+    'detail.endangered.species.EN.4',
+  ],
+  VU: [
+    'detail.endangered.species.VU.0',
+    'detail.endangered.species.VU.1',
+    'detail.endangered.species.VU.2',
+    'detail.endangered.species.VU.3',
+    'detail.endangered.species.VU.4',
+  ],
 };
 
 // --- Render ------------------------------------------------------------
@@ -132,7 +141,7 @@ function _renderHero(heroEl, total, tier, age) {
             marginLeft: '0.5rem',
             color: 'var(--text-secondary)',
           },
-          textContent: (i18n.lang === 'de') ? 'Arten' : 'Species',
+          textContent: i18n.t('detail.endangered.speciesUnit'),
         }),
       ]),
       DOMUtils.create('div', {
@@ -160,8 +169,6 @@ function _renderHero(heroEl, total, tier, age) {
 // --- Chart Block (IUCN Category Doughnut) ------------------------------
 
 async function _renderDoughnut(chartEl, categories, total) {
-  const lang = i18n.lang || 'de';
-
   chartEl.appendChild(
     DOMUtils.create('div', {}, [
       DOMUtils.create('h2', {
@@ -169,9 +176,7 @@ async function _renderDoughnut(chartEl, categories, total) {
         style: { color: 'var(--text-primary)', margin: '0 0 var(--space-xs)' },
       }),
       DOMUtils.create('p', {
-        textContent: (lang === 'de')
-          ? 'Alle 7 IUCN-Kategorien mit Artenzahlen'
-          : 'All 7 IUCN categories with species counts',
+        textContent: i18n.t('detail.endangered.categoriesDesc'),
         style: { color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: 'var(--space-sm)' },
       }),
       DOMUtils.create('div', {
@@ -184,7 +189,7 @@ async function _renderDoughnut(chartEl, categories, total) {
 
   await ensureChartJs();
 
-  const labels = categories.map(c => (lang === 'de') ? c.nameDE : c.name);
+  const labels = categories.map(c => i18n.t(`detail.endangered.iucn.${c.code}`));
   const counts = categories.map(c => c.count);
   const colors = categories.map(c => c.color);
 
@@ -243,7 +248,7 @@ async function _renderDoughnut(chartEl, categories, total) {
         style: { fontSize: '1.5rem', fontWeight: '700', color: 'var(--text-primary)' },
       }),
       DOMUtils.create('div', {
-        textContent: (lang === 'de') ? 'bedroht' : 'threatened',
+        textContent: i18n.t('detail.endangered.threatened'),
         style: { fontSize: '0.75rem', color: 'var(--text-secondary)' },
       }),
     ])
@@ -253,21 +258,17 @@ async function _renderDoughnut(chartEl, categories, total) {
 // --- Trend Block (Category Breakdown Bars) ------------------------------
 
 function _renderCategoryBars(trendEl, cr, en, vu, total) {
-  const lang = i18n.lang || 'de';
-
   trendEl.appendChild(
     DOMUtils.create('h2', {
-      textContent: (lang === 'de')
-        ? 'Bedrohungskategorien im Detail'
-        : 'Threat Categories in Detail',
+      textContent: i18n.t('detail.endangered.categoriesDetailTitle'),
       style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)' },
     })
   );
 
   const threatened = [
-    { code: 'CR', name: (lang === 'de') ? 'Vom Aussterben bedroht' : 'Critically Endangered', count: cr, color: '#cc3333' },
-    { code: 'EN', name: (lang === 'de') ? 'Stark gefaehrdet' : 'Endangered', count: en, color: '#cc6633' },
-    { code: 'VU', name: (lang === 'de') ? 'Gefaehrdet' : 'Vulnerable', count: vu, color: '#cc9900' },
+    { code: 'CR', name: i18n.t('detail.endangered.iucn.CR'), count: cr, color: '#cc3333' },
+    { code: 'EN', name: i18n.t('detail.endangered.iucn.EN'), count: en, color: '#cc6633' },
+    { code: 'VU', name: i18n.t('detail.endangered.iucn.VU'), count: vu, color: '#cc9900' },
   ];
 
   threatened.forEach(cat => {
@@ -336,7 +337,7 @@ function _renderCategoryBars(trendEl, cr, en, vu, total) {
           }),
         ]),
         DOMUtils.create('div', {
-          textContent: `${pct}% ${(lang === 'de') ? 'aller bedrohten Arten' : 'of total threatened species'}`,
+          textContent: `${pct}% ${i18n.t('detail.endangered.ofTotalThreatened')}`,
           style: { color: 'var(--text-secondary)', fontSize: '0.75rem' },
         }),
       ])
@@ -347,8 +348,6 @@ function _renderCategoryBars(trendEl, cr, en, vu, total) {
 // --- Tiles Block (Species Examples) ------------------------------------
 
 function _renderSpeciesExamples(tilesEl, cr, en, vu) {
-  const lang = i18n.lang || 'de';
-
   tilesEl.appendChild(
     DOMUtils.create('h2', {
       textContent: i18n.t('detail.endangered.speciesTitle'),
@@ -357,13 +356,13 @@ function _renderSpeciesExamples(tilesEl, cr, en, vu) {
   );
 
   const sections = [
-    { code: 'CR', name: (lang === 'de') ? 'Vom Aussterben bedroht' : 'Critically Endangered', count: cr, color: '#cc3333' },
-    { code: 'EN', name: (lang === 'de') ? 'Stark gefaehrdet' : 'Endangered', count: en, color: '#cc6633' },
-    { code: 'VU', name: (lang === 'de') ? 'Gefaehrdet' : 'Vulnerable', count: vu, color: '#cc9900' },
+    { code: 'CR', name: i18n.t('detail.endangered.iucn.CR'), count: cr, color: '#cc3333' },
+    { code: 'EN', name: i18n.t('detail.endangered.iucn.EN'), count: en, color: '#cc6633' },
+    { code: 'VU', name: i18n.t('detail.endangered.iucn.VU'), count: vu, color: '#cc9900' },
   ];
 
   sections.forEach(sec => {
-    const examples = SPECIES_EXAMPLES[sec.code]?.[lang] || SPECIES_EXAMPLES[sec.code]?.en || [];
+    const examples = (SPECIES_EXAMPLE_KEYS[sec.code] || []).map(key => i18n.t(key));
 
     const speciesItems = examples.map(species =>
       DOMUtils.create('div', {
@@ -442,16 +441,10 @@ function _renderSpeciesExamples(tilesEl, cr, en, vu) {
 // --- Explanation Block ---------------------------------------------------
 
 function _renderExplanation(explEl) {
-  const lang = i18n.lang || 'de';
-
-  const paragraphs = (lang === 'de') ? [
-    'Die Rote Liste der IUCN ist das weltweit umfassendste Bewertungssystem fuer den Erhaltungszustand von Tier- und Pflanzenarten. Jede Art wird anhand von fuenf Kriterien bewertet: Populationsgroesse, Bestandsrueckgang, Verbreitungsgebiet, Fragmentierung und quantitative Analysen.',
-    'Arten werden in sieben Kategorien eingeteilt -- von "Nicht gefaehrdet" (LC) bis "Ausgestorben" (EX). Die drei mittleren Kategorien (VU, EN, CR) gelten zusammen als "bedroht" und sind der Fokus internationaler Schutzbemühungen.',
-    'Die Bewertung wird regelmaessig aktualisiert. Etwa 160.000 Arten wurden bisher bewertet -- das sind weniger als 8% aller bekannten Arten. Der wahre Umfang der Bedrohung ist daher wahrscheinlich deutlich groesser.',
-  ] : [
-    'The IUCN Red List is the world\'s most comprehensive assessment system for the conservation status of animal and plant species. Each species is evaluated against five criteria: population size, rate of decline, geographic range, fragmentation, and quantitative analyses.',
-    'Species are classified into seven categories -- from "Least Concern" (LC) to "Extinct" (EX). The three middle categories (VU, EN, CR) are collectively considered "threatened" and are the focus of international conservation efforts.',
-    'Assessments are regularly updated. About 160,000 species have been assessed so far -- less than 8% of all known species. The true extent of the threat is therefore likely much greater.',
+  const paragraphs = [
+    i18n.t('detail.endangered.explanationP1'),
+    i18n.t('detail.endangered.explanationP2'),
+    i18n.t('detail.endangered.explanationP3'),
   ];
 
   explEl.appendChild(
@@ -467,34 +460,32 @@ function _renderExplanation(explEl) {
 // --- Comparison Block (Assessed vs Unknown) ----------------------------
 
 function _renderAssessedComparison(compEl) {
-  const lang = i18n.lang || 'de';
-
   compEl.appendChild(
     DOMUtils.create('h2', {
-      textContent: (lang === 'de') ? 'Bewertet vs. Unbekannt' : 'Assessed vs. Unknown',
+      textContent: i18n.t('detail.endangered.assessedVsUnknown'),
       style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)' },
     })
   );
 
   const layers = [
     {
-      label: (lang === 'de') ? 'Von IUCN bewertet' : 'Assessed by IUCN',
+      label: i18n.t('detail.endangered.assessedByIUCN'),
       count: 160000,
-      formatted: '~160.000',
+      formatted: i18n.t('detail.endangered.assessedByIUCNFormatted'),
       color: '#33cc33',
       widthPct: 100,
     },
     {
-      label: (lang === 'de') ? 'Bekannte Arten' : 'Known Species',
+      label: i18n.t('detail.endangered.knownSpecies'),
       count: 2100000,
-      formatted: '~2,1 Mio.',
+      formatted: i18n.t('detail.endangered.knownSpeciesFormatted'),
       color: '#cc9900',
       widthPct: 100,
     },
     {
-      label: (lang === 'de') ? 'Geschaetzte Gesamtzahl' : 'Estimated Total',
+      label: i18n.t('detail.endangered.estimatedTotal'),
       count: 8700000,
-      formatted: '~8,7 Mio.',
+      formatted: i18n.t('detail.endangered.estimatedTotalFormatted'),
       color: '#cc3333',
       widthPct: 100,
     },
@@ -555,9 +546,7 @@ function _renderAssessedComparison(compEl) {
   // Context note
   compEl.appendChild(
     DOMUtils.create('p', {
-      textContent: (lang === 'de')
-        ? 'Weniger als 2% aller geschaetzten Arten wurden bisher von der IUCN bewertet. Fuer die grosse Mehrheit der Arten ist der Gefaehrdungsstatus unbekannt.'
-        : 'Less than 2% of all estimated species have been assessed by the IUCN so far. For the vast majority of species, the threat status remains unknown.',
+      textContent: i18n.t('detail.endangered.assessedNote'),
       style: {
         color: 'var(--text-secondary)',
         fontSize: '0.85rem',
@@ -574,19 +563,19 @@ function _renderAssessedComparison(compEl) {
 function _renderSources(srcEl) {
   const sources = [
     {
-      label: 'IUCN Red List of Threatened Species',
+      label: i18n.t('detail.endangered.sourceIUCN'),
       url: 'https://www.iucnredlist.org/',
     },
     {
-      label: 'GBIF -- Global Biodiversity Information Facility',
+      label: i18n.t('detail.endangered.sourceGBIF'),
       url: 'https://www.gbif.org/',
     },
     {
-      label: 'WWF Living Planet Report 2024',
+      label: i18n.t('detail.endangered.sourceWWF'),
       url: 'https://livingplanet.panda.org/',
     },
     {
-      label: 'IPBES Global Assessment Report 2019',
+      label: i18n.t('detail.endangered.sourceIPBES'),
       url: 'https://ipbes.net/global-assessment',
     },
   ];

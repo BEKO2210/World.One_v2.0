@@ -49,8 +49,8 @@ const RATE_MULTIPLIER_HIGH = 1000;
 // --- Extinction by Taxonomic Group since 1500 CE (IUCN Red List) ------
 
 const EXTINCTION_BY_GROUP = [
-  { group: 'Mammals', groupDE: 'Saeugetiere', extinct: 85, percentage: 1.5, icon: '' },
-  { group: 'Birds', groupDE: 'Voegel', extinct: 159, percentage: 1.4, icon: '' },
+  { group: 'Mammals', groupDE: 'Säugetiere', extinct: 85, percentage: 1.5, icon: '' },
+  { group: 'Birds', groupDE: 'Vögel', extinct: 159, percentage: 1.4, icon: '' },
   { group: 'Reptiles', groupDE: 'Reptilien', extinct: 35, percentage: 0.3, icon: '' },
   { group: 'Amphibians', groupDE: 'Amphibien', extinct: 35, percentage: 0.4, icon: '' },
   { group: 'Fish', groupDE: 'Fische', extinct: 80, percentage: 0.2, icon: '' },
@@ -143,9 +143,7 @@ function _renderHero(heroEl, totalThreatened, tier, age) {
           style: { color: 'var(--text-primary)', fontWeight: '600' },
         }),
         DOMUtils.create('span', {
-          textContent: (i18n.lang === 'de')
-            ? 'Arten derzeit bedroht (IUCN)'
-            : 'species currently threatened (IUCN)',
+          textContent: i18n.t('detail.extinction.speciesThreatened'),
           style: { color: 'var(--text-secondary)', fontSize: '0.85rem' },
         }),
       ]),
@@ -163,9 +161,7 @@ async function _renderBigFiveChart(chartEl) {
         style: { color: 'var(--text-primary)', margin: '0 0 var(--space-xs)' },
       }),
       DOMUtils.create('p', {
-        textContent: (i18n.lang === 'de')
-          ? 'Anteil der ausgestorbenen Arten pro Ereignis (Millionen Jahre her)'
-          : 'Percentage of species lost per event (millions of years ago)',
+        textContent: i18n.t('detail.extinction.bigFiveDesc'),
         style: { color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: 'var(--space-sm)' },
       }),
       DOMUtils.create('div', {
@@ -186,11 +182,9 @@ async function _renderBigFiveChart(chartEl) {
       cause: e.cause,
     })),
     {
-      label: (i18n.lang === 'de') ? 'Aktuell (Holozaen?)' : 'Current (Holocene?)',
+      label: i18n.t('detail.extinction.currentHolocene'),
       loss: 5,
-      cause: (i18n.lang === 'de')
-        ? 'Lebensraumverlust, Klimawandel -- Rate 100-1000x schneller'
-        : 'Habitat loss, climate change -- rate 100-1000x faster',
+      cause: i18n.t('detail.extinction.currentHoloceneCause'),
     },
   ];
 
@@ -212,7 +206,7 @@ async function _renderBigFiveChart(chartEl) {
     data: {
       labels: allEvents.map(e => e.label),
       datasets: [{
-        label: (i18n.lang === 'de') ? '% Arten verloren' : '% Species Lost',
+        label: i18n.t('detail.extinction.speciesLost'),
         data: allEvents.map(e => e.loss),
         backgroundColor: barColors,
         borderColor: borderColors,
@@ -229,7 +223,7 @@ async function _renderBigFiveChart(chartEl) {
           max: 100,
           title: {
             display: true,
-            text: (i18n.lang === 'de') ? '% der Arten verloren' : '% Species Lost',
+            text: i18n.t('detail.extinction.speciesLost'),
           },
           grid: { color: 'rgba(255,255,255,0.06)' },
         },
@@ -247,7 +241,7 @@ async function _renderBigFiveChart(chartEl) {
             title: (items) => items[0]?.label || '',
             label: (item) => {
               const evt = allEvents[item.dataIndex];
-              return [`${evt.loss}% ${(i18n.lang === 'de') ? 'verloren' : 'lost'}`, evt.cause];
+              return [`${evt.loss}% ${i18n.t('detail.extinction.lost')}`, evt.cause];
             },
           },
         },
@@ -261,25 +255,21 @@ async function _renderBigFiveChart(chartEl) {
 function _renderRateComparison(trendEl) {
   trendEl.appendChild(
     DOMUtils.create('h2', {
-      textContent: (i18n.lang === 'de')
-        ? 'Hintergrundrate vs. aktuelle Rate'
-        : 'Background Rate vs. Current Rate',
+      textContent: i18n.t('detail.extinction.rateComparisonTitle'),
       style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)' },
     })
   );
 
   trendEl.appendChild(
     DOMUtils.create('p', {
-      textContent: (i18n.lang === 'de')
-        ? 'Aussterben pro Million Arten-Jahre (E/MSY) -- logarithmische Skala'
-        : 'Extinctions per million species-years (E/MSY) -- logarithmic scale',
+      textContent: i18n.t('detail.extinction.rateComparisonDesc'),
       style: { color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: 'var(--space-md)' },
     })
   );
 
   // Background rate bar
   const bgBar = _createRateBar(
-    (i18n.lang === 'de') ? 'Natuerliche Hintergrundrate' : 'Natural Background Rate',
+    i18n.t('detail.extinction.backgroundRate'),
     `${RATE_BACKGROUND_LOW} - ${RATE_BACKGROUND_HIGH} E/MSY`,
     1,
     'var(--text-secondary, #8a8a8e)',
@@ -288,7 +278,7 @@ function _renderRateComparison(trendEl) {
 
   // Current rate bar -- visually 100-1000x wider
   const currentBar = _createRateBar(
-    (i18n.lang === 'de') ? 'Aktuelle Rate' : 'Current Rate',
+    i18n.t('detail.extinction.currentRate'),
     `${RATE_MULTIPLIER_LOW} - ${RATE_MULTIPLIER_HIGH} E/MSY`,
     80,
     '#fff',
@@ -320,7 +310,7 @@ function _renderRateComparison(trendEl) {
         style: { color: 'var(--danger, #d32f2f)', fontWeight: '700', fontSize: '1.5rem' },
       }),
       DOMUtils.create('span', {
-        textContent: (i18n.lang === 'de') ? 'schneller als natuerlich' : 'faster than natural',
+        textContent: i18n.t('detail.extinction.fasterThanNatural'),
         style: { color: 'var(--text-secondary)', fontSize: '1rem' },
       }),
     ])
@@ -363,7 +353,6 @@ function _createRateBar(label, valueText, widthPercent, textColor, bgColor) {
 // --- Tiles Block (Taxonomic Group Extinction) ---------------------------
 
 function _renderTaxonomicTiles(tilesEl) {
-  const lang = i18n.lang || 'de';
   const maxExtinct = Math.max(...EXTINCTION_BY_GROUP.map(g => g.extinct));
 
   const cards = EXTINCTION_BY_GROUP.map(g => {
@@ -383,7 +372,7 @@ function _renderTaxonomicTiles(tilesEl) {
         style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' },
       }, [
         DOMUtils.create('span', {
-          textContent: `${g.icon} ${(lang === 'de') ? g.groupDE : g.group}`,
+          textContent: `${g.icon} ${i18n.t('detail.extinction.group.' + g.group.toLowerCase())}`,
           style: { color: 'var(--text-primary)', fontWeight: '600', fontSize: '0.95rem' },
         }),
         DOMUtils.create('span', {
@@ -411,7 +400,7 @@ function _renderTaxonomicTiles(tilesEl) {
         }),
       ]),
       DOMUtils.create('div', {
-        textContent: `${g.extinct} ${(lang === 'de') ? 'Arten ausgestorben seit 1500' : 'species extinct since 1500'}`,
+        textContent: `${g.extinct} ${i18n.t('detail.extinction.speciesExtinctSince1500')}`,
         style: { color: 'var(--text-secondary)', fontSize: '0.75rem' },
       }),
     ]);
@@ -450,13 +439,12 @@ function _renderExplanation(explEl) {
 }
 
 function _renderDrivers() {
-  const lang = i18n.lang || 'de';
   const drivers = [
-    { icon: '', de: 'Lebensraumverlust und -zerstueckelung', en: 'Habitat loss and fragmentation', pct: 30 },
-    { icon: '', de: 'Uebernutzung (Jagd, Fischerei)', en: 'Overexploitation (hunting, fishing)', pct: 20 },
-    { icon: '', de: 'Klimawandel', en: 'Climate change', pct: 20 },
-    { icon: '', de: 'Umweltverschmutzung', en: 'Pollution', pct: 15 },
-    { icon: '', de: 'Invasive Arten', en: 'Invasive species', pct: 15 },
+    { icon: '', key: 'detail.extinction.driver.habitatLoss', pct: 30 },
+    { icon: '', key: 'detail.extinction.driver.overexploitation', pct: 20 },
+    { icon: '', key: 'detail.extinction.driver.climateChange', pct: 20 },
+    { icon: '', key: 'detail.extinction.driver.pollution', pct: 15 },
+    { icon: '', key: 'detail.extinction.driver.invasiveSpecies', pct: 15 },
   ];
 
   return drivers.map(d =>
@@ -474,7 +462,7 @@ function _renderDrivers() {
         style: { fontSize: '1.1rem', width: '24px', textAlign: 'center' },
       }),
       DOMUtils.create('span', {
-        textContent: (lang === 'de') ? d.de : d.en,
+        textContent: i18n.t(d.key),
         style: { color: 'var(--text-secondary)', fontSize: '0.9rem', flex: '1' },
       }),
       DOMUtils.create('span', {
@@ -488,37 +476,29 @@ function _renderDrivers() {
 // --- Comparison Block (Then vs Now Timeline) ----------------------------
 
 function _renderTimeline(compEl) {
-  const lang = i18n.lang || 'de';
-
   compEl.appendChild(
     DOMUtils.create('h2', {
-      textContent: (lang === 'de') ? 'Damals vs. Heute' : 'Then vs. Now',
+      textContent: i18n.t('detail.extinction.thenVsNow'),
       style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)' },
     })
   );
 
   const timePoints = [
     {
-      label: (lang === 'de') ? 'Big Five Massenaussterben' : 'Big Five Mass Extinctions',
-      duration: (lang === 'de')
-        ? 'Jeweils Tausende bis Millionen Jahre'
-        : 'Each lasted thousands to millions of years',
+      label: i18n.t('detail.extinction.timeline.bigFiveLabel'),
+      duration: i18n.t('detail.extinction.timeline.bigFiveDuration'),
       color: '#e65100',
       width: 100,
     },
     {
-      label: (lang === 'de') ? 'Aktuelle Krise' : 'Current Crisis',
-      duration: (lang === 'de')
-        ? '~500 Jahre (seit 1500 n. Chr.)'
-        : '~500 years (since 1500 CE)',
+      label: i18n.t('detail.extinction.timeline.currentCrisisLabel'),
+      duration: i18n.t('detail.extinction.timeline.currentCrisisDuration'),
       color: 'var(--danger, #d32f2f)',
       width: 2,
     },
     {
-      label: (lang === 'de') ? 'Beschleunigung' : 'Acceleration',
-      duration: (lang === 'de')
-        ? 'Meiste Verluste in den letzten 100 Jahren'
-        : 'Most losses in the last 100 years',
+      label: i18n.t('detail.extinction.timeline.accelerationLabel'),
+      duration: i18n.t('detail.extinction.timeline.accelerationDuration'),
       color: 'var(--danger, #d32f2f)',
       width: 0.5,
     },
@@ -575,9 +555,7 @@ function _renderTimeline(compEl) {
   // Context note
   compEl.appendChild(
     DOMUtils.create('p', {
-      textContent: (lang === 'de')
-        ? 'Die natuerliche Hintergrundrate betraegt 0,1-1,0 Aussterben pro Million Arten-Jahre. Die heutige Rate ist 100-1.000 Mal hoeher.'
-        : 'The natural background rate is 0.1-1.0 extinctions per million species-years. Today\'s rate is 100-1,000 times higher.',
+      textContent: i18n.t('detail.extinction.timeline.contextNote'),
       style: {
         color: 'var(--text-secondary)',
         fontSize: '0.85rem',

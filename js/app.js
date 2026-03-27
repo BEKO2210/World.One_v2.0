@@ -797,7 +797,7 @@ class BelkisOne {
     if (fgGauge && rt.cryptoFearGreed) {
       Charts.semiGauge(fgGauge, rt.cryptoFearGreed.value);
     }
-    this._setText('#fear-greed-label', `${rt.cryptoFearGreed?.label || 'Fear'} (${rt.cryptoFearGreed?.value || 38}/100)`);
+    this._setText('#fear-greed-label', `${rt.cryptoFearGreed?.label || i18n.t('js.fear')} (${rt.cryptoFearGreed?.value || 38}/100)`);
 
     // Air quality lists
     const cleanList = document.getElementById('clean-cities');
@@ -891,7 +891,7 @@ class BelkisOne {
           size: 140,
           strokeWidth: 10,
           color: '#5ac8fa',
-          label: 'Momentum'
+          label: i18n.t('js.momentum')
         });
       }
 
@@ -1264,10 +1264,10 @@ class BelkisOne {
     const updateLabel = (idx) => {
       const isLive = idx >= total;
       const snap = snapAt(idx);
-      dateLabel.textContent = isLive ? 'LIVE' : fmtDate(snap.timestamp);
+      dateLabel.textContent = isLive ? i18n.t('js.live') : fmtDate(snap.timestamp);
       dateLabel.classList.toggle('is-historical', !isLive);
       btn.classList.toggle('is-historical', !isLive);
-      indexLabel.textContent = isLive ? '' : `Index ${snap.worldIndex}`;
+      indexLabel.textContent = isLive ? '' : `${i18n.t('js.index')} ${snap.worldIndex}`;
     };
 
     range.addEventListener('input', () => updateLabel(parseInt(range.value)));

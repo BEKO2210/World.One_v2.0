@@ -82,21 +82,21 @@ const NOBEL_DATA = [
 // --- Category Mapping for arXiv Papers --------------------------------
 
 const CATEGORY_MAP = {
-  'cs.AI': 'AI & ML', 'cs.LG': 'AI & ML', 'cs.CL': 'AI & ML', 'cs.CV': 'AI & ML',
+  'cs.AI': 'catAiMl', 'cs.LG': 'catAiMl', 'cs.CL': 'catAiMl', 'cs.CV': 'catAiMl',
 };
 
 function _mapCategory(cat) {
-  if (!cat) return 'Other';
-  if (CATEGORY_MAP[cat]) return CATEGORY_MAP[cat];
-  if (cat.startsWith('physics')) return 'Physics';
-  if (cat.startsWith('math')) return 'Mathematics';
-  if (cat.startsWith('stat')) return 'Statistics';
-  if (cat.startsWith('q-bio')) return 'Biology';
-  if (cat.startsWith('cond-mat')) return 'Materials';
-  if (cat.startsWith('astro-ph')) return 'Astrophysics';
-  if (cat.startsWith('econ')) return 'Economics';
-  if (cat.startsWith('cs.')) return 'AI & ML'; // Most cs.* papers are ML-adjacent
-  return 'Other';
+  if (!cat) return i18n.t('detail.science.catOther');
+  if (CATEGORY_MAP[cat]) return i18n.t(`detail.science.${CATEGORY_MAP[cat]}`);
+  if (cat.startsWith('physics')) return i18n.t('detail.science.catPhysics');
+  if (cat.startsWith('math')) return i18n.t('detail.science.catMathematics');
+  if (cat.startsWith('stat')) return i18n.t('detail.science.catStatistics');
+  if (cat.startsWith('q-bio')) return i18n.t('detail.science.catBiology');
+  if (cat.startsWith('cond-mat')) return i18n.t('detail.science.catMaterials');
+  if (cat.startsWith('astro-ph')) return i18n.t('detail.science.catAstrophysics');
+  if (cat.startsWith('econ')) return i18n.t('detail.science.catEconomics');
+  if (cat.startsWith('cs.')) return i18n.t('detail.science.catAiMl'); // Most cs.* papers are ML-adjacent
+  return i18n.t('detail.science.catOther');
 }
 
 // --- Bubble Color Palette ---------------------------------------------
@@ -356,7 +356,7 @@ function _renderTiles(tilesEl) {
     {
       label: i18n.t('detail.science.tileGrowth'),
       value: `${growthFactor}x`,
-      unit: 'since 1991',
+      unit: i18n.t('detail.science.unitSince'),
       accent: '#4caf50',
     },
     {
@@ -499,8 +499,8 @@ export function getChartConfigs() {
   if (totalCategorized < 5) {
     // Fallback to hardcoded distribution
     fieldCounts = {
-      'AI & ML': 45, 'Physics': 20, 'Mathematics': 15,
-      'Statistics': 8, 'Biology': 5, 'Other': 7,
+      [i18n.t('detail.science.catAiMl')]: 45, [i18n.t('detail.science.catPhysics')]: 20, [i18n.t('detail.science.catMathematics')]: 15,
+      [i18n.t('detail.science.catStatistics')]: 8, [i18n.t('detail.science.catBiology')]: 5, [i18n.t('detail.science.catOther')]: 7,
     };
   }
 
@@ -612,7 +612,7 @@ export function getChartConfigs() {
             beginAtZero: true,
             title: {
               display: true,
-              text: 'Nobel Prizes',
+              text: i18n.t('detail.science.nobelLabel'),
             },
             ticks: {
               callback: (val) => MathUtils.formatCompact(val),
@@ -627,7 +627,7 @@ export function getChartConfigs() {
                 const idx = Math.round(items[0]?.parsed?.x ?? 0);
                 return nobelLabels[idx] || '';
               },
-              label: (item) => `${item.parsed.y} Nobel Prizes`,
+              label: (item) => `${item.parsed.y} ${i18n.t('detail.science.nobelPrizes')}`,
             },
           },
         },

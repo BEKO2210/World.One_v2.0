@@ -210,7 +210,7 @@ async function _buildSVGMap(quakes, usgsSuccess) {
 
   if (!map) {
     return DOMUtils.create('p', {
-      textContent: 'Map unavailable',
+      textContent: i18n.t('detail.earthquakes.mapUnavailable'),
       style: { color: 'var(--text-secondary)', fontStyle: 'italic', textAlign: 'center' },
     });
   }
@@ -228,7 +228,7 @@ async function _buildSVGMap(quakes, usgsSuccess) {
       fill: 'rgba(255,255,255,0.5)',
       'font-size': '32',
     });
-    text.textContent = 'Data unavailable -- USGS fetch failed';
+    text.textContent = i18n.t('detail.earthquakes.dataUnavailable');
     overlay.appendChild(text);
   } else {
     // Plot earthquake dots on the overlay

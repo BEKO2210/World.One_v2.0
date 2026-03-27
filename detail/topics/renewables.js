@@ -204,7 +204,7 @@ function _renderCarbonIntensity(chartEl) {
         }),
       ]),
       DOMUtils.create('p', {
-        textContent: 'EU average: ~230 gCO2/kWh',
+        textContent: i18n.t('detail.renewables.euAverage'),
         style: { color: 'var(--text-secondary)', fontSize: '0.85rem', margin: '0' },
       }),
     ])
@@ -245,7 +245,7 @@ async function _renderRankingChart(chartEl) {
     data: {
       labels,
       datasets: [{
-        label: 'Renewable Share (%)',
+        label: i18n.t('detail.renewables.renewableShareLabel'),
         data: values,
         backgroundColor: barColors,
         borderColor: barColors.map(c => c.replace('0.85', '1')),
@@ -384,7 +384,7 @@ function _createGrowthChart(labels, solarData, windData) {
           beginAtZero: true,
           title: {
             display: true,
-            text: 'Installed Capacity (GW)',
+            text: i18n.t('detail.renewables.yAxisLabel'),
           },
           grid: { color: 'rgba(255,255,255,0.05)' },
         },
