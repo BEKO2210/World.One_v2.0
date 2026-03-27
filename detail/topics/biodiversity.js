@@ -55,7 +55,7 @@ const IUCN_CATEGORIES = [
 
 // Critically endangered example species (hardcoded reference data)
 const CR_EXAMPLES = {
-  de: 'Sumatra-Tiger, Java-Nashorn, Vaquita, Berggorilla, Saola, Amur-Leopard, Noerdliches Breitmaulnashorn, Kalifornischer Schweinswal',
+  de: 'Sumatra-Tiger, Java-Nashorn, Vaquita, Berggorilla, Saola, Amur-Leopard, Nördliches Breitmaulnashorn, Kalifornischer Schweinswal',
   en: 'Sumatran Tiger, Javan Rhino, Vaquita, Mountain Gorilla, Saola, Amur Leopard, Northern White Rhino, California Porpoise',
 };
 
@@ -198,7 +198,7 @@ async function _renderLPIChart(chartEl) {
     data: {
       labels,
       datasets: [{
-        label: 'Living Planet Index',
+        label: i18n.t('detail.biodiversity.lpiLabel'),
         data: values,
         borderColor: toRgba(CHART_COLORS.environment),
         backgroundColor: toRgba(CHART_COLORS.environment, 0.15),
@@ -457,11 +457,11 @@ async function _renderMap(compEl) {
   }
 
   const legendItems = [
-    { color: '#d32f2f', label: 'High' },
-    { color: '#f57c00', label: 'Medium-High' },
-    { color: '#fbc02d', label: 'Medium' },
-    { color: '#66bb6a', label: 'Low-Medium' },
-    { color: '#1b5e20', label: 'Low' },
+    { color: '#d32f2f', label: i18n.t('detail.biodiversity.threatHigh') },
+    { color: '#f57c00', label: i18n.t('detail.biodiversity.threatMediumHigh') },
+    { color: '#fbc02d', label: i18n.t('detail.biodiversity.threatMedium') },
+    { color: '#66bb6a', label: i18n.t('detail.biodiversity.threatLowMedium') },
+    { color: '#1b5e20', label: i18n.t('detail.biodiversity.threatLow') },
   ];
 
   const result = await renderChoropleth(compEl, {

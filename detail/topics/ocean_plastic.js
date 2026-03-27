@@ -104,7 +104,7 @@ function _renderHero(heroEl, tier, age) {
           textContent: '~170',
         }),
         DOMUtils.create('span', {
-          textContent: ' Mio t',
+          textContent: ` ${i18n.t('detail.ocean_plastic.unitMt')}`,
           style: { fontSize: '1.5rem', fontWeight: '400' },
         }),
       ]),
@@ -127,7 +127,7 @@ function _renderHero(heroEl, tier, age) {
         style: { color: 'var(--text-secondary)', fontSize: '0.9rem', margin: '0 0 var(--space-xs)' },
       }),
       DOMUtils.create('p', {
-        textContent: `+${PLASTIC_STATS.annual_input_mt} Mio t / year (UNEP 2023)`,
+        textContent: i18n.t('detail.ocean_plastic.annualInput', { amount: PLASTIC_STATS.annual_input_mt }),
         style: { color: '#ff9500', fontSize: '0.85rem', fontWeight: '600', margin: '0' },
       }),
     ])
@@ -158,7 +158,7 @@ function _renderCounter(chartEl) {
   });
 
   const labelEl = DOMUtils.create('div', {
-    textContent: 'heute / today',
+    textContent: i18n.t('detail.ocean_plastic.today'),
     style: {
       textAlign: 'center',
       color: 'var(--text-secondary)',
@@ -168,7 +168,7 @@ function _renderCounter(chartEl) {
   });
 
   const descEl = DOMUtils.create('p', {
-    textContent: `${PLASTIC_STATS.daily_input_kg.toLocaleString()} kg of plastic enter the ocean every day.`,
+    textContent: i18n.t('detail.ocean_plastic.dailyDesc', { amount: PLASTIC_STATS.daily_input_kg.toLocaleString() }),
     style: {
       textAlign: 'center',
       color: 'var(--text-tertiary)',
@@ -217,7 +217,7 @@ async function _renderGarbagePatches(trendEl) {
   if (!map) {
     trendEl.appendChild(
       DOMUtils.create('p', {
-        textContent: 'Map unavailable',
+        textContent: i18n.t('detail.ocean_plastic.mapUnavailable'),
         style: { color: 'var(--text-secondary)', fontStyle: 'italic', textAlign: 'center' },
       })
     );
@@ -384,9 +384,9 @@ function _renderDecomposition(tilesEl) {
 
 function _renderExplanation(expEl) {
   const paragraphs = [
-    'About 80% of ocean plastic originates from land-based sources, transported primarily through rivers. The remaining 20% comes from maritime activities including fishing, shipping, and offshore platforms.',
-    'Large plastic items break down into microplastics (< 5mm) through UV radiation and wave action, but never fully biodegrade. These microplastics enter the marine food chain from plankton to whales.',
-    'By 2050, the ocean could contain more plastic than fish by weight if current trends continue. Reducing single-use plastics and improving waste management in coastal regions are the most effective interventions.',
+    i18n.t('detail.ocean_plastic.explanationP1'),
+    i18n.t('detail.ocean_plastic.explanationP2'),
+    i18n.t('detail.ocean_plastic.explanationP3'),
   ];
 
   expEl.appendChild(
@@ -404,7 +404,7 @@ function _renderExplanation(expEl) {
 function _renderComparison(compEl) {
   compEl.appendChild(
     DOMUtils.create('h2', {
-      textContent: 'The Scale of the Problem',
+      textContent: i18n.t('detail.ocean_plastic.scaleTitle'),
       style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)' },
     })
   );
@@ -414,27 +414,27 @@ function _renderComparison(compEl) {
 
   const stats = [
     {
-      label: 'Every Second',
+      label: i18n.t('detail.ocean_plastic.everySecond'),
       value: `~${perSecond.toLocaleString()} kg`,
-      desc: 'enter the ocean',
+      desc: i18n.t('detail.ocean_plastic.enterOcean'),
       color: '#fbc02d',
     },
     {
-      label: 'Every Minute',
+      label: i18n.t('detail.ocean_plastic.everyMinute'),
       value: `~${perMinute.toLocaleString()} kg`,
-      desc: 'equivalent to a garbage truck',
+      desc: i18n.t('detail.ocean_plastic.garbageTruck'),
       color: '#ff9500',
     },
     {
-      label: 'Every Year',
-      value: `${PLASTIC_STATS.annual_input_mt} Mio t`,
-      desc: 'added to the oceans',
+      label: i18n.t('detail.ocean_plastic.everyYear'),
+      value: `${PLASTIC_STATS.annual_input_mt} ${i18n.t('detail.ocean_plastic.unitMt')}`,
+      desc: i18n.t('detail.ocean_plastic.addedOceans'),
       color: '#ff6d00',
     },
     {
-      label: 'Total Accumulated',
-      value: `~${PLASTIC_STATS.total_mt} Mio t`,
-      desc: 'currently in the ocean',
+      label: i18n.t('detail.ocean_plastic.totalAccumulated'),
+      value: `~${PLASTIC_STATS.total_mt} ${i18n.t('detail.ocean_plastic.unitMt')}`,
+      desc: i18n.t('detail.ocean_plastic.currentlyInOcean'),
       color: '#f44336',
     },
   ];

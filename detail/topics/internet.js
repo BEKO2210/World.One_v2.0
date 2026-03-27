@@ -268,10 +268,10 @@ async function _renderChoropleth(tilesEl) {
   }
 
   const legendItems = [
-    { color: 'rgba(76, 175, 80, 0.85)', label: '>90% Connected' },
-    { color: 'rgba(255, 193, 7, 0.7)', label: '70-90%' },
-    { color: 'rgba(255, 152, 0, 0.6)', label: '40-70%' },
-    { color: 'rgba(244, 67, 54, 0.6)', label: '<40%' },
+    { color: 'rgba(76, 175, 80, 0.85)', label: i18n.t('detail.internet.legend90') },
+    { color: 'rgba(255, 193, 7, 0.7)', label: i18n.t('detail.internet.legend70') },
+    { color: 'rgba(255, 152, 0, 0.6)', label: i18n.t('detail.internet.legend40') },
+    { color: 'rgba(244, 67, 54, 0.6)', label: i18n.t('detail.internet.legendBelow40') },
   ];
 
   try {
@@ -291,7 +291,7 @@ async function _renderChoropleth(tilesEl) {
     // Graceful fallback if SVG fails
     tilesEl.appendChild(
       DOMUtils.create('p', {
-        textContent: 'Map unavailable',
+        textContent: i18n.t('detail.internet.mapUnavailable'),
         style: { color: 'var(--text-secondary)', fontStyle: 'italic' },
       })
     );

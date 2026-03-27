@@ -179,7 +179,7 @@ async function _buildISSMap() {
 
   if (!map) {
     const fallback = DOMUtils.create('p', {
-      textContent: 'Map unavailable',
+      textContent: i18n.t('detail.space.mapUnavailable'),
       style: { color: 'var(--text-secondary)', fontStyle: 'italic', textAlign: 'center' },
     });
     return { wrapper: fallback, posText };
@@ -400,7 +400,7 @@ async function _renderNews(explEl) {
   if (articles.length === 0) {
     explEl.appendChild(
       DOMUtils.create('p', {
-        textContent: 'No news available.',
+        textContent: i18n.t('detail.space.noNews'),
         style: { color: 'var(--text-secondary)' },
       })
     );

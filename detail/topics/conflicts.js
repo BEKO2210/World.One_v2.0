@@ -74,10 +74,10 @@ const CONFLICT_TREND = [
 // --- Notable event years for annotations ------------------------------
 
 const EVENT_YEARS = {
-  1991: 'End of Cold War',
-  2011: 'Arab Spring',
-  2014: 'ISIS rise, Ukraine crisis',
-  2022: 'Russia invades Ukraine',
+  1991: i18n.t('detail.conflicts.event1991'),
+  2011: i18n.t('detail.conflicts.event2011'),
+  2014: i18n.t('detail.conflicts.event2014'),
+  2022: i18n.t('detail.conflicts.event2022'),
 };
 
 // --- Refugees/Displacement data (UNHCR 2024 mid-year) -----------------
@@ -104,9 +104,9 @@ function intensityToColor(intensity) {
 }
 
 function intensityLabel(intensity) {
-  if (intensity === 3) return 'War';
-  if (intensity === 2) return 'Intermediate';
-  return 'Minor conflict';
+  if (intensity === 3) return i18n.t('detail.conflicts.war');
+  if (intensity === 2) return i18n.t('detail.conflicts.intermediate');
+  return i18n.t('detail.conflicts.minorConflict');
 }
 
 // --- Render ------------------------------------------------------------
@@ -208,7 +208,7 @@ async function _buildConflictMap() {
 
   if (!map) {
     return DOMUtils.create('p', {
-      textContent: 'Map unavailable',
+      textContent: i18n.t('detail.conflicts.mapUnavailable'),
       style: { color: 'var(--text-secondary)', fontStyle: 'italic', textAlign: 'center' },
     });
   }
@@ -305,9 +305,9 @@ function _showConflictPopup(container, country, event) {
 
 function _buildConflictLegend() {
   const items = [
-    { color: toRgba(CHART_COLORS.crisis, 0.85), label: 'War (intensity 3)', radius: 14 },
-    { color: toRgba(CHART_COLORS.society, 0.85), label: 'Intermediate (2)', radius: 9 },
-    { color: 'rgba(255, 215, 0, 0.85)', label: 'Minor conflict (1)', radius: 5 },
+    { color: toRgba(CHART_COLORS.crisis, 0.85), label: i18n.t('detail.conflicts.legendWar'), radius: 14 },
+    { color: toRgba(CHART_COLORS.society, 0.85), label: i18n.t('detail.conflicts.legendIntermediate'), radius: 9 },
+    { color: 'rgba(255, 215, 0, 0.85)', label: i18n.t('detail.conflicts.legendMinor'), radius: 5 },
   ];
 
   const legendItems = items.map(({ color, label }) =>
@@ -621,7 +621,7 @@ function _renderSources(srcEl) {
   srcEl.appendChild(
     DOMUtils.create('div', {}, [
       DOMUtils.create('h3', {
-        textContent: i18n.t('detail.sources') || 'Sources',
+        textContent: i18n.t('detail.sources'),
         style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)' },
       }),
       DOMUtils.create('ul', {

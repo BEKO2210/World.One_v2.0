@@ -186,7 +186,7 @@ async function _renderLossChart(chartEl) {
     data: {
       labels,
       datasets: [{
-        label: 'Net forest loss (Mha)',
+        label: i18n.t('detail.forests.netLossLabel'),
         data: values,
         backgroundColor: barColor,
         borderColor: borderColor,
@@ -213,7 +213,7 @@ async function _renderLossChart(chartEl) {
           beginAtZero: true,
           title: {
             display: true,
-            text: 'Million hectares (net loss)',
+            text: i18n.t('detail.forests.yAxisLabel'),
           },
         },
       },

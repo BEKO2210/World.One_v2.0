@@ -70,17 +70,19 @@ const PH_TREND = [
 
 // --- pH Scale Items (for visual reference) ------------------------------
 
-const PH_SCALE_ITEMS = [
-  { ph: 0,    label: 'Battery Acid',          color: '#d50000' },
-  { ph: 1,    label: 'Stomach Acid',          color: '#e53935' },
-  { ph: 3,    label: 'Vinegar',               color: '#ff6d00' },
-  { ph: 5.5,  label: 'Rain',                  color: '#ffab00' },
-  { ph: 7,    label: 'Pure Water',            color: '#00c853' },
-  { ph: 8.08, label: 'Current Ocean',         color: '#2979ff' },
-  { ph: 8.25, label: 'Pre-industrial Ocean',  color: '#0d47a1' },
-  { ph: 10,   label: 'Soap',                  color: '#6200ea' },
-  { ph: 14,   label: 'Drain Cleaner',         color: '#aa00ff' },
-];
+function _getPhScaleItems() {
+  return [
+    { ph: 0,    label: i18n.t('detail.ocean_ph.phBatteryAcid'),         color: '#d50000' },
+    { ph: 1,    label: i18n.t('detail.ocean_ph.phStomachAcid'),         color: '#e53935' },
+    { ph: 3,    label: i18n.t('detail.ocean_ph.phVinegar'),             color: '#ff6d00' },
+    { ph: 5.5,  label: i18n.t('detail.ocean_ph.phRain'),               color: '#ffab00' },
+    { ph: 7,    label: i18n.t('detail.ocean_ph.phPureWater'),           color: '#00c853' },
+    { ph: 8.08, label: i18n.t('detail.ocean_ph.phCurrentOcean'),        color: '#2979ff' },
+    { ph: 8.25, label: i18n.t('detail.ocean_ph.phPreIndustrialOcean'),  color: '#0d47a1' },
+    { ph: 10,   label: i18n.t('detail.ocean_ph.phSoap'),               color: '#6200ea' },
+    { ph: 14,   label: i18n.t('detail.ocean_ph.phDrainCleaner'),       color: '#aa00ff' },
+  ];
+}
 
 // --- Acidification Impacts on Marine Life --------------------------------
 
@@ -89,28 +91,28 @@ const ACIDIFICATION_IMPACTS = [
     organism: 'Coral',
     icon: '\uD83E\uDEB8',
     threshold: 7.8,
-    desc_de: 'Kalkschalen loesen sich unter pH 7.8 auf. Korallenriffe drohen zu verschwinden.',
+    desc_de: 'Kalkschalen lösen sich unter pH 7.8 auf. Korallenriffe drohen zu verschwinden.',
     desc_en: 'Calcium carbonate shells dissolve below pH 7.8. Coral reefs face dissolution.',
   },
   {
     organism: 'Oysters',
     icon: '\uD83E\uDEAA',
     threshold: 7.95,
-    desc_de: 'Larven koennen ab pH 7.95 keine Schalen mehr bilden. Austernfarmen sind bedroht.',
+    desc_de: 'Larven können ab pH 7.95 keine Schalen mehr bilden. Austernfarmen sind bedroht.',
     desc_en: 'Larvae fail to form shells below pH 7.95. Oyster farms are threatened.',
   },
   {
     organism: 'Pteropods',
     icon: '\uD83D\uDC1A',
     threshold: 8.08,
-    desc_de: 'Schalen werden bereits beim aktuellen pH duenner. Basis der arktischen Nahrungskette.',
+    desc_de: 'Schalen werden bereits beim aktuellen pH dünner. Basis der arktischen Nahrungskette.',
     desc_en: 'Shells are thinning at current pH levels. Base of the Arctic food chain.',
   },
   {
     organism: 'Clownfish',
     icon: '\uD83D\uDC20',
     threshold: 7.8,
-    desc_de: 'Verhaltensaenderungen: Raeuber werden nicht mehr erkannt. Orientierung gestort.',
+    desc_de: 'Verhaltensänderungen: Räuber werden nicht mehr erkannt. Orientierung gestört.',
     desc_en: 'Behavioral changes: predators no longer recognized. Navigation disrupted.',
   },
 ];
@@ -173,7 +175,7 @@ function _renderHero(heroEl, tier, age) {
         },
       }, [
         DOMUtils.create('span', {
-          textContent: `${change.toFixed(2)} vs. pre-industrial (8.25)`,
+          textContent: `${change.toFixed(2)} ${i18n.t('detail.ocean_ph.vsPreIndustrial')}`,
           style: { color: '#ff9500', fontSize: '1rem', fontWeight: '600' },
         }),
       ]),
@@ -196,7 +198,7 @@ function _renderHero(heroEl, tier, age) {
         style: { color: 'var(--text-secondary)', fontSize: '0.9rem', margin: '0 0 var(--space-xs)' },
       }),
       DOMUtils.create('p', {
-        textContent: '0.1 pH drop = 26% acidity increase (logarithmic scale)',
+        textContent: i18n.t('detail.ocean_ph.acidityExplain'),
         style: { color: 'var(--text-tertiary)', fontSize: '0.8rem', margin: '0' },
       }),
     ])
@@ -279,7 +281,7 @@ async function _renderPHChart(chartEl) {
               borderDash: [6, 4],
               label: {
                 display: true,
-                content: 'Pre-industrial (8.25)',
+                content: i18n.t('detail.ocean_ph.chartPreIndustrial'),
                 position: 'start',
                 color: 'rgba(255,255,255,0.6)',
                 font: { size: 10 },
@@ -334,8 +336,8 @@ function _renderPHScale(trendEl) {
   trendEl.appendChild(scaleContainer);
 
   // Markers for key items
-  const oceanItems = PH_SCALE_ITEMS.filter(item =>
-    item.label === 'Current Ocean' || item.label === 'Pre-industrial Ocean' || item.label === 'Pure Water'
+  const oceanItems = _getPhScaleItems().filter(item =>
+    item.ph === 8.08 || item.ph === 8.25 || item.ph === 7
   );
 
   const markersContainer = DOMUtils.create('div', {
@@ -347,8 +349,8 @@ function _renderPHScale(trendEl) {
     },
   });
 
-  PH_SCALE_ITEMS.forEach(item => {
-    const isOcean = item.label === 'Current Ocean' || item.label === 'Pre-industrial Ocean';
+  _getPhScaleItems().forEach(item => {
+    const isOcean = item.ph === 8.08 || item.ph === 8.25;
     markersContainer.appendChild(
       DOMUtils.create('div', {
         style: {
@@ -439,7 +441,7 @@ function _renderImpactCards(tilesEl) {
           }),
         ]),
         DOMUtils.create('div', {
-          textContent: `Critical pH: ${impact.threshold}`,
+          textContent: `${i18n.t('detail.ocean_ph.criticalPh')}: ${impact.threshold}`,
           style: {
             fontSize: '0.85rem',
             fontWeight: '600',
@@ -462,9 +464,9 @@ function _renderImpactCards(tilesEl) {
 
 function _renderExplanation(expEl) {
   const paragraphs = [
-    'When CO\u2082 dissolves in seawater it forms carbonic acid (H\u2082CO\u2083), which dissociates into hydrogen ions (H\u207A) and bicarbonate (HCO\u2083\u207B). This process lowers ocean pH.',
-    'Because the pH scale is logarithmic, a 0.1 unit decrease represents a 26% increase in hydrogen ion concentration -- the ocean is already 30% more acidic than pre-industrial levels.',
-    'Many marine organisms depend on calcium carbonate to build shells and skeletons. As pH drops, the saturation state of aragonite and calcite decreases, making it harder for corals, mollusks, and plankton to survive.',
+    i18n.t('detail.ocean_ph.explainP1'),
+    i18n.t('detail.ocean_ph.explainP2'),
+    i18n.t('detail.ocean_ph.explainP3'),
   ];
 
   expEl.appendChild(
@@ -482,32 +484,32 @@ function _renderExplanation(expEl) {
 function _renderComparison(compEl) {
   compEl.appendChild(
     DOMUtils.create('h2', {
-      textContent: 'Then vs. Now',
+      textContent: i18n.t('detail.ocean_ph.thenVsNow'),
       style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)' },
     })
   );
 
   const comparisons = [
     {
-      label: 'Pre-industrial (~1850)',
+      label: i18n.t('detail.ocean_ph.compPreIndustrialLabel'),
       ph: '8.25',
-      acidity: 'Baseline',
+      acidity: i18n.t('detail.ocean_ph.compBaseline'),
       color: '#0d47a1',
-      desc: 'Stable ocean chemistry for millions of years. Marine ecosystems in equilibrium.',
+      desc: i18n.t('detail.ocean_ph.compPreIndustrialDesc'),
     },
     {
-      label: 'Current (2025)',
+      label: i18n.t('detail.ocean_ph.compCurrentLabel'),
       ph: '8.08',
-      acidity: '+30% H\u207A ions',
+      acidity: i18n.t('detail.ocean_ph.compCurrentAcidity'),
       color: '#ff9500',
-      desc: 'Fastest pH change in 50 million years. Pteropod shells already thinning. Coral reefs declining.',
+      desc: i18n.t('detail.ocean_ph.compCurrentDesc'),
     },
     {
-      label: 'Projected 2100 (RCP 8.5)',
+      label: i18n.t('detail.ocean_ph.compProjectedLabel'),
       ph: '7.75',
-      acidity: '+150% H\u207A ions',
+      acidity: i18n.t('detail.ocean_ph.compProjectedAcidity'),
       color: '#ff3b30',
-      desc: 'Most coral reefs dissolved. Massive shellfish die-off. Disrupted marine food webs.',
+      desc: i18n.t('detail.ocean_ph.compProjectedDesc'),
     },
   ];
 

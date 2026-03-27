@@ -289,7 +289,7 @@ async function _renderCitiesChart(chartEl) {
     data: {
       labels,
       datasets: [{
-        label: 'AQI',
+        label: i18n.t('detail.airquality.aqiUnit'),
         data: values,
         backgroundColor: colors,
         borderColor: colors.map(c => c),
@@ -304,7 +304,7 @@ async function _renderCitiesChart(chartEl) {
           beginAtZero: true,
           title: {
             display: true,
-            text: 'AQI',
+            text: i18n.t('detail.airquality.aqiUnit'),
           },
         },
         y: {
@@ -354,7 +354,7 @@ async function _renderScatterChart(trendEl) {
     type: 'scatter',
     data: {
       datasets: [{
-        label: 'AQI vs GDP',
+        label: i18n.t('detail.airquality.aqiVsGdpLabel'),
         data: scatterData,
         backgroundColor: pointColors,
         borderColor: pointColors.map(c => c),
@@ -369,7 +369,7 @@ async function _renderScatterChart(trendEl) {
           type: 'logarithmic',
           title: {
             display: true,
-            text: 'GDP per capita (USD)',
+            text: i18n.t('detail.airquality.gdpAxis'),
           },
           ticks: {
             callback: function (val) {
@@ -382,7 +382,7 @@ async function _renderScatterChart(trendEl) {
           beginAtZero: true,
           title: {
             display: true,
-            text: 'AQI (lower = better)',
+            text: i18n.t('detail.airquality.aqiAxisDesc'),
           },
         },
       },
@@ -517,14 +517,14 @@ function _renderExplanation(explEl) {
       DOMUtils.create('div', {
         style: { color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: '1.5' },
       }, [
-        DOMUtils.create('strong', { textContent: 'Health: ', style: { color: 'var(--text-primary)' } }),
+        DOMUtils.create('strong', { textContent: i18n.t('detail.airquality.healthLabel'), style: { color: 'var(--text-primary)' } }),
         p.effects,
       ]),
       // Sources
       DOMUtils.create('div', {
         style: { color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: '1.5' },
       }, [
-        DOMUtils.create('strong', { textContent: 'Sources: ', style: { color: 'var(--text-primary)' } }),
+        DOMUtils.create('strong', { textContent: i18n.t('detail.airquality.sourcesLabel'), style: { color: 'var(--text-primary)' } }),
         p.sources,
       ]),
     ])
