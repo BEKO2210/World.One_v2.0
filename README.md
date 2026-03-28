@@ -5,24 +5,24 @@
 
 ---
 
-## 🌍 Welt-Indikator: 61.1 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 64.5 / 100 🟢 POSITIV
 
 ```
-████████████░░░░░░░░  61.1/100  ↓ -3.2
+█████████████░░░░░░░  64.5/100  ↑ +3.4
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 28.03.2026 12:50 UTC
+> **Letzte Aktualisierung:** 28.03.2026 18:35 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟡 Umwelt | **44.7**/100 | ↑ +0.3 | 25% |
-| 🟡 Gesellschaft | **55.8**/100 | → -0.1 | 25% |
-| 🟢 Wirtschaft | **66.6**/100 | ↓ -6.5 | 20% |
-| 🟢 Fortschritt | **78.3**/100 | ↓ -0.2 | 20% |
-| 🟢 Momentum | **64.3**/100 | → +0 | 10% |
+| 🟡 Umwelt | **44.4**/100 | ↓ -0.3 | 25% |
+| 🟡 Gesellschaft | **56**/100 | ↑ +0.2 | 25% |
+| 🟢 Wirtschaft | **73.1**/100 | ↑ +6.5 | 20% |
+| 🟢 Fortschritt | **78.2**/100 | → -0.1 | 20% |
+| 🟢 Momentum | **71.4**/100 | → +0 | 10% |
 
 ---
 
@@ -69,26 +69,33 @@
 
 ---
 
-## 📈 Momentum: 9/14 Trends positiv
+## 📈 Momentum: 15/21 Trends positiv
 
 <details>
-<summary>Alle 14 Indikatoren anzeigen</summary>
+<summary>Alle 21 Indikatoren anzeigen</summary>
 
-#### ✅ Verbessert sich (9)
+#### ✅ Verbessert sich (15)
+- **Kindersterblichkeit**: -4.5%
 - **Erneuerbare Energie**: +6.6%
 - **Internet-Zugang**: +12.1%
 - **BIP-Wachstum**: +48.9%
+- **Arbeitslosigkeit**: -19.1%
 - **BIP pro Kopf**: +14.3%
+- **Globaler Handel**: +7.8%
 - **Alphabetisierung**: +0.7%
 - **Mobilfunk**: +3.8%
+- **F&E Ausgaben**: +15.7%
+- **Elektrizitätszugang**: +1.4%
+- **Trinkwasser**: +2.7%
 - **Gesundheitsausgaben**: +1.0%
 - **Urbanisierung**: +1.6%
 - **Patentanmeldungen**: +1.2%
 
-#### ❌ Verschlechtert sich (5)
+#### ❌ Verschlechtert sich (6)
 - **Lebenserwartung**: -0.1%
 - **CO2-Konzentration**: +2.0%
 - **Waldfläche**: -0.3%
+- **Inflation**: +120.9%
 - **CO2 pro Kopf**: +1.4%
 - **Militärausgaben (% BIP)**: +5.6%
 
@@ -216,5 +223,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 28.03.2026 12:50 UTC | 33/40 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 28.03.2026 18:35 UTC | 39/40 Quellen aktiv
 </sub>
