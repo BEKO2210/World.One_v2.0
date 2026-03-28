@@ -5,24 +5,24 @@
 
 ---
 
-## 🌍 Welt-Indikator: 64.3 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 61.1 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  64.3/100  ↓ -0.1
+████████████░░░░░░░░  61.1/100  ↓ -3.2
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 28.03.2026 06:53 UTC
+> **Letzte Aktualisierung:** 28.03.2026 12:50 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟡 Umwelt | **44.4**/100 | → +0 | 25% |
-| 🟡 Gesellschaft | **55.9**/100 | → -0.1 | 25% |
-| 🟢 Wirtschaft | **73.1**/100 | → +0 | 20% |
-| 🟢 Fortschritt | **78.5**/100 | → +0 | 20% |
-| 🟢 Momentum | **71.4**/100 | → +0 | 10% |
+| 🟡 Umwelt | **44.7**/100 | ↑ +0.3 | 25% |
+| 🟡 Gesellschaft | **55.8**/100 | → -0.1 | 25% |
+| 🟢 Wirtschaft | **66.6**/100 | ↓ -6.5 | 20% |
+| 🟢 Fortschritt | **78.3**/100 | ↓ -0.2 | 20% |
+| 🟢 Momentum | **64.3**/100 | → +0 | 10% |
 
 ---
 
@@ -34,7 +34,7 @@
 | Temperaturanomalie | **+1.19°C** | NASA GISTEMP |
 | CO2-Konzentration | **429 ppm** | NOAA |
 | Arktis-Eisfläche | **4.2 Mio km²** (46.2% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **57** | WAQI |
+| Luftqualität (Ø) | AQI **61** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -69,33 +69,26 @@
 
 ---
 
-## 📈 Momentum: 15/21 Trends positiv
+## 📈 Momentum: 9/14 Trends positiv
 
 <details>
-<summary>Alle 21 Indikatoren anzeigen</summary>
+<summary>Alle 14 Indikatoren anzeigen</summary>
 
-#### ✅ Verbessert sich (15)
-- **Kindersterblichkeit**: -4.5%
+#### ✅ Verbessert sich (9)
 - **Erneuerbare Energie**: +6.6%
 - **Internet-Zugang**: +12.1%
 - **BIP-Wachstum**: +48.9%
-- **Arbeitslosigkeit**: -19.1%
 - **BIP pro Kopf**: +14.3%
-- **Globaler Handel**: +7.8%
 - **Alphabetisierung**: +0.7%
 - **Mobilfunk**: +3.8%
-- **F&E Ausgaben**: +15.7%
-- **Elektrizitätszugang**: +1.4%
-- **Trinkwasser**: +2.7%
 - **Gesundheitsausgaben**: +1.0%
 - **Urbanisierung**: +1.6%
 - **Patentanmeldungen**: +1.2%
 
-#### ❌ Verschlechtert sich (6)
+#### ❌ Verschlechtert sich (5)
 - **Lebenserwartung**: -0.1%
 - **CO2-Konzentration**: +2.0%
 - **Waldfläche**: -0.3%
-- **Inflation**: +120.9%
 - **CO2 pro Kopf**: +1.4%
 - **Militärausgaben (% BIP)**: +5.6%
 
@@ -223,5 +216,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 28.03.2026 06:53 UTC | 40/40 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 28.03.2026 12:50 UTC | 33/40 Quellen aktiv
 </sub>
