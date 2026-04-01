@@ -5,24 +5,24 @@
 
 ---
 
-## 🌍 Welt-Indikator: 63.5 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 64.3 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  63.5/100  ↓ -0.9
+█████████████░░░░░░░  64.3/100  ↑ +0.8
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 01.04.2026 02:11 UTC
+> **Letzte Aktualisierung:** 01.04.2026 03:35 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟡 Umwelt | **44.3**/100 | → -0.1 | 25% |
-| 🟡 Gesellschaft | **55.8**/100 | ↓ -0.2 | 25% |
-| 🟢 Wirtschaft | **73**/100 | → -0.1 | 20% |
+| 🟡 Umwelt | **44.3**/100 | → +0 | 25% |
+| 🟡 Gesellschaft | **56**/100 | ↑ +0.2 | 25% |
+| 🟢 Wirtschaft | **73**/100 | → +0 | 20% |
 | 🟢 Fortschritt | **78.5**/100 | → +0 | 20% |
-| 🟢 Momentum | **68.4**/100 | → +0 | 10% |
+| 🟢 Momentum | **71.4**/100 | → +0 | 10% |
 
 ---
 
@@ -69,12 +69,13 @@
 
 ---
 
-## 📈 Momentum: 13/19 Trends positiv
+## 📈 Momentum: 15/21 Trends positiv
 
 <details>
-<summary>Alle 19 Indikatoren anzeigen</summary>
+<summary>Alle 21 Indikatoren anzeigen</summary>
 
-#### ✅ Verbessert sich (13)
+#### ✅ Verbessert sich (15)
+- **Kindersterblichkeit**: -4.5%
 - **Erneuerbare Energie**: +6.6%
 - **Internet-Zugang**: +12.1%
 - **BIP-Wachstum**: +48.9%
@@ -84,6 +85,7 @@
 - **Alphabetisierung**: +0.7%
 - **Mobilfunk**: +3.8%
 - **F&E Ausgaben**: +15.7%
+- **Elektrizitätszugang**: +1.4%
 - **Trinkwasser**: +2.7%
 - **Gesundheitsausgaben**: +1.0%
 - **Urbanisierung**: +1.6%
@@ -221,5 +223,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 01.04.2026 02:11 UTC | 37/40 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 01.04.2026 03:35 UTC | 40/40 Quellen aktiv
 </sub>

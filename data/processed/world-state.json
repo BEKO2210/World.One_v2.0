@@ -1,20 +1,20 @@
 {
   "meta": {
-    "generated": "2026-04-01T02:11:56.553Z",
+    "generated": "2026-04-01T03:35:40.624Z",
     "version": "2.0.0",
     "sources_count": 40,
-    "sources_available": 37,
-    "sources_success_rate": 93,
-    "next_update": "2026-04-01T08:11:56.553Z",
+    "sources_available": 40,
+    "sources_success_rate": 100,
+    "next_update": "2026-04-01T09:35:40.624Z",
     "realtimePulse": {
       "environment": -1.06,
       "society": 0.05,
       "economy": -0.67,
       "progress": 0.8,
       "details": {
-        "quakeCount": 74,
+        "quakeCount": 82,
         "maxMagnitude": 5.7,
-        "avgGlobalTemp": 18.7,
+        "avgGlobalTemp": 18.3,
         "newsSentiment": -0.42,
         "cryptoFearGreed": 8,
         "arxivPapers": 20
@@ -22,13 +22,13 @@
     }
   },
   "worldIndex": {
-    "value": 63.5,
-    "rawValue": 62.2,
+    "value": 64.3,
+    "rawValue": 62.5,
     "label": "POSITIV",
     "zone": "positive",
-    "previous": 64.4,
-    "change": -0.9,
-    "trend": "declining",
+    "previous": 63.5,
+    "change": 0.8,
+    "trend": "improving",
     "carryingCapacity": {
       "checks": {
         "existence": {
@@ -36,8 +36,8 @@
           "passed": true
         },
         "balance": {
-          "multiplier": 1.021,
-          "ratio": 0.6842105263157895
+          "multiplier": 1.029,
+          "ratio": 0.7142857142857143
         },
         "cascading": {
           "penalty": 0,
@@ -52,8 +52,8 @@
         },
         "society": {
           "direction": "expansion",
-          "position": "stable",
-          "level": 0
+          "position": "elastic",
+          "level": 1
         },
         "economy": {
           "direction": "expansion",
@@ -67,8 +67,8 @@
         },
         "momentum": {
           "direction": "expansion",
-          "position": "stable",
-          "level": 0
+          "position": "capacitive",
+          "level": 2
         }
       },
       "indicators": {
@@ -78,8 +78,8 @@
           "maintenanceCost": 0.16
         },
         "society": {
-          "bufferDistance": 48,
-          "recoveryTime": 613,
+          "bufferDistance": 48.2,
+          "recoveryTime": 616,
           "maintenanceCost": 0.69
         },
         "economy": {
@@ -93,7 +93,7 @@
           "maintenanceCost": 4.52
         },
         "momentum": {
-          "bufferDistance": 62.8,
+          "bufferDistance": 66.4,
           "recoveryTime": 0,
           "maintenanceCost": 0
         }
@@ -108,7 +108,7 @@
       "zone": "mixed",
       "weight": 0.25,
       "trend": "stable",
-      "change": -0.1,
+      "change": 0,
       "indicators": [
         {
           "name": "Globale Temperaturanomalie",
@@ -155,12 +155,12 @@
       ]
     },
     "society": {
-      "value": 55.8,
+      "value": 56,
       "label": "GEMISCHT",
       "zone": "mixed",
       "weight": 0.25,
-      "trend": "declining",
-      "change": -0.2,
+      "trend": "improving",
+      "change": 0.2,
       "indicators": [
         {
           "name": "Lebenserwartung",
@@ -171,8 +171,8 @@
         },
         {
           "name": "Kindersterblichkeit",
-          "value": "37.1/1000",
-          "score": 66,
+          "value": "36.7/1000",
+          "score": 67,
           "trend": "improving",
           "source": "World Bank"
         },
@@ -185,8 +185,8 @@
         },
         {
           "name": "Elektrizitätszugang",
-          "value": "91%",
-          "score": 82,
+          "value": "91.6%",
+          "score": 83,
           "trend": "improving",
           "source": "World Bank"
         },
@@ -219,7 +219,7 @@
       "zone": "positive",
       "weight": 0.2,
       "trend": "stable",
-      "change": -0.1,
+      "change": 0,
       "indicators": [
         {
           "name": "BIP-Wachstum",
@@ -311,10 +311,10 @@
       ]
     },
     "momentum": {
-      "value": 68.4,
-      "positiveCount": 13,
+      "value": 71.4,
+      "positiveCount": 15,
       "negativeCount": 6,
-      "totalIndicators": 19,
+      "totalIndicators": 21,
       "weight": 0.1,
       "indicators": []
     }
@@ -1216,16 +1216,9 @@
         {
           "city": "Lagos",
           "country": "",
-          "aqi": 31,
+          "aqi": 32,
           "lat": 6.45,
           "lng": 3.4
-        },
-        {
-          "city": "Sydney",
-          "country": "",
-          "aqi": 31,
-          "lat": -33.87,
-          "lng": 151.21
         },
         {
           "city": "Mumbai",
@@ -1233,6 +1226,13 @@
           "aqi": 33,
           "lat": 19.08,
           "lng": 72.88
+        },
+        {
+          "city": "Cairo",
+          "country": "",
+          "aqi": 34,
+          "lat": 30.04,
+          "lng": 31.24
         }
       ],
       "mostPolluted": [
@@ -1246,7 +1246,7 @@
         {
           "city": "Beijing",
           "country": "",
-          "aqi": 80,
+          "aqi": 77,
           "lat": 39.9,
           "lng": 116.4
         },
@@ -1267,7 +1267,7 @@
         {
           "city": "São Paulo",
           "country": "",
-          "aqi": 49,
+          "aqi": 51,
           "lat": -23.55,
           "lng": -46.63
         }
@@ -1629,11 +1629,11 @@
         "lat": 52.52,
         "lng": 13.41,
         "current": {
-          "time": "2026-04-01T04:00",
+          "time": "2026-04-01T05:30",
           "interval": 900,
-          "temperature_2m": 2.9,
-          "relative_humidity_2m": 95,
-          "wind_speed_10m": 3.6,
+          "temperature_2m": 1.4,
+          "relative_humidity_2m": 99,
+          "wind_speed_10m": 3.8,
           "weather_code": 45
         }
       },
@@ -1642,12 +1642,12 @@
         "lat": 40.71,
         "lng": -74.01,
         "current": {
-          "time": "2026-03-31T22:00",
+          "time": "2026-03-31T23:30",
           "interval": 900,
-          "temperature_2m": 21,
-          "relative_humidity_2m": 59,
-          "wind_speed_10m": 19.8,
-          "weather_code": 0
+          "temperature_2m": 20.1,
+          "relative_humidity_2m": 62,
+          "wind_speed_10m": 18,
+          "weather_code": 3
         }
       },
       {
@@ -1655,11 +1655,11 @@
         "lat": 35.68,
         "lng": 139.69,
         "current": {
-          "time": "2026-04-01T11:00",
+          "time": "2026-04-01T12:30",
           "interval": 900,
-          "temperature_2m": 15.7,
-          "relative_humidity_2m": 80,
-          "wind_speed_10m": 4.7,
+          "temperature_2m": 14.7,
+          "relative_humidity_2m": 85,
+          "wind_speed_10m": 6.2,
           "weather_code": 3
         }
       },
@@ -1668,12 +1668,12 @@
         "lat": -33.87,
         "lng": 151.21,
         "current": {
-          "time": "2026-04-01T13:00",
+          "time": "2026-04-01T14:30",
           "interval": 900,
-          "temperature_2m": 25.2,
-          "relative_humidity_2m": 52,
-          "wind_speed_10m": 5.3,
-          "weather_code": 0
+          "temperature_2m": 26.7,
+          "relative_humidity_2m": 45,
+          "wind_speed_10m": 5.6,
+          "weather_code": 1
         }
       },
       {
@@ -1681,11 +1681,11 @@
         "lat": -23.55,
         "lng": -46.63,
         "current": {
-          "time": "2026-03-31T23:00",
+          "time": "2026-04-01T00:30",
           "interval": 900,
-          "temperature_2m": 19.7,
-          "relative_humidity_2m": 91,
-          "wind_speed_10m": 3.7,
+          "temperature_2m": 19.3,
+          "relative_humidity_2m": 94,
+          "wind_speed_10m": 3,
           "weather_code": 2
         }
       },
@@ -1694,11 +1694,11 @@
         "lat": 6.45,
         "lng": 3.4,
         "current": {
-          "time": "2026-04-01T03:00",
+          "time": "2026-04-01T04:30",
           "interval": 900,
-          "temperature_2m": 26.2,
+          "temperature_2m": 26,
           "relative_humidity_2m": 95,
-          "wind_speed_10m": 3.3,
+          "wind_speed_10m": 2.9,
           "weather_code": 3
         }
       },
@@ -1707,11 +1707,11 @@
         "lat": 19.08,
         "lng": 72.88,
         "current": {
-          "time": "2026-04-01T07:30",
+          "time": "2026-04-01T09:00",
           "interval": 900,
-          "temperature_2m": 27.2,
-          "relative_humidity_2m": 79,
-          "wind_speed_10m": 8.9,
+          "temperature_2m": 27.4,
+          "relative_humidity_2m": 76,
+          "wind_speed_10m": 7.8,
           "weather_code": 2
         }
       },
@@ -1720,12 +1720,12 @@
         "lat": 51.51,
         "lng": -0.13,
         "current": {
-          "time": "2026-04-01T03:00",
+          "time": "2026-04-01T04:30",
           "interval": 900,
-          "temperature_2m": 11.4,
-          "relative_humidity_2m": 79,
-          "wind_speed_10m": 6.5,
-          "weather_code": 1
+          "temperature_2m": 10.8,
+          "relative_humidity_2m": 78,
+          "wind_speed_10m": 4.3,
+          "weather_code": 2
         }
       }
     ],
@@ -2397,7 +2397,11 @@
           "intensity": 0.45
         }
       ],
-      "source": "ACLED"
+      "source": "Static",
+      "headlines": [],
+      "crises": [],
+      "trendArticles": null,
+      "acled": null
     },
     "refugees": {
       "total": 108400000,
@@ -2702,17 +2706,497 @@
       "source": "World Bank / WHO"
     },
     "childMortality": {
-      "current": 37.1,
-      "history": [],
+      "current": 36.7,
+      "history": [
+        {
+          "year": 1990,
+          "value": 93.6
+        },
+        {
+          "year": 1991,
+          "value": 93.3
+        },
+        {
+          "year": 1992,
+          "value": 92.7
+        },
+        {
+          "year": 1993,
+          "value": 90.8
+        },
+        {
+          "year": 1994,
+          "value": 89.6
+        },
+        {
+          "year": 1995,
+          "value": 87.8
+        },
+        {
+          "year": 1996,
+          "value": 86
+        },
+        {
+          "year": 1997,
+          "value": 84
+        },
+        {
+          "year": 1998,
+          "value": 82.3
+        },
+        {
+          "year": 1999,
+          "value": 79.3
+        },
+        {
+          "year": 2000,
+          "value": 76.7
+        },
+        {
+          "year": 2001,
+          "value": 74.1
+        },
+        {
+          "year": 2002,
+          "value": 71.5
+        },
+        {
+          "year": 2003,
+          "value": 68.6
+        },
+        {
+          "year": 2004,
+          "value": 66.2
+        },
+        {
+          "year": 2005,
+          "value": 63.3
+        },
+        {
+          "year": 2006,
+          "value": 60.6
+        },
+        {
+          "year": 2007,
+          "value": 58
+        },
+        {
+          "year": 2008,
+          "value": 55.8
+        },
+        {
+          "year": 2009,
+          "value": 54
+        },
+        {
+          "year": 2010,
+          "value": 51.7
+        },
+        {
+          "year": 2011,
+          "value": 50.6
+        },
+        {
+          "year": 2012,
+          "value": 47.8
+        },
+        {
+          "year": 2013,
+          "value": 46.1
+        },
+        {
+          "year": 2014,
+          "value": 44.9
+        },
+        {
+          "year": 2015,
+          "value": 43.7
+        },
+        {
+          "year": 2016,
+          "value": 42.4
+        },
+        {
+          "year": 2017,
+          "value": 41.3
+        },
+        {
+          "year": 2018,
+          "value": 40.2
+        },
+        {
+          "year": 2019,
+          "value": 39.5
+        },
+        {
+          "year": 2020,
+          "value": 38.7
+        },
+        {
+          "year": 2021,
+          "value": 38.2
+        },
+        {
+          "year": 2022,
+          "value": 38.2
+        },
+        {
+          "year": 2023,
+          "value": 36.7
+        }
+      ],
       "source": "World Bank"
     },
     "population": {
-      "history": [],
+      "current": 8141808945,
+      "history": [
+        {
+          "year": 1966,
+          "value": 3389087189
+        },
+        {
+          "year": 1967,
+          "value": 3459015356
+        },
+        {
+          "year": 1968,
+          "value": 3530703561
+        },
+        {
+          "year": 1969,
+          "value": 3604815552
+        },
+        {
+          "year": 1970,
+          "value": 3680589045
+        },
+        {
+          "year": 1971,
+          "value": 3758613546
+        },
+        {
+          "year": 1972,
+          "value": 3834446322
+        },
+        {
+          "year": 1973,
+          "value": 3911068458
+        },
+        {
+          "year": 1974,
+          "value": 3987294240
+        },
+        {
+          "year": 1975,
+          "value": 4062070771
+        },
+        {
+          "year": 1976,
+          "value": 4135758539
+        },
+        {
+          "year": 1977,
+          "value": 4208958804
+        },
+        {
+          "year": 1978,
+          "value": 4283431043
+        },
+        {
+          "year": 1979,
+          "value": 4360056401
+        },
+        {
+          "year": 1980,
+          "value": 4437602892
+        },
+        {
+          "year": 1981,
+          "value": 4516926190
+        },
+        {
+          "year": 1982,
+          "value": 4599539241
+        },
+        {
+          "year": 1983,
+          "value": 4682924536
+        },
+        {
+          "year": 1984,
+          "value": 4766040300
+        },
+        {
+          "year": 1985,
+          "value": 4850740788
+        },
+        {
+          "year": 1986,
+          "value": 4937711562
+        },
+        {
+          "year": 1987,
+          "value": 5027030278
+        },
+        {
+          "year": 1988,
+          "value": 5117167006
+        },
+        {
+          "year": 1989,
+          "value": 5207654866
+        },
+        {
+          "year": 1990,
+          "value": 5299246757
+        },
+        {
+          "year": 1991,
+          "value": 5388496229
+        },
+        {
+          "year": 1992,
+          "value": 5477123966
+        },
+        {
+          "year": 1993,
+          "value": 5564778621
+        },
+        {
+          "year": 1994,
+          "value": 5650853178
+        },
+        {
+          "year": 1995,
+          "value": 5736505517
+        },
+        {
+          "year": 1996,
+          "value": 5822614627
+        },
+        {
+          "year": 1997,
+          "value": 5908466558
+        },
+        {
+          "year": 1998,
+          "value": 5994040064
+        },
+        {
+          "year": 1999,
+          "value": 6078404337
+        },
+        {
+          "year": 2000,
+          "value": 6161884811
+        },
+        {
+          "year": 2001,
+          "value": 6245112906
+        },
+        {
+          "year": 2002,
+          "value": 6327557399
+        },
+        {
+          "year": 2003,
+          "value": 6409750441
+        },
+        {
+          "year": 2004,
+          "value": 6492769815
+        },
+        {
+          "year": 2005,
+          "value": 6575841506
+        },
+        {
+          "year": 2006,
+          "value": 6659977025
+        },
+        {
+          "year": 2007,
+          "value": 6744489399
+        },
+        {
+          "year": 2008,
+          "value": 6830513541
+        },
+        {
+          "year": 2009,
+          "value": 6916589116
+        },
+        {
+          "year": 2010,
+          "value": 7001266876
+        },
+        {
+          "year": 2011,
+          "value": 7087120034
+        },
+        {
+          "year": 2012,
+          "value": 7176929184
+        },
+        {
+          "year": 2013,
+          "value": 7265892332
+        },
+        {
+          "year": 2014,
+          "value": 7354068030
+        },
+        {
+          "year": 2015,
+          "value": 7441677465
+        },
+        {
+          "year": 2016,
+          "value": 7528879985
+        },
+        {
+          "year": 2017,
+          "value": 7614523410
+        },
+        {
+          "year": 2018,
+          "value": 7697233736
+        },
+        {
+          "year": 2019,
+          "value": 7778008621
+        },
+        {
+          "year": 2020,
+          "value": 7854748424
+        },
+        {
+          "year": 2021,
+          "value": 7920514854
+        },
+        {
+          "year": 2022,
+          "value": 7989545217
+        },
+        {
+          "year": 2023,
+          "value": 8064057930
+        },
+        {
+          "year": 2024,
+          "value": 8141808945
+        }
+      ],
       "source": "World Bank"
     },
     "electricityAccess": {
-      "current": 91,
-      "history": [],
+      "current": 91.6,
+      "history": [
+        {
+          "year": 1998,
+          "value": 73.2
+        },
+        {
+          "year": 1999,
+          "value": 74.5
+        },
+        {
+          "year": 2000,
+          "value": 78.2
+        },
+        {
+          "year": 2001,
+          "value": 78.7
+        },
+        {
+          "year": 2002,
+          "value": 79.1
+        },
+        {
+          "year": 2003,
+          "value": 80
+        },
+        {
+          "year": 2004,
+          "value": 80
+        },
+        {
+          "year": 2005,
+          "value": 80.7
+        },
+        {
+          "year": 2006,
+          "value": 81.4
+        },
+        {
+          "year": 2007,
+          "value": 82
+        },
+        {
+          "year": 2008,
+          "value": 82.7
+        },
+        {
+          "year": 2009,
+          "value": 82.9
+        },
+        {
+          "year": 2010,
+          "value": 83.4
+        },
+        {
+          "year": 2011,
+          "value": 84.5
+        },
+        {
+          "year": 2012,
+          "value": 84.9
+        },
+        {
+          "year": 2013,
+          "value": 85.7
+        },
+        {
+          "year": 2014,
+          "value": 86.2
+        },
+        {
+          "year": 2015,
+          "value": 86.9
+        },
+        {
+          "year": 2016,
+          "value": 88.1
+        },
+        {
+          "year": 2017,
+          "value": 88.9
+        },
+        {
+          "year": 2018,
+          "value": 89.8
+        },
+        {
+          "year": 2019,
+          "value": 90.1
+        },
+        {
+          "year": 2020,
+          "value": 90.4
+        },
+        {
+          "year": 2021,
+          "value": 91.3
+        },
+        {
+          "year": 2022,
+          "value": 91.3
+        },
+        {
+          "year": 2023,
+          "value": 91.6
+        }
+      ],
       "source": "World Bank"
     },
     "safeWater": {
@@ -4166,73 +4650,73 @@
       "topRepos": [
         {
           "name": "codecrafters-io/build-your-own-x",
-          "stars": 485106,
-          "forks": 45630,
+          "stars": 485118,
+          "forks": 45631,
           "language": "Markdown",
-          "updated": "2026-04-01T02:07:03Z"
+          "updated": "2026-04-01T03:28:54Z"
         },
         {
           "name": "sindresorhus/awesome",
-          "stars": 450569,
-          "forks": 33851,
+          "stars": 450588,
+          "forks": 33854,
           "language": null,
-          "updated": "2026-04-01T02:08:27Z"
+          "updated": "2026-04-01T03:28:00Z"
         },
         {
           "name": "freeCodeCamp/freeCodeCamp",
-          "stars": 440251,
-          "forks": 43933,
+          "stars": 440263,
+          "forks": 43935,
           "language": "TypeScript",
-          "updated": "2026-04-01T02:07:23Z"
+          "updated": "2026-04-01T03:30:03Z"
         },
         {
           "name": "public-apis/public-apis",
-          "stars": 417856,
-          "forks": 45379,
+          "stars": 417870,
+          "forks": 45381,
           "language": "Python",
-          "updated": "2026-04-01T02:04:35Z"
+          "updated": "2026-04-01T03:32:21Z"
         },
         {
           "name": "EbookFoundation/free-programming-books",
           "stars": 384757,
           "forks": 66069,
           "language": "Python",
-          "updated": "2026-04-01T02:04:11Z"
+          "updated": "2026-04-01T02:48:17Z"
         },
         {
           "name": "kamranahmedse/developer-roadmap",
-          "stars": 351944,
-          "forks": 43864,
+          "stars": 351946,
+          "forks": 43863,
           "language": "TypeScript",
-          "updated": "2026-04-01T01:44:11Z"
+          "updated": "2026-04-01T03:13:50Z"
         },
         {
           "name": "openclaw/openclaw",
-          "stars": 343275,
-          "forks": 67914,
+          "stars": 343399,
+          "forks": 67962,
           "language": "TypeScript",
-          "updated": "2026-04-01T02:08:59Z"
+          "updated": "2026-04-01T03:33:37Z"
         },
         {
           "name": "donnemartin/system-design-primer",
-          "stars": 340842,
-          "forks": 55131,
+          "stars": 340852,
+          "forks": 55132,
           "language": "Python",
-          "updated": "2026-04-01T02:09:01Z"
+          "updated": "2026-04-01T03:31:53Z"
         },
         {
           "name": "jwasham/coding-interview-university",
-          "stars": 339676,
-          "forks": 81778,
+          "stars": 339726,
+          "forks": 81786,
           "language": null,
-          "updated": "2026-04-01T02:07:02Z"
+          "updated": "2026-04-01T03:33:33Z"
         },
         {
           "name": "vinta/awesome-python",
-          "stars": 289963,
+          "stars": 289977,
           "forks": 27540,
           "language": "Python",
-          "updated": "2026-04-01T02:04:11Z"
+          "updated": "2026-04-01T03:29:23Z"
         }
       ],
       "source": "GitHub"
@@ -4774,6 +5258,46 @@
     "earthquakes": {
       "last24h": [
         {
+          "location": "54 km NNE of Noonan, Canada",
+          "magnitude": 2.8,
+          "depth": 12.434,
+          "lat": 46.3731,
+          "lng": -66.1476,
+          "time": "2026-04-01T03:20:26.058Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "16 km NNW of Willow, Alaska",
+          "magnitude": 3.3,
+          "depth": 21.7,
+          "lat": 61.882,
+          "lng": -150.177,
+          "time": "2026-04-01T03:05:40.192Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "157 km NW of Saga, China",
+          "magnitude": 4.4,
+          "depth": 10,
+          "lat": 30.4625,
+          "lng": 84.2563,
+          "time": "2026-04-01T02:30:20.807Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "Bonin Islands, Japan region",
+          "magnitude": 4,
+          "depth": 497.446,
+          "lat": 28.979,
+          "lng": 138.9608,
+          "time": "2026-04-01T02:20:12.946Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
           "location": "119 km N of Charlotte Amalie, U.S. Virgin Islands",
           "magnitude": 3,
           "depth": 35,
@@ -4812,49 +5336,9 @@
           "time": "2026-04-01T00:24:53.087Z",
           "tsunami": false,
           "type": "earthquake"
-        },
-        {
-          "location": "96 km N of Charlotte Amalie, U.S. Virgin Islands",
-          "magnitude": 3,
-          "depth": 35,
-          "lat": 19.2111,
-          "lng": -64.8639,
-          "time": "2026-04-01T00:19:40.417Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "127 km NNE of Cruz Bay, U.S. Virgin Islands",
-          "magnitude": 3,
-          "depth": 35,
-          "lat": 19.3086,
-          "lng": -64.1462,
-          "time": "2026-04-01T00:07:18.299Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "93 km N of Charlotte Amalie, U.S. Virgin Islands",
-          "magnitude": 2.8,
-          "depth": 35,
-          "lat": 19.1891,
-          "lng": -64.9599,
-          "time": "2026-03-31T23:40:32.381Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "south of the Fiji Islands",
-          "magnitude": 4.5,
-          "depth": 562.749,
-          "lat": -22.1796,
-          "lng": -179.6895,
-          "time": "2026-03-31T23:29:47.277Z",
-          "tsunami": false,
-          "type": "earthquake"
         }
       ],
-      "total24h": 74,
+      "total24h": 82,
       "source": "USGS"
     },
     "newsSentiment": {
@@ -4883,46 +5367,34 @@
     },
     "news": [
       {
+        "title": "Turkiye qualifies for World Cup after 24-year wait",
+        "pubDate": "Wed, 01 Apr 2026 03:02:20 +0000",
+        "link": "https://www.aljazeera.com/video/newsfeed/2026/4/1/turkiye-qualifies-for-world-cup-after-24-year-wait?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "Global protests condemning Israel’s new death penalty law for Palestinians",
+        "pubDate": "Wed, 01 Apr 2026 02:51:34 +0000",
+        "link": "https://www.aljazeera.com/video/newsfeed/2026/4/1/global-protests-condemning-israels-new-death-penalty-law-for-palestinians?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "Italy’s World Cup nightmare deepens with shoot-out defeat to Bosnia",
+        "pubDate": "Wed, 01 Apr 2026 02:13:48 GMT",
+        "link": "https://www.france24.com/en/sport/20260401-italy-world-cup-nightmare-bosnia-shootout-defeat",
+        "source": "France24"
+      },
+      {
+        "title": "Al-Sharaa says Syria to stay out of war on Iran unless attacked",
+        "pubDate": "Wed, 01 Apr 2026 02:07:14 +0000",
+        "link": "https://www.aljazeera.com/video/newsfeed/2026/4/1/al-sharaa-says-syria-to-stay-out-of-war-on-iran-unless-attacked?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
         "title": "Middle East war live: Trump says Iran war could end in 'two weeks, maybe three'",
         "pubDate": "Wed, 01 Apr 2026 01:52:43 GMT",
         "link": "https://www.france24.com/en/middle-east/20260401-middle-east-war-live-trump-says-iran-war-could-end-two-weeks-maybe-three",
         "source": "France24"
-      },
-      {
-        "title": "Afghanistan - Flow Monitoring Update (15 - 28 Mar, 2026)",
-        "pubDate": "Wed, 01 Apr 2026 01:34:14 +0000",
-        "link": "https://reliefweb.int/report/afghanistan/afghanistan-flow-monitoring-update-15-28-mar-2026",
-        "source": "ReliefWeb"
-      },
-      {
-        "title": "Iraq: UN-Habitat and Japan Expand Access to Education with New School in Mosul’s Japan Village [EN/AR]",
-        "pubDate": "Wed, 01 Apr 2026 01:29:41 +0000",
-        "link": "https://reliefweb.int/report/iraq/un-habitat-and-japan-expand-access-education-new-school-mosuls-japan-village-enar",
-        "source": "ReliefWeb"
-      },
-      {
-        "title": "UNRWA Situation Report #4 on the Lebanon Emergency Response 2026 (26 March 2026) [EN/AR]",
-        "pubDate": "Wed, 01 Apr 2026 01:29:03 +0000",
-        "link": "https://reliefweb.int/report/lebanon/unrwa-situation-report-4-lebanon-emergency-response-2026-26-march-2026-enar",
-        "source": "ReliefWeb"
-      },
-      {
-        "title": "Bosnia fans celebrate as team qualifies for World Cup, knocking Italy out",
-        "pubDate": "Wed, 01 Apr 2026 01:07:51 +0000",
-        "link": "https://www.aljazeera.com/video/newsfeed/2026/4/1/bosnia-fans-celebrate-as-team-qualifies-for-world-cup-knocking-italy-out?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "Emergency workers search for victims of Israeli airstrikes on Beirut",
-        "pubDate": "Wed, 01 Apr 2026 00:56:38 +0000",
-        "link": "https://www.aljazeera.com/video/newsfeed/2026/4/1/emergency-workers-search-for-victims-of-israeli-airstrikes-on-beirut?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "‘A law of death that only applies to Palestinians’",
-        "pubDate": "Wed, 01 Apr 2026 00:56:02 +0000",
-        "link": "https://www.aljazeera.com/video/newsfeed/2026/4/1/a-law-of-death-that-only-applies-to?traffic_source=rss",
-        "source": "Al Jazeera"
       },
       {
         "title": "India begins counting more than a billion people in massive census",
@@ -4941,12 +5413,6 @@
         "pubDate": "Tue, 31 Mar 2026 22:07:26 GMT",
         "link": "https://www.bbc.com/news/articles/c05d7md899ro?at_medium=RSS&amp;at_campaign=rss",
         "source": "BBC World"
-      },
-      {
-        "title": "Lebanon condemns Israel’s 'clear intention' to impose new occupation of its territory",
-        "pubDate": "Tue, 31 Mar 2026 21:55:56 GMT",
-        "link": "https://www.france24.com/en/middle-east/20260331-lebanon-condemns-israel-s-clear-intention-to-impose-new-occupation-of-its-territory",
-        "source": "France24"
       },
       {
         "title": "US journalist Shelly Kittleson kidnapped in Baghdad",
@@ -5001,6 +5467,24 @@
         "pubDate": "Tue, 31 Mar 2026 12:00:00 +0000",
         "link": "https://news.un.org/feed/view/en/story/2026/03/1167227",
         "source": "UN News"
+      },
+      {
+        "title": "Fires Tear Through Nebraska Grasslands",
+        "pubDate": "Tue, 31 Mar 2026 04:01:00 +0000",
+        "link": "https://science.nasa.gov/earth/earth-observatory/fires-tear-through-nebraska-grasslands/",
+        "source": "NASA"
+      },
+      {
+        "title": "News outlets falsely report Somaliland called for extradition of Ilhan Omar",
+        "pubDate": "Mon, 30 Mar 2026 16:38:43 GMT",
+        "link": "https://www.theguardian.com/us-news/2026/mar/30/ilhan-omar-false-reports-somaliland",
+        "source": "Guardian"
+      },
+      {
+        "title": "Interpol arrest warrant requested in Congo-Brazzaville for Jean-Guy Blaise Mayolas",
+        "pubDate": "Mon, 30 Mar 2026 15:34:49 GMT",
+        "link": "https://www.theguardian.com/football/2026/mar/30/congo-brazzaville-jean-guy-blaise-mayolas-fifa-interpol-arrest-warrant",
+        "source": "Guardian"
       }
     ],
     "volcanic": [],
@@ -5054,7 +5538,7 @@
         "sunspots": 78.2
       }
     ],
-    "lastUpdated": "2026-04-01T02:11:56.554Z"
+    "lastUpdated": "2026-04-01T03:35:40.624Z"
   },
   "momentum": {
     "indicators": [
@@ -5063,6 +5547,12 @@
         "direction": "declining",
         "change": "-0.1%",
         "icon": "down"
+      },
+      {
+        "name": "Kindersterblichkeit",
+        "direction": "improving",
+        "change": "-4.5%",
+        "icon": "up"
       },
       {
         "name": "CO2-Konzentration",
@@ -5137,6 +5627,12 @@
         "icon": "up"
       },
       {
+        "name": "Elektrizitätszugang",
+        "direction": "improving",
+        "change": "+1.4%",
+        "icon": "up"
+      },
+      {
         "name": "Trinkwasser",
         "direction": "improving",
         "change": "+2.7%",
@@ -5183,7 +5679,7 @@
       {
         "name": "Kindersterblichkeit",
         "then": 76,
-        "now": 37.1,
+        "now": 36.7,
         "improved": true
       },
       {
