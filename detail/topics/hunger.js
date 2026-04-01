@@ -457,6 +457,7 @@ export function getChartConfigs() {
         scales: {
           x: {
             grid: { display: false },
+            ticks: { maxTicksLimit: 10, maxRotation: 45 },
           },
           y: {
             type: 'linear',

@@ -976,6 +976,25 @@ const translations = {
     'detail.renewables.euAverage': 'EU-Durchschnitt: ~230 gCO2/kWh',
     'detail.renewables.renewableShareLabel': 'Erneuerbarer Anteil (%)',
     'detail.renewables.yAxisLabel': 'Installierte Kapazität (GW)',
+    'detail.renewables.solar': 'Solar',
+    'detail.renewables.wind': 'Wind',
+    'detail.renewables.tooltipRenewable': '{value}% erneuerbar',
+
+    // ─── New i18n keys: Inequality ───
+    'detail.inequality.giniIndex': 'Gini-Index',
+
+    // ─── New i18n keys: Ocean ───
+    'detail.ocean_temp.sstAnomalyLabel': 'SST-Anomalie (°C)',
+    'detail.ocean_temp.anomalyAxis': 'Anomalie (°C)',
+    'detail.ocean_temp.sstTooltip': 'SST',
+    'detail.ocean_ph.phLabel': 'Ozean-pH',
+
+    // ─── New i18n keys: Biodiversity ───
+    'detail.biodiversity.lpiAxis': 'Index (1970 = 1.0)',
+    'detail.biodiversity.lpiTooltip': 'LPI: {value} ({pct}% Rückgang)',
+
+    // ─── New i18n keys: Forests ───
+    'detail.forests.tooltipLoss': '-{value} Mha Nettoverlust',
 
     // ─── New i18n keys: Disasters ───
     'detail.disasters.comparisonTitle': '1970er vs 2010er',
@@ -2128,6 +2147,25 @@ const translations = {
     'detail.renewables.euAverage': 'EU average: ~230 gCO2/kWh',
     'detail.renewables.renewableShareLabel': 'Renewable Share (%)',
     'detail.renewables.yAxisLabel': 'Installed Capacity (GW)',
+    'detail.renewables.solar': 'Solar',
+    'detail.renewables.wind': 'Wind',
+    'detail.renewables.tooltipRenewable': '{value}% renewable',
+
+    // ─── New i18n keys: Inequality ───
+    'detail.inequality.giniIndex': 'Gini Index',
+
+    // ─── New i18n keys: Ocean ───
+    'detail.ocean_temp.sstAnomalyLabel': 'SST Anomaly (°C)',
+    'detail.ocean_temp.anomalyAxis': 'Anomaly (°C)',
+    'detail.ocean_temp.sstTooltip': 'SST',
+    'detail.ocean_ph.phLabel': 'Ocean pH',
+
+    // ─── New i18n keys: Biodiversity ───
+    'detail.biodiversity.lpiAxis': 'Index (1970 = 1.0)',
+    'detail.biodiversity.lpiTooltip': 'LPI: {value} ({pct}% decline)',
+
+    // ─── New i18n keys: Forests ───
+    'detail.forests.tooltipLoss': '-{value} Mha net loss',
 
     // ─── New i18n keys: Disasters ───
     'detail.disasters.comparisonTitle': '1970s vs 2010s',

@@ -214,13 +214,14 @@ async function _renderLPIChart(chartEl) {
       scales: {
         x: {
           grid: { display: false },
+          ticks: { maxTicksLimit: 10, maxRotation: 45 },
         },
         y: {
           beginAtZero: true,
           max: 1.1,
           title: {
             display: true,
-            text: 'Index (1970 = 1.0)',
+            text: i18n.t('detail.biodiversity.lpiAxis'),
           },
         },
       },
@@ -229,7 +230,7 @@ async function _renderLPIChart(chartEl) {
         tooltip: {
           callbacks: {
             title: (items) => items[0]?.label || '',
-            label: (item) => `LPI: ${item.parsed.y.toFixed(2)} (${((1 - item.parsed.y) * 100).toFixed(0)}% decline)`,
+            label: (item) => i18n.t('detail.biodiversity.lpiTooltip', { value: item.parsed.y.toFixed(2), pct: ((1 - item.parsed.y) * 100).toFixed(0) }),
           },
         },
       },

@@ -236,7 +236,7 @@ async function _renderPHChart(chartEl) {
     data: {
       labels,
       datasets: [{
-        label: 'Ocean pH',
+        label: i18n.t('detail.ocean_ph.phLabel'),
         data: values,
         borderColor: '#5ac8fa',
         backgroundColor: 'rgba(90, 200, 250, 0.15)',
@@ -252,6 +252,7 @@ async function _renderPHChart(chartEl) {
       scales: {
         x: {
           grid: { display: false },
+          ticks: { maxTicksLimit: 10, maxRotation: 45 },
         },
         y: {
           min: 8.04,
