@@ -1,9 +1,12 @@
 /* ═══════════════════════════════════════════════════════════
    World.One 2.0 — Service Worker
-   Strategy: Network-first for data, Cache-first for assets
+   Strategy: Network-first for data, Stale-while-revalidate for assets
    ═══════════════════════════════════════════════════════════ */
 
-const CACHE_NAME = 'worldone-v2';
+// IMPORTANT: Bump this version on every deploy so users get fresh code.
+// The data-pipeline auto-increments this via generate-meta.js.
+const CACHE_VERSION = '20260401-1';
+const CACHE_NAME = `worldone-${CACHE_VERSION}`;
 const DATA_PATHS = ['/world-state.json', '/manifest.json', '/data/'];
 
 const PRECACHE_ASSETS = [
@@ -37,11 +40,11 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(PRECACHE_ASSETS))
-      .then(() => self.skipWaiting())
+      .then(() => self.skipWaiting())   // Activate immediately
   );
 });
 
-// Activate: clean old caches
+// Activate: delete ALL old caches, claim all clients
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -50,7 +53,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch: network-first for data, cache-first for assets
+// Fetch strategy
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
@@ -73,18 +76,21 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Assets: cache-first (performance)
+  // Assets: stale-while-revalidate
+  // Serve cached version instantly, then fetch fresh version in background
   event.respondWith(
-    caches.match(event.request).then(cached => {
-      if (cached) return cached;
-      return fetch(event.request).then(response => {
-        // Only cache same-origin successful responses
-        if (response.ok && url.origin === self.location.origin) {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-        }
-        return response;
-      });
-    })
+    caches.open(CACHE_NAME).then(cache =>
+      cache.match(event.request).then(cached => {
+        const networkFetch = fetch(event.request).then(response => {
+          if (response.ok && url.origin === self.location.origin) {
+            cache.put(event.request, response.clone());
+          }
+          return response;
+        });
+
+        // Return cached immediately, update in background
+        return cached || networkFetch;
+      })
+    )
   );
 });
