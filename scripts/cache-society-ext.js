@@ -63,50 +63,122 @@ function getFreedomData() {
   };
 }
 
-// ─── Conflicts (UCDP API or static fallback) ───
+// ─── Conflicts (multi-source: ReliefWeb + GDELT + UCDP) ───
 async function fetchConflicts() {
-  console.log('  Fetching conflict data...');
+  console.log('  Fetching conflict data (multi-source)...');
 
-  const token = process.env.UCDP_API_TOKEN;
-  const url = 'https://ucdpapi.pcr.uu.se/api/gedevents/24.1?pagesize=1&page=1';
-
-  // Try UCDP API with optional token
-  try {
-    const headers = {};
-    if (token) {
-      headers['x-ucdp-access-token'] = token;
-    }
-    const result = await fetchJSON(url, { headers, timeout: 10000, retries: 1 });
-
-    if (result && result.TotalCount !== undefined) {
-      console.log('  Conflicts: using UCDP API (live data)');
-      return {
-        conflict_data: {
-          total_events: result.TotalCount,
-          source: 'UCDP GED API v24.1',
-          api_status: 'live',
-          fetched_at: new Date().toISOString()
-        }
-      };
-    }
-  } catch (err) {
-    const status = err.message.includes('401') || err.message.includes('403')
-      ? 'auth_required'
-      : 'unavailable';
-    console.log(`  Conflicts: UCDP API ${status} (${err.message}), using static fallback`);
-  }
-
-  // Static fallback
-  console.log('  Conflicts: using static fallback dataset');
-  return {
+  const result = {
     conflict_data: {
       active_conflicts: 56,
-      year: 2024,
-      source: 'UCDP/PRIO Armed Conflict Dataset v24.1',
-      note: 'Static fallback -- UCDP API requires token since Feb 2026',
-      api_status: 'static_fallback'
+      source: 'static_fallback',
+      api_status: 'static_fallback',
+      events: [],
+      crises: [],
+      trend_articles: null,
     }
   };
+
+  // ── Source 1: ReliefWeb (UN OCHA) — Active crises + humanitarian reports ──
+  try {
+    const rwUrl = 'https://api.reliefweb.int/v1/reports?appname=worldone&limit=25&sort[]=date:desc'
+      + '&filter[field]=theme.name&filter[value]=Armed Conflict'
+      + '&fields[include][]=title&fields[include][]=date&fields[include][]=country'
+      + '&fields[include][]=source&fields[include][]=url';
+    const rwData = await fetchJSON(rwUrl, { timeout: 12000, retries: 1 });
+
+    if (rwData?.data?.length > 0) {
+      result.conflict_data.crises = rwData.data.map(r => ({
+        title: r.fields?.title || '',
+        date: r.fields?.date?.original || '',
+        countries: (r.fields?.country || []).map(c => c.name),
+        source: (r.fields?.source || []).map(s => s.name).join(', '),
+        url: r.fields?.url || '',
+      }));
+      result.conflict_data.source = 'ReliefWeb';
+      result.conflict_data.api_status = 'live';
+      console.log(`    ReliefWeb: ${result.conflict_data.crises.length} conflict reports`);
+    }
+  } catch (err) {
+    console.log(`    ReliefWeb: failed (${err.message})`);
+  }
+
+  // ── Source 2: ReliefWeb Disasters — Current active emergencies ──
+  try {
+    const disUrl = 'https://api.reliefweb.int/v1/disasters?appname=worldone&limit=15&sort[]=date:desc'
+      + '&filter[field]=status&filter[value]=current'
+      + '&fields[include][]=name&fields[include][]=date&fields[include][]=country'
+      + '&fields[include][]=type&fields[include][]=status';
+    const disData = await fetchJSON(disUrl, { timeout: 12000, retries: 1 });
+
+    if (disData?.data?.length > 0) {
+      result.conflict_data.active_emergencies = disData.data.map(d => ({
+        name: d.fields?.name || '',
+        date: d.fields?.date?.[0]?.original || '',
+        countries: (d.fields?.country || []).map(c => c.name),
+        type: (d.fields?.type || []).map(t => t.name).join(', '),
+      }));
+      console.log(`    ReliefWeb Disasters: ${result.conflict_data.active_emergencies.length} active`);
+    }
+  } catch (err) {
+    console.log(`    ReliefWeb Disasters: failed (${err.message})`);
+  }
+
+  // ── Source 3: GDELT — Conflict article volume (24h trend) ──
+  try {
+    const gdeltUrl = 'https://api.gdeltproject.org/api/v2/doc/doc?query=armed+conflict+OR+war+OR+military+attack'
+      + '&mode=timelinevol&format=json&timespan=7d';
+    const gdeltData = await fetchJSON(gdeltUrl, { timeout: 10000, retries: 1 });
+
+    if (gdeltData?.timeline?.length > 0) {
+      const series = gdeltData.timeline[0]?.data || [];
+      result.conflict_data.trend_articles = series.map(d => ({
+        date: d.date,
+        volume: d.value,
+      }));
+      console.log(`    GDELT: ${series.length} timeline points (7d conflict volume)`);
+    }
+  } catch (err) {
+    console.log(`    GDELT timeline: failed (${err.message})`);
+  }
+
+  // ── Source 4: GDELT — Top conflict headlines ──
+  try {
+    const headlinesUrl = 'https://api.gdeltproject.org/api/v2/doc/doc?query=armed+conflict+OR+military+attack'
+      + '&mode=artlist&format=json&maxrecords=10&timespan=24h&sourcelang=english';
+    const headlinesData = await fetchJSON(headlinesUrl, { timeout: 10000, retries: 1 });
+
+    if (headlinesData?.articles?.length > 0) {
+      result.conflict_data.headlines = headlinesData.articles.map(a => ({
+        title: a.title || '',
+        url: a.url || '',
+        source: a.domain || '',
+        date: a.seendate || '',
+      }));
+      console.log(`    GDELT Headlines: ${result.conflict_data.headlines.length} articles`);
+    }
+  } catch (err) {
+    console.log(`    GDELT Headlines: failed (${err.message})`);
+  }
+
+  // ── Source 5: UCDP (structured events, no key needed) ──
+  try {
+    const ucdpUrl = 'https://ucdpapi.pcr.uu.se/api/gedevents/24.1?pagesize=1&page=1';
+    const ucdpData = await fetchJSON(ucdpUrl, { timeout: 10000, retries: 1 });
+    if (ucdpData?.TotalCount !== undefined) {
+      result.conflict_data.ucdp_total_events = ucdpData.TotalCount;
+      result.conflict_data.active_conflicts = Math.max(result.conflict_data.active_conflicts,
+        Math.round(ucdpData.TotalCount / 5000)); // rough estimate
+      console.log(`    UCDP: ${ucdpData.TotalCount} total events`);
+    }
+  } catch (err) {
+    console.log(`    UCDP: failed (${err.message})`);
+  }
+
+  if (result.conflict_data.api_status !== 'live') {
+    console.log('    Conflicts: all live sources failed, using static fallback');
+  }
+
+  return result;
 }
 
 // ─── Main ───

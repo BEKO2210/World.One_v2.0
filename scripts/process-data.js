@@ -415,9 +415,12 @@ function buildWorldState() {
   const waterCurrent = latest(waterData?.history || [])?.value || 74;
 
   // ─── CONFLICT / REFUGEE / FREEDOM DATA (used in scoring) ───
-  const conflicts = existing?.society?.conflicts || {
-    activeCount: 56,
-    locations: [
+  const conflictsCache = readCache('conflicts.json');
+
+  // Build conflict locations — use cache for live data enrichment
+  const baseConflicts = {
+    activeCount: conflictsCache?.conflict_data?.active_conflicts || existing?.society?.conflicts?.activeCount || 56,
+    locations: existing?.society?.conflicts?.locations || [
       { name: 'Ukraine', lat: 48.38, lng: 31.17, type: 'war', intensity: 0.95 },
       { name: 'Gaza', lat: 31.35, lng: 34.31, type: 'war', intensity: 0.98 },
       { name: 'Sudan', lat: 15.50, lng: 32.56, type: 'war', intensity: 0.85 },
@@ -429,8 +432,12 @@ function buildWorldState() {
       { name: 'Sahel', lat: 14.50, lng: -1.50, type: 'conflict', intensity: 0.60 },
       { name: 'Haiti', lat: 18.97, lng: -72.28, type: 'unrest', intensity: 0.50 }
     ],
-    source: 'ACLED'
+    source: conflictsCache?.conflict_data?.api_status === 'live' ? 'ReliefWeb/GDELT' : 'Static',
+    headlines: conflictsCache?.conflict_data?.headlines || [],
+    crises: conflictsCache?.conflict_data?.crises || [],
+    trendArticles: conflictsCache?.conflict_data?.trend_articles || null,
   };
+  const conflicts = baseConflicts;
   const refugees = existing?.society?.refugees || {
     total: 108400000, displaced: 68300000, asylumseekers: 6900000,
     flows: [
