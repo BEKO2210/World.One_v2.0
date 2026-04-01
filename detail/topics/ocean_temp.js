@@ -48,10 +48,10 @@ const REGIONAL_SST_ANOMALY = {
 // --- Coral Bleaching Thresholds (NOAA Coral Reef Watch) ----------------
 
 const CORAL_THRESHOLDS = [
-  { min: 0, max: 4,    label: 'Bleaching Watch',    color: '#fbc02d' },
-  { min: 4, max: 8,    label: 'Bleaching Warning',  color: '#ff9800' },
-  { min: 8, max: 12,   label: 'Alert Level 1',      color: '#f44336' },
-  { min: 12, max: 20,  label: 'Alert Level 2',      color: '#b71c1c' },
+  { min: 0,  max: 4,  labelKey: 'detail.ocean_temp.dhwWatch',   descKey: 'detail.ocean_temp.dhwWatchDesc',   color: '#fbc02d', icon: '👁' },
+  { min: 4,  max: 8,  labelKey: 'detail.ocean_temp.dhwWarning', descKey: 'detail.ocean_temp.dhwWarningDesc', color: '#ff9800', icon: '⚠' },
+  { min: 8,  max: 12, labelKey: 'detail.ocean_temp.dhwAlert1',  descKey: 'detail.ocean_temp.dhwAlert1Desc',  color: '#f44336', icon: '🔴' },
+  { min: 12, max: 20, labelKey: 'detail.ocean_temp.dhwAlert2',  descKey: 'detail.ocean_temp.dhwAlert2Desc',  color: '#b71c1c', icon: '💀' },
 ];
 
 // --- Render ------------------------------------------------------------
@@ -335,102 +335,128 @@ function _renderCoralThresholds(tilesEl) {
   tilesEl.appendChild(
     DOMUtils.create('p', {
       textContent: i18n.t('detail.ocean_temp.coralExplain'),
-      style: { color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: 'var(--space-sm)' },
+      style: { color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: '1.5', marginBottom: 'var(--space-md)' },
     })
   );
 
-  // DHW scale bars
-  const bars = CORAL_THRESHOLDS.map(t => {
-    const widthPercent = ((t.max - t.min) / 20) * 100;
+  // Current global DHW
+  const currentDHW = 6;
+
+  // Card-based layout — stacks vertically on mobile, 2-col on desktop
+  const cards = CORAL_THRESHOLDS.map(t => {
+    const isCurrent = currentDHW >= t.min && currentDHW < t.max;
     return DOMUtils.create('div', {
       style: {
+        background: isCurrent ? `${t.color}18` : 'var(--card-bg, rgba(255,255,255,0.04))',
+        border: isCurrent ? `2px solid ${t.color}` : '1px solid rgba(255,255,255,0.06)',
+        borderRadius: '12px',
+        padding: 'var(--space-sm) var(--space-md)',
         display: 'flex',
-        alignItems: 'center',
-        marginBottom: '6px',
+        alignItems: 'flex-start',
+        gap: 'var(--space-sm)',
+        transition: 'transform 0.2s ease',
       },
     }, [
+      // Left: colored DHW badge
       DOMUtils.create('div', {
-        textContent: `${t.min}-${t.max} DHW`,
         style: {
-          width: '90px',
+          background: t.color,
+          color: t.color === '#fbc02d' ? '#1a1a2e' : '#fff',
+          borderRadius: '8px',
+          padding: '6px 10px',
           fontSize: '0.75rem',
-          color: 'var(--text-secondary)',
+          fontWeight: '700',
+          fontFamily: 'var(--font-mono)',
+          whiteSpace: 'nowrap',
           flexShrink: '0',
-        },
-      }),
-      DOMUtils.create('div', {
-        style: {
-          flex: '1',
-          height: '28px',
-          display: 'flex',
-          alignItems: 'center',
+          minWidth: '70px',
+          textAlign: 'center',
+          lineHeight: '1.3',
         },
       }, [
+        DOMUtils.create('div', { textContent: `${t.min}–${t.max}` }),
         DOMUtils.create('div', {
-          style: {
-            width: `${widthPercent}%`,
-            minWidth: '40px',
-            height: '100%',
-            background: t.color,
-            borderRadius: '6px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '0.7rem',
-            fontWeight: '600',
-            color: t.color === '#fbc02d' ? '#1a1a2e' : '#fff',
-            padding: '0 8px',
-          },
-          textContent: t.label,
+          textContent: i18n.t('detail.ocean_temp.dhwUnit'),
+          style: { fontSize: '0.65rem', opacity: '0.8' },
         }),
+      ]),
+      // Right: label + description
+      DOMUtils.create('div', {
+        style: { flex: '1', minWidth: '0' },
+      }, [
+        DOMUtils.create('div', {
+          textContent: i18n.t(t.labelKey),
+          style: {
+            color: t.color,
+            fontWeight: '600',
+            fontSize: '0.9rem',
+            marginBottom: '2px',
+          },
+        }),
+        DOMUtils.create('div', {
+          textContent: i18n.t(t.descKey),
+          style: {
+            color: 'var(--text-secondary)',
+            fontSize: '0.8rem',
+            lineHeight: '1.4',
+          },
+        }),
+        ...(isCurrent ? [DOMUtils.create('div', {
+          textContent: `${i18n.t('detail.ocean_temp.currentLabel')} ~${currentDHW} ${i18n.t('detail.ocean_temp.dhwUnit')}`,
+          style: {
+            marginTop: '6px',
+            fontSize: '0.75rem',
+            fontWeight: '600',
+            color: 'var(--text-primary)',
+            background: 'rgba(255,255,255,0.08)',
+            display: 'inline-block',
+            padding: '2px 8px',
+            borderRadius: '4px',
+          },
+        })] : []),
       ]),
     ]);
   });
 
-  // Current global DHW indicator
-  const currentDHW = 6; // approximate current global average
-  const currentPercent = (currentDHW / 20) * 100;
-
-  const indicator = DOMUtils.create('div', {
+  // Gradient bar showing the full 0–20 DHW scale
+  const gradientBar = DOMUtils.create('div', {
     style: {
       marginTop: 'var(--space-sm)',
+      height: '8px',
+      borderRadius: '4px',
+      background: 'linear-gradient(90deg, #fbc02d 0%, #fbc02d 20%, #ff9800 20%, #ff9800 40%, #f44336 40%, #f44336 60%, #b71c1c 60%, #b71c1c 100%)',
       position: 'relative',
-      height: '30px',
-      background: 'var(--card-bg, rgba(255,255,255,0.05))',
-      borderRadius: '6px',
-      overflow: 'hidden',
     },
   }, [
+    // Current position marker
     DOMUtils.create('div', {
       style: {
         position: 'absolute',
-        left: `${currentPercent}%`,
-        top: '0',
-        bottom: '0',
-        width: '3px',
+        left: `${(currentDHW / 20) * 100}%`,
+        top: '-4px',
+        width: '4px',
+        height: '16px',
         background: '#fff',
-        zIndex: '1',
-      },
-    }),
-    DOMUtils.create('div', {
-      textContent: `${i18n.t('detail.ocean_temp.currentLabel')} ~${currentDHW} DHW`,
-      style: {
-        position: 'absolute',
-        left: `calc(${currentPercent}% + 8px)`,
-        top: '50%',
-        transform: 'translateY(-50%)',
-        fontSize: '0.75rem',
-        color: 'var(--text-primary)',
-        whiteSpace: 'nowrap',
+        borderRadius: '2px',
+        boxShadow: '0 0 6px rgba(255,255,255,0.5)',
       },
     }),
   ]);
 
+  const scale = DOMUtils.create('div', {
+    style: { display: 'flex', justifyContent: 'space-between', fontSize: '0.65rem', color: 'var(--text-muted)', marginTop: '4px' },
+  }, [
+    DOMUtils.create('span', { textContent: '0' }),
+    DOMUtils.create('span', { textContent: `20 ${i18n.t('detail.ocean_temp.dhwUnit')}` }),
+  ]);
+
   const container = DOMUtils.create('div', {
-    style: { padding: 'var(--space-sm)', background: 'var(--card-bg, rgba(255,255,255,0.05))', borderRadius: '12px' },
-  }, [...bars, indicator]);
+    style: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 'var(--space-sm)' },
+  }, cards);
 
   tilesEl.appendChild(container);
+  tilesEl.appendChild(gradientBar);
+  tilesEl.appendChild(scale);
 }
 
 // --- Explanation Block ---------------------------------------------------
