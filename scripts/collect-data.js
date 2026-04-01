@@ -722,6 +722,172 @@ async function fetchRegionalGDP() {
 }
 
 // ══════════════════════════════════════════════════════════════
+// NEW: ADDITIONAL FREE APIs (no key needed)
+// ══════════════════════════════════════════════════════════════
+
+async function fetchCoinGeckoGlobal() {
+  // CoinGecko — Global crypto market data (free, no key, 30 req/min)
+  const data = await fetchJSON('https://api.coingecko.com/api/v3/global');
+  const g = data?.data;
+  if (!g) throw new Error('No data');
+  save('economy', 'crypto-global.json', {
+    totalMarketCap: g.total_market_cap?.usd,
+    btcDominance: g.market_cap_percentage?.btc,
+    ethDominance: g.market_cap_percentage?.eth,
+    activeCryptos: g.active_cryptocurrencies,
+    markets: g.markets,
+    marketCapChange24h: g.market_cap_change_percentage_24h_usd,
+    fetched: new Date().toISOString()
+  });
+}
+
+async function fetchCoinGeckoBTC() {
+  // CoinGecko — BTC & ETH price (free, no key)
+  const data = await fetchJSON('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd,eur&include_24hr_change=true');
+  save('economy', 'crypto-prices.json', {
+    bitcoin: data?.bitcoin,
+    ethereum: data?.ethereum,
+    fetched: new Date().toISOString()
+  });
+}
+
+async function fetchSeaLevel() {
+  // NASA Sea Level — Global mean sea level (free, no key)
+  // PODAAC satellite altimetry data
+  try {
+    const text = await fetchText('https://sealevel.nasa.gov/data/vital-signs-sea-level.json', { timeout: 15000 });
+    const data = JSON.parse(text);
+    if (Array.isArray(data) && data.length > 0) {
+      save('environment', 'sea-level.json', {
+        measurements: data.slice(-120), // Last 10 years
+        latest: data[data.length - 1],
+        fetched: new Date().toISOString()
+      });
+    }
+  } catch (err) {
+    // Fallback: try CSIRO data
+    throw new Error(`sea-level: ${err.message}`);
+  }
+}
+
+async function fetchGlobalCarbonBudget() {
+  // Global Carbon Project — Annual emissions (free, no key)
+  // Uses the ICOS Carbon Portal API
+  try {
+    const data = await fetchJSON('https://data.icos-cp.eu/api/portalSummary');
+    save('environment', 'carbon-budget.json', {
+      summary: data,
+      fetched: new Date().toISOString()
+    });
+  } catch (err) {
+    throw new Error(`carbon-budget: ${err.message}`);
+  }
+}
+
+async function fetchNOAAGlobalTemp() {
+  // NOAA NCEI — Global temperature anomaly (free, no key)
+  // More frequent updates than NASA GISTEMP
+  const data = await fetchJSON('https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/global/time-series/globe/land_ocean/1/0/1880-2026.json');
+  if (data?.data) {
+    const entries = Object.entries(data.data).map(([yearMonth, value]) => ({
+      yearMonth,
+      value: Number(value)
+    })).filter(e => Number.isFinite(e.value));
+    save('environment', 'noaa-global-temp.json', {
+      description: data.description,
+      entries: entries.slice(-120), // Last 10 years of monthly data
+      latest: entries[entries.length - 1],
+      fetched: new Date().toISOString()
+    });
+  }
+}
+
+async function fetchWHODiseaseOutbreaks() {
+  // disease.sh — COVID + disease statistics (free, no key)
+  try {
+    const covid = await fetchJSON('https://disease.sh/v3/covid-19/all');
+    const countries = await fetchJSON('https://disease.sh/v3/covid-19/countries?sort=todayCases&limit=10');
+    save('society', 'disease-global.json', {
+      covid: {
+        cases: covid?.cases,
+        deaths: covid?.deaths,
+        recovered: covid?.recovered,
+        todayCases: covid?.todayCases,
+        todayDeaths: covid?.todayDeaths,
+        active: covid?.active,
+        critical: covid?.critical,
+        updated: covid?.updated,
+      },
+      topCountries: (countries || []).slice(0, 10).map(c => ({
+        country: c.country,
+        cases: c.cases,
+        todayCases: c.todayCases,
+        deaths: c.deaths,
+      })),
+      fetched: new Date().toISOString()
+    });
+  } catch (err) {
+    throw new Error(`disease: ${err.message}`);
+  }
+}
+
+async function fetchOpenExchangeRatesExtra() {
+  // ExchangeRate.host — Additional currency data (free, no key)
+  try {
+    const data = await fetchJSON('https://open.er-api.com/v6/latest/EUR');
+    if (data?.rates) {
+      save('economy', 'exchange-rates-eur.json', {
+        base: 'EUR',
+        rates: data.rates,
+        fetched: new Date().toISOString()
+      });
+    }
+  } catch (err) {
+    throw new Error(`eur-rates: ${err.message}`);
+  }
+}
+
+async function fetchNaturalDisasters() {
+  // ReliefWeb — Active natural disasters (free, no key)
+  const data = await fetchJSON(
+    'https://api.reliefweb.int/v1/disasters?appname=worldone&limit=30&sort[]=date:desc'
+    + '&filter[field]=status&filter[value]=current'
+    + '&fields[include][]=name&fields[include][]=date&fields[include][]=country'
+    + '&fields[include][]=type&fields[include][]=status&fields[include][]=glide'
+  );
+  if (data?.data) {
+    save('realtime', 'active-disasters.json', {
+      disasters: data.data.map(d => ({
+        name: d.fields?.name,
+        date: d.fields?.date?.[0]?.original,
+        countries: (d.fields?.country || []).map(c => c.name),
+        type: (d.fields?.type || []).map(t => t.name).join(', '),
+        glide: d.fields?.glide,
+      })),
+      count: data.totalCount || data.data.length,
+      fetched: new Date().toISOString()
+    });
+  }
+}
+
+async function fetchISSPosition() {
+  // Open Notify — ISS current position (free, no key)
+  try {
+    const data = await fetchJSON('http://api.open-notify.org/iss-now.json');
+    const astros = await fetchJSON('http://api.open-notify.org/astros.json');
+    save('tech', 'iss-position.json', {
+      position: data?.iss_position,
+      timestamp: data?.timestamp,
+      peopleInSpace: astros?.number,
+      crew: astros?.people,
+      fetched: new Date().toISOString()
+    });
+  } catch (err) {
+    throw new Error(`iss: ${err.message}`);
+  }
+}
+
+// ══════════════════════════════════════════════════════════════
 // MAIN EXECUTION
 // ══════════════════════════════════════════════════════════════
 
@@ -778,13 +944,30 @@ async function main() {
   await collect('Spaceflight News', fetchSpaceflightNews);
   await collect('Literacy (WB)', fetchLiteracy);
 
-  // Realtime (5 sources)
+  // Additional Economy (3 sources — no key)
+  console.log('\n▸ Additional Economy:');
+  await collect('CoinGecko Global', fetchCoinGeckoGlobal);
+  await collect('CoinGecko BTC/ETH', fetchCoinGeckoBTC);
+  await collect('EUR Exchange Rates', fetchOpenExchangeRatesExtra);
+
+  // Additional Environment (2 sources — no key)
+  console.log('\n▸ Additional Environment:');
+  await collect('NOAA Global Temp (monthly)', fetchNOAAGlobalTemp);
+  await collect('NASA Sea Level', fetchSeaLevel);
+
+  // Additional Society (1 source — no key)
+  console.log('\n▸ Additional Society:');
+  await collect('Disease Outbreaks (disease.sh)', fetchWHODiseaseOutbreaks);
+
+  // Realtime (8 sources)
   console.log('\n▸ Realtime:');
   await collect('USGS Earthquakes', fetchUSGSEarthquakes);
   await collect('GDELT News/Sentiment', fetchGDELTNews);
   await collect('RSS News Feeds', fetchRSSFeeds);
   await collect('Volcanic Activity', fetchVolcanicActivity);
   await collect('Solar Activity', fetchSolarActivity);
+  await collect('Active Disasters (ReliefWeb)', fetchNaturalDisasters);
+  await collect('ISS Position', fetchISSPosition);
 
   // Summary
   console.log('\n═══════════════════════════════════════');
