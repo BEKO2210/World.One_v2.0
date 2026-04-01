@@ -284,9 +284,10 @@ class BelkisOne {
   _populateProlog(data) {
     const meta = data.meta;
     if (!meta) return;
-    this._setText('#prolog-sources', `${meta.sources_count || '40+'}+`);
+    this._setText('#prolog-sources', meta.sources_count || '49');
     if (meta.sources_available && meta.sources_count) {
-      this._setText('#prolog-rate', `${Math.round((meta.sources_available / meta.sources_count) * 100)}%`);
+      const rate = Math.min(100, Math.round((meta.sources_available / meta.sources_count) * 100));
+      this._setText('#prolog-rate', `${rate}%`);
     }
   }
 
@@ -622,10 +623,11 @@ class BelkisOne {
   _buildPipelineStatus(data) {
     const meta = data.meta;
     if (!meta) return;
-    this._setText('#sources-total', meta.sources_count || '24');
-    this._setText('#sources-success', meta.sources_available || '22');
+    this._setText('#sources-total', meta.sources_count || '49');
+    this._setText('#sources-success', Math.min(meta.sources_available, meta.sources_count) || '22');
     if (meta.sources_available && meta.sources_count) {
-      this._setText('#sources-rate', `${Math.round((meta.sources_available / meta.sources_count) * 100)}%`);
+      const rate = Math.min(100, Math.round((meta.sources_available / meta.sources_count) * 100));
+      this._setText('#sources-rate', `${rate}%`);
     }
     if (meta.next_update) {
       const diffH = Math.max(0, Math.round((new Date(meta.next_update) - new Date()) / 3600000));
