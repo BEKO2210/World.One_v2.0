@@ -985,6 +985,7 @@ const translations = {
 
     // ─── New i18n keys: Ocean ───
     'detail.ocean_temp.sstAnomalyLabel': 'SST-Anomalie (°C)',
+    'detail.ocean_temp.sourceNOAA': 'NOAA',
     'detail.ocean_temp.anomalyAxis': 'Anomalie (°C)',
     'detail.ocean_temp.sstTooltip': 'SST',
     'detail.ocean_ph.phLabel': 'Ozean-pH',
@@ -2156,6 +2157,7 @@ const translations = {
 
     // ─── New i18n keys: Ocean ───
     'detail.ocean_temp.sstAnomalyLabel': 'SST Anomaly (°C)',
+    'detail.ocean_temp.sourceNOAA': 'NOAA',
     'detail.ocean_temp.anomalyAxis': 'Anomaly (°C)',
     'detail.ocean_temp.sstTooltip': 'SST',
     'detail.ocean_ph.phLabel': 'Ocean pH',
