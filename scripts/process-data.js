@@ -749,13 +749,21 @@ function buildWorldState() {
   ];
 
   // ─── ASSEMBLE FINAL STATE ───
+  const manifest = readRaw('.', 'collection-manifest.json');
+  const sourcesList = buildDataSourcesList();
+  const sourcesTotal = sourcesList.length;
+  const sourcesAvailable = manifest?.success?.length || existing?.meta?.sources_available || sourcesTotal;
+  const sourcesRate = sourcesTotal > 0
+    ? Math.min(100, Math.round((sourcesAvailable / sourcesTotal) * 100))
+    : 100;
+
   const worldState = {
     meta: {
       generated: new Date().toISOString(),
       version: '2.0.0',
-      sources_count: 40,
-      sources_available: readRaw('.', 'collection-manifest.json')?.success?.length || existing?.meta?.sources_available || 22,
-      sources_success_rate: readRaw('.', 'collection-manifest.json')?.successRate || 100,
+      sources_count: sourcesTotal,
+      sources_available: Math.min(sourcesAvailable, sourcesTotal),
+      sources_success_rate: sourcesRate,
       next_update: new Date(Date.now() + 6 * 60 * 60 * 1000).toISOString(),
       realtimePulse: realtimePulse
     },
@@ -1027,7 +1035,7 @@ function buildWorldState() {
       }
     },
 
-    dataSources: buildDataSourcesList()
+    dataSources: sourcesList
   };
 
   writeFileSync(OUTPUT, JSON.stringify(worldState, null, 2));
