@@ -440,7 +440,7 @@ function _renderTiles(tilesEl, count24h, largest24h, avgDepth, total7d, usgsSucc
     DOMUtils.create('div', {
       style: {
         display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
         gap: 'var(--space-sm)',
       },
     }, tiles)

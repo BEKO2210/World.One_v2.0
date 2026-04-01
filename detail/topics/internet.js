@@ -354,7 +354,7 @@ function _renderExplanationWithTiles(explEl) {
     DOMUtils.create('div', {
       style: {
         display: 'grid',
-        gridTemplateColumns: '1fr 1fr 1fr',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
         gap: 'var(--space-sm)',
         marginBottom: 'var(--space-md)',
       },
