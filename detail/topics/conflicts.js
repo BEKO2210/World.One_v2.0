@@ -117,8 +117,9 @@ export async function render(blocks) {
   const { data, tier, age } = await fetchTopicData('conflicts');
 
   const conflictData = data?.conflict_data || {};
-  const activeConflicts = conflictData.active_conflicts || 59;
-  const conflictYear = conflictData.year || 2026;
+  // Use the higher value: cache or our known baseline (59 as of April 2026)
+  const activeConflicts = Math.max(conflictData.active_conflicts || 0, 59);
+  const conflictYear = 2026;
   const liveHeadlines = conflictData.headlines || [];
   const liveCrises = conflictData.crises || [];
 
