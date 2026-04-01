@@ -371,7 +371,7 @@ async function _renderRankingChart(trendEl) {
     data: {
       labels: sorted.map(d => d.country),
       datasets: [{
-        label: 'Gini Index',
+        label: i18n.t('detail.inequality.giniIndex'),
         data: sorted.map(d => d.gini),
         backgroundColor: sorted.map(d => _giniBarColor(d.gini)),
         borderWidth: 0,
@@ -385,7 +385,7 @@ async function _renderRankingChart(trendEl) {
           max: 100,
           title: {
             display: true,
-            text: 'Gini Index',
+            text: i18n.t('detail.inequality.giniIndex'),
           },
           grid: { display: true },
         },

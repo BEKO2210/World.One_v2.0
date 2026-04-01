@@ -208,6 +208,7 @@ function _createTrendChart(trendData) {
       scales: {
         x: {
           grid: { display: false },
+          ticks: { maxTicksLimit: 10, maxRotation: 45 },
         },
         y: {
           min: 30,

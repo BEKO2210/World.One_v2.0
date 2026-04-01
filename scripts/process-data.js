@@ -10,11 +10,18 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const RAW_DIR = join(__dirname, '..', 'data', 'raw');
+const CACHE_DIR = join(__dirname, '..', 'data', 'cache');
 const OUTPUT = join(__dirname, '..', 'data', 'processed', 'world-state.json');
 
 // ─── Helpers ───
 function readRaw(category, filename) {
   const path = join(RAW_DIR, category, filename);
+  if (!existsSync(path)) return null;
+  try { return JSON.parse(readFileSync(path, 'utf-8')); } catch { return null; }
+}
+
+function readCache(filename) {
+  const path = join(CACHE_DIR, filename);
   if (!existsSync(path)) return null;
   try { return JSON.parse(readFileSync(path, 'utf-8')); } catch { return null; }
 }
@@ -339,6 +346,7 @@ function buildWorldState() {
   const renewableData = readRaw('environment', 'renewable-energy.json');
   const co2EmissionsData = readRaw('environment', 'co2-emissions-percapita.json');
   const weatherData = readRaw('environment', 'weather-global.json');
+  const oceanCache = readCache('ocean.json');
 
   const tempHistory = tempData?.history || existing?.environment?.temperatureAnomaly?.history || [];
   const tempCurrent = latest(tempHistory)?.value || existing?.environment?.temperatureAnomaly?.current || 1.45;
@@ -836,7 +844,18 @@ function buildWorldState() {
       forest: { current: forestCurrent || 31.2, history: forestHistory, source: 'World Bank' },
       renewableEnergy: { current: renewableCurrent, history: renewableHistory, source: 'World Bank / IRENA' },
       co2PerCapita: { current: latest(co2EmissionsData?.history || [])?.value, history: co2EmissionsData?.history || [], source: 'World Bank' },
-      weather: weatherData?.cities || []
+      weather: weatherData?.cities || [],
+      ocean: (() => {
+        const sstHistory = oceanCache?.annual_sst_anomaly || existing?.environment?.ocean?.sstHistory || [];
+        const latestSST = sstHistory.length ? sstHistory[sstHistory.length - 1] : null;
+        return {
+          sstAnomaly: latestSST?.anomaly ?? existing?.environment?.ocean?.sstAnomaly ?? null,
+          sstHistory,
+          ph: existing?.environment?.ocean?.ph ?? 8.08,
+          plasticMt: existing?.environment?.ocean?.plasticMt ?? 170,
+          source: 'NOAA / IPCC / GESAMP'
+        };
+      })()
     },
 
     society: {

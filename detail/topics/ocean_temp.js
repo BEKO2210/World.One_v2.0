@@ -169,7 +169,7 @@ async function _renderSSTChart(chartEl, sstData) {
     data: {
       labels,
       datasets: [{
-        label: 'SST Anomaly (\u00B0C)',
+        label: i18n.t('detail.ocean_temp.sstAnomalyLabel'),
         data: values,
         borderColor: toRgba(CHART_COLORS.environment),
         backgroundColor: toRgba(CHART_COLORS.environment, 0.2),
@@ -191,7 +191,7 @@ async function _renderSSTChart(chartEl, sstData) {
         y: {
           title: {
             display: true,
-            text: 'Anomaly (\u00B0C)',
+            text: i18n.t('detail.ocean_temp.anomalyAxis'),
           },
         },
       },
@@ -203,7 +203,7 @@ async function _renderSSTChart(chartEl, sstData) {
             label: (item) => {
               const v = item.parsed.y;
               const sign = v >= 0 ? '+' : '';
-              return `SST: ${sign}${v.toFixed(2)} \u00B0C`;
+              return `${i18n.t('detail.ocean_temp.sstTooltip')}: ${sign}${v.toFixed(2)} °C`;
             },
           },
         },

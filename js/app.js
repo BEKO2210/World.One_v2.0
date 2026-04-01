@@ -209,6 +209,7 @@ class BelkisOne {
     try { this._populateProlog(data); } catch (e) { console.error('[BelkisOne] Prolog error:', e); }
     try { this._populateIndicatorTrend(data); } catch (e) { console.error('[BelkisOne] Indicator trend error:', e); }
     try { this._populateEnvironmentValues(data); } catch (e) { console.error('[BelkisOne] Env values error:', e); }
+    try { this._populateOceanValues(data); } catch (e) { console.error('[BelkisOne] Ocean values error:', e); }
     try { this._populateSocietyValues(data); } catch (e) { console.error('[BelkisOne] Society values error:', e); }
     try { this._populateEconomyValues(data); } catch (e) { console.error('[BelkisOne] Economy values error:', e); }
     try { this._populateProgressValues(data); } catch (e) { console.error('[BelkisOne] Progress values error:', e); }
@@ -347,6 +348,18 @@ class BelkisOne {
 
         weatherGrid.appendChild(card);
       });
+    }
+  }
+
+  // ─── Ocean static values ───
+  _populateOceanValues(data) {
+    const ocean = data.environment?.ocean;
+    if (!ocean) return;
+
+    // SST Anomaly
+    const sst = Number(ocean.sstAnomaly);
+    if (Number.isFinite(sst)) {
+      this._setText('#sst-anomaly-value', `+${sst.toFixed(2)}°C`);
     }
   }
 
@@ -1342,6 +1355,9 @@ class BelkisOne {
 
     // Re-render weather cards
     this._populateEnvironmentValues(data);
+
+    // Re-render ocean data
+    this._populateOceanValues(data);
 
     // Re-render society data
     this._populateSocietyValues(data);

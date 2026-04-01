@@ -272,7 +272,7 @@ async function _renderRankingChart(chartEl) {
         legend: { display: false },
         tooltip: {
           callbacks: {
-            label: (item) => `${item.parsed.x}% renewable`,
+            label: (item) => i18n.t('detail.renewables.tooltipRenewable', { value: item.parsed.x }),
           },
         },
       },
@@ -350,7 +350,7 @@ function _createGrowthChart(labels, solarData, windData) {
       labels,
       datasets: [
         {
-          label: 'Solar',
+          label: i18n.t('detail.renewables.solar'),
           data: solarData,
           borderColor: '#ffc107',
           backgroundColor: 'rgba(255, 193, 7, 0.1)',
@@ -362,7 +362,7 @@ function _createGrowthChart(labels, solarData, windData) {
           borderWidth: 2,
         },
         {
-          label: 'Wind',
+          label: i18n.t('detail.renewables.wind'),
           data: windData,
           borderColor: toRgba(CHART_COLORS.environment, 1),
           backgroundColor: toRgba(CHART_COLORS.environment, 0.1),
@@ -379,6 +379,7 @@ function _createGrowthChart(labels, solarData, windData) {
       scales: {
         x: {
           grid: { display: false },
+          ticks: { maxTicksLimit: 12, maxRotation: 45 },
         },
         y: {
           beginAtZero: true,
@@ -495,7 +496,7 @@ async function _renderMap(compEl) {
   }
 
   function tooltipFn(iso, val) {
-    return `${iso}: ${(val * 100).toFixed(0)}% renewable`;
+    return `${iso}: ${i18n.t('detail.renewables.tooltipRenewable', { value: (val * 100).toFixed(0) })}`;
   }
 
   const legendItems = [

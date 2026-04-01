@@ -222,7 +222,7 @@ async function _renderLossChart(chartEl) {
         tooltip: {
           callbacks: {
             title: (items) => items[0]?.label || '',
-            label: (item) => `-${item.parsed.y.toFixed(1)} Mha net loss`,
+            label: (item) => i18n.t('detail.forests.tooltipLoss', { value: item.parsed.y.toFixed(1) }),
           },
         },
       },
