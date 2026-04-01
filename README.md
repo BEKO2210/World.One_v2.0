@@ -5,21 +5,21 @@
 
 ---
 
-## 🌍 Welt-Indikator: 64.2 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 64.3 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  64.2/100  ↓ -0.2
+█████████████░░░░░░░  64.3/100  ↑ +0.1
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 01.04.2026 04:31 UTC
+> **Letzte Aktualisierung:** 01.04.2026 04:36 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
 | 🟡 Umwelt | **44.3**/100 | → +0 | 25% |
-| 🟡 Gesellschaft | **55.7**/100 | ↓ -0.5 | 25% |
+| 🟡 Gesellschaft | **55.8**/100 | → +0.1 | 25% |
 | 🟢 Wirtschaft | **73**/100 | → +0 | 20% |
 | 🟢 Fortschritt | **78.5**/100 | → +0 | 20% |
 | 🟢 Momentum | **71.4**/100 | → +0 | 10% |
@@ -153,7 +153,7 @@ world-one/
 - **IntersectionObserver** — Scroll-driven Animations
 - **GitHub Actions** — Automatisierte Daten-Pipeline mit Self-Healing
 
-## 📡 Datenquellen (33)
+## 📡 Datenquellen (41)
 
 | Quelle | Vertrauen | Letztes Update |
 |--------|-----------|----------------|
@@ -190,6 +190,14 @@ world-one/
 | [France24 (RSS)](https://www.france24.com/) | ⭐⭐⭐ | 2026-04-01 |
 | [NOAA Space Weather](https://www.swpc.noaa.gov/) | ⭐⭐⭐ | 2026-04-01 |
 | [USGS Volcanoes](https://volcanoes.usgs.gov/) | ⭐⭐⭐ | 2026-04-01 |
+| [CoinGecko (Crypto)](https://www.coingecko.com/) | ⭐⭐ | 2026-04-01 |
+| [NOAA NCEI (Monthly Temp)](https://www.ncei.noaa.gov/) | ⭐⭐⭐ | 2026-04-01 |
+| [NASA Sea Level](https://sealevel.nasa.gov/) | ⭐⭐⭐ | 2026-04-01 |
+| [disease.sh (Global)](https://disease.sh/) | ⭐⭐ | 2026-04-01 |
+| [ReliefWeb Disasters](https://reliefweb.int/) | ⭐⭐⭐ | 2026-04-01 |
+| [ISS Tracker](http://api.open-notify.org/) | ⭐⭐ | 2026-04-01 |
+| [ReliefWeb (Conflicts)](https://reliefweb.int/) | ⭐⭐⭐ | 2026-04-01 |
+| [GDELT (Conflicts)](https://www.gdeltproject.org/) | ⭐⭐ | 2026-04-01 |
 
 ## 🚀 Setup
 
@@ -223,5 +231,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 01.04.2026 04:31 UTC | 40/40 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 01.04.2026 04:36 UTC | 46/40 Quellen aktiv
 </sub>
