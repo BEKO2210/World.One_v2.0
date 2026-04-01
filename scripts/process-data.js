@@ -448,7 +448,12 @@ function buildWorldState() {
   ];
 
   const baseConflicts = {
-    activeCount: conflictsCache?.conflict_data?.active_conflicts || existing?.society?.conflicts?.activeCount || 59,
+    activeCount: Math.max(
+      CONFLICT_LOCATIONS_2026.length,
+      conflictsCache?.conflict_data?.active_conflicts || 0,
+      existing?.society?.conflicts?.activeCount || 0,
+      59
+    ),
     locations: CONFLICT_LOCATIONS_2026,
     source: conflictsCache?.conflict_data?.api_status === 'live'
       ? (conflictsCache.conflict_data.source || 'ReliefWeb/GDELT') : 'ACLED/Crisis Group (baseline)',
