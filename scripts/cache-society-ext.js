@@ -87,27 +87,33 @@ async function fetchConflicts() {
   if (acledEmail && acledPassword) {
     try {
       // Step 1: Get OAuth access token
+      // Docs: https://acleddata.com/api-documentation/getting-started
+      // Must use x-www-form-urlencoded with username (not email), client_id=acled
       console.log('    ACLED: authenticating...');
-      const tokenRes = await fetch('https://api.acleddata.com/oauth/token', {
+      const tokenRes = await fetch('https://acleddata.com/oauth/token', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          grant_type: 'password',
-          email: acledEmail,
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          username: acledEmail,
           password: acledPassword,
-        }),
+          grant_type: 'password',
+          client_id: 'acled',
+        }).toString(),
         signal: AbortSignal.timeout(15000),
       });
-      if (!tokenRes.ok) throw new Error(`Auth failed: HTTP ${tokenRes.status}`);
+      if (!tokenRes.ok) {
+        const errText = await tokenRes.text().catch(() => '');
+        throw new Error(`Auth failed: HTTP ${tokenRes.status} ${errText.substring(0, 200)}`);
+      }
       const tokenData = await tokenRes.json();
       const accessToken = tokenData?.access_token;
       if (!accessToken) throw new Error('No access_token in response');
-      console.log('    ACLED: authenticated OK');
+      console.log('    ACLED: authenticated OK (token expires in', tokenData.expires_in, 's)');
 
       // Step 2: Fetch last 30 days of events
       const thirtyDaysAgo = new Date(Date.now() - 30 * 86400000).toISOString().split('T')[0];
       const today = new Date().toISOString().split('T')[0];
-      const acledUrl = `https://api.acleddata.com/acled/read`
+      const acledUrl = `https://acleddata.com/acled/read`
         + `?event_date=${thirtyDaysAgo}|${today}&event_date_where=BETWEEN`
         + `&fields=event_date|country|event_type|fatalities|latitude|longitude`
         + `&limit=500`;
