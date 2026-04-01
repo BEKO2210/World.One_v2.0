@@ -38,7 +38,7 @@ concurrency:
   cancel-in-progress: false   # Never cancel a running cache job
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: '22'
 
 jobs:
   # ═══════════════════════════════════════════════════════════
@@ -81,9 +81,18 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "chore(cache): update biodiversity cache $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git push || {
-              git pull --rebase origin $(git branch --show-current) && git push
-            }
+            for attempt in 1 2 3; do
+              git push && break
+              echo "Push attempt $attempt failed, rebasing..."
+              git rebase --abort 2>/dev/null || true
+              git pull --rebase -X theirs origin $(git branch --show-current) || {
+                git rebase --abort 2>/dev/null || true
+                git pull --no-rebase origin $(git branch --show-current)
+                git add data/cache/*.json
+                git commit --amend --no-edit 2>/dev/null || true
+              }
+              sleep $((attempt * 2))
+            done
           fi
 
   # ═══════════════════════════════════════════════════════════
@@ -126,9 +135,18 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "chore(cache): update environment-ext cache $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git push || {
-              git pull --rebase origin $(git branch --show-current) && git push
-            }
+            for attempt in 1 2 3; do
+              git push && break
+              echo "Push attempt $attempt failed, rebasing..."
+              git rebase --abort 2>/dev/null || true
+              git pull --rebase -X theirs origin $(git branch --show-current) || {
+                git rebase --abort 2>/dev/null || true
+                git pull --no-rebase origin $(git branch --show-current)
+                git add data/cache/*.json
+                git commit --amend --no-edit 2>/dev/null || true
+              }
+              sleep $((attempt * 2))
+            done
           fi
 
   # ═══════════════════════════════════════════════════════════
@@ -175,9 +193,18 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "chore(cache): update society-ext cache $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git push || {
-              git pull --rebase origin $(git branch --show-current) && git push
-            }
+            for attempt in 1 2 3; do
+              git push && break
+              echo "Push attempt $attempt failed, rebasing..."
+              git rebase --abort 2>/dev/null || true
+              git pull --rebase -X theirs origin $(git branch --show-current) || {
+                git rebase --abort 2>/dev/null || true
+                git pull --no-rebase origin $(git branch --show-current)
+                git add data/cache/*.json
+                git commit --amend --no-edit 2>/dev/null || true
+              }
+              sleep $((attempt * 2))
+            done
           fi
 
   # ═══════════════════════════════════════════════════════════
@@ -220,9 +247,18 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "chore(cache): update economy-ext cache $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git push || {
-              git pull --rebase origin $(git branch --show-current) && git push
-            }
+            for attempt in 1 2 3; do
+              git push && break
+              echo "Push attempt $attempt failed, rebasing..."
+              git rebase --abort 2>/dev/null || true
+              git pull --rebase -X theirs origin $(git branch --show-current) || {
+                git rebase --abort 2>/dev/null || true
+                git pull --no-rebase origin $(git branch --show-current)
+                git add data/cache/*.json
+                git commit --amend --no-edit 2>/dev/null || true
+              }
+              sleep $((attempt * 2))
+            done
           fi
 
   # ═══════════════════════════════════════════════════════════
@@ -265,9 +301,18 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "chore(cache): update progress-ext cache $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git push || {
-              git pull --rebase origin $(git branch --show-current) && git push
-            }
+            for attempt in 1 2 3; do
+              git push && break
+              echo "Push attempt $attempt failed, rebasing..."
+              git rebase --abort 2>/dev/null || true
+              git pull --rebase -X theirs origin $(git branch --show-current) || {
+                git rebase --abort 2>/dev/null || true
+                git pull --no-rebase origin $(git branch --show-current)
+                git add data/cache/*.json
+                git commit --amend --no-edit 2>/dev/null || true
+              }
+              sleep $((attempt * 2))
+            done
           fi
 
   # ═══════════════════════════════════════════════════════════
@@ -310,7 +355,16 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "chore(cache): update disasters cache $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git push || {
-              git pull --rebase origin $(git branch --show-current) && git push
-            }
+            for attempt in 1 2 3; do
+              git push && break
+              echo "Push attempt $attempt failed, rebasing..."
+              git rebase --abort 2>/dev/null || true
+              git pull --rebase -X theirs origin $(git branch --show-current) || {
+                git rebase --abort 2>/dev/null || true
+                git pull --no-rebase origin $(git branch --show-current)
+                git add data/cache/*.json
+                git commit --amend --no-edit 2>/dev/null || true
+              }
+              sleep $((attempt * 2))
+            done
           fi

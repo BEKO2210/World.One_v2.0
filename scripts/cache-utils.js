@@ -14,7 +14,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 /** Directory where all cache JSON files are written */
 export const CACHE_DIR = join(__dirname, '..', 'data', 'cache');
 
-const TIMEOUT = 15000;
+const TIMEOUT = 25000;
 
 // ─── HTTP Fetch JSON with timeout + retry ───
 /**
@@ -27,7 +27,7 @@ const TIMEOUT = 15000;
  * @returns {Promise<any>}
  */
 export async function fetchJSON(url, options = {}) {
-  const { retries = 2, timeout = TIMEOUT, headers = {} } = options;
+  const { retries = 3, timeout = TIMEOUT, headers = {} } = options;
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       const controller = new AbortController();
@@ -59,7 +59,7 @@ export async function fetchJSON(url, options = {}) {
  * @returns {Promise<string>}
  */
 export async function fetchText(url, options = {}) {
-  const { retries = 2, timeout = TIMEOUT, headers = {} } = options;
+  const { retries = 3, timeout = TIMEOUT, headers = {} } = options;
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       const controller = new AbortController();
