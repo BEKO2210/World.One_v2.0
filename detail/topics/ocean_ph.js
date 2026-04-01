@@ -96,7 +96,7 @@ const ACIDIFICATION_IMPACTS = [
   },
   {
     organism: 'Oysters',
-    icon: '\uD83E\uDEAA',
+    icon: '\uD83E\uDDAA',
     threshold: 7.95,
     desc_de: 'Larven können ab pH 7.95 keine Schalen mehr bilden. Austernfarmen sind bedroht.',
     desc_en: 'Larvae fail to form shells below pH 7.95. Oyster farms are threatened.',
