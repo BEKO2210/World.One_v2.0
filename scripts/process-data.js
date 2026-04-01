@@ -1072,7 +1072,16 @@ function buildDataSourcesList() {
     { name: 'Guardian World (RSS)', url: 'https://www.theguardian.com/world', trust: 3, lastUpdate: today, category: 'realtime' },
     { name: 'France24 (RSS)', url: 'https://www.france24.com/', trust: 3, lastUpdate: today, category: 'realtime' },
     { name: 'NOAA Space Weather', url: 'https://www.swpc.noaa.gov/', trust: 3, lastUpdate: today, category: 'realtime' },
-    { name: 'USGS Volcanoes', url: 'https://volcanoes.usgs.gov/', trust: 3, lastUpdate: today, category: 'realtime' }
+    { name: 'USGS Volcanoes', url: 'https://volcanoes.usgs.gov/', trust: 3, lastUpdate: today, category: 'realtime' },
+    // New APIs added April 2026
+    { name: 'CoinGecko (Crypto)', url: 'https://www.coingecko.com/', trust: 2, lastUpdate: today, category: 'economy' },
+    { name: 'NOAA NCEI (Monthly Temp)', url: 'https://www.ncei.noaa.gov/', trust: 3, lastUpdate: today, category: 'environment' },
+    { name: 'NASA Sea Level', url: 'https://sealevel.nasa.gov/', trust: 3, lastUpdate: today, category: 'environment' },
+    { name: 'disease.sh (Global)', url: 'https://disease.sh/', trust: 2, lastUpdate: today, category: 'society' },
+    { name: 'ReliefWeb Disasters', url: 'https://reliefweb.int/', trust: 3, lastUpdate: today, category: 'realtime' },
+    { name: 'ISS Tracker', url: 'http://api.open-notify.org/', trust: 2, lastUpdate: today, category: 'progress' },
+    { name: 'ReliefWeb (Conflicts)', url: 'https://reliefweb.int/', trust: 3, lastUpdate: today, category: 'society' },
+    { name: 'GDELT (Conflicts)', url: 'https://www.gdeltproject.org/', trust: 2, lastUpdate: today, category: 'society' }
   ];
 }
 

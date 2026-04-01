@@ -113,7 +113,7 @@ async function fetchConflicts() {
       // Step 2: Fetch last 30 days of events
       const thirtyDaysAgo = new Date(Date.now() - 30 * 86400000).toISOString().split('T')[0];
       const today = new Date().toISOString().split('T')[0];
-      const acledUrl = `https://acleddata.com/acled/read`
+      const acledUrl = `https://acleddata.com/api/acled/read`
         + `?event_date=${thirtyDaysAgo}|${today}&event_date_where=BETWEEN`
         + `&fields=event_date|country|event_type|fatalities|latitude|longitude`
         + `&limit=500`;
@@ -124,7 +124,7 @@ async function fetchConflicts() {
       if (!acledRes.ok) throw new Error(`Fetch failed: HTTP ${acledRes.status}`);
       const acledData = await acledRes.json();
 
-      if (acledData?.success && acledData?.data?.length > 0) {
+      if ((acledData?.success || acledData?.status === 200) && acledData?.data?.length > 0) {
         const events = acledData.data;
         const totalFatalities = events.reduce((s, e) => s + (Number(e.fatalities) || 0), 0);
 
