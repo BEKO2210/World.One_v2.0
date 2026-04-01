@@ -63,50 +63,221 @@ function getFreedomData() {
   };
 }
 
-// ─── Conflicts (UCDP API or static fallback) ───
+// ─── Conflicts (multi-source: ACLED + ReliefWeb + GDELT + UCDP) ───
 async function fetchConflicts() {
-  console.log('  Fetching conflict data...');
+  console.log('  Fetching conflict data (multi-source)...');
 
-  const token = process.env.UCDP_API_TOKEN;
-  const url = 'https://ucdpapi.pcr.uu.se/api/gedevents/24.1?pagesize=1&page=1';
-
-  // Try UCDP API with optional token
-  try {
-    const headers = {};
-    if (token) {
-      headers['x-ucdp-access-token'] = token;
-    }
-    const result = await fetchJSON(url, { headers, timeout: 10000, retries: 1 });
-
-    if (result && result.TotalCount !== undefined) {
-      console.log('  Conflicts: using UCDP API (live data)');
-      return {
-        conflict_data: {
-          total_events: result.TotalCount,
-          source: 'UCDP GED API v24.1',
-          api_status: 'live',
-          fetched_at: new Date().toISOString()
-        }
-      };
-    }
-  } catch (err) {
-    const status = err.message.includes('401') || err.message.includes('403')
-      ? 'auth_required'
-      : 'unavailable';
-    console.log(`  Conflicts: UCDP API ${status} (${err.message}), using static fallback`);
-  }
-
-  // Static fallback
-  console.log('  Conflicts: using static fallback dataset');
-  return {
+  const result = {
     conflict_data: {
       active_conflicts: 56,
-      year: 2024,
-      source: 'UCDP/PRIO Armed Conflict Dataset v24.1',
-      note: 'Static fallback -- UCDP API requires token since Feb 2026',
-      api_status: 'static_fallback'
+      source: 'static_fallback',
+      api_status: 'static_fallback',
+      events: [],
+      crises: [],
+      trend_articles: null,
+      acled: null,
     }
   };
+
+  // ── Source 0: ACLED (OAuth — richest conflict event data) ──
+  // Requires ACLED_EMAIL + ACLED_PASSWORD as GitHub Secrets
+  // Authenticates via OAuth, gets temporary token, then fetches events
+  const acledEmail = process.env.ACLED_EMAIL;
+  const acledPassword = process.env.ACLED_PASSWORD;
+  if (acledEmail && acledPassword) {
+    try {
+      // Step 1: Get OAuth access token
+      console.log('    ACLED: authenticating...');
+      const tokenRes = await fetch('https://api.acleddata.com/oauth/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          grant_type: 'password',
+          email: acledEmail,
+          password: acledPassword,
+        }),
+        signal: AbortSignal.timeout(15000),
+      });
+      if (!tokenRes.ok) throw new Error(`Auth failed: HTTP ${tokenRes.status}`);
+      const tokenData = await tokenRes.json();
+      const accessToken = tokenData?.access_token;
+      if (!accessToken) throw new Error('No access_token in response');
+      console.log('    ACLED: authenticated OK');
+
+      // Step 2: Fetch last 30 days of events
+      const thirtyDaysAgo = new Date(Date.now() - 30 * 86400000).toISOString().split('T')[0];
+      const today = new Date().toISOString().split('T')[0];
+      const acledUrl = `https://api.acleddata.com/acled/read`
+        + `?event_date=${thirtyDaysAgo}|${today}&event_date_where=BETWEEN`
+        + `&fields=event_date|country|event_type|fatalities|latitude|longitude`
+        + `&limit=500`;
+      const acledRes = await fetch(acledUrl, {
+        headers: { 'Authorization': `Bearer ${accessToken}` },
+        signal: AbortSignal.timeout(20000),
+      });
+      if (!acledRes.ok) throw new Error(`Fetch failed: HTTP ${acledRes.status}`);
+      const acledData = await acledRes.json();
+
+      if (acledData?.success && acledData?.data?.length > 0) {
+        const events = acledData.data;
+        const totalFatalities = events.reduce((s, e) => s + (Number(e.fatalities) || 0), 0);
+
+        // Count unique countries with events
+        const countries = new Set(events.map(e => e.country));
+
+        // Top 10 countries by event count
+        const countryEvents = {};
+        events.forEach(e => {
+          countryEvents[e.country] = (countryEvents[e.country] || 0) + 1;
+        });
+        const topCountries = Object.entries(countryEvents)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 15)
+          .map(([country, count]) => ({ country, events: count }));
+
+        // Event type breakdown
+        const typeBreakdown = {};
+        events.forEach(e => {
+          const type = e.event_type || 'Unknown';
+          typeBreakdown[type] = (typeBreakdown[type] || 0) + 1;
+        });
+
+        // Recent top-fatality events as locations with coordinates
+        const highFatality = events
+          .filter(e => Number(e.fatalities) > 0)
+          .sort((a, b) => Number(b.fatalities) - Number(a.fatalities))
+          .slice(0, 20)
+          .map(e => ({
+            country: e.country,
+            date: e.event_date,
+            type: e.event_type,
+            fatalities: Number(e.fatalities),
+            lat: Number(e.latitude),
+            lng: Number(e.longitude),
+          }));
+
+        result.conflict_data.acled = {
+          totalEvents: events.length,
+          totalFatalities,
+          countriesAffected: countries.size,
+          topCountries,
+          typeBreakdown,
+          highFatalityEvents: highFatality,
+          period: `${thirtyDaysAgo} to ${today}`,
+        };
+        result.conflict_data.active_conflicts = Math.max(countries.size, result.conflict_data.active_conflicts);
+        result.conflict_data.source = 'ACLED';
+        result.conflict_data.api_status = 'live';
+        console.log(`    ACLED: ${events.length} events, ${totalFatalities} fatalities, ${countries.size} countries (30d)`);
+      }
+    } catch (err) {
+      console.log(`    ACLED: failed (${err.message})`);
+    }
+  } else {
+    console.log('    ACLED: no credentials configured (set ACLED_EMAIL + ACLED_PASSWORD secrets)');
+  }
+
+  // ── Source 1: ReliefWeb (UN OCHA) — Active crises + humanitarian reports ──
+  try {
+    const rwUrl = 'https://api.reliefweb.int/v1/reports?appname=worldone&limit=25&sort[]=date:desc'
+      + '&filter[field]=theme.name&filter[value]=Armed Conflict'
+      + '&fields[include][]=title&fields[include][]=date&fields[include][]=country'
+      + '&fields[include][]=source&fields[include][]=url';
+    const rwData = await fetchJSON(rwUrl, { timeout: 12000, retries: 1 });
+
+    if (rwData?.data?.length > 0) {
+      result.conflict_data.crises = rwData.data.map(r => ({
+        title: r.fields?.title || '',
+        date: r.fields?.date?.original || '',
+        countries: (r.fields?.country || []).map(c => c.name),
+        source: (r.fields?.source || []).map(s => s.name).join(', '),
+        url: r.fields?.url || '',
+      }));
+      result.conflict_data.source = 'ReliefWeb';
+      result.conflict_data.api_status = 'live';
+      console.log(`    ReliefWeb: ${result.conflict_data.crises.length} conflict reports`);
+    }
+  } catch (err) {
+    console.log(`    ReliefWeb: failed (${err.message})`);
+  }
+
+  // ── Source 2: ReliefWeb Disasters — Current active emergencies ──
+  try {
+    const disUrl = 'https://api.reliefweb.int/v1/disasters?appname=worldone&limit=15&sort[]=date:desc'
+      + '&filter[field]=status&filter[value]=current'
+      + '&fields[include][]=name&fields[include][]=date&fields[include][]=country'
+      + '&fields[include][]=type&fields[include][]=status';
+    const disData = await fetchJSON(disUrl, { timeout: 12000, retries: 1 });
+
+    if (disData?.data?.length > 0) {
+      result.conflict_data.active_emergencies = disData.data.map(d => ({
+        name: d.fields?.name || '',
+        date: d.fields?.date?.[0]?.original || '',
+        countries: (d.fields?.country || []).map(c => c.name),
+        type: (d.fields?.type || []).map(t => t.name).join(', '),
+      }));
+      console.log(`    ReliefWeb Disasters: ${result.conflict_data.active_emergencies.length} active`);
+    }
+  } catch (err) {
+    console.log(`    ReliefWeb Disasters: failed (${err.message})`);
+  }
+
+  // ── Source 3: GDELT — Conflict article volume (24h trend) ──
+  try {
+    const gdeltUrl = 'https://api.gdeltproject.org/api/v2/doc/doc?query=armed+conflict+OR+war+OR+military+attack'
+      + '&mode=timelinevol&format=json&timespan=7d';
+    const gdeltData = await fetchJSON(gdeltUrl, { timeout: 10000, retries: 1 });
+
+    if (gdeltData?.timeline?.length > 0) {
+      const series = gdeltData.timeline[0]?.data || [];
+      result.conflict_data.trend_articles = series.map(d => ({
+        date: d.date,
+        volume: d.value,
+      }));
+      console.log(`    GDELT: ${series.length} timeline points (7d conflict volume)`);
+    }
+  } catch (err) {
+    console.log(`    GDELT timeline: failed (${err.message})`);
+  }
+
+  // ── Source 4: GDELT — Top conflict headlines ──
+  try {
+    const headlinesUrl = 'https://api.gdeltproject.org/api/v2/doc/doc?query=armed+conflict+OR+military+attack'
+      + '&mode=artlist&format=json&maxrecords=10&timespan=24h&sourcelang=english';
+    const headlinesData = await fetchJSON(headlinesUrl, { timeout: 10000, retries: 1 });
+
+    if (headlinesData?.articles?.length > 0) {
+      result.conflict_data.headlines = headlinesData.articles.map(a => ({
+        title: a.title || '',
+        url: a.url || '',
+        source: a.domain || '',
+        date: a.seendate || '',
+      }));
+      console.log(`    GDELT Headlines: ${result.conflict_data.headlines.length} articles`);
+    }
+  } catch (err) {
+    console.log(`    GDELT Headlines: failed (${err.message})`);
+  }
+
+  // ── Source 5: UCDP (structured events, no key needed) ──
+  try {
+    const ucdpUrl = 'https://ucdpapi.pcr.uu.se/api/gedevents/24.1?pagesize=1&page=1';
+    const ucdpData = await fetchJSON(ucdpUrl, { timeout: 10000, retries: 1 });
+    if (ucdpData?.TotalCount !== undefined) {
+      result.conflict_data.ucdp_total_events = ucdpData.TotalCount;
+      result.conflict_data.active_conflicts = Math.max(result.conflict_data.active_conflicts,
+        Math.round(ucdpData.TotalCount / 5000)); // rough estimate
+      console.log(`    UCDP: ${ucdpData.TotalCount} total events`);
+    }
+  } catch (err) {
+    console.log(`    UCDP: failed (${err.message})`);
+  }
+
+  if (result.conflict_data.api_status !== 'live') {
+    console.log('    Conflicts: all live sources failed, using static fallback');
+  }
+
+  return result;
 }
 
 // ─── Main ───

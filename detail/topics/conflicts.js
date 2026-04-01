@@ -118,6 +118,8 @@ export async function render(blocks) {
   const conflictData = data?.conflict_data || {};
   const activeConflicts = conflictData.active_conflicts || 56;
   const conflictYear = conflictData.year || 2024;
+  const liveHeadlines = conflictData.headlines || [];
+  const liveCrises = conflictData.crises || [];
 
   // Static fallback values
   const battleDeaths = 122000;  // 2023, UCDP
@@ -136,8 +138,8 @@ export async function render(blocks) {
   // --- 5. Tiles Block ---
   _renderTiles(blocks.tiles, activeConflicts, battleDeaths, displacedMillions, refugeesMillions);
 
-  // --- 6. Comparison Block (Refugees Doughnut) ---
-  _renderComparison(blocks.comparison);
+  // --- 6. Comparison Block (Refugees Doughnut + Live Headlines) ---
+  _renderComparison(blocks.comparison, liveHeadlines, liveCrises);
 
   // --- 7. Explanation Block ---
   _renderExplanation(blocks.explanation);
@@ -542,7 +544,7 @@ function _renderTiles(tilesEl, activeConflicts, battleDeaths, displacedMillions,
 
 // --- Comparison Block (Refugees Doughnut Chart) -------------------------
 
-function _renderComparison(compEl) {
+function _renderComparison(compEl, headlines, crises) {
   compEl.appendChild(
     DOMUtils.create('div', {}, [
       DOMUtils.create('h2', {
@@ -556,6 +558,40 @@ function _renderComparison(compEl) {
       ]),
     ])
   );
+
+  // Live conflict headlines (from GDELT/ReliefWeb cache)
+  const newsItems = (headlines.length > 0 ? headlines : crises).slice(0, 8);
+  if (newsItems.length > 0) {
+    const list = DOMUtils.create('div', {
+      style: { marginTop: 'var(--space-lg)' },
+    }, [
+      DOMUtils.create('h3', {
+        textContent: i18n.t('detail.conflicts.liveHeadlines'),
+        style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)', fontSize: '1.1rem' },
+      }),
+      ...newsItems.map(item => {
+        const title = item.title || '';
+        const source = item.source || item.countries?.join(', ') || '';
+        return DOMUtils.create('div', {
+          style: {
+            padding: 'var(--space-xs) 0',
+            borderBottom: '1px solid rgba(255,255,255,0.05)',
+            fontSize: '0.85rem',
+          },
+        }, [
+          DOMUtils.create('div', {
+            textContent: title,
+            style: { color: 'var(--text-primary)', lineHeight: '1.4' },
+          }),
+          ...(source ? [DOMUtils.create('div', {
+            textContent: source,
+            style: { color: 'var(--text-muted)', fontSize: '0.75rem', marginTop: '2px' },
+          })] : []),
+        ]);
+      }),
+    ]);
+    compEl.appendChild(list);
+  }
 
   // Store data for lazy getChartConfigs
   _chartData = { displacement: DISPLACEMENT };
@@ -597,6 +633,14 @@ function _renderSources(srcEl) {
     {
       label: 'ACLED',
       url: 'https://acleddata.com/',
+    },
+    {
+      label: 'ReliefWeb (UN OCHA)',
+      url: 'https://reliefweb.int/',
+    },
+    {
+      label: 'GDELT Project',
+      url: 'https://www.gdeltproject.org/',
     },
   ];
 
