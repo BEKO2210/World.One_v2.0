@@ -151,6 +151,19 @@ function renderErrorState(type, topicId) {
 // ─── Navigation Controls ─────────────────────────────────────
 
 function setupNavControls() {
+  // Back button — use history.back() so index.html restores scroll position
+  const backBtn = document.querySelector('.detail-nav__back');
+  if (backBtn) {
+    backBtn.addEventListener('click', (e) => {
+      // Only intercept if there's history to go back to (came from index.html)
+      if (window.history.length > 1) {
+        e.preventDefault();
+        window.history.back();
+      }
+      // Otherwise let the <a href="../index.html"> fallback work
+    });
+  }
+
   // Share button
   const shareBtn = document.getElementById('detail-share');
   if (shareBtn) {
