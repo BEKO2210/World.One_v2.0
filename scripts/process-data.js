@@ -432,10 +432,12 @@ function buildWorldState() {
       { name: 'Sahel', lat: 14.50, lng: -1.50, type: 'conflict', intensity: 0.60 },
       { name: 'Haiti', lat: 18.97, lng: -72.28, type: 'unrest', intensity: 0.50 }
     ],
-    source: conflictsCache?.conflict_data?.api_status === 'live' ? 'ReliefWeb/GDELT' : 'Static',
+    source: conflictsCache?.conflict_data?.api_status === 'live'
+      ? (conflictsCache.conflict_data.source || 'ReliefWeb/GDELT') : 'Static',
     headlines: conflictsCache?.conflict_data?.headlines || [],
     crises: conflictsCache?.conflict_data?.crises || [],
     trendArticles: conflictsCache?.conflict_data?.trend_articles || null,
+    acled: conflictsCache?.conflict_data?.acled || null,
   };
   const conflicts = baseConflicts;
   const refugees = existing?.society?.refugees || {

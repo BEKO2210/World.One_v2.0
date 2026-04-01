@@ -63,7 +63,7 @@ function getFreedomData() {
   };
 }
 
-// ─── Conflicts (multi-source: ReliefWeb + GDELT + UCDP) ───
+// ─── Conflicts (multi-source: ACLED + ReliefWeb + GDELT + UCDP) ───
 async function fetchConflicts() {
   console.log('  Fetching conflict data (multi-source)...');
 
@@ -75,8 +75,82 @@ async function fetchConflicts() {
       events: [],
       crises: [],
       trend_articles: null,
+      acled: null,
     }
   };
+
+  // ── Source 0: ACLED (requires API key — richest conflict event data) ──
+  const acledKey = process.env.ACLED_API_KEY;
+  const acledEmail = process.env.ACLED_EMAIL;
+  if (acledKey && acledEmail) {
+    try {
+      // Last 30 days of events, grouped overview
+      const thirtyDaysAgo = new Date(Date.now() - 30 * 86400000).toISOString().split('T')[0];
+      const today = new Date().toISOString().split('T')[0];
+      const acledUrl = `https://api.acleddata.com/acled/read?key=${acledKey}&email=${acledEmail}`
+        + `&event_date=${thirtyDaysAgo}|${today}&event_date_where=BETWEEN`
+        + `&fields=event_date|country|event_type|fatalities|latitude|longitude`
+        + `&limit=500`;
+      const acledData = await fetchJSON(acledUrl, { timeout: 20000, retries: 1 });
+
+      if (acledData?.success && acledData?.data?.length > 0) {
+        const events = acledData.data;
+        const totalFatalities = events.reduce((s, e) => s + (Number(e.fatalities) || 0), 0);
+
+        // Count unique countries with events
+        const countries = new Set(events.map(e => e.country));
+
+        // Top 10 countries by event count
+        const countryEvents = {};
+        events.forEach(e => {
+          countryEvents[e.country] = (countryEvents[e.country] || 0) + 1;
+        });
+        const topCountries = Object.entries(countryEvents)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 15)
+          .map(([country, count]) => ({ country, events: count }));
+
+        // Event type breakdown
+        const typeBreakdown = {};
+        events.forEach(e => {
+          const type = e.event_type || 'Unknown';
+          typeBreakdown[type] = (typeBreakdown[type] || 0) + 1;
+        });
+
+        // Recent top-fatality events as locations with coordinates
+        const highFatality = events
+          .filter(e => Number(e.fatalities) > 0)
+          .sort((a, b) => Number(b.fatalities) - Number(a.fatalities))
+          .slice(0, 20)
+          .map(e => ({
+            country: e.country,
+            date: e.event_date,
+            type: e.event_type,
+            fatalities: Number(e.fatalities),
+            lat: Number(e.latitude),
+            lng: Number(e.longitude),
+          }));
+
+        result.conflict_data.acled = {
+          totalEvents: events.length,
+          totalFatalities,
+          countriesAffected: countries.size,
+          topCountries,
+          typeBreakdown,
+          highFatalityEvents: highFatality,
+          period: `${thirtyDaysAgo} to ${today}`,
+        };
+        result.conflict_data.active_conflicts = Math.max(countries.size, result.conflict_data.active_conflicts);
+        result.conflict_data.source = 'ACLED';
+        result.conflict_data.api_status = 'live';
+        console.log(`    ACLED: ${events.length} events, ${totalFatalities} fatalities, ${countries.size} countries (30d)`);
+      }
+    } catch (err) {
+      console.log(`    ACLED: failed (${err.message})`);
+    }
+  } else {
+    console.log('    ACLED: no API key configured (set ACLED_API_KEY + ACLED_EMAIL secrets)');
+  }
 
   // ── Source 1: ReliefWeb (UN OCHA) — Active crises + humanitarian reports ──
   try {
