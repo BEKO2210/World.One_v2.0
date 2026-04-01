@@ -69,7 +69,7 @@ async function fetchConflicts() {
 
   const result = {
     conflict_data: {
-      active_conflicts: 56,
+      active_conflicts: 59,
       source: 'static_fallback',
       api_status: 'static_fallback',
       events: [],
