@@ -68,7 +68,7 @@ const CONFLICT_TREND = [
   { year: 2014, count: 40 }, { year: 2015, count: 52 }, { year: 2016, count: 53 },
   { year: 2017, count: 49 }, { year: 2018, count: 52 }, { year: 2019, count: 54 },
   { year: 2020, count: 56 }, { year: 2021, count: 55 }, { year: 2022, count: 55 },
-  { year: 2023, count: 59 }, { year: 2024, count: 56 },
+  { year: 2023, count: 59 }, { year: 2024, count: 56 }, { year: 2025, count: 59 }, { year: 2026, count: 59 },
 ];
 
 // --- Notable event years for annotations ------------------------------
@@ -78,6 +78,7 @@ const EVENT_YEARS = {
   2011: i18n.t('detail.conflicts.event2011'),
   2014: i18n.t('detail.conflicts.event2014'),
   2022: i18n.t('detail.conflicts.event2022'),
+  2025: i18n.t('detail.conflicts.event2025'),
 };
 
 // --- Refugees/Displacement data (UNHCR 2024 mid-year) -----------------
