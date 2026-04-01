@@ -404,7 +404,7 @@ function _renderTiles(tilesEl) {
     DOMUtils.create('div', {
       style: {
         display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
         gap: 'var(--space-sm)',
       },
     }, tiles)

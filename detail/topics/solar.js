@@ -366,7 +366,7 @@ function _renderTiles(tilesEl, ssnValue) {
     DOMUtils.create('div', {
       style: {
         display: 'grid',
-        gridTemplateColumns: '1fr 1fr 1fr',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
         gap: 'var(--space-sm)',
       },
     }, tiles)

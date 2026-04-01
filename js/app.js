@@ -79,6 +79,17 @@ class BelkisOne {
       setTimeout(() => {
         const loading = document.querySelector('.loading-screen');
         if (loading) loading.classList.add('is-hidden');
+
+        // Restore scroll position when returning from a detail page
+        try {
+          const savedY = sessionStorage.getItem('worldone-scroll-y');
+          if (savedY) {
+            sessionStorage.removeItem('worldone-scroll-y');
+            requestAnimationFrame(() => {
+              window.scrollTo({ top: parseInt(savedY, 10), behavior: 'instant' });
+            });
+          }
+        } catch {}
       }, 500);
 
     } catch (err) {
@@ -1517,6 +1528,8 @@ class BelkisOne {
       if (window.getSelection().toString()) return;
 
       if (link.dataset.topic) {
+        // Save scroll position before navigating to detail page
+        try { sessionStorage.setItem('worldone-scroll-y', String(window.scrollY)); } catch {}
         window.location.href = `detail/?topic=${link.dataset.topic}`;
       } else if (link.dataset.scrollTo) {
         DOMUtils.scrollTo(`#${link.dataset.scrollTo}`);
@@ -1530,6 +1543,7 @@ class BelkisOne {
       e.preventDefault();
 
       if (link.dataset.topic) {
+        try { sessionStorage.setItem('worldone-scroll-y', String(window.scrollY)); } catch {}
         window.location.href = `detail/?topic=${link.dataset.topic}`;
       } else if (link.dataset.scrollTo) {
         DOMUtils.scrollTo(`#${link.dataset.scrollTo}`);

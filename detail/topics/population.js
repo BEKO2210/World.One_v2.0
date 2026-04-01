@@ -281,57 +281,53 @@ async function _renderPyramid(trendEl) {
     })
   );
 
-  // Year selector buttons
+  // Compact inline year selector — single row of pill buttons
   const yearBtns = PYRAMID_YEARS.map(year => {
     const isActive = year === _currentPyramidYear;
+    const label = year === 2050 ? `${year}*` : String(year);
     return DOMUtils.create('button', {
-      textContent: String(year),
+      textContent: label,
       'data-year': String(year),
       type: 'button',
       style: {
-        padding: '6px 16px',
-        borderRadius: '6px',
-        border: isActive ? '1px solid rgba(232, 168, 124, 0.5)' : '1px solid rgba(255,255,255,0.1)',
-        background: isActive ? 'rgba(232, 168, 124, 0.15)' : 'rgba(255,255,255,0.04)',
-        color: isActive ? toRgba(CHART_COLORS.society) : 'var(--text-secondary)',
+        padding: '4px 12px',
+        borderRadius: '20px',
+        border: 'none',
+        background: isActive ? toRgba(CHART_COLORS.society, 0.2) : 'transparent',
+        color: isActive ? toRgba(CHART_COLORS.society) : 'var(--text-muted)',
         cursor: 'pointer',
-        fontSize: '0.85rem',
-        fontWeight: isActive ? '600' : '400',
-        transition: 'all 0.2s ease',
+        fontSize: '0.8rem',
+        fontWeight: isActive ? '700' : '400',
+        fontFamily: 'var(--font-mono)',
+        transition: 'all 0.15s ease',
       },
     });
   });
 
   const yearSelector = DOMUtils.create('div', {
-    className: 'pyramid-year-selector',
     style: {
-      display: 'flex',
-      gap: '8px',
+      display: 'inline-flex',
+      gap: '2px',
       marginBottom: 'var(--space-sm)',
-      flexWrap: 'wrap',
+      background: 'rgba(255,255,255,0.04)',
+      borderRadius: '24px',
+      padding: '3px',
     },
   }, yearBtns);
 
-  // Click handler for year buttons
+  // Click handler
   yearSelector.addEventListener('click', (e) => {
     const btn = e.target.closest('button[data-year]');
     if (!btn) return;
-
     const year = parseInt(btn.getAttribute('data-year'), 10);
     if (year === _currentPyramidYear) return;
-
     _currentPyramidYear = year;
-
-    // Update button styles
     for (const b of yearBtns) {
       const isActive = parseInt(b.getAttribute('data-year'), 10) === year;
-      b.style.border = isActive ? '1px solid rgba(232, 168, 124, 0.5)' : '1px solid rgba(255,255,255,0.1)';
-      b.style.background = isActive ? 'rgba(232, 168, 124, 0.15)' : 'rgba(255,255,255,0.04)';
-      b.style.color = isActive ? toRgba(CHART_COLORS.society) : 'var(--text-secondary)';
-      b.style.fontWeight = isActive ? '600' : '400';
+      b.style.background = isActive ? toRgba(CHART_COLORS.society, 0.2) : 'transparent';
+      b.style.color = isActive ? toRgba(CHART_COLORS.society) : 'var(--text-muted)';
+      b.style.fontWeight = isActive ? '700' : '400';
     }
-
-    // Update chart data
     _updatePyramid(year);
   });
 
@@ -339,7 +335,7 @@ async function _renderPyramid(trendEl) {
 
   // Canvas container
   const canvasContainer = DOMUtils.create('div', {
-    style: { position: 'relative', height: '450px' },
+    style: { position: 'relative', height: 'min(450px, 60vh)' },
   }, [
     DOMUtils.create('canvas', { id: 'pop-pyramid-canvas' }),
   ]);
@@ -356,16 +352,12 @@ async function _renderPyramid(trendEl) {
     const year = rangeMap[range] || 2026;
     if (year !== _currentPyramidYear) {
       _currentPyramidYear = year;
-
-      // Update button active state
       for (const b of yearBtns) {
         const isActive = parseInt(b.getAttribute('data-year'), 10) === year;
-        b.style.border = isActive ? '1px solid rgba(232, 168, 124, 0.5)' : '1px solid rgba(255,255,255,0.1)';
-        b.style.background = isActive ? 'rgba(232, 168, 124, 0.15)' : 'rgba(255,255,255,0.04)';
-        b.style.color = isActive ? toRgba(CHART_COLORS.society) : 'var(--text-secondary)';
-        b.style.fontWeight = isActive ? '600' : '400';
+        b.style.background = isActive ? toRgba(CHART_COLORS.society, 0.2) : 'transparent';
+        b.style.color = isActive ? toRgba(CHART_COLORS.society) : 'var(--text-muted)';
+        b.style.fontWeight = isActive ? '700' : '400';
       }
-
       _updatePyramid(year);
     }
   });
@@ -509,7 +501,7 @@ function _renderTiles(tilesEl, growthRate, urbanPercent) {
     DOMUtils.create('div', {
       style: {
         display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))',
         gap: 'var(--space-sm)',
       },
     }, tiles)
@@ -545,16 +537,24 @@ function _renderUrbanization(compEl) {
 // --- Explanation Block ---------------------------------------------------
 
 function _renderExplanation(explEl) {
+  const paragraphs = [
+    i18n.t('detail.population.explainP1'),
+    i18n.t('detail.population.explainP2'),
+    i18n.t('detail.population.explainP3'),
+  ];
+
   explEl.appendChild(
     DOMUtils.create('div', {}, [
       DOMUtils.create('h2', {
-        textContent: i18n.t('detail.population.title'),
+        textContent: i18n.t('detail.population.explainTitle'),
         style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)' },
       }),
-      DOMUtils.create('p', {
-        textContent: i18n.t('detail.population.explanation'),
-        style: { color: 'var(--text-secondary)', marginBottom: 'var(--space-sm)', lineHeight: '1.6' },
-      }),
+      ...paragraphs.map(text =>
+        DOMUtils.create('p', {
+          textContent: text,
+          style: { color: 'var(--text-secondary)', marginBottom: 'var(--space-sm)', lineHeight: '1.6', fontSize: '0.9rem' },
+        })
+      ),
     ])
   );
 }
