@@ -408,7 +408,7 @@ function buildWorldState() {
   const urbanData = readRaw('society', 'urbanization.json');
 
   const lifeExpHistory = lifeExpData?.history || existing?.society?.lifeExpectancy?.history || [];
-  const lifeExpCurrent = latest(lifeExpHistory)?.value || 73.4;
+  const lifeExpCurrent = latest(lifeExpHistory)?.value || 73.6;
   const childMortHistory = childMortData?.history || [];
   const childMortCurrent = latest(childMortHistory)?.value || 37.1;
   const electricityCurrent = latest(electricityData?.history || [])?.value || 91;
@@ -463,22 +463,24 @@ function buildWorldState() {
     acled: conflictsCache?.conflict_data?.acled || null,
   };
   const conflicts = baseConflicts;
+  // Updated April 2026 — UNHCR Mid-Year Trends 2025 + IDMC 2025
   const refugees = existing?.society?.refugees || {
-    total: 108400000, displaced: 68300000, asylumseekers: 6900000,
+    total: 123000000, displaced: 72400000, asylumseekers: 7200000,
     flows: [
-      { from: 'Syria', to: 'Turkey', count: 3200000 },
-      { from: 'Ukraine', to: 'Poland', count: 1800000 },
-      { from: 'Venezuela', to: 'Colombia', count: 2500000 },
-      { from: 'Afghanistan', to: 'Pakistan', count: 1700000 },
-      { from: 'Sudan', to: 'Chad', count: 1100000 },
-      { from: 'Myanmar', to: 'Bangladesh', count: 960000 },
-      { from: 'Somalia', to: 'Kenya', count: 580000 },
-      { from: 'DRC', to: 'Uganda', count: 470000 }
+      { from: 'Sudan', to: 'Chad', count: 2100000 },
+      { from: 'Syria', to: 'Turkey', count: 3100000 },
+      { from: 'Ukraine', to: 'Poland', count: 1600000 },
+      { from: 'Venezuela', to: 'Colombia', count: 2800000 },
+      { from: 'Afghanistan', to: 'Pakistan', count: 2100000 },
+      { from: 'Myanmar', to: 'Bangladesh', count: 1000000 },
+      { from: 'DRC', to: 'Uganda', count: 620000 },
+      { from: 'Somalia', to: 'Kenya', count: 540000 }
     ],
-    source: 'UNHCR'
+    source: 'UNHCR 2025'
   };
+  // Freedom House Freedom in the World 2026 report
   const freedom = existing?.society?.freedom || {
-    free: 84, partlyFree: 56, notFree: 55, trendDecline: true, yearDecline: 18, source: 'Freedom House'
+    free: 83, partlyFree: 55, notFree: 57, trendDecline: true, yearDecline: 19, source: 'Freedom House 2026'
   };
 
   const socLifeScore = normalize(lifeExpCurrent, 50, 85);

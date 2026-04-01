@@ -342,6 +342,38 @@ export class Maps {
       }
     }
 
+    // Add pulsing conflict markers from world-state locations
+    if (Array.isArray(conflicts) && conflicts.length > 0) {
+      const overlay = container.querySelector('.map-overlay');
+      if (overlay) {
+        const mapW = container.offsetWidth || 900;
+        const mapH = container.offsetHeight || 450;
+        conflicts.forEach(loc => {
+          const pos = MathUtils.geoToSVG(loc.lat, loc.lng, mapW, mapH);
+          const size = loc.intensity >= 0.8 ? 8 : loc.intensity >= 0.5 ? 6 : 4;
+          const color = loc.intensity >= 0.8 ? '#ff2020' : loc.intensity >= 0.5 ? '#e05500' : '#cc6600';
+          const marker = DOMUtils.create('div', {
+            style: {
+              position: 'absolute',
+              left: `${pos.x}px`,
+              top: `${pos.y}px`,
+              width: `${size}px`,
+              height: `${size}px`,
+              borderRadius: '50%',
+              background: color,
+              boxShadow: `0 0 ${size * 2}px ${color}`,
+              transform: 'translate(-50%, -50%)',
+              zIndex: '3',
+              pointerEvents: 'none',
+              animation: loc.type === 'war' ? 'pulse-dot 2s ease-in-out infinite' : 'none',
+            },
+            title: `${loc.name} (${loc.type})`,
+          });
+          overlay.appendChild(marker);
+        });
+      }
+    }
+
     Maps._addLegend(container, [
       { color: '#ff2020', label: i18n.t('map.war') },
       { color: '#e05500', label: i18n.t('map.conflict') },
