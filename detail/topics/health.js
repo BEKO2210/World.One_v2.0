@@ -92,7 +92,7 @@ export async function render(blocks) {
   const { data, tier, age } = await fetchTopicData('health');
 
   // Life expectancy: hardcoded WHO 2024 estimate
-  const lifeExpectancy = 73.4;
+  const lifeExpectancy = 73.6;
 
   // 2. Hero block
   _renderHero(blocks.hero, lifeExpectancy, tier, age);
@@ -348,7 +348,7 @@ function _renderTiles(tilesEl) {
   const tileData = [
     {
       label: i18n.t('detail.health.tileLifeExp'),
-      value: '73.4',
+      value: '73.6',
       unit: i18n.t('detail.health.heroUnit'),
     },
     {

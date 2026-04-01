@@ -83,11 +83,12 @@ const EVENT_YEARS = {
 
 // --- Refugees/Displacement data (UNHCR 2024 mid-year) -----------------
 
+// Updated April 2026 — UNHCR Mid-Year Trends 2025
 const DISPLACEMENT = {
-  refugees: 37.6,       // millions
-  idps: 68.3,           // millions
-  asylumSeekers: 6.9,   // millions
-  total: 117,            // millions (includes others)
+  refugees: 40.1,       // millions
+  idps: 72.4,           // millions
+  asylumSeekers: 7.2,   // millions
+  total: 123,            // millions (includes others)
 };
 
 // --- Intensity helpers -------------------------------------------------
@@ -124,9 +125,9 @@ export async function render(blocks) {
   const liveCrises = conflictData.crises || [];
 
   // Static fallback values
-  const battleDeaths = 122000;  // 2023, UCDP
-  const displacedMillions = DISPLACEMENT.total; // 117M, UNHCR 2024
-  const refugeesMillions = DISPLACEMENT.refugees; // 37.6M
+  const battleDeaths = 162000;  // 2025 estimate, UCDP/ACLED
+  const displacedMillions = DISPLACEMENT.total; // 123M, UNHCR 2025
+  const refugeesMillions = DISPLACEMENT.refugees; // 40.1M
 
   // --- 2. Hero Block ---
   _renderHero(blocks.hero, activeConflicts, conflictYear, tier, age);
@@ -490,22 +491,22 @@ function _renderTiles(tilesEl, activeConflicts, battleDeaths, displacedMillions,
     {
       label: i18n.t('detail.conflicts.tileActiveConflicts'),
       value: String(activeConflicts),
-      unit: '2024',
+      unit: '2026',
     },
     {
       label: i18n.t('detail.conflicts.tileBattleDeaths'),
       value: MathUtils.formatCompact(battleDeaths),
-      unit: '2023',
+      unit: '2025',
     },
     {
       label: i18n.t('detail.conflicts.tileDisplaced'),
       value: `${displacedMillions}M`,
-      unit: '2024',
+      unit: '2026',
     },
     {
       label: i18n.t('detail.conflicts.tileRefugees'),
       value: `${refugeesMillions}M`,
-      unit: 'UNHCR 2024',
+      unit: 'UNHCR 2025',
     },
   ];
 
