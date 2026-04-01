@@ -184,12 +184,20 @@ async function fetchConflicts() {
   }
 
   // ── Source 1: ReliefWeb (UN OCHA) — Active crises + humanitarian reports ──
+  // Uses POST (GET with filter[] params returns 406 on GitHub Actions)
   try {
-    const rwUrl = 'https://api.reliefweb.int/v1/reports?appname=worldone&limit=25&sort[]=date:desc'
-      + '&filter[field]=theme.name&filter[value]=Armed Conflict'
-      + '&fields[include][]=title&fields[include][]=date&fields[include][]=country'
-      + '&fields[include][]=source&fields[include][]=url';
-    const rwData = await fetchJSON(rwUrl, { timeout: 12000, retries: 1 });
+    const rwRes = await fetch('https://api.reliefweb.int/v1/reports?appname=worldone&limit=25', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        filter: { field: 'theme.name', value: 'Armed Conflict' },
+        sort: ['date:desc'],
+        fields: { include: ['title', 'date', 'country', 'source', 'url'] },
+      }),
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!rwRes.ok) throw new Error(`HTTP ${rwRes.status}`);
+    const rwData = await rwRes.json();
 
     if (rwData?.data?.length > 0) {
       result.conflict_data.crises = rwData.data.map(r => ({
@@ -209,11 +217,18 @@ async function fetchConflicts() {
 
   // ── Source 2: ReliefWeb Disasters — Current active emergencies ──
   try {
-    const disUrl = 'https://api.reliefweb.int/v1/disasters?appname=worldone&limit=15&sort[]=date:desc'
-      + '&filter[field]=status&filter[value]=current'
-      + '&fields[include][]=name&fields[include][]=date&fields[include][]=country'
-      + '&fields[include][]=type&fields[include][]=status';
-    const disData = await fetchJSON(disUrl, { timeout: 12000, retries: 1 });
+    const disRes = await fetch('https://api.reliefweb.int/v1/disasters?appname=worldone&limit=15', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        filter: { field: 'status', value: 'current' },
+        sort: ['date:desc'],
+        fields: { include: ['name', 'date', 'country', 'type', 'status'] },
+      }),
+      signal: AbortSignal.timeout(15000),
+    });
+    if (!disRes.ok) throw new Error(`HTTP ${disRes.status}`);
+    const disData = await disRes.json();
 
     if (disData?.data?.length > 0) {
       result.conflict_data.active_emergencies = disData.data.map(d => ({

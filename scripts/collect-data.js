@@ -556,14 +556,14 @@ async function fetchRSSFeeds() {
     // ─── Tier 1: UN system (most reliable, always available) ───
     { name: 'UN News', url: 'https://news.un.org/feed/subscribe/en/news/all/rss.xml' },
     { name: 'WHO News', url: 'https://www.who.int/rss-feeds/news-english.xml' },
-    { name: 'UNHCR', url: 'https://www.unhcr.org/rss/news.xml' },
-    { name: 'ReliefWeb', url: 'https://reliefweb.int/updates/rss.xml' },
+    { name: 'UNHCR', url: 'https://www.unhcr.org/us/rss/news.xml' },
+    { name: 'ReliefWeb', url: 'https://reliefweb.int/updates/rss.xml?source=UN+OCHA' },
 
     // ─── Tier 2: Science & Climate ───
     { name: 'NASA', url: 'https://www.nasa.gov/rss/dyn/breaking_news.rss' },
     { name: 'NASA Earth', url: 'https://earthobservatory.nasa.gov/feeds/earth-observatory.rss' },
     { name: 'ESA', url: 'https://www.esa.int/rssfeed/Our_Activities/Space_Science' },
-    { name: 'NOAA Climate', url: 'https://www.climate.gov/feeds/all.rss' },
+    { name: 'NOAA Climate', url: 'https://www.noaa.gov/rss-feeds/noaa-news-rss.xml' },
 
     // ─── Tier 3: World news (may block; silent fail is fine) ───
     { name: 'BBC World', url: 'https://feeds.bbci.co.uk/news/world/rss.xml' },
@@ -571,10 +571,10 @@ async function fetchRSSFeeds() {
     { name: 'Al Jazeera', url: 'https://www.aljazeera.com/xml/rss/all.xml' },
     { name: 'Guardian', url: 'https://www.theguardian.com/world/rss' },
     { name: 'France24', url: 'https://www.france24.com/en/rss' },
-    { name: 'NHK World', url: 'https://www3.nhk.or.jp/nhkworld/en/news/feeds/' },
+    { name: 'NHK World', url: 'https://www3.nhk.or.jp/nhkworld/en/rss/top.xml' },
 
     // ─── Tier 4: Development & Economy ───
-    { name: 'World Bank', url: 'https://blogs.worldbank.org/feed' },
+    { name: 'World Bank', url: 'https://blogs.worldbank.org/en/rss.xml' },
     { name: 'IMF Blog', url: 'https://www.imf.org/en/News/rss?Language=ENG' }
   ];
 
@@ -752,22 +752,32 @@ async function fetchCoinGeckoBTC() {
 }
 
 async function fetchSeaLevel() {
-  // NASA Sea Level — Global mean sea level (free, no key)
-  // PODAAC satellite altimetry data
-  try {
-    const text = await fetchText('https://sealevel.nasa.gov/data/vital-signs-sea-level.json', { timeout: 15000 });
-    const data = JSON.parse(text);
-    if (Array.isArray(data) && data.length > 0) {
-      save('environment', 'sea-level.json', {
-        measurements: data.slice(-120), // Last 10 years
-        latest: data[data.length - 1],
-        fetched: new Date().toISOString()
-      });
+  // NOAA STAR — Global mean sea level from satellite altimetry (free, no key)
+  // CSV with columns: year, TOPEX/Poseidon, Jason-1, Jason-2, Jason-3, Sentinel-6
+  const csv = await fetchText('https://www.star.nesdis.noaa.gov/sod/lsa/slr/slr_sla_gbl_free_ref_90.csv', { timeout: 20000 });
+  const lines = csv.split('\n').filter(l => l.trim() && !l.startsWith('#') && !l.startsWith('HDR'));
+  const entries = [];
+  for (const line of lines) {
+    const parts = line.split(',').map(s => s.trim());
+    const year = parseFloat(parts[0]);
+    // Find the last non-empty value (different satellites over time)
+    let value = null;
+    for (let i = parts.length - 1; i >= 1; i--) {
+      const v = parseFloat(parts[i]);
+      if (Number.isFinite(v)) { value = v; break; }
     }
-  } catch (err) {
-    // Fallback: try CSIRO data
-    throw new Error(`sea-level: ${err.message}`);
+    if (Number.isFinite(year) && value !== null) {
+      entries.push({ year: Math.round(year * 100) / 100, value: Math.round(value * 10) / 10 });
+    }
   }
+  if (entries.length < 10) throw new Error('Too few sea level entries');
+  save('environment', 'sea-level.json', {
+    measurements: entries.slice(-240), // Last ~20 years
+    latest: entries[entries.length - 1],
+    unit: 'mm',
+    source: 'NOAA STAR Satellite Altimetry',
+    fetched: new Date().toISOString()
+  });
 }
 
 async function fetchGlobalCarbonBudget() {
@@ -849,12 +859,25 @@ async function fetchOpenExchangeRatesExtra() {
 
 async function fetchNaturalDisasters() {
   // ReliefWeb — Active natural disasters (free, no key)
-  const data = await fetchJSON(
-    'https://api.reliefweb.int/v1/disasters?appname=worldone&limit=30&sort[]=date:desc'
-    + '&filter[field]=status&filter[value]=current'
-    + '&fields[include][]=name&fields[include][]=date&fields[include][]=country'
-    + '&fields[include][]=type&fields[include][]=status&fields[include][]=glide'
-  );
+  // Uses POST with JSON body (GET with filter[] params returns 406)
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 20000);
+  const res = await fetch('https://api.reliefweb.int/v1/disasters?appname=worldone&limit=30', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify({
+      filter: { field: 'status', value: 'current' },
+      sort: ['date:desc'],
+      fields: { include: ['name', 'date', 'country', 'type', 'status'] },
+    }),
+    signal: controller.signal,
+  });
+  clearTimeout(timer);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const data = await res.json();
   if (data?.data) {
     save('realtime', 'active-disasters.json', {
       disasters: data.data.map(d => ({
@@ -862,7 +885,6 @@ async function fetchNaturalDisasters() {
         date: d.fields?.date?.[0]?.original,
         countries: (d.fields?.country || []).map(c => c.name),
         type: (d.fields?.type || []).map(t => t.name).join(', '),
-        glide: d.fields?.glide,
       })),
       count: data.totalCount || data.data.length,
       fetched: new Date().toISOString()
