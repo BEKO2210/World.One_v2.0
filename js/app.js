@@ -647,12 +647,12 @@ class BelkisOne {
       const env = data.environment;
 
       const stripesEl = document.getElementById('warming-stripes');
-      if (stripesEl) {
+      if (stripesEl && env?.temperatureAnomaly?.history) {
         Charts.warmingStripes(stripesEl, env.temperatureAnomaly.history);
       }
 
       const co2Chart = document.getElementById('co2-chart');
-      if (co2Chart) {
+      if (co2Chart && env?.co2?.history) {
         Charts.lineChart(co2Chart, env.co2.history, {
           color: '#ffcc00',
           height: 200,
@@ -668,7 +668,7 @@ class BelkisOne {
     if (!this._societyBuilt && progress > 0.1) {
       this._societyBuilt = true;
       const soc = data.society;
-      this._crisisData = { conflicts: soc.conflicts.locations };
+      this._crisisData = { conflicts: soc?.conflicts?.locations || [] };
 
       const conflictMapEl = document.getElementById('conflict-map');
       if (conflictMapEl && soc?.conflicts?.locations) {
@@ -696,7 +696,7 @@ class BelkisOne {
       }
 
       const lifeChart = document.getElementById('life-expectancy-chart');
-      if (lifeChart) {
+      if (lifeChart && soc?.lifeExpectancy?.history) {
         Charts.lineChart(lifeChart, soc.lifeExpectancy.history, {
           color: '#e8a87c',
           height: 200,
@@ -713,12 +713,12 @@ class BelkisOne {
       const eco = data.economy;
 
       const ineqBar = document.getElementById('inequality-bar');
-      if (ineqBar) {
+      if (ineqBar && eco?.wealth) {
         Charts.inequalityBar(ineqBar, eco.wealth.top1Percent, eco.wealth.bottom50Percent);
       }
 
       const giniChart = document.getElementById('gini-chart');
-      if (giniChart) {
+      if (giniChart && eco?.gini?.history) {
         Charts.lineChart(giniChart, eco.gini.history, {
           color: '#ffd700',
           height: 180,
@@ -736,7 +736,7 @@ class BelkisOne {
       const prog = data.progress;
 
       const pubChart = document.getElementById('publications-chart');
-      if (pubChart) {
+      if (pubChart && prog?.publications?.history) {
         Charts.lineChart(pubChart, prog.publications.history, {
           color: '#00ffcc',
           height: 200,
@@ -746,7 +746,7 @@ class BelkisOne {
       }
 
       const netChart = document.getElementById('internet-chart');
-      if (netChart) {
+      if (netChart && prog?.internet?.history) {
         Charts.lineChart(netChart, prog.internet.history, {
           color: '#5ac8fa',
           height: 200,
@@ -756,7 +756,7 @@ class BelkisOne {
       }
 
       const litStairs = document.getElementById('literacy-stairs');
-      if (litStairs) {
+      if (litStairs && prog?.literacy?.history) {
         Charts.literacyStairs(litStairs, prog.literacy.history);
       }
     }
@@ -764,10 +764,10 @@ class BelkisOne {
 
   // ─── Realtime Section ───
   _buildRealtime(data) {
-    const rt = data.realtime;
+    const rt = data.realtime || {};
 
     const eqList = document.getElementById('earthquake-list');
-    if (eqList && rt.earthquakes) {
+    if (eqList && rt.earthquakes?.last24h) {
       eqList.innerHTML = '';
       rt.earthquakes.last24h.slice(0, 8).forEach(eq => {
         const mag = Number(eq.magnitude) || 0;
@@ -829,6 +829,7 @@ class BelkisOne {
     if (!this._momentumBuilt && progress > 0.15) {
       this._momentumBuilt = true;
       const mom = data.momentum;
+      if (!mom?.indicators) return;
 
       // Map indicator names (German) to detail topic IDs
       const MAIN_INDICATOR_TOPIC_MAP = {
@@ -882,10 +883,19 @@ class BelkisOne {
         this.scrollEngine.observeReveals(momList);
       }
 
+      const positiveCount = mom.positiveCount || mom.indicators.filter(i => i.direction === 'improving').length;
+      const totalCount = mom.totalIndicators || mom.indicators.length;
+
+      // Sync momentum summary counters with live data
+      const summaryEl = document.getElementById('momentum-summary');
+      if (summaryEl) {
+        const counterEls = summaryEl.querySelectorAll('[data-counter]');
+        if (counterEls[0]) counterEls[0].dataset.target = positiveCount;
+        if (counterEls[1]) counterEls[1].dataset.target = totalCount;
+      }
+
       const momGauge = document.getElementById('momentum-gauge');
       if (momGauge) {
-        const positiveCount = mom.positiveCount || mom.indicators.filter(i => i.direction === 'improving').length;
-        const totalCount = mom.totalIndicators || mom.indicators.length;
         const gaugeValue = totalCount > 0 ? (positiveCount / totalCount) * 100 : 50;
         Charts.gauge(momGauge, gaugeValue, {
           size: 140,
@@ -896,7 +906,7 @@ class BelkisOne {
       }
 
       const compGrid = document.getElementById('comparison-grid');
-      if (compGrid) {
+      if (compGrid && Array.isArray(mom.comparison2000)) {
         compGrid.innerHTML = '';
         mom.comparison2000.forEach((item, i) => {
           const card = DOMUtils.create('div', {
@@ -1049,6 +1059,10 @@ class BelkisOne {
       valueEl.style.opacity = '1';
       const zone = MathUtils.getZone(data.worldIndex.value);
       valueEl.style.color = zone.color;
+      // Sync counter target with live data (HTML has a static placeholder)
+      if (valueEl.dataset.target !== String(data.worldIndex.value)) {
+        valueEl.dataset.target = data.worldIndex.value;
+      }
     }
   }
 
