@@ -79,19 +79,44 @@ async function fetchConflicts() {
     }
   };
 
-  // ── Source 0: ACLED (requires API key — richest conflict event data) ──
-  const acledKey = process.env.ACLED_API_KEY;
+  // ── Source 0: ACLED (OAuth — richest conflict event data) ──
+  // Requires ACLED_EMAIL + ACLED_PASSWORD as GitHub Secrets
+  // Authenticates via OAuth, gets temporary token, then fetches events
   const acledEmail = process.env.ACLED_EMAIL;
-  if (acledKey && acledEmail) {
+  const acledPassword = process.env.ACLED_PASSWORD;
+  if (acledEmail && acledPassword) {
     try {
-      // Last 30 days of events, grouped overview
+      // Step 1: Get OAuth access token
+      console.log('    ACLED: authenticating...');
+      const tokenRes = await fetch('https://api.acleddata.com/oauth/token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          grant_type: 'password',
+          email: acledEmail,
+          password: acledPassword,
+        }),
+        signal: AbortSignal.timeout(15000),
+      });
+      if (!tokenRes.ok) throw new Error(`Auth failed: HTTP ${tokenRes.status}`);
+      const tokenData = await tokenRes.json();
+      const accessToken = tokenData?.access_token;
+      if (!accessToken) throw new Error('No access_token in response');
+      console.log('    ACLED: authenticated OK');
+
+      // Step 2: Fetch last 30 days of events
       const thirtyDaysAgo = new Date(Date.now() - 30 * 86400000).toISOString().split('T')[0];
       const today = new Date().toISOString().split('T')[0];
-      const acledUrl = `https://api.acleddata.com/acled/read?key=${acledKey}&email=${acledEmail}`
-        + `&event_date=${thirtyDaysAgo}|${today}&event_date_where=BETWEEN`
+      const acledUrl = `https://api.acleddata.com/acled/read`
+        + `?event_date=${thirtyDaysAgo}|${today}&event_date_where=BETWEEN`
         + `&fields=event_date|country|event_type|fatalities|latitude|longitude`
         + `&limit=500`;
-      const acledData = await fetchJSON(acledUrl, { timeout: 20000, retries: 1 });
+      const acledRes = await fetch(acledUrl, {
+        headers: { 'Authorization': `Bearer ${accessToken}` },
+        signal: AbortSignal.timeout(20000),
+      });
+      if (!acledRes.ok) throw new Error(`Fetch failed: HTTP ${acledRes.status}`);
+      const acledData = await acledRes.json();
 
       if (acledData?.success && acledData?.data?.length > 0) {
         const events = acledData.data;
@@ -149,7 +174,7 @@ async function fetchConflicts() {
       console.log(`    ACLED: failed (${err.message})`);
     }
   } else {
-    console.log('    ACLED: no API key configured (set ACLED_API_KEY + ACLED_EMAIL secrets)');
+    console.log('    ACLED: no credentials configured (set ACLED_EMAIL + ACLED_PASSWORD secrets)');
   }
 
   // ── Source 1: ReliefWeb (UN OCHA) — Active crises + humanitarian reports ──
