@@ -167,6 +167,7 @@ function _renderHero(heroEl, lifeExp, tier, age) {
 
 function _renderTreemap(chartEl) {
   const total = CAUSES_OF_DEATH.reduce((s, c) => s + c.deaths, 0);
+  const maxDeaths = CAUSES_OF_DEATH[0].deaths;
   const lang = i18n.lang || 'de';
 
   chartEl.appendChild(
@@ -176,60 +177,76 @@ function _renderTreemap(chartEl) {
     })
   );
 
-  const treemapEl = DOMUtils.create('div', {
-    style: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      height: '300px',
-      borderRadius: '8px',
-      overflow: 'hidden',
-    },
+  // Horizontal bar chart — always readable on mobile
+  const listEl = DOMUtils.create('div', {
+    style: { display: 'flex', flexDirection: 'column', gap: '6px' },
   });
 
   for (const cause of CAUSES_OF_DEATH) {
     const pct = (cause.deaths / total) * 100;
+    const barWidth = (cause.deaths / maxDeaths) * 100;
     const deathsFormatted = MathUtils.formatCompact(cause.deaths);
     const causeName = cause.name[lang] || cause.name.en;
 
-    const block = DOMUtils.create('div', {
+    const row = DOMUtils.create('div', {
       style: {
-        flex: `0 0 ${pct.toFixed(1)}%`,
-        minHeight: pct > 5 ? '50%' : '25%',
-        background: cause.color,
-        padding: '6px',
-        boxSizing: 'border-box',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-        cursor: 'default',
-        position: 'relative',
-        overflow: 'hidden',
+        display: 'grid',
+        gridTemplateColumns: 'minmax(100px, 1fr) 2fr auto',
+        alignItems: 'center',
+        gap: '8px',
       },
     }, [
+      // Name
       DOMUtils.create('div', {
         textContent: causeName,
         style: {
-          color: '#fff',
-          fontSize: pct > 10 ? '0.85rem' : '0.7rem',
-          fontWeight: '600',
-          lineHeight: '1.2',
-          textShadow: '0 1px 2px rgba(0,0,0,0.3)',
+          color: 'var(--text-primary)',
+          fontSize: '0.8rem',
+          fontWeight: '500',
+          lineHeight: '1.3',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
         },
       }),
+      // Bar
+      DOMUtils.create('div', {
+        style: {
+          height: '20px',
+          background: 'rgba(255,255,255,0.04)',
+          borderRadius: '4px',
+          overflow: 'hidden',
+        },
+      }, [
+        DOMUtils.create('div', {
+          style: {
+            height: '100%',
+            width: `${barWidth}%`,
+            background: cause.color,
+            borderRadius: '4px',
+            transition: 'width 1s ease',
+            minWidth: '4px',
+          },
+        }),
+      ]),
+      // Deaths count
       DOMUtils.create('div', {
         textContent: deathsFormatted,
         style: {
-          color: 'rgba(255,255,255,0.85)',
-          fontSize: pct > 10 ? '0.75rem' : '0.65rem',
-          lineHeight: '1.2',
+          color: 'var(--text-secondary)',
+          fontSize: '0.75rem',
+          fontFamily: 'var(--font-mono)',
+          whiteSpace: 'nowrap',
+          minWidth: '45px',
+          textAlign: 'right',
         },
       }),
     ]);
 
-    treemapEl.appendChild(block);
+    listEl.appendChild(row);
   }
 
-  chartEl.appendChild(treemapEl);
+  chartEl.appendChild(listEl);
 }
 
 // --- Trend Block (Health Spending vs Life Expectancy Bubble Chart) ------
