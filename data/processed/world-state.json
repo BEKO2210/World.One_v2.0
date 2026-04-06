@@ -1,33 +1,33 @@
 {
   "meta": {
-    "generated": "2026-04-06T07:24:05.387Z",
+    "generated": "2026-04-06T13:03:34.251Z",
     "version": "2.0.0",
     "sources_count": 41,
     "sources_available": 41,
     "sources_success_rate": 100,
-    "next_update": "2026-04-06T13:24:05.387Z",
+    "next_update": "2026-04-06T19:03:34.251Z",
     "realtimePulse": {
-      "environment": -0.95,
+      "environment": -1.1,
       "society": 0,
       "economy": -0.59,
-      "progress": 0.8,
+      "progress": 0.47,
       "details": {
-        "quakeCount": 48,
-        "maxMagnitude": 5.5,
-        "avgGlobalTemp": 16.8,
+        "quakeCount": 49,
+        "maxMagnitude": 5.9,
+        "avgGlobalTemp": 18.6,
         "cryptoFearGreed": 13,
-        "arxivPapers": 20
+        "arxivPapers": 5
       }
     }
   },
   "worldIndex": {
-    "value": 64.3,
-    "rawValue": 62.5,
+    "value": 64.2,
+    "rawValue": 62.4,
     "label": "POSITIV",
     "zone": "positive",
     "previous": 64.3,
-    "change": 0,
-    "trend": "stable",
+    "change": -0.1,
+    "trend": "declining",
     "carryingCapacity": {
       "checks": {
         "existence": {
@@ -61,8 +61,8 @@
         },
         "progress": {
           "direction": "expansion",
-          "position": "capacitive",
-          "level": 2
+          "position": "elastic",
+          "level": 1
         },
         "momentum": {
           "direction": "expansion",
@@ -72,7 +72,7 @@
       },
       "indicators": {
         "environment": {
-          "bufferDistance": 34.6,
+          "bufferDistance": 34.5,
           "recoveryTime": 0,
           "maintenanceCost": 0.16
         },
@@ -87,7 +87,7 @@
           "maintenanceCost": 2.76
         },
         "progress": {
-          "bufferDistance": 74.7,
+          "bufferDistance": 74.4,
           "recoveryTime": 0,
           "maintenanceCost": 4.52
         },
@@ -102,12 +102,12 @@
   },
   "subScores": {
     "environment": {
-      "value": 44.4,
+      "value": 44.3,
       "label": "GEMISCHT",
       "zone": "mixed",
       "weight": 0.25,
-      "trend": "declining",
-      "change": -0.2,
+      "trend": "stable",
+      "change": -0.1,
       "indicators": [
         {
           "name": "Globale Temperaturanomalie",
@@ -139,7 +139,7 @@
         },
         {
           "name": "Luftqualität (Global Avg AQI)",
-          "value": 64,
+          "value": 62,
           "score": 45,
           "trend": "stable",
           "source": "Open-Meteo"
@@ -258,12 +258,12 @@
       ]
     },
     "progress": {
-      "value": 78.5,
+      "value": 78.2,
       "label": "POSITIV",
       "zone": "positive",
       "weight": 0.2,
-      "trend": "improving",
-      "change": 0.3,
+      "trend": "declining",
+      "change": -0.3,
       "indicators": [
         {
           "name": "Internet-Durchdringung",
@@ -302,7 +302,7 @@
         },
         {
           "name": "Wissenschaftliche Papers",
-          "value": "20+ heute",
+          "value": "3.2M/Jahr",
           "score": 75,
           "trend": "improving",
           "source": "arXiv"
@@ -1196,14 +1196,14 @@
       "source": "NOAA"
     },
     "airQuality": {
-      "globalAvgAQI": 64,
+      "globalAvgAQI": 62,
       "cleanestCities": [
         {
-          "city": "London",
+          "city": "Mexico City",
           "country": "",
           "aqi": 27,
-          "lat": 51.51,
-          "lng": -0.13
+          "lat": 19.43,
+          "lng": -99.13
         },
         {
           "city": "Sydney",
@@ -1213,62 +1213,62 @@
           "lng": 151.21
         },
         {
-          "city": "Berlin",
+          "city": "London",
           "country": "",
-          "aqi": 30,
-          "lat": 52.52,
-          "lng": 13.41
-        },
-        {
-          "city": "Mexico City",
-          "country": "",
-          "aqi": 38,
-          "lat": 19.43,
-          "lng": -99.13
+          "aqi": 34,
+          "lat": 51.51,
+          "lng": -0.13
         },
         {
           "city": "Lagos",
           "country": "",
-          "aqi": 40,
+          "aqi": 35,
           "lat": 6.45,
           "lng": 3.4
+        },
+        {
+          "city": "Berlin",
+          "country": "",
+          "aqi": 36,
+          "lat": 52.52,
+          "lng": 13.41
         }
       ],
       "mostPolluted": [
         {
           "city": "Delhi",
           "country": "",
-          "aqi": 173,
+          "aqi": 180,
           "lat": 28.61,
           "lng": 77.21
         },
         {
           "city": "Beijing",
           "country": "",
-          "aqi": 93,
+          "aqi": 90,
           "lat": 39.9,
           "lng": 116.4
         },
         {
           "city": "Cairo",
           "country": "",
-          "aqi": 77,
+          "aqi": 69,
           "lat": 30.04,
           "lng": 31.24
         },
         {
-          "city": "Mumbai",
-          "country": "",
-          "aqi": 67,
-          "lat": 19.08,
-          "lng": 72.88
-        },
-        {
           "city": "Tokyo",
           "country": "",
-          "aqi": 65,
+          "aqi": 67,
           "lat": 35.68,
           "lng": 139.69
+        },
+        {
+          "city": "Mumbai",
+          "country": "",
+          "aqi": 50,
+          "lat": 19.08,
+          "lng": 72.88
         }
       ],
       "source": "Open-Meteo Air Quality"
@@ -1628,12 +1628,12 @@
         "lat": 52.52,
         "lng": 13.41,
         "current": {
-          "time": "2026-04-06T09:15",
+          "time": "2026-04-06T14:45",
           "interval": 900,
-          "temperature_2m": 7.2,
-          "relative_humidity_2m": 65,
-          "wind_speed_10m": 20.9,
-          "weather_code": 2
+          "temperature_2m": 12.7,
+          "relative_humidity_2m": 29,
+          "wind_speed_10m": 24.2,
+          "weather_code": 1
         }
       },
       {
@@ -1641,12 +1641,12 @@
         "lat": 40.71,
         "lng": -74.01,
         "current": {
-          "time": "2026-04-06T03:15",
+          "time": "2026-04-06T08:45",
           "interval": 900,
-          "temperature_2m": 5.7,
-          "relative_humidity_2m": 67,
-          "wind_speed_10m": 21.3,
-          "weather_code": 0
+          "temperature_2m": 5.4,
+          "relative_humidity_2m": 60,
+          "wind_speed_10m": 18.7,
+          "weather_code": 1
         }
       },
       {
@@ -1654,11 +1654,11 @@
         "lat": 35.68,
         "lng": 139.69,
         "current": {
-          "time": "2026-04-06T16:15",
+          "time": "2026-04-06T21:45",
           "interval": 900,
-          "temperature_2m": 19.9,
-          "relative_humidity_2m": 70,
-          "wind_speed_10m": 7.6,
+          "temperature_2m": 15.9,
+          "relative_humidity_2m": 75,
+          "wind_speed_10m": 5.9,
           "weather_code": 3
         }
       },
@@ -1667,12 +1667,12 @@
         "lat": -33.87,
         "lng": 151.21,
         "current": {
-          "time": "2026-04-06T17:15",
+          "time": "2026-04-06T22:45",
           "interval": 900,
-          "temperature_2m": 18.2,
-          "relative_humidity_2m": 71,
-          "wind_speed_10m": 3.7,
-          "weather_code": 3
+          "temperature_2m": 15.2,
+          "relative_humidity_2m": 87,
+          "wind_speed_10m": 3.1,
+          "weather_code": 1
         }
       },
       {
@@ -1680,12 +1680,12 @@
         "lat": -23.55,
         "lng": -46.63,
         "current": {
-          "time": "2026-04-06T04:15",
+          "time": "2026-04-06T09:45",
           "interval": 900,
-          "temperature_2m": 20.7,
-          "relative_humidity_2m": 92,
-          "wind_speed_10m": 5.4,
-          "weather_code": 3
+          "temperature_2m": 23.9,
+          "relative_humidity_2m": 73,
+          "wind_speed_10m": 6.3,
+          "weather_code": 2
         }
       },
       {
@@ -1693,11 +1693,11 @@
         "lat": 6.45,
         "lng": 3.4,
         "current": {
-          "time": "2026-04-06T08:15",
+          "time": "2026-04-06T13:45",
           "interval": 900,
-          "temperature_2m": 28.7,
-          "relative_humidity_2m": 79,
-          "wind_speed_10m": 6.7,
+          "temperature_2m": 32.8,
+          "relative_humidity_2m": 62,
+          "wind_speed_10m": 9.7,
           "weather_code": 3
         }
       },
@@ -1706,12 +1706,12 @@
         "lat": 19.08,
         "lng": 72.88,
         "current": {
-          "time": "2026-04-06T12:45",
+          "time": "2026-04-06T18:15",
           "interval": 900,
-          "temperature_2m": 28.3,
-          "relative_humidity_2m": 61,
-          "wind_speed_10m": 10.6,
-          "weather_code": 2
+          "temperature_2m": 27.8,
+          "relative_humidity_2m": 71,
+          "wind_speed_10m": 17.4,
+          "weather_code": 1
         }
       },
       {
@@ -1719,12 +1719,12 @@
         "lat": 51.51,
         "lng": -0.13,
         "current": {
-          "time": "2026-04-06T08:15",
+          "time": "2026-04-06T13:45",
           "interval": 900,
-          "temperature_2m": 6,
-          "relative_humidity_2m": 67,
-          "wind_speed_10m": 3.2,
-          "weather_code": 3
+          "temperature_2m": 14.8,
+          "relative_humidity_2m": 32,
+          "wind_speed_10m": 10.1,
+          "weather_code": 0
         }
       }
     ],
@@ -4683,33 +4683,7 @@
           "value": 3200000
         }
       ],
-      "latestArxiv": [
-        {
-          "title": "A scalable infrastructure for strontium optical clocks with integrated photonics",
-          "published": "2026-04-03T17:59:39Z",
-          "category": "physics.app-ph"
-        },
-        {
-          "title": "UNIONS-3500 Weak Lensing: II. B-mode validation for cosmic shear",
-          "published": "2026-04-03T17:56:10Z",
-          "category": "astro-ph.CO"
-        },
-        {
-          "title": "CO and N2 Produced from H2O, CO2, and NH3 Cometary Ice Analogs",
-          "published": "2026-04-03T17:32:12Z",
-          "category": "astro-ph.EP"
-        },
-        {
-          "title": "Coupled Control, Structured Memory, and Verifiable Action in Agentic AI (SCRAT -- Stochastic Control with Retrieval and Auditable Trajectories): A Comparative Perspective from Squirrel Locomotion and Scatter-Hoarding",
-          "published": "2026-04-03T17:25:05Z",
-          "category": "cs.AI"
-        },
-        {
-          "title": "Learning the Signature of Memorization in Autoregressive Language Models",
-          "published": "2026-04-03T17:17:51Z",
-          "category": "cs.CL"
-        }
-      ],
+      "latestArxiv": [],
       "source": "arXiv / Scopus"
     },
     "github": {
@@ -4719,73 +4693,73 @@
       "topRepos": [
         {
           "name": "codecrafters-io/build-your-own-x",
-          "stars": 486504,
-          "forks": 45777,
+          "stars": 486572,
+          "forks": 45783,
           "language": "Markdown",
-          "updated": "2026-04-06T07:20:15Z"
+          "updated": "2026-04-06T13:00:00Z"
         },
         {
           "name": "sindresorhus/awesome",
-          "stars": 452362,
-          "forks": 33987,
+          "stars": 452432,
+          "forks": 33990,
           "language": null,
-          "updated": "2026-04-06T07:19:48Z"
+          "updated": "2026-04-06T12:52:42Z"
         },
         {
           "name": "freeCodeCamp/freeCodeCamp",
-          "stars": 441713,
-          "forks": 44117,
+          "stars": 441857,
+          "forks": 44125,
           "language": "TypeScript",
-          "updated": "2026-04-06T07:22:05Z"
+          "updated": "2026-04-06T12:53:49Z"
         },
         {
           "name": "public-apis/public-apis",
-          "stars": 419496,
-          "forks": 45627,
+          "stars": 419571,
+          "forks": 45640,
           "language": "Python",
-          "updated": "2026-04-06T07:22:43Z"
+          "updated": "2026-04-06T12:55:39Z"
         },
         {
           "name": "EbookFoundation/free-programming-books",
-          "stars": 385058,
-          "forks": 66086,
+          "stars": 385077,
+          "forks": 66089,
           "language": "Python",
-          "updated": "2026-04-06T07:20:29Z"
+          "updated": "2026-04-06T12:55:48Z"
         },
         {
           "name": "kamranahmedse/developer-roadmap",
-          "stars": 352330,
-          "forks": 43871,
+          "stars": 352355,
+          "forks": 43875,
           "language": "TypeScript",
-          "updated": "2026-04-06T07:11:18Z"
+          "updated": "2026-04-06T12:50:35Z"
         },
         {
           "name": "openclaw/openclaw",
-          "stars": 349322,
-          "forks": 69991,
+          "stars": 349604,
+          "forks": 70089,
           "language": "TypeScript",
-          "updated": "2026-04-06T07:21:10Z"
+          "updated": "2026-04-06T13:00:02Z"
         },
         {
           "name": "donnemartin/system-design-primer",
-          "stars": 341550,
-          "forks": 55218,
+          "stars": 341584,
+          "forks": 55220,
           "language": "Python",
-          "updated": "2026-04-06T07:20:57Z"
+          "updated": "2026-04-06T12:58:46Z"
         },
         {
           "name": "jwasham/coding-interview-university",
-          "stars": 340332,
-          "forks": 81884,
+          "stars": 340360,
+          "forks": 81889,
           "language": null,
-          "updated": "2026-04-06T07:11:36Z"
+          "updated": "2026-04-06T12:50:40Z"
         },
         {
           "name": "vinta/awesome-python",
-          "stars": 290907,
-          "forks": 27589,
+          "stars": 290944,
+          "forks": 27585,
           "language": "Python",
-          "updated": "2026-04-06T07:10:18Z"
+          "updated": "2026-04-06T12:47:08Z"
         }
       ],
       "source": "GitHub"
@@ -5262,6 +5236,36 @@
     },
     "spaceflight": [
       {
+        "title": "Seagate Space Signs MOU with Firefly Aerospace to Collaborate on Offshore Launch Infrastructure for Alpha",
+        "published": "2026-04-06T12:15:00Z",
+        "source": "SpaceNews",
+        "summary": "\nSt. Petersburg, FL — April 6, 2026 — Seagate Space Corporation announced today a Memorandum of Understanding (MOU) with Firefly Aerospace to collaborate on the development of an offshore launch platf"
+      },
+      {
+        "title": "Today’s the Day! Artemis II Crew Ready for Lunar Flyby",
+        "published": "2026-04-06T12:01:50Z",
+        "source": "SpacePolicyOnline.com",
+        "summary": "Today four astronauts will fly around the Moon for the first time since 1972. The crew of Artemis II is closing in on the Moon and around lunchtime will surpass […]"
+      },
+      {
+        "title": "Military space programs confront hidden supply constraints",
+        "published": "2026-04-06T11:30:00Z",
+        "source": "SpaceNews",
+        "summary": "\nIndustry report warns components – from optical links to valves – may become chokepoints\nThe post Military space programs confront hidden supply constraints appeared first on SpaceNews."
+      },
+      {
+        "title": "Artemis 2 ready to fly around the moon",
+        "published": "2026-04-06T11:21:26Z",
+        "source": "SpaceNews",
+        "summary": "\nThe Artemis 2 mission will swing around the moon April 6, setting a distance record as astronauts study part of the lunar farside.\nThe post Artemis 2 ready to fly around the moon appeared first on Sp"
+      },
+      {
+        "title": "Avio Delays SMILE Launch After Component Production Issue Identified",
+        "published": "2026-04-06T08:21:49Z",
+        "source": "European Spaceflight",
+        "summary": "The Italian launch services provider Avio has postponed the launch of the European Space Agency’s (ESA) SMILE mission aboard a Vega C rocket after an issue was identified on the production line of a s"
+      },
+      {
         "title": "Artemis astronauts send down Easter message, prep for lunar fly around Monday",
         "published": "2026-04-05T23:57:02Z",
         "source": "Spaceflight Now",
@@ -5290,36 +5294,6 @@
         "published": "2026-04-05T14:04:33Z",
         "source": "NASA",
         "summary": "On April 4, 2026, NASA astronaut and Artemis II Commander Reid Wiseman peers out of one of the Orion spacecraft’s main cabin windows, looking back at Earth, as the crew travels towards the Moon. The A"
-      },
-      {
-        "title": "NASA finalizes science plans for Artemis 2 lunar flyby",
-        "published": "2026-04-05T03:29:58Z",
-        "source": "SpaceNews",
-        "summary": "WASHINGTON — As Artemis 2 approaches the moon, a NASA science team is finalizing plans for the observations they want the astronauts to perform during their flyby. At an April 4 briefing, a representa"
-      },
-      {
-        "title": "Artemis II is going so well that we're left to talk about frozen urine",
-        "published": "2026-04-05T00:12:45Z",
-        "source": "Arstechnica",
-        "summary": "\"I think the fixation on the toilet is kind of human nature.\""
-      },
-      {
-        "title": "Orion Spacecraft Races Toward Historic Lunar Flyby in Artemis II Mission",
-        "published": "2026-04-04T21:57:48Z",
-        "source": "NASASpaceflight",
-        "summary": "As NASA’s Artemis II mission enters its critical mid-flight phase, the Orion spacecraft—carrying the first…\r\nThe post Orion Spacecraft Races Toward Historic Lunar Flyby in Artemis II Mission appeared "
-      },
-      {
-        "title": "Atlas 5 launches Amazon Leo satellites",
-        "published": "2026-04-04T20:27:36Z",
-        "source": "SpaceNews",
-        "summary": "An Atlas 5 launched the latest set of satellites for Amazon’s broadband constellation April 4 as the company seeks to accelerate deployment of its spacecraft.\r\nThe post Atlas 5 launches Amazon Leo sat"
-      },
-      {
-        "title": "NASA Answers Your Most Pressing Artemis II Questions",
-        "published": "2026-04-04T19:44:31Z",
-        "source": "NASA",
-        "summary": "The first crewed test flight under NASA’s Artemis program is underway. Four Artemis II astronauts are flying aboard NASA’s Orion spacecraft around the Moon and back, as they test how the spacecraft’s "
       }
     ]
   },
@@ -5327,87 +5301,87 @@
     "earthquakes": {
       "last24h": [
         {
-          "location": "190 km S of Kushimoto, Japan",
-          "magnitude": 4.9,
-          "depth": 10,
-          "lat": 31.7549,
-          "lng": 135.8854,
-          "time": "2026-04-06T06:45:10.543Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "43 km WSW of Stella, Puerto Rico",
-          "magnitude": 2.98,
-          "depth": 19.22,
-          "lat": 18.2268333333333,
-          "lng": -67.6471666666667,
-          "time": "2026-04-06T06:35:54.540Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "south of the Kermadec Islands",
-          "magnitude": 5.2,
-          "depth": 10,
-          "lat": -32.0443,
-          "lng": -177.9761,
-          "time": "2026-04-06T06:15:25.459Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "80 km SSE of Kaktovik, Alaska",
+          "location": "84 km SE of Chignik, Alaska",
           "magnitude": 2.5,
-          "depth": 8.6,
-          "lat": 69.436,
-          "lng": -143.046,
-          "time": "2026-04-06T05:45:39.611Z",
+          "depth": 4.4,
+          "lat": 55.818,
+          "lng": -157.348,
+          "time": "2026-04-06T12:54:18.608Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "64 km S of Boca de Yuma, Dominican Republic",
-          "magnitude": 3.39,
-          "depth": 82.7,
-          "lat": 17.799,
-          "lng": -68.6655,
-          "time": "2026-04-06T05:37:59.710Z",
+          "location": "Pacific-Antarctic Ridge",
+          "magnitude": 5.9,
+          "depth": 10,
+          "lat": -54.994,
+          "lng": -129.111,
+          "time": "2026-04-06T11:18:37.401Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "131 km NW of Ternate, Indonesia",
-          "magnitude": 4.9,
-          "depth": 35,
-          "lat": 1.5073,
-          "lng": 126.4387,
-          "time": "2026-04-06T05:32:11.735Z",
+          "location": "81 km SE of Boca de Yuma, Dominican Republic",
+          "magnitude": 3.9,
+          "depth": 40,
+          "lat": 17.9486,
+          "lng": -67.9856,
+          "time": "2026-04-06T10:06:50.220Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "99 km N of Charlotte Amalie, U.S. Virgin Islands",
-          "magnitude": 3.39,
-          "depth": 49.35,
-          "lat": 19.235,
-          "lng": -64.835,
-          "time": "2026-04-06T05:19:32.940Z",
+          "location": "20 km S of Nikolski, Alaska",
+          "magnitude": 2.7,
+          "depth": 138.1,
+          "lat": 52.76,
+          "lng": -168.895,
+          "time": "2026-04-06T08:39:55.891Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "14 km NE of Milford, Utah",
-          "magnitude": 2.47,
-          "depth": 2.74,
-          "lat": 38.504,
-          "lng": -112.906166666667,
-          "time": "2026-04-06T05:06:41.500Z",
+          "location": "153 km ESE of Kokopo, Papua New Guinea",
+          "magnitude": 4.8,
+          "depth": 109.911,
+          "lat": -4.6189,
+          "lng": 153.6284,
+          "time": "2026-04-06T08:27:49.004Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "62 km E of Port-Olry, Vanuatu",
+          "magnitude": 4.5,
+          "depth": 162.925,
+          "lat": -15.1395,
+          "lng": 167.642,
+          "time": "2026-04-06T08:19:52.123Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "41 km SSE of Nikolski, Alaska",
+          "magnitude": 2.5,
+          "depth": 24.9,
+          "lat": 52.587,
+          "lng": -168.652,
+          "time": "2026-04-06T07:42:14.338Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "23 km S of Larsen Bay, Alaska",
+          "magnitude": 3,
+          "depth": 67.6,
+          "lat": 57.334,
+          "lng": -153.924,
+          "time": "2026-04-06T07:33:05.482Z",
           "tsunami": false,
           "type": "earthquake"
         }
       ],
-      "total24h": 48,
+      "total24h": 49,
       "source": "USGS"
     },
     "newsSentiment": {
@@ -5436,22 +5410,64 @@
     },
     "news": [
       {
+        "title": "How US operation to rescue air officer from Iran unfolded",
+        "pubDate": "Mon, 06 Apr 2026 12:42:47 +0000",
+        "link": "https://www.aljazeera.com/news/2026/4/6/how-us-operation-to-rescue-air-officer-from-iran-unfolded?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "Improving neighbourly relations: US-Mexico border authorities close the door",
+        "pubDate": "Mon, 06 Apr 2026 12:39:50 GMT",
+        "link": "https://www.france24.com/en/tv-shows/focus/20260406-improving-neighbourly-relations-us-mexico-border-authorities-close-the-door",
+        "source": "France24"
+      },
+      {
+        "title": "How rescue of US airman in remote part of Iran unfolded",
+        "pubDate": "Mon, 06 Apr 2026 12:22:21 GMT",
+        "link": "https://www.bbc.com/news/articles/cx2vpz1kwreo?at_medium=RSS&amp;at_campaign=rss",
+        "source": "BBC World"
+      },
+      {
+        "title": "Has Trump confirmed Iran’s claim that protesters were US-armed?",
+        "pubDate": "Mon, 06 Apr 2026 11:52:36 +0000",
+        "link": "https://www.aljazeera.com/news/2026/4/6/has-trump-confirmed-irans-claim-that-protesters-were-us-armed?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "Iran threatens Bab al-Mandeb closure: How would that affect world trade?",
+        "pubDate": "Mon, 06 Apr 2026 11:49:04 +0000",
+        "link": "https://www.aljazeera.com/news/2026/4/6/iran-threatens-bab-al-mandeb-closure-how-would-that-affect-world-trade?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "'Really feeling the love' - Savannah Guthrie returns to NBC as search for mother goes on",
+        "pubDate": "Mon, 06 Apr 2026 11:48:29 GMT",
+        "link": "https://www.bbc.com/news/articles/c04xqglg7xgo?at_medium=RSS&amp;at_campaign=rss",
+        "source": "BBC World"
+      },
+      {
+        "title": "DR Congo agrees to take deportees from the US",
+        "pubDate": "Mon, 06 Apr 2026 11:29:15 GMT",
+        "link": "https://www.bbc.com/news/articles/c20d35eejxgo?at_medium=RSS&amp;at_campaign=rss",
+        "source": "BBC World"
+      },
+      {
+        "title": "Explosives found by pipeline to Hungary: PM Orban clams sabotage",
+        "pubDate": "Mon, 06 Apr 2026 09:54:38 GMT",
+        "link": "https://www.france24.com/en/explosives-found-by-pipeline-to-hungary-pm-orban-clams-sabotage",
+        "source": "France24"
+      },
+      {
+        "title": "War in the Middle East: 15 dead in israeli strikes on Lebanon",
+        "pubDate": "Mon, 06 Apr 2026 09:48:20 GMT",
+        "link": "https://www.france24.com/en/war-in-the-middle-east-15-dead-in-israeli-strikes-on-lebanon",
+        "source": "France24"
+      },
+      {
         "title": "Mediterranean sharks are vanishing in a legal void",
         "pubDate": "Mon, 6 Apr 2026 07:05:00 GMT",
         "link": "https://www.dw.com/en/mediterranean-sharks-are-vanishing-in-a-legal-void/a-76594337?maca=en-rss-en-world-4025-xml-mrss",
         "source": "DW News"
-      },
-      {
-        "title": "Man City captain Silva to leave Premier League club at season’s end",
-        "pubDate": "Mon, 06 Apr 2026 06:34:00 +0000",
-        "link": "https://www.aljazeera.com/sports/2026/4/6/man-city-captain-silva-to-leave-premier-league-club-at-seasons-end?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "Steph Curry returns from injury with 29 points but Warriors lose to Rockets",
-        "pubDate": "Mon, 06 Apr 2026 06:09:38 +0000",
-        "link": "https://www.aljazeera.com/sports/2026/4/6/steph-curry-returns-from-injury-with-29-points-but-warriors-lose-to-rockets?traffic_source=rss",
-        "source": "Al Jazeera"
       },
       {
         "title": "Russians living in exile cope with grief far from home",
@@ -5460,58 +5476,16 @@
         "source": "DW News"
       },
       {
-        "title": "A new regional order for the Strait of Hormuz",
-        "pubDate": "Mon, 06 Apr 2026 05:40:17 +0000",
-        "link": "https://www.aljazeera.com/opinions/2026/4/6/a-new-regional-order-for-the-strait-of-hormuz?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "Ligue 1: Monaco defeat Marseille as Champions League race tightens",
-        "pubDate": "Mon, 06 Apr 2026 05:13:41 GMT",
-        "link": "https://www.france24.com/en/tv-shows/sports/20260406-ligue-1-monaco-defeat-marseille-as-champions-league-race-tightens",
-        "source": "France24"
-      },
-      {
         "title": "Faster Detection of Forest Loss",
         "pubDate": "Mon, 06 Apr 2026 04:00:00 +0000",
         "link": "https://science.nasa.gov/earth/earth-observatory/faster-detection-of-forest-loss/",
         "source": "NASA Earth"
       },
       {
-        "title": "Middle East war live: More than 25 killed in new US-Israeli strikes on Iran",
-        "pubDate": "Mon, 06 Apr 2026 02:49:03 GMT",
-        "link": "https://www.france24.com/en/middle-east/20260406-middle-east-war-live-iran-vows-harsh-response-after-usa-trump-threatens-civilian-targets",
-        "source": "France24"
-      },
-      {
-        "title": "Artemis II astronauts prepare for historic Moon flyby",
-        "pubDate": "Mon, 06 Apr 2026 01:55:52 GMT",
-        "link": "https://www.france24.com/en/americas/20260406-artemis-2-astronauts-prepare-for-historic-moon-flyby-monday-space-nasa",
-        "source": "France24"
-      },
-      {
         "title": "Displaced in Lebanon: &#039;Lives turned upside down&#039;",
         "pubDate": "Mon, 6 Apr 2026 00:36:00 GMT",
         "link": "https://www.dw.com/en/displaced-in-lebanon-lives-turned-upside-down/a-76662137?maca=en-rss-en-world-4025-xml-mrss",
         "source": "DW News"
-      },
-      {
-        "title": "Trump declares victory after rescue but threats to US operation in Iran still loom",
-        "pubDate": "Mon, 06 Apr 2026 00:23:16 GMT",
-        "link": "https://www.bbc.com/news/articles/cy01vg7x5ppo?at_medium=RSS&amp;at_campaign=rss",
-        "source": "BBC World"
-      },
-      {
-        "title": "How rescue of US airman in remote part of Iran unfolded",
-        "pubDate": "Sun, 05 Apr 2026 21:19:02 GMT",
-        "link": "https://www.bbc.com/news/articles/cx2vpz1kwreo?at_medium=RSS&amp;at_campaign=rss",
-        "source": "BBC World"
-      },
-      {
-        "title": "Hungary alleges plot to blow up gas pipeline ahead of election",
-        "pubDate": "Sun, 05 Apr 2026 19:17:42 GMT",
-        "link": "https://www.bbc.com/news/articles/cj60x206dx1o?at_medium=RSS&amp;at_campaign=rss",
-        "source": "BBC World"
       },
       {
         "title": "Thinking of You, Earth",
@@ -5607,7 +5581,7 @@
         "sunspots": 85.9
       }
     ],
-    "lastUpdated": "2026-04-06T07:24:05.387Z"
+    "lastUpdated": "2026-04-06T13:03:34.251Z"
   },
   "momentum": {
     "indicators": [
