@@ -5,23 +5,23 @@
 
 ---
 
-## 🌍 Welt-Indikator: 65.8 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 65.7 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  65.8/100  ↑ +0.3
+█████████████░░░░░░░  65.7/100  ↓ -0.1
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 09.04.2026 07:18 UTC
+> **Letzte Aktualisierung:** 09.04.2026 13:17 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟡 Umwelt | **48.2**/100 | ↑ +3.5 | 25% |
-| 🟡 Gesellschaft | **55.7**/100 | → +0 | 25% |
-| 🟢 Wirtschaft | **66.6**/100 | ↓ -1.6 | 20% |
-| 🟢 Fortschritt | **77.2**/100 | ↓ -0.9 | 20% |
+| 🟡 Umwelt | **44.8**/100 | ↓ -3.4 | 25% |
+| 🟡 Gesellschaft | **55.8**/100 | → +0.1 | 25% |
+| 🟢 Wirtschaft | **68.2**/100 | ↑ +1.6 | 20% |
+| 🟢 Fortschritt | **78.1**/100 | ↑ +0.9 | 20% |
 | 🟢 Momentum | **80**/100 | → +0 | 10% |
 
 ---
@@ -34,7 +34,7 @@
 | Temperaturanomalie | **+1.19°C** | NASA GISTEMP |
 | CO2-Konzentration | **429 ppm** | NOAA |
 | Arktis-Eisfläche | **4.2 Mio km²** (46.2% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **53** | WAQI |
+| Luftqualität (Ø) | AQI **57** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -56,7 +56,7 @@
 | Indikator | Wert | Quelle |
 |-----------|------|--------|
 | Internet-Nutzer | **73.6%** (5.4 Mrd) | ITU |
-| Alphabetisierung | **87.4%** | UNESCO |
+| Alphabetisierung | **87.7%** | UNESCO |
 | Wiss. Publikationen | **3.2 Mio/Jahr** | arXiv/Scopus |
 | GitHub Commits | **142.0 Mio/Tag** | GitHub |
 
@@ -230,5 +230,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 09.04.2026 07:18 UTC | 23/41 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 09.04.2026 13:17 UTC | 41/41 Quellen aktiv
 </sub>
