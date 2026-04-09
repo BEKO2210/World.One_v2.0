@@ -5,23 +5,23 @@
 
 ---
 
-## 🌍 Welt-Indikator: 65.5 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 65.8 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  65.5/100  ↑ +0
+█████████████░░░░░░░  65.8/100  ↑ +0.3
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 09.04.2026 01:51 UTC
+> **Letzte Aktualisierung:** 09.04.2026 07:18 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟡 Umwelt | **44.7**/100 | → +0 | 25% |
+| 🟡 Umwelt | **48.2**/100 | ↑ +3.5 | 25% |
 | 🟡 Gesellschaft | **55.7**/100 | → +0 | 25% |
-| 🟢 Wirtschaft | **68.2**/100 | → -0.1 | 20% |
-| 🟢 Fortschritt | **78.1**/100 | → +0 | 20% |
+| 🟢 Wirtschaft | **66.6**/100 | ↓ -1.6 | 20% |
+| 🟢 Fortschritt | **77.2**/100 | ↓ -0.9 | 20% |
 | 🟢 Momentum | **80**/100 | → +0 | 10% |
 
 ---
@@ -56,7 +56,7 @@
 | Indikator | Wert | Quelle |
 |-----------|------|--------|
 | Internet-Nutzer | **73.6%** (5.4 Mrd) | ITU |
-| Alphabetisierung | **87.7%** | UNESCO |
+| Alphabetisierung | **87.4%** | UNESCO |
 | Wiss. Publikationen | **3.2 Mio/Jahr** | arXiv/Scopus |
 | GitHub Commits | **142.0 Mio/Tag** | GitHub |
 
@@ -230,5 +230,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 09.04.2026 01:51 UTC | 41/41 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 09.04.2026 07:18 UTC | 23/41 Quellen aktiv
 </sub>
