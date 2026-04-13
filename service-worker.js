@@ -5,7 +5,7 @@
 
 // IMPORTANT: Bump this version on every deploy so users get fresh code.
 // The data-pipeline auto-increments this via generate-meta.js.
-const CACHE_VERSION = '20260413-0211';
+const CACHE_VERSION = '20260413-0757';
 const CACHE_NAME = `worldone-${CACHE_VERSION}`;
 const DATA_PATHS = ['/world-state.json', '/manifest.json', '/data/'];
 
