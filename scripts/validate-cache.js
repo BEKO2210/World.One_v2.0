@@ -45,6 +45,10 @@ const EXPECTED_FILES = [
   'space.json',
   'health.json',
   'internet.json'
+  // Premium-gated caches (fred.json, waqi.json, news.json) are OPTIONAL —
+  // only appear when the corresponding GitHub Secret is set. Intentionally
+  // excluded from EXPECTED_FILES so --full validation does not fail on
+  // partial-secret rollouts.
 ];
 
 const EXPECTED_JOBS = [
@@ -54,7 +58,8 @@ const EXPECTED_JOBS = [
   'update-economy-ext',
   'update-progress-ext',
   'update-disasters',
-  'update-live-data'
+  'update-live-data',
+  'update-premium-sources'
 ];
 
 // ─── Utility: Format duration ───

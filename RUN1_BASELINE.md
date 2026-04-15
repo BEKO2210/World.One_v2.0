@@ -180,6 +180,39 @@ node scripts/cache-live-data.js                  # 9/10 live (temperature deferr
 
 ---
 
+# Premium Sources Integration (env-gated)
+
+Free-tier APIs that require a key/secret. Each one is silently skipped
+at runtime if its env var is missing, so partial rollouts are safe.
+
+| Source   | Secret name     | Sign-up URL                                         | Cache file        |
+|----------|-----------------|-----------------------------------------------------|-------------------|
+| ACLED    | `ACLED_EMAIL` + `ACLED_PASSWORD` | https://acleddata.com/register/      | `conflicts.json`  |
+| UCDP     | (none — keyless)                 | https://ucdp.uu.se/apidocs/           | `conflicts.json`  |
+| FRED     | `FRED_API_KEY`                   | https://fredaccount.stlouisfed.org/apikeys | `fred.json`  |
+| WAQI     | `WAQI_TOKEN`                     | https://aqicn.org/data-platform/token/ | `waqi.json`      |
+| NewsAPI  | `NEWS_API_KEY`                   | https://newsapi.org/register          | `news.json`       |
+
+Workflow integration:
+- `.github/workflows/cache-pipeline.yml` has a dedicated 06:30-UTC
+  `update-premium-sources` job that runs `scripts/cache-premium-sources.js`
+  with `FRED_API_KEY`, `WAQI_TOKEN`, `NEWS_API_KEY` piped from repo secrets.
+- ACLED + UCDP stay in `update-society-ext` (04:00 UTC) where they already
+  lived.
+
+Local testing:
+```bash
+# Skip everything (no env set):
+node scripts/cache-premium-sources.js
+# -> "0 ok, 3 skipped (no token), 0 errors"
+
+# Run a single source:
+FRED_API_KEY=xxx node scripts/cache-premium-sources.js
+# -> fred runs, waqi + news are skipped
+```
+
+---
+
 # Run 2 — Routing & Navigation Integrity
 
 Roadmap Run 2. Goal: stable main↔detail navigation without broken topic links.
