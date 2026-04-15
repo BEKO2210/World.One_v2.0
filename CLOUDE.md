@@ -35,7 +35,8 @@ World.One ist eine Static-Site (GitHub Pages) mit:
 | `8004900` | ui consistency Schritt 2 + SW | Alle 14 Main-Page-Counter haben stabile IDs + werden zentral live gebunden (`_syncLiveCounters`). Processor exponiert `biodiversity.threatenedTotal`, `population.totalMillions`. Service Worker: `updateViaCache:'none'`, periodische Update-Checks alle 30 min, auto-reload bei Controller-Wechsel, resilient-install mit `allSettled`. |
 | `e06f6e2` | ui consistency Schritt 3 | Detail-Topic-Fallbacks auf aktuelle Live-Werte gehoben (biodiversity/endangered/extinction: 129753→130285; forests 31.2→31.14; renewables 29.6→19.7; temperature 1.45→1.19). crypto_sentiment.js liest jetzt Live-Cache (alternative.me) mit 30-Tage-Serie statt hardcoded. |
 | `181d598` | ui consistency Schritt 4 | i18n bekommt globale Platzhalter `{currentYear}`, `{tempLatestYear}`, `{popLatestYear}`, `{freedomStreak}`. 5 zeitgebundene Strings (DE+EN) umgestellt. `_applyDynamicYears(data)` in app.js leitet Werte aus world-state ab und schiebt sie via `setGlobalParams()` ins i18n — alle `[data-i18n]`-Elemente re-rendern automatisch. SW v20260415-2305. |
-| **HEAD** | ui consistency Schritt 5 | `supportsTimeRange` Audit: 3 stille Bugs gefixt. `timerangechange` wird jetzt auf `document` dispatcht (war auf sibling-block → 3 Topics stumm). `renewables.js` Case-Mismatch UPPERCASE→lowercase. `conflicts.js` hardcoded `2019`/`2004` → `currentYear - N`. Alle 5 Selektoren jetzt funktional. SW v20260415-2320. |
+| `9be41c6` | ui consistency Schritt 5 | `supportsTimeRange` Audit: 3 stille Bugs gefixt. `timerangechange` wird jetzt auf `document` dispatcht (war auf sibling-block → 3 Topics stumm). `renewables.js` Case-Mismatch UPPERCASE→lowercase. `conflicts.js` hardcoded `2019`/`2004` → `currentYear - N`. Alle 5 Selektoren jetzt funktional. SW v20260415-2320. |
+| **HEAD** | ui consistency Schritt 6 | Tier-Badge-API: neue `source` Option, kontextsensitives Tooltip (live/cache/static mit Alters-Text), normalized-tier Guard, 6 neue i18n Keys DE+EN. Main-Page Counter: 14/14 bekommen `title`-Tooltip "Quelle: X · aktualisiert vor Yh" via `_syncLiveCounters` + `findInd()` Indicator-Lookup aus world-state. SW v20260415-2340. |
 
 ---
 
@@ -332,13 +333,48 @@ Nicht angefasst (bewusst):
   via `i18n.t('detail.range.*')`, Platzhalter-Ersatz greift nicht
   (kurze Strings wie "1Y", "5Y", "Max").
 
-### 🔜 Schritt 6 — Visuell kosmetisch ohne Risiko
+### ✅ Schritt 6 — Kosmetik: Tier-Badges + Counter-Tooltips
 
-- Konsistente Typographie für "aktualisiert vor Xh" Badges (Run 3 hat sie für
-  Sub-Scores gerendert — gleichen Style für Topic-Hero-Tier-Badges verwenden).
-- Einheitliche Tier-Badge (live/cache/static) Darstellung über alle 29 Topics.
-- Skeleton-Loader-Konsistenz: einheitliche Padding/Höhe vor Live-Render.
-- Hover-Tooltips auf Counter-Werten: "Quelle: X · aktualisiert: Y".
+**Tier-Badge API erweitert** (`js/utils/badge.js`):
+
+- Neue Option `source` in `createTierBadge(tier, {source, age, year})`.
+- Tooltip (`title` + `aria-label`) wird pro Tier kontext-sensitiv aufgebaut:
+  - `live` → "Quelle: X · Echtzeit-API"
+  - `cache` (< 1h) → "… · gerade aktualisiert"
+  - `cache` (1-23h) → "… · aktualisiert vor Xh"
+  - `cache` (≥ 24h) → "… · aktualisiert vor Xd · Daten älter als 24h"
+  - `static` → "Quelle: X · Statischer Fallback"
+- `normalizedTier` Guard: unerwartete Werte fallen sicher auf `static` zurück
+  (vorher: broken variant class).
+- Neue i18n-Keys (DE + EN): `badge.sourceLabel`, `badge.liveLabel`,
+  `badge.ageJustNow`, `badge.ageHours` (mit `{n}`), `badge.ageDays`,
+  `badge.staticNote`.
+
+**Main-Page Counter-Tooltips** (`js/app.js _syncLiveCounters`):
+
+Jeder der 14 Live-Counter bekommt `title="Quelle: X · aktualisiert vor Yh"`.
+Datenfluss:
+
+- `findInd(category, nameFragment)` sucht den passenden Indikator im
+  world-state (der seit Run 3 `source`, `ageHours`, `fetchedAt` trägt).
+- `buildTooltip(info)` formatiert „Quelle: X · aktualisiert vor Yh".
+- `set(id, value, decimals, tipInfo)` setzt neben `data-target` auch
+  `el.title`.
+
+Dadurch zeigt der Hover auf CO2, Life Expectancy, Internet, Literacy,
+GitHub-Repos etc. jetzt die Live-Datenquelle + Alter.
+Für Counter ohne freshness-tracking (Biodiversity, Refugees, Wealth,
+Population) liefert der Aufruf direkt ein `{source}`-Objekt.
+
+**Skeleton-Loader**: Audit zeigte, dass `detail/index.html` alle 7
+Blocks konsistent mit `.detail-block--skeleton` markiert, CSS in
+`css/detail.css` (Zeilen 110-130) deckt hero/chart/trend/tiles/
+explanation/comparison/sources ab. Keine Änderung nötig.
+
+**Nicht angefasst**:
+- 29 Topic-`createTierBadge`-Aufrufe behalten ihre bestehende Signatur.
+  Die neuen `source` / Tooltip-Features kommen automatisch rein sobald
+  Topics ihre Calls erweitern — rückwärtskompatibel.
 
 ### 🔜 Schritt 7 — Accessibility-Sweep
 

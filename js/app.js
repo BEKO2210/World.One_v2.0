@@ -295,7 +295,26 @@ class BelkisOne {
     const eco = data.economy || {};
     const prog = data.progress || {};
 
-    const set = (id, value, decimals = null) => {
+    // Formatiert ein Alter in Stunden als Text fürs Tooltip
+    const ageText = (h) => {
+      if (h == null || !Number.isFinite(h)) return null;
+      if (h < 1)   return 'gerade aktualisiert';
+      if (h < 24)  return `aktualisiert vor ${Math.round(h)}h`;
+      return `aktualisiert vor ${Math.round(h / 24)}d`;
+    };
+
+    // Baut ein Hover-Tooltip "Quelle: X · aktualisiert vor Yh" aus einem
+    // Objekt mit {source, ageHours, fetchedAt} (wie von process-data.js
+    // an jedem scored indicator emittiert).
+    const buildTooltip = (info) => {
+      const parts = [];
+      if (info?.source) parts.push(`Quelle: ${info.source}`);
+      const t = ageText(info?.ageHours);
+      if (t) parts.push(t);
+      return parts.length ? parts.join(' · ') : null;
+    };
+
+    const set = (id, value, decimals = null, tipInfo = null) => {
       if (value == null || !Number.isFinite(Number(value))) return;
       const el = document.getElementById(id);
       if (!el) return;
@@ -305,38 +324,51 @@ class BelkisOne {
       if (el.dataset.target !== String(rounded)) {
         el.dataset.target = String(rounded);
       }
+      const tip = buildTooltip(tipInfo);
+      if (tip) el.title = tip;
+    };
+
+    // Lookup: find an indicator by name-fragment in a sub-score category.
+    // Run 3 emitted freshness ({source, ageHours, fetchedAt}) onto each
+    // indicator, so we can feed that straight into the counter tooltip.
+    const findInd = (cat, nameContains) => {
+      const arr = data.subScores?.[cat]?.indicators || [];
+      return arr.find(i => (i.name || '').toLowerCase().includes(nameContains.toLowerCase())) || null;
     };
 
     // ─── Environment ───
-    set('co2-value', env.co2?.current, 0);
-    set('arctic-ice-value', env.arcticIce?.current, 1);
-    set('ocean-plastic-value', env.ocean?.plasticMt, 0);
-    set('bio-threatened-count', env.biodiversity?.threatenedTotal, 0);
+    set('co2-value',            env.co2?.current,                 0, findInd('environment', 'CO2-'));
+    set('arctic-ice-value',     env.arcticIce?.current,           1, findInd('environment', 'Arktis'));
+    set('ocean-plastic-value',  env.ocean?.plasticMt,             0, { source: 'GESAMP / UNEP' });
+    set('bio-threatened-count', env.biodiversity?.threatenedTotal, 0, {
+      source: env.biodiversity?.source || 'GBIF / IUCN',
+      ageHours: env.biodiversity?.ageHours,
+      fetchedAt: env.biodiversity?.fetchedAt
+    });
 
     // ─── Society ───
-    // Counter shows "8200 Mio" → we emit totalMillions from processor.
-    set('population-value', soc.population?.totalMillions, 0);
-    set('life-expectancy-value', soc.lifeExpectancy?.global, 1);
-    set('refugee-counter-value', soc.refugees?.total, 0);
+    set('population-value',       soc.population?.totalMillions, 0, { source: soc.population?.source || 'UN DESA / World Bank' });
+    set('life-expectancy-value',  soc.lifeExpectancy?.global,    1, findInd('society', 'Lebenserwartung'));
+    set('refugee-counter-value',  soc.refugees?.total,           0, { source: soc.refugees?.source || 'UNHCR' });
 
     // ─── Economy ───
-    set('billionaires-value', eco.wealth?.billionaires, 0);
-    // Extreme poverty stored as absolute in world-state (648000000);
-    // counter shows "648 Mio" → divide.
+    set('billionaires-value',     eco.wealth?.billionaires,      0, { source: eco.wealth?.source || 'Forbes / Oxfam' });
     if (eco.wealth?.extremePoverty != null) {
-      set('extreme-poverty-value', Math.round(eco.wealth.extremePoverty / 1e6), 0);
+      set('extreme-poverty-value', Math.round(eco.wealth.extremePoverty / 1e6), 0,
+        { source: 'World Bank' });
     }
-    set('gdp-growth-value', eco.gdpGrowth?.global, 1);
+    set('gdp-growth-value',       eco.gdpGrowth?.global,         1, findInd('economy', 'BIP-Wachstum'));
 
     // ─── Progress ───
-    set('internet-penetration-value', prog.internet?.penetration, 1);
-    set('literacy-value', prog.literacy?.global, 1);
-    // GitHub commits/devs stored as absolute (142000000); counter shows "142 Mio".
+    set('internet-penetration-value', prog.internet?.penetration, 1, findInd('progress', 'Internet'));
+    set('literacy-value',             prog.literacy?.global,      1, findInd('progress', 'Alphabet'));
     if (prog.github?.dailyCommits != null) {
-      set('github-commits-value', Math.round(prog.github.dailyCommits / 1e6), 0);
+      set('github-commits-value', Math.round(prog.github.dailyCommits / 1e6), 0,
+        findInd('progress', 'GitHub'));
     }
     if (prog.github?.activeDevs != null) {
-      set('github-devs-value', Math.round(prog.github.activeDevs / 1e6), 0);
+      set('github-devs-value', Math.round(prog.github.activeDevs / 1e6), 0,
+        findInd('progress', 'GitHub'));
     }
   }
 

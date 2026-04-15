@@ -372,6 +372,12 @@ const translations = {
     'badge.cache': 'Cache',
     'badge.static': 'Statisch',
     'badge.staleWarning': 'Daten älter als 24h',
+    'badge.sourceLabel': 'Quelle',
+    'badge.liveLabel': 'Echtzeit-API',
+    'badge.ageJustNow': 'gerade aktualisiert',
+    'badge.ageHours': 'aktualisiert vor {n}h',
+    'badge.ageDays': 'aktualisiert vor {n}d',
+    'badge.staticNote': 'Statischer Fallback',
 
     // ─── Detail Page ───
     'detail.back': 'Zurück',
@@ -1559,6 +1565,12 @@ const translations = {
     'badge.cache': 'Cache',
     'badge.static': 'Static',
     'badge.staleWarning': 'Data older than 24h',
+    'badge.sourceLabel': 'Source',
+    'badge.liveLabel': 'Real-time API',
+    'badge.ageJustNow': 'just updated',
+    'badge.ageHours': 'updated {n}h ago',
+    'badge.ageDays': 'updated {n}d ago',
+    'badge.staticNote': 'Static fallback',
 
     // ─── Detail Page ───
     'detail.back': 'Back',
