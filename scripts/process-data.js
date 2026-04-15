@@ -1192,7 +1192,16 @@ function buildWorldState() {
         source: 'World Bank / WHO'
       },
       childMortality: { current: childMortCurrent, history: childMortHistory, source: 'World Bank' },
-      population: { current: latest(popData?.history || [])?.value, history: popData?.history || [], source: 'World Bank' },
+      population: (() => {
+        const latestPop = latest(popData?.history || [])?.value;
+        const current = latestPop ?? existing?.society?.population?.current ?? 8100000000;
+        return {
+          current,                               // people (World Bank raw scale)
+          totalMillions: Math.round(current / 1e6), // convenience for UI counters
+          history: popData?.history || [],
+          source: 'World Bank (SP.POP.TOTL)'
+        };
+      })(),
       electricityAccess: { current: electricityCurrent, history: electricityData?.history || [], source: 'World Bank' },
       safeWater: { current: waterCurrent, history: waterData?.history || [], source: 'World Bank' },
       education: { enrollment: latest(educationData?.history || [])?.value, history: educationData?.history || [], source: 'World Bank / UNESCO' },

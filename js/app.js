@@ -217,6 +217,7 @@ class BelkisOne {
     this._crisisMapBuilt = false;
 
     // ── Populate all static data into HTML (each section isolated) ──
+    try { this._syncLiveCounters(data); } catch (e) { console.error('[BelkisOne] Counter sync error:', e); }
     try { this._populateProlog(data); } catch (e) { console.error('[BelkisOne] Prolog error:', e); }
     try { this._populateIndicatorTrend(data); } catch (e) { console.error('[BelkisOne] Indicator trend error:', e); }
     try { this._populateEnvironmentValues(data); } catch (e) { console.error('[BelkisOne] Env values error:', e); }
@@ -278,6 +279,64 @@ class BelkisOne {
   // ─── Helper: Escape HTML to prevent XSS ───
   _esc(str) {
     return MathUtils.escapeHTML(str);
+  }
+
+  // ─── Live-Counter Synchronisation (Schritt 2) ───
+  // Zentrale Single-Source-of-Truth für alle data-counter Targets auf
+  // der Hauptseite. Läuft EINMAL vor dem ersten Counter-Start, damit
+  // die Animation sofort zum Live-Wert läuft (nicht zu stalem HTML).
+  // Bindet nur Counter mit stabiler ID — bei fehlendem Wert bleibt
+  // der HTML-Fallback erhalten.
+  _syncLiveCounters(data) {
+    if (!data) return;
+    const env = data.environment || {};
+    const soc = data.society || {};
+    const eco = data.economy || {};
+    const prog = data.progress || {};
+
+    const set = (id, value, decimals = null) => {
+      if (value == null || !Number.isFinite(Number(value))) return;
+      const el = document.getElementById(id);
+      if (!el) return;
+      const rounded = decimals != null
+        ? Math.round(Number(value) * Math.pow(10, decimals)) / Math.pow(10, decimals)
+        : value;
+      if (el.dataset.target !== String(rounded)) {
+        el.dataset.target = String(rounded);
+      }
+    };
+
+    // ─── Environment ───
+    set('co2-value', env.co2?.current, 0);
+    set('arctic-ice-value', env.arcticIce?.current, 1);
+    set('ocean-plastic-value', env.ocean?.plasticMt, 0);
+    set('bio-threatened-count', env.biodiversity?.threatenedTotal, 0);
+
+    // ─── Society ───
+    // Counter shows "8200 Mio" → we emit totalMillions from processor.
+    set('population-value', soc.population?.totalMillions, 0);
+    set('life-expectancy-value', soc.lifeExpectancy?.global, 1);
+    set('refugee-counter-value', soc.refugees?.total, 0);
+
+    // ─── Economy ───
+    set('billionaires-value', eco.wealth?.billionaires, 0);
+    // Extreme poverty stored as absolute in world-state (648000000);
+    // counter shows "648 Mio" → divide.
+    if (eco.wealth?.extremePoverty != null) {
+      set('extreme-poverty-value', Math.round(eco.wealth.extremePoverty / 1e6), 0);
+    }
+    set('gdp-growth-value', eco.gdpGrowth?.global, 1);
+
+    // ─── Progress ───
+    set('internet-penetration-value', prog.internet?.penetration, 1);
+    set('literacy-value', prog.literacy?.global, 1);
+    // GitHub commits/devs stored as absolute (142000000); counter shows "142 Mio".
+    if (prog.github?.dailyCommits != null) {
+      set('github-commits-value', Math.round(prog.github.dailyCommits / 1e6), 0);
+    }
+    if (prog.github?.activeDevs != null) {
+      set('github-devs-value', Math.round(prog.github.activeDevs / 1e6), 0);
+    }
   }
 
   // ─── Prolog meta ───

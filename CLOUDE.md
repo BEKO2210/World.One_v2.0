@@ -31,7 +31,8 @@ World.One ist eine Static-Site (GitHub Pages) mit:
 | `b7392ca` | premium sources (FRED/WAQI/NewsAPI) | `cache-premium-sources.js` + Workflow-Job `update-premium-sources` (06:30 UTC), env-gated: fehlendes Secret → silent skip. |
 | `f4d0fc4` | collector fixes | NASA Sea Level 404 → neuer Pfad, ReliefWeb 406 → GDACS-Ersatz, 6 tote RSS durch Google-News-Ersatz / `climate.gov/rss.xml`. |
 | `0310a5d` | Run 3 cache-to-score | Score liest 14 statt 2 Caches, jeder der 25 scored indicators trägt `{fetchedAt, ageHours, source}`, `meta.cacheFreshness` emittiert, "aktualisiert vor Xh" Badge im UI, `validate-score-coverage.js`. |
-| **HEAD** | ui consistency Schritt 1 | Population doppelter Zeit-Selector entfernt, 5 stale `data-target` in index.html synced, i18n 49→48 Quellen + 24→20 Indikatoren, `bio-threatened-count` live aus GBIF-Cache. |
+| `128a48a` | ui consistency Schritt 1 | Population doppelter Zeit-Selector entfernt, 5 stale `data-target` in index.html synced, i18n 49→48 Quellen + 24→20 Indikatoren, `bio-threatened-count` live aus GBIF-Cache. |
+| **HEAD** | ui consistency Schritt 2 + SW | Alle 14 Main-Page-Counter haben stabile IDs + werden zentral live gebunden (`_syncLiveCounters`). Processor exponiert `biodiversity.threatenedTotal`, `population.totalMillions`. Service Worker: `updateViaCache:'none'`, periodische Update-Checks alle 30 min, auto-reload bei Controller-Wechsel, resilient-install mit `allSettled`. |
 
 ---
 
@@ -177,22 +178,37 @@ immer reversibel, Site ist aktiv in Nutzung.
 - `scripts/process-data.js`: neuer `biodiversityCache` → `environment.biodiversity.threatenedTotal` fließt in world-state.
 - `js/app.js`: `#bio-threatened-count` wird jetzt live aus env.biodiversity.threatenedTotal synchronisiert.
 
-### 🔜 Schritt 2 — HTML-Counter-Audit aller 15 verbleibenden `data-target`
+### ✅ Schritt 2 — HTML-Counter-Audit aller `data-target` + Service-Worker-Härtung
 
-Je Eintrag: (a) prüfen ob JS bereits live-überschreibt; (b) wenn nein, Bindung
-in app.js ergänzen; (c) Initial-HTML auf aktuellen Wert aus world-state setzen.
+**Counter**: Neue zentrale Funktion `_syncLiveCounters(data)` in `js/app.js`
+läuft als erstes im Populate-Pass. Alle 14 Counter haben jetzt eine stabile
+`id` und werden live aus `world-state.json` befüllt. Initial-HTML-Targets
+sind auf plausible aktuelle Werte gesetzt, damit der erste Paint nicht
+springt. Processor exponiert dafür zusätzlich:
+- `environment.biodiversity.threatenedTotal` (aus GBIF-Cache)
+- `society.population.totalMillions` (Konvenienz für UI)
+- `society.population.current` mit Fallback 8100000000
 
-- Line 236 CO2 `data-target="421"` → soll env.co2.current binden.
-- Line 276 Arktis-Eisfläche `4.2 Mio km²` → soll env.arcticIce.current binden.
-- Line 401 Ocean Plastic `170 Mio t` → soll env.ocean.plasticTotal (wenn existiert).
-- Line 424 Weltbevölkerung `8200 Mio` → soll society.population.total binden.
-- Line 434 Life Expectancy `73.6 J.` → soll society.lifeExpectancy.global binden.
-- Line 521 Billionaires `2781` → soll economy.wealth.billionaires binden.
-- Line 527 Extreme Poverty `648 Mio` → soll society.poverty.people_m.
-- Line 544 GDP Growth `3.1%` → soll economy.gdpGrowth.global.
-- Line 622 Internet `67.4%` → progress.internet.current.
-- Line 627 Literacy `87.4%` → progress.literacy.current.
-- Line 657, 661 GitHub `142 Mio / 120 Mio` → progress.github metrics.
+Gebunden: `co2-value`, `arctic-ice-value`, `ocean-plastic-value`,
+`bio-threatened-count`, `population-value`, `life-expectancy-value`,
+`refugee-counter-value`, `billionaires-value`, `extreme-poverty-value`,
+`gdp-growth-value`, `internet-penetration-value`, `literacy-value`,
+`github-commits-value`, `github-devs-value`.
+
+**Service Worker**: deutlich robuster gemacht:
+- `CACHE_VERSION` immer bump bei direkten Commits (Workflow bumpt automatisch).
+- Install: `Promise.allSettled` statt `addAll` — ein einzelnes 404 blockt
+  nicht mehr die ganze Installation.
+- Activate: postet `SW_ACTIVATED` an offene Tabs.
+- Neue Message-Listener: `SKIP_WAITING` erlaubt dem Page-Script, ein
+  wartendes Worker-Update sofort zu aktivieren.
+- Registration in `index.html` + `detail/index.html`:
+  - `updateViaCache: 'none'` → Browser cached die SW-Datei selbst NIE.
+  - `reg.update()` sofort + alle 30 min → lange offene Tabs bekommen neue
+    Version ohne User-Reload.
+  - Neu-Worker `installed` → `SKIP_WAITING` → `controllerchange` → einmaliger
+    `window.location.reload()`. User sieht neue Version automatisch.
+  - Reload-Dedup via `_reloaded` Flag, damit kein Loop entsteht.
 
 ### 🔜 Schritt 3 — Detail-Topic Hero-Werte konsistent
 

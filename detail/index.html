@@ -66,5 +66,34 @@
   <!-- ═══ APPLICATION ═══ -->
   <script type="module" src="./detail-app.js"></script>
 
+  <!-- Service-Worker Registration (identisch zu index.html).
+       Direkt-Einstieg auf Detail-Seite soll ebenfalls den SW registrieren. -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      let _reloaded = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (_reloaded) return;
+        _reloaded = true;
+        window.location.reload();
+      });
+      navigator.serviceWorker
+        .register('../service-worker.js', { updateViaCache: 'none', scope: '../' })
+        .then(reg => {
+          reg.update().catch(() => {});
+          setInterval(() => reg.update().catch(() => {}), 30 * 60 * 1000);
+          reg.addEventListener('updatefound', () => {
+            const w = reg.installing;
+            if (!w) return;
+            w.addEventListener('statechange', () => {
+              if (w.state === 'installed' && navigator.serviceWorker.controller) {
+                w.postMessage({ type: 'SKIP_WAITING' });
+              }
+            });
+          });
+        })
+        .catch(err => console.warn('[SW] register failed:', err));
+    }
+  </script>
+
 </body>
 </html>
