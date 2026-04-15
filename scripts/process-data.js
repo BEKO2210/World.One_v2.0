@@ -26,6 +26,36 @@ function readCache(filename) {
   try { return JSON.parse(readFileSync(path, 'utf-8')); } catch { return null; }
 }
 
+/**
+ * Load a cache file together with its freshness metadata (from the
+ * cache's _meta.fetched_at envelope). Returns null if the file does
+ * not exist, is unparseable, or has no timestamp. Used by the scorer
+ * to know whether a live-data cache is newer than the raw source and
+ * should override it.
+ */
+function readCacheFresh(filename) {
+  const data = readCache(filename);
+  if (!data) return null;
+  const iso = data._meta?.fetched_at || null;
+  const ageMs = iso ? (Date.now() - new Date(iso).getTime()) : null;
+  const ageHours = ageMs != null && Number.isFinite(ageMs) ? Math.round(ageMs / 36e5 * 10) / 10 : null;
+  return { data, fetchedAt: iso, ageHours };
+}
+
+/**
+ * Build a standard `{fetchedAt, ageHours, source}` freshness descriptor
+ * for a single indicator. All three fields may be null.
+ */
+function freshness(isoOrNull, source) {
+  if (!isoOrNull) return { fetchedAt: null, ageHours: null, source: source || null };
+  const ageMs = Date.now() - new Date(isoOrNull).getTime();
+  return {
+    fetchedAt: isoOrNull,
+    ageHours: Number.isFinite(ageMs) ? Math.round(ageMs / 36e5 * 10) / 10 : null,
+    source: source || null
+  };
+}
+
 function readExisting() {
   if (!existsSync(OUTPUT)) return null;
   try { return JSON.parse(readFileSync(OUTPUT, 'utf-8')); } catch { return null; }
@@ -339,6 +369,7 @@ function buildWorldState() {
   console.log('Processing raw data...\n');
 
   // ─── ENVIRONMENT ───
+  // Raw inputs (updated by data-pipeline every 6h)
   const tempData = readRaw('environment', 'temperature.json');
   const co2Data = readRaw('environment', 'co2.json');
   const airData = readRaw('environment', 'air-quality.json');
@@ -346,27 +377,106 @@ function buildWorldState() {
   const renewableData = readRaw('environment', 'renewable-energy.json');
   const co2EmissionsData = readRaw('environment', 'co2-emissions-percapita.json');
   const weatherData = readRaw('environment', 'weather-global.json');
-  const oceanCache = readCache('ocean.json');
 
-  const tempHistory = tempData?.history || existing?.environment?.temperatureAnomaly?.history || [];
-  const tempCurrent = latest(tempHistory)?.value || existing?.environment?.temperatureAnomaly?.current || 1.45;
+  // Live-data caches (updated by cache-pipeline, usually fresher).
+  // Schema: every cache has _meta.fetched_at so we can prefer the newer
+  // source, and surface the timestamp per-indicator in the UI.
+  const oceanCache       = readCache('ocean.json');                    // legacy SST consumer
+  const tempCache        = readCacheFresh('temperature.json');         // NASA/NOAA annual
+  const forestCache      = readCacheFresh('forests.json');             // World Bank
+  const renewablesCache  = readCacheFresh('renewables.json');          // World Bank
+  const airqualityCache  = readCacheFresh('airquality.json');          // Open-Meteo 20 cities
+  const waqiCache        = readCacheFresh('waqi.json');                // WAQI official stations
+  const disastersCache   = readCacheFresh('disasters.json');           // GDACS
+
+  // Raw timestamps, for freshness comparison
+  const tempRawFetched   = tempData?.fetched || tempData?._meta?.fetched_at || null;
+  const forestRawFetched = forestData?.fetched || null;
+  const renewRawFetched  = renewableData?.fetched || null;
+  const airRawFetched    = airData?.fetched || null;
+
+  // Temperature: prefer cache if it gives a later "latest-year" observation
+  let tempHistory = tempData?.history || existing?.environment?.temperatureAnomaly?.history || [];
+  let tempSource = 'NASA GISTEMP (raw)';
+  let tempFetchedAt = tempRawFetched;
+  if (tempCache?.data?.history && Array.isArray(tempCache.data.history)) {
+    const cacheLatest = latest(tempCache.data.history);
+    const rawLatest = latest(tempHistory);
+    if (cacheLatest && (!rawLatest || cacheLatest.year >= rawLatest.year)) {
+      tempHistory = tempCache.data.history;
+      tempSource = tempCache.data.anomaly?.source || 'temperature.json cache';
+      tempFetchedAt = tempCache.fetchedAt;
+    }
+  }
+  const tempCurrent = tempCache?.data?.anomaly?.value
+    ?? latest(tempHistory)?.value
+    ?? existing?.environment?.temperatureAnomaly?.current
+    ?? 1.45;
 
   const co2History = co2Data?.history || existing?.environment?.co2?.history || [];
   const co2Current = co2Data?.current || latest(co2History)?.value || existing?.environment?.co2?.current || 421;
+  const co2FetchedAt = co2Data?.fetched || null;
 
-  const forestHistory = forestData?.history || [];
-  const forestCurrent = latest(forestHistory)?.value || existing?.environment?.forest?.current || 31.2;
+  // Forests: prefer cache when present (Run-3 added dedicated World-Bank cache)
+  let forestHistory = forestData?.history || [];
+  let forestSource = 'World Bank (raw)';
+  let forestFetchedAt = forestRawFetched;
+  if (forestCache?.data?.history?.length) {
+    forestHistory = forestCache.data.history;
+    forestSource = forestCache.data.forest_cover_pct?.source || 'forests.json cache';
+    forestFetchedAt = forestCache.fetchedAt;
+  }
+  const forestCurrent = forestCache?.data?.forest_cover_pct?.value
+    ?? latest(forestHistory)?.value
+    ?? existing?.environment?.forest?.current
+    ?? 31.2;
 
-  const renewableHistory = renewableData?.history || [];
-  const renewableCurrent = latest(renewableHistory)?.value || 29.9;
+  // Renewables: prefer cache
+  let renewableHistory = renewableData?.history || [];
+  let renewableSource = 'World Bank (raw)';
+  let renewableFetchedAt = renewRawFetched;
+  if (renewablesCache?.data?.history?.length) {
+    renewableHistory = renewablesCache.data.history;
+    renewableSource = renewablesCache.data.renewableEnergy?.source || 'renewables.json cache';
+    renewableFetchedAt = renewablesCache.fetchedAt;
+  }
+  const renewableCurrent = renewablesCache?.data?.renewableEnergy?.current
+    ?? latest(renewableHistory)?.value
+    ?? 29.9;
 
-  // Air quality processing
+  // ─── Air quality ────────────────────────────────────────────
+  // Priority: WAQI (official stations) > Open-Meteo cache > raw airData
   let cleanestCities = existing?.environment?.airQuality?.cleanestCities || [];
-  let mostPolluted = existing?.environment?.airQuality?.mostPolluted || [];
-  if (airData?.locations && airData.locations.length > 0) {
+  let mostPolluted   = existing?.environment?.airQuality?.mostPolluted   || [];
+  let airSource      = 'Open-Meteo (raw)';
+  let airFetchedAt   = airRawFetched;
+
+  // Tier 1: WAQI (requires token)
+  if (waqiCache?.data?.stations?.length >= 10) {
+    const list = waqiCache.data.stations
+      .map(s => ({ city: s.name, country: s.country, aqi: Number(s.aqi), lat: null, lng: null }))
+      .filter(s => Number.isFinite(s.aqi) && s.aqi > 0)
+      .sort((a, b) => a.aqi - b.aqi);
+    cleanestCities = list.slice(0, 5);
+    mostPolluted   = list.slice(-5).reverse();
+    airSource      = waqiCache.data.global_aqi?.source || 'WAQI official stations';
+    airFetchedAt   = waqiCache.fetchedAt;
+  }
+  // Tier 2: airquality.json cache (Open-Meteo multi-city, from cache-live-data.js)
+  else if (airqualityCache?.data?.cities?.length >= 10) {
+    const list = airqualityCache.data.cities
+      .map(c => ({ city: c.name, country: c.country, aqi: Number(c.aqi), lat: null, lng: null }))
+      .filter(c => Number.isFinite(c.aqi) && c.aqi > 0)
+      .sort((a, b) => a.aqi - b.aqi);
+    cleanestCities = list.slice(0, 5);
+    mostPolluted   = list.slice(-5).reverse();
+    airSource      = airqualityCache.data.global_aqi?.source || 'Open-Meteo (cache)';
+    airFetchedAt   = airqualityCache.fetchedAt;
+  }
+  // Tier 3: fall through to raw airData
+  else if (airData?.locations && airData.locations.length > 0) {
     const withAQI = airData.locations
       .map(l => {
-        // Prefer European AQI field, fallback to PM2.5 value
         const pm25 = l.parameters?.find(p => p.parameter === 'pm25' || p.parameter === 'PM2.5');
         const aqiValue = l.aqi || pm25?.value || null;
         return { city: l.city || l.name, country: l.country || '', aqi: aqiValue, lat: l.lat, lng: l.lng };
@@ -385,14 +495,34 @@ function buildWorldState() {
     ? Math.round(allAQICities.reduce((s, c) => s + (c.aqi || 0), 0) / allAQICities.length)
     : existing?.environment?.airQuality?.globalAvgAQI || 68;
 
+  // ─── Disaster penalty (GDACS) ───────────────────────────────
+  // New Run-3 signal: each ongoing high-severity event slightly reduces
+  // the environment score. Capped so a noisy quarter does not dominate.
+  let disasterPenalty = 0;
+  let disasterSource = null;
+  let disasterFetchedAt = null;
+  if (disastersCache?.data?.disasters?.length) {
+    const list = disastersCache.data.disasters;
+    disasterSource = disastersCache.data.source || 'GDACS';
+    disasterFetchedAt = disastersCache.fetchedAt;
+    const ongoing = list.filter(d => (d.status || '').toLowerCase() === 'ongoing' || d.status === null).length;
+    const highAlert = list.filter(d => ['Red', 'Orange'].includes(d.alertLevel || d.alert_level)).length;
+    // -1 point per ongoing event, -2 per red/orange, cap at -10
+    disasterPenalty = Math.min(10, ongoing * 1 + highAlert * 2);
+  }
+
   // Environment scores
   const envTempScore = normalize(tempCurrent, 3.0, 0); // 0°C = 100, 3°C = 0
   const envCO2Score = normalize(co2Current, 500, 280); // 280ppm = 100, 500ppm = 0
   const envForestScore = forestCurrent ? normalize(forestCurrent, 20, 40) : 42;
   const envRenewableScore = normalize(renewableCurrent, 0, 60); // 60% = 100
-  const envScore = Math.round((envTempScore * 0.3 + envCO2Score * 0.3 + envForestScore * 0.2 + envRenewableScore * 0.2) * 10) / 10;
+  const envAQIScore = globalAvgAQI <= 50 ? 70 : globalAvgAQI <= 100 ? 45 : globalAvgAQI <= 150 ? 25 : 10;
+  const envScoreRaw = envTempScore * 0.30 + envCO2Score * 0.30
+                    + envForestScore * 0.15 + envRenewableScore * 0.15
+                    + envAQIScore * 0.10;
+  const envScore = Math.round(Math.max(0, envScoreRaw - disasterPenalty) * 10) / 10;
 
-  console.log(`  Environment Score: ${envScore} (temp:${envTempScore.toFixed(0)} co2:${envCO2Score.toFixed(0)} forest:${envForestScore.toFixed(0)} renew:${envRenewableScore.toFixed(0)})`);
+  console.log(`  Environment Score: ${envScore} (temp:${envTempScore.toFixed(0)} co2:${envCO2Score.toFixed(0)} forest:${envForestScore.toFixed(0)} renew:${envRenewableScore.toFixed(0)} aqi:${envAQIScore} disaster-penalty:-${disasterPenalty})`);
 
   // ─── SOCIETY ───
   const lifeExpData = readRaw('society', 'life-expectancy.json');
@@ -407,15 +537,41 @@ function buildWorldState() {
   const militaryData = readRaw('society', 'military-expenditure.json');
   const urbanData = readRaw('society', 'urbanization.json');
 
-  const lifeExpHistory = lifeExpData?.history || existing?.society?.lifeExpectancy?.history || [];
-  const lifeExpCurrent = latest(lifeExpHistory)?.value || 73.6;
-  const childMortHistory = childMortData?.history || [];
-  const childMortCurrent = latest(childMortHistory)?.value || 37.1;
+  // Society caches (Run 3: prefer cache for life-expectancy / freedom when fresher)
+  const healthCache  = readCacheFresh('health.json');
+  const freedomCache = readCacheFresh('freedom.json');
+  const newsCache    = readCacheFresh('news.json'); // optional NewsAPI bucket
+
+  let lifeExpHistory = lifeExpData?.history || existing?.society?.lifeExpectancy?.history || [];
+  let lifeExpSource = 'World Bank (raw)';
+  let lifeExpFetchedAt = lifeExpData?.fetched || null;
+  if (healthCache?.data?.history?.life_expectancy?.length) {
+    lifeExpHistory = healthCache.data.history.life_expectancy;
+    lifeExpSource = healthCache.data.life_expectancy?.source || 'health.json cache';
+    lifeExpFetchedAt = healthCache.fetchedAt;
+  }
+  const lifeExpCurrent = healthCache?.data?.life_expectancy?.value
+    ?? latest(lifeExpHistory)?.value
+    ?? 73.6;
+
+  let childMortHistory = childMortData?.history || [];
+  let childMortSource = 'World Bank (raw)';
+  let childMortFetchedAt = childMortData?.fetched || null;
+  if (healthCache?.data?.history?.child_mortality?.length) {
+    childMortHistory = healthCache.data.history.child_mortality;
+    childMortSource = healthCache.data.child_mortality?.source || 'health.json cache';
+    childMortFetchedAt = healthCache.fetchedAt;
+  }
+  const childMortCurrent = healthCache?.data?.child_mortality?.value
+    ?? latest(childMortHistory)?.value
+    ?? 37.1;
+
   const electricityCurrent = latest(electricityData?.history || [])?.value || 91;
   const waterCurrent = latest(waterData?.history || [])?.value || 74;
 
   // ─── CONFLICT / REFUGEE / FREEDOM DATA (used in scoring) ───
   const conflictsCache = readCache('conflicts.json');
+  const conflictsCacheFresh = readCacheFresh('conflicts.json');
 
   // Build conflict locations — updated April 2026
   // Sources: ACLED, Crisis Group, UCDP, Al Jazeera, Reuters
@@ -479,9 +635,23 @@ function buildWorldState() {
     source: 'UNHCR 2025'
   };
   // Freedom House Freedom in the World 2026 report
+  // Prefer cache if present (updated daily via society-ext job)
+  let freedomFetchedAt = null;
+  let freedomSourceLabel = 'Freedom House 2026';
+  const freedomTrend = freedomCache?.data?.global_trend;
+  if (Array.isArray(freedomTrend) && freedomTrend.length > 0) {
+    freedomFetchedAt = freedomCache.fetchedAt;
+    freedomSourceLabel = freedomCache.data.source || 'Freedom House (cache)';
+  }
   const freedom = existing?.society?.freedom || {
-    free: 83, partlyFree: 55, notFree: 57, trendDecline: true, yearDecline: 19, source: 'Freedom House 2026'
+    free: 83, partlyFree: 55, notFree: 57, trendDecline: true, yearDecline: 19,
+    source: freedomSourceLabel,
+    trend: freedomTrend || null
   };
+  if (Array.isArray(freedomTrend)) {
+    freedom.trend = freedomTrend;
+    freedom.source = freedomSourceLabel;
+  }
 
   const socLifeScore = normalize(lifeExpCurrent, 50, 85);
   const socMortScore = normalize(childMortCurrent, 100, 5); // lower = better
@@ -528,6 +698,19 @@ function buildWorldState() {
   const exchangeData = readRaw('economy', 'exchange-rates.json');
   const regionalData = readRaw('economy', 'regional-gdp.json');
 
+  // FRED live cache (present only when FRED_API_KEY secret is set)
+  const fredCache = readCacheFresh('fred.json');
+  const fredSource = fredCache?.data?.series?.UNRATE?.label
+    ? 'FRED (St. Louis Fed)'
+    : null;
+  const fredFetchedAt = fredCache?.fetchedAt || null;
+
+  // Inflation: prefer FRED-derived US YoY if available (fresher than
+  // the World Bank annual average) — counted alongside WB as two inputs.
+  const fredUsInflation = fredCache?.data?.derived?.us_inflation_yoy?.value;
+  const fredFedFunds    = fredCache?.data?.derived?.fed_funds_rate?.value;
+  const fredYieldSpread = fredCache?.data?.derived?.yield_curve_spread?.value;
+
   const gdpGrowth = latest(gdpData?.history || [])?.value || existing?.economy?.gdpGrowth?.global || 3.1;
   const giniHistory = giniData?.history || existing?.economy?.gini?.history || [];
   let giniCurrent = latest(giniHistory)?.value || 42; // World Bank Gini is 0-100 scale (NOT 0-1!)
@@ -535,16 +718,30 @@ function buildWorldState() {
   if (giniCurrent > 0 && giniCurrent < 1) {
     giniCurrent = Math.round(giniCurrent * 100 * 10) / 10;
   }
-  const inflationCurrent = latest(inflationData?.history || [])?.value || 6.5;
+  const wbInflation = latest(inflationData?.history || [])?.value || 6.5;
+  // Combined inflation signal: if FRED has fresh US YoY, average it with
+  // World Bank (gives a mixed global/US reading when FRED is present).
+  const inflationCurrent = Number.isFinite(fredUsInflation)
+    ? Math.round((wbInflation + fredUsInflation) / 2 * 10) / 10
+    : wbInflation;
   const unemploymentCurrent = latest(unemploymentData?.history || [])?.value || 5.8;
 
   const ecoGDPScore = normalize(gdpGrowth, -5, 6);
   const ecoGiniScore = normalize(giniCurrent, 60, 25); // World Bank Gini is 0-100 scale; lower = better
   const ecoInflScore = normalize(inflationCurrent, 20, 2); // 2% = perfect
   const ecoUnempScore = normalize(unemploymentCurrent, 15, 2);
-  const ecoScore = Math.round((ecoGDPScore * 0.3 + ecoGiniScore * 0.25 + ecoInflScore * 0.25 + ecoUnempScore * 0.2) * 10) / 10;
 
-  console.log(`  Economy Score:     ${ecoScore} (gdp:${ecoGDPScore.toFixed(0)} gini:${ecoGiniScore.toFixed(0)} infl:${ecoInflScore.toFixed(0)} unemp:${ecoUnempScore.toFixed(0)})`);
+  // Yield-curve inversion penalty: T10Y2Y < 0 for the latest observation
+  // historically precedes US recessions by 6-18 months. Treat as a -5
+  // point drag on the economy sub-score.
+  let yieldPenalty = 0;
+  if (Number.isFinite(fredYieldSpread) && fredYieldSpread < 0) yieldPenalty = 5;
+
+  const ecoScoreRaw = ecoGDPScore * 0.3 + ecoGiniScore * 0.25
+                    + ecoInflScore * 0.25 + ecoUnempScore * 0.2;
+  const ecoScore = Math.round(Math.max(0, ecoScoreRaw - yieldPenalty) * 10) / 10;
+
+  console.log(`  Economy Score:     ${ecoScore} (gdp:${ecoGDPScore.toFixed(0)} gini:${ecoGiniScore.toFixed(0)} infl:${ecoInflScore.toFixed(0)} unemp:${ecoUnempScore.toFixed(0)}${yieldPenalty ? ' yield-inversion-penalty:-' + yieldPenalty : ''}${fredSource ? ' +fred' : ''})`);
 
   // ─── PROGRESS & TECH ───
   const internetData = readRaw('tech', 'internet-users.json');
@@ -556,11 +753,40 @@ function buildWorldState() {
   const spaceData = readRaw('tech', 'spaceflight-news.json');
   const literacyData = readRaw('tech', 'literacy.json');
 
-  const internetHistory = internetData?.history || existing?.progress?.internet?.history || [];
-  const internetCurrent = latest(internetHistory)?.value || 67.4;
-  const mobileCurrent = latest(mobileData?.history || [])?.value || 106;
+  // Progress caches (Run 3)
+  const internetCache = readCacheFresh('internet.json');
+  const scienceCache  = readCacheFresh('science.json');
+
+  let internetHistory = internetData?.history || existing?.progress?.internet?.history || [];
+  let internetSource = 'World Bank (raw)';
+  let internetFetchedAt = internetData?.fetched || null;
+  if (internetCache?.data?.history?.users_pct?.length) {
+    internetHistory = internetCache.data.history.users_pct;
+    internetSource = internetCache.data.users_pct?.source || 'internet.json cache';
+    internetFetchedAt = internetCache.fetchedAt;
+  }
+  const internetCurrent = internetCache?.data?.users_pct?.value
+    ?? latest(internetHistory)?.value
+    ?? 67.4;
+
+  let mobileCurrent = latest(mobileData?.history || [])?.value || 106;
+  let mobileSource = 'World Bank (raw)';
+  let mobileFetchedAt = mobileData?.fetched || null;
+  if (internetCache?.data?.mobile_per_100?.value != null) {
+    mobileCurrent = internetCache.data.mobile_per_100.value;
+    mobileSource = internetCache.data.mobile_per_100.source || 'internet.json cache';
+    mobileFetchedAt = internetCache.fetchedAt;
+  }
+
   const literacyCurrent = latest(literacyData?.history || [])?.value || 87.4;
   const rdCurrent = latest(rdData?.history || [])?.value || 2.63;
+
+  // Science signal from cache (arXiv total_results)
+  const arxivTotalPapers = scienceCache?.data?.total_papers?.value
+    ?? scienceCache?.data?.total_results
+    ?? null;
+  const scienceFetchedAt = scienceCache?.fetchedAt || null;
+  const scienceSource    = scienceCache?.data?.total_papers?.source || 'arXiv (raw)';
 
   const progInternetScore = normalize(internetCurrent, 0, 90);
   const progLiteracyScore = normalize(literacyCurrent, 50, 100);
@@ -759,6 +985,38 @@ function buildWorldState() {
     ? Math.min(100, Math.round((sourcesAvailable / sourcesTotal) * 100))
     : 100;
 
+  // Run-3 cache-freshness summary: per-category, the most-recent and
+  // oldest cache_fetched_at timestamps among the caches we actually
+  // consumed into the score. Lets the UI render a "last updated" badge.
+  const cacheAges = {
+    environment: [tempCache, forestCache, renewablesCache, airqualityCache, waqiCache, disastersCache]
+      .filter(c => c?.fetchedAt).map(c => c.fetchedAt),
+    society: [healthCache, freedomCache, conflictsCacheFresh, newsCache]
+      .filter(c => c?.fetchedAt).map(c => c.fetchedAt),
+    economy: [fredCache].filter(c => c?.fetchedAt).map(c => c.fetchedAt),
+    progress: [internetCache, scienceCache].filter(c => c?.fetchedAt).map(c => c.fetchedAt)
+  };
+  const summarizeAges = (arr) => {
+    if (!arr.length) return null;
+    const times = arr.map(t => new Date(t).getTime()).filter(Number.isFinite);
+    if (!times.length) return null;
+    const newest = Math.max(...times);
+    const oldest = Math.min(...times);
+    return {
+      newest: new Date(newest).toISOString(),
+      oldest: new Date(oldest).toISOString(),
+      newestHours: Math.round((Date.now() - newest) / 36e5 * 10) / 10,
+      oldestHours: Math.round((Date.now() - oldest) / 36e5 * 10) / 10,
+      sourceCount: arr.length
+    };
+  };
+  const cacheFreshness = {
+    environment: summarizeAges(cacheAges.environment),
+    society: summarizeAges(cacheAges.society),
+    economy: summarizeAges(cacheAges.economy),
+    progress: summarizeAges(cacheAges.progress)
+  };
+
   const worldState = {
     meta: {
       generated: new Date().toISOString(),
@@ -767,7 +1025,8 @@ function buildWorldState() {
       sources_available: Math.min(sourcesAvailable, sourcesTotal),
       sources_success_rate: sourcesRate,
       next_update: new Date(Date.now() + 6 * 60 * 60 * 1000).toISOString(),
-      realtimePulse: realtimePulse
+      realtimePulse: realtimePulse,
+      cacheFreshness
     },
 
     worldIndex: {
@@ -795,12 +1054,13 @@ function buildWorldState() {
         trend: (() => { const d = envScoreAdj - (existing?.subScores?.environment?.value || envScoreAdj); return d > 0.2 ? 'improving' : d < -0.2 ? 'declining' : 'stable'; })(),
         change: Math.round((envScoreAdj - (existing?.subScores?.environment?.value || envScoreAdj)) * 10) / 10,
         indicators: [
-          { name: 'Globale Temperaturanomalie', value: `+${tempCurrent}°C`, score: Math.round(envTempScore), trend: 'declining', source: 'NASA GISTEMP' },
-          { name: 'CO2-Konzentration', value: `${Math.round(co2Current)} ppm`, score: Math.round(envCO2Score), trend: 'declining', source: 'NOAA' },
-          { name: 'Waldfläche', value: `${forestCurrent || 31.2}%`, score: Math.round(envForestScore), trend: 'declining', source: 'World Bank' },
-          { name: 'Erneuerbare Energie', value: `${renewableCurrent}%`, score: Math.round(envRenewableScore), trend: 'improving', source: 'World Bank / IRENA' },
-          { name: 'Luftqualität (Global Avg AQI)', value: globalAvgAQI, score: globalAvgAQI <= 50 ? 70 : globalAvgAQI <= 100 ? 45 : 20, trend: 'stable', source: 'Open-Meteo' },
-          { name: 'Arktis-Eisfläche', value: '4.2 Mio km²', score: 30, trend: 'declining', source: 'NSIDC' }
+          { name: 'Globale Temperaturanomalie', value: `+${tempCurrent}°C`, score: Math.round(envTempScore), trend: 'declining', ...freshness(tempFetchedAt, tempSource) },
+          { name: 'CO2-Konzentration', value: `${Math.round(co2Current)} ppm`, score: Math.round(envCO2Score), trend: 'declining', ...freshness(co2FetchedAt, 'NOAA Mauna Loa') },
+          { name: 'Waldfläche', value: `${forestCurrent || 31.2}%`, score: Math.round(envForestScore), trend: 'declining', ...freshness(forestFetchedAt, forestSource) },
+          { name: 'Erneuerbare Energie', value: `${renewableCurrent}%`, score: Math.round(envRenewableScore), trend: 'improving', ...freshness(renewableFetchedAt, renewableSource) },
+          { name: 'Luftqualität (Global Avg AQI)', value: globalAvgAQI, score: envAQIScore, trend: 'stable', ...freshness(airFetchedAt, airSource) },
+          { name: 'Arktis-Eisfläche', value: '4.2 Mio km²', score: 30, trend: 'declining', ...freshness(null, 'NSIDC (manual baseline)') },
+          ...(disasterSource ? [{ name: 'Aktive Naturkatastrophen', value: `${disastersCache?.data?.disasters?.length || 0} events, -${disasterPenalty} Pkt`, score: Math.max(0, 100 - disasterPenalty * 10), trend: 'declining', ...freshness(disasterFetchedAt, disasterSource) }] : [])
         ]
       },
       society: {
@@ -811,13 +1071,13 @@ function buildWorldState() {
         trend: (() => { const d = socScoreAdj - (existing?.subScores?.society?.value || socScoreAdj); return d > 0.2 ? 'improving' : d < -0.2 ? 'declining' : 'stable'; })(),
         change: Math.round((socScoreAdj - (existing?.subScores?.society?.value || socScoreAdj)) * 10) / 10,
         indicators: [
-          { name: 'Lebenserwartung', value: `${lifeExpCurrent} Jahre`, score: Math.round(socLifeScore), trend: 'improving', source: 'World Bank' },
-          { name: 'Kindersterblichkeit', value: `${childMortCurrent}/1000`, score: Math.round(socMortScore), trend: 'improving', source: 'World Bank' },
-          { name: 'Aktive Konflikte', value: conflicts.activeCount, score: Math.round(socConflictScore), trend: 'declining', source: 'ACLED' },
-          { name: 'Elektrizitätszugang', value: `${electricityCurrent}%`, score: Math.round(socElecScore), trend: 'improving', source: 'World Bank' },
-          { name: 'Trinkwasserzugang', value: `${waterCurrent}%`, score: Math.round(socWaterScore), trend: 'improving', source: 'World Bank' },
-          { name: 'Menschen auf der Flucht', value: `${(refugees.total / 1e6).toFixed(1)} Mio`, score: Math.round(socRefugeeScore), trend: 'declining', source: 'UNHCR' },
-          { name: 'Politische Freiheit', value: `${freedom.free} frei / ${freedom.notFree} unfrei`, score: Math.round(socFreedomScore), trend: freedom.trendDecline ? 'declining' : 'stable', source: 'Freedom House' }
+          { name: 'Lebenserwartung', value: `${lifeExpCurrent} Jahre`, score: Math.round(socLifeScore), trend: 'improving', ...freshness(lifeExpFetchedAt, lifeExpSource) },
+          { name: 'Kindersterblichkeit', value: `${childMortCurrent}/1000`, score: Math.round(socMortScore), trend: 'improving', ...freshness(childMortFetchedAt, childMortSource) },
+          { name: 'Aktive Konflikte', value: conflicts.activeCount, score: Math.round(socConflictScore), trend: 'declining', ...freshness(conflictsCacheFresh?.fetchedAt || null, conflicts.source) },
+          { name: 'Elektrizitätszugang', value: `${electricityCurrent}%`, score: Math.round(socElecScore), trend: 'improving', ...freshness(electricityData?.fetched, 'World Bank (raw)') },
+          { name: 'Trinkwasserzugang', value: `${waterCurrent}%`, score: Math.round(socWaterScore), trend: 'improving', ...freshness(waterData?.fetched, 'World Bank (raw)') },
+          { name: 'Menschen auf der Flucht', value: `${(refugees.total / 1e6).toFixed(1)} Mio`, score: Math.round(socRefugeeScore), trend: 'declining', ...freshness(null, refugees.source || 'UNHCR (manual)') },
+          { name: 'Politische Freiheit', value: `${freedom.free} frei / ${freedom.notFree} unfrei`, score: Math.round(socFreedomScore), trend: freedom.trendDecline ? 'declining' : 'stable', ...freshness(freedomFetchedAt, freedom.source || 'Freedom House') }
         ]
       },
       economy: {
@@ -828,11 +1088,13 @@ function buildWorldState() {
         trend: (() => { const d = ecoScoreAdj - (existing?.subScores?.economy?.value || ecoScoreAdj); return d > 0.2 ? 'improving' : d < -0.2 ? 'declining' : 'stable'; })(),
         change: Math.round((ecoScoreAdj - (existing?.subScores?.economy?.value || ecoScoreAdj)) * 10) / 10,
         indicators: [
-          { name: 'BIP-Wachstum', value: `${gdpGrowth}%`, score: Math.round(ecoGDPScore), trend: ecoGDPScore > 60 ? 'improving' : ecoGDPScore < 40 ? 'declining' : 'stable', source: 'World Bank / IMF' },
-          { name: 'Gini-Index', value: giniCurrent, score: Math.round(ecoGiniScore), trend: 'stable', source: 'World Bank' },
-          { name: 'Inflation', value: `${inflationCurrent}%`, score: Math.round(ecoInflScore), trend: 'stable', source: 'World Bank' },
-          { name: 'Arbeitslosigkeit', value: `${unemploymentCurrent}%`, score: Math.round(ecoUnempScore), trend: 'stable', source: 'World Bank / ILO' },
-          { name: 'Extreme Armut', value: '8.5%', score: 55, trend: 'improving', source: 'World Bank' }
+          { name: 'BIP-Wachstum', value: `${gdpGrowth}%`, score: Math.round(ecoGDPScore), trend: ecoGDPScore > 60 ? 'improving' : ecoGDPScore < 40 ? 'declining' : 'stable', ...freshness(gdpData?.fetched, 'World Bank / IMF') },
+          { name: 'Gini-Index', value: giniCurrent, score: Math.round(ecoGiniScore), trend: 'stable', ...freshness(giniData?.fetched, 'World Bank') },
+          { name: 'Inflation', value: `${inflationCurrent}%`, score: Math.round(ecoInflScore), trend: 'stable', ...freshness(fredFetchedAt || inflationData?.fetched, fredUsInflation != null ? 'FRED + World Bank (avg)' : 'World Bank') },
+          { name: 'Arbeitslosigkeit', value: `${unemploymentCurrent}%`, score: Math.round(ecoUnempScore), trend: 'stable', ...freshness(unemploymentData?.fetched, 'World Bank / ILO') },
+          { name: 'Extreme Armut', value: '8.5%', score: 55, trend: 'improving', ...freshness(null, 'World Bank (static baseline)') },
+          ...(fredFedFunds != null ? [{ name: 'Fed Funds Rate', value: `${fredFedFunds}%`, score: Math.max(0, 100 - fredFedFunds * 8), trend: 'stable', ...freshness(fredFetchedAt, fredSource) }] : []),
+          ...(fredYieldSpread != null ? [{ name: '10Y-2Y Yield Spread', value: `${fredYieldSpread}%`, score: fredYieldSpread < 0 ? 20 : 80, trend: fredYieldSpread < 0 ? 'declining' : 'stable', ...freshness(fredFetchedAt, fredSource) }] : [])
         ]
       },
       progress: {
@@ -843,12 +1105,12 @@ function buildWorldState() {
         trend: (() => { const d = progScoreAdj - (existing?.subScores?.progress?.value || progScoreAdj); return d > 0.2 ? 'improving' : d < -0.2 ? 'declining' : 'stable'; })(),
         change: Math.round((progScoreAdj - (existing?.subScores?.progress?.value || progScoreAdj)) * 10) / 10,
         indicators: [
-          { name: 'Internet-Durchdringung', value: `${internetCurrent}%`, score: Math.round(progInternetScore), trend: 'improving', source: 'World Bank / ITU' },
-          { name: 'Alphabetisierung', value: `${literacyCurrent}%`, score: Math.round(progLiteracyScore), trend: 'improving', source: 'World Bank / UNESCO' },
-          { name: 'F&E Ausgaben (% BIP)', value: `${rdCurrent}%`, score: Math.round(progRDScore), trend: 'improving', source: 'World Bank' },
-          { name: 'Mobilfunkverträge', value: `${mobileCurrent}/100`, score: Math.round(progMobileScore), trend: 'improving', source: 'World Bank / ITU' },
-          { name: 'GitHub Repositories', value: githubData?.totalPublicRepos ? `${Math.round(githubData.totalPublicRepos / 1000)}K+` : '300K+', score: 80, trend: 'improving', source: 'GitHub' },
-          { name: 'Wissenschaftliche Papers', value: arxivData?.papers?.length ? `${arxivData.papers.length}+ heute` : '3.2M/Jahr', score: 75, trend: 'improving', source: 'arXiv' }
+          { name: 'Internet-Durchdringung', value: `${internetCurrent}%`, score: Math.round(progInternetScore), trend: 'improving', ...freshness(internetFetchedAt, internetSource) },
+          { name: 'Alphabetisierung', value: `${literacyCurrent}%`, score: Math.round(progLiteracyScore), trend: 'improving', ...freshness(literacyData?.fetched, 'World Bank / UNESCO') },
+          { name: 'F&E Ausgaben (% BIP)', value: `${rdCurrent}%`, score: Math.round(progRDScore), trend: 'improving', ...freshness(rdData?.fetched, 'World Bank') },
+          { name: 'Mobilfunkverträge', value: `${mobileCurrent}/100`, score: Math.round(progMobileScore), trend: 'improving', ...freshness(mobileFetchedAt, mobileSource) },
+          { name: 'GitHub Repositories', value: githubData?.totalPublicRepos ? `${Math.round(githubData.totalPublicRepos / 1000)}K+` : '300K+', score: 80, trend: 'improving', ...freshness(githubData?.fetched, 'GitHub') },
+          { name: 'Wissenschaftliche Papers', value: arxivTotalPapers ? `${(arxivTotalPapers / 1e6).toFixed(1)}M total` : (arxivData?.papers?.length ? `${arxivData.papers.length}+ heute` : '3.2M/Jahr'), score: 75, trend: 'improving', ...freshness(scienceFetchedAt || arxivData?.fetched, scienceSource) }
         ]
       },
       momentum: {
