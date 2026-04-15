@@ -32,7 +32,18 @@ const EXPECTED_FILES = [
   'arxiv-ai.json',
   'space-news.json',
   'disasters.json',
-  'hunger.json'
+  'hunger.json',
+  // Live-data cache expansion (cache-live-data.js)
+  'temperature.json',
+  'forests.json',
+  'renewables.json',
+  'airquality.json',
+  'weather.json',
+  'earthquakes.json',
+  'crypto_sentiment.json',
+  'science.json',
+  'space.json',
+  'health.json'
 ];
 
 const EXPECTED_JOBS = [
@@ -41,7 +52,8 @@ const EXPECTED_JOBS = [
   'update-society-ext',
   'update-economy-ext',
   'update-progress-ext',
-  'update-disasters'
+  'update-disasters',
+  'update-live-data'
 ];
 
 // ─── Utility: Format duration ───

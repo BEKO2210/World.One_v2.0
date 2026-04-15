@@ -14,6 +14,7 @@ on:
     - cron: '30 4 * * *'    # 04:30 UTC - economy-ext
     - cron: '0 5 * * *'     # 05:00 UTC - progress-ext
     - cron: '30 5 * * *'    # 05:30 UTC - disasters
+    - cron: '0 6 * * *'     # 06:00 UTC - live-data (temperature, forests, renewables, airquality, weather, earthquakes, crypto_sentiment, science, space, health)
   workflow_dispatch:
     inputs:
       job_group:
@@ -29,6 +30,7 @@ on:
           - economy-ext
           - progress-ext
           - disasters
+          - live-data
 
 permissions:
   contents: write
@@ -355,6 +357,61 @@ jobs:
             echo "No changes to commit"
           else
             git commit -m "chore(cache): update disasters cache $(date -u '+%Y-%m-%d %H:%M UTC')"
+            for attempt in 1 2 3; do
+              git push && break
+              echo "Push attempt $attempt failed, rebasing..."
+              git rebase --abort 2>/dev/null || true
+              git pull --rebase -X theirs origin $(git branch --show-current) || {
+                git rebase --abort 2>/dev/null || true
+                git pull --no-rebase origin $(git branch --show-current)
+                git add data/cache/*.json
+                git commit --amend --no-edit 2>/dev/null || true
+              }
+              sleep $((attempt * 2))
+            done
+          fi
+
+  # ═══════════════════════════════════════════════════════════
+  # LIVE-DATA — 06:00 UTC
+  # Temperature, forests, renewables, airquality, weather,
+  # earthquakes, crypto sentiment, science, space, health
+  # ═══════════════════════════════════════════════════════════
+  update-live-data:
+    if: >-
+      github.event.schedule == '0 6 * * *' ||
+      (github.event_name == 'workflow_dispatch' && (github.event.inputs.job_group == 'all' || github.event.inputs.job_group == 'live-data'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Run cache script
+        run: node scripts/cache-live-data.js
+
+      - name: Update meta.json
+        if: always()
+        run: node scripts/generate-meta.js --job live-data --status ${{ job.status }}
+
+      - name: Commit and push cache files
+        if: always()
+        run: |
+          git config user.name "World.One Pipeline"
+          git config user.email "pipeline@world.one"
+          git add data/cache/*.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore(cache): update live-data cache $(date -u '+%Y-%m-%d %H:%M UTC')"
             for attempt in 1 2 3; do
               git push && break
               echo "Push attempt $attempt failed, rebasing..."

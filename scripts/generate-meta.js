@@ -25,7 +25,12 @@ const JOB_FILES = {
   'society-ext': ['population.json', 'freedom.json', 'conflicts.json'],
   'economy-ext': ['currencies.json', 'inequality.json', 'poverty.json'],
   'progress-ext': ['arxiv-ai.json', 'space-news.json'],
-  'disasters': ['disasters.json', 'hunger.json']
+  'disasters': ['disasters.json', 'hunger.json'],
+  'live-data': [
+    'temperature.json', 'forests.json', 'renewables.json',
+    'airquality.json', 'weather.json', 'earthquakes.json',
+    'crypto_sentiment.json', 'science.json', 'space.json', 'health.json'
+  ]
 };
 
 /**

@@ -152,8 +152,10 @@ export async function render(blocks) {
   if (currentAqi === null) {
     try {
       const cached = await fetchTopicData('airquality');
-      if (cached.data && cached.data.value != null) {
-        currentAqi = Math.round(cached.data.value);
+      // Supports nested fallback ({ global_aqi: { value } }) and flat legacy shape.
+      const point = cached.data?.global_aqi ?? cached.data;
+      if (point && point.value != null) {
+        currentAqi = Math.round(point.value);
       }
       tier = cached.tier || 'stale';
       age = cached.age;

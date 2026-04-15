@@ -853,9 +853,15 @@ function buildWorldState() {
       },
       momentum: {
         value: momentumScore,
+        weight: 0.10,
+        label: momentumScore < 40 ? 'BESORGNISERREGEND' : momentumScore < 60 ? 'GEMISCHT' : momentumScore < 80 ? 'POSITIV' : 'EXZELLENT',
+        zone: momentumScore < 40 ? 'concerning' : momentumScore < 60 ? 'mixed' : momentumScore < 80 ? 'positive' : 'excellent',
+        trend: (() => { const d = momentumScore - (existing?.subScores?.momentum?.value || momentumScore); return d > 0.2 ? 'improving' : d < -0.2 ? 'declining' : 'stable'; })(),
+        change: Math.round((momentumScore - (existing?.subScores?.momentum?.value || momentumScore)) * 10) / 10,
         positiveCount,
         negativeCount: finalMomentum.length - positiveCount,
-        totalIndicators: finalMomentum.length
+        totalIndicators: finalMomentum.length,
+        indicators: finalMomentum
       }
     },
 
