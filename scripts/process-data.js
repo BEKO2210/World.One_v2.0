@@ -381,13 +381,14 @@ function buildWorldState() {
   // Live-data caches (updated by cache-pipeline, usually fresher).
   // Schema: every cache has _meta.fetched_at so we can prefer the newer
   // source, and surface the timestamp per-indicator in the UI.
-  const oceanCache       = readCache('ocean.json');                    // legacy SST consumer
-  const tempCache        = readCacheFresh('temperature.json');         // NASA/NOAA annual
-  const forestCache      = readCacheFresh('forests.json');             // World Bank
-  const renewablesCache  = readCacheFresh('renewables.json');          // World Bank
-  const airqualityCache  = readCacheFresh('airquality.json');          // Open-Meteo 20 cities
-  const waqiCache        = readCacheFresh('waqi.json');                // WAQI official stations
-  const disastersCache   = readCacheFresh('disasters.json');           // GDACS
+  const oceanCache        = readCache('ocean.json');                   // legacy SST consumer
+  const tempCache         = readCacheFresh('temperature.json');        // NASA/NOAA annual
+  const forestCache       = readCacheFresh('forests.json');            // World Bank
+  const renewablesCache   = readCacheFresh('renewables.json');         // World Bank
+  const airqualityCache   = readCacheFresh('airquality.json');         // Open-Meteo 20 cities
+  const waqiCache         = readCacheFresh('waqi.json');               // WAQI official stations
+  const disastersCache    = readCacheFresh('disasters.json');          // GDACS
+  const biodiversityCache = readCacheFresh('biodiversity.json');       // GBIF threatened counts
 
   // Raw timestamps, for freshness comparison
   const tempRawFetched   = tempData?.fetched || tempData?._meta?.fetched_at || null;
@@ -1154,6 +1155,17 @@ function buildWorldState() {
       forest: { current: forestCurrent || 31.2, history: forestHistory, source: 'World Bank' },
       renewableEnergy: { current: renewableCurrent, history: renewableHistory, source: 'World Bank / IRENA' },
       co2PerCapita: { current: latest(co2EmissionsData?.history || [])?.value, history: co2EmissionsData?.history || [], source: 'World Bank' },
+      biodiversity: biodiversityCache?.data?.threatened_counts ? {
+        threatenedTotal: biodiversityCache.data.threatened_counts.total,
+        vulnerable: biodiversityCache.data.threatened_counts.vulnerable,
+        endangered: biodiversityCache.data.threatened_counts.endangered,
+        criticallyEndangered: biodiversityCache.data.threatened_counts.critically_endangered,
+        source: 'GBIF / IUCN',
+        ...freshness(biodiversityCache.fetchedAt, 'GBIF / IUCN')
+      } : (existing?.environment?.biodiversity || {
+        threatenedTotal: 129753, source: 'GBIF / IUCN (baseline)',
+        ...freshness(null, 'GBIF / IUCN (baseline)')
+      }),
       weather: weatherData?.cities || [],
       ocean: (() => {
         const sstHistory = oceanCache?.annual_sst_anomaly || existing?.environment?.ocean?.sstHistory || [];

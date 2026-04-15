@@ -320,6 +320,17 @@ class BelkisOne {
       if (renewable) this._setText('#renewable-value', renewable.value);
     }
 
+    // Biodiversity threatened-species counter — live from GBIF cache
+    // (processor pipes biodiversity.threatened_counts.total into env.biodiversity).
+    // HTML placeholder is 129753 as fallback; sync counter target on load.
+    const bioCount = env.biodiversity?.threatenedTotal;
+    if (Number.isFinite(bioCount)) {
+      const bioEl = document.getElementById('bio-threatened-count');
+      if (bioEl && bioEl.dataset.target !== String(bioCount)) {
+        bioEl.dataset.target = String(bioCount);
+      }
+    }
+
     // Air quality grid
     const aqGrid = document.getElementById('air-quality-grid');
     if (aqGrid && env.airQuality) {

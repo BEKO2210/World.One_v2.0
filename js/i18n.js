@@ -5,7 +5,7 @@
 const translations = {
   de: {
     // ─── Loading Screen ───
-    'loading.sub': 'Lade Weltdaten aus 49 Quellen',
+    'loading.sub': 'Lade Weltdaten aus 48 Quellen',
 
     // ─── Navigation ───
     'nav.aria': 'Sektions-Navigation',
@@ -781,7 +781,7 @@ const translations = {
     'detail.momentum_detail.categorySoc': 'Gesellschaft',
     'detail.momentum_detail.categoryEcon': 'Wirtschaft',
     'detail.momentum_detail.categoryProg': 'Fortschritt',
-    'detail.momentum_detail.explanation': 'Das Welt-Momentum zeigt, wie viele globale Schlüsselindikatoren sich verbessern, verschlechtern oder stabil bleiben. Es basiert auf Trendanalysen der letzten 5-10 Jahre über 24 Indikatoren in 4 Kategorien.',
+    'detail.momentum_detail.explanation': 'Das Welt-Momentum zeigt, wie viele globale Schlüsselindikatoren sich verbessern, verschlechtern oder stabil bleiben. Es basiert auf Trendanalysen der letzten 5-10 Jahre über 20 Schlüsselindikatoren in 4 Kategorien.',
     'detail.momentum_detail.comparison': 'Aktuell verbessern sich mehr Indikatoren als sich verschlechtern -- aber der Fortschritt ist ungleich verteilt zwischen Umwelt (schwach) und Technologie (stark).',
     'detail.momentum_detail.sourceWorldOne': 'World.One Indicator Engine',
 
@@ -1192,7 +1192,7 @@ const translations = {
 
   en: {
     // ─── Loading Screen ───
-    'loading.sub': 'Loading world data from 49 sources',
+    'loading.sub': 'Loading world data from 48 sources',
 
     // ─── Navigation ───
     'nav.aria': 'Section Navigation',
@@ -1968,7 +1968,7 @@ const translations = {
     'detail.momentum_detail.categorySoc': 'Society',
     'detail.momentum_detail.categoryEcon': 'Economy',
     'detail.momentum_detail.categoryProg': 'Progress',
-    'detail.momentum_detail.explanation': 'World Momentum shows how many key global indicators are improving, declining, or remaining stable. It is based on trend analyses over the last 5-10 years across 24 indicators in 4 categories.',
+    'detail.momentum_detail.explanation': 'World Momentum shows how many key global indicators are improving, declining, or remaining stable. It is based on trend analyses over the last 5-10 years across 20 key indicators in 4 categories.',
     'detail.momentum_detail.comparison': 'Currently more indicators are improving than declining -- but progress is unevenly distributed between environment (weak) and technology (strong).',
     'detail.momentum_detail.sourceWorldOne': 'World.One Indicator Engine',
 
