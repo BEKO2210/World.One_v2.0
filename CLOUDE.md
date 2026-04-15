@@ -38,7 +38,8 @@ World.One ist eine Static-Site (GitHub Pages) mit:
 | `9be41c6` | ui consistency Schritt 5 | `supportsTimeRange` Audit: 3 stille Bugs gefixt. `timerangechange` wird jetzt auf `document` dispatcht (war auf sibling-block → 3 Topics stumm). `renewables.js` Case-Mismatch UPPERCASE→lowercase. `conflicts.js` hardcoded `2019`/`2004` → `currentYear - N`. Alle 5 Selektoren jetzt funktional. SW v20260415-2320. |
 | `3cde632` | ui consistency Schritt 6 | Tier-Badge-API: neue `source` Option, kontextsensitives Tooltip (live/cache/static mit Alters-Text), normalized-tier Guard, 6 neue i18n Keys DE+EN. Main-Page Counter: 14/14 bekommen `title`-Tooltip "Quelle: X · aktualisiert vor Yh" via `_syncLiveCounters` + `findInd()` Indicator-Lookup aus world-state. SW v20260415-2340. |
 | `6c5e049` | ui consistency Schritt 7 (A11y) | Skip-to-main-Link beide Seiten, `<main id="main-content">` wrapper um alle Acts, `role="status" aria-live="polite"` am World-Index-Wert, `role="radiogroup"` + `aria-checked` für Crisis-Layer-Buttons (JS synchronisiert Klasse ↔ aria), `#scroll-top` auf `data-i18n-aria`. 2 neue i18n Keys. SW v20260415-2355. |
-| **HEAD** | ui consistency Schritt 8 (Perf) | Particles respektieren prefers-reduced-motion + saveData + slow-2g/2g → Abschaltung; 3g → 400 statt 1000 Partikel; Pause-On-Hidden via visibilitychange. Preload world-state.json + app.js, preconnect jsDelivr, dns-prefetch Cloudflare. SW v20260416-0015. |
+| `168b8ff` | ui consistency Schritt 8 (Perf) | Particles respektieren prefers-reduced-motion + saveData + slow-2g/2g → Abschaltung; 3g → 400 statt 1000 Partikel; Pause-On-Hidden via visibilitychange. Preload world-state.json + app.js, preconnect jsDelivr, dns-prefetch Cloudflare. SW v20260416-0015. |
+| **HEAD** | Schritt 9 (Doku + Public API) | Zwei neue MD-Dateien: `PUBLIC_API.md` (Endpoints, Schema, Code-Beispiele für JS/Node/Python/curl/React, Lizenz-Audit aller Datenquellen), `RUNBOOK.md` (neue Quelle hinzufügen, Score-Modell anpassen, Debug-Playbooks, Notfall-Rollback). CLOUDE.md Dokument-Landkarte + Schritt 9 ✅. |
 
 ---
 
@@ -478,13 +479,58 @@ geladen sobald das erste Chart in den Viewport kommt. ✓
 - Keine `<img>` Tags im Projekt — alle Icons sind inline SVGs oder
   Canvas-gezeichnet. `loading="lazy"` nicht anwendbar.
 
-### 🔜 Schritt 9 — Dokumentation & Übergabe
+### ✅ Schritt 9 — Dokumentation & Übergabe
 
-- `ARCHITECTURE.md` als archivierte Referenz markieren.
-- `CLOUDE.md` bleibt das lebende Dokument.
-- `RUN1_BASELINE.md` → `RUNS.md` (alle Run-Reports zusammenfassen).
-- Runbook für neue Quelle hinzufügen (Secret registrieren → Cache-Skript →
-  Workflow-Job → Processor-Integration → Validator).
+**Neue Markdown-Dateien**:
+
+- **`PUBLIC_API.md`** (441 Zeilen): vollständige Dokumentation der
+  öffentlichen JSON-API auf GitHub Pages.
+  - Basis-URL, alle Endpunkte, Schema von `world-state.json`.
+  - Code-Beispiele: Browser, Node.js ≥18, Python (requests), curl,
+    React-Hook.
+  - Tabelle aller 25 Topic-Caches mit Live-Quelle.
+  - **Lizenz-Audit** aller Datenquellen, gruppiert nach: Public
+    Domain, CC-BY, Attribution-ohne-CC, Non-Commercial.
+  - Versioning-Policy, Rate-Limits (GitHub-Pages Soft-Cap), Changelog.
+- **`RUNBOOK.md`**: Schritt-für-Schritt-Anleitungen für Maintainer:
+  1. Neue Live-Daten-Quelle hinzufügen (keyless / mit Key / eigener
+     Cron-Slot).
+  2. Score-Modell anpassen (neuer Indikator).
+  3. Code-Fix-Release (nur CACHE_VERSION-Bump).
+  4. Debug: World Index sieht falsch aus.
+  5. Debug: Detail-Seite zeigt Fallback statt Live.
+  6. Notfall: Pipeline schreibt kaputte `world-state.json` → Rollback.
+  7. Service-Worker-Edge-Cases.
+
+**Lizenz-Check-Fazit**: World.One darf seine `world-state.json` als
+öffentliche API ausliefern, weil:
+
+- Die meisten Datenquellen sind Public Domain (NASA/NOAA/USGS/FRED)
+  oder CC-BY (World Bank, GBIF, Open-Meteo, GDACS, GDELT).
+- WAQI und Freedom House sind non-commercial; aggregierte Zahlen
+  werden weitergegeben, kommerzielle Nutzer müssen selbst
+  Lizenz-Pflicht klären.
+- NewsAPI / RSS-Feeds: nur Headlines + URLs (fair use), keine
+  Artikel-Bodies werden in `world-state.json` ausgeliefert.
+- Attribution ist Pflicht → Empfohlene Zeile steht in
+  `PUBLIC_API.md §7.5`.
+
+**Dokumente-Landkarte** (Stand HEAD):
+
+| Datei | Rolle |
+|---|---|
+| `CLOUDE.md` | **Lebendes Arbeitsdokument**: Historie, Struktur, Roadmap |
+| `PUBLIC_API.md` | API-Konsumenten-Doku |
+| `RUNBOOK.md` | Ops-Doku für Maintainer |
+| `RUN1_BASELINE.md` | Historische Baseline-Reports (Run 1 + 2 + 3) |
+| `ARCHITECTURE.md` | Ursprungs-Review (Read-only Referenz) |
+| `SECURITY.md` | Sicherheitsrichtlinien |
+| `README.md` | **Auto-generiert** (`scripts/generate-readme.js`) — NICHT manuell editieren |
+| `Projektstruktur.md` | ältere Struktur-Notiz |
+
+**Nicht angefasst** (bewusst): `README.md` — ist Teil der
+data-pipeline, wird nach jedem Pipeline-Run vom
+`scripts/generate-readme.js` regeneriert.
 
 ---
 
