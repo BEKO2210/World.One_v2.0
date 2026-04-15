@@ -1455,6 +1455,8 @@ class BelkisOne {
 
       // Act 4 -- Economy
       { selector: '.wealth-comparison', topic: 'inequality' },
+      // Override: the "extreme poverty" side of wealth-comparison navigates to the poverty topic
+      { selector: '.wealth-comparison__side:nth-child(3)', topic: 'poverty' },
       { selector: '#inequality-bar', topic: 'inequality', wrapClosest: '.reveal' },
       { selector: '#gini-chart', topic: 'inequality', wrapClosest: '.data-card' },
       { selector: '#exchange-rates', topic: 'currencies', wrapClosest: '.data-card' },
@@ -1478,6 +1480,9 @@ class BelkisOne {
       { selector: '#momentum-gauge', topic: 'momentum_detail', wrapClosest: '.reveal' },
 
       // Act 12 -- Biodiversity
+      // Section header itself links to the biodiversity overview topic;
+      // individual cards drill into extinction / endangered specifics.
+      { selector: '#akt-biodiversity .section-header', topic: 'biodiversity' },
       { selector: '#akt-biodiversity .data-card--featured', topic: 'extinction' },
       { selector: '#akt-biodiversity .data-card:not(.data-card--featured)', topic: 'endangered' },
 
@@ -1540,6 +1545,12 @@ class BelkisOne {
 
     document.addEventListener('keydown', (e) => {
       if (e.key !== 'Enter' && e.key !== ' ') return;
+      // Never hijack native interactive controls (buttons, inputs, textareas, etc.)
+      const targetTag = e.target.tagName;
+      if (targetTag === 'BUTTON' || targetTag === 'INPUT' || targetTag === 'TEXTAREA' ||
+          targetTag === 'SELECT' || targetTag === 'A' || e.target.isContentEditable) {
+        return;
+      }
       const link = e.target.closest('.detail-link');
       if (!link) return;
       e.preventDefault();

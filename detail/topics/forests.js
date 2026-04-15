@@ -78,10 +78,11 @@ export async function render(blocks) {
   // 1. Fetch cached forest data
   const { data, tier, age } = await fetchTopicData('forests');
 
-  // Extract forest cover percentage
+  // Extract forest cover percentage (supports nested { forest_cover_pct: {...} } and flat legacy shape)
   let forestCover = 31.2;
-  if (data && data.value != null) {
-    forestCover = data.value;
+  const point = data?.forest_cover_pct ?? data;
+  if (point && point.value != null) {
+    forestCover = point.value;
   }
 
   // 2. Hero block
