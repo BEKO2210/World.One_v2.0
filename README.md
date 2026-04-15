@@ -5,23 +5,23 @@
 
 ---
 
-## 🌍 Welt-Indikator: 65.8 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 63 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  65.8/100  ↓ -0.1
+█████████████░░░░░░░  63/100  ↑ +0.4
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 15.04.2026 22:03 UTC
+> **Letzte Aktualisierung:** 15.04.2026 23:52 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟡 Umwelt | **45**/100 | ↓ -3.8 | 25% |
-| 🟡 Gesellschaft | **55.7**/100 | → -0.1 | 25% |
-| 🟢 Wirtschaft | **68.4**/100 | ↑ +1.6 | 20% |
-| 🟢 Fortschritt | **78.1**/100 | ↑ +1.7 | 20% |
+| 🟠 Umwelt | **35.1**/100 | ↓ -0.5 | 25% |
+| 🟡 Gesellschaft | **55.7**/100 | → +0 | 25% |
+| 🟢 Wirtschaft | **68.4**/100 | → +0 | 20% |
+| 🟢 Fortschritt | **78.1**/100 | ↑ +0.8 | 20% |
 | 🟢 Momentum | **80**/100 | → +0 | 10% |
 
 ---
@@ -34,14 +34,14 @@
 | Temperaturanomalie | **+1.19°C** | NASA GISTEMP |
 | CO2-Konzentration | **429 ppm** | NOAA |
 | Arktis-Eisfläche | **4.2 Mio km²** (46.2% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **65** | WAQI |
+| Luftqualität (Ø) | AQI **69** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
 |-----------|------|--------|
 | Aktive Konflikte | **59** | ACLED |
 | Menschen auf der Flucht | **108.4 Mio** | UNHCR |
-| Lebenserwartung | **73.5 Jahre** | WHO |
+| Lebenserwartung | **73.48 Jahre** | WHO |
 | Freiheitsindex | 84 frei / 56 teilw. / 55 unfrei | Freedom House |
 
 ### 💰 Wirtschaft
@@ -77,7 +77,7 @@
 #### ✅ Verbessert sich (16)
 - **Lebenserwartung**: +1.6%
 - **Kindersterblichkeit**: -2.3%
-- **Erneuerbare Energie**: +6.6%
+- **Erneuerbare Energie**: +6.7%
 - **Internet-Zugang**: +12.1%
 - **BIP-Wachstum**: +48.9%
 - **Arbeitslosigkeit**: -19.1%
@@ -230,5 +230,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 15.04.2026 22:03 UTC | 41/41 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 15.04.2026 23:52 UTC | 41/41 Quellen aktiv
 </sub>
