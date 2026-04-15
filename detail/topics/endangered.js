@@ -72,11 +72,12 @@ export async function render(blocks) {
   const { data, tier, age } = await fetchTopicData('biodiversity');
   _cacheData = data;
 
-  // Extract threatened counts from cache, with static fallbacks
-  let cr = 27358;
-  let en = 48895;
-  let vu = 53500;
-  let total = 129753;
+  // Extract threatened counts from cache, with static fallbacks.
+  // Fallbacks matchen Main-Page + biodiversity.js (GBIF 2026-04).
+  let cr = 27454;
+  let en = 49014;
+  let vu = 53817;
+  let total = 130285;
 
   if (data && data.threatened_counts) {
     cr = data.threatened_counts.critically_endangered || cr;

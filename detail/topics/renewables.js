@@ -74,8 +74,9 @@ export async function render(blocks) {
   // 1. Data fetch
   const { data, tier, age } = await fetchTopicData('renewables');
 
-  // Extract renewable energy % from data or use static fallback
-  let renewablePct = 29.6;
+  // Extract renewable energy % from data or use static fallback.
+  // Fallback 19.7 matches latest World Bank EG.FEC.RNEW.ZS (2020).
+  let renewablePct = 19.7;
   if (data && data.renewableEnergy !== undefined) {
     renewablePct = typeof data.renewableEnergy === 'object'
       ? (data.renewableEnergy.current || renewablePct)

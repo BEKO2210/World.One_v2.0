@@ -79,7 +79,8 @@ export async function render(blocks) {
   const { data, tier, age } = await fetchTopicData('forests');
 
   // Extract forest cover percentage (supports nested { forest_cover_pct: {...} } and flat legacy shape)
-  let forestCover = 31.2;
+  // Fallback 31.14 matches latest World Bank AG.LND.FRST.ZS (2022).
+  let forestCover = 31.14;
   const point = data?.forest_cover_pct ?? data;
   if (point && point.value != null) {
     forestCover = point.value;

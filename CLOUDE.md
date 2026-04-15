@@ -32,7 +32,8 @@ World.One ist eine Static-Site (GitHub Pages) mit:
 | `f4d0fc4` | collector fixes | NASA Sea Level 404 → neuer Pfad, ReliefWeb 406 → GDACS-Ersatz, 6 tote RSS durch Google-News-Ersatz / `climate.gov/rss.xml`. |
 | `0310a5d` | Run 3 cache-to-score | Score liest 14 statt 2 Caches, jeder der 25 scored indicators trägt `{fetchedAt, ageHours, source}`, `meta.cacheFreshness` emittiert, "aktualisiert vor Xh" Badge im UI, `validate-score-coverage.js`. |
 | `128a48a` | ui consistency Schritt 1 | Population doppelter Zeit-Selector entfernt, 5 stale `data-target` in index.html synced, i18n 49→48 Quellen + 24→20 Indikatoren, `bio-threatened-count` live aus GBIF-Cache. |
-| **HEAD** | ui consistency Schritt 2 + SW | Alle 14 Main-Page-Counter haben stabile IDs + werden zentral live gebunden (`_syncLiveCounters`). Processor exponiert `biodiversity.threatenedTotal`, `population.totalMillions`. Service Worker: `updateViaCache:'none'`, periodische Update-Checks alle 30 min, auto-reload bei Controller-Wechsel, resilient-install mit `allSettled`. |
+| `8004900` | ui consistency Schritt 2 + SW | Alle 14 Main-Page-Counter haben stabile IDs + werden zentral live gebunden (`_syncLiveCounters`). Processor exponiert `biodiversity.threatenedTotal`, `population.totalMillions`. Service Worker: `updateViaCache:'none'`, periodische Update-Checks alle 30 min, auto-reload bei Controller-Wechsel, resilient-install mit `allSettled`. |
+| **HEAD** | ui consistency Schritt 3 | Detail-Topic-Fallbacks auf aktuelle Live-Werte gehoben (biodiversity/endangered/extinction: 129753→130285; forests 31.2→31.14; renewables 29.6→19.7; temperature 1.45→1.19). crypto_sentiment.js liest jetzt Live-Cache (alternative.me) mit 30-Tage-Serie statt hardcoded. |
 
 ---
 
@@ -210,18 +211,39 @@ Gebunden: `co2-value`, `arctic-ice-value`, `ocean-plastic-value`,
     `window.location.reload()`. User sieht neue Version automatisch.
   - Reload-Dedup via `_reloaded` Flag, damit kein Loop entsteht.
 
-### 🔜 Schritt 3 — Detail-Topic Hero-Werte konsistent
+### ✅ Schritt 3 — Detail-Topic Hero-Werte konsistent
 
-Für jedes der 29 Topics prüfen: stimmt der Hero-Wert mit dem Main-Page-Counter
-überein? Bei Abweichung: beide aus der gleichen Quelle (`environment.X` oder
-entsprechender Cache) lesen, kein Topic pflegt eigene Default-Baselines mehr
-ohne klaren Staleness-Marker. Kandidaten:
+**Phase A — Fallback-Zahlen in Detail-Topics auf aktuelle Live-Werte angehoben**
+(wirkt wenn Live+Cache beide offline sind; sonst gewinnt Cache-Wert aus
+gleicher Quelle wie Main-Page):
 
-- `biodiversity.js` (129753) vs new 130285 live.
-- `temperature.js` Hero vs. Main `#temp-anomaly-value`.
-- `forests.js` Hero vs. Main `#forest-value`.
-- `renewables.js` Hero vs. Main `#renewable-value`.
-- `population.js`, `conflicts.js`, `health.js`, …
+| Topic | Fallback alt → neu | Quelle |
+|---|---|---|
+| `biodiversity.js` | 129753 / 27358 / 48895 / 53500 → **130285 / 27454 / 49014 / 53817** | GBIF 2026-04 |
+| `endangered.js`   | dieselben → **matched** | GBIF 2026-04 |
+| `extinction.js`   | 129753 → **130285** | GBIF 2026-04 |
+| `forests.js`      | 31.2 → **31.14** | World Bank AG.LND.FRST.ZS |
+| `renewables.js`   | 29.6 → **19.7** (war sachlich falsch) | World Bank EG.FEC.RNEW.ZS |
+| `temperature.js`  | 1.45 → **1.19** | NASA GISTEMP 2025 |
+
+**Phase B — crypto_sentiment.js liest jetzt Live-Cache**:
+
+- Neues `fetchTopicData('crypto_sentiment')` vor dem hardcoded 30-Tage-Fallback.
+- Live-Serie (alternative.me → Server-seitig gecached → CORS umgangen)
+  hat Vorrang. Tier + Age Badge an Hero übergeben.
+- Fallback-Label-Mapping `_fgLabel(v)` wenn Cache nur numerische Werte liefert.
+- `getChartConfigs()` konsumiert `_chartData.series` statt FG_HISTORY direkt,
+  damit die gleiche Live-Serie im Chart landet.
+
+**Nicht umgebaut (bewusst)**:
+
+- `solar.js` Fallback 150 (SSN) / 3 (Kp): die Solar-Cycle-Daten variieren zyklisch,
+  ein fester Zahlen-Fallback ist sinnvoll wenn NOAA ausfällt. Topic zieht bereits
+  Live-Cache wo möglich.
+- Die 6 Topics die `fetchTopicData` auf den gleichen Cache zeigen wie der Score
+  (`forests`, `renewables`, `airquality`, `health`, `internet`, `conflicts`,
+  `freedom`, `population`, `poverty`, `hunger`, `inequality`): Sync-Garantie ist
+  bereits durch identische Quelle gewährleistet.
 
 ### 🔜 Schritt 4 — Jahreszahlen & Zeitangaben
 
