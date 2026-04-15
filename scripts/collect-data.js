@@ -556,14 +556,16 @@ async function fetchRSSFeeds() {
     // ─── Tier 1: UN system (most reliable, always available) ───
     { name: 'UN News', url: 'https://news.un.org/feed/subscribe/en/news/all/rss.xml' },
     { name: 'WHO News', url: 'https://www.who.int/rss-feeds/news-english.xml' },
-    { name: 'UNHCR', url: 'https://www.unhcr.org/us/rss/news.xml' },
-    { name: 'ReliefWeb', url: 'https://reliefweb.int/updates/rss.xml?source=UN+OCHA' },
+    // UNHCR blocks bot RSS hits (403); route via Google News search instead.
+    { name: 'UNHCR', url: 'https://news.google.com/rss/search?q=UNHCR+refugees&hl=en-US&gl=US&ceid=US:en' },
+    { name: 'ReliefWeb', url: 'https://reliefweb.int/updates/rss.xml' },
 
     // ─── Tier 2: Science & Climate ───
     { name: 'NASA', url: 'https://www.nasa.gov/rss/dyn/breaking_news.rss' },
     { name: 'NASA Earth', url: 'https://earthobservatory.nasa.gov/feeds/earth-observatory.rss' },
     { name: 'ESA', url: 'https://www.esa.int/rssfeed/Our_Activities/Space_Science' },
-    { name: 'NOAA Climate', url: 'https://www.noaa.gov/rss-feeds/noaa-news-rss.xml' },
+    // NOAA news feed was moved; Climate.gov continues to serve a stable RSS.
+    { name: 'NOAA Climate', url: 'https://www.climate.gov/rss.xml' },
 
     // ─── Tier 3: World news (may block; silent fail is fine) ───
     { name: 'BBC World', url: 'https://feeds.bbci.co.uk/news/world/rss.xml' },
@@ -571,11 +573,12 @@ async function fetchRSSFeeds() {
     { name: 'Al Jazeera', url: 'https://www.aljazeera.com/xml/rss/all.xml' },
     { name: 'Guardian', url: 'https://www.theguardian.com/world/rss' },
     { name: 'France24', url: 'https://www.france24.com/en/rss' },
-    { name: 'NHK World', url: 'https://www3.nhk.or.jp/nhkworld/en/rss/top.xml' },
 
-    // ─── Tier 4: Development & Economy ───
-    { name: 'World Bank', url: 'https://blogs.worldbank.org/en/rss.xml' },
-    { name: 'IMF Blog', url: 'https://www.imf.org/en/News/rss?Language=ENG' }
+    // ─── Tier 4: Development & Economy (both via Google News — the
+    //   publishers' own RSS endpoints have been replaced by JS-rendered
+    //   pages that no longer serve XML). ───
+    { name: 'World Bank', url: 'https://news.google.com/rss/search?q=%22World+Bank%22+development&hl=en-US&gl=US&ceid=US:en' },
+    { name: 'IMF', url: 'https://news.google.com/rss/search?q=IMF+global+economy&hl=en-US&gl=US&ceid=US:en' }
   ];
 
   const allArticles = [];
@@ -754,7 +757,8 @@ async function fetchCoinGeckoBTC() {
 async function fetchSeaLevel() {
   // NOAA STAR — Global mean sea level from satellite altimetry (free, no key)
   // CSV with columns: year, TOPEX/Poseidon, Jason-1, Jason-2, Jason-3, Sentinel-6
-  const csv = await fetchText('https://www.star.nesdis.noaa.gov/sod/lsa/slr/slr_sla_gbl_free_ref_90.csv', { timeout: 20000 });
+  // NOTE: Host moved from /sod/lsa/slr/ -> /socd/lsa/SeaLevelRise/slr/ in 2025.
+  const csv = await fetchText('https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/slr/slr_sla_gbl_free_ref_90.csv', { timeout: 20000 });
   const lines = csv.split('\n').filter(l => l.trim() && !l.startsWith('#') && !l.startsWith('HDR'));
   const entries = [];
   for (const line of lines) {
@@ -858,38 +862,45 @@ async function fetchOpenExchangeRatesExtra() {
 }
 
 async function fetchNaturalDisasters() {
-  // ReliefWeb — Active natural disasters (free, no key)
-  // Uses POST with JSON body (GET with filter[] params returns 406)
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 20000);
-  const res = await fetch('https://api.reliefweb.int/v1/disasters?appname=worldone&limit=30', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
-    body: JSON.stringify({
-      filter: { field: 'status', value: 'current' },
-      sort: ['date:desc'],
-      fields: { include: ['name', 'date', 'country', 'type', 'status'] },
-    }),
-    signal: controller.signal,
+  // GDACS (Global Disaster Alert & Coordination System, JRC/EU) — keyless.
+  // Replaces the old ReliefWeb v1 hit (v1 decommissioned 2025, v2 requires
+  // a registered appname). Covers earthquakes, tropical cyclones, floods,
+  // volcanoes, droughts, wildfires.
+  const TYPE_MAP = {
+    EQ: 'Earthquake', TC: 'Tropical Cyclone', FL: 'Flood',
+    VO: 'Volcano', DR: 'Drought', WF: 'Wildfire'
+  };
+  const geo = await fetchJSON(
+    'https://www.gdacs.org/gdacsapi/api/events/geteventlist/MAP?eventlist=EQ,TC,FL,VO,DR,WF',
+    { timeout: 20000 }
+  );
+  const features = Array.isArray(geo?.features) ? geo.features : [];
+  if (features.length === 0) throw new Error('GDACS returned 0 events');
+
+  const disasters = features.slice(0, 50).map(f => {
+    const p = f.properties || {};
+    const coords = f.geometry?.coordinates || [];
+    return {
+      name: p.name || p.htmldescription || `${TYPE_MAP[p.eventtype] || p.eventtype} event`,
+      type: TYPE_MAP[p.eventtype] || p.eventtype || 'Unknown',
+      alertLevel: p.alertlevel || null,
+      iso3: p.iso3 || null,
+      country: p.country || null,
+      fromDate: p.fromdate || null,
+      toDate: p.todate || null,
+      severity: Number.isFinite(p.severitydata?.severity) ? p.severitydata.severity : null,
+      url: p.url?.report || p.url?.details || null,
+      lat: coords[1] ?? null,
+      lon: coords[0] ?? null
+    };
   });
-  clearTimeout(timer);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const data = await res.json();
-  if (data?.data) {
-    save('realtime', 'active-disasters.json', {
-      disasters: data.data.map(d => ({
-        name: d.fields?.name,
-        date: d.fields?.date?.[0]?.original,
-        countries: (d.fields?.country || []).map(c => c.name),
-        type: (d.fields?.type || []).map(t => t.name).join(', '),
-      })),
-      count: data.totalCount || data.data.length,
-      fetched: new Date().toISOString()
-    });
-  }
+
+  save('realtime', 'active-disasters.json', {
+    disasters,
+    count: disasters.length,
+    source: 'GDACS (JRC/EU)',
+    fetched: new Date().toISOString()
+  });
 }
 
 async function fetchISSPosition() {

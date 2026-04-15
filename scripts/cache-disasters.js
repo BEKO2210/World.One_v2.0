@@ -9,33 +9,38 @@ import { fetchJSON, extractWorldBankEntries, saveCache } from './cache-utils.js'
 
 // ─── Disasters (ReliefWeb API or static fallback) ───
 async function fetchDisasters() {
-  console.log('  Fetching disaster data (ReliefWeb)...');
+  console.log('  Fetching disaster data (GDACS)...');
 
-  // Try ReliefWeb API
+  // Primary: GDACS (Global Disaster Alert & Coordination System, JRC/EU).
+  // Keyless, replaces ReliefWeb v1 (decommissioned 2025) / v2 (requires
+  // registered appname). Covers EQ/TC/FL/VO/DR/WF.
   try {
-    const url = 'https://api.reliefweb.int/v1/disasters?appname=worldone&limit=20&sort[]=date:desc&fields[include][]=name&fields[include][]=date&fields[include][]=type&fields[include][]=country&fields[include][]=status';
-    const data = await fetchJSON(url, { timeout: 10000, retries: 1 });
-
-    if (data && Array.isArray(data.data)) {
-      const disasters = data.data.map(item => {
-        const f = item.fields || {};
+    const TYPE_MAP = {
+      EQ: 'Earthquake', TC: 'Tropical Cyclone', FL: 'Flood',
+      VO: 'Volcano', DR: 'Drought', WF: 'Wildfire'
+    };
+    const geo = await fetchJSON(
+      'https://www.gdacs.org/gdacsapi/api/events/geteventlist/MAP?eventlist=EQ,TC,FL,VO,DR,WF',
+      { timeout: 10000, retries: 1 }
+    );
+    const features = Array.isArray(geo?.features) ? geo.features : [];
+    if (features.length > 0) {
+      const disasters = features.slice(0, 40).map(f => {
+        const p = f.properties || {};
         return {
-          name: f.name || 'Unknown',
-          date: f.date?.created || f.date || null,
-          type: Array.isArray(f.type) ? f.type[0]?.name : null,
-          countries: Array.isArray(f.country) ? f.country.map(c => c.name) : [],
-          status: f.status || null
+          name: p.name || p.htmldescription || `${TYPE_MAP[p.eventtype] || p.eventtype} event`,
+          date: p.fromdate || null,
+          type: TYPE_MAP[p.eventtype] || p.eventtype || null,
+          countries: p.country ? [p.country] : [],
+          status: p.iscurrent === 'true' ? 'ongoing' : 'past',
+          alertLevel: p.alertlevel || null
         };
       });
-
-      console.log(`  Disasters: ${disasters.length} recent events (live API)`);
-      return { disasters, api_status: 'live' };
+      console.log(`  Disasters: ${disasters.length} GDACS events (live)`);
+      return { disasters, api_status: 'live', source: 'GDACS (JRC/EU)' };
     }
   } catch (err) {
-    const reason = err.message.includes('403')
-      ? 'appname_required'
-      : 'unavailable';
-    console.log(`  Disasters: ReliefWeb API ${reason} (${err.message}), using static fallback`);
+    console.log(`  Disasters: GDACS failed (${err.message}), using static fallback`);
   }
 
   // Static fallback -- recent major disasters (2024-2025 dataset)
