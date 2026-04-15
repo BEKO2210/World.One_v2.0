@@ -186,7 +186,7 @@ async function fetchConflicts() {
   // ── Source 1: ReliefWeb (UN OCHA) — Active crises + humanitarian reports ──
   // Uses POST (GET with filter[] params returns 406 on GitHub Actions)
   try {
-    const rwRes = await fetch('https://api.reliefweb.int/v1/reports?appname=worldone&limit=25', {
+    const rwRes = await fetch('https://api.reliefweb.int/v2/reports?appname=worldone&limit=25', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
@@ -217,7 +217,7 @@ async function fetchConflicts() {
 
   // ── Source 2: ReliefWeb Disasters — Current active emergencies ──
   try {
-    const disRes = await fetch('https://api.reliefweb.int/v1/disasters?appname=worldone&limit=15', {
+    const disRes = await fetch('https://api.reliefweb.int/v2/disasters?appname=worldone&limit=15', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
