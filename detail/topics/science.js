@@ -223,7 +223,9 @@ async function _renderGrowthCurve(chartEl) {
   _growthChart = _createGrowthChart(ANNUAL_SUBMISSIONS);
 
   // Listen for time range changes
-  chartEl.addEventListener('timerangechange', (e) => {
+  // Listen on `document` (pre-Run-5 this was silently broken — event
+  // fires on trend-block which is a sibling of chart-block).
+  document.addEventListener('timerangechange', (e) => {
     const range = e.detail?.range;
     if (!range || !_growthChart) return;
 

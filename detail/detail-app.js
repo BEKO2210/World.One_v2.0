@@ -301,8 +301,12 @@ function setupTimeRange(trendBlock) {
     // Add active to clicked
     btn.classList.add('time-range__btn--active');
 
-    // Dispatch event for topic modules to listen to
-    trendBlock.dispatchEvent(new CustomEvent('timerangechange', {
+    // Dispatch on `document` so topic modules can listen regardless of
+    // which block they render into. (Prior to Run 5 the event fired on
+    // trendBlock only — which silently broke any topic listening on
+    // `blocks.chart`, since the event did not bubble sideways to
+    // sibling sections.)
+    document.dispatchEvent(new CustomEvent('timerangechange', {
       detail: { range: btn.getAttribute('data-range') },
     }));
   });

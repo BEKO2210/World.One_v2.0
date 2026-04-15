@@ -373,7 +373,10 @@ async function _renderTrend(trendEl) {
   _trendChart = _createTrendChart(CONFLICT_TREND);
 
   // Listen for time range changes
-  trendEl.addEventListener('timerangechange', (e) => {
+  // Listen on `document` — detail-app.js dispatches the event there so
+  // topics can render their chart into any block (here: trend) and still
+  // receive range changes reliably.
+  document.addEventListener('timerangechange', (e) => {
     const range = e.detail?.range;
     if (!range || !_trendChart) return;
 
@@ -385,9 +388,9 @@ async function _renderTrend(trendEl) {
       // Ensure at least last 2 entries if filter too restrictive
       if (filtered.length < 2) filtered = CONFLICT_TREND.slice(-2);
     } else if (range === '5y') {
-      filtered = CONFLICT_TREND.filter(d => d.year >= 2019);
+      filtered = CONFLICT_TREND.filter(d => d.year >= currentYear - 5);
     } else if (range === '20y') {
-      filtered = CONFLICT_TREND.filter(d => d.year >= 2004);
+      filtered = CONFLICT_TREND.filter(d => d.year >= currentYear - 20);
     } else {
       // 'max' or unknown
       filtered = CONFLICT_TREND;

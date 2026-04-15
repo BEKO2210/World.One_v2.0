@@ -235,7 +235,10 @@ async function _renderTrend(chartEl) {
   _trendChart = _createTrendChart(_chartData);
 
   // Listen for time range changes
-  chartEl.addEventListener('timerangechange', (e) => {
+  // Listen on `document` (see freedom.js note — pre-Run-5 this was
+  // silently broken because the event fires on the trend-block which
+  // is a sibling of the chart-block, not an ancestor).
+  document.addEventListener('timerangechange', (e) => {
     const range = e.detail?.range;
     if (!range || !_trendChart || !_chartData) return;
 

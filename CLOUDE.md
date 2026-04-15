@@ -34,7 +34,8 @@ World.One ist eine Static-Site (GitHub Pages) mit:
 | `128a48a` | ui consistency Schritt 1 | Population doppelter Zeit-Selector entfernt, 5 stale `data-target` in index.html synced, i18n 49→48 Quellen + 24→20 Indikatoren, `bio-threatened-count` live aus GBIF-Cache. |
 | `8004900` | ui consistency Schritt 2 + SW | Alle 14 Main-Page-Counter haben stabile IDs + werden zentral live gebunden (`_syncLiveCounters`). Processor exponiert `biodiversity.threatenedTotal`, `population.totalMillions`. Service Worker: `updateViaCache:'none'`, periodische Update-Checks alle 30 min, auto-reload bei Controller-Wechsel, resilient-install mit `allSettled`. |
 | `e06f6e2` | ui consistency Schritt 3 | Detail-Topic-Fallbacks auf aktuelle Live-Werte gehoben (biodiversity/endangered/extinction: 129753→130285; forests 31.2→31.14; renewables 29.6→19.7; temperature 1.45→1.19). crypto_sentiment.js liest jetzt Live-Cache (alternative.me) mit 30-Tage-Serie statt hardcoded. |
-| **HEAD** | ui consistency Schritt 4 | i18n bekommt globale Platzhalter `{currentYear}`, `{tempLatestYear}`, `{popLatestYear}`, `{freedomStreak}`. 5 zeitgebundene Strings (DE+EN) umgestellt. `_applyDynamicYears(data)` in app.js leitet Werte aus world-state ab und schiebt sie via `setGlobalParams()` ins i18n — alle `[data-i18n]`-Elemente re-rendern automatisch. SW v20260415-2305. |
+| `181d598` | ui consistency Schritt 4 | i18n bekommt globale Platzhalter `{currentYear}`, `{tempLatestYear}`, `{popLatestYear}`, `{freedomStreak}`. 5 zeitgebundene Strings (DE+EN) umgestellt. `_applyDynamicYears(data)` in app.js leitet Werte aus world-state ab und schiebt sie via `setGlobalParams()` ins i18n — alle `[data-i18n]`-Elemente re-rendern automatisch. SW v20260415-2305. |
+| **HEAD** | ui consistency Schritt 5 | `supportsTimeRange` Audit: 3 stille Bugs gefixt. `timerangechange` wird jetzt auf `document` dispatcht (war auf sibling-block → 3 Topics stumm). `renewables.js` Case-Mismatch UPPERCASE→lowercase. `conflicts.js` hardcoded `2019`/`2004` → `currentYear - N`. Alle 5 Selektoren jetzt funktional. SW v20260415-2320. |
 
 ---
 
@@ -298,12 +299,38 @@ automatisch ein Re-Render aller `[data-i18n]`-Elemente aus.
   zylindrisch` als Fließtext — könnte später auch dynamisch werden,
   aber Bedeutung ändert sich mit Datenalter (aktuell 2026-beschreibend).
 
-### 🔜 Schritt 5 — Detail-Topics `supportsTimeRange` Audit
+### ✅ Schritt 5 — Detail-Topics `supportsTimeRange` Audit (mit harten Bugs)
 
-Für die 6 Topics die den Flag setzen (conflicts, freedom, population (jetzt
-false), poverty, renewables, science): funktioniert der generische 1y/5y/20y/max
-Selector tatsächlich sinnvoll? Wenn nicht → supportsTimeRange: false
-(wie population) und eigenen Selector rendern oder weglassen.
+Audit förderte **drei stille Bugs** zutage:
+
+1. **Event-Dispatch auf falschem DOM-Target.**
+   `detail-app.js setupTimeRange()` feuerte das `timerangechange`-Event auf
+   `trendBlock` (`detail-trend`). Drei Topics (`freedom`, `poverty`, `science`)
+   hatten den Listener aber auf `chartEl` (`detail-chart`) registriert, einen
+   Geschwisterknoten von trend. CustomEvents bubbeln nicht seitwärts →
+   **die Selektoren waren vollständig tot** (Button wurde visuell aktiv,
+   Chart änderte sich nie). Fix: Event wird jetzt auf `document`
+   dispatched, alle 5 Topics lauschen dort.
+
+2. **Case-Mismatch in renewables.js.**
+   detail-app emittiert lowercase `'1y'/'5y'/'20y'/'max'`. `renewables.js`
+   prüfte UPPERCASE `'1Y'/'5Y'/'20Y'/'Max'` → keine Bedingung traf je zu
+   → **Selector komplett tot**. Fix: alle range-Keys auf lowercase.
+
+3. **Hardcoded Baseline-Jahre in conflicts.js.**
+   5y-Filter war `d.year >= 2019` (korrekt für 2024, stale ab 2025),
+   20y-Filter war `d.year >= 2004`. Fix: `currentYear - 5` /
+   `currentYear - 20`.
+
+Nicht angefasst (bewusst):
+
+- `population.js` hat seit Schritt 1 `supportsTimeRange: false` und eigenen
+  Pyramiden-Jahr-Selector — bleibt.
+- `conflicts.js`, `freedom.js`, `poverty.js`, `renewables.js`, `science.js`:
+  behalten `supportsTimeRange: true`, Selektor ist jetzt in allen funktional.
+- Der Content-Bereich bleibt in sich schlüssig; die Button-Labels kommen
+  via `i18n.t('detail.range.*')`, Platzhalter-Ersatz greift nicht
+  (kurze Strings wie "1Y", "5Y", "Max").
 
 ### 🔜 Schritt 6 — Visuell kosmetisch ohne Risiko
 
