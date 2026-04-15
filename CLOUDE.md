@@ -37,7 +37,8 @@ World.One ist eine Static-Site (GitHub Pages) mit:
 | `181d598` | ui consistency Schritt 4 | i18n bekommt globale Platzhalter `{currentYear}`, `{tempLatestYear}`, `{popLatestYear}`, `{freedomStreak}`. 5 zeitgebundene Strings (DE+EN) umgestellt. `_applyDynamicYears(data)` in app.js leitet Werte aus world-state ab und schiebt sie via `setGlobalParams()` ins i18n — alle `[data-i18n]`-Elemente re-rendern automatisch. SW v20260415-2305. |
 | `9be41c6` | ui consistency Schritt 5 | `supportsTimeRange` Audit: 3 stille Bugs gefixt. `timerangechange` wird jetzt auf `document` dispatcht (war auf sibling-block → 3 Topics stumm). `renewables.js` Case-Mismatch UPPERCASE→lowercase. `conflicts.js` hardcoded `2019`/`2004` → `currentYear - N`. Alle 5 Selektoren jetzt funktional. SW v20260415-2320. |
 | `3cde632` | ui consistency Schritt 6 | Tier-Badge-API: neue `source` Option, kontextsensitives Tooltip (live/cache/static mit Alters-Text), normalized-tier Guard, 6 neue i18n Keys DE+EN. Main-Page Counter: 14/14 bekommen `title`-Tooltip "Quelle: X · aktualisiert vor Yh" via `_syncLiveCounters` + `findInd()` Indicator-Lookup aus world-state. SW v20260415-2340. |
-| **HEAD** | ui consistency Schritt 7 (A11y) | Skip-to-main-Link beide Seiten, `<main id="main-content">` wrapper um alle Acts, `role="status" aria-live="polite"` am World-Index-Wert, `role="radiogroup"` + `aria-checked` für Crisis-Layer-Buttons (JS synchronisiert Klasse ↔ aria), `#scroll-top` auf `data-i18n-aria`. 2 neue i18n Keys. SW v20260415-2355. |
+| `6c5e049` | ui consistency Schritt 7 (A11y) | Skip-to-main-Link beide Seiten, `<main id="main-content">` wrapper um alle Acts, `role="status" aria-live="polite"` am World-Index-Wert, `role="radiogroup"` + `aria-checked` für Crisis-Layer-Buttons (JS synchronisiert Klasse ↔ aria), `#scroll-top` auf `data-i18n-aria`. 2 neue i18n Keys. SW v20260415-2355. |
+| **HEAD** | ui consistency Schritt 8 (Perf) | Particles respektieren prefers-reduced-motion + saveData + slow-2g/2g → Abschaltung; 3g → 400 statt 1000 Partikel; Pause-On-Hidden via visibilitychange. Preload world-state.json + app.js, preconnect jsDelivr, dns-prefetch Cloudflare. SW v20260416-0015. |
 
 ---
 
@@ -421,12 +422,61 @@ visible` hat zusätzlich einen Glow + Outline in sections.css.
   Checked-States, aber keinen Tastatur-Pfeiltasten-Handler — das
   wäre das nächste Refinement (optional, kein echtes A11y-Fail).
 
-### 🔜 Schritt 8 — Performance
+### ✅ Schritt 8 — Performance
 
-- Particles-System: Reduktion auf schwachen Geräten (Mediaquery
-  `prefers-reduced-motion` schon vorhanden? prüfen).
-- Chart.js Lazy-Load: bereits per IntersectionObserver — OK, nur Audit.
-- i18n.js ist groß (~2000 Zeilen) — evtl. per Sprache splittable. Niedrige Prio.
+**Particles-System gehärtet** (`js/app.js _initParticles`):
+
+Drei neue Gates vor dem Start:
+
+1. `DOMUtils.prefersReducedMotion()` → Canvas wird versteckt, kein
+   Partikel-System gestartet (spart 1000 Partikel × 60fps = großer
+   CPU-/Akku-Gewinn für User mit System-Einstellung
+   "Bewegung reduzieren").
+2. `navigator.connection.saveData === true` → gleiche Abschaltung
+   (Daten-Sparmodus).
+3. `navigator.connection.effectiveType` ∈ `{slow-2g, 2g}` →
+   abgeschaltet; auf `3g` läuft das Desktop-Partikel-System mit nur
+   400 statt 1000 Partikeln.
+
+Plus: **Tab-Sichtbarkeit**. `document.addEventListener('visibilitychange',…)`
+stoppt die Render-Loop wenn der User den Tab wechselt oder minimiert,
+startet sie beim Re-Fokus wieder. Das war bisher komplett fehlend —
+System lief volle 60fps auch im Hintergrund-Tab.
+
+**Preload / Preconnect** (beide HTMLs):
+
+```html
+<link rel="preload" href="data/processed/world-state.json"
+      as="fetch" type="application/json" crossorigin>
+<link rel="preload" href="js/app.js" as="script" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+```
+
+- world-state.json wird parallel zum CSS geladen (kritischer Pfad).
+- app.js preload: Browser kann parsen während CSS rendert.
+- jsDelivr preconnect: TCP-Handshake schon vorgewärmt, Chart.js-Load
+  beim ersten Chart geht fast instant.
+- Cloudflare dns-prefetch: Fallback-CDN für Chart.js, DNS ist schon
+  aufgelöst.
+
+**Chart.js Lazy-Load** (Audit, unverändert):
+
+`detail-app.js setupLazyCharts` nutzt bereits IntersectionObserver
+mit `rootMargin: '200px'` + `threshold: 0.1`. Chart.js wird nur
+geladen sobald das erste Chart in den Viewport kommt. ✓
+
+**Nicht angefasst**:
+
+- `i18n.js` ist ~146 KB uncompressed (DE + EN parallel). Split nach
+  Sprache wäre ein Gewinn, erfordert aber non-trivialen Refactor
+  mit Regressions-Risiko. Dokumentiert als future-optimization.
+- `scroll-engine.js` hat `reducedMotion` Flag aber nutzt ihn nicht.
+  Das globale `@media (prefers-reduced-motion)` in core.css
+  neutralisiert die meisten CSS-Animationen bereits; JS-seitige
+  Deaktivierung der Scroll-Effekte wäre zu invasiv.
+- Keine `<img>` Tags im Projekt — alle Icons sind inline SVGs oder
+  Canvas-gezeichnet. `loading="lazy"` nicht anwendbar.
 
 ### 🔜 Schritt 9 — Dokumentation & Übergabe
 

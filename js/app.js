@@ -113,6 +113,20 @@ class BelkisOne {
 
     canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;';
 
+    // ── Performance-Gates (Schritt 8) ──
+    // 1. prefers-reduced-motion: User hat System-weit Animationen deaktiviert
+    //    -> Canvas komplett verbergen, kein Partikel-System starten
+    //       (spart 1200 Partikel × 60fps = großer CPU-/Akku-Gewinn).
+    // 2. Save-Data / slow connection: reduziere Partikel-Count drastisch
+    //    oder schalte aus.
+    const reducedMotion = DOMUtils.prefersReducedMotion();
+    const saveData = navigator.connection?.saveData === true;
+    const slowNet = ['slow-2g', '2g'].includes(navigator.connection?.effectiveType);
+    if (reducedMotion || saveData || slowNet) {
+      canvas.style.display = 'none';
+      return;
+    }
+
     window.addEventListener('mousemove', DOMUtils.throttle((e) => {
       if (this.particles) {
         this.particles.mouse.x = e.clientX;
@@ -120,8 +134,14 @@ class BelkisOne {
       }
     }, 16));
 
+    // Mobile ≈ 300, Desktop ≈ 1000 (pre-Schritt-8); 3g connections bekommen
+    // die Mobile-Zahl auch auf Desktop.
+    const isMobile = DOMUtils.viewport().isMobile;
+    const cellular3g = navigator.connection?.effectiveType === '3g';
+    const desktopCount = cellular3g ? 400 : 1000;
+
     this.particles = new ParticleSystem(canvas, {
-      count: DOMUtils.viewport().isMobile ? 300 : 1000,
+      count: isMobile ? 300 : desktopCount,
       baseColor: { r: 255, g: 255, b: 255 },
       maxSize: 2,
       speed: 0.2,
@@ -130,6 +150,14 @@ class BelkisOne {
       mouseForce: 0.06
     });
     this.particles.start();
+
+    // Tab-Sichtbarkeit: wenn der User den Tab wechselt / minimiert,
+    // stoppe die Render-Loop. Spart CPU/Akku im Hintergrund.
+    document.addEventListener('visibilitychange', () => {
+      if (!this.particles) return;
+      if (document.hidden) this.particles.stop();
+      else this.particles.start();
+    });
   }
 
   // ─── Scroll Engine Registration ───

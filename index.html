@@ -11,6 +11,14 @@
   <link rel="apple-touch-icon" href="assets/icon/icon-192.png">
   <title>World.One 2.0 — Der Zustand der Welt</title>
 
+  <!-- ═══ Performance Hints (Schritt 8) ═══
+       world-state.json ist kritischer Pfad — Preload parallel zum CSS.
+       Chart.js CDN (jsdelivr) wird lazy geladen, aber TCP-Handshake schon vorwarmen. -->
+  <link rel="preload" href="data/processed/world-state.json" as="fetch" type="application/json" crossorigin="anonymous">
+  <link rel="preload" href="js/app.js" as="script" crossorigin="anonymous">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
   <!-- Styles -->
   <link rel="stylesheet" href="css/core.css">
   <link rel="stylesheet" href="css/components.css">
