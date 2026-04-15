@@ -31,7 +31,8 @@ const JOB_FILES = {
     'airquality.json', 'weather.json', 'earthquakes.json',
     'crypto_sentiment.json', 'science.json', 'space.json', 'health.json',
     'internet.json'
-  ]
+  ],
+  'premium-sources': ['fred.json', 'waqi.json', 'news.json']
 };
 
 /**
