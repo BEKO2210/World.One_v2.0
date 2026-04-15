@@ -29,7 +29,8 @@ const JOB_FILES = {
   'live-data': [
     'temperature.json', 'forests.json', 'renewables.json',
     'airquality.json', 'weather.json', 'earthquakes.json',
-    'crypto_sentiment.json', 'science.json', 'space.json', 'health.json'
+    'crypto_sentiment.json', 'science.json', 'space.json', 'health.json',
+    'internet.json'
   ]
 };
 

@@ -43,7 +43,8 @@ const EXPECTED_FILES = [
   'crypto_sentiment.json',
   'science.json',
   'space.json',
-  'health.json'
+  'health.json',
+  'internet.json'
 ];
 
 const EXPECTED_JOBS = [

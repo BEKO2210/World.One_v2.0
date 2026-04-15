@@ -388,6 +388,43 @@ async function cacheSpace() {
   console.log(`  [space] ${articles.length} articles`);
 }
 
+// ─── 10b. Internet (World Bank IT.NET.USER.ZS + IT.CEL.SETS.P2) ───
+async function cacheInternet() {
+  console.log('  [internet] Fetching World Bank internet/mobile usage...');
+  const [users, mobile] = await Promise.all([
+    fetchJSON(`https://api.worldbank.org/v2/country/WLD/indicator/IT.NET.USER.ZS?format=json&per_page=60&date=1990:${CURRENT_YEAR}`)
+      .catch(() => null),
+    fetchJSON(`https://api.worldbank.org/v2/country/WLD/indicator/IT.CEL.SETS.P2?format=json&per_page=60&date=1990:${CURRENT_YEAR}`)
+      .catch(() => null)
+  ]);
+
+  const usersHistory = extractWorldBankEntries(users, { roundDigits: 2 });
+  const mobileHistory = extractWorldBankEntries(mobile, { roundDigits: 2 });
+  const latestUsers = usersHistory.length ? usersHistory[usersHistory.length - 1] : null;
+  const latestMobile = mobileHistory.length ? mobileHistory[mobileHistory.length - 1] : null;
+
+  if (!latestUsers && !latestMobile) {
+    throw new Error('No World Bank internet/mobile data retrieved');
+  }
+
+  const payload = {
+    users_pct: latestUsers ? {
+      value: latestUsers.value, year: latestUsers.year, unit: '%',
+      source: 'World Bank (IT.NET.USER.ZS)'
+    } : null,
+    mobile_per_100: latestMobile ? {
+      value: latestMobile.value, year: latestMobile.year, unit: 'per 100',
+      source: 'World Bank (IT.CEL.SETS.P2)'
+    } : null,
+    history: {
+      users_pct: usersHistory,
+      mobile_per_100: mobileHistory
+    }
+  };
+  saveCache('internet.json', payload);
+  console.log(`  [internet] users=${latestUsers?.value}% mobile=${latestMobile?.value}/100`);
+}
+
 // ─── 10. Health (World Bank life expectancy + mortality + DTP3) ───
 async function cacheHealth() {
   console.log('  [health] Fetching World Bank health indicators...');
@@ -443,7 +480,8 @@ const TASKS = [
   ['crypto_sentiment', cacheCryptoSentiment],
   ['science', cacheScience],
   ['space', cacheSpace],
-  ['health', cacheHealth]
+  ['health', cacheHealth],
+  ['internet', cacheInternet]
 ];
 
 async function main() {

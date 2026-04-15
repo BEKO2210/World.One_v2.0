@@ -177,3 +177,80 @@ node scripts/cache-live-data.js                  # 9/10 live (temperature deferr
   either source recovers. No code change required.
 - The four repaired fallback keys stay backward compatible for any external consumer
   thanks to the null-safe unwrap pattern (`data?.<sub> ?? data`).
+
+---
+
+# Run 2 — Routing & Navigation Integrity
+
+Roadmap Run 2. Goal: stable main↔detail navigation without broken topic links.
+Same directive applied: fix everything found, integrate more live data.
+
+## A) Routing Findings (Before)
+
+- VALID_TOPICS allowlist (29) matched files on disk (29) — OK.
+- `poverty`, `hunger`, `disasters`, `biodiversity` were reachable only via direct URL
+  — no main-page anchor, so users could not drill in from the section they describe.
+- Keyboard delegation on `.detail-link` listened on `document` without guarding
+  native interactive controls — a stray Enter/Space on a button could double-fire.
+- No automated check tied the allowlist, filesystem, topic contract, main-page map
+  and i18n title keys together.
+
+## B) Fixes Applied
+
+### B.1 Missing navigation links
+- `js/app.js` STATIC_TOPIC_MAP:
+  - `.wealth-comparison__side:nth-child(3)` → `poverty` (the "extreme poverty"
+    side of Act 4 wealth-comparison).
+  - `#akt-biodiversity .section-header` → `biodiversity` overview
+    (data-card children keep their existing drill-downs to `extinction` /
+    `endangered`).
+- `hunger` and `disasters` remain URL-only (no clean anchor in current main-page
+  layout); the routing validator now surfaces these as warnings so they cannot
+  silently regress.
+
+### B.2 Keyboard a11y guard
+`js/app.js` keydown delegation now bails out early when the target is a native
+interactive element (`BUTTON`, `INPUT`, `TEXTAREA`, `SELECT`, `A`, or
+`contentEditable`) so the detail-link shortcut cannot hijack standard controls.
+
+### B.3 Routing smoke test
+New `scripts/validate-routing.js` verifies in one pass:
+1. VALID_TOPICS ↔ filesystem alignment.
+2. Every topic module exports the full contract (`meta`, `render`, `cleanup`,
+   `getChartConfigs`).
+3. Every main-page STATIC_TOPIC_MAP entry is on the allowlist.
+4. Every topic `meta.titleKey` exists in `js/i18n.js` (or is explicitly
+   `_stub`, the placeholder).
+5. Tier coverage: per topic, which tier the data loader will reach
+   (`cache` = dedicated cache file present / `static` = falls through to
+   `static-values.json` / `unresolved` = nothing → would be a regression).
+
+## C) Live-Data Expansion (Run-1 follow-up)
+
+- New `internet.json` cache in `scripts/cache-live-data.js`
+  (World Bank IT.NET.USER.ZS + IT.CEL.SETS.P2), completing the formerly
+  static-only internet topic.
+- `validate-routing.js` cache-alias map (`extinction`, `endangered` ← `biodiversity.json`;
+  `ocean_*` ← `ocean.json`; `co2` ← `co2-history.json`) makes indirect live-data
+  coverage measurable.
+- Tier coverage went from 23/28 → **26/28** cache-backed. Only `temperature`
+  (pending NASA/NOAA recovery) and `momentum_detail` (derived internal score)
+  remain on the static tier.
+
+## D) Post-Run-2 Verification
+
+```bash
+node scripts/validate-routing.js
+#   Allowlist topics:       29
+#   Modules on disk:        29
+#   Main-page mapped:       26
+#   Cache-backed topics:    26
+#   Static-fallback only:   2
+#   Unresolved topics:      0
+#   Errors:                 0
+#   Warnings:               2   (hunger / disasters URL-only)
+node scripts/validate-cache.js        # 24/24 files valid
+node scripts/validate-fallback.js     # 28/28 topics, 0 errors
+npm run process                       # PASS
+node scripts/self-heal.js             # 0 auto-fixes
+```
