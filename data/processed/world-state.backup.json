@@ -1,11 +1,11 @@
 {
   "meta": {
-    "generated": "2026-04-15T22:03:04.532Z",
+    "generated": "2026-04-15T23:41:43.781Z",
     "version": "2.0.0",
     "sources_count": 41,
     "sources_available": 41,
     "sources_success_rate": 100,
-    "next_update": "2026-04-16T04:03:04.532Z",
+    "next_update": "2026-04-16T05:41:43.781Z",
     "realtimePulse": {
       "environment": -0.41,
       "society": 0,
@@ -18,16 +18,40 @@
         "cryptoFearGreed": 23,
         "arxivPapers": 20
       }
+    },
+    "cacheFreshness": {
+      "environment": {
+        "newest": "2026-04-15T22:10:40.442Z",
+        "oldest": "2026-04-15T21:30:17.873Z",
+        "newestHours": 1.5,
+        "oldestHours": 2.2,
+        "sourceCount": 4
+      },
+      "society": {
+        "newest": "2026-04-15T21:30:47.173Z",
+        "oldest": "2026-04-15T06:05:38.879Z",
+        "newestHours": 2.2,
+        "oldestHours": 17.6,
+        "sourceCount": 3
+      },
+      "economy": null,
+      "progress": {
+        "newest": "2026-04-15T21:30:48.006Z",
+        "oldest": "2026-04-15T21:30:37.863Z",
+        "newestHours": 2.2,
+        "oldestHours": 2.2,
+        "sourceCount": 2
+      }
     }
   },
   "worldIndex": {
-    "value": 65.8,
-    "rawValue": 62.5,
+    "value": 62.6,
+    "rawValue": 59.6,
     "label": "POSITIV",
     "zone": "positive",
-    "previous": 65.9,
-    "change": -0.1,
-    "trend": "declining",
+    "previous": 62.6,
+    "change": 0,
+    "trend": "stable",
     "carryingCapacity": {
       "checks": {
         "existence": {
@@ -45,9 +69,9 @@
       },
       "spectrum": {
         "environment": {
-          "direction": "neutral",
-          "position": "stable",
-          "level": 0
+          "direction": "erosion",
+          "position": "strained",
+          "level": -1
         },
         "society": {
           "direction": "expansion",
@@ -72,14 +96,14 @@
       },
       "indicators": {
         "environment": {
-          "bufferDistance": 35.3,
+          "bufferDistance": 24.2,
           "recoveryTime": 0,
           "maintenanceCost": 0.16
         },
         "society": {
           "bufferDistance": 47.9,
           "recoveryTime": 0,
-          "maintenanceCost": 0.78
+          "maintenanceCost": 0.77
         },
         "economy": {
           "bufferDistance": 62.8,
@@ -87,7 +111,7 @@
           "maintenanceCost": 2.76
         },
         "progress": {
-          "bufferDistance": 74.2,
+          "bufferDistance": 73.3,
           "recoveryTime": 0,
           "maintenanceCost": 4.52
         },
@@ -102,9 +126,9 @@
   },
   "subScores": {
     "environment": {
-      "value": 45,
-      "label": "GEMISCHT",
-      "zone": "mixed",
+      "value": 35.6,
+      "label": "BESORGNISERREGEND",
+      "zone": "concerning",
       "weight": 0.25,
       "trend": "declining",
       "change": -3.8,
@@ -114,42 +138,63 @@
           "value": "+1.19°C",
           "score": 60,
           "trend": "declining",
-          "source": "NASA GISTEMP"
+          "fetchedAt": null,
+          "ageHours": null,
+          "source": "NASA GISTEMP (raw)"
         },
         {
           "name": "CO2-Konzentration",
           "value": "429 ppm",
           "score": 32,
           "trend": "declining",
-          "source": "NOAA"
+          "fetchedAt": null,
+          "ageHours": null,
+          "source": "NOAA Mauna Loa"
         },
         {
           "name": "Waldfläche",
-          "value": "31.1%",
+          "value": "31.14%",
           "score": 56,
           "trend": "declining",
-          "source": "World Bank"
+          "fetchedAt": "2026-04-15T21:30:17.873Z",
+          "ageHours": 2.2,
+          "source": "World Bank / FAO (AG.LND.FRST.ZS)"
         },
         {
           "name": "Erneuerbare Energie",
-          "value": "19.7%",
+          "value": "19.74%",
           "score": 33,
           "trend": "improving",
-          "source": "World Bank / IRENA"
+          "fetchedAt": "2026-04-15T21:30:18.010Z",
+          "ageHours": 2.2,
+          "source": "World Bank (EG.FEC.RNEW.ZS)"
         },
         {
           "name": "Luftqualität (Global Avg AQI)",
-          "value": 65,
+          "value": 52,
           "score": 45,
           "trend": "stable",
-          "source": "Open-Meteo"
+          "fetchedAt": "2026-04-15T21:30:28.868Z",
+          "ageHours": 2.2,
+          "source": "Open-Meteo (13 cities avg)"
         },
         {
           "name": "Arktis-Eisfläche",
           "value": "4.2 Mio km²",
           "score": 30,
           "trend": "declining",
-          "source": "NSIDC"
+          "fetchedAt": null,
+          "ageHours": null,
+          "source": "NSIDC (manual baseline)"
+        },
+        {
+          "name": "Aktive Naturkatastrophen",
+          "value": "40 events, -10 Pkt",
+          "score": 0,
+          "trend": "declining",
+          "fetchedAt": "2026-04-15T22:10:40.442Z",
+          "ageHours": 1.5,
+          "source": "GDACS (JRC/EU)"
         }
       ]
     },
@@ -163,44 +208,56 @@
       "indicators": [
         {
           "name": "Lebenserwartung",
-          "value": "73.5 Jahre",
+          "value": "73.48 Jahre",
           "score": 67,
           "trend": "improving",
-          "source": "World Bank"
+          "fetchedAt": "2026-04-15T21:30:47.173Z",
+          "ageHours": 2.2,
+          "source": "World Bank (SP.DYN.LE00.IN)"
         },
         {
           "name": "Kindersterblichkeit",
           "value": "37.4/1000",
           "score": 66,
           "trend": "improving",
-          "source": "World Bank"
+          "fetchedAt": "2026-04-15T21:30:47.173Z",
+          "ageHours": 2.2,
+          "source": "World Bank (SH.DYN.MORT)"
         },
         {
           "name": "Aktive Konflikte",
           "value": 59,
           "score": 29,
           "trend": "declining",
-          "source": "ACLED"
+          "fetchedAt": "2026-04-15T06:06:13.850Z",
+          "ageHours": 17.6,
+          "source": "ACLED/Crisis Group (baseline)"
         },
         {
           "name": "Elektrizitätszugang",
           "value": "91.6%",
           "score": 83,
           "trend": "improving",
-          "source": "World Bank"
+          "fetchedAt": null,
+          "ageHours": null,
+          "source": "World Bank (raw)"
         },
         {
           "name": "Trinkwasserzugang",
           "value": "73.7%",
           "score": 56,
           "trend": "improving",
-          "source": "World Bank"
+          "fetchedAt": null,
+          "ageHours": null,
+          "source": "World Bank (raw)"
         },
         {
           "name": "Menschen auf der Flucht",
           "value": "108.4 Mio",
           "score": 28,
           "trend": "declining",
+          "fetchedAt": null,
+          "ageHours": null,
           "source": "UNHCR"
         },
         {
@@ -208,7 +265,9 @@
           "value": "84 frei / 55 unfrei",
           "score": 46,
           "trend": "declining",
-          "source": "Freedom House"
+          "fetchedAt": "2026-04-15T06:05:38.879Z",
+          "ageHours": 17.6,
+          "source": "Freedom House - Freedom in the World"
         }
       ]
     },
@@ -225,6 +284,8 @@
           "value": "2.87%",
           "score": 72,
           "trend": "improving",
+          "fetchedAt": null,
+          "ageHours": null,
           "source": "World Bank / IMF"
         },
         {
@@ -232,6 +293,8 @@
           "value": 42,
           "score": 51,
           "trend": "stable",
+          "fetchedAt": null,
+          "ageHours": null,
           "source": "World Bank"
         },
         {
@@ -239,6 +302,8 @@
           "value": "6.5%",
           "score": 75,
           "trend": "stable",
+          "fetchedAt": null,
+          "ageHours": null,
           "source": "World Bank"
         },
         {
@@ -246,6 +311,8 @@
           "value": "4.79%",
           "score": 79,
           "trend": "stable",
+          "fetchedAt": null,
+          "ageHours": null,
           "source": "World Bank / ILO"
         },
         {
@@ -253,12 +320,14 @@
           "value": "8.5%",
           "score": 55,
           "trend": "improving",
-          "source": "World Bank"
+          "fetchedAt": null,
+          "ageHours": null,
+          "source": "World Bank (static baseline)"
         }
       ]
     },
     "progress": {
-      "value": 78.1,
+      "value": 77.3,
       "label": "POSITIV",
       "zone": "positive",
       "weight": 0.2,
@@ -270,13 +339,17 @@
           "value": "73.6%",
           "score": 82,
           "trend": "improving",
-          "source": "World Bank / ITU"
+          "fetchedAt": "2026-04-15T21:30:48.006Z",
+          "ageHours": 2.2,
+          "source": "World Bank (IT.NET.USER.ZS)"
         },
         {
           "name": "Alphabetisierung",
           "value": "87.7%",
           "score": 75,
           "trend": "improving",
+          "fetchedAt": null,
+          "ageHours": null,
           "source": "World Bank / UNESCO"
         },
         {
@@ -284,6 +357,8 @@
           "value": "2.59%",
           "score": 65,
           "trend": "improving",
+          "fetchedAt": null,
+          "ageHours": null,
           "source": "World Bank"
         },
         {
@@ -291,21 +366,27 @@
           "value": "111.5/100",
           "score": 86,
           "trend": "improving",
-          "source": "World Bank / ITU"
+          "fetchedAt": "2026-04-15T21:30:48.006Z",
+          "ageHours": 2.2,
+          "source": "World Bank (IT.CEL.SETS.P2)"
         },
         {
           "name": "GitHub Repositories",
           "value": "0K+",
           "score": 80,
           "trend": "improving",
+          "fetchedAt": null,
+          "ageHours": null,
           "source": "GitHub"
         },
         {
           "name": "Wissenschaftliche Papers",
-          "value": "20+ heute",
+          "value": "0.4M total",
           "score": 75,
           "trend": "improving",
-          "source": "arXiv"
+          "fetchedAt": "2026-04-15T21:30:37.863Z",
+          "ageHours": 2.2,
+          "source": "arXiv (cs.AI + cs.LG)"
         }
       ]
     },
@@ -1321,79 +1402,79 @@
       "source": "NOAA"
     },
     "airQuality": {
-      "globalAvgAQI": 65,
+      "globalAvgAQI": 52,
       "cleanestCities": [
         {
+          "city": "Paris",
+          "country": "FR",
+          "aqi": 22,
+          "lat": null,
+          "lng": null
+        },
+        {
           "city": "Berlin",
-          "country": "",
-          "aqi": 21,
-          "lat": 52.52,
-          "lng": 13.41
+          "country": "DE",
+          "aqi": 26,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Istanbul",
+          "country": "TR",
+          "aqi": 28,
+          "lat": null,
+          "lng": null
         },
         {
           "city": "London",
-          "country": "",
-          "aqi": 30,
-          "lat": 51.51,
-          "lng": -0.13
-        },
-        {
-          "city": "Lagos",
-          "country": "",
-          "aqi": 30,
-          "lat": 6.45,
-          "lng": 3.4
-        },
-        {
-          "city": "São Paulo",
-          "country": "",
-          "aqi": 32,
-          "lat": -23.55,
-          "lng": -46.63
+          "country": "GB",
+          "aqi": 31,
+          "lat": null,
+          "lng": null
         },
         {
           "city": "Sydney",
-          "country": "",
+          "country": "AU",
           "aqi": 33,
-          "lat": -33.87,
-          "lng": 151.21
+          "lat": null,
+          "lng": null
         }
       ],
       "mostPolluted": [
         {
-          "city": "Delhi",
-          "country": "",
-          "aqi": 191,
-          "lat": 28.61,
-          "lng": 77.21
+          "city": "Jakarta",
+          "country": "ID",
+          "aqi": 113,
+          "lat": null,
+          "lng": null
         },
         {
-          "city": "Beijing",
-          "country": "",
-          "aqi": 119,
-          "lat": 39.9,
-          "lng": 116.4
+          "city": "Dhaka",
+          "country": "BD",
+          "aqi": 70,
+          "lat": null,
+          "lng": null
         },
         {
           "city": "Mexico City",
-          "country": "",
-          "aqi": 69,
-          "lat": 19.43,
-          "lng": -99.13
+          "country": "MX",
+          "aqi": 70,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Karachi",
+          "country": "PK",
+          "aqi": 66,
+          "lat": null,
+          "lng": null
         },
         {
           "city": "Mumbai",
-          "country": "",
+          "country": "IN",
           "aqi": 62,
-          "lat": 19.08,
-          "lng": 72.88
-        },
-        {
-          "city": "Tokyo",
-          "country": "",
-          "aqi": 62,
-          "lat": 35.68,
-          "lng": 139.69
+          "lat": null,
+          "lng": null
         }
       ],
       "source": "Open-Meteo Air Quality"
@@ -1406,8 +1487,282 @@
       "source": "NSIDC"
     },
     "forest": {
-      "current": 31.1,
+      "current": 31.14,
       "history": [
+        {
+          "year": 1992,
+          "value": 33.01
+        },
+        {
+          "year": 1993,
+          "value": 32.82
+        },
+        {
+          "year": 1994,
+          "value": 32.77
+        },
+        {
+          "year": 1995,
+          "value": 32.71
+        },
+        {
+          "year": 1996,
+          "value": 32.65
+        },
+        {
+          "year": 1997,
+          "value": 32.57
+        },
+        {
+          "year": 1998,
+          "value": 32.51
+        },
+        {
+          "year": 1999,
+          "value": 32.45
+        },
+        {
+          "year": 2000,
+          "value": 32.37
+        },
+        {
+          "year": 2001,
+          "value": 32.33
+        },
+        {
+          "year": 2002,
+          "value": 32.3
+        },
+        {
+          "year": 2003,
+          "value": 32.25
+        },
+        {
+          "year": 2004,
+          "value": 32.18
+        },
+        {
+          "year": 2005,
+          "value": 32.14
+        },
+        {
+          "year": 2006,
+          "value": 32.1
+        },
+        {
+          "year": 2007,
+          "value": 32.06
+        },
+        {
+          "year": 2008,
+          "value": 32.02
+        },
+        {
+          "year": 2009,
+          "value": 31.99
+        },
+        {
+          "year": 2010,
+          "value": 31.95
+        },
+        {
+          "year": 2011,
+          "value": 31.91
+        },
+        {
+          "year": 2012,
+          "value": 31.47
+        },
+        {
+          "year": 2013,
+          "value": 31.44
+        },
+        {
+          "year": 2014,
+          "value": 31.4
+        },
+        {
+          "year": 2015,
+          "value": 31.37
+        },
+        {
+          "year": 2016,
+          "value": 31.34
+        },
+        {
+          "year": 2017,
+          "value": 31.29
+        },
+        {
+          "year": 2018,
+          "value": 31.25
+        },
+        {
+          "year": 2019,
+          "value": 31.21
+        },
+        {
+          "year": 2020,
+          "value": 31.18
+        },
+        {
+          "year": 2021,
+          "value": 31.18
+        },
+        {
+          "year": 2022,
+          "value": 31.14
+        }
+      ],
+      "source": "World Bank"
+    },
+    "renewableEnergy": {
+      "current": 19.74,
+      "history": [
+        {
+          "year": 1990,
+          "value": 16.68
+        },
+        {
+          "year": 1991,
+          "value": 16.83
+        },
+        {
+          "year": 1992,
+          "value": 17.19
+        },
+        {
+          "year": 1993,
+          "value": 17.21
+        },
+        {
+          "year": 1994,
+          "value": 17.36
+        },
+        {
+          "year": 1995,
+          "value": 17.42
+        },
+        {
+          "year": 1996,
+          "value": 17.45
+        },
+        {
+          "year": 1997,
+          "value": 17.47
+        },
+        {
+          "year": 1998,
+          "value": 17.62
+        },
+        {
+          "year": 1999,
+          "value": 17.88
+        },
+        {
+          "year": 2000,
+          "value": 17.53
+        },
+        {
+          "year": 2001,
+          "value": 17.21
+        },
+        {
+          "year": 2002,
+          "value": 17.22
+        },
+        {
+          "year": 2003,
+          "value": 17.07
+        },
+        {
+          "year": 2004,
+          "value": 16.78
+        },
+        {
+          "year": 2005,
+          "value": 16.64
+        },
+        {
+          "year": 2006,
+          "value": 16.73
+        },
+        {
+          "year": 2007,
+          "value": 16.54
+        },
+        {
+          "year": 2008,
+          "value": 16.66
+        },
+        {
+          "year": 2009,
+          "value": 17.07
+        },
+        {
+          "year": 2010,
+          "value": 16.74
+        },
+        {
+          "year": 2011,
+          "value": 16.7
+        },
+        {
+          "year": 2012,
+          "value": 16.9
+        },
+        {
+          "year": 2013,
+          "value": 17.17
+        },
+        {
+          "year": 2014,
+          "value": 17.33
+        },
+        {
+          "year": 2015,
+          "value": 17.4
+        },
+        {
+          "year": 2016,
+          "value": 17.63
+        },
+        {
+          "year": 2017,
+          "value": 17.85
+        },
+        {
+          "year": 2018,
+          "value": 18.11
+        },
+        {
+          "year": 2019,
+          "value": 18.58
+        },
+        {
+          "year": 2020,
+          "value": 19.74
+        }
+      ],
+      "source": "World Bank / IRENA"
+    },
+    "co2PerCapita": {
+      "history": [],
+      "source": "World Bank"
+    },
+    "biodiversity": {
+      "threatenedTotal": 130285,
+      "vulnerable": 53817,
+      "endangered": 49014,
+      "criticallyEndangered": 27454,
+      "source": "GBIF / IUCN",
+      "fetchedAt": "2026-04-15T05:17:01.758Z",
+      "ageHours": 18.4
+    },
+    "weather": [],
+    "ocean": {
+      "sstAnomaly": 0.83,
+      "sstHistory": [
         {
           "year": 1996,
           "value": 32.6
@@ -4529,258 +4884,314 @@
           "value": 13631
         }
       ],
-      "source": "World Bank"
+      "source": "UNHCR"
     },
-    "trade": {
-      "current": 56.8,
-      "history": [
-        {
-          "year": 1996,
-          "value": 43
-        },
-        {
-          "year": 1997,
-          "value": 44.8
-        },
-        {
-          "year": 1998,
-          "value": 45.5
-        },
-        {
-          "year": 1999,
-          "value": 45.9
-        },
-        {
-          "year": 2000,
-          "value": 50.3
-        },
-        {
-          "year": 2001,
-          "value": 49.2
-        },
-        {
-          "year": 2002,
-          "value": 49.2
-        },
-        {
-          "year": 2003,
-          "value": 50.8
-        },
-        {
-          "year": 2004,
-          "value": 54.4
-        },
-        {
-          "year": 2005,
-          "value": 56.4
-        },
+    "freedom": {
+      "free": 84,
+      "partlyFree": 56,
+      "notFree": 55,
+      "trendDecline": true,
+      "yearDecline": 18,
+      "source": "Freedom House - Freedom in the World",
+      "trend": [
         {
           "year": 2006,
-          "value": 58.6
+          "score": 47
         },
         {
           "year": 2007,
-          "value": 59
+          "score": 46.8
         },
         {
           "year": 2008,
-          "value": 60.6
+          "score": 46.5
         },
         {
           "year": 2009,
-          "value": 52.1
+          "score": 46.2
         },
         {
           "year": 2010,
-          "value": 56.4
+          "score": 45.9
         },
         {
           "year": 2011,
-          "value": 59.5
+          "score": 45.7
         },
         {
           "year": 2012,
-          "value": 59.4
+          "score": 45.5
         },
         {
           "year": 2013,
-          "value": 58.7
+          "score": 45.2
         },
         {
           "year": 2014,
-          "value": 58.1
+          "score": 44.9
         },
         {
           "year": 2015,
-          "value": 55.7
+          "score": 44.6
         },
         {
           "year": 2016,
-          "value": 53.9
+          "score": 44.2
         },
         {
           "year": 2017,
-          "value": 55.6
+          "score": 43.9
         },
         {
           "year": 2018,
-          "value": 57.1
+          "score": 43.6
         },
         {
           "year": 2019,
-          "value": 55.9
+          "score": 43.4
         },
         {
           "year": 2020,
-          "value": 52
+          "score": 43.2
         },
         {
           "year": 2021,
-          "value": 56.7
+          "score": 43
         },
         {
           "year": 2022,
-          "value": 62.4
+          "score": 42.9
         },
         {
           "year": 2023,
-          "value": 58.2
+          "score": 42.7
         },
         {
           "year": 2024,
-          "value": 56.8
-        }
-      ],
-      "source": "World Bank"
-    },
-    "cryptoFearGreed": {
-      "value": 23,
-      "label": "Extreme Fear",
-      "timestamp": "2026-04-15T00:00:00.000Z"
-    },
-    "exchangeRates": {
-      "EUR": 0.847706,
-      "GBP": 0.737401,
-      "JPY": 158.885952,
-      "CNY": 6.829035,
-      "INR": 93.261159,
-      "BRL": 4.986897,
-      "RUB": 75.503022,
-      "KRW": 1472.46758,
-      "CHF": 0.781153
-    }
-  },
-  "progress": {
-    "publications": {
-      "annualTotal": 3200000,
-      "history": [
-        {
-          "year": 1980,
-          "value": 650000
+          "score": 42.5
         },
         {
+          "year": 2025,
+          "score": 42.3
+        }
+      ]
+    },
+    "lifeExpectancy": {
+      "global": 73.48,
+      "highest": {
+        "country": "Japan",
+        "value": 84.8
+      },
+      "lowest": {
+        "country": "Central African Republic",
+        "value": 53.1
+      },
+      "history": [
+        {
           "year": 1990,
-          "value": 900000
+          "value": 65.11
+        },
+        {
+          "year": 1991,
+          "value": 65.3
+        },
+        {
+          "year": 1992,
+          "value": 65.55
+        },
+        {
+          "year": 1993,
+          "value": 65.74
+        },
+        {
+          "year": 1994,
+          "value": 65.96
+        },
+        {
+          "year": 1995,
+          "value": 66.2
+        },
+        {
+          "year": 1996,
+          "value": 66.51
+        },
+        {
+          "year": 1997,
+          "value": 66.83
+        },
+        {
+          "year": 1998,
+          "value": 67.07
+        },
+        {
+          "year": 1999,
+          "value": 67.31
         },
         {
           "year": 2000,
-          "value": 1200000
+          "value": 67.65
+        },
+        {
+          "year": 2001,
+          "value": 67.94
+        },
+        {
+          "year": 2002,
+          "value": 68.23
+        },
+        {
+          "year": 2003,
+          "value": 68.51
+        },
+        {
+          "year": 2004,
+          "value": 68.77
+        },
+        {
+          "year": 2005,
+          "value": 69.11
+        },
+        {
+          "year": 2006,
+          "value": 69.47
+        },
+        {
+          "year": 2007,
+          "value": 69.8
+        },
+        {
+          "year": 2008,
+          "value": 70
+        },
+        {
+          "year": 2009,
+          "value": 70.38
         },
         {
           "year": 2010,
-          "value": 1900000
+          "value": 70.68
+        },
+        {
+          "year": 2011,
+          "value": 70.97
+        },
+        {
+          "year": 2012,
+          "value": 71.26
+        },
+        {
+          "year": 2013,
+          "value": 71.53
+        },
+        {
+          "year": 2014,
+          "value": 71.78
+        },
+        {
+          "year": 2015,
+          "value": 71.96
+        },
+        {
+          "year": 2016,
+          "value": 72.18
+        },
+        {
+          "year": 2017,
+          "value": 72.37
+        },
+        {
+          "year": 2018,
+          "value": 72.64
+        },
+        {
+          "year": 2019,
+          "value": 72.87
         },
         {
           "year": 2020,
-          "value": 2800000
+          "value": 72.18
         },
         {
-          "year": 2026,
-          "value": 3200000
+          "year": 2021,
+          "value": 71.21
+        },
+        {
+          "year": 2022,
+          "value": 72.97
+        },
+        {
+          "year": 2023,
+          "value": 73.33
+        },
+        {
+          "year": 2024,
+          "value": 73.48
         }
       ],
-      "latestArxiv": [
-        {
-          "title": "Generative Refinement Networks for Visual Synthesis",
-          "published": "2026-04-14T17:59:03Z",
-          "category": "cs.CV"
-        },
-        {
-          "title": "Representation geometry shapes task performance in vision-language modeling for CT enterography",
-          "published": "2026-04-14T17:56:23Z",
-          "category": "cs.CV"
-        },
-        {
-          "title": "One Token Away from Collapse: The Fragility of Instruction-Tuned Helpfulness",
-          "published": "2026-04-14T17:40:01Z",
-          "category": "cs.CL"
-        },
-        {
-          "title": "Reconstructing a graph from its Bell colouring graph",
-          "published": "2026-04-14T17:40:00Z",
-          "category": "math.CO"
-        },
-        {
-          "title": "How I Wonder What You Are -- JWST's Little Red Dots do not TWINKLE",
-          "published": "2026-04-14T17:34:10Z",
-          "category": "astro-ph.GA"
-        }
-      ],
-      "source": "arXiv / Scopus"
+      "source": "World Bank / WHO"
     },
-    "github": {
-      "dailyCommits": 142000000,
-      "activeDevs": 120000000,
-      "reposCreatedToday": 850000,
-      "topRepos": [
+    "childMortality": {
+      "current": 37.4,
+      "history": [
         {
-          "name": "codecrafters-io/build-your-own-x",
-          "stars": 490618,
-          "forks": 46325,
-          "language": "Markdown",
-          "updated": "2026-04-15T21:51:24Z"
+          "year": 1990,
+          "value": 93.5
         },
         {
-          "name": "sindresorhus/awesome",
-          "stars": 455672,
-          "forks": 34266,
-          "language": null,
-          "updated": "2026-04-15T21:53:43Z"
+          "year": 1991,
+          "value": 92.9
         },
         {
-          "name": "freeCodeCamp/freeCodeCamp",
-          "stars": 442976,
-          "forks": 44299,
-          "language": "TypeScript",
-          "updated": "2026-04-15T21:53:44Z"
+          "year": 1992,
+          "value": 92.3
         },
         {
-          "name": "public-apis/public-apis",
-          "stars": 423193,
-          "forks": 46078,
-          "language": "Python",
-          "updated": "2026-04-15T22:00:56Z"
+          "year": 1993,
+          "value": 91.1
         },
         {
-          "name": "EbookFoundation/free-programming-books",
-          "stars": 385572,
-          "forks": 66105,
-          "language": "Python",
-          "updated": "2026-04-15T21:53:42Z"
+          "year": 1994,
+          "value": 89.4
         },
         {
-          "name": "openclaw/openclaw",
-          "stars": 358095,
-          "forks": 72774,
-          "language": "TypeScript",
-          "updated": "2026-04-15T22:01:03Z"
+          "year": 1995,
+          "value": 87.5
         },
         {
-          "name": "kamranahmedse/developer-roadmap",
-          "stars": 353007,
-          "forks": 43929,
-          "language": "TypeScript",
-          "updated": "2026-04-15T21:56:19Z"
+          "year": 1996,
+          "value": 86.4
+        },
+        {
+          "year": 1997,
+          "value": 84.3
+        },
+        {
+          "year": 1998,
+          "value": 82.8
+        },
+        {
+          "year": 1999,
+          "value": 79.4
+        },
+        {
+          "year": 2000,
+          "value": 76.7
+        },
+        {
+          "year": 2001,
+          "value": 74.3
+        },
+        {
+          "year": 2002,
+          "value": 71.3
+        },
+        {
+          "year": 2003,
+          "value": 68.3
+        },
+        {
+          "year": 2004,
+          "value": 65.8
         },
         {
           "name": "donnemartin/system-design-primer",
@@ -4812,90 +5223,133 @@
       "history": [
         {
           "year": 2005,
-          "value": 15.6
+          "value": 62.3
         },
         {
           "year": 2006,
-          "value": 17.2
+          "value": 59.6
         },
         {
           "year": 2007,
-          "value": 20.2
+          "value": 57
         },
         {
           "year": 2008,
-          "value": 22.8
+          "value": 54.7
         },
         {
           "year": 2009,
-          "value": 25.3
+          "value": 52.9
         },
         {
           "year": 2010,
-          "value": 28.4
+          "value": 50.6
         },
         {
           "year": 2011,
-          "value": 30.9
+          "value": 49.5
         },
         {
           "year": 2012,
-          "value": 33.3
+          "value": 46.7
         },
         {
           "year": 2013,
-          "value": 35.3
+          "value": 45.1
         },
         {
           "year": 2014,
-          "value": 37.4
+          "value": 43.9
         },
         {
           "year": 2015,
-          "value": 39.9
+          "value": 42.9
         },
         {
           "year": 2016,
-          "value": 43.6
+          "value": 41.7
         },
         {
           "year": 2017,
-          "value": 46.3
+          "value": 40.9
         },
         {
           "year": 2018,
-          "value": 49.4
+          "value": 40
         },
         {
           "year": 2019,
-          "value": 53.9
+          "value": 39.6
         },
         {
           "year": 2020,
-          "value": 60.1
+          "value": 39.2
         },
         {
           "year": 2021,
-          "value": 63.8
+          "value": 39.6
         },
         {
           "year": 2022,
-          "value": 67
+          "value": 40
         },
         {
           "year": 2023,
-          "value": 69.2
+          "value": 38.3
         },
         {
           "year": 2024,
-          "value": 71.2
-        },
-        {
-          "year": 2025,
-          "value": 73.6
+          "value": 37.4
         }
       ],
-      "source": "World Bank / ITU"
+      "source": "World Bank"
+    },
+    "population": {
+      "current": 8100000000,
+      "totalMillions": 8100,
+      "history": [],
+      "source": "World Bank (SP.POP.TOTL)"
+    },
+    "electricityAccess": {
+      "current": 91,
+      "history": [],
+      "source": "World Bank"
+    },
+    "safeWater": {
+      "current": 74,
+      "history": [],
+      "source": "World Bank"
+    },
+    "education": {
+      "history": [],
+      "source": "World Bank / UNESCO"
+    },
+    "healthExpenditure": {
+      "history": [],
+      "source": "World Bank"
+    },
+    "militaryExpenditure": {
+      "history": [],
+      "source": "World Bank"
+    },
+    "urbanization": {
+      "history": [],
+      "source": "World Bank"
+    },
+    "covid": {
+      "cases": 704753890,
+      "deaths": 7010681,
+      "recovered": 675619811
+    }
+  },
+  "economy": {
+    "wealth": {
+      "billionaires": 2781,
+      "billionaireWealth": 14200000000000,
+      "extremePoverty": 648000000,
+      "top1Percent": 45.8,
+      "bottom50Percent": 2.1,
+      "source": "World Bank / Oxfam"
     },
     "literacy": {
       "global": 87.7,
@@ -5278,6 +5732,20 @@
           "value": 2385200
         }
       ],
+      "source": "World Bank / UNESCO"
+    },
+    "mobile": {
+      "subscriptionsPer100": 111.5,
+      "history": [],
+      "source": "World Bank / ITU"
+    },
+    "rdSpending": {
+      "current": 2.63,
+      "history": [],
+      "source": "World Bank"
+    },
+    "patents": {
+      "history": [],
       "source": "World Bank / WIPO"
     },
     "spaceflight": [
@@ -5577,57 +6045,8 @@
       }
     ],
     "volcanic": [],
-    "solar": [
-      {
-        "date": "2025-04",
-        "sunspots": 141.4
-      },
-      {
-        "date": "2025-05",
-        "sunspots": 78.5
-      },
-      {
-        "date": "2025-06",
-        "sunspots": 114.6
-      },
-      {
-        "date": "2025-07",
-        "sunspots": 125.9
-      },
-      {
-        "date": "2025-08",
-        "sunspots": 133.7
-      },
-      {
-        "date": "2025-09",
-        "sunspots": 129.7
-      },
-      {
-        "date": "2025-10",
-        "sunspots": 114.8
-      },
-      {
-        "date": "2025-11",
-        "sunspots": 91.7
-      },
-      {
-        "date": "2025-12",
-        "sunspots": 124.2
-      },
-      {
-        "date": "2026-01",
-        "sunspots": 112.5
-      },
-      {
-        "date": "2026-02",
-        "sunspots": 78.2
-      },
-      {
-        "date": "2026-03",
-        "sunspots": 85.9
-      }
-    ],
-    "lastUpdated": "2026-04-15T22:03:04.532Z"
+    "solar": [],
+    "lastUpdated": "2026-04-15T23:41:43.781Z"
   },
   "momentum": {
     "indicators": [
@@ -5768,7 +6187,7 @@
       {
         "name": "Lebenserwartung",
         "then": 67,
-        "now": 73.5,
+        "now": 73.48,
         "improved": true
       },
       {
@@ -5792,7 +6211,7 @@
       {
         "name": "Erneuerbare Energie",
         "then": 17,
-        "now": 19.7,
+        "now": 19.74,
         "improved": true
       },
       {

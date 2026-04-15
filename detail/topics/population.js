@@ -20,7 +20,11 @@ export const meta = {
   titleKey: 'detail.population.title',
   category: 'society',
   icon: '',
-  supportsTimeRange: true,
+  // supportsTimeRange intentionally OMITTED: population provides its own
+  // year selector (1960 / 2000 / 2026 / 2050) inside _renderPyramid().
+  // Adding the generic 1y/5y/20y/max picker on top would show two
+  // redundant time controls stacked above the pyramid.
+  supportsTimeRange: false,
 };
 
 // --- Module State ------------------------------------------------------

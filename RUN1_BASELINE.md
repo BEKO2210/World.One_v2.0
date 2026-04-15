@@ -180,6 +180,94 @@ node scripts/cache-live-data.js                  # 9/10 live (temperature deferr
 
 ---
 
+# Run 3 — Cache-to-Score Integration
+
+Roadmap focus: the World Index was computed almost entirely from
+`data/raw/*` while 23 of 25 cache files sat unused in the score
+path (they only fed the detail pages via `fetchTopicData`). Run 3
+closes that gap and exposes freshness.
+
+## A) Architecture Diagnosis
+
+| Before Run 3 | After Run 3 |
+|---|---|
+| 2 caches consumed by processor (`ocean`, `conflicts`) | **14 caches consumed** |
+| 23 caches written but unused by the score | **11 caches** still detail-only (intentional: arxiv-ai, earthquakes, solar, currencies, population, biodiversity, etc.) |
+| 0 indicators with freshness metadata | **25/25 scored indicators** carry `{fetchedAt, ageHours, source}` |
+| `meta.cacheFreshness` absent | summary per sub-score (newest/oldest/sourceCount) |
+
+## B) Processor Changes (`scripts/process-data.js`)
+
+- New helper `readCacheFresh(filename)` returns
+  `{ data, fetchedAt, ageHours }` parsed from the `_meta.fetched_at`
+  envelope each cache-pipeline script writes.
+- New helper `freshness(isoOrNull, source)` produces the standard
+  `{fetchedAt, ageHours, source}` block spread into every indicator.
+- **Environment score** now consumes: `temperature.json`,
+  `forests.json`, `renewables.json`, `airquality.json`, `waqi.json`
+  (WAQI wins over Open-Meteo when token present), `disasters.json`
+  (GDACS events add a capped penalty to the env score).
+- **Economy score** consumes: `fred.json` — US inflation YoY is
+  averaged with World Bank, Fed Funds Rate and 10Y-2Y Yield Spread
+  are surfaced as two new indicators. Inverted yield curve applies
+  a 5-point recession penalty.
+- **Society score** consumes: `health.json` (life expectancy,
+  child mortality), `freedom.json` (Freedom House trend),
+  `conflicts.json` (already used — kept).
+- **Progress score** consumes: `internet.json` (World Bank users
+  % + mobile per 100), `science.json` (arXiv total_results).
+- Air-quality weight added to env score (AQI indicator gains 10%
+  weight, other indicators rebalanced).
+
+## C) Freshness in UI (`js/visualizations/world-indicator.js`)
+
+Each of the 5 sub-score cards renders a small "aktualisiert vor Xh"
+badge under the existing weight label:
+
+- `< 1h`: "gerade aktualisiert"
+- `< 24h`: "aktualisiert vor Xh"
+- else: "aktualisiert vor Xd"
+
+Hover title shows newest + oldest timestamps (localized German) and
+the number of cache sources blended. CSS: new
+`.sub-score__updated` rule in `css/sections.css`.
+
+## D) Coverage Validator
+
+`scripts/validate-score-coverage.js` — new one-shot check:
+
+1. Parses `process-data.js` and lists which `readCache*()` calls
+   exist, revealing score coverage.
+2. Lists unused cache files (expected-detail-only).
+3. Verifies every scored indicator has `ageHours` (momentum
+   excluded: derived).
+4. Confirms `meta.cacheFreshness` is emitted per category.
+5. Warns when a whole sub-score runs on static-only inputs.
+
+## E) Post-Run-3 Verification
+
+```text
+process          PASS  World Index 62.6 (was 65.9 on stale-cache baseline)
+self-heal        PASS  0 fixes
+validate-cache   PASS  24/24 files valid
+validate-fallback PASS 28/28, 0 errors
+validate-routing PASS  0 errors, 2 unchanged warnings
+validate-score-coverage PASS
+  Cache files total:   24
+  Consumed by score:   14   (was 2)
+  Detail-pages only:   11
+  Indicators scored:   25   (all with freshness metadata)
+  Cache freshness covers: environment, society, progress
+  (economy waits for FRED secret to activate)
+```
+
+The World Index dropped from 65.9 → 62.6 after Run 3 — that is
+actual signal: the env sub-score now correctly includes AQI weight
+and GDACS disaster penalties, so the score reflects live world
+state instead of raw-only inputs.
+
+---
+
 # Premium Sources Integration (env-gated)
 
 Free-tier APIs that require a key/secret. Each one is silently skipped

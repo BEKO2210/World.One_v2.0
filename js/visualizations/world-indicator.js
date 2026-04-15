@@ -85,6 +85,8 @@ export class WorldIndicator {
     const subScores = this.data.subScores;
     const categories = ['environment', 'society', 'economy', 'progress', 'momentum'];
 
+    const freshness = this.data.meta?.cacheFreshness || {};
+
     categories.forEach((cat, i) => {
       const scoreData = subScores[cat];
       const el = this.container.querySelector(`[data-subscore="${cat}"]`);
@@ -112,6 +114,27 @@ export class WorldIndicator {
           duration: 2000 + i * 200
         });
         this._animTimeouts.push(setTimeout(() => counter.start(), i * 150));
+      }
+
+      // Last-updated badge (Run 3): shows how fresh the cached live data
+      // feeding this sub-score is. Appended under the existing weight
+      // detail label, kept small so it does not disturb the layout.
+      const info = freshness[cat];
+      if (info?.newestHours != null) {
+        let badge = el.querySelector('.sub-score__updated');
+        if (!badge) {
+          badge = document.createElement('span');
+          badge.className = 'sub-score__updated';
+          el.appendChild(badge);
+        }
+        const h = info.newestHours;
+        const label = h < 1
+          ? 'gerade aktualisiert'
+          : h < 24
+            ? `aktualisiert vor ${Math.round(h)}h`
+            : `aktualisiert vor ${Math.round(h / 24)}d`;
+        badge.textContent = label;
+        badge.title = `Neueste Cache-Quelle: ${new Date(info.newest).toLocaleString('de-DE')}\nÄlteste: ${new Date(info.oldest).toLocaleString('de-DE')}\nKombinierte Quellen: ${info.sourceCount}`;
       }
     });
   }

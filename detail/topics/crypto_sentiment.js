@@ -11,6 +11,7 @@ import { i18n } from '../../js/i18n.js';
 import { DOMUtils } from '../../js/utils/dom.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { fetchTopicData } from '../../js/utils/data-loader.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -82,8 +83,8 @@ function _fgColorSolid(value) {
 
 // --- Stats Helpers -----------------------------------------------------
 
-function _computeStats() {
-  const values = FG_HISTORY.map(d => d.value);
+function _computeStats(series) {
+  const values = series.map(d => d.value);
   const sum = values.reduce((a, b) => a + b, 0);
   return {
     avg: Math.round(sum / values.length),
@@ -92,16 +93,50 @@ function _computeStats() {
   };
 }
 
+// Map a Fear & Greed numeric value back to the classification label.
+// Used when the live cache only supplies values (label may be missing).
+function _fgLabel(v) {
+  if (v <= 25) return 'Extreme Fear';
+  if (v <= 45) return 'Fear';
+  if (v <= 55) return 'Neutral';
+  if (v <= 75) return 'Greed';
+  return 'Extreme Greed';
+}
+
 // --- Render ------------------------------------------------------------
 
 export async function render(blocks) {
-  const today = FG_HISTORY[FG_HISTORY.length - 1];
-  const stats = _computeStats();
+  // Tier-priority: live cache_(alternative.me → crypto_sentiment.json) > hardcoded.
+  // Cache file is created by cache-live-data.js (keyless alternative.me call from
+  // the server), so even though CORS blocks a browser-side direct fetch the data
+  // still reaches the page through our cache envelope.
+  let series = FG_HISTORY;
+  let tier = 'static';
+  let age = null;
+  try {
+    const cached = await fetchTopicData('crypto_sentiment');
+    const liveHistory = cached?.data?.history;
+    if (Array.isArray(liveHistory) && liveHistory.length >= 14) {
+      series = liveHistory.map(d => ({
+        date: d.time ? String(d.time).slice(0, 10) : d.date || '',
+        value: Number(d.value),
+        label: d.label || _fgLabel(Number(d.value))
+      })).filter(d => Number.isFinite(d.value));
+      tier = cached.tier || 'cache';
+      age = cached.age ?? null;
+    }
+  } catch (_err) {
+    // keep hardcoded fallback
+  }
+
+  _chartData = { series };
+  const today = series[series.length - 1];
+  const stats = _computeStats(series);
 
   _chartData = { today, stats };
 
   // 1. Hero block
-  _renderHero(blocks.hero, today);
+  _renderHero(blocks.hero, today, tier, age);
 
   // 2. Chart block -- canvas for 30-day bar chart (lazy via getChartConfigs)
   _renderChartBlock(blocks.chart);
@@ -124,8 +159,8 @@ export async function render(blocks) {
 
 // --- Hero ---------------------------------------------------------------
 
-function _renderHero(heroEl, today) {
-  const badge = createTierBadge('static', { year: 2026 });
+function _renderHero(heroEl, today, tier, age) {
+  const badge = createTierBadge(tier || 'static', { year: 2026, age });
   const bgColor = _fgColor(today.value);
 
   heroEl.appendChild(
@@ -414,9 +449,14 @@ function _renderSources(srcEl) {
 // --- Chart Configs (lazy-loaded by detail-app.js) ----------------------
 
 export function getChartConfigs() {
-  const labels = FG_HISTORY.map(d => {
-    const parts = d.date.split('-');
-    return parts[2] + '.' + parts[1];
+  // Use the live series that render() captured into _chartData (falls back
+  // to the hardcoded FG_HISTORY if render wasn't called yet).
+  const series = (_chartData && Array.isArray(_chartData.series) && _chartData.series.length > 0)
+    ? _chartData.series
+    : FG_HISTORY;
+  const labels = series.map(d => {
+    const parts = (d.date || '').split('-');
+    return parts.length === 3 ? parts[2] + '.' + parts[1] : String(d.date || '');
   });
 
   return [
@@ -430,16 +470,16 @@ export function getChartConfigs() {
           datasets: [
             {
               label: i18n.t('detail.crypto_sentiment.chartLabel'),
-              data: FG_HISTORY.map(d => d.value),
-              backgroundColor: FG_HISTORY.map(d => _fgColor(d.value)),
-              borderColor: FG_HISTORY.map(d => _fgColorSolid(d.value)),
+              data: series.map(d => d.value),
+              backgroundColor: series.map(d => _fgColor(d.value)),
+              borderColor: series.map(d => _fgColorSolid(d.value)),
               borderWidth: 1,
             },
             // Threshold line at 25 (Extreme Fear boundary)
             {
               label: i18n.t('detail.crypto_sentiment.extremeFear'),
               type: 'line',
-              data: FG_HISTORY.map(() => 25),
+              data: series.map(() => 25),
               borderColor: 'rgba(255, 59, 48, 0.4)',
               borderDash: [6, 4],
               borderWidth: 1,
@@ -451,7 +491,7 @@ export function getChartConfigs() {
             {
               label: i18n.t('detail.crypto_sentiment.neutral'),
               type: 'line',
-              data: FG_HISTORY.map(() => 50),
+              data: series.map(() => 50),
               borderColor: 'rgba(255, 204, 0, 0.4)',
               borderDash: [6, 4],
               borderWidth: 1,
@@ -463,7 +503,7 @@ export function getChartConfigs() {
             {
               label: i18n.t('detail.crypto_sentiment.extremeGreed'),
               type: 'line',
-              data: FG_HISTORY.map(() => 75),
+              data: series.map(() => 75),
               borderColor: 'rgba(0, 255, 127, 0.4)',
               borderDash: [6, 4],
               borderWidth: 1,
@@ -502,15 +542,15 @@ export function getChartConfigs() {
               callbacks: {
                 title: (items) => {
                   const idx = items[0]?.dataIndex;
-                  if (idx !== undefined && FG_HISTORY[idx]) {
-                    return FG_HISTORY[idx].date;
+                  if (idx !== undefined && series[idx]) {
+                    return series[idx].date;
                   }
                   return '';
                 },
                 label: (item) => {
                   if (item.datasetIndex > 0) return null; // hide threshold tooltips
                   const idx = item.dataIndex;
-                  const entry = FG_HISTORY[idx];
+                  const entry = series[idx];
                   return entry ? `${entry.value} - ${entry.label}` : '';
                 },
               },

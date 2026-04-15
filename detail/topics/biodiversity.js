@@ -82,11 +82,14 @@ export async function render(blocks) {
   // 1. Fetch cached biodiversity data
   const { data, tier, age } = await fetchTopicData('biodiversity');
 
-  // Extract threatened counts from cache data
-  let totalThreatened = 129753;
-  let criticallyEndangered = 27358;
-  let endangered = 48895;
-  let vulnerable = 53500;
+  // Extract threatened counts from cache data.
+  // Fallbacks spiegeln den letzten bekannten Live-GBIF-Stand (2026-04),
+  // damit bei komplettem Offline-Zustand das Detail identisch zur
+  // Main-Page (#bio-threatened-count) anzeigt.
+  let totalThreatened = 130285;
+  let criticallyEndangered = 27454;
+  let endangered = 49014;
+  let vulnerable = 53817;
 
   if (data && data.threatened_counts) {
     totalThreatened = data.threatened_counts.total || totalThreatened;

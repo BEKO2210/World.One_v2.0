@@ -6,12 +6,20 @@
   <meta name="theme-color" content="#0a0a0f">
   <title>World.One - Detail</title>
 
+  <!-- ═══ Performance Hints (Schritt 8) ═══ -->
+  <link rel="preload" href="./detail-app.js" as="script" crossorigin="anonymous">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
   <!-- Styles -->
   <link rel="stylesheet" href="../css/core.css">
   <link rel="stylesheet" href="../css/components.css">
   <link rel="stylesheet" href="../css/detail.css">
 </head>
 <body>
+
+  <!-- ═══ SKIP TO MAIN CONTENT (A11y) ═══ -->
+  <a class="skip-link" href="#detail-main" data-i18n="a11y.skipToMain">Zum Hauptinhalt springen</a>
 
   <!-- ═══ NAVIGATION BAR ═══ -->
   <nav class="detail-nav" id="detail-nav">
@@ -65,6 +73,35 @@
 
   <!-- ═══ APPLICATION ═══ -->
   <script type="module" src="./detail-app.js"></script>
+
+  <!-- Service-Worker Registration (identisch zu index.html).
+       Direkt-Einstieg auf Detail-Seite soll ebenfalls den SW registrieren. -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      let _reloaded = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (_reloaded) return;
+        _reloaded = true;
+        window.location.reload();
+      });
+      navigator.serviceWorker
+        .register('../service-worker.js', { updateViaCache: 'none', scope: '../' })
+        .then(reg => {
+          reg.update().catch(() => {});
+          setInterval(() => reg.update().catch(() => {}), 30 * 60 * 1000);
+          reg.addEventListener('updatefound', () => {
+            const w = reg.installing;
+            if (!w) return;
+            w.addEventListener('statechange', () => {
+              if (w.state === 'installed' && navigator.serviceWorker.controller) {
+                w.postMessage({ type: 'SKIP_WAITING' });
+              }
+            });
+          });
+        })
+        .catch(err => console.warn('[SW] register failed:', err));
+    }
+  </script>
 
 </body>
 </html>

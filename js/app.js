@@ -113,6 +113,20 @@ class BelkisOne {
 
     canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;';
 
+    // ── Performance-Gates (Schritt 8) ──
+    // 1. prefers-reduced-motion: User hat System-weit Animationen deaktiviert
+    //    -> Canvas komplett verbergen, kein Partikel-System starten
+    //       (spart 1200 Partikel × 60fps = großer CPU-/Akku-Gewinn).
+    // 2. Save-Data / slow connection: reduziere Partikel-Count drastisch
+    //    oder schalte aus.
+    const reducedMotion = DOMUtils.prefersReducedMotion();
+    const saveData = navigator.connection?.saveData === true;
+    const slowNet = ['slow-2g', '2g'].includes(navigator.connection?.effectiveType);
+    if (reducedMotion || saveData || slowNet) {
+      canvas.style.display = 'none';
+      return;
+    }
+
     window.addEventListener('mousemove', DOMUtils.throttle((e) => {
       if (this.particles) {
         this.particles.mouse.x = e.clientX;
@@ -120,8 +134,14 @@ class BelkisOne {
       }
     }, 16));
 
+    // Mobile ≈ 300, Desktop ≈ 1000 (pre-Schritt-8); 3g connections bekommen
+    // die Mobile-Zahl auch auf Desktop.
+    const isMobile = DOMUtils.viewport().isMobile;
+    const cellular3g = navigator.connection?.effectiveType === '3g';
+    const desktopCount = cellular3g ? 400 : 1000;
+
     this.particles = new ParticleSystem(canvas, {
-      count: DOMUtils.viewport().isMobile ? 300 : 1000,
+      count: isMobile ? 300 : desktopCount,
       baseColor: { r: 255, g: 255, b: 255 },
       maxSize: 2,
       speed: 0.2,
@@ -130,6 +150,14 @@ class BelkisOne {
       mouseForce: 0.06
     });
     this.particles.start();
+
+    // Tab-Sichtbarkeit: wenn der User den Tab wechselt / minimiert,
+    // stoppe die Render-Loop. Spart CPU/Akku im Hintergrund.
+    document.addEventListener('visibilitychange', () => {
+      if (!this.particles) return;
+      if (document.hidden) this.particles.stop();
+      else this.particles.start();
+    });
   }
 
   // ─── Scroll Engine Registration ───
@@ -217,6 +245,8 @@ class BelkisOne {
     this._crisisMapBuilt = false;
 
     // ── Populate all static data into HTML (each section isolated) ──
+    try { this._syncLiveCounters(data); } catch (e) { console.error('[BelkisOne] Counter sync error:', e); }
+    try { this._applyDynamicYears(data); } catch (e) { console.error('[BelkisOne] Dynamic years error:', e); }
     try { this._populateProlog(data); } catch (e) { console.error('[BelkisOne] Prolog error:', e); }
     try { this._populateIndicatorTrend(data); } catch (e) { console.error('[BelkisOne] Indicator trend error:', e); }
     try { this._populateEnvironmentValues(data); } catch (e) { console.error('[BelkisOne] Env values error:', e); }
@@ -280,6 +310,116 @@ class BelkisOne {
     return MathUtils.escapeHTML(str);
   }
 
+  // ─── Live-Counter Synchronisation (Schritt 2) ───
+  // Zentrale Single-Source-of-Truth für alle data-counter Targets auf
+  // der Hauptseite. Läuft EINMAL vor dem ersten Counter-Start, damit
+  // die Animation sofort zum Live-Wert läuft (nicht zu stalem HTML).
+  // Bindet nur Counter mit stabiler ID — bei fehlendem Wert bleibt
+  // der HTML-Fallback erhalten.
+  _syncLiveCounters(data) {
+    if (!data) return;
+    const env = data.environment || {};
+    const soc = data.society || {};
+    const eco = data.economy || {};
+    const prog = data.progress || {};
+
+    // Formatiert ein Alter in Stunden als Text fürs Tooltip
+    const ageText = (h) => {
+      if (h == null || !Number.isFinite(h)) return null;
+      if (h < 1)   return 'gerade aktualisiert';
+      if (h < 24)  return `aktualisiert vor ${Math.round(h)}h`;
+      return `aktualisiert vor ${Math.round(h / 24)}d`;
+    };
+
+    // Baut ein Hover-Tooltip "Quelle: X · aktualisiert vor Yh" aus einem
+    // Objekt mit {source, ageHours, fetchedAt} (wie von process-data.js
+    // an jedem scored indicator emittiert).
+    const buildTooltip = (info) => {
+      const parts = [];
+      if (info?.source) parts.push(`Quelle: ${info.source}`);
+      const t = ageText(info?.ageHours);
+      if (t) parts.push(t);
+      return parts.length ? parts.join(' · ') : null;
+    };
+
+    const set = (id, value, decimals = null, tipInfo = null) => {
+      if (value == null || !Number.isFinite(Number(value))) return;
+      const el = document.getElementById(id);
+      if (!el) return;
+      const rounded = decimals != null
+        ? Math.round(Number(value) * Math.pow(10, decimals)) / Math.pow(10, decimals)
+        : value;
+      if (el.dataset.target !== String(rounded)) {
+        el.dataset.target = String(rounded);
+      }
+      const tip = buildTooltip(tipInfo);
+      if (tip) el.title = tip;
+    };
+
+    // Lookup: find an indicator by name-fragment in a sub-score category.
+    // Run 3 emitted freshness ({source, ageHours, fetchedAt}) onto each
+    // indicator, so we can feed that straight into the counter tooltip.
+    const findInd = (cat, nameContains) => {
+      const arr = data.subScores?.[cat]?.indicators || [];
+      return arr.find(i => (i.name || '').toLowerCase().includes(nameContains.toLowerCase())) || null;
+    };
+
+    // ─── Environment ───
+    set('co2-value',            env.co2?.current,                 0, findInd('environment', 'CO2-'));
+    set('arctic-ice-value',     env.arcticIce?.current,           1, findInd('environment', 'Arktis'));
+    set('ocean-plastic-value',  env.ocean?.plasticMt,             0, { source: 'GESAMP / UNEP' });
+    set('bio-threatened-count', env.biodiversity?.threatenedTotal, 0, {
+      source: env.biodiversity?.source || 'GBIF / IUCN',
+      ageHours: env.biodiversity?.ageHours,
+      fetchedAt: env.biodiversity?.fetchedAt
+    });
+
+    // ─── Society ───
+    set('population-value',       soc.population?.totalMillions, 0, { source: soc.population?.source || 'UN DESA / World Bank' });
+    set('life-expectancy-value',  soc.lifeExpectancy?.global,    1, findInd('society', 'Lebenserwartung'));
+    set('refugee-counter-value',  soc.refugees?.total,           0, { source: soc.refugees?.source || 'UNHCR' });
+
+    // ─── Economy ───
+    set('billionaires-value',     eco.wealth?.billionaires,      0, { source: eco.wealth?.source || 'Forbes / Oxfam' });
+    if (eco.wealth?.extremePoverty != null) {
+      set('extreme-poverty-value', Math.round(eco.wealth.extremePoverty / 1e6), 0,
+        { source: 'World Bank' });
+    }
+    set('gdp-growth-value',       eco.gdpGrowth?.global,         1, findInd('economy', 'BIP-Wachstum'));
+
+    // ─── Progress ───
+    set('internet-penetration-value', prog.internet?.penetration, 1, findInd('progress', 'Internet'));
+    set('literacy-value',             prog.literacy?.global,      1, findInd('progress', 'Alphabet'));
+    if (prog.github?.dailyCommits != null) {
+      set('github-commits-value', Math.round(prog.github.dailyCommits / 1e6), 0,
+        findInd('progress', 'GitHub'));
+    }
+    if (prog.github?.activeDevs != null) {
+      set('github-devs-value', Math.round(prog.github.activeDevs / 1e6), 0,
+        findInd('progress', 'GitHub'));
+    }
+  }
+
+  // ─── Dynamische Jahresangaben (Schritt 4) ───
+  // Leitet Kontext-Jahre aus world-state ab und schiebt sie in i18n.
+  // Alle Strings mit {currentYear}, {tempLatestYear}, {popLatestYear},
+  // {freedomStreak} werden danach site-weit korrekt gerendert.
+  _applyDynamicYears(data) {
+    const now = new Date().getFullYear();
+    const tempHist = data?.environment?.temperatureAnomaly?.history || [];
+    const popHist  = data?.society?.population?.history || [];
+    const tempLatestYear = tempHist.length ? tempHist[tempHist.length - 1]?.year : null;
+    const popLatestYear  = popHist.length  ? popHist[popHist.length - 1]?.year  : null;
+    const freedomStreak  = data?.society?.freedom?.yearDecline;
+
+    i18n.setGlobalParams({
+      currentYear: now,
+      tempLatestYear: Number.isFinite(tempLatestYear) ? tempLatestYear : now,
+      popLatestYear:  Number.isFinite(popLatestYear)  ? popLatestYear  : now,
+      freedomStreak:  Number.isFinite(freedomStreak)  ? freedomStreak  : 18
+    });
+  }
+
   // ─── Prolog meta ───
   _populateProlog(data) {
     const meta = data.meta;
@@ -318,6 +458,17 @@ class BelkisOne {
       const renewable = sub.find(i => i.name.includes('Erneuerbare'));
       if (forest) this._setText('#forest-value', forest.value);
       if (renewable) this._setText('#renewable-value', renewable.value);
+    }
+
+    // Biodiversity threatened-species counter — live from GBIF cache
+    // (processor pipes biodiversity.threatened_counts.total into env.biodiversity).
+    // HTML placeholder is 129753 as fallback; sync counter target on load.
+    const bioCount = env.biodiversity?.threatenedTotal;
+    if (Number.isFinite(bioCount)) {
+      const bioEl = document.getElementById('bio-threatened-count');
+      if (bioEl && bioEl.dataset.target !== String(bioCount)) {
+        bioEl.dataset.target = String(bioCount);
+      }
     }
 
     // Air quality grid
@@ -1012,8 +1163,13 @@ class BelkisOne {
 
       document.querySelectorAll('.crisis-layer-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          document.querySelectorAll('.crisis-layer-btn').forEach(b => b.classList.remove('is-active'));
+          // Visuellen Aktiv-State + A11y-State synchron halten
+          document.querySelectorAll('.crisis-layer-btn').forEach(b => {
+            b.classList.remove('is-active');
+            b.setAttribute('aria-checked', 'false');
+          });
           btn.classList.add('is-active');
+          btn.setAttribute('aria-checked', 'true');
           applyLayer(btn.dataset.layer);
         });
       });

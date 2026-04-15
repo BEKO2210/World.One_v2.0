@@ -434,6 +434,20 @@
   height: 84px;
 }
 
+/* Run-3 freshness badge: shows how recent the live-data caches feeding
+   this sub-score are. Rendered below the weight detail, very subtle so
+   it does not compete with the score itself. */
+.sub-score__updated {
+  display: block;
+  width: 100%;
+  margin-top: 2px;
+  font-size: 0.6rem;
+  color: var(--text-muted, rgba(235, 235, 245, 0.5));
+  text-align: center;
+  letter-spacing: 0.02em;
+  opacity: 0.75;
+  cursor: help;
+}
 
 .sub-score__detail {
   display: block;

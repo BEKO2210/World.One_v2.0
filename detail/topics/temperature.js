@@ -182,8 +182,9 @@ const TOOLTIP_STYLE = {
 // --- Render ------------------------------------------------------------
 
 export async function render(blocks) {
-  // 1. Data fetching -- attempt cache, fallback to hardcoded
-  let anomaly = 1.45;
+  // 1. Data fetching -- attempt cache, fallback to hardcoded.
+  // Fallback 1.19 matches latest NASA GISTEMP annual anomaly (2025).
+  let anomaly = 1.19;
   let tier = 'static';
   let age = null;
 

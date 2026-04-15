@@ -74,8 +74,9 @@ export async function render(blocks) {
   // 1. Data fetch
   const { data, tier, age } = await fetchTopicData('renewables');
 
-  // Extract renewable energy % from data or use static fallback
-  let renewablePct = 29.6;
+  // Extract renewable energy % from data or use static fallback.
+  // Fallback 19.7 matches latest World Bank EG.FEC.RNEW.ZS (2020).
+  let renewablePct = 19.7;
   if (data && data.renewableEnergy !== undefined) {
     renewablePct = typeof data.renewableEnergy === 'object'
       ? (data.renewableEnergy.current || renewablePct)
@@ -313,27 +314,30 @@ async function _renderGrowthChart(trendEl) {
 
   _createGrowthChart(allLabels, allSolar, allWind);
 
-  // Listen for timerangechange events on trend block
-  trendEl.addEventListener('timerangechange', (e) => {
+  // Listen on `document` — detail-app.js dispatches there.
+  // detail-app.js emits lowercase: '1y' | '5y' | '20y' | 'max'.
+  // Bug pre-Run-5: range keys were uppercase → selector never fired
+  // AND the listener was attached to trendEl but event dispatched on
+  // another node (silent double-bug).
+  document.addEventListener('timerangechange', (e) => {
     const range = e.detail?.range;
     if (!range || !_chartData) return;
 
     const { allLabels: labels, allSolar: solar, allWind: wind } = _chartData;
+    const currentYear = new Date().getFullYear();
 
     let startIdx = 0;
-    if (range === '1Y') {
-      // Last 2 data points (2022, 2024)
+    if (range === '1y') {
+      // Last 2 data points
       startIdx = Math.max(0, labels.length - 2);
-    } else if (range === '5Y') {
-      // From 2020 onwards
-      startIdx = labels.findIndex(y => parseInt(y) >= 2020);
+    } else if (range === '5y') {
+      startIdx = labels.findIndex(y => parseInt(y) >= currentYear - 5);
       if (startIdx < 0) startIdx = 0;
-    } else if (range === '20Y') {
-      // From 2004 onwards
-      startIdx = labels.findIndex(y => parseInt(y) >= 2004);
+    } else if (range === '20y') {
+      startIdx = labels.findIndex(y => parseInt(y) >= currentYear - 20);
       if (startIdx < 0) startIdx = 0;
     }
-    // 'Max' keeps startIdx = 0
+    // 'max' or unknown keeps startIdx = 0 (show full dataset)
 
     const filteredLabels = labels.slice(startIdx);
     const filteredSolar = solar.slice(startIdx);

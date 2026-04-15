@@ -65,7 +65,7 @@ export async function render(blocks) {
   const { data, tier, age } = await fetchTopicData('biodiversity');
   _cacheData = data;
 
-  let totalThreatened = 129753;
+  let totalThreatened = 130285; // Fallback matches biodiversity.json live value
   if (data && data.threatened_counts) {
     totalThreatened = data.threatened_counts.total || totalThreatened;
   }

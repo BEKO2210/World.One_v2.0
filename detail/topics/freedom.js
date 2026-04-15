@@ -160,8 +160,11 @@ async function _renderTrend(chartEl) {
   await ensureChartJs();
   _trendChart = _createTrendChart(_chartData);
 
-  // Listen for time range changes
-  chartEl.addEventListener('timerangechange', (e) => {
+  // Listen on `document` — detail-app.js dispatches there (pre-Run-5
+  // this listened on chartEl, which never received the event because
+  // it was dispatched on the sibling trend-block and does not bubble
+  // between siblings; selector looked active but chart never updated).
+  document.addEventListener('timerangechange', (e) => {
     const range = e.detail?.range;
     if (!range || !_trendChart || !_chartData) return;
 

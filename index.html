@@ -11,6 +11,14 @@
   <link rel="apple-touch-icon" href="assets/icon/icon-192.png">
   <title>World.One 2.0 — Der Zustand der Welt</title>
 
+  <!-- ═══ Performance Hints (Schritt 8) ═══
+       world-state.json ist kritischer Pfad — Preload parallel zum CSS.
+       Chart.js CDN (jsdelivr) wird lazy geladen, aber TCP-Handshake schon vorwarmen. -->
+  <link rel="preload" href="data/processed/world-state.json" as="fetch" type="application/json" crossorigin="anonymous">
+  <link rel="preload" href="js/app.js" as="script" crossorigin="anonymous">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
   <!-- Styles -->
   <link rel="stylesheet" href="css/core.css">
   <link rel="stylesheet" href="css/components.css">
@@ -18,6 +26,10 @@
   <link rel="stylesheet" href="css/animations.css">
 </head>
 <body>
+
+  <!-- ═══ SKIP TO MAIN CONTENT (A11y) ═══
+       Screenreader-/Keyboard-User können Navigation überspringen. -->
+  <a class="skip-link" href="#main-content" data-i18n="a11y.skipToMain">Zum Hauptinhalt springen</a>
 
   <!-- ═══ LOADING SCREEN ═══ -->
   <div class="loading-screen" aria-hidden="true">
@@ -49,6 +61,11 @@
     </div>
   </header>
 
+  <!-- ═══ MAIN CONTENT LANDMARK (A11y) ═══
+       Wraps all Acts so screen readers can jump here via the
+       skip-link and navigate by landmark. -->
+  <main id="main-content">
+
   <!-- ═══════════════════════════════════════════════════════ -->
   <!-- PROLOG — DER ERSTE EINDRUCK                           -->
   <!-- ═══════════════════════════════════════════════════════ -->
@@ -65,7 +82,7 @@
       <p class="prolog__subtitle"></p>
       <div class="prolog__meta reveal">
         <div class="prolog__meta-item">
-          <span class="prolog__meta-value" id="prolog-sources">49</span>
+          <span class="prolog__meta-value" id="prolog-sources">48</span>
           <span class="prolog__meta-label" data-i18n="prolog.sources">Datenquellen</span>
         </div>
         <div class="prolog__meta-divider"></div>
@@ -149,7 +166,7 @@
           <span class="world-indicator__zone-mark" data-i18n="act1.zone.excellent">EXZELLENT</span>
           <span class="world-indicator__zone-mark">100</span>
         </div>
-        <div class="world-indicator__value">
+        <div class="world-indicator__value" role="status" aria-live="polite" aria-atomic="true">
           <span class="world-indicator__number text-hero">0</span>
           <span class="world-indicator__of"> / 100</span>
           <div class="world-indicator__zone-label"></div>
@@ -233,7 +250,7 @@
             <span class="data-card__source">NOAA Mauna Loa</span>
           </div>
           <div class="data-card__hero">
-            <span class="data-card__value" data-counter data-target="421" data-suffix=" ppm" data-decimals="0" style="color:var(--warning)">0 ppm</span>
+            <span class="data-card__value" id="co2-value" data-counter data-target="429" data-suffix=" ppm" data-decimals="0" style="color:var(--warning)">0 ppm</span>
           </div>
           <p class="data-card__explain" data-i18n="act2.co2Explain">Parts per Million in der Atmosphäre. Vor der Industrialisierung: ~280 ppm. Höchster Wert seit 800.000 Jahren.</p>
           <div id="co2-sparkline" class="data-card__sparkline"></div>
@@ -273,7 +290,7 @@
             <span class="data-card__compare-arrow">→</span>
             <div class="data-card__compare-item">
               <span class="data-card__compare-label" data-i18n="act2.today">Heute</span>
-              <span class="data-card__compare-value" style="color:#ff6b6b" data-counter data-target="4.2" data-decimals="1" data-suffix=" Mio km²">0</span>
+              <span class="data-card__compare-value" id="arctic-ice-value" style="color:#ff6b6b" data-counter data-target="4.2" data-decimals="1" data-suffix=" Mio km²">0</span>
             </div>
           </div>
           <p class="data-card__explain" data-i18n="act2.arcticExplain">Eisverlust entspricht etwa der Fläche von Indien.</p>
@@ -350,7 +367,7 @@
             <span class="data-card__source">IUCN/GBIF</span>
           </div>
           <div class="data-card__hero">
-            <span class="data-card__value" id="bio-threatened-count" data-counter data-target="129753" style="color:var(--warning)">0</span>
+            <span class="data-card__value" id="bio-threatened-count" data-counter data-target="130285" style="color:var(--warning)">0</span>
           </div>
           <p class="data-card__explain" data-i18n="act12.endangeredExplain">Auf der Roten Liste der IUCN als gefährdet eingestuft.</p>
         </div>
@@ -398,7 +415,7 @@
             <span class="data-card__source">GESAMP/UNEP</span>
           </div>
           <div class="data-card__hero">
-            <span class="data-card__value" data-counter data-target="170" data-suffix=" Mio t" style="color:var(--warning)">0 Mio t</span>
+            <span class="data-card__value" id="ocean-plastic-value" data-counter data-target="170" data-suffix=" Mio t" style="color:var(--warning)">0 Mio t</span>
           </div>
           <p class="data-card__explain" data-i18n="act13.plasticExplain">Geschätzte Gesamtmenge. 8-12 Mio Tonnen kommen jährlich dazu.</p>
         </div>
@@ -421,7 +438,7 @@
       <div class="bento-grid bento-grid--4 reveal-stagger" style="margin-top:var(--space-xl)">
         <div class="data-card data-card--compact reveal">
           <div class="data-card__label" data-i18n="act3.population">WELTBEVÖLKERUNG</div>
-          <div class="data-card__value data-card__value--sm" data-counter data-target="8200" data-suffix=" Mio" style="color:var(--text-primary)">0</div>
+          <div class="data-card__value data-card__value--sm" id="population-value" data-counter data-target="8100" data-suffix=" Mio" style="color:var(--text-primary)">0</div>
           <div class="data-card__mini-context" data-i18n="act3.popContext">+1% pro Jahr</div>
         </div>
         <div class="data-card data-card--compact reveal">
@@ -431,7 +448,7 @@
         </div>
         <div class="data-card data-card--compact reveal">
           <div class="data-card__label" data-i18n="act3.lifeExp">LEBENSERWARTUNG</div>
-          <div class="data-card__value data-card__value--sm" data-counter data-target="73.6" data-decimals="1" data-suffix=" J." style="color:#e8a87c">0</div>
+          <div class="data-card__value data-card__value--sm" id="life-expectancy-value" data-counter data-target="73.5" data-decimals="1" data-suffix=" J." style="color:#e8a87c">0</div>
           <div class="data-card__mini-context" data-i18n="act3.lifeExpContext">1960: nur 52.6 Jahre</div>
         </div>
         <div class="data-card data-card--compact reveal">
@@ -450,7 +467,7 @@
 
       <!-- Refugees -->
       <div class="refugee-counter reveal">
-        <div class="refugee-counter__number" data-counter data-target="123000000" data-suffix="compact">0</div>
+        <div class="refugee-counter__number" id="refugee-counter-value" data-counter data-target="108400000" data-suffix="compact">0</div>
         <div class="refugee-counter__label" data-i18n="act3.refugeeLabel">Menschen auf der Flucht weltweit</div>
         <div class="refugee-counter__breakdown" id="refugee-breakdown"></div>
         <p class="text-micro text-muted" style="margin-top:var(--space-xs)" data-i18n="act3.refugeeSource">Quelle: UNHCR 2026 — Mehr als je zuvor in der Geschichte</p>
@@ -518,13 +535,13 @@
       <!-- Wealth Comparison -->
       <div class="wealth-comparison reveal">
         <div class="wealth-comparison__side">
-          <div class="wealth-comparison__value" style="color:#ffd700" data-counter data-target="2781">0</div>
+          <div class="wealth-comparison__value" id="billionaires-value" style="color:#ffd700" data-counter data-target="2781">0</div>
           <div class="wealth-comparison__label" data-i18n="act4.billionaires">Milliardäre weltweit</div>
           <div class="wealth-comparison__sub" data-i18n="act4.billionairesOwn">besitzen 45.8% des Weltvermögens</div>
         </div>
         <div class="wealth-comparison__vs">vs.</div>
         <div class="wealth-comparison__side">
-          <div class="wealth-comparison__value" style="color:#ff9500" data-counter data-target="648" data-suffix=" Mio">0</div>
+          <div class="wealth-comparison__value" id="extreme-poverty-value" style="color:#ff9500" data-counter data-target="648" data-suffix=" Mio">0</div>
           <div class="wealth-comparison__label" data-i18n="act4.poverty">Menschen in extremer Armut</div>
           <div class="wealth-comparison__sub" data-i18n="act4.povertyThreshold">unter $2.15 pro Tag</div>
         </div>
@@ -541,7 +558,7 @@
       <div class="bento-grid bento-grid--4 reveal-stagger" style="margin-top:var(--space-xl)">
         <div class="data-card data-card--compact reveal">
           <div class="data-card__label" data-i18n="act4.gdpGrowth">BIP-WACHSTUM</div>
-          <div class="data-card__value data-card__value--sm" data-counter data-target="3.1" data-decimals="1" data-suffix="%" style="color:#34c759">0</div>
+          <div class="data-card__value data-card__value--sm" id="gdp-growth-value" data-counter data-target="2.9" data-decimals="1" data-suffix="%" style="color:#34c759">0</div>
           <div class="data-card__mini-context" data-i18n="act4.gdpContext">Global 2026</div>
         </div>
         <div class="data-card data-card--compact reveal">
@@ -619,12 +636,12 @@
       <div class="bento-grid bento-grid--4 reveal-stagger" style="margin-top:var(--space-xl)">
         <div class="data-card data-card--compact reveal">
           <div class="data-card__label" data-i18n="act5.internet">INTERNET-NUTZER</div>
-          <div class="data-card__value data-card__value--sm" data-counter data-target="67.4" data-decimals="1" data-suffix="%" style="color:#5ac8fa">0</div>
+          <div class="data-card__value data-card__value--sm" id="internet-penetration-value" data-counter data-target="73.6" data-decimals="1" data-suffix="%" style="color:#5ac8fa">0</div>
           <div class="data-card__mini-context" data-i18n="act5.internetContext">5.4 Mrd online</div>
         </div>
         <div class="data-card data-card--compact reveal">
           <div class="data-card__label" data-i18n="act5.literacy">ALPHABETISIERUNG</div>
-          <div class="data-card__value data-card__value--sm" data-counter data-target="87.4" data-decimals="1" data-suffix="%" style="color:#34c759">0</div>
+          <div class="data-card__value data-card__value--sm" id="literacy-value" data-counter data-target="87.4" data-decimals="1" data-suffix="%" style="color:#34c759">0</div>
           <div class="data-card__mini-context" data-i18n="act5.literacyContext">1900: nur ~21%</div>
         </div>
         <div class="data-card data-card--compact reveal">
@@ -654,11 +671,11 @@
         </div>
         <div class="github-pulse">
           <div class="github-pulse__stat">
-            <div class="github-pulse__counter" data-counter data-target="142" data-suffix=" Mio">0</div>
+            <div class="github-pulse__counter" id="github-commits-value" data-counter data-target="142" data-suffix=" Mio">0</div>
             <div class="github-pulse__label" data-i18n="act5.commitsDay">Commits / Tag</div>
           </div>
           <div class="github-pulse__stat">
-            <div class="github-pulse__counter" data-counter data-target="120" data-suffix=" Mio">0</div>
+            <div class="github-pulse__counter" id="github-devs-value" data-counter data-target="120" data-suffix=" Mio">0</div>
             <div class="github-pulse__label" data-i18n="act5.activeDev">Aktive Entwickler</div>
           </div>
         </div>
@@ -826,7 +843,7 @@
       <div id="momentum-list" class="momentum-list" role="list"></div>
 
       <div class="momentum-summary reveal" id="momentum-summary">
-        <span style="color:#34c759" data-counter data-target="14">0</span> /
+        <span style="color:#34c759" data-counter data-target="16">0</span> /
         <span data-counter data-target="20">0</span> <span data-i18n="act7.trendsPositive">Trends positiv</span>
       </div>
 
@@ -857,12 +874,12 @@
         <p class="section-desc text-center" data-i18n="act8.desc">Klima, Konflikte, Hunger, Naturkatastrophen — und Hoffnung.</p>
       </div>
 
-      <div class="crisis-layers reveal">
-        <button class="crisis-layer-btn is-active" data-layer="climate" data-i18n="act8.climate">Klimarisiko</button>
-        <button class="crisis-layer-btn" data-layer="conflicts" data-i18n="act8.conflicts">Konflikte</button>
-        <button class="crisis-layer-btn" data-layer="hunger" data-i18n="act8.hunger">Hungerkrisen</button>
-        <button class="crisis-layer-btn" data-layer="nature" data-i18n="act8.nature">Naturschutz</button>
-        <button class="crisis-layer-btn" data-layer="energy" data-i18n="act8.energy">Erneuerbare</button>
+      <div class="crisis-layers reveal" role="radiogroup" aria-label="Krisen-Layer" data-i18n-aria="act8.title">
+        <button class="crisis-layer-btn is-active" data-layer="climate"  role="radio" aria-checked="true"  data-i18n="act8.climate">Klimarisiko</button>
+        <button class="crisis-layer-btn"           data-layer="conflicts" role="radio" aria-checked="false" data-i18n="act8.conflicts">Konflikte</button>
+        <button class="crisis-layer-btn"           data-layer="hunger"    role="radio" aria-checked="false" data-i18n="act8.hunger">Hungerkrisen</button>
+        <button class="crisis-layer-btn"           data-layer="nature"    role="radio" aria-checked="false" data-i18n="act8.nature">Naturschutz</button>
+        <button class="crisis-layer-btn"           data-layer="energy"    role="radio" aria-checked="false" data-i18n="act8.energy">Erneuerbare</button>
       </div>
 
       <div id="crisis-map-container" class="reveal" style="width:100%;min-height:400px;position:relative;margin-top:var(--space-md)">
@@ -963,7 +980,7 @@
       <!-- Pipeline Status -->
       <div class="pipeline-status reveal" style="margin-bottom:var(--space-xl)">
         <div class="pipeline-status__item">
-          <span class="pipeline-status__value" id="sources-total">49</span>
+          <span class="pipeline-status__value" id="sources-total">48</span>
           <span class="pipeline-status__label" data-i18n="act10.sources">Quellen</span>
         </div>
         <div class="pipeline-status__item">
@@ -1038,7 +1055,7 @@
   <!-- ═══════════════════════════════════════════════════════ -->
   <section id="epilog" class="section epilog" data-section="epilog" aria-label="Epilog">
     <div class="container section__content text-center">
-      <div class="epilog__value text-hero" data-counter data-target="47.3" data-decimals="1">0</div>
+      <div class="epilog__value text-hero" data-counter data-target="62.6" data-decimals="1">0</div>
 
       <div class="epilog__message" data-i18n="epilog.message" data-i18n-html>
         Die Daten aktualisieren sich alle 6 Stunden.<br>
@@ -1054,6 +1071,8 @@
       </div>
     </div>
   </section>
+
+  </main>
 
   <!-- ═══ LEGAL FOOTER ═══ -->
   <footer class="site-footer" role="contentinfo">
@@ -1147,7 +1166,7 @@
   </footer>
 
   <!-- ═══ SCROLL-TO-TOP ═══ -->
-  <button class="scroll-top" id="scroll-top" aria-label="Back to top">
+  <button class="scroll-top" id="scroll-top" aria-label="Zurück nach oben" data-i18n-aria="a11y.scrollTop">
     <svg class="scroll-top__ring" viewBox="0 0 36 36">
       <circle class="scroll-top__track" cx="18" cy="18" r="16" fill="none" stroke-width="2"/>
       <circle class="scroll-top__progress" id="scroll-top-progress" cx="18" cy="18" r="16" fill="none" stroke-width="2"
@@ -1161,7 +1180,41 @@
   <!-- ═══ MAIN SCRIPT ═══ -->
   <script type="module" src="js/app.js"></script>
   <script>document.getElementById('footer-year').textContent=new Date().getFullYear()</script>
-  <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('service-worker.js')}</script>
+  <script>
+    // Service-Worker Registration mit aggressivem Update-Check.
+    // updateViaCache:'none' → Browser cached die SW-Datei selbst NICHT, jede
+    //   navigator.serviceWorker.register() prüft echt gegen das Netz.
+    // Periodischer Update-Poll alle 30 min für lange offene Tabs.
+    // Auto-Reload einmal nach Controller-Wechsel: User sieht ohne manuelles
+    //   F5 die neue Version (Site hat kein Form-State → safe).
+    if ('serviceWorker' in navigator) {
+      let _reloaded = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (_reloaded) return;
+        _reloaded = true;
+        window.location.reload();
+      });
+      navigator.serviceWorker
+        .register('service-worker.js', { updateViaCache: 'none' })
+        .then(reg => {
+          // Sofort Check on-load + alle 30 min
+          reg.update().catch(() => {});
+          setInterval(() => reg.update().catch(() => {}), 30 * 60 * 1000);
+          // Wenn ein neuer SW installiert wurde und wartet, skippen lassen
+          // sobald das alte geleert ist.
+          reg.addEventListener('updatefound', () => {
+            const newWorker = reg.installing;
+            if (!newWorker) return;
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                newWorker.postMessage({ type: 'SKIP_WAITING' });
+              }
+            });
+          });
+        })
+        .catch(err => console.warn('[SW] register failed:', err));
+    }
+  </script>
 
 </body>
 </html>
