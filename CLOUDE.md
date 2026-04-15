@@ -36,7 +36,8 @@ World.One ist eine Static-Site (GitHub Pages) mit:
 | `e06f6e2` | ui consistency Schritt 3 | Detail-Topic-Fallbacks auf aktuelle Live-Werte gehoben (biodiversity/endangered/extinction: 129753→130285; forests 31.2→31.14; renewables 29.6→19.7; temperature 1.45→1.19). crypto_sentiment.js liest jetzt Live-Cache (alternative.me) mit 30-Tage-Serie statt hardcoded. |
 | `181d598` | ui consistency Schritt 4 | i18n bekommt globale Platzhalter `{currentYear}`, `{tempLatestYear}`, `{popLatestYear}`, `{freedomStreak}`. 5 zeitgebundene Strings (DE+EN) umgestellt. `_applyDynamicYears(data)` in app.js leitet Werte aus world-state ab und schiebt sie via `setGlobalParams()` ins i18n — alle `[data-i18n]`-Elemente re-rendern automatisch. SW v20260415-2305. |
 | `9be41c6` | ui consistency Schritt 5 | `supportsTimeRange` Audit: 3 stille Bugs gefixt. `timerangechange` wird jetzt auf `document` dispatcht (war auf sibling-block → 3 Topics stumm). `renewables.js` Case-Mismatch UPPERCASE→lowercase. `conflicts.js` hardcoded `2019`/`2004` → `currentYear - N`. Alle 5 Selektoren jetzt funktional. SW v20260415-2320. |
-| **HEAD** | ui consistency Schritt 6 | Tier-Badge-API: neue `source` Option, kontextsensitives Tooltip (live/cache/static mit Alters-Text), normalized-tier Guard, 6 neue i18n Keys DE+EN. Main-Page Counter: 14/14 bekommen `title`-Tooltip "Quelle: X · aktualisiert vor Yh" via `_syncLiveCounters` + `findInd()` Indicator-Lookup aus world-state. SW v20260415-2340. |
+| `3cde632` | ui consistency Schritt 6 | Tier-Badge-API: neue `source` Option, kontextsensitives Tooltip (live/cache/static mit Alters-Text), normalized-tier Guard, 6 neue i18n Keys DE+EN. Main-Page Counter: 14/14 bekommen `title`-Tooltip "Quelle: X · aktualisiert vor Yh" via `_syncLiveCounters` + `findInd()` Indicator-Lookup aus world-state. SW v20260415-2340. |
+| **HEAD** | ui consistency Schritt 7 (A11y) | Skip-to-main-Link beide Seiten, `<main id="main-content">` wrapper um alle Acts, `role="status" aria-live="polite"` am World-Index-Wert, `role="radiogroup"` + `aria-checked` für Crisis-Layer-Buttons (JS synchronisiert Klasse ↔ aria), `#scroll-top` auf `data-i18n-aria`. 2 neue i18n Keys. SW v20260415-2355. |
 
 ---
 
@@ -376,12 +377,49 @@ explanation/comparison/sources ab. Keine Änderung nötig.
   Die neuen `source` / Tooltip-Features kommen automatisch rein sobald
   Topics ihre Calls erweitern — rückwärtskompatibel.
 
-### 🔜 Schritt 7 — Accessibility-Sweep
+### ✅ Schritt 7 — Accessibility-Sweep
 
-- Alle interaktiven Divs mit `role="link" tabindex="0"` auch `aria-label` geben.
-- Keyboard-Fokus-Stil sichtbar (outline) — prüfen ob `css/core.css` dafür
-  Regeln hat.
-- Screen-Reader-Text für reine Icon-Buttons (Back-to-Top, Share, Lang-Toggle).
+**Landmarks + Skip-Link** (beide HTML-Seiten):
+
+- Neuer Skip-to-main-Link als erstes Element im `<body>`, sichtbar nur
+  bei Tastatur-Fokus (`css/core.css .skip-link`). Screenreader-/Keyboard-
+  Nutzer überspringen nav + header direkt zum Content.
+- Alle Acts (prolog → epilog) jetzt in `<main id="main-content">`
+  gewrappt. Semantisches Landmark für Screenreader-Navigation. Detail-
+  Seite hatte schon `<main id="detail-main">`, dort kommt nur der
+  Skip-Link dazu.
+- Body-Layout unverändert (body hatte kein flex/grid; `<main>` als
+  block-level wrapper ist transparent).
+
+**A11y auf bestehenden Elementen**:
+
+- `#scroll-top` Button: hardcoded `aria-label="Back to top"` → jetzt
+  `data-i18n-aria="a11y.scrollTop"` (übersetzt automatisch DE/EN).
+- `.world-indicator__value` erhält `role="status" aria-live="polite"
+  aria-atomic="true"` → Screenreader liest den World-Index-Wert beim
+  Update automatisch vor (das animierte Counter-Ticking bleibt visuell,
+  aria-atomic sorgt dafür dass nur der Endwert angesagt wird).
+- `.crisis-layers` bekommt `role="radiogroup"` + `aria-label`;
+  jeder `.crisis-layer-btn` bekommt `role="radio"` + `aria-checked`.
+  Click-Handler in `js/app.js` synchronisiert `aria-checked` mit
+  `is-active`-Klasse.
+
+**Neue i18n-Keys** (DE + EN):
+`a11y.skipToMain`, `a11y.scrollTop`.
+
+**Focus-Styles** (Audit OK, keine Änderung):
+`css/core.css :focus-visible` gibt jedem interaktiven Element einen
+2px-Outline (--progress Farbe) mit 4px Offset. `.detail-link:focus-
+visible` hat zusätzlich einen Glow + Outline in sections.css.
+
+**Nicht angefasst**:
+- Nav-Dots werden per JS gerendert — bestehend mit `aria-label` pro
+  Dot → Keyboard-Navigation funktioniert.
+- `.detail-link` divs hatten bereits `role="link" tabindex="0"` +
+  Keyboard-Guard (Schritt 2).
+- `.crisis-layer-btn` radiogroup hat jetzt semantisch korrekte
+  Checked-States, aber keinen Tastatur-Pfeiltasten-Handler — das
+  wäre das nächste Refinement (optional, kein echtes A11y-Fail).
 
 ### 🔜 Schritt 8 — Performance
 

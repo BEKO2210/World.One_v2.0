@@ -303,6 +303,29 @@ button {
   border-radius: 4px;
 }
 
+/* ─── Skip-to-main-content Link (A11y)
+   Versteckt außerhalb des Viewports, sichtbar bei Keyboard-Fokus.
+   Ermöglicht Screenreader-/Tastatur-Usern, Navigation zu überspringen. */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 8px;
+  z-index: 10000;
+  padding: 10px 16px;
+  background: var(--bg-primary, #0a0a0f);
+  color: var(--text-primary, #fff);
+  border: 2px solid var(--progress);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus-visible {
+  top: 8px;
+}
+
 /* ─── Selection ─── */
 ::selection {
   background: rgba(0, 212, 255, 0.3);

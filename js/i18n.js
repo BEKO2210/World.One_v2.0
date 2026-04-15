@@ -378,6 +378,9 @@ const translations = {
     'badge.ageHours': 'aktualisiert vor {n}h',
     'badge.ageDays': 'aktualisiert vor {n}d',
     'badge.staticNote': 'Statischer Fallback',
+    // ─── A11y ───
+    'a11y.skipToMain': 'Zum Hauptinhalt springen',
+    'a11y.scrollTop': 'Zurück nach oben',
 
     // ─── Detail Page ───
     'detail.back': 'Zurück',
@@ -1571,6 +1574,9 @@ const translations = {
     'badge.ageHours': 'updated {n}h ago',
     'badge.ageDays': 'updated {n}d ago',
     'badge.staticNote': 'Static fallback',
+    // ─── A11y ───
+    'a11y.skipToMain': 'Skip to main content',
+    'a11y.scrollTop': 'Back to top',
 
     // ─── Detail Page ───
     'detail.back': 'Back',

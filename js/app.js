@@ -1135,8 +1135,13 @@ class BelkisOne {
 
       document.querySelectorAll('.crisis-layer-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-          document.querySelectorAll('.crisis-layer-btn').forEach(b => b.classList.remove('is-active'));
+          // Visuellen Aktiv-State + A11y-State synchron halten
+          document.querySelectorAll('.crisis-layer-btn').forEach(b => {
+            b.classList.remove('is-active');
+            b.setAttribute('aria-checked', 'false');
+          });
           btn.classList.add('is-active');
+          btn.setAttribute('aria-checked', 'true');
           applyLayer(btn.dataset.layer);
         });
       });

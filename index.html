@@ -19,6 +19,10 @@
 </head>
 <body>
 
+  <!-- ═══ SKIP TO MAIN CONTENT (A11y) ═══
+       Screenreader-/Keyboard-User können Navigation überspringen. -->
+  <a class="skip-link" href="#main-content" data-i18n="a11y.skipToMain">Zum Hauptinhalt springen</a>
+
   <!-- ═══ LOADING SCREEN ═══ -->
   <div class="loading-screen" aria-hidden="true">
     <div class="loading-screen__orb">
@@ -48,6 +52,11 @@
       <span class="live-badge live-badge--sm"><span class="live-badge__dot"></span> LIVE</span>
     </div>
   </header>
+
+  <!-- ═══ MAIN CONTENT LANDMARK (A11y) ═══
+       Wraps all Acts so screen readers can jump here via the
+       skip-link and navigate by landmark. -->
+  <main id="main-content">
 
   <!-- ═══════════════════════════════════════════════════════ -->
   <!-- PROLOG — DER ERSTE EINDRUCK                           -->
@@ -149,7 +158,7 @@
           <span class="world-indicator__zone-mark" data-i18n="act1.zone.excellent">EXZELLENT</span>
           <span class="world-indicator__zone-mark">100</span>
         </div>
-        <div class="world-indicator__value">
+        <div class="world-indicator__value" role="status" aria-live="polite" aria-atomic="true">
           <span class="world-indicator__number text-hero">0</span>
           <span class="world-indicator__of"> / 100</span>
           <div class="world-indicator__zone-label"></div>
@@ -857,12 +866,12 @@
         <p class="section-desc text-center" data-i18n="act8.desc">Klima, Konflikte, Hunger, Naturkatastrophen — und Hoffnung.</p>
       </div>
 
-      <div class="crisis-layers reveal">
-        <button class="crisis-layer-btn is-active" data-layer="climate" data-i18n="act8.climate">Klimarisiko</button>
-        <button class="crisis-layer-btn" data-layer="conflicts" data-i18n="act8.conflicts">Konflikte</button>
-        <button class="crisis-layer-btn" data-layer="hunger" data-i18n="act8.hunger">Hungerkrisen</button>
-        <button class="crisis-layer-btn" data-layer="nature" data-i18n="act8.nature">Naturschutz</button>
-        <button class="crisis-layer-btn" data-layer="energy" data-i18n="act8.energy">Erneuerbare</button>
+      <div class="crisis-layers reveal" role="radiogroup" aria-label="Krisen-Layer" data-i18n-aria="act8.title">
+        <button class="crisis-layer-btn is-active" data-layer="climate"  role="radio" aria-checked="true"  data-i18n="act8.climate">Klimarisiko</button>
+        <button class="crisis-layer-btn"           data-layer="conflicts" role="radio" aria-checked="false" data-i18n="act8.conflicts">Konflikte</button>
+        <button class="crisis-layer-btn"           data-layer="hunger"    role="radio" aria-checked="false" data-i18n="act8.hunger">Hungerkrisen</button>
+        <button class="crisis-layer-btn"           data-layer="nature"    role="radio" aria-checked="false" data-i18n="act8.nature">Naturschutz</button>
+        <button class="crisis-layer-btn"           data-layer="energy"    role="radio" aria-checked="false" data-i18n="act8.energy">Erneuerbare</button>
       </div>
 
       <div id="crisis-map-container" class="reveal" style="width:100%;min-height:400px;position:relative;margin-top:var(--space-md)">
@@ -1055,6 +1064,8 @@
     </div>
   </section>
 
+  </main>
+
   <!-- ═══ LEGAL FOOTER ═══ -->
   <footer class="site-footer" role="contentinfo">
     <div class="container site-footer__inner">
@@ -1147,7 +1158,7 @@
   </footer>
 
   <!-- ═══ SCROLL-TO-TOP ═══ -->
-  <button class="scroll-top" id="scroll-top" aria-label="Back to top">
+  <button class="scroll-top" id="scroll-top" aria-label="Zurück nach oben" data-i18n-aria="a11y.scrollTop">
     <svg class="scroll-top__ring" viewBox="0 0 36 36">
       <circle class="scroll-top__track" cx="18" cy="18" r="16" fill="none" stroke-width="2"/>
       <circle class="scroll-top__progress" id="scroll-top-progress" cx="18" cy="18" r="16" fill="none" stroke-width="2"
