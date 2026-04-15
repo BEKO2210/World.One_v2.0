@@ -59,7 +59,7 @@ const translations = {
     'act2.label': 'AKT 02 — UMWELT',
     'act2.title': 'Der Planet atmet',
     'act2.desc': 'Temperatur, CO2, Luft, Eis, Wald, Erneuerbare — die Vitaldaten unserer Erde.',
-    'act2.tempTitle': 'Temperaturanomalie 1880–2026',
+    'act2.tempTitle': 'Temperaturanomalie 1880–{tempLatestYear}',
     'act2.tempDesc': 'Jeder Streifen = ein Jahr. Blau = kühler, Rot = wärmer als der Durchschnitt (1951–1980).',
     'act2.co2Explain': 'Parts per Million in der Atmosphäre. Vor der Industrialisierung: ~280 ppm. Höchster Wert seit 800.000 Jahren.',
     'act2.tempExplain': 'Abweichung vom Durchschnitt (1951–1980). Das 1.5°C-Ziel von Paris ist fast erreicht.',
@@ -91,13 +91,13 @@ const translations = {
     'act3.conflictMapTitle': 'Aktive Konflikte weltweit',
     'act3.conflictMapDesc': 'Größe = Intensität. Rot = Krieg, Orange = Konflikt, Gelb = Unruhen',
     'act3.refugeeLabel': 'Menschen auf der Flucht weltweit',
-    'act3.refugeeSource': 'Quelle: UNHCR 2026 — Mehr als je zuvor in der Geschichte',
+    'act3.refugeeSource': 'Quelle: UNHCR {currentYear} — Mehr als je zuvor in der Geschichte',
     'act3.freedomTitle': 'Freiheitsindex weltweit',
     'act3.freedomDesc': '195 Länder bewertet nach politischen Rechten & bürgerlichen Freiheiten',
     'act3.free': 'Frei (83)',
     'act3.partlyFree': 'Teilweise frei (55)',
     'act3.notFree': 'Nicht frei (57)',
-    'act3.freedomDecline': '19. Jahr in Folge mit Rückgang — Freedom House 2026',
+    'act3.freedomDecline': '{freedomStreak}. Jahr in Folge mit Rückgang — Freedom House {currentYear}',
     'act3.lifeExpLabel': 'LEBENSERWARTUNG',
     'act3.lifeExpTrend': '+20.8 J. seit 1960',
     'act3.lifeExpExplain': 'Haupttreiber: Medizin, Hygiene, Ernährung.',
@@ -118,7 +118,7 @@ const translations = {
     'act4.wealthTitle': 'Globale Vermögensverteilung',
     'act4.wealthDesc': 'Das reichste 1% besitzt mehr als die untere Hälfte der Menschheit zusammen.',
     'act4.gdpGrowth': 'BIP-WACHSTUM',
-    'act4.gdpContext': 'Global 2026',
+    'act4.gdpContext': 'Global {currentYear}',
     'act4.inflation': 'INFLATION',
     'act4.inflationContext': 'Verbraucherpreise',
     'act4.unemployment': 'ARBEITSLOSIGKEIT',
@@ -487,7 +487,7 @@ const translations = {
     'detail.population.liveCounter': 'Live-Zähler',
     'detail.population.year1960': '1960: 3,0 Mrd',
     'detail.population.year2000': '2000: 6,1 Mrd',
-    'detail.population.year2026': '2026: 8,1 Mrd',
+    'detail.population.year2026': '{currentYear}: 8,1 Mrd',
     'detail.population.year2050': '2050: ~9,7 Mrd (Prognose)',
 
     // ─── Detail: Conflicts (~18 keys) ───
@@ -1246,7 +1246,7 @@ const translations = {
     'act2.label': 'ACT 02 — ENVIRONMENT',
     'act2.title': 'The Planet Breathes',
     'act2.desc': 'Temperature, CO2, air, ice, forests, renewables — the vital signs of our Earth.',
-    'act2.tempTitle': 'Temperature Anomaly 1880–2026',
+    'act2.tempTitle': 'Temperature Anomaly 1880–{tempLatestYear}',
     'act2.tempDesc': 'Each stripe = one year. Blue = cooler, Red = warmer than the average (1951–1980).',
     'act2.co2Explain': 'Parts per million in the atmosphere. Before industrialization: ~280 ppm. Highest level in 800,000 years.',
     'act2.tempExplain': 'Deviation from average (1951–1980). The Paris 1.5°C target is nearly reached.',
@@ -1278,13 +1278,13 @@ const translations = {
     'act3.conflictMapTitle': 'Active Conflicts Worldwide',
     'act3.conflictMapDesc': 'Size = intensity. Red = war, Orange = conflict, Yellow = unrest',
     'act3.refugeeLabel': 'People displaced worldwide',
-    'act3.refugeeSource': 'Source: UNHCR 2026 — More than ever in history',
+    'act3.refugeeSource': 'Source: UNHCR {currentYear} — More than ever in history',
     'act3.freedomTitle': 'Freedom Index Worldwide',
     'act3.freedomDesc': '195 countries rated by political rights & civil liberties',
     'act3.free': 'Free (83)',
     'act3.partlyFree': 'Partly free (55)',
     'act3.notFree': 'Not free (57)',
-    'act3.freedomDecline': '19th consecutive year of decline — Freedom House 2026',
+    'act3.freedomDecline': '{freedomStreak}th consecutive year of decline — Freedom House {currentYear}',
     'act3.lifeExpLabel': 'LIFE EXPECTANCY',
     'act3.lifeExpTrend': '+20.8 yrs since 1960',
     'act3.lifeExpExplain': 'Main drivers: medicine, hygiene, nutrition.',
@@ -1305,7 +1305,7 @@ const translations = {
     'act4.wealthTitle': 'Global Wealth Distribution',
     'act4.wealthDesc': 'The richest 1% owns more than the bottom half of humanity combined.',
     'act4.gdpGrowth': 'GDP GROWTH',
-    'act4.gdpContext': 'Global 2026',
+    'act4.gdpContext': 'Global {currentYear}',
     'act4.inflation': 'INFLATION',
     'act4.inflationContext': 'Consumer prices',
     'act4.unemployment': 'UNEMPLOYMENT',
@@ -1674,7 +1674,7 @@ const translations = {
     'detail.population.liveCounter': 'Live Counter',
     'detail.population.year1960': '1960: 3.0B',
     'detail.population.year2000': '2000: 6.1B',
-    'detail.population.year2026': '2026: 8.1B',
+    'detail.population.year2026': '{currentYear}: 8.1B',
     'detail.population.year2050': '2050: ~9.7B (Projected)',
 
     // ─── Detail: Conflicts (~18 keys) ───
@@ -2382,6 +2382,23 @@ class I18n {
   constructor() {
     this._lang = localStorage.getItem('world-one-lang') || 'de';
     this._listeners = [];
+    // Global placeholder values (Run 4): merged into every t() call so
+    // strings containing {currentYear}, {tempLatestYear}, {freedomStreak},
+    // {popLatestYear} are substituted site-wide without per-call wiring.
+    // Defaults here cover the first render before world-state.json is loaded;
+    // app.js refines them via setGlobalParams() once live data arrives.
+    const _now = new Date().getFullYear();
+    this._globalParams = {
+      currentYear:    _now,
+      tempLatestYear: _now - 1,   // NASA GISTEMP is annual, one year lag
+      popLatestYear:  _now,
+      freedomStreak:  18          // Freedom House 2024 published streak
+    };
+  }
+
+  setGlobalParams(params) {
+    this._globalParams = { ...this._globalParams, ...params };
+    this._applyToDOM();   // re-render with new values
   }
 
   get lang() { return this._lang; }
@@ -2401,8 +2418,11 @@ class I18n {
 
   t(key, params = {}) {
     let str = translations[this._lang]?.[key] || translations.de[key] || key;
-    Object.entries(params).forEach(([k, v]) => {
-      str = str.replace(`{${k}}`, v);
+    // Merge global params (set via setGlobalParams) with per-call params.
+    // Per-call wins over global for identical keys.
+    const merged = { ...this._globalParams, ...params };
+    Object.entries(merged).forEach(([k, v]) => {
+      str = str.replaceAll(`{${k}}`, v);
     });
     return str;
   }

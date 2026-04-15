@@ -33,7 +33,8 @@ World.One ist eine Static-Site (GitHub Pages) mit:
 | `0310a5d` | Run 3 cache-to-score | Score liest 14 statt 2 Caches, jeder der 25 scored indicators trägt `{fetchedAt, ageHours, source}`, `meta.cacheFreshness` emittiert, "aktualisiert vor Xh" Badge im UI, `validate-score-coverage.js`. |
 | `128a48a` | ui consistency Schritt 1 | Population doppelter Zeit-Selector entfernt, 5 stale `data-target` in index.html synced, i18n 49→48 Quellen + 24→20 Indikatoren, `bio-threatened-count` live aus GBIF-Cache. |
 | `8004900` | ui consistency Schritt 2 + SW | Alle 14 Main-Page-Counter haben stabile IDs + werden zentral live gebunden (`_syncLiveCounters`). Processor exponiert `biodiversity.threatenedTotal`, `population.totalMillions`. Service Worker: `updateViaCache:'none'`, periodische Update-Checks alle 30 min, auto-reload bei Controller-Wechsel, resilient-install mit `allSettled`. |
-| **HEAD** | ui consistency Schritt 3 | Detail-Topic-Fallbacks auf aktuelle Live-Werte gehoben (biodiversity/endangered/extinction: 129753→130285; forests 31.2→31.14; renewables 29.6→19.7; temperature 1.45→1.19). crypto_sentiment.js liest jetzt Live-Cache (alternative.me) mit 30-Tage-Serie statt hardcoded. |
+| `e06f6e2` | ui consistency Schritt 3 | Detail-Topic-Fallbacks auf aktuelle Live-Werte gehoben (biodiversity/endangered/extinction: 129753→130285; forests 31.2→31.14; renewables 29.6→19.7; temperature 1.45→1.19). crypto_sentiment.js liest jetzt Live-Cache (alternative.me) mit 30-Tage-Serie statt hardcoded. |
+| **HEAD** | ui consistency Schritt 4 | i18n bekommt globale Platzhalter `{currentYear}`, `{tempLatestYear}`, `{popLatestYear}`, `{freedomStreak}`. 5 zeitgebundene Strings (DE+EN) umgestellt. `_applyDynamicYears(data)` in app.js leitet Werte aus world-state ab und schiebt sie via `setGlobalParams()` ins i18n — alle `[data-i18n]`-Elemente re-rendern automatisch. SW v20260415-2305. |
 
 ---
 
@@ -245,13 +246,57 @@ gleicher Quelle wie Main-Page):
   `freedom`, `population`, `poverty`, `hunger`, `inequality`): Sync-Garantie ist
   bereits durch identische Quelle gewährleistet.
 
-### 🔜 Schritt 4 — Jahreszahlen & Zeitangaben
+### ✅ Schritt 4 — Jahreszahlen & Zeitangaben dynamisch
 
-- i18n "18. Jahr in Folge" (Freedom-Index) → soll Jahr aus Daten ableiten.
-- `act2.tempTitle` "1880-2026" → dynamisch via JS setzen basierend auf letztem
-  temperature.history-Eintrag.
-- i18n "25 Jahre Veränderung" (Vergleichs-Block) → statisch OK (2000 vs heute).
-- Pro Topic: Hero-Labels mit Jahr prüfen (meist Format "Stand 2024").
+i18n bekommt globale Platzhalter, die site-weit aus Live-Daten gefüllt werden:
+
+**i18n-Erweiterung** (`js/i18n.js`):
+
+- Neue Instanzvariable `_globalParams` mit Defaults aus dem Konstruktor:
+  `{currentYear, tempLatestYear, popLatestYear, freedomStreak}`.
+- Neue Methode `i18n.setGlobalParams(obj)` merged Werte und triggert
+  `_applyToDOM()` — alle DOM-Strings werden neu gerendert.
+- `t(key, params)` merged `_globalParams` mit Call-spezifischen params,
+  nutzt `replaceAll()` (mehrere Vorkommen pro String möglich).
+
+**i18n-Strings auf Platzhalter umgestellt** (DE + EN):
+
+| Key | Vorher | Nachher |
+|---|---|---|
+| `act2.tempTitle` | `Temperaturanomalie 1880–2026` | `… 1880–{tempLatestYear}` |
+| `act3.refugeeSource` | `Quelle: UNHCR 2026 — …` | `Quelle: UNHCR {currentYear} — …` |
+| `act3.freedomDecline` | `19. Jahr in Folge … Freedom House 2026` | `{freedomStreak}. Jahr … {currentYear}` |
+| `act4.gdpContext` | `Global 2026` | `Global {currentYear}` |
+| `detail.population.year2026` | `2026: 8,1 Mrd` | `{currentYear}: 8,1 Mrd` |
+
+**App-seitige Füllung** (`js/app.js`):
+
+Neue Methode `_applyDynamicYears(data)` läuft nach `_syncLiveCounters`.
+Leitet Kontextwerte aus `world-state.json` ab:
+
+```js
+{
+  currentYear:    new Date().getFullYear(),
+  tempLatestYear: latest(environment.temperatureAnomaly.history).year,
+  popLatestYear:  latest(society.population.history).year,
+  freedomStreak:  society.freedom.yearDecline
+}
+```
+
+und schiebt sie via `i18n.setGlobalParams()` global durch. Das löst
+automatisch ein Re-Render aller `[data-i18n]`-Elemente aus.
+
+**Nicht angefasst (bewusst)**:
+
+- Report-Jahre: `WWF Living Planet Report 2024`, `IRENA … 2024`,
+  `WHO … 2021`, `Forbes … 2025`, `UNEP 2023` — das sind
+  konkrete Publikationsreferenzen, nicht dynamisch.
+- Historische Fixpunkte: `SDG-Ziel 2030`, `2000 vs 2023`,
+  `13.2% (2000) auf 8.5% (2023)`, `Cycle 25 maximum 2024-2026` —
+  bleiben statisch.
+- `detail.population.explainP2` enthält `{currentYear} ist die Form
+  zylindrisch` als Fließtext — könnte später auch dynamisch werden,
+  aber Bedeutung ändert sich mit Datenalter (aktuell 2026-beschreibend).
 
 ### 🔜 Schritt 5 — Detail-Topics `supportsTimeRange` Audit
 

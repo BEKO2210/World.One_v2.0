@@ -218,6 +218,7 @@ class BelkisOne {
 
     // ── Populate all static data into HTML (each section isolated) ──
     try { this._syncLiveCounters(data); } catch (e) { console.error('[BelkisOne] Counter sync error:', e); }
+    try { this._applyDynamicYears(data); } catch (e) { console.error('[BelkisOne] Dynamic years error:', e); }
     try { this._populateProlog(data); } catch (e) { console.error('[BelkisOne] Prolog error:', e); }
     try { this._populateIndicatorTrend(data); } catch (e) { console.error('[BelkisOne] Indicator trend error:', e); }
     try { this._populateEnvironmentValues(data); } catch (e) { console.error('[BelkisOne] Env values error:', e); }
@@ -337,6 +338,26 @@ class BelkisOne {
     if (prog.github?.activeDevs != null) {
       set('github-devs-value', Math.round(prog.github.activeDevs / 1e6), 0);
     }
+  }
+
+  // ─── Dynamische Jahresangaben (Schritt 4) ───
+  // Leitet Kontext-Jahre aus world-state ab und schiebt sie in i18n.
+  // Alle Strings mit {currentYear}, {tempLatestYear}, {popLatestYear},
+  // {freedomStreak} werden danach site-weit korrekt gerendert.
+  _applyDynamicYears(data) {
+    const now = new Date().getFullYear();
+    const tempHist = data?.environment?.temperatureAnomaly?.history || [];
+    const popHist  = data?.society?.population?.history || [];
+    const tempLatestYear = tempHist.length ? tempHist[tempHist.length - 1]?.year : null;
+    const popLatestYear  = popHist.length  ? popHist[popHist.length - 1]?.year  : null;
+    const freedomStreak  = data?.society?.freedom?.yearDecline;
+
+    i18n.setGlobalParams({
+      currentYear: now,
+      tempLatestYear: Number.isFinite(tempLatestYear) ? tempLatestYear : now,
+      popLatestYear:  Number.isFinite(popLatestYear)  ? popLatestYear  : now,
+      freedomStreak:  Number.isFinite(freedomStreak)  ? freedomStreak  : 18
+    });
   }
 
   // ─── Prolog meta ───
