@@ -4,7 +4,7 @@
    Transforms raw data into world-state.json
    ═══════════════════════════════════════════════════════════════ */
 
-import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, readdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -980,18 +980,27 @@ function buildWorldState() {
   // ─── ASSEMBLE FINAL STATE ───
   const manifest = readRaw('.', 'collection-manifest.json');
   const sourcesList = buildDataSourcesList();
-  // Prefer the real count of collector tasks (from pipeline manifest: 48)
-  // über die kuratierte dataSources-list (41). Wenn Manifest fehlt (lokaler
-  // Lauf ohne Raw-Daten), nimm den größeren Wert aus existing-Value vs.
-  // sourcesList.length — so verhindert ein stale existing:41 nicht, dass
-  // nach Workflow-Lauf 48 angezeigt wird.
-  const manifestTotal = Number.isFinite(manifest?.total) ? manifest.total : null;
-  const sourcesTotal = manifestTotal
-    ?? Math.max(existing?.meta?.sources_count || 0, sourcesList.length, 48);
+  // Canonical total = Anzahl aller kuratierten distinkten Quellen (65).
+  // Das summiert raw-collector + cache-pipeline + premium-sources + RSS
+  // feeds zusammen und ist damit die ehrliche "alle Quellen" Zahl, die
+  // überall in der UI sichtbar ist (prolog-sources, sources-total, etc.).
+  const sourcesTotal = sourcesList.length;
+
+  // Verfügbare Quellen = raw-success + gültige Cache-Files. Wenn Manifest
+  // fehlt (lokaler Lauf), nimm existing oder einen Optimisten-Default.
   const manifestSuccess = Number.isFinite(manifest?.success?.length) ? manifest.success.length : null;
-  const sourcesAvailable = manifestSuccess
-    ?? existing?.meta?.sources_available
-    ?? sourcesTotal;
+  const manifestFailed = Number.isFinite(manifest?.failed?.length) ? manifest.failed.length : 0;
+  // Zähle Cache-Files (jedes = mindestens 1 aggregierte Quelle).
+  let cacheAvailable = 0;
+  try {
+    if (existsSync(CACHE_DIR)) {
+      const cacheFiles = readdirSync(CACHE_DIR).filter(f => f.endsWith('.json') && f !== 'meta.json');
+      cacheAvailable = cacheFiles.length;
+    }
+  } catch (_) { /* fallback to manifest estimate */ }
+  const sourcesAvailable = manifestSuccess !== null
+    ? Math.min(sourcesTotal, manifestSuccess + cacheAvailable)
+    : (existing?.meta?.sources_available ?? sourcesTotal);
   const sourcesRate = sourcesTotal > 0
     ? Math.min(100, Math.round((sourcesAvailable / sourcesTotal) * 100))
     : 100;
@@ -1345,52 +1354,83 @@ function buildWorldState() {
 }
 
 function buildDataSourcesList() {
-  const manifest = readRaw('.', 'collection-manifest.json');
   const today = new Date().toISOString().slice(0, 10);
 
   return [
+    // ─── Environment (collect-data + cache-environment-ext + cache-live-data) ───
     { name: 'NASA GISTEMP', url: 'https://data.giss.nasa.gov/gistemp/', trust: 3, lastUpdate: today, category: 'environment' },
     { name: 'NOAA (CO2)', url: 'https://gml.noaa.gov/ccgg/trends/', trust: 3, lastUpdate: today, category: 'environment' },
-    { name: 'Open-Meteo (Air Quality)', url: 'https://air-quality-api.open-meteo.com/', trust: 2, lastUpdate: today, category: 'environment' },
+    { name: 'NOAA Mauna Loa CO2 Monthly', url: 'https://gml.noaa.gov/webdata/ccgg/trends/co2/', trust: 3, lastUpdate: today, category: 'environment' },
+    { name: 'NOAA NCEI (Ocean SST)', url: 'https://www.ncei.noaa.gov/', trust: 3, lastUpdate: today, category: 'environment' },
+    { name: 'NOAA NCEI (Monthly Temp)', url: 'https://www.ncei.noaa.gov/', trust: 3, lastUpdate: today, category: 'environment' },
+    { name: 'NOAA STAR (Sea Level)', url: 'https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/', trust: 3, lastUpdate: today, category: 'environment' },
+    { name: 'NASA Sea Level', url: 'https://sealevel.nasa.gov/', trust: 3, lastUpdate: today, category: 'environment' },
+    { name: 'NOAA Coral Reef Watch', url: 'https://coralreefwatch.noaa.gov/', trust: 3, lastUpdate: today, category: 'environment' },
     { name: 'Open-Meteo', url: 'https://open-meteo.com/', trust: 2, lastUpdate: today, category: 'environment' },
+    { name: 'Open-Meteo (Air Quality)', url: 'https://air-quality-api.open-meteo.com/', trust: 2, lastUpdate: today, category: 'environment' },
+    { name: 'WAQI (Air Quality)', url: 'https://aqicn.org/', trust: 3, lastUpdate: today, category: 'environment' },
     { name: 'World Bank (Environment)', url: 'https://data.worldbank.org/', trust: 3, lastUpdate: today, category: 'environment' },
+    { name: 'World Bank (Forest Area)', url: 'https://data.worldbank.org/indicator/AG.LND.FRST.ZS', trust: 3, lastUpdate: today, category: 'environment' },
+    { name: 'World Bank (Renewable Energy)', url: 'https://data.worldbank.org/indicator/EG.FEC.RNEW.ZS', trust: 3, lastUpdate: today, category: 'environment' },
     { name: 'NSIDC (Arktis)', url: 'https://nsidc.org/', trust: 3, lastUpdate: today, category: 'environment' },
+    { name: 'Our World in Data (CO2 backup)', url: 'https://ourworldindata.org/co2-emissions', trust: 3, lastUpdate: today, category: 'environment' },
+    { name: 'GBIF (Biodiversity)', url: 'https://www.gbif.org/', trust: 3, lastUpdate: today, category: 'environment' },
+    { name: 'IUCN Red List', url: 'https://www.iucnredlist.org/', trust: 3, lastUpdate: today, category: 'environment' },
+
+    // ─── Society (collect-data + cache-society-ext + cache-live-data) ───
     { name: 'World Bank (Society)', url: 'https://data.worldbank.org/', trust: 3, lastUpdate: today, category: 'society' },
+    { name: 'World Bank (Health: Life Exp/DTP3)', url: 'https://data.worldbank.org/topic/health', trust: 3, lastUpdate: today, category: 'society' },
+    { name: 'World Bank (Hunger)', url: 'https://data.worldbank.org/indicator/SN.ITK.DEFC.ZS', trust: 3, lastUpdate: today, category: 'society' },
     { name: 'ACLED (Konflikte)', url: 'https://acleddata.com/', trust: 3, lastUpdate: today, category: 'society' },
+    { name: 'UCDP (Uppsala Conflict)', url: 'https://ucdp.uu.se/', trust: 3, lastUpdate: today, category: 'society' },
+    { name: 'ReliefWeb (Conflicts)', url: 'https://reliefweb.int/', trust: 3, lastUpdate: today, category: 'society' },
     { name: 'UNHCR', url: 'https://data.unhcr.org/', trust: 3, lastUpdate: today, category: 'society' },
     { name: 'Freedom House', url: 'https://freedomhouse.org/', trust: 3, lastUpdate: today, category: 'society' },
-    { name: 'disease.sh', url: 'https://disease.sh/', trust: 2, lastUpdate: today, category: 'society' },
+    { name: 'GDELT (Conflicts)', url: 'https://www.gdeltproject.org/', trust: 2, lastUpdate: today, category: 'society' },
+    { name: 'disease.sh (COVID)', url: 'https://disease.sh/', trust: 2, lastUpdate: today, category: 'society' },
+    { name: 'disease.sh (Global Outbreaks)', url: 'https://disease.sh/', trust: 2, lastUpdate: today, category: 'society' },
+
+    // ─── Economy (collect-data + cache-economy-ext + cache-premium-sources) ───
     { name: 'World Bank (Economy)', url: 'https://data.worldbank.org/', trust: 3, lastUpdate: today, category: 'economy' },
     { name: 'IMF WEO', url: 'https://www.imf.org/en/Publications/WEO', trust: 3, lastUpdate: today, category: 'economy' },
-    { name: 'Alternative.me (Crypto)', url: 'https://alternative.me/crypto/', trust: 2, lastUpdate: today, category: 'economy' },
-    { name: 'Exchange Rate API', url: 'https://open.er-api.com/', trust: 2, lastUpdate: today, category: 'economy' },
+    { name: 'FRED (St. Louis Fed)', url: 'https://fred.stlouisfed.org/', trust: 3, lastUpdate: today, category: 'economy' },
+    { name: 'Alternative.me (Fear & Greed)', url: 'https://alternative.me/crypto/', trust: 2, lastUpdate: today, category: 'economy' },
+    { name: 'CoinGecko (Crypto)', url: 'https://www.coingecko.com/', trust: 2, lastUpdate: today, category: 'economy' },
+    { name: 'Exchange Rate API (USD)', url: 'https://open.er-api.com/', trust: 2, lastUpdate: today, category: 'economy' },
+    { name: 'Exchange Rate API (EUR)', url: 'https://open.er-api.com/', trust: 2, lastUpdate: today, category: 'economy' },
+    { name: 'Forbes / Oxfam (Wealth)', url: 'https://www.forbes.com/billionaires/', trust: 3, lastUpdate: today, category: 'economy' },
+
+    // ─── Progress & Tech (collect-data + cache-progress-ext + cache-live-data) ───
     { name: 'World Bank (Tech)', url: 'https://data.worldbank.org/', trust: 3, lastUpdate: today, category: 'progress' },
+    { name: 'World Bank (Internet/Mobile)', url: 'https://data.worldbank.org/indicator/IT.NET.USER.ZS', trust: 3, lastUpdate: today, category: 'progress' },
+    { name: 'World Bank (R&D Spending)', url: 'https://data.worldbank.org/indicator/GB.XPD.RSDV.GD.ZS', trust: 3, lastUpdate: today, category: 'progress' },
     { name: 'GitHub API', url: 'https://api.github.com/', trust: 2, lastUpdate: today, category: 'progress' },
     { name: 'arXiv', url: 'https://arxiv.org/', trust: 3, lastUpdate: today, category: 'progress' },
     { name: 'Spaceflight News', url: 'https://spaceflightnewsapi.net/', trust: 2, lastUpdate: today, category: 'progress' },
+    { name: 'ISS Tracker (Open Notify)', url: 'http://api.open-notify.org/', trust: 2, lastUpdate: today, category: 'progress' },
+
+    // ─── Realtime (collect-data + cache-disasters + RSS feeds) ───
     { name: 'USGS Earthquakes', url: 'https://earthquake.usgs.gov/', trust: 3, lastUpdate: today, category: 'realtime' },
+    { name: 'USGS Volcanoes', url: 'https://volcanoes.usgs.gov/', trust: 3, lastUpdate: today, category: 'realtime' },
+    { name: 'GDACS (Disaster Alert EU)', url: 'https://www.gdacs.org/', trust: 3, lastUpdate: today, category: 'realtime' },
+    { name: 'NOAA Space Weather', url: 'https://www.swpc.noaa.gov/', trust: 3, lastUpdate: today, category: 'realtime' },
     { name: 'GDELT Project', url: 'https://www.gdeltproject.org/', trust: 2, lastUpdate: today, category: 'realtime' },
+    { name: 'NewsAPI (world/climate/conflict)', url: 'https://newsapi.org/', trust: 2, lastUpdate: today, category: 'realtime' },
     { name: 'UN News (RSS)', url: 'https://news.un.org/', trust: 3, lastUpdate: today, category: 'realtime' },
     { name: 'WHO News (RSS)', url: 'https://www.who.int/', trust: 3, lastUpdate: today, category: 'realtime' },
     { name: 'UNHCR (RSS)', url: 'https://www.unhcr.org/', trust: 3, lastUpdate: today, category: 'realtime' },
     { name: 'ReliefWeb (RSS)', url: 'https://reliefweb.int/', trust: 3, lastUpdate: today, category: 'realtime' },
     { name: 'NASA (RSS)', url: 'https://www.nasa.gov/', trust: 3, lastUpdate: today, category: 'realtime' },
+    { name: 'NASA Earth Observatory', url: 'https://earthobservatory.nasa.gov/', trust: 3, lastUpdate: today, category: 'realtime' },
+    { name: 'ESA (RSS)', url: 'https://www.esa.int/', trust: 3, lastUpdate: today, category: 'realtime' },
+    { name: 'NOAA Climate.gov (RSS)', url: 'https://www.climate.gov/', trust: 3, lastUpdate: today, category: 'realtime' },
     { name: 'BBC World (RSS)', url: 'https://www.bbc.com/news/world', trust: 3, lastUpdate: today, category: 'realtime' },
     { name: 'DW News (RSS)', url: 'https://www.dw.com/', trust: 3, lastUpdate: today, category: 'realtime' },
     { name: 'Al Jazeera (RSS)', url: 'https://www.aljazeera.com/', trust: 3, lastUpdate: today, category: 'realtime' },
     { name: 'Guardian World (RSS)', url: 'https://www.theguardian.com/world', trust: 3, lastUpdate: today, category: 'realtime' },
     { name: 'France24 (RSS)', url: 'https://www.france24.com/', trust: 3, lastUpdate: today, category: 'realtime' },
-    { name: 'NOAA Space Weather', url: 'https://www.swpc.noaa.gov/', trust: 3, lastUpdate: today, category: 'realtime' },
-    { name: 'USGS Volcanoes', url: 'https://volcanoes.usgs.gov/', trust: 3, lastUpdate: today, category: 'realtime' },
-    // New APIs added April 2026
-    { name: 'CoinGecko (Crypto)', url: 'https://www.coingecko.com/', trust: 2, lastUpdate: today, category: 'economy' },
-    { name: 'NOAA NCEI (Monthly Temp)', url: 'https://www.ncei.noaa.gov/', trust: 3, lastUpdate: today, category: 'environment' },
-    { name: 'NASA Sea Level', url: 'https://sealevel.nasa.gov/', trust: 3, lastUpdate: today, category: 'environment' },
-    { name: 'disease.sh (Global)', url: 'https://disease.sh/', trust: 2, lastUpdate: today, category: 'society' },
-    { name: 'ReliefWeb Disasters', url: 'https://reliefweb.int/', trust: 3, lastUpdate: today, category: 'realtime' },
-    { name: 'ISS Tracker', url: 'http://api.open-notify.org/', trust: 2, lastUpdate: today, category: 'progress' },
-    { name: 'ReliefWeb (Conflicts)', url: 'https://reliefweb.int/', trust: 3, lastUpdate: today, category: 'society' },
-    { name: 'GDELT (Conflicts)', url: 'https://www.gdeltproject.org/', trust: 2, lastUpdate: today, category: 'society' }
+    { name: 'World Bank News (Google News)', url: 'https://news.google.com/', trust: 2, lastUpdate: today, category: 'realtime' },
+    { name: 'IMF News (Google News)', url: 'https://news.google.com/', trust: 2, lastUpdate: today, category: 'realtime' }
   ];
 }
 

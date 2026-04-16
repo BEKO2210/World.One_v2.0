@@ -7,15 +7,17 @@
 name: Cache Pipeline — Detail Page Data
 
 on:
-  schedule:
-    - cron: '0 3 * * *'     # 03:00 UTC - biodiversity
-    - cron: '30 3 * * *'    # 03:30 UTC - environment-ext
-    - cron: '0 4 * * *'     # 04:00 UTC - society-ext
-    - cron: '30 4 * * *'    # 04:30 UTC - economy-ext
-    - cron: '0 5 * * *'     # 05:00 UTC - progress-ext
-    - cron: '30 5 * * *'    # 05:30 UTC - disasters
-    - cron: '0 6 * * *'     # 06:00 UTC - live-data (temperature, forests, renewables, airquality, weather, earthquakes, crypto_sentiment, science, space, health)
-    - cron: '30 6 * * *'    # 06:30 UTC - premium-sources (FRED, WAQI, NewsAPI — env-gated)
+  # Schedule DEAKTIVIERT — V2 Unified Pipeline übernimmt alles.
+  # Manueller Trigger bleibt für einzelne Nachlauf-Jobs erhalten.
+  # schedule:
+  #   - cron: '0 3 * * *'
+  #   - cron: '30 3 * * *'
+  #   - cron: '0 4 * * *'
+  #   - cron: '30 4 * * *'
+  #   - cron: '0 5 * * *'
+  #   - cron: '30 5 * * *'
+  #   - cron: '0 6 * * *'
+  #   - cron: '30 6 * * *'
   workflow_dispatch:
     inputs:
       job_group:
