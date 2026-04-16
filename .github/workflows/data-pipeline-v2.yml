@@ -1,0 +1,256 @@
+# ═══════════════════════════════════════════════════════════
+# BELKIS ONE — Data Pipeline V2 (Unified)
+#
+# Einheitlicher Workflow, der ALLES in einem Lauf erledigt:
+#   1. Raw Data (48 Collector-Tasks)
+#   2. Cache-Pipeline (alle 8 cache-*.js Scripts inkl. premium)
+#   3. Process (world-state.json mit Cache-Integration)
+#   4. Self-Heal + README + Service-Worker-Bump
+#   5. Commit + Deploy
+#
+# Die alten Workflows (data-pipeline.yml, cache-pipeline.yml,
+# deploy-only.yml) bleiben unverändert parallel laufen — V2 ist
+# ein zusätzlicher Einstiegspunkt für manuelle Gesamt-Refreshes
+# oder alternative Schedules.
+# ═══════════════════════════════════════════════════════════
+
+name: BELKIS ONE — Data Pipeline V2 (Unified)
+
+on:
+  # Manueller Trigger als Default — User steuert wann er den
+  # kompletten Refresh will, ohne den bestehenden 6h-Cycle zu
+  # verdrängen.
+  workflow_dispatch:
+    inputs:
+      skip_premium:
+        description: 'Premium-Quellen (FRED/WAQI/NewsAPI) überspringen'
+        required: false
+        default: 'false'
+        type: boolean
+      skip_deploy:
+        description: 'GitHub Pages Deploy überspringen'
+        required: false
+        default: 'false'
+        type: boolean
+
+  # Optional: eigener Zeitplan. Auskommentiert bis aktiviert,
+  # damit V2 nicht doppelt mit den bestehenden Cron-Jobs läuft.
+  # schedule:
+  #   - cron: '30 1 * * *'   # 01:30 UTC täglich
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: data-pipeline-v2
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: '22'
+
+jobs:
+  unified-pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      # ─── Setup ──────────────────────────────────────────────
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Create data directories
+        run: |
+          mkdir -p data/raw/{environment,society,economy,tech,realtime}
+          mkdir -p data/processed data/cache data/history
+
+      # ─── Phase 1: Collect Raw Data ───────────────────────────
+      - name: "Phase 1 — Collect raw data (48 sources)"
+        id: collect
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "::group::Raw Data Collection"
+          node scripts/collect-data.js || echo "::warning::Some collectors failed"
+          echo "::endgroup::"
+
+          if [ -f "data/raw/collection-manifest.json" ]; then
+            SUCCESS=$(node -e "const m=JSON.parse(require('fs').readFileSync('data/raw/collection-manifest.json','utf8')); console.log(m.success?.length||0)")
+            FAILED=$(node -e "const m=JSON.parse(require('fs').readFileSync('data/raw/collection-manifest.json','utf8')); console.log(m.failed?.length||0)")
+            TOTAL=$((SUCCESS + FAILED))
+            echo "success=$SUCCESS" >> $GITHUB_OUTPUT
+            echo "total=$TOTAL"     >> $GITHUB_OUTPUT
+            echo "### Phase 1 — Collect" >> $GITHUB_STEP_SUMMARY
+            echo "- Successful: $SUCCESS / $TOTAL" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      # ─── Phase 2: Cache-Pipeline (6 regular + 1 premium) ─────
+      - name: "Phase 2a — Cache biodiversity (GBIF)"
+        continue-on-error: true
+        run: node scripts/cache-biodiversity.js
+
+      - name: "Phase 2b — Cache environment-ext (CO2/Ocean/Solar)"
+        continue-on-error: true
+        run: node scripts/cache-environment-ext.js
+
+      - name: "Phase 2c — Cache society-ext (Population/Freedom/Conflicts)"
+        continue-on-error: true
+        env:
+          UCDP_API_TOKEN: ${{ secrets.UCDP_API_TOKEN }}
+          ACLED_EMAIL: ${{ secrets.ACLED_EMAIL }}
+          ACLED_PASSWORD: ${{ secrets.ACLED_PASSWORD }}
+        run: node scripts/cache-society-ext.js
+
+      - name: "Phase 2d — Cache economy-ext (Currencies/Inequality/Poverty)"
+        continue-on-error: true
+        run: node scripts/cache-economy-ext.js
+
+      - name: "Phase 2e — Cache progress-ext (arXiv/Space-News)"
+        continue-on-error: true
+        run: node scripts/cache-progress-ext.js
+
+      - name: "Phase 2f — Cache disasters (GDACS + Hunger)"
+        continue-on-error: true
+        run: node scripts/cache-disasters.js
+
+      - name: "Phase 2g — Cache live-data (11 topics)"
+        continue-on-error: true
+        run: node scripts/cache-live-data.js
+
+      - name: "Phase 2h — Cache premium-sources (FRED/WAQI/NewsAPI)"
+        if: github.event.inputs.skip_premium != 'true'
+        continue-on-error: true
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          WAQI_TOKEN: ${{ secrets.WAQI_TOKEN }}
+          NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
+        run: node scripts/cache-premium-sources.js
+
+      - name: "Phase 2 — Meta aggregate"
+        continue-on-error: true
+        run: node scripts/generate-meta.js --job unified-v2 --status success || true
+
+      - name: "Phase 2 — Cache validation"
+        continue-on-error: true
+        run: |
+          echo "::group::Cache Validation"
+          node scripts/validate-cache.js
+          echo "::endgroup::"
+          CACHE_COUNT=$(find data/cache -name "*.json" ! -name "meta.json" | wc -l)
+          echo "### Phase 2 — Cache" >> $GITHUB_STEP_SUMMARY
+          echo "- Cache files produced: $CACHE_COUNT" >> $GITHUB_STEP_SUMMARY
+
+      # ─── Phase 3: Process ────────────────────────────────────
+      - name: "Phase 3 — Process world-state.json"
+        run: |
+          echo "::group::Data Processing"
+          node scripts/process-data.js 2>&1
+          echo "::endgroup::"
+
+          node -e "
+            const d = JSON.parse(require('fs').readFileSync('data/processed/world-state.json', 'utf8'));
+            const checks = [
+              ['worldIndex',      !!d.worldIndex?.value],
+              ['subScores',       !!d.subScores?.environment],
+              ['environment',     !!d.environment?.co2],
+              ['society',         !!d.society?.conflicts],
+              ['economy',         !!d.economy?.gdpGrowth],
+              ['progress',        !!d.progress?.internet],
+              ['realtime',        !!d.realtime?.lastUpdated],
+              ['momentum',        !!d.momentum?.indicators],
+              ['meta',            !!d.meta?.generated],
+              ['cacheFreshness',  !!d.meta?.cacheFreshness]
+            ];
+            let passed = 0;
+            for (const [n, ok] of checks) { console.log(ok?'✓':'✗', n); if (ok) passed++; }
+            if (passed < 8) { console.error('Validation < 8/10 — aborting'); process.exit(1); }
+          "
+
+      - name: "Phase 4 — Self-heal integrity"
+        run: node scripts/self-heal.js
+
+      - name: "Phase 4 — Validators"
+        run: |
+          echo "::group::Validators"
+          node scripts/validate-cache.js      2>&1 | tail -5
+          node scripts/validate-fallback.js   2>&1 | tail -5
+          node scripts/validate-routing.js    2>&1 | tail -6
+          node scripts/validate-score-coverage.js 2>&1 | tail -7
+          echo "::endgroup::"
+
+      - name: "Phase 4 — Generate README"
+        continue-on-error: true
+        run: node scripts/generate-readme.js
+
+      - name: "Phase 4 — Bump Service-Worker cache version"
+        run: |
+          NEW_VERSION="$(date -u '+%Y%m%d-%H%M')"
+          sed -i "s/const CACHE_VERSION = '.*'/const CACHE_VERSION = '${NEW_VERSION}'/" service-worker.js
+          echo "Service Worker version bumped to: ${NEW_VERSION}"
+
+      # ─── Phase 5: Commit + Deploy ────────────────────────────
+      - name: "Phase 5 — Commit data + README + SW"
+        run: |
+          git config user.name  "World.One Pipeline V2"
+          git config user.email "pipeline@world.one"
+          git add data/processed/world-state.json \
+                  data/processed/world-state.backup.json \
+                  data/processed/heal-log.json \
+                  data/history/ \
+                  data/cache/*.json \
+                  README.md \
+                  service-worker.js
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            WORLD_INDEX=$(node -e "console.log(JSON.parse(require('fs').readFileSync('data/processed/world-state.json','utf8')).worldIndex.value)")
+            SUCCESS_PART="${{ steps.collect.outputs.success }}"
+            TOTAL_PART="${{ steps.collect.outputs.total }}"
+            git commit -m "chore(v2): unified pipeline — Index ${WORLD_INDEX} [${SUCCESS_PART}/${TOTAL_PART} sources + all caches] $(date -u '+%Y-%m-%d %H:%M UTC')"
+            for attempt in 1 2 3; do
+              git push && break
+              echo "Push attempt $attempt failed — rebase + retry..."
+              git pull --rebase -X theirs origin $(git branch --show-current) || true
+              sleep $((attempt * 2))
+            done
+          fi
+
+      - name: "Phase 6 — Deploy to GitHub Pages"
+        if: github.event.inputs.skip_deploy != 'true'
+        id: deploy-setup
+        uses: actions/configure-pages@v4
+
+      - name: "Phase 6 — Upload Pages artifact"
+        if: github.event.inputs.skip_deploy != 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: "Phase 6 — Deploy"
+        if: github.event.inputs.skip_deploy != 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      # ─── Summary ─────────────────────────────────────────────
+      - name: Summary
+        if: always()
+        run: |
+          echo "## BELKIS ONE V2 Pipeline Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f "data/processed/world-state.json" ]; then
+            echo "- **World Index:** $(node -e "console.log(JSON.parse(require('fs').readFileSync('data/processed/world-state.json','utf8')).worldIndex.value)")" >> $GITHUB_STEP_SUMMARY
+            echo "- **Sources:** ${{ steps.collect.outputs.success }}/${{ steps.collect.outputs.total }}" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "- **Cache files:** $(find data/cache -name '*.json' ! -name 'meta.json' | wc -l)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Deployed:** ${{ github.event.inputs.skip_deploy != 'true' }}" >> $GITHUB_STEP_SUMMARY

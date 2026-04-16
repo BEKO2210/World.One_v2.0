@@ -50,6 +50,24 @@ export function createTierBadge(tier, options = {}) {
     children.push(` ${year}`);
   }
 
+  // ─── Visible age suffix (Run 9 follow-up) ───
+  // "Cache soll dahinter immer in klein die Zeit haben wann es geCache
+  // wurde" — user-requested. Für cache-Tier und live-mit-Alter wird
+  // die Aktualisierungs-Zeit als kleiner span direkt im Badge angezeigt
+  // (vorher nur im title-tooltip).
+  if (normalizedTier === 'cache' && age !== null && Number.isFinite(age)) {
+    const hours = age / 3600000;
+    const ageLabel = hours < 1
+      ? i18n.t('badge.ageJustNow')
+      : hours < 24
+        ? i18n.t('badge.ageHours', { n: Math.round(hours) })
+        : i18n.t('badge.ageDays', { n: Math.round(hours / 24) });
+    children.push(DOMUtils.create('span', {
+      className: 'data-badge__age',
+      textContent: ' · ' + ageLabel
+    }));
+  }
+
   // ─── Tooltip (Schritt 6): always informative ───
   // Shows "Quelle: X" for live/cache when source is provided,
   // "aktualisiert vor Xh/Xd" for cache tiers,
