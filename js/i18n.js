@@ -5,7 +5,7 @@
 const translations = {
   de: {
     // ─── Loading Screen ───
-    'loading.sub': 'Lade Weltdaten aus 48 Quellen',
+    'loading.sub': 'Lade Weltdaten aus 65 Quellen',
 
     // ─── Navigation ───
     'nav.aria': 'Sektions-Navigation',
@@ -1205,7 +1205,7 @@ const translations = {
 
   en: {
     // ─── Loading Screen ───
-    'loading.sub': 'Loading world data from 48 sources',
+    'loading.sub': 'Loading world data from 65 sources',
 
     // ─── Navigation ───
     'nav.aria': 'Section Navigation',

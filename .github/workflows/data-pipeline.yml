@@ -1,9 +1,10 @@
 name: BELKIS ONE — Data Pipeline
 
 on:
-  schedule:
-    # Every 6 hours: 00:00, 06:00, 12:00, 18:00 UTC
-    - cron: '0 */6 * * *'
+  # Schedule DEAKTIVIERT — V2 Unified Pipeline übernimmt den 6h-Cycle.
+  # Manueller Trigger bleibt für Notfälle erhalten.
+  # schedule:
+  #   - cron: '0 */6 * * *'
   workflow_dispatch:
     inputs:
       force_refresh:

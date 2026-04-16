@@ -1,11 +1,11 @@
 {
   "meta": {
-    "generated": "2026-04-16T00:17:59.292Z",
+    "generated": "2026-04-16T02:02:06.760Z",
     "version": "2.0.0",
-    "sources_count": 48,
+    "sources_count": 65,
     "sources_available": 41,
-    "sources_success_rate": 85,
-    "next_update": "2026-04-16T06:17:59.292Z",
+    "sources_success_rate": 63,
+    "next_update": "2026-04-16T08:02:06.760Z",
     "realtimePulse": {
       "environment": 0,
       "society": 0.05,
@@ -22,23 +22,23 @@
       "environment": {
         "newest": "2026-04-15T22:10:40.442Z",
         "oldest": "2026-04-15T21:30:17.873Z",
-        "newestHours": 2.1,
-        "oldestHours": 2.8,
+        "newestHours": 3.9,
+        "oldestHours": 4.5,
         "sourceCount": 4
       },
       "society": {
         "newest": "2026-04-15T21:30:47.173Z",
         "oldest": "2026-04-15T06:05:38.879Z",
-        "newestHours": 2.8,
-        "oldestHours": 18.2,
+        "newestHours": 4.5,
+        "oldestHours": 19.9,
         "sourceCount": 3
       },
       "economy": null,
       "progress": {
         "newest": "2026-04-15T21:30:48.006Z",
         "oldest": "2026-04-15T21:30:37.863Z",
-        "newestHours": 2.8,
-        "oldestHours": 2.8,
+        "newestHours": 4.5,
+        "oldestHours": 4.5,
         "sourceCount": 2
       }
     }
@@ -156,7 +156,7 @@
           "score": 56,
           "trend": "declining",
           "fetchedAt": "2026-04-15T21:30:17.873Z",
-          "ageHours": 2.8,
+          "ageHours": 4.5,
           "source": "World Bank / FAO (AG.LND.FRST.ZS)"
         },
         {
@@ -165,7 +165,7 @@
           "score": 33,
           "trend": "improving",
           "fetchedAt": "2026-04-15T21:30:18.010Z",
-          "ageHours": 2.8,
+          "ageHours": 4.5,
           "source": "World Bank (EG.FEC.RNEW.ZS)"
         },
         {
@@ -174,7 +174,7 @@
           "score": 45,
           "trend": "stable",
           "fetchedAt": "2026-04-15T21:30:28.868Z",
-          "ageHours": 2.8,
+          "ageHours": 4.5,
           "source": "Open-Meteo (13 cities avg)"
         },
         {
@@ -192,7 +192,7 @@
           "score": 0,
           "trend": "declining",
           "fetchedAt": "2026-04-15T22:10:40.442Z",
-          "ageHours": 2.1,
+          "ageHours": 3.9,
           "source": "GDACS (JRC/EU)"
         }
       ]
@@ -211,7 +211,7 @@
           "score": 67,
           "trend": "improving",
           "fetchedAt": "2026-04-15T21:30:47.173Z",
-          "ageHours": 2.8,
+          "ageHours": 4.5,
           "source": "World Bank (SP.DYN.LE00.IN)"
         },
         {
@@ -220,7 +220,7 @@
           "score": 66,
           "trend": "improving",
           "fetchedAt": "2026-04-15T21:30:47.173Z",
-          "ageHours": 2.8,
+          "ageHours": 4.5,
           "source": "World Bank (SH.DYN.MORT)"
         },
         {
@@ -229,7 +229,7 @@
           "score": 29,
           "trend": "declining",
           "fetchedAt": "2026-04-15T06:06:13.850Z",
-          "ageHours": 18.2,
+          "ageHours": 19.9,
           "source": "ACLED/Crisis Group (baseline)"
         },
         {
@@ -265,7 +265,7 @@
           "score": 46,
           "trend": "declining",
           "fetchedAt": "2026-04-15T06:05:38.879Z",
-          "ageHours": 18.2,
+          "ageHours": 19.9,
           "source": "Freedom House - Freedom in the World"
         }
       ]
@@ -339,7 +339,7 @@
           "score": 82,
           "trend": "improving",
           "fetchedAt": "2026-04-15T21:30:48.006Z",
-          "ageHours": 2.8,
+          "ageHours": 4.5,
           "source": "World Bank (IT.NET.USER.ZS)"
         },
         {
@@ -366,7 +366,7 @@
           "score": 86,
           "trend": "improving",
           "fetchedAt": "2026-04-15T21:30:48.006Z",
-          "ageHours": 2.8,
+          "ageHours": 4.5,
           "source": "World Bank (IT.CEL.SETS.P2)"
         },
         {
@@ -384,7 +384,7 @@
           "score": 75,
           "trend": "improving",
           "fetchedAt": "2026-04-15T21:30:37.863Z",
-          "ageHours": 2.8,
+          "ageHours": 4.5,
           "source": "arXiv (cs.AI + cs.LG)"
         }
       ]
@@ -1756,7 +1756,7 @@
       "criticallyEndangered": 27454,
       "source": "GBIF / IUCN",
       "fetchedAt": "2026-04-15T05:17:01.758Z",
-      "ageHours": 19
+      "ageHours": 20.8
     },
     "weather": [],
     "ocean": {
@@ -3646,7 +3646,7 @@
     ],
     "volcanic": [],
     "solar": [],
-    "lastUpdated": "2026-04-16T00:17:59.292Z"
+    "lastUpdated": "2026-04-16T02:02:06.760Z"
   },
   "momentum": {
     "indicators": [
@@ -3870,9 +3870,44 @@
       "category": "environment"
     },
     {
-      "name": "Open-Meteo (Air Quality)",
-      "url": "https://air-quality-api.open-meteo.com/",
-      "trust": 2,
+      "name": "NOAA Mauna Loa CO2 Monthly",
+      "url": "https://gml.noaa.gov/webdata/ccgg/trends/co2/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "environment"
+    },
+    {
+      "name": "NOAA NCEI (Ocean SST)",
+      "url": "https://www.ncei.noaa.gov/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "environment"
+    },
+    {
+      "name": "NOAA NCEI (Monthly Temp)",
+      "url": "https://www.ncei.noaa.gov/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "environment"
+    },
+    {
+      "name": "NOAA STAR (Sea Level)",
+      "url": "https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "environment"
+    },
+    {
+      "name": "NASA Sea Level",
+      "url": "https://sealevel.nasa.gov/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "environment"
+    },
+    {
+      "name": "NOAA Coral Reef Watch",
+      "url": "https://coralreefwatch.noaa.gov/",
+      "trust": 3,
       "lastUpdate": "2026-04-16",
       "category": "environment"
     },
@@ -3884,8 +3919,36 @@
       "category": "environment"
     },
     {
+      "name": "Open-Meteo (Air Quality)",
+      "url": "https://air-quality-api.open-meteo.com/",
+      "trust": 2,
+      "lastUpdate": "2026-04-16",
+      "category": "environment"
+    },
+    {
+      "name": "WAQI (Air Quality)",
+      "url": "https://aqicn.org/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "environment"
+    },
+    {
       "name": "World Bank (Environment)",
       "url": "https://data.worldbank.org/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "environment"
+    },
+    {
+      "name": "World Bank (Forest Area)",
+      "url": "https://data.worldbank.org/indicator/AG.LND.FRST.ZS",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "environment"
+    },
+    {
+      "name": "World Bank (Renewable Energy)",
+      "url": "https://data.worldbank.org/indicator/EG.FEC.RNEW.ZS",
       "trust": 3,
       "lastUpdate": "2026-04-16",
       "category": "environment"
@@ -3898,6 +3961,27 @@
       "category": "environment"
     },
     {
+      "name": "Our World in Data (CO2 backup)",
+      "url": "https://ourworldindata.org/co2-emissions",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "environment"
+    },
+    {
+      "name": "GBIF (Biodiversity)",
+      "url": "https://www.gbif.org/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "environment"
+    },
+    {
+      "name": "IUCN Red List",
+      "url": "https://www.iucnredlist.org/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "environment"
+    },
+    {
       "name": "World Bank (Society)",
       "url": "https://data.worldbank.org/",
       "trust": 3,
@@ -3905,8 +3989,36 @@
       "category": "society"
     },
     {
+      "name": "World Bank (Health: Life Exp/DTP3)",
+      "url": "https://data.worldbank.org/topic/health",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "society"
+    },
+    {
+      "name": "World Bank (Hunger)",
+      "url": "https://data.worldbank.org/indicator/SN.ITK.DEFC.ZS",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "society"
+    },
+    {
       "name": "ACLED (Konflikte)",
       "url": "https://acleddata.com/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "society"
+    },
+    {
+      "name": "UCDP (Uppsala Conflict)",
+      "url": "https://ucdp.uu.se/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "society"
+    },
+    {
+      "name": "ReliefWeb (Conflicts)",
+      "url": "https://reliefweb.int/",
       "trust": 3,
       "lastUpdate": "2026-04-16",
       "category": "society"
@@ -3926,7 +4038,21 @@
       "category": "society"
     },
     {
-      "name": "disease.sh",
+      "name": "GDELT (Conflicts)",
+      "url": "https://www.gdeltproject.org/",
+      "trust": 2,
+      "lastUpdate": "2026-04-16",
+      "category": "society"
+    },
+    {
+      "name": "disease.sh (COVID)",
+      "url": "https://disease.sh/",
+      "trust": 2,
+      "lastUpdate": "2026-04-16",
+      "category": "society"
+    },
+    {
+      "name": "disease.sh (Global Outbreaks)",
       "url": "https://disease.sh/",
       "trust": 2,
       "lastUpdate": "2026-04-16",
@@ -3947,22 +4073,64 @@
       "category": "economy"
     },
     {
-      "name": "Alternative.me (Crypto)",
+      "name": "FRED (St. Louis Fed)",
+      "url": "https://fred.stlouisfed.org/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "economy"
+    },
+    {
+      "name": "Alternative.me (Fear & Greed)",
       "url": "https://alternative.me/crypto/",
       "trust": 2,
       "lastUpdate": "2026-04-16",
       "category": "economy"
     },
     {
-      "name": "Exchange Rate API",
+      "name": "CoinGecko (Crypto)",
+      "url": "https://www.coingecko.com/",
+      "trust": 2,
+      "lastUpdate": "2026-04-16",
+      "category": "economy"
+    },
+    {
+      "name": "Exchange Rate API (USD)",
       "url": "https://open.er-api.com/",
       "trust": 2,
       "lastUpdate": "2026-04-16",
       "category": "economy"
     },
     {
+      "name": "Exchange Rate API (EUR)",
+      "url": "https://open.er-api.com/",
+      "trust": 2,
+      "lastUpdate": "2026-04-16",
+      "category": "economy"
+    },
+    {
+      "name": "Forbes / Oxfam (Wealth)",
+      "url": "https://www.forbes.com/billionaires/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "economy"
+    },
+    {
       "name": "World Bank (Tech)",
       "url": "https://data.worldbank.org/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "progress"
+    },
+    {
+      "name": "World Bank (Internet/Mobile)",
+      "url": "https://data.worldbank.org/indicator/IT.NET.USER.ZS",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "progress"
+    },
+    {
+      "name": "World Bank (R&D Spending)",
+      "url": "https://data.worldbank.org/indicator/GB.XPD.RSDV.GD.ZS",
       "trust": 3,
       "lastUpdate": "2026-04-16",
       "category": "progress"
@@ -3989,6 +4157,13 @@
       "category": "progress"
     },
     {
+      "name": "ISS Tracker (Open Notify)",
+      "url": "http://api.open-notify.org/",
+      "trust": 2,
+      "lastUpdate": "2026-04-16",
+      "category": "progress"
+    },
+    {
       "name": "USGS Earthquakes",
       "url": "https://earthquake.usgs.gov/",
       "trust": 3,
@@ -3996,8 +4171,36 @@
       "category": "realtime"
     },
     {
+      "name": "USGS Volcanoes",
+      "url": "https://volcanoes.usgs.gov/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "realtime"
+    },
+    {
+      "name": "GDACS (Disaster Alert EU)",
+      "url": "https://www.gdacs.org/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "realtime"
+    },
+    {
+      "name": "NOAA Space Weather",
+      "url": "https://www.swpc.noaa.gov/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "realtime"
+    },
+    {
       "name": "GDELT Project",
       "url": "https://www.gdeltproject.org/",
+      "trust": 2,
+      "lastUpdate": "2026-04-16",
+      "category": "realtime"
+    },
+    {
+      "name": "NewsAPI (world/climate/conflict)",
+      "url": "https://newsapi.org/",
       "trust": 2,
       "lastUpdate": "2026-04-16",
       "category": "realtime"
@@ -4038,6 +4241,27 @@
       "category": "realtime"
     },
     {
+      "name": "NASA Earth Observatory",
+      "url": "https://earthobservatory.nasa.gov/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "realtime"
+    },
+    {
+      "name": "ESA (RSS)",
+      "url": "https://www.esa.int/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "realtime"
+    },
+    {
+      "name": "NOAA Climate.gov (RSS)",
+      "url": "https://www.climate.gov/",
+      "trust": 3,
+      "lastUpdate": "2026-04-16",
+      "category": "realtime"
+    },
+    {
       "name": "BBC World (RSS)",
       "url": "https://www.bbc.com/news/world",
       "trust": 3,
@@ -4073,74 +4297,18 @@
       "category": "realtime"
     },
     {
-      "name": "NOAA Space Weather",
-      "url": "https://www.swpc.noaa.gov/",
-      "trust": 3,
+      "name": "World Bank News (Google News)",
+      "url": "https://news.google.com/",
+      "trust": 2,
       "lastUpdate": "2026-04-16",
       "category": "realtime"
     },
     {
-      "name": "USGS Volcanoes",
-      "url": "https://volcanoes.usgs.gov/",
-      "trust": 3,
+      "name": "IMF News (Google News)",
+      "url": "https://news.google.com/",
+      "trust": 2,
       "lastUpdate": "2026-04-16",
       "category": "realtime"
-    },
-    {
-      "name": "CoinGecko (Crypto)",
-      "url": "https://www.coingecko.com/",
-      "trust": 2,
-      "lastUpdate": "2026-04-16",
-      "category": "economy"
-    },
-    {
-      "name": "NOAA NCEI (Monthly Temp)",
-      "url": "https://www.ncei.noaa.gov/",
-      "trust": 3,
-      "lastUpdate": "2026-04-16",
-      "category": "environment"
-    },
-    {
-      "name": "NASA Sea Level",
-      "url": "https://sealevel.nasa.gov/",
-      "trust": 3,
-      "lastUpdate": "2026-04-16",
-      "category": "environment"
-    },
-    {
-      "name": "disease.sh (Global)",
-      "url": "https://disease.sh/",
-      "trust": 2,
-      "lastUpdate": "2026-04-16",
-      "category": "society"
-    },
-    {
-      "name": "ReliefWeb Disasters",
-      "url": "https://reliefweb.int/",
-      "trust": 3,
-      "lastUpdate": "2026-04-16",
-      "category": "realtime"
-    },
-    {
-      "name": "ISS Tracker",
-      "url": "http://api.open-notify.org/",
-      "trust": 2,
-      "lastUpdate": "2026-04-16",
-      "category": "progress"
-    },
-    {
-      "name": "ReliefWeb (Conflicts)",
-      "url": "https://reliefweb.int/",
-      "trust": 3,
-      "lastUpdate": "2026-04-16",
-      "category": "society"
-    },
-    {
-      "name": "GDELT (Conflicts)",
-      "url": "https://www.gdeltproject.org/",
-      "trust": 2,
-      "lastUpdate": "2026-04-16",
-      "category": "society"
     }
   ]
 }
