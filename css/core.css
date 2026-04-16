@@ -304,26 +304,51 @@ button {
 }
 
 /* ─── Skip-to-main-content Link (A11y)
-   Versteckt außerhalb des Viewports, sichtbar bei Keyboard-Fokus.
-   Ermöglicht Screenreader-/Tastatur-Usern, Navigation zu überspringen. */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 8px;
-  z-index: 10000;
-  padding: 10px 16px;
-  background: var(--bg-primary, #0a0a0f);
-  color: var(--text-primary, #fff);
-  border: 2px solid var(--progress);
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: top 0.15s ease;
+   Komplett unsichtbar bis Keyboard-Fokus (sr-only + position:fixed).
+   !important Schutz gegen Cascade-Überschreibungen (User-Report:
+   blaue Rahmen-Unterkante peekte an der oberen Bildschirm-Ecke). */
+.skip-link,
+.skip-link:link,
+.skip-link:visited {
+  position: absolute !important;
+  left: -9999px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  color: transparent !important;
+  box-shadow: none !important;
 }
 
+.skip-link:focus,
 .skip-link:focus-visible {
-  top: 8px;
+  position: fixed !important;
+  top: 12px !important;
+  left: 12px !important;
+  z-index: 10000 !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 10px 16px !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  clip: auto !important;
+  clip-path: none !important;
+  white-space: normal !important;
+  background: var(--bg-primary, #0a0a0f) !important;
+  color: var(--text-primary, #fff) !important;
+  border: 2px solid var(--progress) !important;
+  border-radius: 6px !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
 }
 
 /* ─── Selection ─── */

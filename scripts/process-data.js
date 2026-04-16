@@ -980,8 +980,18 @@ function buildWorldState() {
   // ─── ASSEMBLE FINAL STATE ───
   const manifest = readRaw('.', 'collection-manifest.json');
   const sourcesList = buildDataSourcesList();
-  const sourcesTotal = sourcesList.length;
-  const sourcesAvailable = manifest?.success?.length || existing?.meta?.sources_available || sourcesTotal;
+  // Prefer the real count of collector tasks (from pipeline manifest: 48)
+  // über die kuratierte dataSources-list (41). Wenn Manifest fehlt (lokaler
+  // Lauf ohne Raw-Daten), nimm den größeren Wert aus existing-Value vs.
+  // sourcesList.length — so verhindert ein stale existing:41 nicht, dass
+  // nach Workflow-Lauf 48 angezeigt wird.
+  const manifestTotal = Number.isFinite(manifest?.total) ? manifest.total : null;
+  const sourcesTotal = manifestTotal
+    ?? Math.max(existing?.meta?.sources_count || 0, sourcesList.length, 48);
+  const manifestSuccess = Number.isFinite(manifest?.success?.length) ? manifest.success.length : null;
+  const sourcesAvailable = manifestSuccess
+    ?? existing?.meta?.sources_available
+    ?? sourcesTotal;
   const sourcesRate = sourcesTotal > 0
     ? Math.min(100, Math.round((sourcesAvailable / sourcesTotal) * 100))
     : 100;
