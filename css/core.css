@@ -304,44 +304,51 @@ button {
 }
 
 /* ─── Skip-to-main-content Link (A11y)
-   Komplett unsichtbar bis Keyboard-Fokus (sr-only Pattern).
-   Vorher mit top:-40px — das reichte nicht aus, der Rahmen-Bottom
-   peekte bei manchen Zoom-Stufen / Fontsizes ins Viewport. */
-.skip-link {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-  background: transparent;
-  color: transparent;
+   Komplett unsichtbar bis Keyboard-Fokus (sr-only + position:fixed).
+   !important Schutz gegen Cascade-Überschreibungen (User-Report:
+   blaue Rahmen-Unterkante peekte an der oberen Bildschirm-Ecke). */
+.skip-link,
+.skip-link:link,
+.skip-link:visited {
+  position: absolute !important;
+  left: -9999px !important;
+  top: auto !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  color: transparent !important;
+  box-shadow: none !important;
 }
 
 .skip-link:focus,
 .skip-link:focus-visible {
-  position: fixed;
-  top: 12px;
-  left: 12px;
-  z-index: 10000;
-  width: auto;
-  height: auto;
-  padding: 10px 16px;
-  margin: 0;
-  overflow: visible;
-  clip: auto;
-  white-space: normal;
-  background: var(--bg-primary, #0a0a0f);
-  color: var(--text-primary, #fff);
-  border: 2px solid var(--progress);
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  text-decoration: none;
+  position: fixed !important;
+  top: 12px !important;
+  left: 12px !important;
+  z-index: 10000 !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 10px 16px !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  clip: auto !important;
+  clip-path: none !important;
+  white-space: normal !important;
+  background: var(--bg-primary, #0a0a0f) !important;
+  color: var(--text-primary, #fff) !important;
+  border: 2px solid var(--progress) !important;
+  border-radius: 6px !important;
+  font-size: 0.875rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
 }
 
 /* ─── Selection ─── */
