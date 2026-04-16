@@ -306,6 +306,17 @@
   border: 1px solid rgba(142,142,147,0.25);
 }
 
+/* Kleine Zeitangabe direkt im Cache-Badge (user-requested):
+   "Cache · vor 3h" — sichtbar statt nur im Hover-Tooltip. */
+.data-badge__age {
+  font-size: 9px;
+  font-weight: 400;
+  opacity: 0.75;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  margin-left: 2px;
+}
+
 /* ─── Scroll Hint ─── */
 .scroll-hint {
   position: absolute; bottom: var(--space-lg); left: 50%; transform: translateX(-50%);
