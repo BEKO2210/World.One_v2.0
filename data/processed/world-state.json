@@ -1,11 +1,11 @@
 {
   "meta": {
-    "generated": "2026-04-16T00:17:59.292Z",
+    "generated": "2026-04-16T00:32:01.576Z",
     "version": "2.0.0",
     "sources_count": 48,
-    "sources_available": 41,
-    "sources_success_rate": 85,
-    "next_update": "2026-04-16T06:17:59.292Z",
+    "sources_available": 48,
+    "sources_success_rate": 100,
+    "next_update": "2026-04-16T06:32:01.576Z",
     "realtimePulse": {
       "environment": -0.39,
       "society": 0,
@@ -21,37 +21,43 @@
     },
     "cacheFreshness": {
       "environment": {
-        "newest": "2026-04-15T22:10:40.442Z",
-        "oldest": "2026-04-15T21:30:17.873Z",
-        "newestHours": 2.1,
-        "oldestHours": 2.8,
-        "sourceCount": 4
+        "newest": "2026-04-16T00:32:00.884Z",
+        "oldest": "2026-04-16T00:31:33.705Z",
+        "newestHours": 0,
+        "oldestHours": 0,
+        "sourceCount": 6
       },
       "society": {
-        "newest": "2026-04-15T21:30:47.173Z",
-        "oldest": "2026-04-15T06:05:38.879Z",
-        "newestHours": 2.8,
-        "oldestHours": 18.2,
-        "sourceCount": 3
+        "newest": "2026-04-16T00:32:01.425Z",
+        "oldest": "2026-04-16T00:30:17.183Z",
+        "newestHours": 0,
+        "oldestHours": 0,
+        "sourceCount": 4
       },
-      "economy": null,
+      "economy": {
+        "newest": "2026-04-16T00:31:58.017Z",
+        "oldest": "2026-04-16T00:31:58.017Z",
+        "newestHours": 0,
+        "oldestHours": 0,
+        "sourceCount": 1
+      },
       "progress": {
-        "newest": "2026-04-15T21:30:48.006Z",
-        "oldest": "2026-04-15T21:30:37.863Z",
-        "newestHours": 2.8,
-        "oldestHours": 2.8,
+        "newest": "2026-04-16T00:31:54.570Z",
+        "oldest": "2026-04-16T00:31:54.017Z",
+        "newestHours": 0,
+        "oldestHours": 0,
         "sourceCount": 2
       }
     }
   },
   "worldIndex": {
-    "value": 63,
-    "rawValue": 60,
+    "value": 63.4,
+    "rawValue": 60.4,
     "label": "POSITIV",
     "zone": "positive",
     "previous": 63,
-    "change": 0,
-    "trend": "stable",
+    "change": 0.4,
+    "trend": "improving",
     "carryingCapacity": {
       "checks": {
         "existence": {
@@ -80,8 +86,8 @@
         },
         "economy": {
           "direction": "expansion",
-          "position": "stable",
-          "level": 0
+          "position": "capacitive",
+          "level": 2
         },
         "progress": {
           "direction": "expansion",
@@ -106,7 +112,7 @@
           "maintenanceCost": 0.77
         },
         "economy": {
-          "bufferDistance": 62.8,
+          "bufferDistance": 65.4,
           "recoveryTime": 0,
           "maintenanceCost": 2.76
         },
@@ -138,8 +144,8 @@
           "value": "+1.19°C",
           "score": 60,
           "trend": "declining",
-          "fetchedAt": "2026-04-15T22:13:49.203Z",
-          "ageHours": 1.9,
+          "fetchedAt": "2026-04-16T00:31:34.332Z",
+          "ageHours": 0,
           "source": "NASA GISTEMP v4 (base 1951-1980)"
         },
         {
@@ -147,7 +153,7 @@
           "value": "429 ppm",
           "score": 32,
           "trend": "declining",
-          "fetchedAt": "2026-04-16T00:07:10.195Z",
+          "fetchedAt": "2026-04-16T00:29:28.241Z",
           "ageHours": 0,
           "source": "NOAA Mauna Loa"
         },
@@ -156,8 +162,8 @@
           "value": "31.14%",
           "score": 56,
           "trend": "declining",
-          "fetchedAt": "2026-04-15T21:30:17.873Z",
-          "ageHours": 2.8,
+          "fetchedAt": "2026-04-16T00:31:34.531Z",
+          "ageHours": 0,
           "source": "World Bank / FAO (AG.LND.FRST.ZS)"
         },
         {
@@ -165,18 +171,18 @@
           "value": "19.74%",
           "score": 33,
           "trend": "improving",
-          "fetchedAt": "2026-04-15T21:30:18.010Z",
-          "ageHours": 2.8,
+          "fetchedAt": "2026-04-16T00:31:34.637Z",
+          "ageHours": 0,
           "source": "World Bank (EG.FEC.RNEW.ZS)"
         },
         {
           "name": "Luftqualität (Global Avg AQI)",
-          "value": 69,
+          "value": 86,
           "score": 45,
           "trend": "stable",
-          "fetchedAt": "2026-04-15T21:30:28.868Z",
-          "ageHours": 2.8,
-          "source": "Open-Meteo (13 cities avg)"
+          "fetchedAt": "2026-04-16T00:32:00.884Z",
+          "ageHours": 0,
+          "source": "WAQI official stations (20 cities)"
         },
         {
           "name": "Arktis-Eisfläche",
@@ -192,8 +198,8 @@
           "value": "40 events, -10 Pkt",
           "score": 0,
           "trend": "declining",
-          "fetchedAt": "2026-04-15T22:10:40.442Z",
-          "ageHours": 2.1,
+          "fetchedAt": "2026-04-16T00:31:33.705Z",
+          "ageHours": 0,
           "source": "GDACS (JRC/EU)"
         }
       ]
@@ -211,8 +217,8 @@
           "value": "73.48 Jahre",
           "score": 67,
           "trend": "improving",
-          "fetchedAt": "2026-04-15T21:30:47.173Z",
-          "ageHours": 2.8,
+          "fetchedAt": "2026-04-16T00:31:54.453Z",
+          "ageHours": 0,
           "source": "World Bank (SP.DYN.LE00.IN)"
         },
         {
@@ -220,8 +226,8 @@
           "value": "37.4/1000",
           "score": 66,
           "trend": "improving",
-          "fetchedAt": "2026-04-15T21:30:47.173Z",
-          "ageHours": 2.8,
+          "fetchedAt": "2026-04-16T00:31:54.453Z",
+          "ageHours": 0,
           "source": "World Bank (SH.DYN.MORT)"
         },
         {
@@ -229,8 +235,8 @@
           "value": 59,
           "score": 29,
           "trend": "declining",
-          "fetchedAt": "2026-04-15T06:06:13.850Z",
-          "ageHours": 18.2,
+          "fetchedAt": "2026-04-16T00:30:52.020Z",
+          "ageHours": 0,
           "source": "ACLED/Crisis Group (baseline)"
         },
         {
@@ -238,7 +244,7 @@
           "value": "91.6%",
           "score": 83,
           "trend": "improving",
-          "fetchedAt": "2026-04-16T00:07:13.561Z",
+          "fetchedAt": "2026-04-16T00:29:33.539Z",
           "ageHours": 0,
           "source": "World Bank (raw)"
         },
@@ -247,7 +253,7 @@
           "value": "73.7%",
           "score": 56,
           "trend": "improving",
-          "fetchedAt": "2026-04-16T00:07:13.628Z",
+          "fetchedAt": "2026-04-16T00:29:33.670Z",
           "ageHours": 0,
           "source": "World Bank (raw)"
         },
@@ -265,26 +271,26 @@
           "value": "84 frei / 55 unfrei",
           "score": 46,
           "trend": "declining",
-          "fetchedAt": "2026-04-15T06:05:38.879Z",
-          "ageHours": 18.2,
+          "fetchedAt": "2026-04-16T00:30:17.183Z",
+          "ageHours": 0,
           "source": "Freedom House - Freedom in the World"
         }
       ]
     },
     "economy": {
-      "value": 68.4,
+      "value": 70.6,
       "label": "POSITIV",
       "zone": "positive",
       "weight": 0.2,
-      "trend": "stable",
-      "change": 0,
+      "trend": "improving",
+      "change": 2.2,
       "indicators": [
         {
           "name": "BIP-Wachstum",
           "value": "2.87%",
           "score": 72,
           "trend": "improving",
-          "fetchedAt": "2026-04-16T00:07:14.260Z",
+          "fetchedAt": "2026-04-16T00:29:34.517Z",
           "ageHours": 0,
           "source": "World Bank / IMF"
         },
@@ -293,25 +299,25 @@
           "value": 42,
           "score": 51,
           "trend": "stable",
-          "fetchedAt": "2026-04-16T00:07:14.305Z",
+          "fetchedAt": "2026-04-16T00:29:34.644Z",
           "ageHours": 0,
           "source": "World Bank"
         },
         {
           "name": "Inflation",
-          "value": "6.5%",
-          "score": 75,
+          "value": "4.9%",
+          "score": 84,
           "trend": "stable",
-          "fetchedAt": "2026-04-16T00:07:14.379Z",
+          "fetchedAt": "2026-04-16T00:31:58.017Z",
           "ageHours": 0,
-          "source": "World Bank"
+          "source": "FRED + World Bank (avg)"
         },
         {
           "name": "Arbeitslosigkeit",
           "value": "4.79%",
           "score": 79,
           "trend": "stable",
-          "fetchedAt": "2026-04-16T00:07:14.435Z",
+          "fetchedAt": "2026-04-16T00:29:34.888Z",
           "ageHours": 0,
           "source": "World Bank / ILO"
         },
@@ -323,6 +329,24 @@
           "fetchedAt": null,
           "ageHours": null,
           "source": "World Bank (static baseline)"
+        },
+        {
+          "name": "Fed Funds Rate",
+          "value": "3.64%",
+          "score": 70.88,
+          "trend": "stable",
+          "fetchedAt": "2026-04-16T00:31:58.017Z",
+          "ageHours": 0,
+          "source": "FRED (St. Louis Fed)"
+        },
+        {
+          "name": "10Y-2Y Yield Spread",
+          "value": "0.53%",
+          "score": 80,
+          "trend": "stable",
+          "fetchedAt": "2026-04-16T00:31:58.017Z",
+          "ageHours": 0,
+          "source": "FRED (St. Louis Fed)"
         }
       ]
     },
@@ -339,8 +363,8 @@
           "value": "73.6%",
           "score": 82,
           "trend": "improving",
-          "fetchedAt": "2026-04-15T21:30:48.006Z",
-          "ageHours": 2.8,
+          "fetchedAt": "2026-04-16T00:31:54.570Z",
+          "ageHours": 0,
           "source": "World Bank (IT.NET.USER.ZS)"
         },
         {
@@ -348,7 +372,7 @@
           "value": "87.7%",
           "score": 75,
           "trend": "improving",
-          "fetchedAt": "2026-04-16T00:07:15.995Z",
+          "fetchedAt": "2026-04-16T00:29:37.908Z",
           "ageHours": 0,
           "source": "World Bank / UNESCO"
         },
@@ -357,7 +381,7 @@
           "value": "2.59%",
           "score": 65,
           "trend": "improving",
-          "fetchedAt": "2026-04-16T00:07:15.774Z",
+          "fetchedAt": "2026-04-16T00:29:37.244Z",
           "ageHours": 0,
           "source": "World Bank"
         },
@@ -366,8 +390,8 @@
           "value": "111.5/100",
           "score": 86,
           "trend": "improving",
-          "fetchedAt": "2026-04-15T21:30:48.006Z",
-          "ageHours": 2.8,
+          "fetchedAt": "2026-04-16T00:31:54.570Z",
+          "ageHours": 0,
           "source": "World Bank (IT.CEL.SETS.P2)"
         },
         {
@@ -375,7 +399,7 @@
           "value": "0K+",
           "score": 80,
           "trend": "improving",
-          "fetchedAt": "2026-04-16T00:07:15.632Z",
+          "fetchedAt": "2026-04-16T00:29:36.989Z",
           "ageHours": 0,
           "source": "GitHub"
         },
@@ -384,8 +408,8 @@
           "value": "0.4M total",
           "score": 75,
           "trend": "improving",
-          "fetchedAt": "2026-04-15T21:30:37.863Z",
-          "ageHours": 2.8,
+          "fetchedAt": "2026-04-16T00:31:54.017Z",
+          "ageHours": 0,
           "source": "arXiv (cs.AI + cs.LG)"
         }
       ]
@@ -1402,77 +1426,77 @@
       "source": "NOAA"
     },
     "airQuality": {
-      "globalAvgAQI": 69,
+      "globalAvgAQI": 86,
       "cleanestCities": [
+        {
+          "city": "Tokyo",
+          "country": "JP",
+          "aqi": 17,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Shanghai",
+          "country": "CN",
+          "aqi": 34,
+          "lat": null,
+          "lng": null
+        },
         {
           "city": "Berlin",
           "country": "DE",
-          "aqi": 21,
+          "aqi": 38,
           "lat": null,
           "lng": null
         },
         {
           "city": "Paris",
           "country": "FR",
-          "aqi": 22,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Istanbul",
-          "country": "TR",
-          "aqi": 28,
+          "aqi": 40,
           "lat": null,
           "lng": null
         },
         {
           "city": "Lagos",
           "country": "NG",
-          "aqi": 30,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "London",
-          "country": "GB",
-          "aqi": 30,
+          "aqi": 41,
           "lat": null,
           "lng": null
         }
       ],
       "mostPolluted": [
         {
-          "city": "Delhi",
-          "country": "IN",
-          "aqi": 191,
+          "city": "Beijing",
+          "country": "CN",
+          "aqi": 184,
           "lat": null,
           "lng": null
         },
         {
-          "city": "Beijing",
-          "country": "CN",
-          "aqi": 119,
+          "city": "Delhi",
+          "country": "IN",
+          "aqi": 170,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Karachi",
+          "country": "PK",
+          "aqi": 128,
           "lat": null,
           "lng": null
         },
         {
           "city": "Jakarta",
           "country": "ID",
-          "aqi": 113,
+          "aqi": 115,
           "lat": null,
           "lng": null
         },
         {
           "city": "Dhaka",
           "country": "BD",
-          "aqi": 70,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Mexico City",
-          "country": "MX",
-          "aqi": 69,
+          "aqi": 97,
           "lat": null,
           "lng": null
         }
@@ -1874,8 +1898,8 @@
       "endangered": 49014,
       "criticallyEndangered": 27454,
       "source": "GBIF / IUCN",
-      "fetchedAt": "2026-04-15T05:17:01.758Z",
-      "ageHours": 19
+      "fetchedAt": "2026-04-16T00:30:14.571Z",
+      "ageHours": 0
     },
     "weather": [
       {
@@ -1883,11 +1907,11 @@
         "lat": 52.52,
         "lng": 13.41,
         "current": {
-          "time": "2026-04-16T02:00",
+          "time": "2026-04-16T02:15",
           "interval": 900,
-          "temperature_2m": 10.5,
+          "temperature_2m": 10.4,
           "relative_humidity_2m": 58,
-          "wind_speed_10m": 5.8,
+          "wind_speed_10m": 6,
           "weather_code": 3
         }
       },
@@ -1896,11 +1920,11 @@
         "lat": 40.71,
         "lng": -74.01,
         "current": {
-          "time": "2026-04-15T20:00",
+          "time": "2026-04-15T20:15",
           "interval": 900,
-          "temperature_2m": 27.2,
-          "relative_humidity_2m": 47,
-          "wind_speed_10m": 12.1,
+          "temperature_2m": 26.7,
+          "relative_humidity_2m": 48,
+          "wind_speed_10m": 11.2,
           "weather_code": 0
         }
       },
@@ -1909,11 +1933,11 @@
         "lat": 35.68,
         "lng": 139.69,
         "current": {
-          "time": "2026-04-16T09:00",
+          "time": "2026-04-16T09:15",
           "interval": 900,
-          "temperature_2m": 17,
-          "relative_humidity_2m": 67,
-          "wind_speed_10m": 8.4,
+          "temperature_2m": 17.5,
+          "relative_humidity_2m": 65,
+          "wind_speed_10m": 8.7,
           "weather_code": 0
         }
       },
@@ -1922,10 +1946,10 @@
         "lat": -33.87,
         "lng": 151.21,
         "current": {
-          "time": "2026-04-16T10:00",
+          "time": "2026-04-16T10:15",
           "interval": 900,
-          "temperature_2m": 19.6,
-          "relative_humidity_2m": 60,
+          "temperature_2m": 20.3,
+          "relative_humidity_2m": 58,
           "wind_speed_10m": 5.6,
           "weather_code": 0
         }
@@ -1935,11 +1959,11 @@
         "lat": -23.55,
         "lng": -46.63,
         "current": {
-          "time": "2026-04-15T21:00",
+          "time": "2026-04-15T21:15",
           "interval": 900,
-          "temperature_2m": 19.5,
-          "relative_humidity_2m": 86,
-          "wind_speed_10m": 7.5,
+          "temperature_2m": 19.3,
+          "relative_humidity_2m": 87,
+          "wind_speed_10m": 7,
           "weather_code": 1
         }
       },
@@ -1948,9 +1972,9 @@
         "lat": 6.45,
         "lng": 3.4,
         "current": {
-          "time": "2026-04-16T01:00",
+          "time": "2026-04-16T01:15",
           "interval": 900,
-          "temperature_2m": 28.8,
+          "temperature_2m": 28.7,
           "relative_humidity_2m": 84,
           "wind_speed_10m": 6.5,
           "weather_code": 1
@@ -1961,11 +1985,11 @@
         "lat": 19.08,
         "lng": 72.88,
         "current": {
-          "time": "2026-04-16T05:30",
+          "time": "2026-04-16T05:45",
           "interval": 900,
           "temperature_2m": 28.2,
           "relative_humidity_2m": 78,
-          "wind_speed_10m": 4.2,
+          "wind_speed_10m": 3.9,
           "weather_code": 2
         }
       },
@@ -1974,11 +1998,11 @@
         "lat": 51.51,
         "lng": -0.13,
         "current": {
-          "time": "2026-04-16T01:00",
+          "time": "2026-04-16T01:15",
           "interval": 900,
-          "temperature_2m": 11.3,
-          "relative_humidity_2m": 84,
-          "wind_speed_10m": 11.5,
+          "temperature_2m": 11,
+          "relative_humidity_2m": 85,
+          "wind_speed_10m": 11.2,
           "weather_code": 3
         }
       }
@@ -4375,7 +4399,7 @@
       "source": "World Bank"
     },
     "inflation": {
-      "current": 6.5,
+      "current": 4.9,
       "history": [],
       "source": "World Bank"
     },
@@ -4838,10 +4862,10 @@
         },
         {
           "name": "sindresorhus/awesome",
-          "stars": 455694,
+          "stars": 455700,
           "forks": 34268,
           "language": null,
-          "updated": "2026-04-16T00:06:39Z"
+          "updated": "2026-04-16T00:28:53Z"
         },
         {
           "name": "freeCodeCamp/freeCodeCamp",
@@ -4852,10 +4876,10 @@
         },
         {
           "name": "public-apis/public-apis",
-          "stars": 423293,
+          "stars": 423312,
           "forks": 46088,
           "language": "Python",
-          "updated": "2026-04-16T00:06:42Z"
+          "updated": "2026-04-16T00:28:04Z"
         },
         {
           "name": "EbookFoundation/free-programming-books",
@@ -4866,24 +4890,24 @@
         },
         {
           "name": "openclaw/openclaw",
-          "stars": 358132,
-          "forks": 72781,
+          "stars": 358141,
+          "forks": 72782,
           "language": "TypeScript",
-          "updated": "2026-04-15T23:59:08Z"
+          "updated": "2026-04-16T00:28:40Z"
         },
         {
           "name": "kamranahmedse/developer-roadmap",
-          "stars": 353014,
+          "stars": 353015,
           "forks": 43931,
           "language": "TypeScript",
-          "updated": "2026-04-15T23:56:22Z"
+          "updated": "2026-04-16T00:18:44Z"
         },
         {
           "name": "donnemartin/system-design-primer",
-          "stars": 342918,
+          "stars": 342919,
           "forks": 55411,
           "language": "Python",
-          "updated": "2026-04-15T23:25:42Z"
+          "updated": "2026-04-16T00:27:33Z"
         },
         {
           "name": "jwasham/coding-interview-university",
@@ -4894,10 +4918,10 @@
         },
         {
           "name": "vinta/awesome-python",
-          "stars": 292540,
+          "stars": 292543,
           "forks": 27686,
           "language": "Python",
-          "updated": "2026-04-16T00:06:23Z"
+          "updated": "2026-04-16T00:28:56Z"
         }
       ],
       "source": "GitHub"
@@ -5545,6 +5569,12 @@
     },
     "news": [
       {
+        "title": "Iran war live: Pakistan in push for new round of US-Iran peace negotiations",
+        "pubDate": "Thu, 16 Apr 2026 00:00:00 +0000",
+        "link": "https://www.aljazeera.com/news/liveblog/2026/4/16/iran-war-live-pakistan-in-push-for-new-round-of-us-iran-peace-negotiations?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
         "title": "El Salvador publishes law allowing life sentences for minors as young as 12",
         "pubDate": "Wed, 15 Apr 2026 23:45:44 +0000",
         "link": "https://www.aljazeera.com/news/2026/4/15/el-salvador-publishes-law-allowing-life-sentences-for-minors-as-young-as-12?traffic_source=rss",
@@ -5557,28 +5587,10 @@
         "source": "Al Jazeera"
       },
       {
-        "title": "Israel bombs homes in southern Lebanon",
-        "pubDate": "Wed, 15 Apr 2026 22:53:41 +0000",
-        "link": "https://www.aljazeera.com/video/newsfeed/2026/4/15/israel-bombs-homes-in-southern-lebanon?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "IMF / Fiscal Monitor Press Briefing - IMF Media Center",
-        "pubDate": "Wed, 15 Apr 2026 22:51:55 GMT",
-        "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNTGtjTV9WRm15VGNLeHhidjZZbm9Gc3FEaThBR3RheGt4bjNBNHFtUGFvWndvX0lrVS1Uc2xPMHpvUlRvOUhIbUR6UGtSOTBpNUJSS2pxRjY2WUttcjVyT1doVXp4LVQ5NzhSNkhaVEhkNExUdmZmb00yTk9faVh2UGFzVWNKQlAxalRydlJVNGh0bFZocUhUVTFUYlByMnlsLTBjeVd2cUZRZ00?oc=5",
-        "source": "IMF"
-      },
-      {
         "title": "Peru’s Sanchez to face Fujimori in runoff as rival signals protests over fraud",
         "pubDate": "Wed, 15 Apr 2026 22:34:34 GMT",
         "link": "https://www.france24.com/en/americas/20260415-peru-sanchez-fujimori-runoff-rival-protests-fraud",
         "source": "France24"
-      },
-      {
-        "title": "IMF / Managing Director Press Briefing - TheNewsMarket",
-        "pubDate": "Wed, 15 Apr 2026 22:15:44 GMT",
-        "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQeldfS25FMllFakMzc2RFSEhaY3ppTlRtSjhjc2xua1NLSFhwRlRQMlJWQW9Xblp3Vk55LXYwU1JadGxJRlRYMmtZQU5aM3B1S2kyMzcyUjcwdk5maXItS1MzRlNzNmpqX3pDT3dzalotaTk1RE44MlFhREdEdTFWdnJ0eFN3c0xFRmI0T3VUdE11MTljbGl1STg3aWl5OTM4NE9tOEpETkJBQjNyOWFuSGln?oc=5",
-        "source": "IMF"
       },
       {
         "title": "Bayern Munich edge Real Madrid to reach Champions League semi-finals",
@@ -5605,24 +5617,6 @@
         "source": "World Bank"
       },
       {
-        "title": "I Am Artemis: Rebekah Tolatovicz",
-        "pubDate": "Wed, 15 Apr 2026 20:36:43 +0000",
-        "link": "https://www.nasa.gov/missions/artemis/i-am-artemis/i-am-artemis-rebekah-tolatovicz/",
-        "source": "NASA"
-      },
-      {
-        "title": "NASA Selects Voyager for Seventh Private Mission to Space Station",
-        "pubDate": "Wed, 15 Apr 2026 20:36:20 +0000",
-        "link": "https://www.nasa.gov/news-release/nasa-selects-voyager-for-seventh-private-mission-to-space-station/",
-        "source": "NASA"
-      },
-      {
-        "title": "NASA Launches Six CubeSats to International Space Station",
-        "pubDate": "Wed, 15 Apr 2026 20:27:22 +0000",
-        "link": "https://www.nasa.gov/image-article/nasa-launches-six-cubesats-to-international-space-station/",
-        "source": "NASA"
-      },
-      {
         "title": "Nine killed in second Turkish school shooting in two days",
         "pubDate": "Wed, 15 Apr 2026 20:10:49 GMT",
         "link": "https://www.bbc.com/news/articles/cn088n9e6e9o?at_medium=RSS&amp;at_campaign=rss",
@@ -5641,12 +5635,6 @@
         "source": "DW News"
       },
       {
-        "title": "Economic shock from Iran war risks driving up global debt levels, says IMF - The Guardian",
-        "pubDate": "Wed, 15 Apr 2026 18:16:00 GMT",
-        "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNaTEyNXZ3M041SHJMMWNZWF9wOWd3TG5HUGpJWm53eHNGMXg5V0FRNWRxb3U2dlZ5dVpXS3lkNmM1azNXenQwUWdfTUszU3VmQlJRZkJzcEF5dEZHMDZmNTlvNEFJcXptYVJwS3JVR0JrZzN1TmVYNW5CdndaZmptRC1fR0RIc0FGREpyRC15eko?oc=5",
-        "source": "IMF"
-      },
-      {
         "title": "At least 250 people missing, including Rohingya and Bangladeshis, after boat sinks in Andaman Sea - The Washington Post",
         "pubDate": "Wed, 15 Apr 2026 17:57:37 GMT",
         "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQUDdRclhFLWdrUXZfa2t2aDBTUmFzZE0zQXBhMUJJWXhpS0Y0TUxZalVTeVNfRUllalk2MVZxeUw1aEFBTnFQYW1SSGRxdVZRa3pVcWtPRG9QSmlCekZjNXRGZXd4TzAwVUdraFdxRzVkaWRJU0xvWGdoU0JGWlNJV3Nqcm16bG8tUjlEMWdGOVFrQWdHb2dVSHV2M2htYWFQUGZDWHVtRGs4M3o1cURLcE9sT1Q5ZnJXVGhYQlBKQXBhaXlf?oc=5",
@@ -5663,6 +5651,42 @@
         "pubDate": "Wed, 15 Apr 2026 17:22:00 GMT",
         "link": "https://www.dw.com/en/germany-the-uk-warn-the-iran-war-distracts-from-ukraine-and-oil-price-rises-help-russia/a-76797004?maca=en-rss-en-world-4025-xml-mrss",
         "source": "DW News"
+      },
+      {
+        "title": "Special edition: The IMF’s emergency plan to avoid going ‘broke’ - Devex",
+        "pubDate": "Wed, 15 Apr 2026 16:57:59 GMT",
+        "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQT2RjUUo4MHJvb2FWNjhFb0lLWGlyWWQteFQxV1NNYVVEUzdSQWF1ZG1Hdlg3aWZHV0hPY3htRXhxTVVEWVR3c0g1eWQzVDhGYUU5TEJhUXJ2UzZTTWFUZXlheWlUMTgwSnVuOUZvWmJQM3RCREtsNE0tUkE1Z3RpQ2R0TXk4U25SeWVMTmtleTYtNlZGZHEyNmRYbw?oc=5",
+        "source": "World Bank"
+      },
+      {
+        "title": "UNHCR’s Salih urges civilian protection and sustained support as escalation in Lebanon continues - UNHCR - The UN Refugee Agency",
+        "pubDate": "Wed, 15 Apr 2026 15:56:28 GMT",
+        "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPcFFpM0dsa2p0djJsN25mdHIyMFRLd0MwUVpUX3pEbWo2Nk1PdkxuVkQ1UEFYOGNzeWwta3RCLTJNODRwRkkyVDRndWZFWnlobEVZRlNZaDNkWmFncEZzSDVDQXdWWWVjYVFyY1VYRTBWUUo0dF93Q1VBbUh4OTV4a2VXd2JaWUNmTlpRcjNWbWpIYmZEUV9zajluT2hzdFZKcjV4WHIwRHUtcW9zOVYzaExxSlk?oc=5",
+        "source": "UNHCR"
+      },
+      {
+        "title": "South Africa appoints veteran Afrikaner politician Roelf Meyer as US ambassador amid tense Trump ties",
+        "pubDate": "Wed, 15 Apr 2026 15:18:00 GMT",
+        "link": "https://www.dw.com/en/south-africa-appoints-veteran-afrikaner-politician-roelf-meyer-as-us-ambassador-amid-tense-trump-ties/a-76794872?maca=en-rss-en-world-4025-xml-mrss",
+        "source": "DW News"
+      },
+      {
+        "title": "Suspicion surrounds death of US influencer Ashly Robinson in Zanzibar",
+        "pubDate": "Wed, 15 Apr 2026 15:14:13 GMT",
+        "link": "https://www.theguardian.com/world/2026/apr/15/ashly-robinson-death-influencer-zanzibar",
+        "source": "Guardian"
+      },
+      {
+        "title": "NASA’s SPHEREx Mission Maps Water Ice Throughout Cygnus X",
+        "pubDate": "Wed, 15 Apr 2026 15:04:38 +0000",
+        "link": "https://science.nasa.gov/photojournal/nasas-spherex-mission-maps-water-ice-throughout-cygnus-x/",
+        "source": "NASA Earth"
+      },
+      {
+        "title": "South Africa names apartheid-era negotiator as ambassador to US",
+        "pubDate": "Wed, 15 Apr 2026 15:04:35 GMT",
+        "link": "https://www.theguardian.com/world/2026/apr/15/south-africa-names-ambassador-us-roelf-meyer",
+        "source": "Guardian"
       }
     ],
     "volcanic": [],
@@ -5716,9 +5740,7 @@
         "sunspots": 85.9
       }
     ],
-    "volcanic": [],
-    "solar": [],
-    "lastUpdated": "2026-04-16T00:17:59.292Z"
+    "lastUpdated": "2026-04-16T00:32:01.576Z"
   },
   "momentum": {
     "indicators": [
