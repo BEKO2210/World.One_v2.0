@@ -1,16 +1,30 @@
 {
   "_meta": {
-    "fetched_at": "2026-04-18T13:11:47.072Z",
+    "fetched_at": "2026-04-18T13:16:28.043Z",
     "source": "cache-pipeline",
     "version": "1.0"
   },
   "global_aqi": {
-    "value": 77,
+    "value": 76,
     "unit": "US AQI (WAQI)",
     "year": 2026,
     "source": "WAQI official stations (20 cities)"
   },
   "cleanest": [
+    {
+      "name": "Tokyo",
+      "country": "JP",
+      "station": "Naitōmachi, Shinjuku-ku, Tōkyō-to, Japan (国設東京（新宿）新宿区)",
+      "aqi": 16,
+      "dominant_pollutant": "pm10",
+      "pm25": 34,
+      "pm10": 16,
+      "o3": 37.6,
+      "no2": 5.6,
+      "so2": 1.5,
+      "co": 2.3,
+      "time": "2026-04-18T21:00:00+09:00"
+    },
     {
       "name": "Sydney",
       "country": "AU",
@@ -66,20 +80,6 @@
       "so2": null,
       "co": null,
       "time": "2026-04-18T07:00:00-04:00"
-    },
-    {
-      "name": "Tokyo",
-      "country": "JP",
-      "station": "Naitomachi, Shinjuku, Tokyo, Japan (国設新宿新宿区)",
-      "aqi": 38,
-      "dominant_pollutant": "pm25",
-      "pm25": 38,
-      "pm10": 13,
-      "o3": 33.6,
-      "no2": 5.6,
-      "so2": 1.5,
-      "co": 1.2,
-      "time": "2026-04-18T21:00:00+09:00"
     }
   ],
   "worst": [
@@ -115,28 +115,28 @@
       "name": "Beijing",
       "country": "CN",
       "station": "Temple of Heaven, Dongcheng, Beijing (东城天坛)",
-      "aqi": 142,
+      "aqi": 124,
       "dominant_pollutant": "pm25",
-      "pm25": 142,
-      "pm10": 68,
-      "o3": 43.5,
-      "no2": 8.3,
+      "pm25": 124,
+      "pm10": 62,
+      "o3": 32.5,
+      "no2": 10.6,
       "so2": 2.1,
-      "co": 7.3,
-      "time": "2026-04-18T20:00:00+08:00"
+      "co": 6.4,
+      "time": "2026-04-18T21:00:00+08:00"
     },
     {
       "name": "Dhaka",
       "country": "BD",
       "station": "Bardowali, Agartala, India",
-      "aqi": 105,
+      "aqi": 117,
       "dominant_pollutant": "pm25",
-      "pm25": 105,
-      "pm10": 79,
-      "o3": 0.8,
-      "no2": 8,
-      "so2": 1.6,
-      "co": 4.9,
+      "pm25": 117,
+      "pm10": 81,
+      "o3": 0.9,
+      "no2": 7.8,
+      "so2": 1.7,
+      "co": 4.7,
       "time": "2026-04-18T18:00:00+05:30"
     },
     {
@@ -155,6 +155,20 @@
     }
   ],
   "stations": [
+    {
+      "name": "Tokyo",
+      "country": "JP",
+      "station": "Naitōmachi, Shinjuku-ku, Tōkyō-to, Japan (国設東京（新宿）新宿区)",
+      "aqi": 16,
+      "dominant_pollutant": "pm10",
+      "pm25": 34,
+      "pm10": 16,
+      "o3": 37.6,
+      "no2": 5.6,
+      "so2": 1.5,
+      "co": 2.3,
+      "time": "2026-04-18T21:00:00+09:00"
+    },
     {
       "name": "Sydney",
       "country": "AU",
@@ -210,20 +224,6 @@
       "so2": null,
       "co": null,
       "time": "2026-04-18T07:00:00-04:00"
-    },
-    {
-      "name": "Tokyo",
-      "country": "JP",
-      "station": "Naitomachi, Shinjuku, Tokyo, Japan (国設新宿新宿区)",
-      "aqi": 38,
-      "dominant_pollutant": "pm25",
-      "pm25": 38,
-      "pm10": 13,
-      "o3": 33.6,
-      "no2": 5.6,
-      "so2": 1.5,
-      "co": 1.2,
-      "time": "2026-04-18T21:00:00+09:00"
     },
     {
       "name": "Shanghai",
@@ -383,29 +383,29 @@
       "name": "Dhaka",
       "country": "BD",
       "station": "Bardowali, Agartala, India",
-      "aqi": 105,
+      "aqi": 117,
       "dominant_pollutant": "pm25",
-      "pm25": 105,
-      "pm10": 79,
-      "o3": 0.8,
-      "no2": 8,
-      "so2": 1.6,
-      "co": 4.9,
+      "pm25": 117,
+      "pm10": 81,
+      "o3": 0.9,
+      "no2": 7.8,
+      "so2": 1.7,
+      "co": 4.7,
       "time": "2026-04-18T18:00:00+05:30"
     },
     {
       "name": "Beijing",
       "country": "CN",
       "station": "Temple of Heaven, Dongcheng, Beijing (东城天坛)",
-      "aqi": 142,
+      "aqi": 124,
       "dominant_pollutant": "pm25",
-      "pm25": 142,
-      "pm10": 68,
-      "o3": 43.5,
-      "no2": 8.3,
+      "pm25": 124,
+      "pm10": 62,
+      "o3": 32.5,
+      "no2": 10.6,
       "so2": 2.1,
-      "co": 7.3,
-      "time": "2026-04-18T20:00:00+08:00"
+      "co": 6.4,
+      "time": "2026-04-18T21:00:00+08:00"
     },
     {
       "name": "Mumbai",
