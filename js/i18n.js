@@ -2465,7 +2465,15 @@ class I18n {
       const key = el.getAttribute('data-i18n');
       const translation = this.t(key);
       if (el.hasAttribute('data-i18n-html')) {
-        el.innerHTML = translation;
+        // Sanitize: only allow safe inline tags, strip everything else.
+        // This prevents XSS via translation keys (CodeQL alert #2).
+        const safe = translation
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          // Re-allow only <br>, <b>, <strong>, <em>, <i>, <span>
+          .replace(/&lt;(\/?(br|b|strong|em|i|span)\s*\/?)&gt;/gi, '<$1>');
+        el.innerHTML = safe;
       } else {
         el.textContent = translation;
       }

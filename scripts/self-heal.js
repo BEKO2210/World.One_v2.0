@@ -26,9 +26,11 @@ function log(type, msg) {
 }
 
 function ensureField(obj, path, defaultValue, label) {
+  const BLOCKED = new Set(['__proto__', 'constructor', 'prototype']);
   const parts = path.split('.');
   let current = obj;
   for (let i = 0; i < parts.length - 1; i++) {
+    if (BLOCKED.has(parts[i])) return false;
     if (!current[parts[i]] || typeof current[parts[i]] !== 'object') {
       current[parts[i]] = {};
       log('fix', `Created missing object: ${parts.slice(0, i + 1).join('.')}`);
@@ -36,6 +38,7 @@ function ensureField(obj, path, defaultValue, label) {
     current = current[parts[i]];
   }
   const lastKey = parts[parts.length - 1];
+  if (BLOCKED.has(lastKey)) return false;
   if (current[lastKey] === undefined || current[lastKey] === null) {
     current[lastKey] = defaultValue;
     log('fix', `Restored missing field: ${path} = ${JSON.stringify(defaultValue).slice(0, 50)} (${label})`);
