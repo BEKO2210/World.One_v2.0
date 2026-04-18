@@ -8,7 +8,7 @@
 //   data-pipeline.yml "Bump service worker cache version").
 // - For direct commits that touch JS/CSS/HTML: bump manually to the current
 //   ISO minute so the new SW supersedes the old one immediately.
-const CACHE_VERSION = '20260418-1316';
+const CACHE_VERSION = '20260418-1902';
 const CACHE_NAME = `worldone-${CACHE_VERSION}`;
 const DATA_PATHS = ['/world-state.json', '/manifest.json', '/data/'];
 
