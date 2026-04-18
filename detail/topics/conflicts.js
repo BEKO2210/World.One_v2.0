@@ -114,32 +114,42 @@ function intensityLabel(intensity) {
 // --- Render ------------------------------------------------------------
 
 export async function render(blocks) {
-  // 1. Fetch cached conflict data
+  // 1. Fetch cached conflict data (ACLED + GDELT + ReliefWeb merged)
   const { data, tier, age } = await fetchTopicData('conflicts');
 
   const conflictData = data?.conflict_data || {};
-  // Use the higher value: cache or our known baseline (59 as of April 2026)
-  const activeConflicts = Math.max(conflictData.active_conflicts || 0, 59);
-  const conflictYear = 2026;
+  const acled = conflictData.acled || null;
+
+  // Prefer ACLED live data, fallback to hardcoded baselines.
+  // When ACLED is configured, the V2 pipeline delivers fresh data every 6h.
+  const activeConflicts = Math.max(
+    acled?.countriesAffected || 0,
+    conflictData.active_conflicts || 0,
+    CONFLICT_COUNTRIES.length
+  );
+  const conflictYear = new Date().getFullYear();
+  const battleDeaths = acled?.totalFatalities || 162000;
   const liveHeadlines = conflictData.headlines || [];
   const liveCrises = conflictData.crises || [];
 
-  // Static fallback values
-  const battleDeaths = 162000;  // 2025 estimate, UCDP/ACLED
-  const displacedMillions = DISPLACEMENT.total; // 123M, UNHCR 2025
-  const refugeesMillions = DISPLACEMENT.refugees; // 40.1M
+  // Build live map markers: merge ACLED highFatalityEvents with baseline
+  const liveMarkers = _buildLiveMarkers(acled);
+
+  // Static fallback values (UNHCR)
+  const displacedMillions = DISPLACEMENT.total;
+  const refugeesMillions = DISPLACEMENT.refugees;
 
   // --- 2. Hero Block ---
-  _renderHero(blocks.hero, activeConflicts, conflictYear, tier, age);
+  _renderHero(blocks.hero, activeConflicts, conflictYear, tier, age, acled);
 
-  // --- 3. Chart Block (SVG Conflict Map) ---
-  await _renderMap(blocks.chart);
+  // --- 3. Chart Block (SVG Conflict Map — now data-driven) ---
+  await _renderMap(blocks.chart, liveMarkers);
 
-  // --- 4. Trend Block (Historical Trend -- rendered directly for interactivity) ---
+  // --- 4. Trend Block (Historical Trend) ---
   await _renderTrend(blocks.trend);
 
   // --- 5. Tiles Block ---
-  _renderTiles(blocks.tiles, activeConflicts, battleDeaths, displacedMillions, refugeesMillions);
+  _renderTiles(blocks.tiles, activeConflicts, battleDeaths, displacedMillions, refugeesMillions, acled);
 
   // --- 6. Comparison Block (Refugees Doughnut + Live Headlines) ---
   _renderComparison(blocks.comparison, liveHeadlines, liveCrises);
@@ -151,46 +161,95 @@ export async function render(blocks) {
   _renderSources(blocks.sources);
 }
 
+// --- Live Marker Builder --------------------------------------------------
+
+function _buildLiveMarkers(acled) {
+  // Start with baseline
+  const markers = [...CONFLICT_COUNTRIES];
+
+  // Merge ACLED high-fatality events as additional/override markers
+  if (acled?.highFatalityEvents?.length) {
+    const existing = new Set(markers.map(m => m.name.toLowerCase()));
+    for (const evt of acled.highFatalityEvents) {
+      const name = evt.country || 'Unknown';
+      if (!existing.has(name.toLowerCase()) && Number.isFinite(evt.lat)) {
+        markers.push({
+          name,
+          lat: evt.lat,
+          lng: evt.lng,
+          intensity: evt.fatalities > 50 ? 3 : evt.fatalities > 10 ? 2 : 1,
+          fatalities: evt.fatalities,
+          date: evt.date,
+          type: evt.type,
+          source: 'ACLED'
+        });
+        existing.add(name.toLowerCase());
+      }
+    }
+  }
+
+  return markers;
+}
+
 // --- Hero ---------------------------------------------------------------
 
-function _renderHero(heroEl, activeConflicts, year, tier, age) {
-  const badge = createTierBadge(tier, { age, year: tier === 'static' ? year : null });
+function _renderHero(heroEl, activeConflicts, year, tier, age, acled) {
+  const badge = createTierBadge(tier, {
+    age,
+    year: tier === 'static' ? year : null,
+    source: acled ? 'ACLED' : 'UCDP/Crisis Group (Baseline)'
+  });
 
-  heroEl.appendChild(
-    DOMUtils.create('div', { className: 'conflicts-hero' }, [
-      DOMUtils.create('div', {
-        style: {
-          fontSize: '3.5rem',
-          fontWeight: '700',
-          lineHeight: '1.1',
-          color: toRgba(CHART_COLORS.crisis, 0.95),
-          marginBottom: 'var(--space-xs)',
-        },
-      }, [
-        String(activeConflicts),
-      ]),
-      DOMUtils.create('div', {
-        style: {
-          display: 'flex',
-          alignItems: 'center',
-          gap: 'var(--space-xs)',
-          marginBottom: 'var(--space-sm)',
-        },
-      }, [
-        DOMUtils.create('span', {
-          textContent: `${i18n.t('detail.conflicts.heroLabel')} (${year})`,
-          style: { color: 'var(--text-secondary)', fontSize: '1rem' },
-        }),
-        badge,
-      ]),
-    ])
-  );
+  const children = [
+    DOMUtils.create('div', {
+      style: {
+        fontSize: '3.5rem',
+        fontWeight: '700',
+        lineHeight: '1.1',
+        color: toRgba(CHART_COLORS.crisis, 0.95),
+        marginBottom: 'var(--space-xs)',
+      },
+    }, [String(activeConflicts)]),
+    DOMUtils.create('div', {
+      style: {
+        display: 'flex',
+        alignItems: 'center',
+        gap: 'var(--space-xs)',
+        marginBottom: 'var(--space-sm)',
+      },
+    }, [
+      DOMUtils.create('span', {
+        textContent: `${i18n.t('detail.conflicts.heroLabel')} (${year})`,
+        style: { color: 'var(--text-secondary)', fontSize: '1rem' },
+      }),
+      badge,
+    ]),
+  ];
+
+  // ACLED-Zusammenfassung: wenn Live-Daten da, kurze Stat-Zeile
+  if (acled?.totalEvents > 0) {
+    children.push(DOMUtils.create('div', {
+      style: {
+        display: 'flex', gap: 'var(--space-md)', flexWrap: 'wrap',
+        marginTop: 'var(--space-xs)', fontSize: '0.8rem', color: 'var(--text-muted)',
+      },
+    }, [
+      DOMUtils.create('span', { textContent: `${acled.totalEvents.toLocaleString()} Events (30d)` }),
+      DOMUtils.create('span', {
+        textContent: `${acled.totalFatalities.toLocaleString()} Todesopfer`,
+        style: { color: 'var(--danger)' },
+      }),
+      DOMUtils.create('span', { textContent: `${acled.countriesAffected} Länder betroffen` }),
+    ]));
+  }
+
+  heroEl.appendChild(DOMUtils.create('div', { className: 'conflicts-hero' }, children));
 }
 
 // --- SVG Conflict Map ---------------------------------------------------
 
-async function _renderMap(chartEl) {
-  const mapResult = await _buildConflictMap();
+async function _renderMap(chartEl, markers) {
+  const mapResult = await _buildConflictMap(markers);
 
   chartEl.appendChild(
     DOMUtils.create('div', {}, [
@@ -208,7 +267,7 @@ async function _renderMap(chartEl) {
   );
 }
 
-async function _buildConflictMap() {
+async function _buildConflictMap(markers) {
   const map = await createMarkerMap();
 
   if (!map) {
@@ -220,8 +279,9 @@ async function _buildConflictMap() {
 
   const { wrapper, overlay, geoToXY } = map;
 
-  // Plot conflict country dots on the overlay
-  for (const country of CONFLICT_COUNTRIES) {
+  // Plot conflict markers (live ACLED + baseline merged)
+  const countries = markers || CONFLICT_COUNTRIES;
+  for (const country of countries) {
     const { x, y } = geoToXY(country.lat, country.lng);
     const radius = intensityToRadius(country.intensity);
     const color = intensityToColor(country.intensity);
@@ -296,6 +356,15 @@ function _showConflictPopup(container, country, event) {
       textContent: `${i18n.t('detail.conflicts.intensity')}: ${intensityLabel(country.intensity)}`,
       style: { color: 'var(--text-secondary)' },
     }),
+    // ACLED-Details: Todesopfer, Event-Typ, Datum wenn vorhanden
+    ...(country.fatalities != null ? [DOMUtils.create('div', {
+      textContent: `${country.fatalities} Todesopfer${country.type ? ' · ' + country.type : ''}`,
+      style: { color: 'var(--danger)', fontSize: '0.78rem', marginTop: '3px' },
+    })] : []),
+    ...(country.date ? [DOMUtils.create('div', {
+      textContent: `${country.date.slice(0, 10)} · ${country.source || 'ACLED'}`,
+      style: { color: 'var(--text-muted)', fontSize: '0.72rem', marginTop: '2px' },
+    })] : []),
   ]);
 
   const rect = container.getBoundingClientRect();
@@ -489,27 +558,28 @@ function _updateTrendChart(filteredData) {
 
 // --- Tiles Block --------------------------------------------------------
 
-function _renderTiles(tilesEl, activeConflicts, battleDeaths, displacedMillions, refugeesMillions) {
+function _renderTiles(tilesEl, activeConflicts, battleDeaths, displacedMillions, refugeesMillions, acled) {
+  const year = new Date().getFullYear();
   const tileData = [
     {
       label: i18n.t('detail.conflicts.tileActiveConflicts'),
       value: String(activeConflicts),
-      unit: '2026',
+      unit: acled ? `ACLED ${year}` : String(year),
     },
     {
       label: i18n.t('detail.conflicts.tileBattleDeaths'),
       value: MathUtils.formatCompact(battleDeaths),
-      unit: '2025',
+      unit: acled ? 'ACLED 30d' : `${year - 1}`,
     },
     {
       label: i18n.t('detail.conflicts.tileDisplaced'),
       value: `${displacedMillions}M`,
-      unit: '2026',
+      unit: String(year),
     },
     {
       label: i18n.t('detail.conflicts.tileRefugees'),
       value: `${refugeesMillions}M`,
-      unit: 'UNHCR 2025',
+      unit: `UNHCR ${year - 1}`,
     },
   ];
 
@@ -565,10 +635,38 @@ function _renderComparison(compEl, headlines, crises) {
     ])
   );
 
-  // Live conflict headlines (from GDELT/ReliefWeb cache)
-  const newsItems = (headlines.length > 0 ? headlines : crises).slice(0, 8);
+  // ─── Live Nachrichten Bereich ───────────────────────────────────
+  // Kombiniert GDELT-Headlines, ReliefWeb-Berichte, ACLED-Meldungen.
+  // Jede Nachricht mit Quelle + Link zum Original.
+  const allNews = [];
+
+  // GDELT headlines (hat url + source/domain)
+  if (headlines.length > 0) {
+    headlines.forEach(h => allNews.push({
+      title: h.title || '', url: h.url || null,
+      source: h.source || h.domain || 'GDELT', date: h.date || ''
+    }));
+  }
+  // ReliefWeb-Berichte
+  if (crises.length > 0) {
+    crises.forEach(c => allNews.push({
+      title: c.title || '', url: c.url || null,
+      source: c.source || c.countries?.join(', ') || 'ReliefWeb',
+      date: c.date || ''
+    }));
+  }
+
+  // Deduplizieren nach Titel
+  const seen = new Set();
+  const newsItems = allNews.filter(n => {
+    const key = n.title.toLowerCase().slice(0, 60);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  }).slice(0, 10);
+
   if (newsItems.length > 0) {
-    const list = DOMUtils.create('div', {
+    const newsList = DOMUtils.create('div', {
       style: { marginTop: 'var(--space-lg)' },
     }, [
       DOMUtils.create('h3', {
@@ -576,8 +674,23 @@ function _renderComparison(compEl, headlines, crises) {
         style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)', fontSize: '1.1rem' },
       }),
       ...newsItems.map(item => {
-        const title = item.title || '';
-        const source = item.source || item.countries?.join(', ') || '';
+        const titleEl = item.url
+          ? DOMUtils.create('a', {
+              href: item.url,
+              target: '_blank',
+              rel: 'noopener noreferrer',
+              textContent: item.title,
+              style: {
+                color: 'var(--text-primary)', lineHeight: '1.4',
+                textDecoration: 'none', display: 'block',
+              },
+            })
+          : DOMUtils.create('div', {
+              textContent: item.title,
+              style: { color: 'var(--text-primary)', lineHeight: '1.4' },
+            });
+
+        const metaText = [item.source, item.date?.slice(0, 10)].filter(Boolean).join(' · ');
         return DOMUtils.create('div', {
           style: {
             padding: 'var(--space-xs) 0',
@@ -585,18 +698,15 @@ function _renderComparison(compEl, headlines, crises) {
             fontSize: '0.85rem',
           },
         }, [
-          DOMUtils.create('div', {
-            textContent: title,
-            style: { color: 'var(--text-primary)', lineHeight: '1.4' },
-          }),
-          ...(source ? [DOMUtils.create('div', {
-            textContent: source,
-            style: { color: 'var(--text-muted)', fontSize: '0.75rem', marginTop: '2px' },
+          titleEl,
+          ...(metaText ? [DOMUtils.create('div', {
+            textContent: metaText,
+            style: { color: 'var(--text-muted)', fontSize: '0.72rem', marginTop: '2px' },
           })] : []),
         ]);
       }),
     ]);
-    compEl.appendChild(list);
+    compEl.appendChild(newsList);
   }
 
   // Store data for lazy getChartConfigs
