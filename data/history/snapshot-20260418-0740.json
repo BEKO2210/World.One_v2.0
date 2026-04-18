@@ -7,17 +7,15 @@
     "sources_success_rate": 63,
     "next_update": "2026-04-18T13:40:16.247Z",
     "realtimePulse": {
-      "environment": -0.8,
+      "environment": 0,
       "society": 0.05,
-      "economy": -0.38,
-      "progress": 0.8,
+      "economy": -0.43,
+      "progress": 0,
       "details": {
-        "quakeCount": 42,
-        "maxMagnitude": 5.5,
-        "avgGlobalTemp": 19,
+        "quakeCount": 8,
+        "maxMagnitude": 4.7,
         "newsSentiment": -0.42,
-        "cryptoFearGreed": 26,
-        "arxivPapers": 20
+        "cryptoFearGreed": 23
       }
     },
     "cacheFreshness": {
@@ -35,6 +33,7 @@
         "oldestHours": 73.6,
         "sourceCount": 3
       },
+      "economy": null,
       "progress": {
         "newest": "2026-04-15T21:30:48.006Z",
         "oldest": "2026-04-15T21:30:37.863Z",
@@ -45,13 +44,13 @@
     }
   },
   "worldIndex": {
-    "value": 63.4,
-    "rawValue": 60.4,
+    "value": 62.6,
+    "rawValue": 59.6,
     "label": "POSITIV",
     "zone": "positive",
-    "previous": 65.4,
-    "change": -2,
-    "trend": "declining",
+    "previous": 62.6,
+    "change": 0,
+    "trend": "stable",
     "carryingCapacity": {
       "checks": {
         "existence": {
@@ -70,8 +69,8 @@
       "spectrum": {
         "environment": {
           "direction": "erosion",
-          "position": "fragile",
-          "level": -2
+          "position": "strained",
+          "level": -1
         },
         "society": {
           "direction": "expansion",
@@ -80,8 +79,8 @@
         },
         "economy": {
           "direction": "expansion",
-          "position": "elastic",
-          "level": 1
+          "position": "stable",
+          "level": 0
         },
         "progress": {
           "direction": "expansion",
@@ -96,22 +95,22 @@
       },
       "indicators": {
         "environment": {
-          "bufferDistance": 23.2,
+          "bufferDistance": 24.2,
           "recoveryTime": 0,
           "maintenanceCost": 0.16
         },
         "society": {
-          "bufferDistance": 48,
+          "bufferDistance": 47.9,
           "recoveryTime": 0,
           "maintenanceCost": 0.77
         },
         "economy": {
-          "bufferDistance": 65.4,
+          "bufferDistance": 60.9,
           "recoveryTime": 0,
-          "maintenanceCost": 2.76
+          "maintenanceCost": 0
         },
         "progress": {
-          "bufferDistance": 74.2,
+          "bufferDistance": 73.3,
           "recoveryTime": 0,
           "maintenanceCost": 4.52
         },
@@ -126,29 +125,29 @@
   },
   "subScores": {
     "environment": {
-      "value": 34.7,
+      "value": 35.6,
       "label": "BESORGNISERREGEND",
       "zone": "concerning",
       "weight": 0.25,
-      "trend": "declining",
-      "change": -7.8,
+      "trend": "stable",
+      "change": 0,
       "indicators": [
         {
           "name": "Globale Temperaturanomalie",
           "value": "+1.19°C",
           "score": 60,
           "trend": "declining",
-          "fetchedAt": "2026-04-18T07:18:13.434Z",
-          "ageHours": 0,
-          "source": "NASA GISTEMP v4 (base 1951-1980)"
+          "fetchedAt": null,
+          "ageHours": null,
+          "source": "NASA GISTEMP (raw)"
         },
         {
           "name": "CO2-Konzentration",
           "value": "429 ppm",
           "score": 32,
           "trend": "declining",
-          "fetchedAt": "2026-04-18T07:17:14.227Z",
-          "ageHours": 0,
+          "fetchedAt": null,
+          "ageHours": null,
           "source": "NOAA Mauna Loa"
         },
         {
@@ -171,7 +170,7 @@
         },
         {
           "name": "Luftqualität (Global Avg AQI)",
-          "value": 94,
+          "value": 52,
           "score": 45,
           "trend": "stable",
           "fetchedAt": "2026-04-15T21:30:28.868Z",
@@ -199,12 +198,12 @@
       ]
     },
     "society": {
-      "value": 55.8,
+      "value": 55.7,
       "label": "GEMISCHT",
       "zone": "mixed",
       "weight": 0.25,
       "trend": "stable",
-      "change": 0.1,
+      "change": 0,
       "indicators": [
         {
           "name": "Lebenserwartung",
@@ -235,20 +234,20 @@
         },
         {
           "name": "Elektrizitätszugang",
-          "value": "91.6%",
-          "score": 83,
+          "value": "91%",
+          "score": 82,
           "trend": "improving",
-          "fetchedAt": "2026-04-18T07:17:17.538Z",
-          "ageHours": 0,
+          "fetchedAt": null,
+          "ageHours": null,
           "source": "World Bank (raw)"
         },
         {
           "name": "Trinkwasserzugang",
-          "value": "73.7%",
-          "score": 56,
+          "value": "74%",
+          "score": 57,
           "trend": "improving",
-          "fetchedAt": "2026-04-18T07:17:17.575Z",
-          "ageHours": 0,
+          "fetchedAt": null,
+          "ageHours": null,
           "source": "World Bank (raw)"
         },
         {
@@ -272,7 +271,7 @@
       ]
     },
     "economy": {
-      "value": 70.6,
+      "value": 66.8,
       "label": "POSITIV",
       "zone": "positive",
       "weight": 0.2,
@@ -284,8 +283,8 @@
           "value": "2.87%",
           "score": 72,
           "trend": "improving",
-          "fetchedAt": "2026-04-18T07:17:18.330Z",
-          "ageHours": 0,
+          "fetchedAt": null,
+          "ageHours": null,
           "source": "World Bank / IMF"
         },
         {
@@ -293,26 +292,26 @@
           "value": 42,
           "score": 51,
           "trend": "stable",
-          "fetchedAt": "2026-04-18T07:17:18.376Z",
-          "ageHours": 0,
+          "fetchedAt": null,
+          "ageHours": null,
           "source": "World Bank"
         },
         {
           "name": "Inflation",
-          "value": "4.9%",
-          "score": 84,
+          "value": "6.5%",
+          "score": 75,
           "trend": "stable",
-          "fetchedAt": "2026-04-18T07:18:42.620Z",
-          "ageHours": 0,
-          "source": "FRED + World Bank (avg)"
+          "fetchedAt": null,
+          "ageHours": null,
+          "source": "World Bank"
         },
         {
           "name": "Arbeitslosigkeit",
-          "value": "4.79%",
-          "score": 79,
+          "value": "5.8%",
+          "score": 71,
           "trend": "stable",
-          "fetchedAt": "2026-04-18T07:17:18.468Z",
-          "ageHours": 0,
+          "fetchedAt": null,
+          "ageHours": null,
           "source": "World Bank / ILO"
         },
         {
@@ -323,29 +322,11 @@
           "fetchedAt": null,
           "ageHours": null,
           "source": "World Bank (static baseline)"
-        },
-        {
-          "name": "Fed Funds Rate",
-          "value": "3.64%",
-          "score": 70.88,
-          "trend": "stable",
-          "fetchedAt": "2026-04-18T07:18:42.620Z",
-          "ageHours": 0,
-          "source": "FRED (St. Louis Fed)"
-        },
-        {
-          "name": "10Y-2Y Yield Spread",
-          "value": "0.55%",
-          "score": 80,
-          "trend": "stable",
-          "fetchedAt": "2026-04-18T07:18:42.620Z",
-          "ageHours": 0,
-          "source": "FRED (St. Louis Fed)"
         }
       ]
     },
     "progress": {
-      "value": 78.1,
+      "value": 77.3,
       "label": "POSITIV",
       "zone": "positive",
       "weight": 0.2,
@@ -363,20 +344,20 @@
         },
         {
           "name": "Alphabetisierung",
-          "value": "87.7%",
+          "value": "87.4%",
           "score": 75,
           "trend": "improving",
-          "fetchedAt": "2026-04-18T07:17:20.211Z",
-          "ageHours": 0,
+          "fetchedAt": null,
+          "ageHours": null,
           "source": "World Bank / UNESCO"
         },
         {
           "name": "F&E Ausgaben (% BIP)",
-          "value": "2.59%",
-          "score": 65,
+          "value": "2.63%",
+          "score": 66,
           "trend": "improving",
-          "fetchedAt": "2026-04-18T07:17:19.891Z",
-          "ageHours": 0,
+          "fetchedAt": null,
+          "ageHours": null,
           "source": "World Bank"
         },
         {
@@ -390,11 +371,11 @@
         },
         {
           "name": "GitHub Repositories",
-          "value": "0K+",
+          "value": "300K+",
           "score": 80,
           "trend": "improving",
-          "fetchedAt": "2026-04-18T07:17:19.599Z",
-          "ageHours": 0,
+          "fetchedAt": null,
+          "ageHours": null,
           "source": "GitHub"
         },
         {
@@ -440,7 +421,7 @@
         {
           "name": "Erneuerbare Energie",
           "direction": "improving",
-          "change": "+6.7%",
+          "change": "+6.6%",
           "icon": "up"
         },
         {
@@ -1420,77 +1401,77 @@
       "source": "NOAA"
     },
     "airQuality": {
-      "globalAvgAQI": 94,
+      "globalAvgAQI": 52,
       "cleanestCities": [
-        {
-          "city": "Mexico City",
-          "country": "MX",
-          "aqi": 6,
-          "lat": null,
-          "lng": null
-        },
         {
           "city": "Paris",
           "country": "FR",
-          "aqi": 14,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Sydney",
-          "country": "AU",
-          "aqi": 18,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "London",
-          "country": "GB",
-          "aqi": 25,
+          "aqi": 22,
           "lat": null,
           "lng": null
         },
         {
           "city": "Berlin",
           "country": "DE",
-          "aqi": 38,
+          "aqi": 26,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Istanbul",
+          "country": "TR",
+          "aqi": 28,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "London",
+          "country": "GB",
+          "aqi": 31,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Sydney",
+          "country": "AU",
+          "aqi": 33,
           "lat": null,
           "lng": null
         }
       ],
       "mostPolluted": [
         {
-          "city": "Cairo",
-          "country": "EG",
-          "aqi": 282,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Beijing",
-          "country": "CN",
-          "aqi": 167,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Delhi",
-          "country": "IN",
-          "aqi": 143,
+          "city": "Jakarta",
+          "country": "ID",
+          "aqi": 113,
           "lat": null,
           "lng": null
         },
         {
           "city": "Dhaka",
           "country": "BD",
-          "aqi": 133,
+          "aqi": 70,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Mexico City",
+          "country": "MX",
+          "aqi": 70,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Karachi",
+          "country": "PK",
+          "aqi": 66,
           "lat": null,
           "lng": null
         },
         {
           "city": "Mumbai",
           "country": "IN",
-          "aqi": 111,
+          "aqi": 62,
           "lat": null,
           "lng": null
         }
@@ -1765,125 +1746,7 @@
       "source": "World Bank / IRENA"
     },
     "co2PerCapita": {
-      "current": 4.69,
-      "history": [
-        {
-          "year": 1996,
-          "value": 4.01
-        },
-        {
-          "year": 1997,
-          "value": 4.02
-        },
-        {
-          "year": 1998,
-          "value": 3.98
-        },
-        {
-          "year": 1999,
-          "value": 3.95
-        },
-        {
-          "year": 2000,
-          "value": 4.01
-        },
-        {
-          "year": 2001,
-          "value": 4.01
-        },
-        {
-          "year": 2002,
-          "value": 4.01
-        },
-        {
-          "year": 2003,
-          "value": 4.15
-        },
-        {
-          "year": 2004,
-          "value": 4.28
-        },
-        {
-          "year": 2005,
-          "value": 4.39
-        },
-        {
-          "year": 2006,
-          "value": 4.48
-        },
-        {
-          "year": 2007,
-          "value": 4.59
-        },
-        {
-          "year": 2008,
-          "value": 4.56
-        },
-        {
-          "year": 2009,
-          "value": 4.45
-        },
-        {
-          "year": 2010,
-          "value": 4.67
-        },
-        {
-          "year": 2011,
-          "value": 4.76
-        },
-        {
-          "year": 2012,
-          "value": 4.77
-        },
-        {
-          "year": 2013,
-          "value": 4.81
-        },
-        {
-          "year": 2014,
-          "value": 4.78
-        },
-        {
-          "year": 2015,
-          "value": 4.7
-        },
-        {
-          "year": 2016,
-          "value": 4.65
-        },
-        {
-          "year": 2017,
-          "value": 4.67
-        },
-        {
-          "year": 2018,
-          "value": 4.73
-        },
-        {
-          "year": 2019,
-          "value": 4.7
-        },
-        {
-          "year": 2020,
-          "value": 4.47
-        },
-        {
-          "year": 2021,
-          "value": 4.68
-        },
-        {
-          "year": 2022,
-          "value": 4.67
-        },
-        {
-          "year": 2023,
-          "value": 4.68
-        },
-        {
-          "year": 2024,
-          "value": 4.69
-        }
-      ],
+      "history": [],
       "source": "World Bank"
     },
     "biodiversity": {
@@ -1895,112 +1758,7 @@
       "fetchedAt": "2026-04-15T05:17:01.758Z",
       "ageHours": 74.4
     },
-    "weather": [
-      {
-        "name": "Berlin",
-        "lat": 52.52,
-        "lng": 13.41,
-        "current": {
-          "time": "2026-04-18T09:15",
-          "interval": 900,
-          "temperature_2m": 11.4,
-          "relative_humidity_2m": 52,
-          "wind_speed_10m": 6.3,
-          "weather_code": 3
-        }
-      },
-      {
-        "name": "New York",
-        "lat": 40.71,
-        "lng": -74.01,
-        "current": {
-          "time": "2026-04-18T03:15",
-          "interval": 900,
-          "temperature_2m": 13.7,
-          "relative_humidity_2m": 96,
-          "wind_speed_10m": 5.9,
-          "weather_code": 3
-        }
-      },
-      {
-        "name": "Tokyo",
-        "lat": 35.68,
-        "lng": 139.69,
-        "current": {
-          "time": "2026-04-18T16:15",
-          "interval": 900,
-          "temperature_2m": 20,
-          "relative_humidity_2m": 59,
-          "wind_speed_10m": 6.9,
-          "weather_code": 0
-        }
-      },
-      {
-        "name": "Sydney",
-        "lat": -33.87,
-        "lng": 151.21,
-        "current": {
-          "time": "2026-04-18T17:15",
-          "interval": 900,
-          "temperature_2m": 17.1,
-          "relative_humidity_2m": 43,
-          "wind_speed_10m": 8.9,
-          "weather_code": 0
-        }
-      },
-      {
-        "name": "São Paulo",
-        "lat": -23.55,
-        "lng": -46.63,
-        "current": {
-          "time": "2026-04-18T04:15",
-          "interval": 900,
-          "temperature_2m": 19.9,
-          "relative_humidity_2m": 84,
-          "wind_speed_10m": 0.4,
-          "weather_code": 2
-        }
-      },
-      {
-        "name": "Lagos",
-        "lat": 6.45,
-        "lng": 3.4,
-        "current": {
-          "time": "2026-04-18T08:15",
-          "interval": 900,
-          "temperature_2m": 29.6,
-          "relative_humidity_2m": 80,
-          "wind_speed_10m": 6.9,
-          "weather_code": 3
-        }
-      },
-      {
-        "name": "Mumbai",
-        "lat": 19.08,
-        "lng": 72.88,
-        "current": {
-          "time": "2026-04-18T12:45",
-          "interval": 900,
-          "temperature_2m": 29.8,
-          "relative_humidity_2m": 79,
-          "wind_speed_10m": 10.2,
-          "weather_code": 3
-        }
-      },
-      {
-        "name": "London",
-        "lat": 51.51,
-        "lng": -0.13,
-        "current": {
-          "time": "2026-04-18T08:15",
-          "interval": 900,
-          "temperature_2m": 10.3,
-          "relative_humidity_2m": 78,
-          "wind_speed_10m": 10.4,
-          "weather_code": 0
-        }
-      }
-    ],
+    "weather": [],
     "ocean": {
       "sstAnomaly": 0.83,
       "sstHistory": [
@@ -3184,1026 +2942,35 @@
       "source": "World Bank"
     },
     "population": {
-      "current": 8141808945,
-      "totalMillions": 8142,
-      "history": [
-        {
-          "year": 1966,
-          "value": 3389087189
-        },
-        {
-          "year": 1967,
-          "value": 3459015356
-        },
-        {
-          "year": 1968,
-          "value": 3530703561
-        },
-        {
-          "year": 1969,
-          "value": 3604815552
-        },
-        {
-          "year": 1970,
-          "value": 3680589045
-        },
-        {
-          "year": 1971,
-          "value": 3758613546
-        },
-        {
-          "year": 1972,
-          "value": 3834446322
-        },
-        {
-          "year": 1973,
-          "value": 3911068458
-        },
-        {
-          "year": 1974,
-          "value": 3987294240
-        },
-        {
-          "year": 1975,
-          "value": 4062070771
-        },
-        {
-          "year": 1976,
-          "value": 4135758539
-        },
-        {
-          "year": 1977,
-          "value": 4208958804
-        },
-        {
-          "year": 1978,
-          "value": 4283431043
-        },
-        {
-          "year": 1979,
-          "value": 4360056401
-        },
-        {
-          "year": 1980,
-          "value": 4437602892
-        },
-        {
-          "year": 1981,
-          "value": 4516926190
-        },
-        {
-          "year": 1982,
-          "value": 4599539241
-        },
-        {
-          "year": 1983,
-          "value": 4682924536
-        },
-        {
-          "year": 1984,
-          "value": 4766040300
-        },
-        {
-          "year": 1985,
-          "value": 4850740788
-        },
-        {
-          "year": 1986,
-          "value": 4937711562
-        },
-        {
-          "year": 1987,
-          "value": 5027030278
-        },
-        {
-          "year": 1988,
-          "value": 5117167006
-        },
-        {
-          "year": 1989,
-          "value": 5207654866
-        },
-        {
-          "year": 1990,
-          "value": 5299246757
-        },
-        {
-          "year": 1991,
-          "value": 5388496229
-        },
-        {
-          "year": 1992,
-          "value": 5477123966
-        },
-        {
-          "year": 1993,
-          "value": 5564778621
-        },
-        {
-          "year": 1994,
-          "value": 5650853178
-        },
-        {
-          "year": 1995,
-          "value": 5736505517
-        },
-        {
-          "year": 1996,
-          "value": 5822614627
-        },
-        {
-          "year": 1997,
-          "value": 5908466558
-        },
-        {
-          "year": 1998,
-          "value": 5994040064
-        },
-        {
-          "year": 1999,
-          "value": 6078404337
-        },
-        {
-          "year": 2000,
-          "value": 6161884811
-        },
-        {
-          "year": 2001,
-          "value": 6245112906
-        },
-        {
-          "year": 2002,
-          "value": 6327557399
-        },
-        {
-          "year": 2003,
-          "value": 6409750441
-        },
-        {
-          "year": 2004,
-          "value": 6492769815
-        },
-        {
-          "year": 2005,
-          "value": 6575841506
-        },
-        {
-          "year": 2006,
-          "value": 6659977025
-        },
-        {
-          "year": 2007,
-          "value": 6744489399
-        },
-        {
-          "year": 2008,
-          "value": 6830513541
-        },
-        {
-          "year": 2009,
-          "value": 6916589116
-        },
-        {
-          "year": 2010,
-          "value": 7001266876
-        },
-        {
-          "year": 2011,
-          "value": 7087120034
-        },
-        {
-          "year": 2012,
-          "value": 7176929184
-        },
-        {
-          "year": 2013,
-          "value": 7265892332
-        },
-        {
-          "year": 2014,
-          "value": 7354068030
-        },
-        {
-          "year": 2015,
-          "value": 7441677465
-        },
-        {
-          "year": 2016,
-          "value": 7528879985
-        },
-        {
-          "year": 2017,
-          "value": 7614523410
-        },
-        {
-          "year": 2018,
-          "value": 7697233736
-        },
-        {
-          "year": 2019,
-          "value": 7778008621
-        },
-        {
-          "year": 2020,
-          "value": 7854748424
-        },
-        {
-          "year": 2021,
-          "value": 7920514854
-        },
-        {
-          "year": 2022,
-          "value": 7989545217
-        },
-        {
-          "year": 2023,
-          "value": 8064057930
-        },
-        {
-          "year": 2024,
-          "value": 8141808945
-        }
-      ],
+      "current": 8100000000,
+      "totalMillions": 8100,
+      "history": [],
       "source": "World Bank (SP.POP.TOTL)"
     },
     "electricityAccess": {
-      "current": 91.6,
-      "history": [
-        {
-          "year": 1998,
-          "value": 73.2
-        },
-        {
-          "year": 1999,
-          "value": 74.5
-        },
-        {
-          "year": 2000,
-          "value": 78.2
-        },
-        {
-          "year": 2001,
-          "value": 78.7
-        },
-        {
-          "year": 2002,
-          "value": 79.1
-        },
-        {
-          "year": 2003,
-          "value": 80
-        },
-        {
-          "year": 2004,
-          "value": 80
-        },
-        {
-          "year": 2005,
-          "value": 80.7
-        },
-        {
-          "year": 2006,
-          "value": 81.4
-        },
-        {
-          "year": 2007,
-          "value": 82
-        },
-        {
-          "year": 2008,
-          "value": 82.7
-        },
-        {
-          "year": 2009,
-          "value": 82.9
-        },
-        {
-          "year": 2010,
-          "value": 83.4
-        },
-        {
-          "year": 2011,
-          "value": 84.5
-        },
-        {
-          "year": 2012,
-          "value": 84.9
-        },
-        {
-          "year": 2013,
-          "value": 85.7
-        },
-        {
-          "year": 2014,
-          "value": 86.2
-        },
-        {
-          "year": 2015,
-          "value": 86.9
-        },
-        {
-          "year": 2016,
-          "value": 88.1
-        },
-        {
-          "year": 2017,
-          "value": 88.9
-        },
-        {
-          "year": 2018,
-          "value": 89.8
-        },
-        {
-          "year": 2019,
-          "value": 90.1
-        },
-        {
-          "year": 2020,
-          "value": 90.4
-        },
-        {
-          "year": 2021,
-          "value": 91.3
-        },
-        {
-          "year": 2022,
-          "value": 91.3
-        },
-        {
-          "year": 2023,
-          "value": 91.6
-        }
-      ],
+      "current": 91,
+      "history": [],
       "source": "World Bank"
     },
     "safeWater": {
-      "current": 73.7,
-      "history": [
-        {
-          "year": 2000,
-          "value": 61.2
-        },
-        {
-          "year": 2001,
-          "value": 61.5
-        },
-        {
-          "year": 2002,
-          "value": 61.8
-        },
-        {
-          "year": 2003,
-          "value": 62.1
-        },
-        {
-          "year": 2004,
-          "value": 62.5
-        },
-        {
-          "year": 2005,
-          "value": 62.8
-        },
-        {
-          "year": 2006,
-          "value": 63.1
-        },
-        {
-          "year": 2007,
-          "value": 63.4
-        },
-        {
-          "year": 2008,
-          "value": 63.8
-        },
-        {
-          "year": 2009,
-          "value": 64.3
-        },
-        {
-          "year": 2010,
-          "value": 64.8
-        },
-        {
-          "year": 2011,
-          "value": 65.3
-        },
-        {
-          "year": 2012,
-          "value": 65.9
-        },
-        {
-          "year": 2013,
-          "value": 66.5
-        },
-        {
-          "year": 2014,
-          "value": 67.1
-        },
-        {
-          "year": 2015,
-          "value": 67.7
-        },
-        {
-          "year": 2016,
-          "value": 68.2
-        },
-        {
-          "year": 2017,
-          "value": 68.8
-        },
-        {
-          "year": 2018,
-          "value": 69.4
-        },
-        {
-          "year": 2019,
-          "value": 69.9
-        },
-        {
-          "year": 2020,
-          "value": 70.5
-        },
-        {
-          "year": 2021,
-          "value": 71
-        },
-        {
-          "year": 2022,
-          "value": 71.5
-        },
-        {
-          "year": 2023,
-          "value": 72
-        },
-        {
-          "year": 2024,
-          "value": 73.7
-        }
-      ],
+      "current": 74,
+      "history": [],
       "source": "World Bank"
     },
     "education": {
-      "enrollment": 89.4,
-      "history": [
-        {
-          "year": 1996,
-          "value": 81.4
-        },
-        {
-          "year": 1997,
-          "value": 81.5
-        },
-        {
-          "year": 1998,
-          "value": 82
-        },
-        {
-          "year": 1999,
-          "value": 82.7
-        },
-        {
-          "year": 2000,
-          "value": 83.4
-        },
-        {
-          "year": 2001,
-          "value": 83.6
-        },
-        {
-          "year": 2002,
-          "value": 83.8
-        },
-        {
-          "year": 2003,
-          "value": 85.1
-        },
-        {
-          "year": 2004,
-          "value": 86.2
-        },
-        {
-          "year": 2005,
-          "value": 86.8
-        },
-        {
-          "year": 2006,
-          "value": 87.2
-        },
-        {
-          "year": 2007,
-          "value": 88.4
-        },
-        {
-          "year": 2008,
-          "value": 88.7
-        },
-        {
-          "year": 2009,
-          "value": 88.6
-        },
-        {
-          "year": 2010,
-          "value": 88.6
-        },
-        {
-          "year": 2011,
-          "value": 88.7
-        },
-        {
-          "year": 2012,
-          "value": 89
-        },
-        {
-          "year": 2013,
-          "value": 89
-        },
-        {
-          "year": 2014,
-          "value": 89.2
-        },
-        {
-          "year": 2015,
-          "value": 89.2
-        },
-        {
-          "year": 2016,
-          "value": 89.4
-        },
-        {
-          "year": 2017,
-          "value": 89.3
-        },
-        {
-          "year": 2018,
-          "value": 89.4
-        }
-      ],
+      "history": [],
       "source": "World Bank / UNESCO"
     },
     "healthExpenditure": {
-      "current": 10.02,
-      "history": [
-        {
-          "year": 2000,
-          "value": 8.6
-        },
-        {
-          "year": 2001,
-          "value": 8.99
-        },
-        {
-          "year": 2002,
-          "value": 9.34
-        },
-        {
-          "year": 2003,
-          "value": 9.48
-        },
-        {
-          "year": 2004,
-          "value": 9.38
-        },
-        {
-          "year": 2005,
-          "value": 9.31
-        },
-        {
-          "year": 2006,
-          "value": 9.22
-        },
-        {
-          "year": 2007,
-          "value": 9.06
-        },
-        {
-          "year": 2008,
-          "value": 9.06
-        },
-        {
-          "year": 2009,
-          "value": 9.79
-        },
-        {
-          "year": 2010,
-          "value": 9.45
-        },
-        {
-          "year": 2011,
-          "value": 9.31
-        },
-        {
-          "year": 2012,
-          "value": 9.32
-        },
-        {
-          "year": 2013,
-          "value": 9.29
-        },
-        {
-          "year": 2014,
-          "value": 9.39
-        },
-        {
-          "year": 2015,
-          "value": 9.66
-        },
-        {
-          "year": 2016,
-          "value": 9.78
-        },
-        {
-          "year": 2017,
-          "value": 9.65
-        },
-        {
-          "year": 2018,
-          "value": 9.56
-        },
-        {
-          "year": 2019,
-          "value": 9.68
-        },
-        {
-          "year": 2020,
-          "value": 10.71
-        },
-        {
-          "year": 2021,
-          "value": 10.26
-        },
-        {
-          "year": 2022,
-          "value": 9.97
-        },
-        {
-          "year": 2023,
-          "value": 10.02
-        }
-      ],
+      "history": [],
       "source": "World Bank"
     },
     "militaryExpenditure": {
-      "current": 2.47,
-      "history": [
-        {
-          "year": 1996,
-          "value": 2.29
-        },
-        {
-          "year": 1997,
-          "value": 2.3
-        },
-        {
-          "year": 1998,
-          "value": 2.25
-        },
-        {
-          "year": 1999,
-          "value": 2.2
-        },
-        {
-          "year": 2000,
-          "value": 2.19
-        },
-        {
-          "year": 2001,
-          "value": 2.23
-        },
-        {
-          "year": 2002,
-          "value": 2.33
-        },
-        {
-          "year": 2003,
-          "value": 2.39
-        },
-        {
-          "year": 2004,
-          "value": 2.39
-        },
-        {
-          "year": 2005,
-          "value": 2.39
-        },
-        {
-          "year": 2006,
-          "value": 2.35
-        },
-        {
-          "year": 2007,
-          "value": 2.31
-        },
-        {
-          "year": 2008,
-          "value": 2.37
-        },
-        {
-          "year": 2009,
-          "value": 2.6
-        },
-        {
-          "year": 2010,
-          "value": 2.5
-        },
-        {
-          "year": 2011,
-          "value": 2.4
-        },
-        {
-          "year": 2012,
-          "value": 2.36
-        },
-        {
-          "year": 2013,
-          "value": 2.29
-        },
-        {
-          "year": 2014,
-          "value": 2.24
-        },
-        {
-          "year": 2015,
-          "value": 2.24
-        },
-        {
-          "year": 2016,
-          "value": 2.19
-        },
-        {
-          "year": 2017,
-          "value": 2.15
-        },
-        {
-          "year": 2018,
-          "value": 2.12
-        },
-        {
-          "year": 2019,
-          "value": 2.16
-        },
-        {
-          "year": 2020,
-          "value": 2.31
-        },
-        {
-          "year": 2021,
-          "value": 2.16
-        },
-        {
-          "year": 2022,
-          "value": 2.22
-        },
-        {
-          "year": 2023,
-          "value": 2.31
-        },
-        {
-          "year": 2024,
-          "value": 2.47
-        }
-      ],
+      "history": [],
       "source": "World Bank"
     },
     "urbanization": {
-      "current": 57.6,
-      "history": [
-        {
-          "year": 1966,
-          "value": 35.6
-        },
-        {
-          "year": 1967,
-          "value": 35.8
-        },
-        {
-          "year": 1968,
-          "value": 36
-        },
-        {
-          "year": 1969,
-          "value": 36.3
-        },
-        {
-          "year": 1970,
-          "value": 36.4
-        },
-        {
-          "year": 1971,
-          "value": 36.7
-        },
-        {
-          "year": 1972,
-          "value": 36.9
-        },
-        {
-          "year": 1973,
-          "value": 37.2
-        },
-        {
-          "year": 1974,
-          "value": 37.4
-        },
-        {
-          "year": 1975,
-          "value": 37.7
-        },
-        {
-          "year": 1976,
-          "value": 38
-        },
-        {
-          "year": 1977,
-          "value": 38.3
-        },
-        {
-          "year": 1978,
-          "value": 38.6
-        },
-        {
-          "year": 1979,
-          "value": 39.1
-        },
-        {
-          "year": 1980,
-          "value": 39.5
-        },
-        {
-          "year": 1981,
-          "value": 39.9
-        },
-        {
-          "year": 1982,
-          "value": 40.2
-        },
-        {
-          "year": 1983,
-          "value": 40.6
-        },
-        {
-          "year": 1984,
-          "value": 41.1
-        },
-        {
-          "year": 1985,
-          "value": 41.4
-        },
-        {
-          "year": 1986,
-          "value": 41.8
-        },
-        {
-          "year": 1987,
-          "value": 42.1
-        },
-        {
-          "year": 1988,
-          "value": 42.4
-        },
-        {
-          "year": 1989,
-          "value": 42.7
-        },
-        {
-          "year": 1990,
-          "value": 42.8
-        },
-        {
-          "year": 1991,
-          "value": 43.2
-        },
-        {
-          "year": 1992,
-          "value": 43.4
-        },
-        {
-          "year": 1993,
-          "value": 43.7
-        },
-        {
-          "year": 1994,
-          "value": 44
-        },
-        {
-          "year": 1995,
-          "value": 44.3
-        },
-        {
-          "year": 1996,
-          "value": 44.8
-        },
-        {
-          "year": 1997,
-          "value": 45.3
-        },
-        {
-          "year": 1998,
-          "value": 45.8
-        },
-        {
-          "year": 1999,
-          "value": 46.3
-        },
-        {
-          "year": 2000,
-          "value": 46.8
-        },
-        {
-          "year": 2001,
-          "value": 47.3
-        },
-        {
-          "year": 2002,
-          "value": 47.8
-        },
-        {
-          "year": 2003,
-          "value": 48.4
-        },
-        {
-          "year": 2004,
-          "value": 48.9
-        },
-        {
-          "year": 2005,
-          "value": 49.4
-        },
-        {
-          "year": 2006,
-          "value": 49.9
-        },
-        {
-          "year": 2007,
-          "value": 50.4
-        },
-        {
-          "year": 2008,
-          "value": 50.9
-        },
-        {
-          "year": 2009,
-          "value": 51.4
-        },
-        {
-          "year": 2010,
-          "value": 51.8
-        },
-        {
-          "year": 2011,
-          "value": 52.5
-        },
-        {
-          "year": 2012,
-          "value": 52.9
-        },
-        {
-          "year": 2013,
-          "value": 53.4
-        },
-        {
-          "year": 2014,
-          "value": 53.9
-        },
-        {
-          "year": 2015,
-          "value": 54.4
-        },
-        {
-          "year": 2016,
-          "value": 54.9
-        },
-        {
-          "year": 2017,
-          "value": 55.3
-        },
-        {
-          "year": 2018,
-          "value": 55.8
-        },
-        {
-          "year": 2019,
-          "value": 56.1
-        },
-        {
-          "year": 2020,
-          "value": 56.4
-        },
-        {
-          "year": 2021,
-          "value": 56.8
-        },
-        {
-          "year": 2022,
-          "value": 57.1
-        },
-        {
-          "year": 2023,
-          "value": 57.3
-        },
-        {
-          "year": 2024,
-          "value": 57.6
-        }
-      ],
+      "history": [],
       "source": "World Bank"
     },
     "covid": {
@@ -4389,399 +3156,63 @@
     },
     "gini": {
       "globalAvg": 42,
-      "history": [],
+      "history": [
+        {
+          "year": 1990,
+          "value": 46
+        },
+        {
+          "year": 2000,
+          "value": 44
+        },
+        {
+          "year": 2010,
+          "value": 43
+        },
+        {
+          "year": 2020,
+          "value": 42
+        },
+        {
+          "year": 2026,
+          "value": 42
+        }
+      ],
       "source": "World Bank"
     },
     "inflation": {
-      "current": 4.9,
+      "current": 6.5,
       "history": [],
       "source": "World Bank"
     },
     "unemployment": {
-      "current": 4.79,
-      "history": [
-        {
-          "year": 1996,
-          "value": 5.98
-        },
-        {
-          "year": 1997,
-          "value": 6.01
-        },
-        {
-          "year": 1998,
-          "value": 6.16
-        },
-        {
-          "year": 1999,
-          "value": 6.28
-        },
-        {
-          "year": 2000,
-          "value": 6.11
-        },
-        {
-          "year": 2001,
-          "value": 6.19
-        },
-        {
-          "year": 2002,
-          "value": 6.41
-        },
-        {
-          "year": 2003,
-          "value": 6.48
-        },
-        {
-          "year": 2004,
-          "value": 6.33
-        },
-        {
-          "year": 2005,
-          "value": 6.22
-        },
-        {
-          "year": 2006,
-          "value": 5.97
-        },
-        {
-          "year": 2007,
-          "value": 5.77
-        },
-        {
-          "year": 2008,
-          "value": 5.82
-        },
-        {
-          "year": 2009,
-          "value": 6.41
-        },
-        {
-          "year": 2010,
-          "value": 6.28
-        },
-        {
-          "year": 2011,
-          "value": 6.15
-        },
-        {
-          "year": 2012,
-          "value": 6.15
-        },
-        {
-          "year": 2013,
-          "value": 6.1
-        },
-        {
-          "year": 2014,
-          "value": 5.96
-        },
-        {
-          "year": 2015,
-          "value": 6
-        },
-        {
-          "year": 2016,
-          "value": 5.97
-        },
-        {
-          "year": 2017,
-          "value": 5.9
-        },
-        {
-          "year": 2018,
-          "value": 5.76
-        },
-        {
-          "year": 2019,
-          "value": 5.59
-        },
-        {
-          "year": 2020,
-          "value": 6.59
-        },
-        {
-          "year": 2021,
-          "value": 6.05
-        },
-        {
-          "year": 2022,
-          "value": 5.23
-        },
-        {
-          "year": 2023,
-          "value": 4.85
-        },
-        {
-          "year": 2024,
-          "value": 4.81
-        },
-        {
-          "year": 2025,
-          "value": 4.79
-        }
-      ],
+      "current": 5.8,
+      "history": [],
       "source": "World Bank / ILO"
     },
     "gdpPerCapita": {
-      "current": 13631,
-      "history": [
-        {
-          "year": 1996,
-          "value": 5490
-        },
-        {
-          "year": 1997,
-          "value": 5394
-        },
-        {
-          "year": 1998,
-          "value": 5294
-        },
-        {
-          "year": 1999,
-          "value": 5393
-        },
-        {
-          "year": 2000,
-          "value": 5501
-        },
-        {
-          "year": 2001,
-          "value": 5395
-        },
-        {
-          "year": 2002,
-          "value": 5530
-        },
-        {
-          "year": 2003,
-          "value": 6122
-        },
-        {
-          "year": 2004,
-          "value": 6811
-        },
-        {
-          "year": 2005,
-          "value": 7284
-        },
-        {
-          "year": 2006,
-          "value": 7796
-        },
-        {
-          "year": 2007,
-          "value": 8678
-        },
-        {
-          "year": 2008,
-          "value": 9415
-        },
-        {
-          "year": 2009,
-          "value": 8817
-        },
-        {
-          "year": 2010,
-          "value": 9543
-        },
-        {
-          "year": 2011,
-          "value": 10485
-        },
-        {
-          "year": 2012,
-          "value": 10584
-        },
-        {
-          "year": 2013,
-          "value": 10740
-        },
-        {
-          "year": 2014,
-          "value": 10886
-        },
-        {
-          "year": 2015,
-          "value": 10162
-        },
-        {
-          "year": 2016,
-          "value": 10205
-        },
-        {
-          "year": 2017,
-          "value": 10748
-        },
-        {
-          "year": 2018,
-          "value": 11309
-        },
-        {
-          "year": 2019,
-          "value": 11376
-        },
-        {
-          "year": 2020,
-          "value": 10938
-        },
-        {
-          "year": 2021,
-          "value": 12391
-        },
-        {
-          "year": 2022,
-          "value": 12798
-        },
-        {
-          "year": 2023,
-          "value": 13237
-        },
-        {
-          "year": 2024,
-          "value": 13631
-        }
-      ],
+      "history": [],
       "source": "World Bank"
     },
     "trade": {
-      "current": 56.8,
-      "history": [
-        {
-          "year": 1996,
-          "value": 43
-        },
-        {
-          "year": 1997,
-          "value": 44.8
-        },
-        {
-          "year": 1998,
-          "value": 45.5
-        },
-        {
-          "year": 1999,
-          "value": 45.9
-        },
-        {
-          "year": 2000,
-          "value": 50.3
-        },
-        {
-          "year": 2001,
-          "value": 49.2
-        },
-        {
-          "year": 2002,
-          "value": 49.2
-        },
-        {
-          "year": 2003,
-          "value": 50.8
-        },
-        {
-          "year": 2004,
-          "value": 54.4
-        },
-        {
-          "year": 2005,
-          "value": 56.4
-        },
-        {
-          "year": 2006,
-          "value": 58.6
-        },
-        {
-          "year": 2007,
-          "value": 59
-        },
-        {
-          "year": 2008,
-          "value": 60.6
-        },
-        {
-          "year": 2009,
-          "value": 52.1
-        },
-        {
-          "year": 2010,
-          "value": 56.4
-        },
-        {
-          "year": 2011,
-          "value": 59.5
-        },
-        {
-          "year": 2012,
-          "value": 59.4
-        },
-        {
-          "year": 2013,
-          "value": 58.7
-        },
-        {
-          "year": 2014,
-          "value": 58.1
-        },
-        {
-          "year": 2015,
-          "value": 55.7
-        },
-        {
-          "year": 2016,
-          "value": 53.9
-        },
-        {
-          "year": 2017,
-          "value": 55.6
-        },
-        {
-          "year": 2018,
-          "value": 57.1
-        },
-        {
-          "year": 2019,
-          "value": 55.9
-        },
-        {
-          "year": 2020,
-          "value": 52
-        },
-        {
-          "year": 2021,
-          "value": 56.7
-        },
-        {
-          "year": 2022,
-          "value": 62.4
-        },
-        {
-          "year": 2023,
-          "value": 58.2
-        },
-        {
-          "year": 2024,
-          "value": 56.8
-        }
-      ],
+      "history": [],
       "source": "World Bank"
     },
     "cryptoFearGreed": {
-      "value": 26,
-      "label": "Fear",
-      "timestamp": "2026-04-18T00:00:00.000Z"
+      "value": 23,
+      "label": "Extreme Fear",
+      "timestamp": "2026-04-15T00:00:00.000Z"
     },
     "exchangeRates": {
-      "EUR": 0.848449,
-      "GBP": 0.73885,
-      "JPY": 158.618822,
-      "CNY": 6.834105,
-      "INR": 92.896987,
-      "BRL": 4.985165,
-      "RUB": 76.032102,
-      "KRW": 1469.631216,
-      "CHF": 0.781333
+      "EUR": 0.847706,
+      "GBP": 0.737401,
+      "JPY": 158.885952,
+      "CNY": 6.829035,
+      "INR": 93.261159,
+      "BRL": 4.986897,
+      "RUB": 75.503022,
+      "KRW": 1472.46758,
+      "CHF": 0.781153
     }
   },
   "progress": {
@@ -4790,7 +3221,7 @@
       "history": [
         {
           "year": 1980,
-          "value": 500000
+          "value": 650000
         },
         {
           "year": 1990,
@@ -4798,126 +3229,29 @@
         },
         {
           "year": 2000,
-          "value": 1400000
+          "value": 1200000
         },
         {
           "year": 2010,
-          "value": 2100000
+          "value": 1900000
         },
         {
           "year": 2020,
-          "value": 2900000
+          "value": 2800000
         },
         {
           "year": 2026,
           "value": 3200000
         }
       ],
-      "latestArxiv": [
-        {
-          "title": "Heuristic Search for Minimum-Distance Upper-Bound Witnesses in Quantum APM-LDPC Codes",
-          "published": "2026-04-16T17:59:44Z",
-          "category": "quant-ph"
-        },
-        {
-          "title": "Erdős's diameter conjecture for separated distances fails in high dimensions",
-          "published": "2026-04-16T17:59:17Z",
-          "category": "math.CO"
-        },
-        {
-          "title": "Diagnosing LLM Judge Reliability: Conformal Prediction Sets and Transitivity Violations",
-          "published": "2026-04-16T17:58:21Z",
-          "category": "cs.AI"
-        },
-        {
-          "title": "Super-Constant Weight Dicke States in Constant Depth Without Fanout",
-          "published": "2026-04-16T17:57:08Z",
-          "category": "quant-ph"
-        },
-        {
-          "title": "Unity and Diversity of Intracellular pH Maintenance Mechanisms",
-          "published": "2026-04-16T17:56:15Z",
-          "category": "q-bio.CB"
-        }
-      ],
+      "latestArxiv": [],
       "source": "arXiv / Scopus"
     },
     "github": {
       "dailyCommits": 142000000,
       "activeDevs": 120000000,
       "reposCreatedToday": 850000,
-      "topRepos": [
-        {
-          "name": "codecrafters-io/build-your-own-x",
-          "stars": 491264,
-          "forks": 46407,
-          "language": "Markdown",
-          "updated": "2026-04-18T07:17:10Z"
-        },
-        {
-          "name": "sindresorhus/awesome",
-          "stars": 456439,
-          "forks": 34321,
-          "language": null,
-          "updated": "2026-04-18T07:14:40Z"
-        },
-        {
-          "name": "freeCodeCamp/freeCodeCamp",
-          "stars": 443100,
-          "forks": 44330,
-          "language": "TypeScript",
-          "updated": "2026-04-18T07:17:04Z"
-        },
-        {
-          "name": "public-apis/public-apis",
-          "stars": 424588,
-          "forks": 46249,
-          "language": "Python",
-          "updated": "2026-04-18T07:14:28Z"
-        },
-        {
-          "name": "EbookFoundation/free-programming-books",
-          "stars": 385653,
-          "forks": 66114,
-          "language": "Python",
-          "updated": "2026-04-18T07:10:59Z"
-        },
-        {
-          "name": "openclaw/openclaw",
-          "stars": 359660,
-          "forks": 73213,
-          "language": "TypeScript",
-          "updated": "2026-04-18T07:16:17Z"
-        },
-        {
-          "name": "kamranahmedse/developer-roadmap",
-          "stars": 353135,
-          "forks": 43944,
-          "language": "TypeScript",
-          "updated": "2026-04-18T07:12:18Z"
-        },
-        {
-          "name": "donnemartin/system-design-primer",
-          "stars": 343164,
-          "forks": 55443,
-          "language": "Python",
-          "updated": "2026-04-18T07:15:04Z"
-        },
-        {
-          "name": "jwasham/coding-interview-university",
-          "stars": 341069,
-          "forks": 81912,
-          "language": null,
-          "updated": "2026-04-18T06:26:27Z"
-        },
-        {
-          "name": "vinta/awesome-python",
-          "stars": 292958,
-          "forks": 27707,
-          "language": "Python",
-          "updated": "2026-04-18T07:13:28Z"
-        }
-      ],
+      "topRepos": [],
       "source": "GitHub"
     },
     "internet": {
@@ -5012,42 +3346,49 @@
       "source": "World Bank / ITU"
     },
     "literacy": {
-      "global": 87.7,
+      "global": 87.4,
       "male": 90.1,
       "female": 84.7,
       "history": [
         {
           "year": 1970,
-          "male": 70,
-          "female": 52
+          "value": 56.2,
+          "male": 65.1,
+          "female": 47.3
         },
         {
           "year": 1980,
-          "male": 76,
-          "female": 60
+          "value": 63.5,
+          "male": 71.2,
+          "female": 55.8
         },
         {
           "year": 1990,
-          "male": 82,
-          "female": 68
+          "value": 71.8,
+          "male": 78.4,
+          "female": 65.2
         },
         {
           "year": 2000,
-          "male": 87,
-          "female": 77
+          "value": 78.6,
+          "male": 83.5,
+          "female": 73.7
         },
         {
           "year": 2010,
-          "male": 89,
-          "female": 82
+          "value": 83.2,
+          "male": 87.1,
+          "female": 79.3
         },
         {
           "year": 2020,
-          "male": 90,
-          "female": 84
+          "value": 86.3,
+          "male": 89.4,
+          "female": 83.2
         },
         {
           "year": 2026,
+          "value": 87.4,
           "male": 90.1,
           "female": 84.7
         }
@@ -5056,485 +3397,105 @@
     },
     "mobile": {
       "subscriptionsPer100": 111.5,
-      "history": [
-        {
-          "year": 1996,
-          "value": 2.5
-        },
-        {
-          "year": 1997,
-          "value": 3.7
-        },
-        {
-          "year": 1998,
-          "value": 5.3
-        },
-        {
-          "year": 1999,
-          "value": 8.1
-        },
-        {
-          "year": 2005,
-          "value": 33.9
-        },
-        {
-          "year": 2006,
-          "value": 41.7
-        },
-        {
-          "year": 2007,
-          "value": 50.6
-        },
-        {
-          "year": 2008,
-          "value": 59.7
-        },
-        {
-          "year": 2009,
-          "value": 68
-        },
-        {
-          "year": 2010,
-          "value": 76.6
-        },
-        {
-          "year": 2011,
-          "value": 84.2
-        },
-        {
-          "year": 2012,
-          "value": 88.5
-        },
-        {
-          "year": 2013,
-          "value": 93.1
-        },
-        {
-          "year": 2014,
-          "value": 96.7
-        },
-        {
-          "year": 2015,
-          "value": 96.1
-        },
-        {
-          "year": 2016,
-          "value": 99.3
-        },
-        {
-          "year": 2017,
-          "value": 101.4
-        },
-        {
-          "year": 2018,
-          "value": 103.1
-        },
-        {
-          "year": 2019,
-          "value": 105.9
-        },
-        {
-          "year": 2020,
-          "value": 104.8
-        },
-        {
-          "year": 2021,
-          "value": 106.7
-        },
-        {
-          "year": 2022,
-          "value": 108
-        },
-        {
-          "year": 2023,
-          "value": 109.8
-        },
-        {
-          "year": 2024,
-          "value": 110.4
-        },
-        {
-          "year": 2025,
-          "value": 111.5
-        }
-      ],
+      "history": [],
       "source": "World Bank / ITU"
     },
     "rdSpending": {
-      "current": 2.59,
-      "history": [
-        {
-          "year": 1996,
-          "value": 1.96
-        },
-        {
-          "year": 1997,
-          "value": 1.96
-        },
-        {
-          "year": 1998,
-          "value": 1.97
-        },
-        {
-          "year": 1999,
-          "value": 2.04
-        },
-        {
-          "year": 2000,
-          "value": 2.04
-        },
-        {
-          "year": 2001,
-          "value": 2.06
-        },
-        {
-          "year": 2002,
-          "value": 2.02
-        },
-        {
-          "year": 2003,
-          "value": 2.01
-        },
-        {
-          "year": 2004,
-          "value": 1.97
-        },
-        {
-          "year": 2005,
-          "value": 1.95
-        },
-        {
-          "year": 2006,
-          "value": 1.96
-        },
-        {
-          "year": 2007,
-          "value": 1.92
-        },
-        {
-          "year": 2008,
-          "value": 1.98
-        },
-        {
-          "year": 2009,
-          "value": 2.01
-        },
-        {
-          "year": 2010,
-          "value": 2
-        },
-        {
-          "year": 2011,
-          "value": 1.98
-        },
-        {
-          "year": 2012,
-          "value": 2.01
-        },
-        {
-          "year": 2013,
-          "value": 1.97
-        },
-        {
-          "year": 2014,
-          "value": 2.08
-        },
-        {
-          "year": 2015,
-          "value": 2.1
-        },
-        {
-          "year": 2016,
-          "value": 2.15
-        },
-        {
-          "year": 2017,
-          "value": 2.14
-        },
-        {
-          "year": 2018,
-          "value": 2.22
-        },
-        {
-          "year": 2019,
-          "value": 2.26
-        },
-        {
-          "year": 2020,
-          "value": 2.45
-        },
-        {
-          "year": 2021,
-          "value": 2.52
-        },
-        {
-          "year": 2022,
-          "value": 2.57
-        },
-        {
-          "year": 2023,
-          "value": 2.59
-        }
-      ],
+      "current": 2.63,
+      "history": [],
       "source": "World Bank"
     },
     "patents": {
-      "history": [
-        {
-          "year": 1996,
-          "value": 707700
-        },
-        {
-          "year": 1997,
-          "value": 737100
-        },
-        {
-          "year": 1998,
-          "value": 756400
-        },
-        {
-          "year": 1999,
-          "value": 791400
-        },
-        {
-          "year": 2000,
-          "value": 874800
-        },
-        {
-          "year": 2001,
-          "value": 896400
-        },
-        {
-          "year": 2002,
-          "value": 888900
-        },
-        {
-          "year": 2003,
-          "value": 924800
-        },
-        {
-          "year": 2004,
-          "value": 966600
-        },
-        {
-          "year": 2005,
-          "value": 1038800
-        },
-        {
-          "year": 2006,
-          "value": 1075200
-        },
-        {
-          "year": 2007,
-          "value": 1125000
-        },
-        {
-          "year": 2008,
-          "value": 1162200
-        },
-        {
-          "year": 2009,
-          "value": 1146400
-        },
-        {
-          "year": 2010,
-          "value": 1236900
-        },
-        {
-          "year": 2011,
-          "value": 1365200
-        },
-        {
-          "year": 2012,
-          "value": 1519700
-        },
-        {
-          "year": 2013,
-          "value": 1708700
-        },
-        {
-          "year": 2014,
-          "value": 1799200
-        },
-        {
-          "year": 2015,
-          "value": 1972500
-        },
-        {
-          "year": 2016,
-          "value": 2215100
-        },
-        {
-          "year": 2017,
-          "value": 2251400
-        },
-        {
-          "year": 2018,
-          "value": 2386300
-        },
-        {
-          "year": 2019,
-          "value": 2239200
-        },
-        {
-          "year": 2020,
-          "value": 2311500
-        },
-        {
-          "year": 2021,
-          "value": 2385200
-        }
-      ],
+      "history": [],
       "source": "World Bank / WIPO"
     },
-    "spaceflight": [
-      {
-        "title": "Live coverage: SpaceX attempts 600th Falcon booster landing amid West Coast Starlink mission",
-        "published": "2026-04-18T06:45:49Z",
-        "source": "Spaceflight Now",
-        "summary": "The Starlink 17-22 will see SpaceX launch 25 broadband internet satellites into low Earth orbit. Liftoff from pad 4E at Vandenberg Space Force Base is scheduled for 7:33:40 a.m. PDT (10:33:40 a.m. EDT"
-      },
-      {
-        "title": "CSDA Quality Assessment Report Evaluates Satellogic NewSat Data",
-        "published": "2026-04-17T21:21:02Z",
-        "source": "NASA",
-        "summary": "The report adds to the growing documentation on commercial data’s contributions to Earth science research and applications."
-      },
-      {
-        "title": "Webinar 4/29: NASA CSDA Program Vendor Focus- MDA Space",
-        "published": "2026-04-17T20:33:51Z",
-        "source": "NASA",
-        "summary": "Join us April 29 at 2:00 p.m. EDT to learn more about CSDA program vendor MDA Space."
-      },
-      {
-        "title": "NASA Artemis II Human Research Data Methodology Challenge",
-        "published": "2026-04-17T18:41:35Z",
-        "source": "NASA",
-        "summary": "NASA’s Human Research Program (HRP) uses research to develop methods to protect the health and performance of astronauts in space. In support of NASA’s goals for long-term missions on the surface of t"
-      },
-      {
-        "title": "NASA, OPM Announce New NASA Force Website, Open Job Applications",
-        "published": "2026-04-17T17:04:51Z",
-        "source": "NASA",
-        "summary": "NASA and the U.S. Office of Personnel Management (OPM) launched the NASA Force website on Friday, opening applications for roles aimed at recruiting the nation’s top engineers and technologists to sup"
-      },
-      {
-        "title": "Artemis II pilot describes landing in Orion: \"From intense to pure elation\"",
-        "published": "2026-04-17T16:59:44Z",
-        "source": "Arstechnica",
-        "summary": "\"I've been thinking about reentry for three straight years.\""
-      },
-      {
-        "title": "Quality Assessment Report Evaluates Tomorrow.io Precipitation Radar Data",
-        "published": "2026-04-17T15:06:11Z",
-        "source": "NASA",
-        "summary": "The report adds to the growing documentation on commercial data’s contributions to Earth science research and applications."
-      },
-      {
-        "title": "Volunteers Discover Rare Space Weather Events Using Their Ears",
-        "published": "2026-04-17T15:04:32Z",
-        "source": "NASA",
-        "summary": "Scientists are working to understand exactly how these waves behave, and the team behind NASA’s Heliophysics Audified: Resonances in Plasmas (HARP) citizen science project approaches this in a unique "
-      },
-      {
-        "title": "NASA’s SPHEREx Observatory Maps Interstellar Ice in Milky Way",
-        "published": "2026-04-17T14:14:33Z",
-        "source": "NASA",
-        "summary": "An observation made by NASA’s SPHEREx (Spectro-Photometer for the History of the Universe, Epoch of Reionization, and Ices Explorer) shows the chemical signatures of water ice (shown in bright blue) a"
-      },
-      {
-        "title": "Week in images: 13-17 April 2026",
-        "published": "2026-04-17T13:10:00Z",
-        "source": "ESA",
-        "summary": "Week in images: 13-17 April 2026"
-      }
-    ]
+    "spaceflight": []
   },
   "realtime": {
     "earthquakes": {
       "last24h": [
         {
-          "location": "210 km W of Langlois, Oregon",
-          "magnitude": 2.6,
-          "depth": 10,
-          "lat": 43.2088,
-          "lng": -127.0084,
-          "time": "2026-04-18T06:09:25.350Z",
+          "location": "19 km SE of Silver Springs, Nevada",
+          "magnitude": 3.35,
+          "depth": 5.8217,
+          "lat": 39.3038,
+          "lng": -119.0429,
+          "time": "2026-04-15T17:34:58.969Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "Carlsberg Ridge",
-          "magnitude": 4.9,
-          "depth": 10,
-          "lat": 6.4842,
-          "lng": 60.2475,
-          "time": "2026-04-18T06:04:35.041Z",
+          "location": "283 km WNW of Houma, Tonga",
+          "magnitude": 4.7,
+          "depth": 545.718,
+          "lat": -20.4537,
+          "lng": -177.9157,
+          "time": "2026-04-15T17:09:18.290Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "Carlsberg Ridge",
-          "magnitude": 5.5,
-          "depth": 10,
-          "lat": 6.409,
-          "lng": 60.2178,
-          "time": "2026-04-18T05:59:58.199Z",
+          "location": "13 km SW of San Marcos, Costa Rica",
+          "magnitude": 3.8,
+          "depth": 49.345,
+          "lat": 9.5588,
+          "lng": -84.0885,
+          "time": "2026-04-15T15:55:01.527Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "7 km SSE of Indios, Puerto Rico",
-          "magnitude": 2.47,
-          "depth": 8.87,
-          "lat": 17.9348333333333,
-          "lng": -66.7883333333333,
-          "time": "2026-04-18T05:54:40.980Z",
+          "location": "56 km WNW of Stevens Village, Alaska",
+          "magnitude": 2.5,
+          "depth": 4.4,
+          "lat": 66.115,
+          "lng": -150.309,
+          "time": "2026-04-15T14:58:08.601Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "5 km NE of Ōmachi, Japan",
-          "magnitude": 4.9,
-          "depth": 10,
-          "lat": 36.5388,
-          "lng": 137.9099,
-          "time": "2026-04-18T05:54:30.799Z",
+          "location": "24 km SW of Maricopa, CA",
+          "magnitude": 3.22,
+          "depth": 8.81,
+          "lat": 34.9208333333333,
+          "lng": -119.601166666667,
+          "time": "2026-04-15T14:51:17.100Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "45 km NW of Ninilchik, Alaska",
-          "magnitude": 3.5,
-          "depth": 97.6,
-          "lat": 60.291,
-          "lng": -152.323,
-          "time": "2026-04-18T05:35:49.482Z",
+          "location": "11 km WSW of Point Possession, Alaska",
+          "magnitude": 3.2,
+          "depth": 8.4,
+          "lat": 60.891,
+          "lng": -150.885,
+          "time": "2026-04-15T12:55:34.303Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "Kuril Islands",
-          "magnitude": 5.2,
-          "depth": 35,
-          "lat": 45.7789,
-          "lng": 151.8949,
-          "time": "2026-04-18T04:40:12.867Z",
+          "location": "18 km SE of Silver Springs, Nevada",
+          "magnitude": 2.63,
+          "depth": 7.8909,
+          "lat": 39.3132,
+          "lng": -119.0537,
+          "time": "2026-04-15T11:01:18.687Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "279 km SSE of Amahai, Indonesia",
-          "magnitude": 4.4,
-          "depth": 205.269,
-          "lat": -5.6651,
-          "lng": 129.9006,
-          "time": "2026-04-18T04:37:12.871Z",
+          "location": "48 km SW of Karluk, Alaska",
+          "magnitude": 2.8,
+          "depth": 59.1,
+          "lat": 57.329,
+          "lng": -155.126,
+          "time": "2026-04-15T10:29:18.175Z",
           "tsunami": false,
           "type": "earthquake"
         }
       ],
-      "total24h": 42,
+      "total24h": 0,
       "source": "USGS"
     },
     "newsSentiment": {
@@ -5557,130 +3518,130 @@
       "source": "GDELT"
     },
     "cryptoFearGreed": {
-      "value": 26,
+      "value": 23,
       "label": "Fear",
       "source": "Alternative.me"
     },
     "news": [
       {
-        "title": "UNICEF ‘outraged’ by killing of Gaza water truck drivers, urges investigation",
-        "pubDate": "Sat, 18 Apr 2026 12:00:00 +0000",
-        "link": "https://news.un.org/feed/view/en/story/2026/04/1167331",
-        "source": "UN News"
-      },
-      {
-        "title": "Israeli police destroy children’s footballs at Al-Aqsa mosque",
-        "pubDate": "Sat, 18 Apr 2026 06:52:44 +0000",
-        "link": "https://www.aljazeera.com/video/newsfeed/2026/4/18/israeli-police-destroy-childrens-footballs-at-al-aqsa-mosque?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "Trump says US will ‘start dropping bombs again’ if no Iran deal is reached",
-        "pubDate": "Sat, 18 Apr 2026 06:10:45 +0000",
-        "link": "https://www.aljazeera.com/video/newsfeed/2026/4/18/trump-says-us-will-start-dropping-bombs-again-if-no-iran-deal-is-reached?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "Iran war: What is happening on day 50 of the US-Iran conflict?",
-        "pubDate": "Sat, 18 Apr 2026 06:07:12 +0000",
-        "link": "https://www.aljazeera.com/news/2026/4/18/iran-war-what-is-happening-on-day-50-of-the-us-iran-conflict?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "Oil prices plunge as Iran says Strait 'open'",
-        "pubDate": "Sat, 18 Apr 2026 06:06:38 GMT",
-        "link": "https://www.bbc.com/news/articles/ckg045z73z1o?at_medium=RSS&amp;at_campaign=rss",
+        "title": "Three paramedics killed in successive Israeli strikes in Lebanon, officials say",
+        "pubDate": "Wed, 15 Apr 2026 18:48:34 GMT",
+        "link": "https://www.bbc.com/news/articles/cgqkkxd09e2o?at_medium=RSS&amp;at_campaign=rss",
         "source": "BBC World"
       },
       {
-        "title": "Middle East live: Iran threatens to close Strait of Hormuz again if US blockade continues",
-        "pubDate": "Sat, 18 Apr 2026 05:01:20 GMT",
-        "link": "https://www.france24.com/en/middle-east/20260418-iran-threatens-to-close-strait-of-hormuz-again-if-us-blockade-continues",
-        "source": "France24"
-      },
-      {
-        "title": "Tale of two truces: Lebanon 'steps up' alongside Israel as Tehran and Washington edge toward a deal",
-        "pubDate": "Sat, 18 Apr 2026 04:58:33 GMT",
-        "link": "https://www.france24.com/en/tv-shows/spotlight/20260418-tale-of-two-truces-lebanon-steps-up-alongside-israel-as-tehran-and-washington-edge-toward-a-deal",
-        "source": "France24"
-      },
-      {
-        "title": "World Cup 2026: Fans to pay $150 for train ticket to stadium",
-        "pubDate": "Fri, 17 Apr 2026 23:53:00 GMT",
-        "link": "https://www.dw.com/en/world-cup-2026-fans-to-pay-150-for-train-ticket-to-stadium/a-76839579?maca=en-rss-en-world-4025-xml-mrss",
+        "title": "Can Trump get a better Iran deal than Obama?",
+        "pubDate": "Wed, 15 Apr 2026 18:48:00 GMT",
+        "link": "https://www.dw.com/en/can-trump-get-a-better-iran-deal-than-obama/a-76798388?maca=en-rss-en-world-4025-xml-mrss",
         "source": "DW News"
       },
       {
-        "title": "France, other World Bank shareholders seek solution to preserve climate strategy - Reuters",
-        "pubDate": "Fri, 17 Apr 2026 22:57:40 GMT",
-        "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxNemxNRDVnTkNIV2lJc05pa0dncVRnSnZONU5fYTF3REVoUVNGbHV5S2wwZEV0aTlmcV9wSlZ2ZUFHTEZJV01IMng5RUJfM3FyZ1p6dElQSE9qQkpxSHVwOGlHQVdSOFFqbmd2LURVUWhleUJrV2ZVMVBISEpSdUVpZXN0RXV1TjZiMFUxblAxaDRtUDFEa2Y2QmFLTVdYZzVLbXJ6UExHZUY0SHE2TFAwa2ZHM1ltSU16MjlzOVdMZWZCWHJMSERtd0tnNA?oc=5",
-        "source": "World Bank"
+        "title": "Arab Barghouti says rights groups must do more for Palestinian prisoners",
+        "pubDate": "Wed, 15 Apr 2026 18:44:13 +0000",
+        "link": "https://www.aljazeera.com/video/newsfeed/2026/4/15/arab-barghouti-says-rights-groups-must-do-more-for-palestinian-prisoners?traffic_source=rss",
+        "source": "Al Jazeera"
       },
       {
-        "title": "World Bank launches new strategy to help small states tackle challenges - Reuters",
-        "pubDate": "Fri, 17 Apr 2026 22:25:42 GMT",
-        "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPYy1iaHRWZ1FnZDhTTGlFd2pOV204OGNXejFZQzFNcTNHdXB2clR0cnRCak1LejZzRm9QR1B4UmNJc083OEVGQU1LVlhmVVNUeFB6YWhhTW9JZ2o4SXRVLTJkbnJPSGl6T3JwazJnV1NDQXViWGQwbGRCZm1VVjVaSVpmOEplQUszd01WUkd6ZTNIdks1ZGJoNTFpX21ubTBOdjdHcnJ4M01uY3FialpfZ3AtZFAyVHB4N2RmU3ZB?oc=5",
-        "source": "World Bank"
-      },
-      {
-        "title": "Trump says Iran peace deal could be reached ‘soon’ after Tehran reopens Hormuz Strait",
-        "pubDate": "Fri, 17 Apr 2026 20:54:37 GMT",
-        "link": "https://www.france24.com/en/middle-east/20260417-trump-says-iran-peace-deal-could-be-reached-soon-after-tehran-reopens-hormuz-strait",
-        "source": "France24"
-      },
-      {
-        "title": "As Strait of Hormuz reopens, Europe looks to secure shipping",
-        "pubDate": "Fri, 17 Apr 2026 20:25:00 GMT",
-        "link": "https://www.dw.com/en/as-strait-of-hormuz-reopens-europe-looks-to-secure-shipping/a-76838636?maca=en-rss-en-world-4025-xml-mrss",
-        "source": "DW News"
-      },
-      {
-        "title": "Can the 25th Amendment remove Donald Trump from office?",
-        "pubDate": "Fri, 17 Apr 2026 19:55:00 GMT",
-        "link": "https://www.dw.com/en/can-the-25th-amendment-remove-donald-trump-from-office/a-76835018?maca=en-rss-en-world-4025-xml-mrss",
-        "source": "DW News"
-      },
-      {
-        "title": "Thousands celebrate open-air Mass with Pope Leo in Cameroon - in pictures",
-        "pubDate": "Fri, 17 Apr 2026 18:25:12 GMT",
-        "link": "https://www.bbc.com/news/articles/cdj7kwn1d78o?at_medium=RSS&amp;at_campaign=rss",
+        "title": "Trump threatens to fire Fed chair Powell if he doesn't leave in May",
+        "pubDate": "Wed, 15 Apr 2026 18:29:50 GMT",
+        "link": "https://www.bbc.com/news/articles/c9qddrdd8w2o?at_medium=RSS&amp;at_campaign=rss",
         "source": "BBC World"
       },
       {
-        "title": "Kanye West concert in Poland cancelled over antisemitic comments",
-        "pubDate": "Fri, 17 Apr 2026 18:19:10 GMT",
-        "link": "https://www.bbc.com/news/articles/czx95rl4ek5o?at_medium=RSS&amp;at_campaign=rss",
+        "title": "What is Trump-backed SAVE America Act and what could it mean for US vote?",
+        "pubDate": "Wed, 15 Apr 2026 18:29:00 +0000",
+        "link": "https://www.aljazeera.com/news/2026/4/15/what-is-trump-backed-save-america-act-and-what-could-it-mean-for-us-vote?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "Countries pledge $1.5bn for Sudan crisis as war enters fourth year",
+        "pubDate": "Wed, 15 Apr 2026 17:57:18 +0000",
+        "link": "https://www.aljazeera.com/news/2026/4/15/countries-pledge-1-5bn-for-sudan-crisis-as-war-enters-fourth-year?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "Nine killed in second Turkish school shooting in two days",
+        "pubDate": "Wed, 15 Apr 2026 17:50:08 GMT",
+        "link": "https://www.bbc.com/news/articles/cn088n9e6e9o?at_medium=RSS&amp;at_campaign=rss",
         "source": "BBC World"
       },
       {
-        "title": "World Bank: Is Economic Growth Alone Enough? Human Wellbeing and Development Strategy - Business Fights Poverty",
-        "pubDate": "Fri, 17 Apr 2026 17:22:01 GMT",
-        "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE83NG5PdkVhNmtJSzE2eDRSRFdkMkUtX2UwOHRlZnl5a3c1OEh3NGJCNFBrVGJYaVdVUGJpTXI0VFpuZEVIa2gzTGc1ZnZieDUwbWx5NmtTbHNaWUpfQ3VDWWxrM05vZ0tNNlpVRWZKX2JFZWZP?oc=5",
-        "source": "World Bank"
-      },
-      {
-        "title": "Kenyan firm sacks more than 1,000 workers after losing Meta contract",
-        "pubDate": "Fri, 17 Apr 2026 16:59:04 GMT",
-        "link": "https://www.theguardian.com/technology/2026/apr/17/kenyan-outsourcing-company-for-meta-sacks-workers",
+        "title": "More than £1bn pledged for Sudan as humanitarian crisis deepens",
+        "pubDate": "Wed, 15 Apr 2026 17:49:04 GMT",
+        "link": "https://www.theguardian.com/global-development/2026/apr/15/more-than-1bn-pledged-for-sudan-as-humanitarian-crisis-deepens",
         "source": "Guardian"
       },
       {
-        "title": "IMF Members Say Iran Conflict Poses Risk to Global Economy - Bloomberg.com",
-        "pubDate": "Fri, 17 Apr 2026 16:56:24 GMT",
-        "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOMDE5bTVMbkRZS082cVpCemktWE1FNmNPQVNzZmJGQjFnM1ZPdy1Ib0l1S2FYQ2J4ZkY2eTRHZnA0WEhSckE0NzdIYzZ4OFlyYVBpNlpiQ0RlMFN0LWxsdWdqdU5CeUF5YUlSNFBIMm9LYm9tWHJNVzJSekZPc0tfYzhBelZMVUNfb19VSWQ1cmVyMnRSVG9kSjNIR2dBejYyZ2JwREJNMVBqQ2pMR3ljOW93?oc=5",
-        "source": "IMF"
+        "title": "Germany, the UK warn the Iran war distracts from Ukraine and oil price rises help Russia",
+        "pubDate": "Wed, 15 Apr 2026 17:22:00 GMT",
+        "link": "https://www.dw.com/en/germany-the-uk-warn-the-iran-war-distracts-from-ukraine-and-oil-price-rises-help-russia/a-76797004?maca=en-rss-en-world-4025-xml-mrss",
+        "source": "DW News"
       },
       {
-        "title": "Record number of Rohingya refugees died at sea last year, UNHCR says - Al Jazeera",
-        "pubDate": "Fri, 17 Apr 2026 16:05:50 GMT",
-        "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPTkNwM0VEZnRqbnRkbi1YbkRyc3kxdG92eGJRaVJzS3NsZU9ldWViV0FIeEUzUlYtbU5CSzQ3RzNiNWVjUVlqc2h5VFV3ZnNaT2h5V2Uxc0paRUw5TklsRkN5eXZyWGFWNjJWb0VPSUZSc1FtZHZpOG1Ta0ZOdnBSZndnOUY0aTFuaVZoLWxzc2s1Nk5qOExKcnIwekV6ZDl2X0U0c1RsY0dvemR30gGyAUFVX3lxTE1Sd0Z1R2dENklZTUFSNnllckZxajBPZXMxSy1wMmZqak1FT0dHemNKLWU1WXlIa3BqaFFZOHpBUkJhWE1SOHpkY1hEUmpQbDBTVE9xWGNBckxvZ01CeVpTLUlZOTZUeGtzTGl5TXladV9TMmRiZDdsRlJjR3U1WmpydEtSVnh2VnE5RWgyZWYxNk5uNVhOaGlMQ01xME1fNEpXTGtScmhWY1hraUttc2dnMHc?oc=5",
-        "source": "UNHCR"
+        "title": "Pope Leo calls on Cameroon to break 'the chains of corruption'",
+        "pubDate": "Wed, 15 Apr 2026 17:03:55 GMT",
+        "link": "https://www.france24.com/en/africa/20260415-pope-leo-heads-to-cameroon-with-message-of-peace-as-separatists-announce-3-day-truce",
+        "source": "France24"
       },
       {
-        "title": "Iran, the Global Economy, and the Case Against Complacency - Council on Foreign Relations",
-        "pubDate": "Fri, 17 Apr 2026 14:58:20 GMT",
-        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOa284cXNSZ09wdGNGWDRBUVh3TkdmeFhRZkJTSGFHdnhJYWhCVWp4dDUxLUYzTlFST1ZJM0dWVU80RHdZSGhtb3pjSnp6NDkyU1ZjWlZmdkdraDRYV0l4ejl1M2dndDFkc3lsYm5LZ2lXcW4wLXU1VE1CUGo5cUl1SUk4WDl4c0dGaFE2bUp3?oc=5",
-        "source": "IMF"
+        "title": "2026 NSTA Hyperwall Schedule",
+        "pubDate": "Wed, 15 Apr 2026 15:59:44 +0000",
+        "link": "https://science.nasa.gov/earth/2026-nsta-hyperwall-schedule/",
+        "source": "NASA"
+      },
+      {
+        "title": "The school in Kenya where education is empowering teenage mothers",
+        "pubDate": "Wed, 15 Apr 2026 15:31:06 GMT",
+        "link": "https://www.france24.com/en/video/20260415-the-school-in-kenya-where-education-is-empowering-teenage-mothers",
+        "source": "France24"
+      },
+      {
+        "title": "From Yaoundé to Bamenda, Cameroonians await Pope Leo XIV’s visit",
+        "pubDate": "Wed, 15 Apr 2026 15:30:11 GMT",
+        "link": "https://www.france24.com/en/video/20260415-from-yaound%C3%A9-to-bamenda-cameroonians-await-pope-leo-xiv-s-visit",
+        "source": "France24"
+      },
+      {
+        "title": "South Africa appoints veteran Afrikaner politician Roelf Meyer as US ambassador amid tense Trump ties",
+        "pubDate": "Wed, 15 Apr 2026 15:18:00 GMT",
+        "link": "https://www.dw.com/en/south-africa-appoints-veteran-afrikaner-politician-roelf-meyer-as-us-ambassador-amid-tense-trump-ties/a-76794872?maca=en-rss-en-world-4025-xml-mrss",
+        "source": "DW News"
+      },
+      {
+        "title": "Suspicion surrounds death of US influencer Ashly Robinson in Zanzibar",
+        "pubDate": "Wed, 15 Apr 2026 15:14:13 GMT",
+        "link": "https://www.theguardian.com/world/2026/apr/15/ashly-robinson-death-influencer-zanzibar",
+        "source": "Guardian"
+      },
+      {
+        "title": "NASA’s SPHEREx Mission Maps Water Ice Throughout Cygnus X",
+        "pubDate": "Wed, 15 Apr 2026 15:04:38 +0000",
+        "link": "https://science.nasa.gov/photojournal/nasas-spherex-mission-maps-water-ice-throughout-cygnus-x/",
+        "source": "NASA"
+      },
+      {
+        "title": "South Africa names apartheid-era negotiator as ambassador to US",
+        "pubDate": "Wed, 15 Apr 2026 15:04:35 GMT",
+        "link": "https://www.theguardian.com/world/2026/apr/15/south-africa-names-ambassador-us-roelf-meyer",
+        "source": "Guardian"
+      },
+      {
+        "title": "‘Interstellar Glaciers’: NASA’s SPHEREx Maps Vast Galactic Ice Regions",
+        "pubDate": "Wed, 15 Apr 2026 15:02:15 +0000",
+        "link": "https://www.nasa.gov/missions/spherex/interstellar-glaciers-nasas-spherex-maps-vast-galactic-ice-regions/",
+        "source": "NASA"
+      },
+      {
+        "title": "Africa: Nearly 20 million measles deaths averted since 2000",
+        "pubDate": "Wed, 15 Apr 2026 12:00:00 +0000",
+        "link": "https://news.un.org/feed/view/en/story/2026/04/1167307",
+        "source": "UN News"
+      },
+      {
+        "title": "Youth shape the road to 2030, call for urgent action on sustainable development",
+        "pubDate": "Wed, 15 Apr 2026 12:00:00 +0000",
+        "link": "https://news.un.org/feed/view/en/story/2026/04/1167306",
+        "source": "UN News"
       }
     ],
     "volcanic": [],
@@ -5710,7 +3671,7 @@
       {
         "name": "Erneuerbare Energie",
         "direction": "improving",
-        "change": "+6.7%",
+        "change": "+6.6%",
         "icon": "up"
       },
       {
@@ -5838,13 +3799,13 @@
       {
         "name": "Alphabetisierung",
         "then": 81,
-        "now": 87.7,
+        "now": 87.4,
         "improved": true
       },
       {
         "name": "CO2-Konzentration",
         "then": 369,
-        "now": 429.35,
+        "now": 429,
         "improved": false
       },
       {

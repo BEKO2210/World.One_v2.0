@@ -57,11 +57,14 @@ export function createTierBadge(tier, options = {}) {
   // (vorher nur im title-tooltip).
   if (normalizedTier === 'cache' && age !== null && Number.isFinite(age)) {
     const hours = age / 3600000;
-    const ageLabel = hours < 1
+    const mins = Math.round(age / 60000);
+    const ageLabel = mins < 2
       ? i18n.t('badge.ageJustNow')
-      : hours < 24
-        ? i18n.t('badge.ageHours', { n: Math.round(hours) })
-        : i18n.t('badge.ageDays', { n: Math.round(hours / 24) });
+      : mins < 60
+        ? i18n.t('badge.ageMinutes', { n: mins })
+        : hours < 24
+          ? i18n.t('badge.ageHours', { n: Math.round(hours) })
+          : i18n.t('badge.ageDays', { n: Math.round(hours / 24) });
     children.push(DOMUtils.create('span', {
       className: 'data-badge__age',
       textContent: ' · ' + ageLabel
@@ -78,11 +81,14 @@ export function createTierBadge(tier, options = {}) {
     tooltipParts.push(i18n.t('badge.liveLabel'));
   } else if (normalizedTier === 'cache' && age !== null) {
     const hours = age / 3600000;
-    const ageLabel = hours < 1
+    const mins = Math.round(age / 60000);
+    const ageLabel = mins < 2
       ? i18n.t('badge.ageJustNow')
-      : hours < 24
-        ? i18n.t('badge.ageHours', { n: Math.round(hours) })
-        : i18n.t('badge.ageDays', { n: Math.round(hours / 24) });
+      : mins < 60
+        ? i18n.t('badge.ageMinutes', { n: mins })
+        : hours < 24
+          ? i18n.t('badge.ageHours', { n: Math.round(hours) })
+          : i18n.t('badge.ageDays', { n: Math.round(hours / 24) });
     tooltipParts.push(ageLabel);
   } else if (normalizedTier === 'static') {
     tooltipParts.push(i18n.t('badge.staticNote'));

@@ -128,11 +128,14 @@ export class WorldIndicator {
           el.appendChild(badge);
         }
         const h = info.newestHours;
-        const label = h < 1
+        const m = Math.round(h * 60);
+        const label = m < 2
           ? 'gerade aktualisiert'
-          : h < 24
-            ? `aktualisiert vor ${Math.round(h)}h`
-            : `aktualisiert vor ${Math.round(h / 24)}d`;
+          : m < 60
+            ? `aktualisiert vor ${m} min`
+            : h < 24
+              ? `aktualisiert vor ${Math.round(h)}h`
+              : `aktualisiert vor ${Math.round(h / 24)}d`;
         badge.textContent = label;
         badge.title = `Neueste Cache-Quelle: ${new Date(info.newest).toLocaleString('de-DE')}\nÄlteste: ${new Date(info.oldest).toLocaleString('de-DE')}\nKombinierte Quellen: ${info.sourceCount}`;
       }

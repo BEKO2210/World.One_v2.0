@@ -375,8 +375,9 @@ const translations = {
     'badge.sourceLabel': 'Quelle',
     'badge.liveLabel': 'Echtzeit-API',
     'badge.ageJustNow': 'gerade aktualisiert',
-    'badge.ageHours': 'aktualisiert vor {n}h',
-    'badge.ageDays': 'aktualisiert vor {n}d',
+    'badge.ageMinutes': 'vor {n} min',
+    'badge.ageHours': 'vor {n}h',
+    'badge.ageDays': 'vor {n}d',
     'badge.staticNote': 'Statischer Fallback',
     // ─── A11y ───
     'a11y.skipToMain': 'Zum Hauptinhalt springen',
@@ -1575,8 +1576,9 @@ const translations = {
     'badge.sourceLabel': 'Source',
     'badge.liveLabel': 'Real-time API',
     'badge.ageJustNow': 'just updated',
-    'badge.ageHours': 'updated {n}h ago',
-    'badge.ageDays': 'updated {n}d ago',
+    'badge.ageMinutes': '{n} min ago',
+    'badge.ageHours': '{n}h ago',
+    'badge.ageDays': '{n}d ago',
     'badge.staticNote': 'Static fallback',
     // ─── A11y ───
     'a11y.skipToMain': 'Skip to main content',
