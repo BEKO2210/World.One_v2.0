@@ -1,16 +1,30 @@
 {
   "_meta": {
-    "fetched_at": "2026-04-18T09:34:19.498Z",
+    "fetched_at": "2026-04-18T09:43:41.624Z",
     "source": "cache-pipeline",
     "version": "1.0"
   },
   "global_aqi": {
-    "value": 85,
+    "value": 84,
     "unit": "US AQI (WAQI)",
     "year": 2026,
     "source": "WAQI official stations (20 cities)"
   },
   "cleanest": [
+    {
+      "name": "Paris",
+      "country": "FR",
+      "station": "Paris",
+      "aqi": 13,
+      "dominant_pollutant": "o3",
+      "pm25": 71,
+      "pm10": 12,
+      "o3": 13.1,
+      "no2": 31.6,
+      "so2": 0.6,
+      "co": 0.1,
+      "time": "2026-04-18T09:00:00+02:00"
+    },
     {
       "name": "Sydney",
       "country": "AU",
@@ -26,31 +40,17 @@
       "time": "2026-04-18T18:00:00+10:00"
     },
     {
-      "name": "London",
-      "country": "GB",
-      "station": "London",
-      "aqi": 28,
-      "dominant_pollutant": "o3",
-      "pm25": 25,
-      "pm10": 10,
-      "o3": 27.9,
-      "no2": 19.7,
-      "so2": 1.1,
-      "co": 1.8,
-      "time": "2026-04-18T08:00:00+01:00"
-    },
-    {
       "name": "Tokyo",
       "country": "JP",
-      "station": "Naitomachi, Shinjuku, Tokyo, Japan (国設新宿新宿区)",
+      "station": "Naitōmachi, Shinjuku-ku, Tōkyō-to, Japan (国設東京（新宿）新宿区)",
       "aqi": 34,
       "dominant_pollutant": "pm25",
       "pm25": 34,
-      "pm10": 11,
-      "o3": 39.2,
+      "pm10": 14,
+      "o3": 40.8,
       "no2": 9.3,
       "so2": 1.5,
-      "co": 1.2,
+      "co": 2.3,
       "time": "2026-04-18T17:00:00+09:00"
     },
     {
@@ -68,18 +68,18 @@
       "time": "2026-04-18T11:00:00+02:00"
     },
     {
-      "name": "Paris",
-      "country": "FR",
-      "station": "Paris",
+      "name": "London",
+      "country": "GB",
+      "station": "London",
       "aqi": 38,
       "dominant_pollutant": "pm25",
       "pm25": 38,
-      "pm10": 12,
-      "o3": 13.2,
-      "no2": 33.6,
-      "so2": 0.6,
-      "co": 0.1,
-      "time": "2026-04-18T07:00:00+02:00"
+      "pm10": 18,
+      "o3": 24.1,
+      "no2": 19.7,
+      "so2": 0.9,
+      "co": 1.7,
+      "time": "2026-04-18T09:00:00+01:00"
     }
   ],
   "worst": [
@@ -156,6 +156,20 @@
   ],
   "stations": [
     {
+      "name": "Paris",
+      "country": "FR",
+      "station": "Paris",
+      "aqi": 13,
+      "dominant_pollutant": "o3",
+      "pm25": 71,
+      "pm10": 12,
+      "o3": 13.1,
+      "no2": 31.6,
+      "so2": 0.6,
+      "co": 0.1,
+      "time": "2026-04-18T09:00:00+02:00"
+    },
+    {
       "name": "Sydney",
       "country": "AU",
       "station": "Cook And Phillip Sydney East",
@@ -170,31 +184,17 @@
       "time": "2026-04-18T18:00:00+10:00"
     },
     {
-      "name": "London",
-      "country": "GB",
-      "station": "London",
-      "aqi": 28,
-      "dominant_pollutant": "o3",
-      "pm25": 25,
-      "pm10": 10,
-      "o3": 27.9,
-      "no2": 19.7,
-      "so2": 1.1,
-      "co": 1.8,
-      "time": "2026-04-18T08:00:00+01:00"
-    },
-    {
       "name": "Tokyo",
       "country": "JP",
-      "station": "Naitomachi, Shinjuku, Tokyo, Japan (国設新宿新宿区)",
+      "station": "Naitōmachi, Shinjuku-ku, Tōkyō-to, Japan (国設東京（新宿）新宿区)",
       "aqi": 34,
       "dominant_pollutant": "pm25",
       "pm25": 34,
-      "pm10": 11,
-      "o3": 39.2,
+      "pm10": 14,
+      "o3": 40.8,
       "no2": 9.3,
       "so2": 1.5,
-      "co": 1.2,
+      "co": 2.3,
       "time": "2026-04-18T17:00:00+09:00"
     },
     {
@@ -212,18 +212,32 @@
       "time": "2026-04-18T11:00:00+02:00"
     },
     {
-      "name": "Paris",
-      "country": "FR",
-      "station": "Paris",
+      "name": "London",
+      "country": "GB",
+      "station": "London",
       "aqi": 38,
       "dominant_pollutant": "pm25",
       "pm25": 38,
-      "pm10": 12,
-      "o3": 13.2,
-      "no2": 33.6,
-      "so2": 0.6,
-      "co": 0.1,
-      "time": "2026-04-18T07:00:00+02:00"
+      "pm10": 18,
+      "o3": 24.1,
+      "no2": 19.7,
+      "so2": 0.9,
+      "co": 1.7,
+      "time": "2026-04-18T09:00:00+01:00"
+    },
+    {
+      "name": "New York",
+      "country": "US",
+      "station": "New York",
+      "aqi": 43,
+      "dominant_pollutant": "pm25",
+      "pm25": 43,
+      "pm10": null,
+      "o3": null,
+      "no2": null,
+      "so2": null,
+      "co": null,
+      "time": "2026-04-18T04:00:00-04:00"
     },
     {
       "name": "Shanghai",
@@ -238,20 +252,6 @@
       "so2": 2.1,
       "co": 2.8,
       "time": "2026-04-18T16:00:00+08:00"
-    },
-    {
-      "name": "New York",
-      "country": "US",
-      "station": "New York",
-      "aqi": 48,
-      "dominant_pollutant": "pm25",
-      "pm25": 48,
-      "pm10": null,
-      "o3": null,
-      "no2": null,
-      "so2": null,
-      "co": null,
-      "time": "2026-04-18T03:00:00-04:00"
     },
     {
       "name": "Moscow",
