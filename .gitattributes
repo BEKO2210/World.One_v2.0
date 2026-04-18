@@ -1,0 +1,26 @@
+# ═══════════════════════════════════════════════════════════
+# Git Merge Strategy — Auto-Generated Files
+#
+# Diese Dateien werden von der V2-Pipeline alle 6h regeneriert.
+# Bei Feature-Branch → main Merges darf IMMER main's Version
+# gewinnen, weil die Pipeline sie danach sowieso überschreibt.
+# Das verhindert die "30× Accept Current Change" Merge-Konflikte.
+# ═══════════════════════════════════════════════════════════
+
+# Processed data — Pipeline-Output, wird jede 6h neu berechnet
+data/processed/world-state.json       merge=ours
+data/processed/world-state.backup.json merge=ours
+data/processed/heal-log.json          merge=ours
+
+# History snapshots — append-only, conflicts irrelevant
+data/history/manifest.json            merge=ours
+data/history/*.json                   merge=ours
+
+# Service Worker version — Pipeline bumpt bei jedem Deploy
+service-worker.js                     merge=ours
+
+# Cache files — Pipeline regeneriert sie
+data/cache/*.json                     merge=ours
+
+# README — auto-generiert von generate-readme.js
+README.md                             merge=ours

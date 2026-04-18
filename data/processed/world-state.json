@@ -1,56 +1,58 @@
 {
   "meta": {
-    "generated": "2026-04-18T07:56:05.221Z",
+    "generated": "2026-04-18T08:47:10.650Z",
     "version": "2.0.0",
     "sources_count": 65,
-    "sources_available": 41,
-    "sources_success_rate": 63,
-    "next_update": "2026-04-18T13:56:05.221Z",
+    "sources_available": 65,
+    "sources_success_rate": 100,
+    "next_update": "2026-04-18T14:47:10.650Z",
     "realtimePulse": {
-      "environment": 0,
+      "environment": -0.8,
       "society": 0.05,
-      "economy": -0.43,
-      "progress": 0,
+      "economy": -0.38,
+      "progress": 0.47,
       "details": {
-        "quakeCount": 8,
-        "maxMagnitude": 4.7,
+        "quakeCount": 42,
+        "maxMagnitude": 5.5,
+        "avgGlobalTemp": 19.1,
         "newsSentiment": -0.42,
-        "cryptoFearGreed": 23
+        "cryptoFearGreed": 26,
+        "arxivPapers": 5
       }
     },
     "cacheFreshness": {
       "environment": {
         "newest": "2026-04-15T22:10:40.442Z",
         "oldest": "2026-04-15T21:30:17.873Z",
-        "newestHours": 57.8,
-        "oldestHours": 58.4,
+        "newestHours": 58.6,
+        "oldestHours": 59.3,
         "sourceCount": 4
       },
       "society": {
         "newest": "2026-04-15T21:30:47.173Z",
         "oldest": "2026-04-15T06:05:38.879Z",
-        "newestHours": 58.4,
-        "oldestHours": 73.8,
+        "newestHours": 59.3,
+        "oldestHours": 74.7,
         "sourceCount": 3
       },
       "economy": null,
       "progress": {
         "newest": "2026-04-15T21:30:48.006Z",
         "oldest": "2026-04-15T21:30:37.863Z",
-        "newestHours": 58.4,
-        "oldestHours": 58.4,
+        "newestHours": 59.3,
+        "oldestHours": 59.3,
         "sourceCount": 2
       }
     }
   },
   "worldIndex": {
-    "value": 62.6,
-    "rawValue": 59.6,
+    "value": 62.5,
+    "rawValue": 59.5,
     "label": "POSITIV",
     "zone": "positive",
-    "previous": 62.6,
-    "change": 0,
-    "trend": "stable",
+    "previous": 62.9,
+    "change": -0.4,
+    "trend": "declining",
     "carryingCapacity": {
       "checks": {
         "existence": {
@@ -63,7 +65,7 @@
         },
         "cascading": {
           "penalty": 0,
-          "activePairs": 0
+          "activePairs": 1
         }
       },
       "spectrum": {
@@ -95,7 +97,7 @@
       },
       "indicators": {
         "environment": {
-          "bufferDistance": 24.2,
+          "bufferDistance": 23.3,
           "recoveryTime": 0,
           "maintenanceCost": 0.16
         },
@@ -110,7 +112,7 @@
           "maintenanceCost": 0
         },
         "progress": {
-          "bufferDistance": 73.3,
+          "bufferDistance": 73.9,
           "recoveryTime": 0,
           "maintenanceCost": 4.52
         },
@@ -125,12 +127,12 @@
   },
   "subScores": {
     "environment": {
-      "value": 35.6,
+      "value": 34.8,
       "label": "BESORGNISERREGEND",
       "zone": "concerning",
       "weight": 0.25,
-      "trend": "stable",
-      "change": 0,
+      "trend": "improving",
+      "change": 2.1,
       "indicators": [
         {
           "name": "Globale Temperaturanomalie",
@@ -156,7 +158,7 @@
           "score": 56,
           "trend": "declining",
           "fetchedAt": "2026-04-15T21:30:17.873Z",
-          "ageHours": 58.4,
+          "ageHours": 59.3,
           "source": "World Bank / FAO (AG.LND.FRST.ZS)"
         },
         {
@@ -165,7 +167,7 @@
           "score": 33,
           "trend": "improving",
           "fetchedAt": "2026-04-15T21:30:18.010Z",
-          "ageHours": 58.4,
+          "ageHours": 59.3,
           "source": "World Bank (EG.FEC.RNEW.ZS)"
         },
         {
@@ -174,7 +176,7 @@
           "score": 45,
           "trend": "stable",
           "fetchedAt": "2026-04-15T21:30:28.868Z",
-          "ageHours": 58.4,
+          "ageHours": 59.3,
           "source": "Open-Meteo (13 cities avg)"
         },
         {
@@ -192,7 +194,7 @@
           "score": 0,
           "trend": "declining",
           "fetchedAt": "2026-04-15T22:10:40.442Z",
-          "ageHours": 57.8,
+          "ageHours": 58.6,
           "source": "GDACS (JRC/EU)"
         }
       ]
@@ -203,7 +205,7 @@
       "zone": "mixed",
       "weight": 0.25,
       "trend": "stable",
-      "change": 0,
+      "change": -0.1,
       "indicators": [
         {
           "name": "Lebenserwartung",
@@ -211,7 +213,7 @@
           "score": 67,
           "trend": "improving",
           "fetchedAt": "2026-04-15T21:30:47.173Z",
-          "ageHours": 58.4,
+          "ageHours": 59.3,
           "source": "World Bank (SP.DYN.LE00.IN)"
         },
         {
@@ -220,7 +222,7 @@
           "score": 66,
           "trend": "improving",
           "fetchedAt": "2026-04-15T21:30:47.173Z",
-          "ageHours": 58.4,
+          "ageHours": 59.3,
           "source": "World Bank (SH.DYN.MORT)"
         },
         {
@@ -229,7 +231,7 @@
           "score": 29,
           "trend": "declining",
           "fetchedAt": "2026-04-15T06:06:13.850Z",
-          "ageHours": 73.8,
+          "ageHours": 74.7,
           "source": "ACLED/Crisis Group (baseline)"
         },
         {
@@ -265,7 +267,7 @@
           "score": 46,
           "trend": "declining",
           "fetchedAt": "2026-04-15T06:05:38.879Z",
-          "ageHours": 73.8,
+          "ageHours": 74.7,
           "source": "Freedom House - Freedom in the World"
         }
       ]
@@ -275,8 +277,8 @@
       "label": "POSITIV",
       "zone": "positive",
       "weight": 0.2,
-      "trend": "stable",
-      "change": 0,
+      "trend": "declining",
+      "change": -3.8,
       "indicators": [
         {
           "name": "BIP-Wachstum",
@@ -326,12 +328,12 @@
       ]
     },
     "progress": {
-      "value": 77.3,
+      "value": 77.8,
       "label": "POSITIV",
       "zone": "positive",
       "weight": 0.2,
-      "trend": "stable",
-      "change": 0,
+      "trend": "declining",
+      "change": -0.3,
       "indicators": [
         {
           "name": "Internet-Durchdringung",
@@ -339,7 +341,7 @@
           "score": 82,
           "trend": "improving",
           "fetchedAt": "2026-04-15T21:30:48.006Z",
-          "ageHours": 58.4,
+          "ageHours": 59.3,
           "source": "World Bank (IT.NET.USER.ZS)"
         },
         {
@@ -366,7 +368,7 @@
           "score": 86,
           "trend": "improving",
           "fetchedAt": "2026-04-15T21:30:48.006Z",
-          "ageHours": 58.4,
+          "ageHours": 59.3,
           "source": "World Bank (IT.CEL.SETS.P2)"
         },
         {
@@ -384,7 +386,7 @@
           "score": 75,
           "trend": "improving",
           "fetchedAt": "2026-04-15T21:30:37.863Z",
-          "ageHours": 58.4,
+          "ageHours": 59.3,
           "source": "arXiv (cs.AI + cs.LG)"
         }
       ]
@@ -421,7 +423,7 @@
         {
           "name": "Erneuerbare Energie",
           "direction": "improving",
-          "change": "+6.6%",
+          "change": "+6.7%",
           "icon": "up"
         },
         {
@@ -1756,7 +1758,7 @@
       "criticallyEndangered": 27454,
       "source": "GBIF / IUCN",
       "fetchedAt": "2026-04-15T05:17:01.758Z",
-      "ageHours": 74.7
+      "ageHours": 75.5
     },
     "weather": [],
     "ocean": {
@@ -2966,8 +2968,8 @@
       "source": "World Bank"
     },
     "population": {
-      "current": 8100000000,
-      "totalMillions": 8100,
+      "current": 8141808945,
+      "totalMillions": 8142,
       "history": [],
       "source": "World Bank (SP.POP.TOTL)"
     },
@@ -3180,28 +3182,7 @@
     },
     "gini": {
       "globalAvg": 42,
-      "history": [
-        {
-          "year": 1990,
-          "value": 46
-        },
-        {
-          "year": 2000,
-          "value": 44
-        },
-        {
-          "year": 2010,
-          "value": 43
-        },
-        {
-          "year": 2020,
-          "value": 42
-        },
-        {
-          "year": 2026,
-          "value": 42
-        }
-      ],
+      "history": [],
       "source": "World Bank"
     },
     "inflation": {
@@ -3223,20 +3204,20 @@
       "source": "World Bank"
     },
     "cryptoFearGreed": {
-      "value": 23,
-      "label": "Extreme Fear",
-      "timestamp": "2026-04-15T00:00:00.000Z"
+      "value": 26,
+      "label": "Fear",
+      "timestamp": "2026-04-18T00:00:00.000Z"
     },
     "exchangeRates": {
-      "EUR": 0.847706,
-      "GBP": 0.737401,
-      "JPY": 158.885952,
-      "CNY": 6.829035,
-      "INR": 93.261159,
-      "BRL": 4.986897,
-      "RUB": 75.503022,
-      "KRW": 1472.46758,
-      "CHF": 0.781153
+      "EUR": 0.848449,
+      "GBP": 0.73885,
+      "JPY": 158.618822,
+      "CNY": 6.834105,
+      "INR": 92.896987,
+      "BRL": 4.985165,
+      "RUB": 76.032102,
+      "KRW": 1469.631216,
+      "CHF": 0.781333
     }
   },
   "progress": {
@@ -3245,7 +3226,7 @@
       "history": [
         {
           "year": 1980,
-          "value": 650000
+          "value": 500000
         },
         {
           "year": 1990,
@@ -3253,15 +3234,15 @@
         },
         {
           "year": 2000,
-          "value": 1200000
+          "value": 1400000
         },
         {
           "year": 2010,
-          "value": 1900000
+          "value": 2100000
         },
         {
           "year": 2020,
-          "value": 2800000
+          "value": 2900000
         },
         {
           "year": 2026,
@@ -3376,43 +3357,36 @@
       "history": [
         {
           "year": 1970,
-          "value": 56.2,
-          "male": 65.1,
-          "female": 47.3
+          "male": 70,
+          "female": 52
         },
         {
           "year": 1980,
-          "value": 63.5,
-          "male": 71.2,
-          "female": 55.8
+          "male": 76,
+          "female": 60
         },
         {
           "year": 1990,
-          "value": 71.8,
-          "male": 78.4,
-          "female": 65.2
+          "male": 82,
+          "female": 68
         },
         {
           "year": 2000,
-          "value": 78.6,
-          "male": 83.5,
-          "female": 73.7
+          "male": 87,
+          "female": 77
         },
         {
           "year": 2010,
-          "value": 83.2,
-          "male": 87.1,
-          "female": 79.3
+          "male": 89,
+          "female": 82
         },
         {
           "year": 2020,
-          "value": 86.3,
-          "male": 89.4,
-          "female": 83.2
+          "male": 90,
+          "female": 84
         },
         {
           "year": 2026,
-          "value": 87.4,
           "male": 90.1,
           "female": 84.7
         }
@@ -3439,82 +3413,82 @@
     "earthquakes": {
       "last24h": [
         {
-          "location": "19 km SE of Silver Springs, Nevada",
-          "magnitude": 3.35,
-          "depth": 5.8217,
-          "lat": 39.3038,
-          "lng": -119.0429,
-          "time": "2026-04-15T17:34:58.969Z",
+          "location": "210 km W of Langlois, Oregon",
+          "magnitude": 2.6,
+          "depth": 10,
+          "lat": 43.2088,
+          "lng": -127.0084,
+          "time": "2026-04-18T06:09:25.350Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "283 km WNW of Houma, Tonga",
-          "magnitude": 4.7,
-          "depth": 545.718,
-          "lat": -20.4537,
-          "lng": -177.9157,
-          "time": "2026-04-15T17:09:18.290Z",
+          "location": "Carlsberg Ridge",
+          "magnitude": 4.9,
+          "depth": 10,
+          "lat": 6.4842,
+          "lng": 60.2475,
+          "time": "2026-04-18T06:04:35.041Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "13 km SW of San Marcos, Costa Rica",
-          "magnitude": 3.8,
-          "depth": 49.345,
-          "lat": 9.5588,
-          "lng": -84.0885,
-          "time": "2026-04-15T15:55:01.527Z",
+          "location": "Carlsberg Ridge",
+          "magnitude": 5.5,
+          "depth": 10,
+          "lat": 6.409,
+          "lng": 60.2178,
+          "time": "2026-04-18T05:59:58.199Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "56 km WNW of Stevens Village, Alaska",
-          "magnitude": 2.5,
-          "depth": 4.4,
-          "lat": 66.115,
-          "lng": -150.309,
-          "time": "2026-04-15T14:58:08.601Z",
+          "location": "7 km SSE of Indios, Puerto Rico",
+          "magnitude": 2.47,
+          "depth": 8.87,
+          "lat": 17.9348333333333,
+          "lng": -66.7883333333333,
+          "time": "2026-04-18T05:54:40.980Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "24 km SW of Maricopa, CA",
-          "magnitude": 3.22,
-          "depth": 8.81,
-          "lat": 34.9208333333333,
-          "lng": -119.601166666667,
-          "time": "2026-04-15T14:51:17.100Z",
+          "location": "5 km NE of Ōmachi, Japan",
+          "magnitude": 4.9,
+          "depth": 10,
+          "lat": 36.5388,
+          "lng": 137.9099,
+          "time": "2026-04-18T05:54:30.799Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "11 km WSW of Point Possession, Alaska",
-          "magnitude": 3.2,
-          "depth": 8.4,
-          "lat": 60.891,
-          "lng": -150.885,
-          "time": "2026-04-15T12:55:34.303Z",
+          "location": "45 km NW of Ninilchik, Alaska",
+          "magnitude": 3.5,
+          "depth": 97.6,
+          "lat": 60.291,
+          "lng": -152.323,
+          "time": "2026-04-18T05:35:49.482Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "18 km SE of Silver Springs, Nevada",
-          "magnitude": 2.63,
-          "depth": 7.8909,
-          "lat": 39.3132,
-          "lng": -119.0537,
-          "time": "2026-04-15T11:01:18.687Z",
+          "location": "Kuril Islands",
+          "magnitude": 5.2,
+          "depth": 35,
+          "lat": 45.7789,
+          "lng": 151.8949,
+          "time": "2026-04-18T04:40:12.867Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "48 km SW of Karluk, Alaska",
-          "magnitude": 2.8,
-          "depth": 59.1,
-          "lat": 57.329,
-          "lng": -155.126,
-          "time": "2026-04-15T10:29:18.175Z",
+          "location": "279 km SSE of Amahai, Indonesia",
+          "magnitude": 4.4,
+          "depth": 205.269,
+          "lat": -5.6651,
+          "lng": 129.9006,
+          "time": "2026-04-18T04:37:12.871Z",
           "tsunami": false,
           "type": "earthquake"
         }
@@ -3542,135 +3516,135 @@
       "source": "GDELT"
     },
     "cryptoFearGreed": {
-      "value": 23,
+      "value": 26,
       "label": "Fear",
       "source": "Alternative.me"
     },
     "news": [
       {
-        "title": "Three paramedics killed in successive Israeli strikes in Lebanon, officials say",
-        "pubDate": "Wed, 15 Apr 2026 18:48:34 GMT",
-        "link": "https://www.bbc.com/news/articles/cgqkkxd09e2o?at_medium=RSS&amp;at_campaign=rss",
-        "source": "BBC World"
-      },
-      {
-        "title": "Can Trump get a better Iran deal than Obama?",
-        "pubDate": "Wed, 15 Apr 2026 18:48:00 GMT",
-        "link": "https://www.dw.com/en/can-trump-get-a-better-iran-deal-than-obama/a-76798388?maca=en-rss-en-world-4025-xml-mrss",
-        "source": "DW News"
-      },
-      {
-        "title": "Arab Barghouti says rights groups must do more for Palestinian prisoners",
-        "pubDate": "Wed, 15 Apr 2026 18:44:13 +0000",
-        "link": "https://www.aljazeera.com/video/newsfeed/2026/4/15/arab-barghouti-says-rights-groups-must-do-more-for-palestinian-prisoners?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "Trump threatens to fire Fed chair Powell if he doesn't leave in May",
-        "pubDate": "Wed, 15 Apr 2026 18:29:50 GMT",
-        "link": "https://www.bbc.com/news/articles/c9qddrdd8w2o?at_medium=RSS&amp;at_campaign=rss",
-        "source": "BBC World"
-      },
-      {
-        "title": "What is Trump-backed SAVE America Act and what could it mean for US vote?",
-        "pubDate": "Wed, 15 Apr 2026 18:29:00 +0000",
-        "link": "https://www.aljazeera.com/news/2026/4/15/what-is-trump-backed-save-america-act-and-what-could-it-mean-for-us-vote?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "Countries pledge $1.5bn for Sudan crisis as war enters fourth year",
-        "pubDate": "Wed, 15 Apr 2026 17:57:18 +0000",
-        "link": "https://www.aljazeera.com/news/2026/4/15/countries-pledge-1-5bn-for-sudan-crisis-as-war-enters-fourth-year?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "Nine killed in second Turkish school shooting in two days",
-        "pubDate": "Wed, 15 Apr 2026 17:50:08 GMT",
-        "link": "https://www.bbc.com/news/articles/cn088n9e6e9o?at_medium=RSS&amp;at_campaign=rss",
-        "source": "BBC World"
-      },
-      {
-        "title": "More than £1bn pledged for Sudan as humanitarian crisis deepens",
-        "pubDate": "Wed, 15 Apr 2026 17:49:04 GMT",
-        "link": "https://www.theguardian.com/global-development/2026/apr/15/more-than-1bn-pledged-for-sudan-as-humanitarian-crisis-deepens",
-        "source": "Guardian"
-      },
-      {
-        "title": "Germany, the UK warn the Iran war distracts from Ukraine and oil price rises help Russia",
-        "pubDate": "Wed, 15 Apr 2026 17:22:00 GMT",
-        "link": "https://www.dw.com/en/germany-the-uk-warn-the-iran-war-distracts-from-ukraine-and-oil-price-rises-help-russia/a-76797004?maca=en-rss-en-world-4025-xml-mrss",
-        "source": "DW News"
-      },
-      {
-        "title": "Pope Leo calls on Cameroon to break 'the chains of corruption'",
-        "pubDate": "Wed, 15 Apr 2026 17:03:55 GMT",
-        "link": "https://www.france24.com/en/africa/20260415-pope-leo-heads-to-cameroon-with-message-of-peace-as-separatists-announce-3-day-truce",
-        "source": "France24"
-      },
-      {
-        "title": "2026 NSTA Hyperwall Schedule",
-        "pubDate": "Wed, 15 Apr 2026 15:59:44 +0000",
-        "link": "https://science.nasa.gov/earth/2026-nsta-hyperwall-schedule/",
-        "source": "NASA"
-      },
-      {
-        "title": "The school in Kenya where education is empowering teenage mothers",
-        "pubDate": "Wed, 15 Apr 2026 15:31:06 GMT",
-        "link": "https://www.france24.com/en/video/20260415-the-school-in-kenya-where-education-is-empowering-teenage-mothers",
-        "source": "France24"
-      },
-      {
-        "title": "From Yaoundé to Bamenda, Cameroonians await Pope Leo XIV’s visit",
-        "pubDate": "Wed, 15 Apr 2026 15:30:11 GMT",
-        "link": "https://www.france24.com/en/video/20260415-from-yaound%C3%A9-to-bamenda-cameroonians-await-pope-leo-xiv-s-visit",
-        "source": "France24"
-      },
-      {
-        "title": "South Africa appoints veteran Afrikaner politician Roelf Meyer as US ambassador amid tense Trump ties",
-        "pubDate": "Wed, 15 Apr 2026 15:18:00 GMT",
-        "link": "https://www.dw.com/en/south-africa-appoints-veteran-afrikaner-politician-roelf-meyer-as-us-ambassador-amid-tense-trump-ties/a-76794872?maca=en-rss-en-world-4025-xml-mrss",
-        "source": "DW News"
-      },
-      {
-        "title": "Suspicion surrounds death of US influencer Ashly Robinson in Zanzibar",
-        "pubDate": "Wed, 15 Apr 2026 15:14:13 GMT",
-        "link": "https://www.theguardian.com/world/2026/apr/15/ashly-robinson-death-influencer-zanzibar",
-        "source": "Guardian"
-      },
-      {
-        "title": "NASA’s SPHEREx Mission Maps Water Ice Throughout Cygnus X",
-        "pubDate": "Wed, 15 Apr 2026 15:04:38 +0000",
-        "link": "https://science.nasa.gov/photojournal/nasas-spherex-mission-maps-water-ice-throughout-cygnus-x/",
-        "source": "NASA"
-      },
-      {
-        "title": "South Africa names apartheid-era negotiator as ambassador to US",
-        "pubDate": "Wed, 15 Apr 2026 15:04:35 GMT",
-        "link": "https://www.theguardian.com/world/2026/apr/15/south-africa-names-ambassador-us-roelf-meyer",
-        "source": "Guardian"
-      },
-      {
-        "title": "‘Interstellar Glaciers’: NASA’s SPHEREx Maps Vast Galactic Ice Regions",
-        "pubDate": "Wed, 15 Apr 2026 15:02:15 +0000",
-        "link": "https://www.nasa.gov/missions/spherex/interstellar-glaciers-nasas-spherex-maps-vast-galactic-ice-regions/",
-        "source": "NASA"
-      },
-      {
-        "title": "Africa: Nearly 20 million measles deaths averted since 2000",
-        "pubDate": "Wed, 15 Apr 2026 12:00:00 +0000",
-        "link": "https://news.un.org/feed/view/en/story/2026/04/1167307",
+        "title": "UNICEF ‘outraged’ by killing of Gaza water truck drivers, urges investigation",
+        "pubDate": "Sat, 18 Apr 2026 12:00:00 +0000",
+        "link": "https://news.un.org/feed/view/en/story/2026/04/1167331",
         "source": "UN News"
       },
       {
-        "title": "Youth shape the road to 2030, call for urgent action on sustainable development",
-        "pubDate": "Wed, 15 Apr 2026 12:00:00 +0000",
-        "link": "https://news.un.org/feed/view/en/story/2026/04/1167306",
-        "source": "UN News"
+        "title": "US extends sanctions waiver on Russian oil sales at sea",
+        "pubDate": "Sat, 18 Apr 2026 07:37:48 GMT",
+        "link": "https://www.france24.com/en/europe/20260418-us-extends-sanctions-waiver-on-russian-oil-sales-at-sea",
+        "source": "France24"
+      },
+      {
+        "title": "Israeli police destroy children’s footballs at Al-Aqsa mosque",
+        "pubDate": "Sat, 18 Apr 2026 06:52:44 +0000",
+        "link": "https://www.aljazeera.com/video/newsfeed/2026/4/18/israeli-police-destroy-childrens-footballs-at-al-aqsa-mosque?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "Trump says US will ‘start dropping bombs again’ if no Iran deal is reached",
+        "pubDate": "Sat, 18 Apr 2026 06:10:45 +0000",
+        "link": "https://www.aljazeera.com/video/newsfeed/2026/4/18/trump-says-us-will-start-dropping-bombs-again-if-no-iran-deal-is-reached?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "Iran war: What is happening on day 50 of the US-Iran conflict?",
+        "pubDate": "Sat, 18 Apr 2026 06:07:12 +0000",
+        "link": "https://www.aljazeera.com/news/2026/4/18/iran-war-what-is-happening-on-day-50-of-the-us-iran-conflict?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "Oil prices plunge as Iran says Strait 'open'",
+        "pubDate": "Sat, 18 Apr 2026 06:06:38 GMT",
+        "link": "https://www.bbc.com/news/articles/ckg045z73z1o?at_medium=RSS&amp;at_campaign=rss",
+        "source": "BBC World"
+      },
+      {
+        "title": "Middle East live: Iran threatens to close Strait of Hormuz again if US blockade continues",
+        "pubDate": "Sat, 18 Apr 2026 05:01:20 GMT",
+        "link": "https://www.france24.com/en/middle-east/20260418-iran-threatens-to-close-strait-of-hormuz-again-if-us-blockade-continues",
+        "source": "France24"
+      },
+      {
+        "title": "Tale of two truces: Lebanon 'steps up' alongside Israel as Tehran and Washington edge toward a deal",
+        "pubDate": "Sat, 18 Apr 2026 04:58:33 GMT",
+        "link": "https://www.france24.com/en/tv-shows/spotlight/20260418-tale-of-two-truces-lebanon-steps-up-alongside-israel-as-tehran-and-washington-edge-toward-a-deal",
+        "source": "France24"
+      },
+      {
+        "title": "World Cup 2026: Fans to pay $150 for train ticket to stadium",
+        "pubDate": "Fri, 17 Apr 2026 23:53:00 GMT",
+        "link": "https://www.dw.com/en/world-cup-2026-fans-to-pay-150-for-train-ticket-to-stadium/a-76839579?maca=en-rss-en-world-4025-xml-mrss",
+        "source": "DW News"
+      },
+      {
+        "title": "France, other World Bank shareholders seek solution to preserve climate strategy - Reuters",
+        "pubDate": "Fri, 17 Apr 2026 22:57:40 GMT",
+        "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxNemxNRDVnTkNIV2lJc05pa0dncVRnSnZONU5fYTF3REVoUVNGbHV5S2wwZEV0aTlmcV9wSlZ2ZUFHTEZJV01IMng5RUJfM3FyZ1p6dElQSE9qQkpxSHVwOGlHQVdSOFFqbmd2LURVUWhleUJrV2ZVMVBISEpSdUVpZXN0RXV1TjZiMFUxblAxaDRtUDFEa2Y2QmFLTVdYZzVLbXJ6UExHZUY0SHE2TFAwa2ZHM1ltSU16MjlzOVdMZWZCWHJMSERtd0tnNA?oc=5",
+        "source": "World Bank"
+      },
+      {
+        "title": "World Bank launches new strategy to help small states tackle challenges - Reuters",
+        "pubDate": "Fri, 17 Apr 2026 22:25:42 GMT",
+        "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPYy1iaHRWZ1FnZDhTTGlFd2pOV204OGNXejFZQzFNcTNHdXB2clR0cnRCak1LejZzRm9QR1B4UmNJc083OEVGQU1LVlhmVVNUeFB6YWhhTW9JZ2o4SXRVLTJkbnJPSGl6T3JwazJnV1NDQXViWGQwbGRCZm1VVjVaSVpmOEplQUszd01WUkd6ZTNIdks1ZGJoNTFpX21ubTBOdjdHcnJ4M01uY3FialpfZ3AtZFAyVHB4N2RmU3ZB?oc=5",
+        "source": "World Bank"
+      },
+      {
+        "title": "Europe looks to secure shipping in Strait of Hormuz",
+        "pubDate": "Fri, 17 Apr 2026 20:25:00 GMT",
+        "link": "https://www.dw.com/en/europe-looks-to-secure-shipping-in-strait-of-hormuz/a-76838636?maca=en-rss-en-world-4025-xml-mrss",
+        "source": "DW News"
+      },
+      {
+        "title": "Can the 25th Amendment remove Donald Trump from office?",
+        "pubDate": "Fri, 17 Apr 2026 19:55:00 GMT",
+        "link": "https://www.dw.com/en/can-the-25th-amendment-remove-donald-trump-from-office/a-76835018?maca=en-rss-en-world-4025-xml-mrss",
+        "source": "DW News"
+      },
+      {
+        "title": "Thousands celebrate open-air Mass with Pope Leo in Cameroon - in pictures",
+        "pubDate": "Fri, 17 Apr 2026 18:25:12 GMT",
+        "link": "https://www.bbc.com/news/articles/cdj7kwn1d78o?at_medium=RSS&amp;at_campaign=rss",
+        "source": "BBC World"
+      },
+      {
+        "title": "Kanye West concert in Poland cancelled over antisemitic comments",
+        "pubDate": "Fri, 17 Apr 2026 18:19:10 GMT",
+        "link": "https://www.bbc.com/news/articles/czx95rl4ek5o?at_medium=RSS&amp;at_campaign=rss",
+        "source": "BBC World"
+      },
+      {
+        "title": "World Bank: Is Economic Growth Alone Enough? Human Wellbeing and Development Strategy - Business Fights Poverty",
+        "pubDate": "Fri, 17 Apr 2026 17:22:01 GMT",
+        "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE83NG5PdkVhNmtJSzE2eDRSRFdkMkUtX2UwOHRlZnl5a3c1OEh3NGJCNFBrVGJYaVdVUGJpTXI0VFpuZEVIa2gzTGc1ZnZieDUwbWx5NmtTbHNaWUpfQ3VDWWxrM05vZ0tNNlpVRWZKX2JFZWZP?oc=5",
+        "source": "World Bank"
+      },
+      {
+        "title": "Kenyan firm sacks more than 1,000 workers after losing Meta contract",
+        "pubDate": "Fri, 17 Apr 2026 16:59:04 GMT",
+        "link": "https://www.theguardian.com/technology/2026/apr/17/kenyan-outsourcing-company-for-meta-sacks-workers",
+        "source": "Guardian"
+      },
+      {
+        "title": "IMF Members Say Iran Conflict Poses Risk to Global Economy - Bloomberg.com",
+        "pubDate": "Fri, 17 Apr 2026 16:56:24 GMT",
+        "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOMDE5bTVMbkRZS082cVpCemktWE1FNmNPQVNzZmJGQjFnM1ZPdy1Ib0l1S2FYQ2J4ZkY2eTRHZnA0WEhSckE0NzdIYzZ4OFlyYVBpNlpiQ0RlMFN0LWxsdWdqdU5CeUF5YUlSNFBIMm9LYm9tWHJNVzJSekZPc0tfYzhBelZMVUNfb19VSWQ1cmVyMnRSVG9kSjNIR2dBejYyZ2JwREJNMVBqQ2pMR3ljOW93?oc=5",
+        "source": "IMF"
+      },
+      {
+        "title": "Record number of Rohingya refugees died at sea last year, UNHCR says - Al Jazeera",
+        "pubDate": "Fri, 17 Apr 2026 16:05:50 GMT",
+        "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPTkNwM0VEZnRqbnRkbi1YbkRyc3kxdG92eGJRaVJzS3NsZU9ldWViV0FIeEUzUlYtbU5CSzQ3RzNiNWVjUVlqc2h5VFV3ZnNaT2h5V2Uxc0paRUw5TklsRkN5eXZyWGFWNjJWb0VPSUZSc1FtZHZpOG1Ta0ZOdnBSZndnOUY0aTFuaVZoLWxzc2s1Nk5qOExKcnIwekV6ZDl2X0U0c1RsY0dvemR30gGyAUFVX3lxTE1Sd0Z1R2dENklZTUFSNnllckZxajBPZXMxSy1wMmZqak1FT0dHemNKLWU1WXlIa3BqaFFZOHpBUkJhWE1SOHpkY1hEUmpQbDBTVE9xWGNBckxvZ01CeVpTLUlZOTZUeGtzTGl5TXladV9TMmRiZDdsRlJjR3U1WmpydEtSVnh2VnE5RWgyZWYxNk5uNVhOaGlMQ01xME1fNEpXTGtScmhWY1hraUttc2dnMHc?oc=5",
+        "source": "UNHCR"
+      },
+      {
+        "title": "Iran, the Global Economy, and the Case Against Complacency - Council on Foreign Relations",
+        "pubDate": "Fri, 17 Apr 2026 14:58:20 GMT",
+        "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOa284cXNSZ09wdGNGWDRBUVh3TkdmeFhRZkJTSGFHdnhJYWhCVWp4dDUxLUYzTlFST1ZJM0dWVU80RHdZSGhtb3pjSnp6NDkyU1ZjWlZmdkdraDRYV0l4ejl1M2dndDFkc3lsYm5LZ2lXcW4wLXU1VE1CUGo5cUl1SUk4WDl4c0dGaFE2bUp3?oc=5",
+        "source": "IMF"
       }
     ],
     "volcanic": [],
     "solar": [],
-    "lastUpdated": "2026-04-18T07:56:05.221Z"
+    "lastUpdated": "2026-04-18T08:47:10.653Z"
   },
   "momentum": {
     "indicators": [
@@ -3695,7 +3669,7 @@
       {
         "name": "Erneuerbare Energie",
         "direction": "improving",
-        "change": "+6.6%",
+        "change": "+6.7%",
         "icon": "up"
       },
       {
