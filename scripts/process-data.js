@@ -693,9 +693,9 @@ function buildWorldState() {
     acled: conflictsCache?.conflict_data?.acled || null,
   };
   const conflicts = baseConflicts;
-  // Updated April 2026 — UNHCR Mid-Year Trends 2025 + IDMC 2025
+  // UNHCR Global Trends 2024 (published June 2025)
   const refugees = existing?.society?.refugees || {
-    total: 123000000, displaced: 72400000, asylumseekers: 7200000,
+    total: 120000000, displaced: 43400000, asylumseekers: 7600000,
     flows: [
       { from: 'Sudan', to: 'Chad', count: 2100000 },
       { from: 'Syria', to: 'Turkey', count: 3100000 },
@@ -706,7 +706,7 @@ function buildWorldState() {
       { from: 'DRC', to: 'Uganda', count: 620000 },
       { from: 'Somalia', to: 'Kenya', count: 540000 }
     ],
-    source: 'UNHCR 2025'
+    source: 'UNHCR 2024'
   };
   // Freedom House Freedom in the World 2026 report
   // Prefer cache if present (updated daily via society-ext job)
