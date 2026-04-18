@@ -166,7 +166,7 @@ export async function render(blocks) {
   _renderTiles(blocks.tiles, activeConflicts, battleDeaths, displacedMillions, refugeesMillions, acled);
 
   // --- 6. Comparison Block (Refugees Doughnut + Live Headlines) ---
-  _renderComparison(blocks.comparison, liveHeadlines, liveCrises);
+  _renderComparison(blocks.comparison, liveHeadlines, liveCrises, displacedMillions, refugeesMillions);
 
   // --- 7. Explanation Block ---
   _renderExplanation(blocks.explanation);
@@ -634,7 +634,7 @@ function _renderTiles(tilesEl, activeConflicts, battleDeaths, displacedMillions,
 
 // --- Comparison Block (Refugees Doughnut Chart) -------------------------
 
-function _renderComparison(compEl, headlines, crises) {
+function _renderComparison(compEl, headlines, crises, displacedMillions, refugeesMillions) {
   compEl.appendChild(
     DOMUtils.create('div', {}, [
       DOMUtils.create('h2', {
