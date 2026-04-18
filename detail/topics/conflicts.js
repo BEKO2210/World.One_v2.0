@@ -77,7 +77,8 @@ const CONFLICT_TREND = [
   { year: 2014, count: 40 }, { year: 2015, count: 52 }, { year: 2016, count: 53 },
   { year: 2017, count: 49 }, { year: 2018, count: 52 }, { year: 2019, count: 54 },
   { year: 2020, count: 56 }, { year: 2021, count: 55 }, { year: 2022, count: 55 },
-  { year: 2023, count: 59 }, { year: 2024, count: 56 }, { year: 2025, count: 59 }, { year: 2026, count: 59 },
+  // UCDP 2023 final: 59 state-based conflicts. 2024-2026 ACLED-Schätzungen.
+  { year: 2023, count: 59 }, { year: 2024, count: 56 }, { year: 2025, count: 56 }, { year: 2026, count: 59 },
 ];
 
 // --- Notable event years for annotations ------------------------------
@@ -92,12 +93,13 @@ const EVENT_YEARS = {
 
 // --- Refugees/Displacement data (UNHCR 2024 mid-year) -----------------
 
-// UNHCR displacement baselines — überschrieben aus Cache wenn verfügbar.
+// Aktuelle UNHCR-Baseline (Global Trends 2024, veröffentlicht Juni 2025).
+// Überschrieben aus world-state.json wenn Pipeline frischere Daten hat.
 const DISPLACEMENT_DEFAULTS = {
-  refugees: 40.1,
-  idps: 72.4,
-  asylumSeekers: 7.2,
-  total: 117,
+  refugees: 43.4,       // Mio (end 2024)
+  idps: 75.9,           // Mio (mid 2024)
+  asylumSeekers: 7.6,   // Mio (end 2024)
+  total: 120,            // Mio (global forced displacement, UNHCR 2024)
 };
 
 // --- Intensity helpers -------------------------------------------------
@@ -136,7 +138,8 @@ export async function render(blocks) {
     conflictData.active_conflicts || 0,
     CONFLICT_COUNTRIES.length
   );
-  const battleDeaths = acled?.totalFatalities || conflictData.battle_deaths || 162000;
+  // UCDP 2023: ~154K battle-related deaths. ACLED 30d gibt die aktuellere Zahl.
+  const battleDeaths = acled?.totalFatalities || conflictData.battle_deaths || 154000;
   const liveHeadlines = conflictData.headlines || [];
   const liveCrises = conflictData.crises || [];
 
@@ -578,17 +581,17 @@ function _renderTiles(tilesEl, activeConflicts, battleDeaths, displacedMillions,
     {
       label: i18n.t('detail.conflicts.tileActiveConflicts'),
       value: String(activeConflicts),
-      unit: acled ? `ACLED ${year}` : String(year),
+      unit: acled ? 'ACLED' : 'UCDP',
     },
     {
       label: i18n.t('detail.conflicts.tileBattleDeaths'),
       value: MathUtils.formatCompact(battleDeaths),
-      unit: acled ? 'ACLED 30d' : `${year - 1}`,
+      unit: acled ? `ACLED (${acled.period?.split(' to ')[0]?.slice(5) || '30d'})` : `UCDP ${year - 2}`,
     },
     {
       label: i18n.t('detail.conflicts.tileDisplaced'),
       value: `${displacedMillions}M`,
-      unit: String(year),
+      unit: `UNHCR ${year - 1}`,
     },
     {
       label: i18n.t('detail.conflicts.tileRefugees'),
