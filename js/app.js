@@ -326,7 +326,9 @@ class BelkisOne {
     // Formatiert ein Alter in Stunden als Text fürs Tooltip
     const ageText = (h) => {
       if (h == null || !Number.isFinite(h)) return null;
-      if (h < 1)   return 'gerade aktualisiert';
+      const m = Math.round(h * 60);
+      if (m < 2)   return 'gerade aktualisiert';
+      if (m < 60)  return `aktualisiert vor ${m} min`;
       if (h < 24)  return `aktualisiert vor ${Math.round(h)}h`;
       return `aktualisiert vor ${Math.round(h / 24)}d`;
     };
