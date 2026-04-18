@@ -604,6 +604,78 @@ function buildWorldState() {
     { name: 'Mosambik', lat: -18.67, lng: 35.53, type: 'unrest', intensity: 0.40 },
   ];
 
+  // ─── Live-Konflikt-Karte (datengetrieben statt hardcoded) ───
+  // Basis-ISO-Intensitäten stammen von den hardcoded CONFLICT_LOCATIONS.
+  // Wenn ACLED-Live-Daten vorhanden sind, werden die Intensitäten via
+  // topCountries automatisch aktualisiert. maps.js conflictsLayer() liest
+  // diese Daten direkt aus world-state.json statt eigene hardcoded Listen.
+  const COUNTRY_NAME_TO_ISO = {
+    'Ukraine': 'UA', 'Russia': 'RU', 'Russian Federation': 'RU',
+    'Palestine': 'PS', 'Gaza': 'PS', 'Israel': 'IL',
+    'Sudan': 'SD', 'South Sudan': 'SS', 'Myanmar': 'MM',
+    'Iran': 'IR', 'Iran (Islamic Republic of)': 'IR',
+    'Lebanon': 'LB', 'Libanon': 'LB',
+    'Democratic Republic of the Congo': 'CD', 'DR Kongo': 'CD', 'DRC': 'CD', 'Congo': 'CD',
+    'Afghanistan': 'AF', 'Pakistan': 'PK', 'Nigeria': 'NG',
+    'Syria': 'SY', 'Syrian Arab Republic': 'SY', 'Syrien': 'SY',
+    'Somalia': 'SO', 'Yemen': 'YE', 'Jemen': 'YE',
+    'Ethiopia': 'ET', 'Äthiopien': 'ET',
+    'Mali': 'ML', 'Burkina Faso': 'BF', 'Niger': 'NE',
+    'Haiti': 'HT', 'Colombia': 'CO', 'Kolumbien': 'CO',
+    'Mexico': 'MX', 'Mexiko': 'MX',
+    'Iraq': 'IQ', 'Irak': 'IQ',
+    'Mozambique': 'MZ', 'Mosambik': 'MZ',
+    'Cameroon': 'CM', 'Kamerun': 'CM',
+    'Chad': 'TD', 'Tschad': 'TD',
+    'Central African Republic': 'CF',
+    'Libya': 'LY', 'Libyen': 'LY',
+    'Venezuela': 'VE', 'Ecuador': 'EC',
+    'India': 'IN', 'Philippines': 'PH', 'Philippinen': 'PH',
+    'Thailand': 'TH', 'Kenya': 'KE', 'Kenia': 'KE',
+    'Uganda': 'UG', 'Egypt': 'EG', 'Ägypten': 'EG',
+    'Turkey': 'TR', 'Türkei': 'TR', 'Turkiye': 'TR',
+    'Senegal': 'SN', 'Burundi': 'BI', 'Rwanda': 'RW',
+    'Sahel (Mali/Burkina/Niger)': 'ML',
+  };
+
+  // Baseline: hardcoded Locations → ISO + intensity
+  // Compound names like "Ukraine/Russia" → split and look up each part.
+  const countryISOs = {};
+  CONFLICT_LOCATIONS_2026.forEach(loc => {
+    // Handle compound names (e.g. "Ukraine/Russia", "Gaza/Israel")
+    const parts = loc.name.split('/').map(s => s.trim());
+    for (const part of parts) {
+      const iso = COUNTRY_NAME_TO_ISO[part];
+      if (iso) countryISOs[iso] = Math.max(countryISOs[iso] || 0, loc.intensity);
+    }
+    // Also try full compound name
+    const iso = COUNTRY_NAME_TO_ISO[loc.name];
+    if (iso) countryISOs[iso] = Math.max(countryISOs[iso] || 0, loc.intensity);
+  });
+
+  // Override: ACLED live top-countries (wenn vorhanden)
+  const acledData = conflictsCache?.conflict_data?.acled;
+  if (acledData?.topCountries?.length > 0) {
+    const maxEvents = acledData.topCountries[0]?.events || 1;
+    acledData.topCountries.forEach(tc => {
+      const iso = COUNTRY_NAME_TO_ISO[tc.country];
+      if (iso) {
+        // Intensity = event-count relative to worst, range 0.3–1.0
+        const liveIntensity = 0.3 + 0.7 * ((tc.events || 0) / maxEvents);
+        countryISOs[iso] = Math.max(countryISOs[iso] || 0,
+          Math.round(liveIntensity * 100) / 100);
+      }
+    });
+  }
+
+  // Override: ACLED high-fatality-events (jedes Land mit Todesopfern = intensiv)
+  if (acledData?.highFatalityEvents?.length) {
+    acledData.highFatalityEvents.forEach(evt => {
+      const iso = COUNTRY_NAME_TO_ISO[evt.country];
+      if (iso) countryISOs[iso] = Math.max(countryISOs[iso] || 0, 0.75);
+    });
+  }
+
   const baseConflicts = {
     activeCount: Math.max(
       CONFLICT_LOCATIONS_2026.length,
@@ -612,6 +684,7 @@ function buildWorldState() {
       59
     ),
     locations: CONFLICT_LOCATIONS_2026,
+    countryISOs,
     source: conflictsCache?.conflict_data?.api_status === 'live'
       ? (conflictsCache.conflict_data.source || 'ReliefWeb/GDELT') : 'ACLED/Crisis Group (baseline)',
     headlines: conflictsCache?.conflict_data?.headlines || [],
