@@ -30,28 +30,37 @@ let _chartData = null;
 let _trendChart = null;
 let _tooltipEl = null;
 
-// --- Conflict Country Data (UCDP/PRIO major conflicts) ----------------
+// --- Conflict Country Data (UCDP/PRIO/ACLED major conflicts 2026) ------
+// Baseline: wird von ACLED-Live-Daten ergänzt wenn verfügbar.
 
 const CONFLICT_COUNTRIES = [
+  // Wars (Intensität 3)
   { name: 'Ukraine', lat: 49.0, lng: 31.0, intensity: 3 },
   { name: 'Gaza/Palestine', lat: 31.4, lng: 34.4, intensity: 3 },
   { name: 'Myanmar', lat: 19.8, lng: 96.1, intensity: 3 },
   { name: 'Sudan', lat: 12.9, lng: 30.2, intensity: 3 },
+  { name: 'Iran', lat: 32.4, lng: 53.7, intensity: 3 },
+  { name: 'Yemen', lat: 15.6, lng: 48.5, intensity: 3 },
+  // Bewaffnete Konflikte (Intensität 2)
   { name: 'Ethiopia', lat: 9.0, lng: 38.7, intensity: 2 },
   { name: 'Somalia', lat: 5.2, lng: 46.2, intensity: 2 },
   { name: 'DR Congo', lat: -4.0, lng: 21.8, intensity: 2 },
-  { name: 'Yemen', lat: 15.6, lng: 48.5, intensity: 3 },
   { name: 'Syria', lat: 35.0, lng: 38.0, intensity: 2 },
   { name: 'Afghanistan', lat: 33.9, lng: 67.7, intensity: 2 },
-  { name: 'Iraq', lat: 33.2, lng: 43.7, intensity: 1 },
   { name: 'Nigeria', lat: 9.1, lng: 7.5, intensity: 2 },
   { name: 'Burkina Faso', lat: 12.4, lng: -1.6, intensity: 2 },
   { name: 'Mali', lat: 17.6, lng: -4.0, intensity: 2 },
+  { name: 'Lebanon', lat: 33.9, lng: 35.8, intensity: 2 },
+  { name: 'South Sudan', lat: 7.9, lng: 29.9, intensity: 2 },
+  { name: 'Niger', lat: 17.6, lng: 8.1, intensity: 2 },
+  // Niedrige Intensität (1)
+  { name: 'Iraq', lat: 33.2, lng: 43.7, intensity: 1 },
+  { name: 'Pakistan', lat: 30.4, lng: 69.3, intensity: 1 },
   { name: 'Cameroon', lat: 7.4, lng: 12.4, intensity: 1 },
   { name: 'Mozambique', lat: -18.7, lng: 35.5, intensity: 1 },
   { name: 'Colombia', lat: 4.6, lng: -74.1, intensity: 1 },
   { name: 'Mexico', lat: 23.6, lng: -102.6, intensity: 1 },
-  { name: 'Pakistan', lat: 30.4, lng: 69.3, intensity: 1 },
+  { name: 'Haiti', lat: 19.0, lng: -72.3, intensity: 1 },
   { name: 'Philippines', lat: 14.6, lng: 121.0, intensity: 1 },
 ];
 
@@ -83,12 +92,12 @@ const EVENT_YEARS = {
 
 // --- Refugees/Displacement data (UNHCR 2024 mid-year) -----------------
 
-// Updated April 2026 — UNHCR Mid-Year Trends 2025
-const DISPLACEMENT = {
-  refugees: 40.1,       // millions
-  idps: 72.4,           // millions
-  asylumSeekers: 7.2,   // millions
-  total: 123,            // millions (includes others)
+// UNHCR displacement baselines — überschrieben aus Cache wenn verfügbar.
+const DISPLACEMENT_DEFAULTS = {
+  refugees: 40.1,
+  idps: 72.4,
+  asylumSeekers: 7.2,
+  total: 117,
 };
 
 // --- Intensity helpers -------------------------------------------------
@@ -120,24 +129,29 @@ export async function render(blocks) {
   const conflictData = data?.conflict_data || {};
   const acled = conflictData.acled || null;
 
-  // Prefer ACLED live data, fallback to hardcoded baselines.
-  // When ACLED is configured, the V2 pipeline delivers fresh data every 6h.
+  // ── Alle Zahlen aus dem Cache ziehen, Baseline nur als Fallback ──
+  const conflictYear = new Date().getFullYear();
   const activeConflicts = Math.max(
     acled?.countriesAffected || 0,
     conflictData.active_conflicts || 0,
     CONFLICT_COUNTRIES.length
   );
-  const conflictYear = new Date().getFullYear();
-  const battleDeaths = acled?.totalFatalities || 162000;
+  const battleDeaths = acled?.totalFatalities || conflictData.battle_deaths || 162000;
   const liveHeadlines = conflictData.headlines || [];
   const liveCrises = conflictData.crises || [];
 
+  // Displaced/Refugees: aus world-state.json (vom Processor gesetzt)
+  // oder UNHCR-Baseline wenn nicht verfügbar
+  const wsRefugees = data?._worldStateRef?.society?.refugees;
+  const displacedMillions = wsRefugees
+    ? Math.round(wsRefugees.total / 1e6 * 10) / 10
+    : DISPLACEMENT_DEFAULTS.total;
+  const refugeesMillions = wsRefugees
+    ? Math.round(wsRefugees.displaced / 1e6 * 10) / 10 || DISPLACEMENT_DEFAULTS.refugees
+    : DISPLACEMENT_DEFAULTS.refugees;
+
   // Build live map markers: merge ACLED highFatalityEvents with baseline
   const liveMarkers = _buildLiveMarkers(acled);
-
-  // Static fallback values (UNHCR)
-  const displacedMillions = DISPLACEMENT.total;
-  const refugeesMillions = DISPLACEMENT.refugees;
 
   // --- 2. Hero Block ---
   _renderHero(blocks.hero, activeConflicts, conflictYear, tier, age, acled);
@@ -710,7 +724,12 @@ function _renderComparison(compEl, headlines, crises) {
   }
 
   // Store data for lazy getChartConfigs
-  _chartData = { displacement: DISPLACEMENT };
+  _chartData = { displacement: {
+    refugees: refugeesMillions || DISPLACEMENT_DEFAULTS.refugees,
+    idps: DISPLACEMENT_DEFAULTS.idps,
+    asylumSeekers: DISPLACEMENT_DEFAULTS.asylumSeekers,
+    total: displacedMillions || DISPLACEMENT_DEFAULTS.total,
+  }};
 }
 
 // --- Explanation Block ---------------------------------------------------
