@@ -856,7 +856,7 @@ class BelkisOne {
         const ready = mapEl._svgReady || Promise.resolve();
         ready.then(() => {
           const mc = mapEl.querySelector('.map-container') || mapEl;
-          Maps.conflictsLayer(mc, soc.conflicts.locations, soc.refugees || null);
+          Maps.conflictsLayer(mc, soc.conflicts, soc.refugees || null);
         });
       }
 
@@ -1130,7 +1130,7 @@ class BelkisOne {
 
       const soc = data.society;
       const env = data.environment;
-      const conflicts = soc?.conflicts?.locations || [];
+      const conflicts = soc?.conflicts || {};
       const refugees = soc?.refugees || null;
 
       // Wait for SVG to load, then show default layer (climate)

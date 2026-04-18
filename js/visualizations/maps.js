@@ -231,40 +231,62 @@ export class Maps {
   static conflictsLayer(container, conflicts, refugees) {
     Maps._clearOverlays(container);
 
-    // Build conflict data map: merge API data + additional known conflicts (March 2026)
-    // Sources: ACLED, Crisis Group, CFR, Al Jazeera, Wikipedia
-    const CONFLICT_COUNTRIES = {
-      // Wars (intensity ≥ 0.7 — bright red glow)
+    // Build conflict intensity map from LIVE data in world-state.json.
+    // process-data.js generates conflicts[].countryISOs from the hardcoded
+    // baseline merged with ACLED live topCountries + highFatalityEvents.
+    // When ACLED is active, the map auto-updates every 6h pipeline run.
+    //
+    // Fallback: if world-state doesn't carry countryISOs (old format),
+    // use the legacy hardcoded baseline so the map never breaks.
+    const LEGACY_CONFLICT_COUNTRIES = {
       UA: 0.90, RU: 0.90, PS: 1.0, SD: 0.95, MM: 0.85, IR: 0.90,
       IL: 0.90, LB: 0.80, CD: 0.80, AF: 0.75, PK: 0.70,
-      // Armed conflicts (0.5–0.69 — orange glow)
       SS: 0.70, ET: 0.70, ML: 0.70, SY: 0.60, SO: 0.60,
       BF: 0.65, HT: 0.65, NG: 0.60, YE: 0.55, NE: 0.55,
       VE: 0.50, MZ: 0.50, EC: 0.50, CO: 0.45, CM: 0.45,
-      // Unrest / lower-intensity (< 0.5 — dark orange glow)
       CF: 0.45, IQ: 0.35, LY: 0.30, TD: 0.35, MX: 0.45
     };
 
-    // Conflict name-to-ISO mapping for data from world-state.json
-    const NAME_TO_ISO = {
-      'Ukraine': ['UA'], 'Gaza': ['PS', 'IL'], 'Sudan': ['SD'],
-      'Myanmar': ['MM'], 'Syrien': ['SY'], 'Syria': ['SY'],
-      'Jemen': ['YE'], 'Yemen': ['YE'], 'Somalia': ['SO'],
-      'DR Kongo': ['CD'], 'DRC': ['CD'], 'Sahel': ['ML', 'BF', 'NE'],
-      'Haiti': ['HT'], 'Iran': ['IR'], 'Lebanon': ['LB'], 'Libanon': ['LB'],
-      'Iraq': ['IQ'], 'Irak': ['IQ'], 'Afghanistan': ['AF'],
-      'Nigeria': ['NG'], 'Ethiopia': ['ET'], 'Äthiopien': ['ET'],
-      'Libya': ['LY'], 'Libyen': ['LY'], 'Pakistan': ['PK'],
-      'Mozambique': ['MZ'], 'Mosambik': ['MZ'], 'Cameroon': ['CM'], 'Kamerun': ['CM'],
-      'Chad': ['TD'], 'Tschad': ['TD'], 'Central African Republic': ['CF']
-    };
+    // Prefer live-derived data, fallback to legacy
+    const liveISOs = (Array.isArray(conflicts) ? null : conflicts?.countryISOs) ||
+                     (Array.isArray(conflicts) ? null : null);
+    const CONFLICT_COUNTRIES = liveISOs && Object.keys(liveISOs).length > 5
+      ? { ...LEGACY_CONFLICT_COUNTRIES, ...liveISOs }
+      : LEGACY_CONFLICT_COUNTRIES;
 
-    // Override with actual API data intensities where available
-    if (Array.isArray(conflicts)) {
-      conflicts.forEach(c => {
+    // Merge per-location intensity overrides from the locations array
+    // (backward compat for call patterns that pass an array of locations)
+    const locations = Array.isArray(conflicts) ? conflicts : (conflicts?.locations || []);
+
+    // Per-location intensity overrides (backward compat with legacy
+    // call patterns that pass an array, and for locations with lat/lng).
+    if (locations.length > 0) {
+      const NAME_TO_ISO = {
+        'Ukraine': ['UA'], 'Ukraine/Russia': ['UA', 'RU'],
+        'Gaza/Israel': ['PS', 'IL'], 'Sudan': ['SD'],
+        'Myanmar': ['MM'], 'Syrien': ['SY'], 'Syria': ['SY'],
+        'Jemen': ['YE'], 'Yemen': ['YE'], 'Somalia': ['SO'],
+        'DR Kongo': ['CD'], 'DRC': ['CD'],
+        'Sahel (Mali/Burkina/Niger)': ['ML', 'BF', 'NE'],
+        'Haiti': ['HT'], 'Iran': ['IR'],
+        'Lebanon': ['LB'], 'Libanon': ['LB'],
+        'Iraq': ['IQ'], 'Irak': ['IQ'], 'Afghanistan': ['AF'],
+        'Nigeria': ['NG'], 'Ethiopia': ['ET'], 'Äthiopien': ['ET'],
+        'Libya': ['LY'], 'Libyen': ['LY'], 'Pakistan': ['PK'],
+        'Mozambique': ['MZ'], 'Mosambik': ['MZ'],
+        'Cameroon': ['CM'], 'Kamerun': ['CM'],
+        'Chad': ['TD'], 'Tschad': ['TD'],
+        'Central African Republic': ['CF'],
+        'Colombia': ['CO'], 'Kolumbien': ['CO'],
+        'Mexico': ['MX'], 'Mexiko': ['MX'],
+        'Venezuela': ['VE'], 'Ecuador': ['EC']
+      };
+      locations.forEach(c => {
         const isos = NAME_TO_ISO[c.name];
         if (isos) {
-          isos.forEach(iso => { CONFLICT_COUNTRIES[iso] = Math.max(CONFLICT_COUNTRIES[iso] || 0, c.intensity); });
+          isos.forEach(iso => {
+            CONFLICT_COUNTRIES[iso] = Math.max(CONFLICT_COUNTRIES[iso] || 0, c.intensity);
+          });
         }
       });
     }
