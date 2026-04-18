@@ -532,7 +532,7 @@ async function fetchGDELTNews() {
   // Try article list first (more useful for headlines), fallback to tone
   let articles = [];
   try {
-    const data = await fetchJSON('https://api.gdeltproject.org/api/v2/doc/doc?query=world+crisis+climate+conflict&mode=artlist&maxrecords=15&format=json&sourcelang=english');
+    const data = await fetchJSON('https://api.gdeltproject.org/api/v2/doc/doc?query=(world%20crisis%20OR%20climate%20OR%20conflict)&mode=artlist&maxrecords=15&format=json&sourcelang=english');
     articles = (data?.articles || []).map(a => ({
       title: a.title,
       pubDate: a.seendate,

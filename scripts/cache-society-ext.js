@@ -245,7 +245,7 @@ async function fetchConflicts() {
 
   // ── Source 3: GDELT — Conflict article volume (24h trend) ──
   try {
-    const gdeltUrl = 'https://api.gdeltproject.org/api/v2/doc/doc?query=armed+conflict+OR+war+OR+military+attack'
+    const gdeltUrl = 'https://api.gdeltproject.org/api/v2/doc/doc?query=(armed%20conflict%20OR%20war%20OR%20military%20attack)'
       + '&mode=timelinevol&format=json&timespan=7d';
     const gdeltData = await fetchJSON(gdeltUrl, { timeout: 10000, retries: 1 });
 
@@ -263,7 +263,7 @@ async function fetchConflicts() {
 
   // ── Source 4: GDELT — Top conflict headlines ──
   try {
-    const headlinesUrl = 'https://api.gdeltproject.org/api/v2/doc/doc?query=armed+conflict+OR+military+attack'
+    const headlinesUrl = 'https://api.gdeltproject.org/api/v2/doc/doc?query=(armed%20conflict%20OR%20military%20OR%20war%20OR%20crisis)'
       + '&mode=artlist&format=json&maxrecords=10&timespan=24h&sourcelang=english';
     const headlinesData = await fetchJSON(headlinesUrl, { timeout: 10000, retries: 1 });
 
