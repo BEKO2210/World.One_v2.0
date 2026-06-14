@@ -1,49 +1,50 @@
 {
   "meta": {
-    "generated": "2026-06-14T09:48:01.366Z",
+    "generated": "2026-06-14T14:19:01.991Z",
     "version": "2.0.0",
     "sources_count": 65,
     "sources_available": 65,
     "sources_success_rate": 100,
-    "next_update": "2026-06-14T15:48:01.366Z",
+    "next_update": "2026-06-14T20:19:01.991Z",
     "realtimePulse": {
-      "environment": -0.67,
-      "society": 0,
+      "environment": -0.62,
+      "society": 0.05,
       "economy": -0.51,
       "progress": 0.8,
       "details": {
-        "quakeCount": 37,
+        "quakeCount": 35,
         "maxMagnitude": 5.1,
-        "avgGlobalTemp": 21,
+        "avgGlobalTemp": 22.6,
+        "newsSentiment": -0.42,
         "cryptoFearGreed": 18,
         "arxivPapers": 20
       }
     },
     "cacheFreshness": {
       "environment": {
-        "newest": "2026-06-14T09:48:00.730Z",
-        "oldest": "2026-06-13T19:46:07.174Z",
+        "newest": "2026-06-14T14:19:01.376Z",
+        "oldest": "2026-06-14T14:18:46.775Z",
         "newestHours": 0,
-        "oldestHours": 14,
+        "oldestHours": 0,
         "sourceCount": 6
       },
       "society": {
-        "newest": "2026-06-14T09:48:01.217Z",
-        "oldest": "2026-06-14T09:46:50.908Z",
+        "newest": "2026-06-14T14:19:01.823Z",
+        "oldest": "2026-06-14T14:17:54.385Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 4
       },
       "economy": {
-        "newest": "2026-06-14T09:47:58.216Z",
-        "oldest": "2026-06-14T09:47:58.216Z",
+        "newest": "2026-06-14T14:18:57.314Z",
+        "oldest": "2026-06-14T14:18:57.314Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 1
       },
       "progress": {
-        "newest": "2026-06-14T09:47:49.974Z",
-        "oldest": "2026-06-14T09:47:49.444Z",
+        "newest": "2026-06-14T14:18:55.313Z",
+        "oldest": "2026-06-14T14:18:53.744Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 2
@@ -51,13 +52,13 @@
     }
   },
   "worldIndex": {
-    "value": 65,
-    "rawValue": 61.9,
+    "value": 63.2,
+    "rawValue": 60.2,
     "label": "POSITIV",
     "zone": "positive",
     "previous": 65,
-    "change": 0,
-    "trend": "stable",
+    "change": -1.8,
+    "trend": "declining",
     "carryingCapacity": {
       "checks": {
         "existence": {
@@ -75,9 +76,9 @@
       },
       "spectrum": {
         "environment": {
-          "direction": "neutral",
-          "position": "stable",
-          "level": 0
+          "direction": "erosion",
+          "position": "fragile",
+          "level": -2
         },
         "society": {
           "direction": "expansion",
@@ -102,12 +103,12 @@
       },
       "indicators": {
         "environment": {
-          "bufferDistance": 31.1,
+          "bufferDistance": 22.9,
           "recoveryTime": 0,
           "maintenanceCost": 0.16
         },
         "society": {
-          "bufferDistance": 47.9,
+          "bufferDistance": 48,
           "recoveryTime": 0,
           "maintenanceCost": 0.77
         },
@@ -132,20 +133,20 @@
   },
   "subScores": {
     "environment": {
-      "value": 41.4,
-      "label": "GEMISCHT",
-      "zone": "mixed",
+      "value": 34.5,
+      "label": "BESORGNISERREGEND",
+      "zone": "concerning",
       "weight": 0.25,
-      "trend": "stable",
-      "change": 0,
+      "trend": "declining",
+      "change": -6.9,
       "indicators": [
         {
           "name": "Globale Temperaturanomalie",
           "value": "+1.19°C",
           "score": 60,
           "trend": "declining",
-          "fetchedAt": "2026-06-13T19:46:07.174Z",
-          "ageHours": 14,
+          "fetchedAt": "2026-06-14T14:18:47.581Z",
+          "ageHours": 0,
           "source": "NASA GISTEMP v4 (base 1951-1980)"
         },
         {
@@ -153,8 +154,8 @@
           "value": "432 ppm",
           "score": 31,
           "trend": "declining",
-          "fetchedAt": "2026-06-14T09:44:55.493Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-06-14T14:16:41.960Z",
+          "ageHours": 0,
           "source": "NOAA Mauna Loa"
         },
         {
@@ -162,7 +163,7 @@
           "value": "31.14%",
           "score": 56,
           "trend": "declining",
-          "fetchedAt": "2026-06-14T09:47:41.949Z",
+          "fetchedAt": "2026-06-14T14:18:48.139Z",
           "ageHours": 0,
           "source": "World Bank / FAO (AG.LND.FRST.ZS)"
         },
@@ -171,16 +172,16 @@
           "value": "19.74%",
           "score": 33,
           "trend": "improving",
-          "fetchedAt": "2026-06-14T09:47:42.002Z",
+          "fetchedAt": "2026-06-14T14:18:48.607Z",
           "ageHours": 0,
           "source": "World Bank (EG.FEC.RNEW.ZS)"
         },
         {
           "name": "Luftqualität (Global Avg AQI)",
-          "value": 66,
+          "value": 75,
           "score": 45,
           "trend": "stable",
-          "fetchedAt": "2026-06-14T09:48:00.730Z",
+          "fetchedAt": "2026-06-14T14:19:01.376Z",
           "ageHours": 0,
           "source": "WAQI official stations (20 cities)"
         },
@@ -195,29 +196,29 @@
         },
         {
           "name": "Aktive Naturkatastrophen",
-          "value": "10 events, -3 Pkt",
-          "score": 70,
+          "value": "40 events, -10 Pkt",
+          "score": 0,
           "trend": "declining",
-          "fetchedAt": "2026-06-14T09:47:39.558Z",
+          "fetchedAt": "2026-06-14T14:18:46.775Z",
           "ageHours": 0,
-          "source": "GDACS"
+          "source": "GDACS (JRC/EU)"
         }
       ]
     },
     "society": {
-      "value": 55.7,
+      "value": 55.8,
       "label": "GEMISCHT",
       "zone": "mixed",
       "weight": 0.25,
       "trend": "stable",
-      "change": -0.1,
+      "change": 0.1,
       "indicators": [
         {
           "name": "Lebenserwartung",
           "value": "73.48 Jahre",
           "score": 67,
           "trend": "improving",
-          "fetchedAt": "2026-06-14T09:47:49.928Z",
+          "fetchedAt": "2026-06-14T14:18:54.748Z",
           "ageHours": 0,
           "source": "World Bank (SP.DYN.LE00.IN)"
         },
@@ -226,7 +227,7 @@
           "value": "37.4/1000",
           "score": 66,
           "trend": "improving",
-          "fetchedAt": "2026-06-14T09:47:49.928Z",
+          "fetchedAt": "2026-06-14T14:18:54.748Z",
           "ageHours": 0,
           "source": "World Bank (SH.DYN.MORT)"
         },
@@ -235,7 +236,7 @@
           "value": 59,
           "score": 29,
           "trend": "declining",
-          "fetchedAt": "2026-06-14T09:47:16.353Z",
+          "fetchedAt": "2026-06-14T14:18:22.016Z",
           "ageHours": 0,
           "source": "ACLED/Crisis Group (baseline)"
         },
@@ -244,8 +245,8 @@
           "value": "91.6%",
           "score": 83,
           "trend": "improving",
-          "fetchedAt": "2026-06-14T09:45:00.327Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-06-14T14:16:46.170Z",
+          "ageHours": 0,
           "source": "World Bank (raw)"
         },
         {
@@ -253,8 +254,8 @@
           "value": "73.7%",
           "score": 56,
           "trend": "improving",
-          "fetchedAt": "2026-06-14T09:45:00.371Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-06-14T14:16:47.031Z",
+          "ageHours": 0,
           "source": "World Bank (raw)"
         },
         {
@@ -271,7 +272,7 @@
           "value": "84 frei / 55 unfrei",
           "score": 46,
           "trend": "declining",
-          "fetchedAt": "2026-06-14T09:46:50.908Z",
+          "fetchedAt": "2026-06-14T14:17:54.385Z",
           "ageHours": 0,
           "source": "Freedom House - Freedom in the World"
         }
@@ -290,7 +291,7 @@
           "value": "2.87%",
           "score": 72,
           "trend": "improving",
-          "fetchedAt": "2026-06-14T09:45:01.474Z",
+          "fetchedAt": "2026-06-14T14:16:47.747Z",
           "ageHours": 0,
           "source": "World Bank / IMF"
         },
@@ -299,7 +300,7 @@
           "value": 42,
           "score": 51,
           "trend": "stable",
-          "fetchedAt": "2026-06-14T09:45:01.535Z",
+          "fetchedAt": "2026-06-14T14:16:47.864Z",
           "ageHours": 0,
           "source": "World Bank"
         },
@@ -308,7 +309,7 @@
           "value": "5.4%",
           "score": 81,
           "trend": "stable",
-          "fetchedAt": "2026-06-14T09:47:58.216Z",
+          "fetchedAt": "2026-06-14T14:18:57.314Z",
           "ageHours": 0,
           "source": "FRED + World Bank (avg)"
         },
@@ -317,7 +318,7 @@
           "value": "4.79%",
           "score": 79,
           "trend": "stable",
-          "fetchedAt": "2026-06-14T09:45:01.706Z",
+          "fetchedAt": "2026-06-14T14:16:48.042Z",
           "ageHours": 0,
           "source": "World Bank / ILO"
         },
@@ -335,7 +336,7 @@
           "value": "3.63%",
           "score": 70.96000000000001,
           "trend": "stable",
-          "fetchedAt": "2026-06-14T09:47:58.216Z",
+          "fetchedAt": "2026-06-14T14:18:57.314Z",
           "ageHours": 0,
           "source": "FRED (St. Louis Fed)"
         },
@@ -344,7 +345,7 @@
           "value": "0.39%",
           "score": 80,
           "trend": "stable",
-          "fetchedAt": "2026-06-14T09:47:58.216Z",
+          "fetchedAt": "2026-06-14T14:18:57.314Z",
           "ageHours": 0,
           "source": "FRED (St. Louis Fed)"
         }
@@ -363,7 +364,7 @@
           "value": "73.6%",
           "score": 82,
           "trend": "improving",
-          "fetchedAt": "2026-06-14T09:47:49.974Z",
+          "fetchedAt": "2026-06-14T14:18:55.313Z",
           "ageHours": 0,
           "source": "World Bank (IT.NET.USER.ZS)"
         },
@@ -372,7 +373,7 @@
           "value": "87.7%",
           "score": 75,
           "trend": "improving",
-          "fetchedAt": "2026-06-14T09:45:04.073Z",
+          "fetchedAt": "2026-06-14T14:16:50.315Z",
           "ageHours": 0,
           "source": "World Bank / UNESCO"
         },
@@ -381,7 +382,7 @@
           "value": "2.59%",
           "score": 65,
           "trend": "improving",
-          "fetchedAt": "2026-06-14T09:45:03.353Z",
+          "fetchedAt": "2026-06-14T14:16:49.838Z",
           "ageHours": 0,
           "source": "World Bank"
         },
@@ -390,7 +391,7 @@
           "value": "111.5/100",
           "score": 86,
           "trend": "improving",
-          "fetchedAt": "2026-06-14T09:47:49.974Z",
+          "fetchedAt": "2026-06-14T14:18:55.313Z",
           "ageHours": 0,
           "source": "World Bank (IT.CEL.SETS.P2)"
         },
@@ -399,7 +400,7 @@
           "value": "0K+",
           "score": 80,
           "trend": "improving",
-          "fetchedAt": "2026-06-14T09:45:03.102Z",
+          "fetchedAt": "2026-06-14T14:16:49.539Z",
           "ageHours": 0,
           "source": "GitHub"
         },
@@ -408,7 +409,7 @@
           "value": "0.4M total",
           "score": 75,
           "trend": "improving",
-          "fetchedAt": "2026-06-14T09:47:49.444Z",
+          "fetchedAt": "2026-06-14T14:18:53.744Z",
           "ageHours": 0,
           "source": "arXiv (cs.AI + cs.LG)"
         }
@@ -1426,77 +1427,77 @@
       "source": "NOAA"
     },
     "airQuality": {
-      "globalAvgAQI": 66,
+      "globalAvgAQI": 75,
       "cleanestCities": [
         {
-          "city": "London",
-          "country": "GB",
-          "aqi": 18,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Sydney",
-          "country": "AU",
-          "aqi": 18,
+          "city": "Tokyo",
+          "country": "JP",
+          "aqi": 6,
           "lat": null,
           "lng": null
         },
         {
           "city": "Los Angeles",
           "country": "US",
-          "aqi": 20,
+          "aqi": 16,
           "lat": null,
           "lng": null
         },
         {
-          "city": "Tokyo",
-          "country": "JP",
-          "aqi": 21,
+          "city": "Moscow",
+          "country": "RU",
+          "aqi": 17,
           "lat": null,
           "lng": null
         },
         {
           "city": "Berlin",
           "country": "DE",
-          "aqi": 21,
+          "aqi": 22,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Sydney",
+          "country": "AU",
+          "aqi": 26,
           "lat": null,
           "lng": null
         }
       ],
       "mostPolluted": [
         {
-          "city": "Mumbai",
-          "country": "IN",
-          "aqi": 155,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Delhi",
-          "country": "IN",
-          "aqi": 133,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Karachi",
-          "country": "PK",
-          "aqi": 105,
+          "city": "Jakarta",
+          "country": "ID",
+          "aqi": 153,
           "lat": null,
           "lng": null
         },
         {
           "city": "Dhaka",
           "country": "BD",
-          "aqi": 101,
+          "aqi": 136,
           "lat": null,
           "lng": null
         },
         {
-          "city": "Jakarta",
-          "country": "ID",
-          "aqi": 70,
+          "city": "Mumbai",
+          "country": "IN",
+          "aqi": 130,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Karachi",
+          "country": "PK",
+          "aqi": 125,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Delhi",
+          "country": "IN",
+          "aqi": 123,
           "lat": null,
           "lng": null
         }
@@ -1898,7 +1899,7 @@
       "endangered": 55074,
       "criticallyEndangered": 29980,
       "source": "GBIF / IUCN",
-      "fetchedAt": "2026-06-14T09:46:48.437Z",
+      "fetchedAt": "2026-06-14T14:17:51.357Z",
       "ageHours": 0
     },
     "weather": [
@@ -1907,12 +1908,12 @@
         "lat": 52.52,
         "lng": 13.41,
         "current": {
-          "time": "2026-06-14T11:30",
+          "time": "2026-06-14T16:15",
           "interval": 900,
-          "temperature_2m": 14.3,
-          "relative_humidity_2m": 66,
-          "wind_speed_10m": 20.2,
-          "weather_code": 61
+          "temperature_2m": 15.8,
+          "relative_humidity_2m": 58,
+          "wind_speed_10m": 21,
+          "weather_code": 80
         }
       },
       {
@@ -1920,12 +1921,12 @@
         "lat": 40.71,
         "lng": -74.01,
         "current": {
-          "time": "2026-06-14T05:30",
+          "time": "2026-06-14T10:15",
           "interval": 900,
-          "temperature_2m": 20.7,
-          "relative_humidity_2m": 73,
-          "wind_speed_10m": 2.4,
-          "weather_code": 2
+          "temperature_2m": 29.6,
+          "relative_humidity_2m": 35,
+          "wind_speed_10m": 10.3,
+          "weather_code": 3
         }
       },
       {
@@ -1933,11 +1934,11 @@
         "lat": 35.68,
         "lng": 139.69,
         "current": {
-          "time": "2026-06-14T18:30",
+          "time": "2026-06-14T23:15",
           "interval": 900,
-          "temperature_2m": 22.9,
-          "relative_humidity_2m": 76,
-          "wind_speed_10m": 6.8,
+          "temperature_2m": 20.5,
+          "relative_humidity_2m": 88,
+          "wind_speed_10m": 5,
           "weather_code": 3
         }
       },
@@ -1946,12 +1947,12 @@
         "lat": -33.87,
         "lng": 151.21,
         "current": {
-          "time": "2026-06-14T19:30",
+          "time": "2026-06-15T00:15",
           "interval": 900,
-          "temperature_2m": 16.1,
-          "relative_humidity_2m": 85,
-          "wind_speed_10m": 13.5,
-          "weather_code": 1
+          "temperature_2m": 15.7,
+          "relative_humidity_2m": 82,
+          "wind_speed_10m": 8.8,
+          "weather_code": 51
         }
       },
       {
@@ -1959,11 +1960,11 @@
         "lat": -23.55,
         "lng": -46.63,
         "current": {
-          "time": "2026-06-14T06:30",
+          "time": "2026-06-14T11:15",
           "interval": 900,
-          "temperature_2m": 16.4,
-          "relative_humidity_2m": 96,
-          "wind_speed_10m": 7.1,
+          "temperature_2m": 21.1,
+          "relative_humidity_2m": 69,
+          "wind_speed_10m": 11.2,
           "weather_code": 3
         }
       },
@@ -1972,12 +1973,12 @@
         "lat": 6.45,
         "lng": 3.4,
         "current": {
-          "time": "2026-06-14T10:30",
+          "time": "2026-06-14T15:15",
           "interval": 900,
-          "temperature_2m": 27.9,
-          "relative_humidity_2m": 80,
-          "wind_speed_10m": 7.2,
-          "weather_code": 51
+          "temperature_2m": 27.3,
+          "relative_humidity_2m": 83,
+          "wind_speed_10m": 10.9,
+          "weather_code": 55
         }
       },
       {
@@ -1985,12 +1986,12 @@
         "lat": 19.08,
         "lng": 72.88,
         "current": {
-          "time": "2026-06-14T15:00",
+          "time": "2026-06-14T19:45",
           "interval": 900,
-          "temperature_2m": 32.6,
-          "relative_humidity_2m": 62,
-          "wind_speed_10m": 20.1,
-          "weather_code": 0
+          "temperature_2m": 30.3,
+          "relative_humidity_2m": 68,
+          "wind_speed_10m": 14.2,
+          "weather_code": 51
         }
       },
       {
@@ -1998,11 +1999,11 @@
         "lat": 51.51,
         "lng": -0.13,
         "current": {
-          "time": "2026-06-14T10:30",
+          "time": "2026-06-14T15:15",
           "interval": 900,
-          "temperature_2m": 17,
-          "relative_humidity_2m": 51,
-          "wind_speed_10m": 9.4,
+          "temperature_2m": 20.8,
+          "relative_humidity_2m": 42,
+          "wind_speed_10m": 10.1,
           "weather_code": 3
         }
       }
@@ -2187,7 +2188,668 @@
       "source": "ACLED/Crisis Group (baseline)",
       "headlines": [],
       "crises": [],
-      "trendArticles": null,
+      "trendArticles": [
+        {
+          "date": "20260607T150000Z",
+          "volume": 20.1563
+        },
+        {
+          "date": "20260607T160000Z",
+          "volume": 20.3406
+        },
+        {
+          "date": "20260607T170000Z",
+          "volume": 23.5849
+        },
+        {
+          "date": "20260607T190000Z",
+          "volume": 20.521
+        },
+        {
+          "date": "20260607T200000Z",
+          "volume": 22.0128
+        },
+        {
+          "date": "20260607T210000Z",
+          "volume": 24.3088
+        },
+        {
+          "date": "20260607T220000Z",
+          "volume": 24.8512
+        },
+        {
+          "date": "20260608T000000Z",
+          "volume": 20.9649
+        },
+        {
+          "date": "20260608T010000Z",
+          "volume": 21.7227
+        },
+        {
+          "date": "20260608T020000Z",
+          "volume": 20.5862
+        },
+        {
+          "date": "20260608T030000Z",
+          "volume": 21.2801
+        },
+        {
+          "date": "20260608T040000Z",
+          "volume": 19.4318
+        },
+        {
+          "date": "20260608T050000Z",
+          "volume": 20.8789
+        },
+        {
+          "date": "20260608T060000Z",
+          "volume": 19.27
+        },
+        {
+          "date": "20260608T070000Z",
+          "volume": 20.2624
+        },
+        {
+          "date": "20260608T080000Z",
+          "volume": 20.698
+        },
+        {
+          "date": "20260608T090000Z",
+          "volume": 19.368
+        },
+        {
+          "date": "20260608T100000Z",
+          "volume": 17.9499
+        },
+        {
+          "date": "20260608T110000Z",
+          "volume": 18.7427
+        },
+        {
+          "date": "20260608T120000Z",
+          "volume": 19.0241
+        },
+        {
+          "date": "20260608T130000Z",
+          "volume": 19.8473
+        },
+        {
+          "date": "20260608T140000Z",
+          "volume": 18.2263
+        },
+        {
+          "date": "20260608T150000Z",
+          "volume": 17.2505
+        },
+        {
+          "date": "20260608T160000Z",
+          "volume": 16.5975
+        },
+        {
+          "date": "20260608T170000Z",
+          "volume": 14.1672
+        },
+        {
+          "date": "20260608T180000Z",
+          "volume": 15.8193
+        },
+        {
+          "date": "20260608T190000Z",
+          "volume": 16.1145
+        },
+        {
+          "date": "20260608T200000Z",
+          "volume": 14.8787
+        },
+        {
+          "date": "20260608T210000Z",
+          "volume": 17.3467
+        },
+        {
+          "date": "20260608T220000Z",
+          "volume": 19.2252
+        },
+        {
+          "date": "20260608T230000Z",
+          "volume": 18.2654
+        },
+        {
+          "date": "20260609T000000Z",
+          "volume": 17.2443
+        },
+        {
+          "date": "20260609T010000Z",
+          "volume": 17.4493
+        },
+        {
+          "date": "20260609T020000Z",
+          "volume": 14.8464
+        },
+        {
+          "date": "20260609T030000Z",
+          "volume": 17.2691
+        },
+        {
+          "date": "20260609T040000Z",
+          "volume": 17.8682
+        },
+        {
+          "date": "20260609T050000Z",
+          "volume": 18.4737
+        },
+        {
+          "date": "20260609T060000Z",
+          "volume": 19.4945
+        },
+        {
+          "date": "20260609T070000Z",
+          "volume": 19.9646
+        },
+        {
+          "date": "20260609T080000Z",
+          "volume": 17.0023
+        },
+        {
+          "date": "20260609T090000Z",
+          "volume": 17.3068
+        },
+        {
+          "date": "20260609T100000Z",
+          "volume": 17.0236
+        },
+        {
+          "date": "20260609T110000Z",
+          "volume": 17.3497
+        },
+        {
+          "date": "20260609T120000Z",
+          "volume": 17.5789
+        },
+        {
+          "date": "20260609T130000Z",
+          "volume": 18.8804
+        },
+        {
+          "date": "20260609T140000Z",
+          "volume": 17.1988
+        },
+        {
+          "date": "20260609T150000Z",
+          "volume": 17.9219
+        },
+        {
+          "date": "20260609T160000Z",
+          "volume": 16.4821
+        },
+        {
+          "date": "20260609T170000Z",
+          "volume": 16.9608
+        },
+        {
+          "date": "20260609T180000Z",
+          "volume": 16.7973
+        },
+        {
+          "date": "20260609T190000Z",
+          "volume": 17.9665
+        },
+        {
+          "date": "20260609T200000Z",
+          "volume": 18.9459
+        },
+        {
+          "date": "20260609T210000Z",
+          "volume": 19.4619
+        },
+        {
+          "date": "20260609T220000Z",
+          "volume": 19.5362
+        },
+        {
+          "date": "20260609T230000Z",
+          "volume": 19.3125
+        },
+        {
+          "date": "20260610T000000Z",
+          "volume": 19.9305
+        },
+        {
+          "date": "20260610T010000Z",
+          "volume": 21.4233
+        },
+        {
+          "date": "20260610T020000Z",
+          "volume": 19.2069
+        },
+        {
+          "date": "20260610T030000Z",
+          "volume": 17.7104
+        },
+        {
+          "date": "20260610T040000Z",
+          "volume": 19.2943
+        },
+        {
+          "date": "20260610T050000Z",
+          "volume": 19.0672
+        },
+        {
+          "date": "20260610T060000Z",
+          "volume": 20.521
+        },
+        {
+          "date": "20260610T070000Z",
+          "volume": 19.8309
+        },
+        {
+          "date": "20260610T080000Z",
+          "volume": 19.7391
+        },
+        {
+          "date": "20260610T090000Z",
+          "volume": 18.5816
+        },
+        {
+          "date": "20260610T100000Z",
+          "volume": 18.8731
+        },
+        {
+          "date": "20260610T110000Z",
+          "volume": 18.3192
+        },
+        {
+          "date": "20260610T120000Z",
+          "volume": 18.7456
+        },
+        {
+          "date": "20260610T130000Z",
+          "volume": 18.735
+        },
+        {
+          "date": "20260610T140000Z",
+          "volume": 18.7447
+        },
+        {
+          "date": "20260610T150000Z",
+          "volume": 16.662
+        },
+        {
+          "date": "20260610T160000Z",
+          "volume": 18.5286
+        },
+        {
+          "date": "20260610T170000Z",
+          "volume": 18.013
+        },
+        {
+          "date": "20260610T180000Z",
+          "volume": 17.2175
+        },
+        {
+          "date": "20260610T190000Z",
+          "volume": 19.6224
+        },
+        {
+          "date": "20260610T200000Z",
+          "volume": 18.5877
+        },
+        {
+          "date": "20260610T210000Z",
+          "volume": 18.7996
+        },
+        {
+          "date": "20260610T220000Z",
+          "volume": 20.7612
+        },
+        {
+          "date": "20260610T230000Z",
+          "volume": 19.8913
+        },
+        {
+          "date": "20260611T000000Z",
+          "volume": 21.7551
+        },
+        {
+          "date": "20260611T010000Z",
+          "volume": 20.4572
+        },
+        {
+          "date": "20260611T020000Z",
+          "volume": 18.692
+        },
+        {
+          "date": "20260611T030000Z",
+          "volume": 18.86
+        },
+        {
+          "date": "20260611T040000Z",
+          "volume": 18.6335
+        },
+        {
+          "date": "20260611T050000Z",
+          "volume": 19.9017
+        },
+        {
+          "date": "20260611T060000Z",
+          "volume": 20.3646
+        },
+        {
+          "date": "20260611T070000Z",
+          "volume": 20.2773
+        },
+        {
+          "date": "20260611T080000Z",
+          "volume": 19.015
+        },
+        {
+          "date": "20260611T090000Z",
+          "volume": 20.1664
+        },
+        {
+          "date": "20260611T100000Z",
+          "volume": 18.5228
+        },
+        {
+          "date": "20260611T110000Z",
+          "volume": 18.0289
+        },
+        {
+          "date": "20260611T120000Z",
+          "volume": 18.4614
+        },
+        {
+          "date": "20260611T130000Z",
+          "volume": 19.4411
+        },
+        {
+          "date": "20260611T140000Z",
+          "volume": 17.6216
+        },
+        {
+          "date": "20260611T150000Z",
+          "volume": 17.9122
+        },
+        {
+          "date": "20260611T160000Z",
+          "volume": 18.728
+        },
+        {
+          "date": "20260611T170000Z",
+          "volume": 18.3103
+        },
+        {
+          "date": "20260611T180000Z",
+          "volume": 19.3292
+        },
+        {
+          "date": "20260611T190000Z",
+          "volume": 18.3568
+        },
+        {
+          "date": "20260611T200000Z",
+          "volume": 20.0163
+        },
+        {
+          "date": "20260611T210000Z",
+          "volume": 19.6386
+        },
+        {
+          "date": "20260611T220000Z",
+          "volume": 19.7313
+        },
+        {
+          "date": "20260611T230000Z",
+          "volume": 17.0525
+        },
+        {
+          "date": "20260612T000000Z",
+          "volume": 20.0394
+        },
+        {
+          "date": "20260612T010000Z",
+          "volume": 19.3374
+        },
+        {
+          "date": "20260612T020000Z",
+          "volume": 17.8339
+        },
+        {
+          "date": "20260612T030000Z",
+          "volume": 17.4447
+        },
+        {
+          "date": "20260612T040000Z",
+          "volume": 18.1213
+        },
+        {
+          "date": "20260612T050000Z",
+          "volume": 17.4063
+        },
+        {
+          "date": "20260612T060000Z",
+          "volume": 19.3157
+        },
+        {
+          "date": "20260612T070000Z",
+          "volume": 18.6131
+        },
+        {
+          "date": "20260612T080000Z",
+          "volume": 18.3165
+        },
+        {
+          "date": "20260612T090000Z",
+          "volume": 18.4118
+        },
+        {
+          "date": "20260612T100000Z",
+          "volume": 18.5541
+        },
+        {
+          "date": "20260612T110000Z",
+          "volume": 16.5405
+        },
+        {
+          "date": "20260612T120000Z",
+          "volume": 16.9853
+        },
+        {
+          "date": "20260612T130000Z",
+          "volume": 17.6522
+        },
+        {
+          "date": "20260612T140000Z",
+          "volume": 17.3161
+        },
+        {
+          "date": "20260612T150000Z",
+          "volume": 17.2133
+        },
+        {
+          "date": "20260612T160000Z",
+          "volume": 18.5387
+        },
+        {
+          "date": "20260612T170000Z",
+          "volume": 18.7471
+        },
+        {
+          "date": "20260612T180000Z",
+          "volume": 20.193
+        },
+        {
+          "date": "20260612T190000Z",
+          "volume": 19.2173
+        },
+        {
+          "date": "20260612T200000Z",
+          "volume": 17.7458
+        },
+        {
+          "date": "20260612T210000Z",
+          "volume": 16.5046
+        },
+        {
+          "date": "20260612T220000Z",
+          "volume": 16.5251
+        },
+        {
+          "date": "20260612T230000Z",
+          "volume": 17.0587
+        },
+        {
+          "date": "20260613T000000Z",
+          "volume": 17.0501
+        },
+        {
+          "date": "20260613T010000Z",
+          "volume": 17.5275
+        },
+        {
+          "date": "20260613T020000Z",
+          "volume": 18.7766
+        },
+        {
+          "date": "20260613T030000Z",
+          "volume": 20.8166
+        },
+        {
+          "date": "20260613T040000Z",
+          "volume": 18.8723
+        },
+        {
+          "date": "20260613T050000Z",
+          "volume": 20.2445
+        },
+        {
+          "date": "20260613T060000Z",
+          "volume": 21.6329
+        },
+        {
+          "date": "20260613T070000Z",
+          "volume": 20.2882
+        },
+        {
+          "date": "20260613T080000Z",
+          "volume": 20.1386
+        },
+        {
+          "date": "20260613T090000Z",
+          "volume": 19.2027
+        },
+        {
+          "date": "20260613T100000Z",
+          "volume": 18.4954
+        },
+        {
+          "date": "20260613T110000Z",
+          "volume": 18.1254
+        },
+        {
+          "date": "20260613T120000Z",
+          "volume": 19.951
+        },
+        {
+          "date": "20260613T130000Z",
+          "volume": 20.0541
+        },
+        {
+          "date": "20260613T140000Z",
+          "volume": 20.2589
+        },
+        {
+          "date": "20260613T150000Z",
+          "volume": 19.4761
+        },
+        {
+          "date": "20260613T160000Z",
+          "volume": 19.6712
+        },
+        {
+          "date": "20260613T170000Z",
+          "volume": 19.5926
+        },
+        {
+          "date": "20260613T180000Z",
+          "volume": 19.2777
+        },
+        {
+          "date": "20260613T190000Z",
+          "volume": 20.1104
+        },
+        {
+          "date": "20260613T200000Z",
+          "volume": 19.4883
+        },
+        {
+          "date": "20260613T210000Z",
+          "volume": 20.0652
+        },
+        {
+          "date": "20260613T220000Z",
+          "volume": 20.3675
+        },
+        {
+          "date": "20260613T230000Z",
+          "volume": 19.2784
+        },
+        {
+          "date": "20260614T000000Z",
+          "volume": 20.5902
+        },
+        {
+          "date": "20260614T010000Z",
+          "volume": 19.4053
+        },
+        {
+          "date": "20260614T020000Z",
+          "volume": 20.3068
+        },
+        {
+          "date": "20260614T030000Z",
+          "volume": 19.6267
+        },
+        {
+          "date": "20260614T040000Z",
+          "volume": 17.7425
+        },
+        {
+          "date": "20260614T050000Z",
+          "volume": 20.4558
+        },
+        {
+          "date": "20260614T060000Z",
+          "volume": 21.5137
+        },
+        {
+          "date": "20260614T070000Z",
+          "volume": 20.4754
+        },
+        {
+          "date": "20260614T080000Z",
+          "volume": 20.9483
+        },
+        {
+          "date": "20260614T090000Z",
+          "volume": 22.5472
+        },
+        {
+          "date": "20260614T100000Z",
+          "volume": 20.8971
+        },
+        {
+          "date": "20260614T110000Z",
+          "volume": 20.9356
+        },
+        {
+          "date": "20260614T120000Z",
+          "volume": 21.0681
+        },
+        {
+          "date": "20260614T130000Z",
+          "volume": 20.4875
+        }
+      ],
       "acled": null
     },
     "refugees": {
@@ -4374,73 +5036,73 @@
       "topRepos": [
         {
           "name": "codecrafters-io/build-your-own-x",
-          "stars": 515237,
-          "forks": 48808,
+          "stars": 515337,
+          "forks": 48814,
           "language": "Markdown",
-          "updated": "2026-06-14T09:41:30Z"
+          "updated": "2026-06-14T14:08:47Z"
         },
         {
           "name": "sindresorhus/awesome",
-          "stars": 475614,
-          "forks": 35403,
+          "stars": 475673,
+          "forks": 35407,
           "language": null,
-          "updated": "2026-06-14T09:41:03Z"
+          "updated": "2026-06-14T14:12:14Z"
         },
         {
           "name": "freeCodeCamp/freeCodeCamp",
-          "stars": 446858,
-          "forks": 44932,
+          "stars": 446951,
+          "forks": 44935,
           "language": "TypeScript",
-          "updated": "2026-06-14T09:43:08Z"
+          "updated": "2026-06-14T14:16:00Z"
         },
         {
           "name": "public-apis/public-apis",
-          "stars": 441438,
-          "forks": 48379,
+          "stars": 441495,
+          "forks": 48385,
           "language": "Python",
-          "updated": "2026-06-14T09:33:29Z"
+          "updated": "2026-06-14T14:14:02Z"
         },
         {
           "name": "EbookFoundation/free-programming-books",
-          "stars": 390220,
-          "forks": 66442,
+          "stars": 390226,
+          "forks": 66441,
           "language": "Python",
-          "updated": "2026-06-14T09:36:29Z"
+          "updated": "2026-06-14T14:15:07Z"
         },
         {
           "name": "openclaw/openclaw",
-          "stars": 378621,
-          "forks": 79182,
+          "stars": 378657,
+          "forks": 79183,
           "language": "TypeScript",
-          "updated": "2026-06-14T09:42:12Z"
+          "updated": "2026-06-14T14:15:23Z"
         },
         {
           "name": "nilbuild/developer-roadmap",
-          "stars": 357076,
-          "forks": 44205,
+          "stars": 357105,
+          "forks": 44207,
           "language": "TypeScript",
-          "updated": "2026-06-14T09:44:32Z"
+          "updated": "2026-06-14T14:11:45Z"
         },
         {
           "name": "donnemartin/system-design-primer",
-          "stars": 353034,
-          "forks": 56700,
+          "stars": 353068,
+          "forks": 56705,
           "language": "Python",
-          "updated": "2026-06-14T09:44:05Z"
+          "updated": "2026-06-14T14:14:12Z"
         },
         {
           "name": "jwasham/coding-interview-university",
-          "stars": 351658,
-          "forks": 83472,
+          "stars": 351773,
+          "forks": 83491,
           "language": null,
-          "updated": "2026-06-14T09:44:12Z"
+          "updated": "2026-06-14T14:15:07Z"
         },
         {
           "name": "vinta/awesome-python",
-          "stars": 302824,
-          "forks": 28079,
+          "stars": 302864,
+          "forks": 28080,
           "language": "Python",
-          "updated": "2026-06-14T09:41:09Z"
+          "updated": "2026-06-14T14:11:26Z"
         }
       ],
       "source": "GitHub"
@@ -4979,6 +5641,26 @@
     "earthquakes": {
       "last24h": [
         {
+          "location": "79 km ESE of Ugashik, Alaska",
+          "magnitude": 2.8,
+          "depth": 84.3,
+          "lat": 57.333,
+          "lng": -156.114,
+          "time": "2026-06-14T13:59:53.253Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "23 km WSW of Stella, Puerto Rico",
+          "magnitude": 3.19,
+          "depth": 108.56,
+          "lat": 18.2751666666667,
+          "lng": -67.4636666666667,
+          "time": "2026-06-14T10:10:47.040Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
           "location": "8 km NW of The Geysers, CA",
           "magnitude": 3.4,
           "depth": 1.91999995708466,
@@ -4989,77 +5671,57 @@
           "type": "earthquake"
         },
         {
-          "location": "81 km NNE of Luquillo, Puerto Rico",
-          "magnitude": 3.7,
-          "depth": 8.669,
-          "lat": 19.0561,
-          "lng": -65.4194,
-          "time": "2026-06-14T07:47:49.530Z",
+          "location": "77 km N of Culebra, Puerto Rico",
+          "magnitude": 3.43,
+          "depth": 31.85,
+          "lat": 19.0003333333333,
+          "lng": -65.349,
+          "time": "2026-06-14T08:11:45.330Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "51 km WNW of Petrolia, CA",
-          "magnitude": 2.56,
-          "depth": 1.8400000333786,
-          "lat": 40.4328346252441,
-          "lng": -124.869667053223,
-          "time": "2026-06-14T05:51:43.470Z",
+          "location": "90 km N of Culebra, Puerto Rico",
+          "magnitude": 3.5,
+          "depth": 16,
+          "lat": 19.1155,
+          "lng": -65.3556,
+          "time": "2026-06-14T08:04:35.660Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "7 km NW of Abeytas, New Mexico",
-          "magnitude": 2.6,
-          "depth": 9.607,
-          "lat": 34.5089,
-          "lng": -106.8766,
-          "time": "2026-06-14T05:51:04.731Z",
+          "location": "87 km N of Culebra, Puerto Rico",
+          "magnitude": 3.81,
+          "depth": 22,
+          "lat": 19.0928,
+          "lng": -65.3221,
+          "time": "2026-06-14T07:47:52.500Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "82 km NNE of Luquillo, Puerto Rico",
-          "magnitude": 4.3,
-          "depth": 49.904,
-          "lat": 19.0446,
-          "lng": -65.3862,
-          "time": "2026-06-14T05:24:30.357Z",
+          "location": "84 km N of Culebra, Puerto Rico",
+          "magnitude": 2.73,
+          "depth": 11.89,
+          "lat": 19.0676666666667,
+          "lng": -65.3423333333333,
+          "time": "2026-06-14T07:43:28.200Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "8 km WNW of Abeytas, New Mexico",
-          "magnitude": 3.2,
-          "depth": 10.192,
-          "lat": 34.4912,
-          "lng": -106.8947,
-          "time": "2026-06-14T02:33:39.849Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "53 km W of Happy Valley, Alaska",
-          "magnitude": 3.1,
-          "depth": 106.4,
-          "lat": 60.004,
-          "lng": -152.687,
-          "time": "2026-06-14T01:53:53.750Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "22 km W of Ospino, Venezuela",
-          "magnitude": 4.3,
-          "depth": 12.052,
-          "lat": 9.2567,
-          "lng": -69.6573,
-          "time": "2026-06-14T00:39:46.243Z",
+          "location": "35 km N of Brenas, Puerto Rico",
+          "magnitude": 3.32,
+          "depth": 53.36,
+          "lat": 18.7856666666667,
+          "lng": -66.3723333333333,
+          "time": "2026-06-14T07:21:39.500Z",
           "tsunami": false,
           "type": "earthquake"
         }
       ],
-      "total24h": 37,
+      "total24h": 35,
       "source": "USGS"
     },
     "newsSentiment": {
@@ -5088,64 +5750,70 @@
     },
     "news": [
       {
-        "title": "Will the US-Iran deal be signed on Sunday? What we know so far",
-        "pubDate": "Sun, 14 Jun 2026 09:18:22 +0000",
-        "link": "https://www.aljazeera.com/news/2026/6/14/will-the-us-iran-deal-be-signed-on-sunday-what-we-know-so-far?traffic_source=rss",
+        "title": "US asks Anthropic to block global access to top AI models: Why it matters",
+        "pubDate": "Sun, 14 Jun 2026 13:57:22 +0000",
+        "link": "https://www.aljazeera.com/news/2026/6/14/us-asks-anthropic-to-block-global-access-to-top-ai-models-why-it-matters?traffic_source=rss",
         "source": "Al Jazeera"
       },
       {
-        "title": "Thousands rally in Belfast to condemn anti-immigrant rioting that followed stabbing",
-        "pubDate": "Sun, 14 Jun 2026 09:10:37 GMT",
-        "link": "https://www.france24.com/en/video/20260614-thousands-rally-in-belfast-to-condemn-anti-immigrant-rioting-that-followed-stabbing",
+        "title": "UK celebrates King Charles’s official birthday with Trooping the Colour",
+        "pubDate": "Sun, 14 Jun 2026 13:52:23 GMT",
+        "link": "https://www.france24.com/en/video/20260614-uk-celebrates-king-charles-s-official-birthday-with-trooping-the-colour",
         "source": "France24"
       },
       {
-        "title": "Swiss cast ballots on right-wing's bid to cap country's population at 10 million",
-        "pubDate": "Sun, 14 Jun 2026 09:08:04 GMT",
-        "link": "https://www.france24.com/en/video/20260614-swiss-cast-ballots-on-right-wing-s-bid-to-cap-country-s-population-at-10-million",
+        "title": "Beirut strikes: 'No point' in talks if US cannot uphold 'commitments'",
+        "pubDate": "Sun, 14 Jun 2026 13:50:43 GMT",
+        "link": "https://www.france24.com/en/video/20260614-beirut-strikes-no-point-in-talks-if-us-cannot-uphold-commitments",
         "source": "France24"
       },
       {
-        "title": "Iran: US, ​Pakistani leaders predict Sunday signing of peace framework",
-        "pubDate": "Sun, 14 Jun 2026 08:59:02 GMT",
-        "link": "https://www.france24.com/en/video/20260614-iran-us-pakistani-leaders-predict-sunday-signing-of-peace-framework",
+        "title": "Trump hosts White House cage fights amid war and political scrutiny",
+        "pubDate": "Sun, 14 Jun 2026 13:49:00 GMT",
+        "link": "https://www.france24.com/en/video/20260614-trump-hosts-white-house-cage-fights-amid-war-and-political-scrutiny",
         "source": "France24"
       },
       {
-        "title": "World Cup Day 4: Netherlands vs Japan, Curacao debut, prediction, schedule",
-        "pubDate": "Sun, 14 Jun 2026 08:38:49 +0000",
-        "link": "https://www.aljazeera.com/sports/2026/6/14/fifa-world-cup-2026-schedule-netherlands-japan-prediction-germany-curacao-schedule?traffic_source=rss",
+        "title": "Donald Trump’s name removed from Kennedy Center",
+        "pubDate": "Sun, 14 Jun 2026 13:38:07 +0000",
+        "link": "https://www.aljazeera.com/video/newsfeed/2026/6/14/donald-trumps-name-removed-from-kennedy-center?traffic_source=rss",
         "source": "Al Jazeera"
       },
       {
-        "title": "UK court to rule on Palestine Action ‘terrorist’ label: What we know",
-        "pubDate": "Sun, 14 Jun 2026 08:34:29 +0000",
-        "link": "https://www.aljazeera.com/news/2026/6/14/uk-court-to-rule-on-palestine-action-terrorist-label-what-we-know?traffic_source=rss",
+        "title": "Sexual Violence in Israeli Prisons: What History Tells Us",
+        "pubDate": "Sun, 14 Jun 2026 13:06:52 +0000",
+        "link": "https://www.aljazeera.com/video/2026/6/14/sexual-violence-in-israeli-prisons-what-history-tells-us?traffic_source=rss",
         "source": "Al Jazeera"
+      },
+      {
+        "title": "Sahel juntas are &#039;crushing&#039; basic freedoms",
+        "pubDate": "Sun, 14 Jun 2026 13:01:00 GMT",
+        "link": "https://www.dw.com/en/sahel-juntas-are-crushing-basic-freedoms/a-77500618?maca=en-rss-en-world-4025-xml-mrss",
+        "source": "DW News"
+      },
+      {
+        "title": "Tourist train overturns and injures 17 during Cártama tapas festival",
+        "pubDate": "Sun, 14 Jun 2026 12:04:54 GMT",
+        "link": "https://www.bbc.com/news/articles/c14yn10jzyeo?at_medium=RSS&amp;at_campaign=rss",
+        "source": "BBC World"
+      },
+      {
+        "title": "Swiss voters reject 10 million population cap, early projections say",
+        "pubDate": "Sun, 14 Jun 2026 11:31:32 GMT",
+        "link": "https://www.bbc.com/news/articles/c20ygjem17zo?at_medium=RSS&amp;at_campaign=rss",
+        "source": "BBC World"
       },
       {
         "title": "Trump says US-Iran deal to be signed on Sunday as Tehran casts doubt on timing",
-        "pubDate": "Sun, 14 Jun 2026 07:55:16 GMT",
+        "pubDate": "Sun, 14 Jun 2026 11:23:36 GMT",
         "link": "https://www.bbc.com/news/articles/cvglmn49xz0o?at_medium=RSS&amp;at_campaign=rss",
         "source": "BBC World"
       },
       {
-        "title": "New York Knicks win NBA championship for first time in over 50 years",
-        "pubDate": "Sun, 14 Jun 2026 07:21:26 GMT",
-        "link": "https://www.bbc.com/news/articles/c78yw4zw19do?at_medium=RSS&amp;at_campaign=rss",
-        "source": "BBC World"
-      },
-      {
-        "title": "Switzerland votes on plan to cap population at 10 million",
-        "pubDate": "Sun, 14 Jun 2026 05:36:24 GMT",
-        "link": "https://www.bbc.com/news/articles/cx23kz7e76po?at_medium=RSS&amp;at_campaign=rss",
-        "source": "BBC World"
-      },
-      {
-        "title": "World Bank projects Iraqi economy to shrink in 2026 - IraqiNews",
-        "pubDate": "Sun, 14 Jun 2026 05:03:45 GMT",
-        "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOejlXTEU0N0RvZXNCZGtkcjR5azJMSWp1Uy1YRm1TazhWbVU5bnR3UlVGOHlFX2k5OEJnakR3RFFBX0l3b1EzUnNDZE5JMDg1UGxtajFIa0V4b2x0Z0dycjFsWlRvd0dmUGtGRlB0ejZPUGJPWGxZMk40Rm5YN2FMem9RSTFQRVkxRndR?oc=5",
-        "source": "IMF"
+        "title": "Swiss voters projected to reject population cap proposal",
+        "pubDate": "Sun, 14 Jun 2026 11:19:00 GMT",
+        "link": "https://www.dw.com/en/swiss-voters-projected-to-reject-population-cap-proposal/a-77543868?maca=en-rss-en-world-4025-xml-mrss",
+        "source": "DW News"
       },
       {
         "title": "Germany faces EU penalty over gender pay gap directive",
@@ -5160,28 +5828,22 @@
         "source": "UN News"
       },
       {
-        "title": "Anthropic cuts top-tier AI access after US foreigner ban",
-        "pubDate": "Sat, 13 Jun 2026 09:41:00 GMT",
-        "link": "https://www.dw.com/en/anthropic-cuts-top-tier-ai-access-after-us-foreigner-ban/a-77534688?maca=en-rss-en-world-4025-xml-mrss",
-        "source": "DW News"
-      },
-      {
-        "title": "US, Venezuela say Tren de Aragua leader killed in strike",
-        "pubDate": "Sat, 13 Jun 2026 06:36:00 GMT",
-        "link": "https://www.dw.com/en/us-venezuela-say-tren-de-aragua-leader-killed-in-strike/a-77534071?maca=en-rss-en-world-4025-xml-mrss",
-        "source": "DW News"
-      },
-      {
-        "title": "African Development Bank and World Bank deepen research partnership on Africa's economic challenges - African Development Bank Group",
-        "pubDate": "Fri, 12 Jun 2026 19:38:09 GMT",
-        "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNU1RaaWZ1aURReDMzOWlJTHZHX0FwNkYteFNiSi1ZMXZmU0k0cGo5TG0yS3hGdmg0NGhkZjUwNWtVbl9ROG41VTlkR1VLQjQzaXpndWV0Y1hyUndtdkVlcU9FY3E2Q3djLXlYWTg4NkVZTEJvZ1dMNGptbkUzcTZya0xwVWZ0RFIxblRpTDA3NzhtS3hIR1VtUmktaWFGaTlkZU9vak1uc21HeTlYbGRKRmVYSW5JMnlxRmxPT19zWmpCR2xyS3JfR056SnBfNURwQ0lEVndjWHk?oc=5",
-        "source": "World Bank"
-      },
-      {
         "title": "World Bank warns the 2020s are becoming a 'lost decade' for the global economy — 'barring a miracle' - Fortune",
         "pubDate": "Fri, 12 Jun 2026 17:50:00 GMT",
         "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPYUp2R0VuZGltdEpYckJWenRmZ3ZrLXpsVTRlMFpveEdPcmJoN051SzI3ZEowUEY0RGxmU0Fab2g4M2Z3dThFamJKUDZyWldNeFRvWEEtVDVBcnJTQVpfNGhNck1UZ0ZjUDU0QjRRc1JEaVNyMWt5ajg2Nm9RLW05M0F6ZTVfUHVIb3lySg?oc=5",
         "source": "World Bank"
+      },
+      {
+        "title": "NASA to Cover 34th SpaceX Resupply Mission Space Station Departure",
+        "pubDate": "Fri, 12 Jun 2026 15:32:54 +0000",
+        "link": "https://www.nasa.gov/news-release/nasa-to-cover-34th-spacex-resupply-mission-space-station-departure/",
+        "source": "NASA"
+      },
+      {
+        "title": "Black Eye Galaxy",
+        "pubDate": "Fri, 12 Jun 2026 13:59:55 +0000",
+        "link": "https://www.nasa.gov/image-article/black-eye-galaxy/",
+        "source": "NASA"
       },
       {
         "title": "Safe blood supply improves as voluntary donations exceed 85%, but many people still lack access",
@@ -5259,7 +5921,7 @@
         "sunspots": 101.4
       }
     ],
-    "lastUpdated": "2026-06-14T09:48:01.366Z"
+    "lastUpdated": "2026-06-14T14:19:01.992Z"
   },
   "momentum": {
     "indicators": [
