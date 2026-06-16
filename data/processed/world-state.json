@@ -1,49 +1,50 @@
 {
   "meta": {
-    "generated": "2026-06-16T11:24:56.979Z",
+    "generated": "2026-06-16T17:07:21.490Z",
     "version": "2.0.0",
     "sources_count": 65,
     "sources_available": 65,
     "sources_success_rate": 100,
-    "next_update": "2026-06-16T17:24:56.979Z",
+    "next_update": "2026-06-16T23:07:21.490Z",
     "realtimePulse": {
-      "environment": -1.16,
-      "society": -0.35,
+      "environment": -1.28,
+      "society": -0.3,
       "economy": -0.43,
       "progress": 0.8,
       "details": {
-        "quakeCount": 41,
+        "quakeCount": 46,
         "maxMagnitude": 6.7,
-        "avgGlobalTemp": 21.1,
+        "avgGlobalTemp": 22.1,
+        "newsSentiment": -0.42,
         "cryptoFearGreed": 23,
         "arxivPapers": 20
       }
     },
     "cacheFreshness": {
       "environment": {
-        "newest": "2026-06-16T11:24:56.404Z",
-        "oldest": "2026-06-16T11:23:56.926Z",
+        "newest": "2026-06-16T17:07:20.917Z",
+        "oldest": "2026-06-16T17:06:55.497Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 6
       },
       "society": {
-        "newest": "2026-06-16T11:24:56.844Z",
-        "oldest": "2026-06-16T11:22:41.514Z",
+        "newest": "2026-06-16T17:07:21.326Z",
+        "oldest": "2026-06-16T17:06:13.377Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 4
       },
       "economy": {
-        "newest": "2026-06-16T11:24:53.418Z",
-        "oldest": "2026-06-16T11:24:53.418Z",
+        "newest": "2026-06-16T17:07:17.063Z",
+        "oldest": "2026-06-16T17:07:17.063Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 1
       },
       "progress": {
-        "newest": "2026-06-16T11:24:51.488Z",
-        "oldest": "2026-06-16T11:24:17.579Z",
+        "newest": "2026-06-16T17:07:15.097Z",
+        "oldest": "2026-06-16T17:07:01.140Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 2
@@ -55,9 +56,9 @@
     "rawValue": 59.9,
     "label": "POSITIV",
     "zone": "positive",
-    "previous": 60.2,
-    "change": 2.7,
-    "trend": "improving",
+    "previous": 62.9,
+    "change": 0,
+    "trend": "stable",
     "carryingCapacity": {
       "checks": {
         "existence": {
@@ -102,7 +103,7 @@
       },
       "indicators": {
         "environment": {
-          "bufferDistance": 22.2,
+          "bufferDistance": 22.1,
           "recoveryTime": 0,
           "maintenanceCost": 0.16
         },
@@ -132,19 +133,19 @@
   },
   "subScores": {
     "environment": {
-      "value": 33.9,
+      "value": 33.8,
       "label": "BESORGNISERREGEND",
       "zone": "concerning",
       "weight": 0.25,
       "trend": "stable",
-      "change": 0,
+      "change": -0.1,
       "indicators": [
         {
           "name": "Globale Temperaturanomalie",
           "value": "+1.19°C",
           "score": 60,
           "trend": "declining",
-          "fetchedAt": "2026-06-16T11:24:02.790Z",
+          "fetchedAt": "2026-06-16T17:06:55.861Z",
           "ageHours": 0,
           "source": "NASA GISTEMP v4 (base 1951-1980)"
         },
@@ -153,8 +154,8 @@
           "value": "432 ppm",
           "score": 31,
           "trend": "declining",
-          "fetchedAt": "2026-06-16T11:21:26.360Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-06-16T17:05:03.039Z",
+          "ageHours": 0,
           "source": "NOAA Mauna Loa"
         },
         {
@@ -162,7 +163,7 @@
           "value": "31.14%",
           "score": 56,
           "trend": "declining",
-          "fetchedAt": "2026-06-16T11:24:10.741Z",
+          "fetchedAt": "2026-06-16T17:06:55.936Z",
           "ageHours": 0,
           "source": "World Bank / FAO (AG.LND.FRST.ZS)"
         },
@@ -171,18 +172,18 @@
           "value": "19.74%",
           "score": 33,
           "trend": "improving",
-          "fetchedAt": "2026-06-16T11:24:10.820Z",
+          "fetchedAt": "2026-06-16T17:06:56.297Z",
           "ageHours": 0,
           "source": "World Bank (EG.FEC.RNEW.ZS)"
         },
         {
           "name": "Luftqualität (Global Avg AQI)",
-          "value": 58,
+          "value": 67,
           "score": 45,
           "trend": "stable",
-          "fetchedAt": "2026-06-16T11:24:56.404Z",
+          "fetchedAt": "2026-06-16T17:07:20.917Z",
           "ageHours": 0,
-          "source": "WAQI official stations (20 cities)"
+          "source": "WAQI official stations (19 cities)"
         },
         {
           "name": "Arktis-Eisfläche",
@@ -198,7 +199,7 @@
           "value": "36 events, -10 Pkt",
           "score": 0,
           "trend": "declining",
-          "fetchedAt": "2026-06-16T11:23:56.926Z",
+          "fetchedAt": "2026-06-16T17:06:55.497Z",
           "ageHours": 0,
           "source": "GDACS (JRC/EU)"
         }
@@ -217,7 +218,7 @@
           "value": "73.48 Jahre",
           "score": 67,
           "trend": "improving",
-          "fetchedAt": "2026-06-16T11:24:34.399Z",
+          "fetchedAt": "2026-06-16T17:07:15.045Z",
           "ageHours": 0,
           "source": "World Bank (SP.DYN.LE00.IN)"
         },
@@ -226,7 +227,7 @@
           "value": "37.4/1000",
           "score": 66,
           "trend": "improving",
-          "fetchedAt": "2026-06-16T11:24:34.399Z",
+          "fetchedAt": "2026-06-16T17:07:15.045Z",
           "ageHours": 0,
           "source": "World Bank (SH.DYN.MORT)"
         },
@@ -235,7 +236,7 @@
           "value": 59,
           "score": 29,
           "trend": "declining",
-          "fetchedAt": "2026-06-16T11:23:07.643Z",
+          "fetchedAt": "2026-06-16T17:06:53.558Z",
           "ageHours": 0,
           "source": "ACLED/Crisis Group (baseline)"
         },
@@ -244,8 +245,8 @@
           "value": "91.6%",
           "score": 83,
           "trend": "improving",
-          "fetchedAt": "2026-06-16T11:21:30.785Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-06-16T17:05:06.214Z",
+          "ageHours": 0,
           "source": "World Bank (raw)"
         },
         {
@@ -253,8 +254,8 @@
           "value": "73.7%",
           "score": 56,
           "trend": "improving",
-          "fetchedAt": "2026-06-16T11:21:30.848Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-06-16T17:05:06.265Z",
+          "ageHours": 0,
           "source": "World Bank (raw)"
         },
         {
@@ -271,7 +272,7 @@
           "value": "84 frei / 55 unfrei",
           "score": 46,
           "trend": "declining",
-          "fetchedAt": "2026-06-16T11:22:41.514Z",
+          "fetchedAt": "2026-06-16T17:06:13.377Z",
           "ageHours": 0,
           "source": "Freedom House - Freedom in the World"
         }
@@ -290,8 +291,8 @@
           "value": "2.87%",
           "score": 72,
           "trend": "improving",
-          "fetchedAt": "2026-06-16T11:21:31.908Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-06-16T17:05:06.681Z",
+          "ageHours": 0,
           "source": "World Bank / IMF"
         },
         {
@@ -299,8 +300,8 @@
           "value": 42,
           "score": 51,
           "trend": "stable",
-          "fetchedAt": "2026-06-16T11:21:31.957Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-06-16T17:05:06.723Z",
+          "ageHours": 0,
           "source": "World Bank"
         },
         {
@@ -308,7 +309,7 @@
           "value": "5.4%",
           "score": 81,
           "trend": "stable",
-          "fetchedAt": "2026-06-16T11:24:53.418Z",
+          "fetchedAt": "2026-06-16T17:07:17.063Z",
           "ageHours": 0,
           "source": "FRED + World Bank (avg)"
         },
@@ -317,8 +318,8 @@
           "value": "4.79%",
           "score": 79,
           "trend": "stable",
-          "fetchedAt": "2026-06-16T11:21:32.057Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-06-16T17:05:06.820Z",
+          "ageHours": 0,
           "source": "World Bank / ILO"
         },
         {
@@ -335,7 +336,7 @@
           "value": "3.63%",
           "score": 70.96000000000001,
           "trend": "stable",
-          "fetchedAt": "2026-06-16T11:24:53.418Z",
+          "fetchedAt": "2026-06-16T17:07:17.063Z",
           "ageHours": 0,
           "source": "FRED (St. Louis Fed)"
         },
@@ -344,7 +345,7 @@
           "value": "0.4%",
           "score": 80,
           "trend": "stable",
-          "fetchedAt": "2026-06-16T11:24:53.418Z",
+          "fetchedAt": "2026-06-16T17:07:17.063Z",
           "ageHours": 0,
           "source": "FRED (St. Louis Fed)"
         }
@@ -363,7 +364,7 @@
           "value": "73.6%",
           "score": 82,
           "trend": "improving",
-          "fetchedAt": "2026-06-16T11:24:51.488Z",
+          "fetchedAt": "2026-06-16T17:07:15.097Z",
           "ageHours": 0,
           "source": "World Bank (IT.NET.USER.ZS)"
         },
@@ -372,8 +373,8 @@
           "value": "87.7%",
           "score": 75,
           "trend": "improving",
-          "fetchedAt": "2026-06-16T11:21:34.262Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-06-16T17:05:08.829Z",
+          "ageHours": 0,
           "source": "World Bank / UNESCO"
         },
         {
@@ -381,8 +382,8 @@
           "value": "2.59%",
           "score": 65,
           "trend": "improving",
-          "fetchedAt": "2026-06-16T11:21:33.729Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-06-16T17:05:08.429Z",
+          "ageHours": 0,
           "source": "World Bank"
         },
         {
@@ -390,7 +391,7 @@
           "value": "111.5/100",
           "score": 86,
           "trend": "improving",
-          "fetchedAt": "2026-06-16T11:24:51.488Z",
+          "fetchedAt": "2026-06-16T17:07:15.097Z",
           "ageHours": 0,
           "source": "World Bank (IT.CEL.SETS.P2)"
         },
@@ -399,8 +400,8 @@
           "value": "0K+",
           "score": 80,
           "trend": "improving",
-          "fetchedAt": "2026-06-16T11:21:33.506Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-06-16T17:05:08.198Z",
+          "ageHours": 0,
           "source": "GitHub"
         },
         {
@@ -408,7 +409,7 @@
           "value": "0.4M total",
           "score": 75,
           "trend": "improving",
-          "fetchedAt": "2026-06-16T11:24:17.579Z",
+          "fetchedAt": "2026-06-16T17:07:01.140Z",
           "ageHours": 0,
           "source": "arXiv (cs.AI + cs.LG)"
         }
@@ -1426,77 +1427,77 @@
       "source": "NOAA"
     },
     "airQuality": {
-      "globalAvgAQI": 58,
+      "globalAvgAQI": 67,
       "cleanestCities": [
         {
           "city": "São Paulo",
           "country": "BR",
-          "aqi": 13,
+          "aqi": 14,
           "lat": null,
           "lng": null
         },
         {
           "city": "New York",
           "country": "US",
-          "aqi": 13,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Los Angeles",
-          "country": "US",
-          "aqi": 17,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Sydney",
-          "country": "AU",
-          "aqi": 17,
+          "aqi": 14,
           "lat": null,
           "lng": null
         },
         {
           "city": "Moscow",
           "country": "RU",
-          "aqi": 21,
+          "aqi": 18,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Lagos",
+          "country": "NG",
+          "aqi": 26,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Los Angeles",
+          "country": "US",
+          "aqi": 27,
           "lat": null,
           "lng": null
         }
       ],
       "mostPolluted": [
         {
-          "city": "Mumbai",
-          "country": "IN",
-          "aqi": 141,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Beijing",
-          "country": "CN",
-          "aqi": 122,
+          "city": "Jakarta",
+          "country": "ID",
+          "aqi": 150,
           "lat": null,
           "lng": null
         },
         {
           "city": "Delhi",
           "country": "IN",
-          "aqi": 100,
+          "aqi": 117,
           "lat": null,
           "lng": null
         },
         {
           "city": "Karachi",
           "country": "PK",
-          "aqi": 72,
+          "aqi": 109,
           "lat": null,
           "lng": null
         },
         {
-          "city": "Paris",
-          "country": "FR",
-          "aqi": 65,
+          "city": "Mumbai",
+          "country": "IN",
+          "aqi": 109,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Mexico City",
+          "country": "MX",
+          "aqi": 85,
           "lat": null,
           "lng": null
         }
@@ -1898,7 +1899,7 @@
       "endangered": 55074,
       "criticallyEndangered": 29980,
       "source": "GBIF / IUCN",
-      "fetchedAt": "2026-06-16T11:22:39.067Z",
+      "fetchedAt": "2026-06-16T17:06:11.514Z",
       "ageHours": 0
     },
     "weather": [
@@ -1907,12 +1908,12 @@
         "lat": 52.52,
         "lng": 13.41,
         "current": {
-          "time": "2026-06-16T13:15",
+          "time": "2026-06-16T19:00",
           "interval": 900,
-          "temperature_2m": 19.1,
-          "relative_humidity_2m": 45,
-          "wind_speed_10m": 10.7,
-          "weather_code": 2
+          "temperature_2m": 22.4,
+          "relative_humidity_2m": 34,
+          "wind_speed_10m": 10.2,
+          "weather_code": 3
         }
       },
       {
@@ -1920,11 +1921,11 @@
         "lat": 40.71,
         "lng": -74.01,
         "current": {
-          "time": "2026-06-16T07:15",
+          "time": "2026-06-16T13:00",
           "interval": 900,
-          "temperature_2m": 15.4,
-          "relative_humidity_2m": 64,
-          "wind_speed_10m": 13.7,
+          "temperature_2m": 23.9,
+          "relative_humidity_2m": 34,
+          "wind_speed_10m": 10.9,
           "weather_code": 0
         }
       },
@@ -1933,12 +1934,12 @@
         "lat": 35.68,
         "lng": 139.69,
         "current": {
-          "time": "2026-06-16T20:15",
+          "time": "2026-06-17T02:00",
           "interval": 900,
-          "temperature_2m": 21.1,
-          "relative_humidity_2m": 76,
-          "wind_speed_10m": 4.3,
-          "weather_code": 2
+          "temperature_2m": 18.3,
+          "relative_humidity_2m": 87,
+          "wind_speed_10m": 3.1,
+          "weather_code": 0
         }
       },
       {
@@ -1946,12 +1947,12 @@
         "lat": -33.87,
         "lng": 151.21,
         "current": {
-          "time": "2026-06-16T21:15",
+          "time": "2026-06-17T03:00",
           "interval": 900,
-          "temperature_2m": 14.6,
-          "relative_humidity_2m": 86,
-          "wind_speed_10m": 5.2,
-          "weather_code": 3
+          "temperature_2m": 12.6,
+          "relative_humidity_2m": 92,
+          "wind_speed_10m": 8.5,
+          "weather_code": 2
         }
       },
       {
@@ -1959,12 +1960,12 @@
         "lat": -23.55,
         "lng": -46.63,
         "current": {
-          "time": "2026-06-16T08:15",
+          "time": "2026-06-16T14:00",
           "interval": 900,
-          "temperature_2m": 14.5,
-          "relative_humidity_2m": 94,
-          "wind_speed_10m": 5.1,
-          "weather_code": 3
+          "temperature_2m": 17.8,
+          "relative_humidity_2m": 73,
+          "wind_speed_10m": 5.9,
+          "weather_code": 51
         }
       },
       {
@@ -1972,12 +1973,12 @@
         "lat": 6.45,
         "lng": 3.4,
         "current": {
-          "time": "2026-06-16T12:15",
+          "time": "2026-06-16T18:00",
           "interval": 900,
-          "temperature_2m": 28.8,
-          "relative_humidity_2m": 77,
-          "wind_speed_10m": 9.3,
-          "weather_code": 95
+          "temperature_2m": 27.5,
+          "relative_humidity_2m": 80,
+          "wind_speed_10m": 12.9,
+          "weather_code": 3
         }
       },
       {
@@ -1985,11 +1986,11 @@
         "lat": 19.08,
         "lng": 72.88,
         "current": {
-          "time": "2026-06-16T16:45",
+          "time": "2026-06-16T22:30",
           "interval": 900,
-          "temperature_2m": 32.5,
-          "relative_humidity_2m": 60,
-          "wind_speed_10m": 15.8,
+          "temperature_2m": 30.4,
+          "relative_humidity_2m": 69,
+          "wind_speed_10m": 11,
           "weather_code": 1
         }
       },
@@ -1998,12 +1999,12 @@
         "lat": 51.51,
         "lng": -0.13,
         "current": {
-          "time": "2026-06-16T12:15",
+          "time": "2026-06-16T18:00",
           "interval": 900,
-          "temperature_2m": 22.8,
-          "relative_humidity_2m": 48,
-          "wind_speed_10m": 7.9,
-          "weather_code": 0
+          "temperature_2m": 24.1,
+          "relative_humidity_2m": 46,
+          "wind_speed_10m": 17.3,
+          "weather_code": 3
         }
       }
     ],
@@ -2187,672 +2188,7 @@
       "source": "ACLED/Crisis Group (baseline)",
       "headlines": [],
       "crises": [],
-      "trendArticles": [
-        {
-          "date": "20260609T120000Z",
-          "volume": 17.5789
-        },
-        {
-          "date": "20260609T130000Z",
-          "volume": 18.8804
-        },
-        {
-          "date": "20260609T140000Z",
-          "volume": 17.1988
-        },
-        {
-          "date": "20260609T150000Z",
-          "volume": 17.9219
-        },
-        {
-          "date": "20260609T160000Z",
-          "volume": 16.4821
-        },
-        {
-          "date": "20260609T170000Z",
-          "volume": 16.9608
-        },
-        {
-          "date": "20260609T180000Z",
-          "volume": 16.7973
-        },
-        {
-          "date": "20260609T190000Z",
-          "volume": 17.9665
-        },
-        {
-          "date": "20260609T200000Z",
-          "volume": 18.9459
-        },
-        {
-          "date": "20260609T210000Z",
-          "volume": 19.4619
-        },
-        {
-          "date": "20260609T220000Z",
-          "volume": 19.5362
-        },
-        {
-          "date": "20260609T230000Z",
-          "volume": 19.3125
-        },
-        {
-          "date": "20260610T000000Z",
-          "volume": 19.9305
-        },
-        {
-          "date": "20260610T010000Z",
-          "volume": 21.4233
-        },
-        {
-          "date": "20260610T020000Z",
-          "volume": 19.2069
-        },
-        {
-          "date": "20260610T030000Z",
-          "volume": 17.7104
-        },
-        {
-          "date": "20260610T040000Z",
-          "volume": 19.2943
-        },
-        {
-          "date": "20260610T050000Z",
-          "volume": 19.0672
-        },
-        {
-          "date": "20260610T060000Z",
-          "volume": 20.521
-        },
-        {
-          "date": "20260610T070000Z",
-          "volume": 19.8309
-        },
-        {
-          "date": "20260610T080000Z",
-          "volume": 19.7391
-        },
-        {
-          "date": "20260610T090000Z",
-          "volume": 18.5816
-        },
-        {
-          "date": "20260610T100000Z",
-          "volume": 18.8731
-        },
-        {
-          "date": "20260610T110000Z",
-          "volume": 18.3192
-        },
-        {
-          "date": "20260610T120000Z",
-          "volume": 18.7456
-        },
-        {
-          "date": "20260610T130000Z",
-          "volume": 18.735
-        },
-        {
-          "date": "20260610T140000Z",
-          "volume": 18.7447
-        },
-        {
-          "date": "20260610T150000Z",
-          "volume": 16.662
-        },
-        {
-          "date": "20260610T160000Z",
-          "volume": 18.5286
-        },
-        {
-          "date": "20260610T170000Z",
-          "volume": 18.013
-        },
-        {
-          "date": "20260610T180000Z",
-          "volume": 17.2175
-        },
-        {
-          "date": "20260610T190000Z",
-          "volume": 19.6224
-        },
-        {
-          "date": "20260610T200000Z",
-          "volume": 18.5877
-        },
-        {
-          "date": "20260610T210000Z",
-          "volume": 18.7996
-        },
-        {
-          "date": "20260610T220000Z",
-          "volume": 20.7612
-        },
-        {
-          "date": "20260610T230000Z",
-          "volume": 19.8913
-        },
-        {
-          "date": "20260611T000000Z",
-          "volume": 21.7551
-        },
-        {
-          "date": "20260611T010000Z",
-          "volume": 20.4572
-        },
-        {
-          "date": "20260611T020000Z",
-          "volume": 18.692
-        },
-        {
-          "date": "20260611T030000Z",
-          "volume": 18.86
-        },
-        {
-          "date": "20260611T040000Z",
-          "volume": 18.6335
-        },
-        {
-          "date": "20260611T050000Z",
-          "volume": 19.9017
-        },
-        {
-          "date": "20260611T060000Z",
-          "volume": 20.3646
-        },
-        {
-          "date": "20260611T070000Z",
-          "volume": 20.2773
-        },
-        {
-          "date": "20260611T080000Z",
-          "volume": 19.015
-        },
-        {
-          "date": "20260611T090000Z",
-          "volume": 20.1664
-        },
-        {
-          "date": "20260611T100000Z",
-          "volume": 18.5228
-        },
-        {
-          "date": "20260611T110000Z",
-          "volume": 18.0289
-        },
-        {
-          "date": "20260611T120000Z",
-          "volume": 18.4614
-        },
-        {
-          "date": "20260611T130000Z",
-          "volume": 19.4411
-        },
-        {
-          "date": "20260611T140000Z",
-          "volume": 17.6216
-        },
-        {
-          "date": "20260611T150000Z",
-          "volume": 17.9122
-        },
-        {
-          "date": "20260611T160000Z",
-          "volume": 18.728
-        },
-        {
-          "date": "20260611T170000Z",
-          "volume": 18.3103
-        },
-        {
-          "date": "20260611T180000Z",
-          "volume": 19.3292
-        },
-        {
-          "date": "20260611T190000Z",
-          "volume": 18.3568
-        },
-        {
-          "date": "20260611T200000Z",
-          "volume": 20.0163
-        },
-        {
-          "date": "20260611T210000Z",
-          "volume": 19.6386
-        },
-        {
-          "date": "20260611T220000Z",
-          "volume": 19.7313
-        },
-        {
-          "date": "20260611T230000Z",
-          "volume": 17.0525
-        },
-        {
-          "date": "20260612T000000Z",
-          "volume": 20.0394
-        },
-        {
-          "date": "20260612T010000Z",
-          "volume": 19.3374
-        },
-        {
-          "date": "20260612T020000Z",
-          "volume": 17.8339
-        },
-        {
-          "date": "20260612T030000Z",
-          "volume": 17.4447
-        },
-        {
-          "date": "20260612T040000Z",
-          "volume": 18.1213
-        },
-        {
-          "date": "20260612T050000Z",
-          "volume": 17.4063
-        },
-        {
-          "date": "20260612T060000Z",
-          "volume": 19.3157
-        },
-        {
-          "date": "20260612T070000Z",
-          "volume": 18.6131
-        },
-        {
-          "date": "20260612T080000Z",
-          "volume": 18.3165
-        },
-        {
-          "date": "20260612T090000Z",
-          "volume": 18.4118
-        },
-        {
-          "date": "20260612T100000Z",
-          "volume": 18.5541
-        },
-        {
-          "date": "20260612T110000Z",
-          "volume": 16.5405
-        },
-        {
-          "date": "20260612T120000Z",
-          "volume": 16.9853
-        },
-        {
-          "date": "20260612T130000Z",
-          "volume": 17.6522
-        },
-        {
-          "date": "20260612T140000Z",
-          "volume": 17.3161
-        },
-        {
-          "date": "20260612T150000Z",
-          "volume": 17.2133
-        },
-        {
-          "date": "20260612T160000Z",
-          "volume": 18.5387
-        },
-        {
-          "date": "20260612T170000Z",
-          "volume": 18.7471
-        },
-        {
-          "date": "20260612T180000Z",
-          "volume": 20.193
-        },
-        {
-          "date": "20260612T190000Z",
-          "volume": 19.2173
-        },
-        {
-          "date": "20260612T200000Z",
-          "volume": 17.7458
-        },
-        {
-          "date": "20260612T210000Z",
-          "volume": 16.5046
-        },
-        {
-          "date": "20260612T220000Z",
-          "volume": 16.5251
-        },
-        {
-          "date": "20260612T230000Z",
-          "volume": 17.0587
-        },
-        {
-          "date": "20260613T000000Z",
-          "volume": 17.0501
-        },
-        {
-          "date": "20260613T010000Z",
-          "volume": 17.5275
-        },
-        {
-          "date": "20260613T020000Z",
-          "volume": 18.7766
-        },
-        {
-          "date": "20260613T030000Z",
-          "volume": 20.8166
-        },
-        {
-          "date": "20260613T040000Z",
-          "volume": 18.8723
-        },
-        {
-          "date": "20260613T050000Z",
-          "volume": 20.2445
-        },
-        {
-          "date": "20260613T060000Z",
-          "volume": 21.6329
-        },
-        {
-          "date": "20260613T070000Z",
-          "volume": 20.2882
-        },
-        {
-          "date": "20260613T080000Z",
-          "volume": 20.1386
-        },
-        {
-          "date": "20260613T090000Z",
-          "volume": 19.2027
-        },
-        {
-          "date": "20260613T100000Z",
-          "volume": 18.4954
-        },
-        {
-          "date": "20260613T110000Z",
-          "volume": 18.1254
-        },
-        {
-          "date": "20260613T120000Z",
-          "volume": 19.951
-        },
-        {
-          "date": "20260613T130000Z",
-          "volume": 20.0541
-        },
-        {
-          "date": "20260613T140000Z",
-          "volume": 20.2589
-        },
-        {
-          "date": "20260613T150000Z",
-          "volume": 19.4761
-        },
-        {
-          "date": "20260613T160000Z",
-          "volume": 19.6712
-        },
-        {
-          "date": "20260613T170000Z",
-          "volume": 19.5926
-        },
-        {
-          "date": "20260613T180000Z",
-          "volume": 19.2777
-        },
-        {
-          "date": "20260613T190000Z",
-          "volume": 20.1104
-        },
-        {
-          "date": "20260613T200000Z",
-          "volume": 19.4883
-        },
-        {
-          "date": "20260613T210000Z",
-          "volume": 20.0652
-        },
-        {
-          "date": "20260613T220000Z",
-          "volume": 20.3675
-        },
-        {
-          "date": "20260613T230000Z",
-          "volume": 19.2784
-        },
-        {
-          "date": "20260614T000000Z",
-          "volume": 20.5902
-        },
-        {
-          "date": "20260614T010000Z",
-          "volume": 19.4053
-        },
-        {
-          "date": "20260614T020000Z",
-          "volume": 20.3068
-        },
-        {
-          "date": "20260614T030000Z",
-          "volume": 19.6267
-        },
-        {
-          "date": "20260614T040000Z",
-          "volume": 17.7425
-        },
-        {
-          "date": "20260614T050000Z",
-          "volume": 20.4558
-        },
-        {
-          "date": "20260614T060000Z",
-          "volume": 21.5137
-        },
-        {
-          "date": "20260614T070000Z",
-          "volume": 20.4754
-        },
-        {
-          "date": "20260614T080000Z",
-          "volume": 20.9483
-        },
-        {
-          "date": "20260614T090000Z",
-          "volume": 22.5472
-        },
-        {
-          "date": "20260614T100000Z",
-          "volume": 20.8971
-        },
-        {
-          "date": "20260614T110000Z",
-          "volume": 20.9356
-        },
-        {
-          "date": "20260614T120000Z",
-          "volume": 21.0681
-        },
-        {
-          "date": "20260614T130000Z",
-          "volume": 20.4875
-        },
-        {
-          "date": "20260614T140000Z",
-          "volume": 18.9899
-        },
-        {
-          "date": "20260614T150000Z",
-          "volume": 18.7722
-        },
-        {
-          "date": "20260614T160000Z",
-          "volume": 22.3439
-        },
-        {
-          "date": "20260614T170000Z",
-          "volume": 19.6281
-        },
-        {
-          "date": "20260614T180000Z",
-          "volume": 20.3354
-        },
-        {
-          "date": "20260614T190000Z",
-          "volume": 21.6057
-        },
-        {
-          "date": "20260614T200000Z",
-          "volume": 21.6208
-        },
-        {
-          "date": "20260614T210000Z",
-          "volume": 20.7284
-        },
-        {
-          "date": "20260614T220000Z",
-          "volume": 21.4286
-        },
-        {
-          "date": "20260614T230000Z",
-          "volume": 25.1839
-        },
-        {
-          "date": "20260615T000000Z",
-          "volume": 29.6911
-        },
-        {
-          "date": "20260615T010000Z",
-          "volume": 28.5
-        },
-        {
-          "date": "20260615T020000Z",
-          "volume": 25.8114
-        },
-        {
-          "date": "20260615T030000Z",
-          "volume": 24.3323
-        },
-        {
-          "date": "20260615T040000Z",
-          "volume": 23.6847
-        },
-        {
-          "date": "20260615T050000Z",
-          "volume": 23.7503
-        },
-        {
-          "date": "20260615T060000Z",
-          "volume": 23.7447
-        },
-        {
-          "date": "20260615T070000Z",
-          "volume": 21.9207
-        },
-        {
-          "date": "20260615T080000Z",
-          "volume": 20.5414
-        },
-        {
-          "date": "20260615T090000Z",
-          "volume": 20.3427
-        },
-        {
-          "date": "20260615T100000Z",
-          "volume": 19.0466
-        },
-        {
-          "date": "20260615T110000Z",
-          "volume": 20.4382
-        },
-        {
-          "date": "20260615T120000Z",
-          "volume": 19.4536
-        },
-        {
-          "date": "20260615T130000Z",
-          "volume": 19.4815
-        },
-        {
-          "date": "20260615T140000Z",
-          "volume": 20.161
-        },
-        {
-          "date": "20260615T150000Z",
-          "volume": 18.5558
-        },
-        {
-          "date": "20260615T160000Z",
-          "volume": 19.7561
-        },
-        {
-          "date": "20260615T170000Z",
-          "volume": 19.2186
-        },
-        {
-          "date": "20260615T180000Z",
-          "volume": 19.0642
-        },
-        {
-          "date": "20260615T190000Z",
-          "volume": 20.2346
-        },
-        {
-          "date": "20260615T210000Z",
-          "volume": 20.7901
-        },
-        {
-          "date": "20260615T220000Z",
-          "volume": 21.5251
-        },
-        {
-          "date": "20260615T230000Z",
-          "volume": 20.6698
-        },
-        {
-          "date": "20260616T000000Z",
-          "volume": 20.8485
-        },
-        {
-          "date": "20260616T010000Z",
-          "volume": 19.4076
-        },
-        {
-          "date": "20260616T020000Z",
-          "volume": 17.2635
-        },
-        {
-          "date": "20260616T030000Z",
-          "volume": 18.7166
-        },
-        {
-          "date": "20260616T040000Z",
-          "volume": 18.8476
-        },
-        {
-          "date": "20260616T050000Z",
-          "volume": 18.6955
-        },
-        {
-          "date": "20260616T060000Z",
-          "volume": 20.741
-        },
-        {
-          "date": "20260616T070000Z",
-          "volume": 20.3159
-        },
-        {
-          "date": "20260616T080000Z",
-          "volume": 19.2308
-        },
-        {
-          "date": "20260616T090000Z",
-          "volume": 18.3103
-        },
-        {
-          "date": "20260616T100000Z",
-          "volume": 19.7028
-        }
-      ],
+      "trendArticles": null,
       "acled": null
     },
     "refugees": {
@@ -5039,73 +4375,73 @@
       "topRepos": [
         {
           "name": "codecrafters-io/build-your-own-x",
-          "stars": 516172,
-          "forks": 48879,
+          "stars": 516314,
+          "forks": 48885,
           "language": "Markdown",
-          "updated": "2026-06-16T11:19:20Z"
+          "updated": "2026-06-16T17:04:41Z"
         },
         {
           "name": "sindresorhus/awesome",
-          "stars": 476165,
-          "forks": 35432,
+          "stars": 476268,
+          "forks": 35442,
           "language": null,
-          "updated": "2026-06-16T11:21:10Z"
+          "updated": "2026-06-16T16:59:46Z"
         },
         {
           "name": "freeCodeCamp/freeCodeCamp",
-          "stars": 448194,
-          "forks": 45008,
+          "stars": 448393,
+          "forks": 45024,
           "language": "TypeScript",
-          "updated": "2026-06-16T11:16:58Z"
+          "updated": "2026-06-16T17:05:07Z"
         },
         {
           "name": "public-apis/public-apis",
-          "stars": 441960,
-          "forks": 48429,
+          "stars": 442015,
+          "forks": 48434,
           "language": "Python",
-          "updated": "2026-06-16T11:09:58Z"
+          "updated": "2026-06-16T16:59:42Z"
         },
         {
           "name": "EbookFoundation/free-programming-books",
-          "stars": 390340,
+          "stars": 390358,
           "forks": 66437,
           "language": "Python",
-          "updated": "2026-06-16T10:54:30Z"
+          "updated": "2026-06-16T17:04:48Z"
         },
         {
           "name": "openclaw/openclaw",
-          "stars": 378969,
-          "forks": 79302,
+          "stars": 379020,
+          "forks": 79316,
           "language": "TypeScript",
-          "updated": "2026-06-16T11:21:29Z"
+          "updated": "2026-06-16T17:03:08Z"
         },
         {
           "name": "nilbuild/developer-roadmap",
-          "stars": 357419,
-          "forks": 44224,
+          "stars": 357458,
+          "forks": 44225,
           "language": "TypeScript",
-          "updated": "2026-06-16T11:21:32Z"
+          "updated": "2026-06-16T16:53:11Z"
         },
         {
           "name": "donnemartin/system-design-primer",
-          "stars": 353373,
-          "forks": 56744,
+          "stars": 353421,
+          "forks": 56749,
           "language": "Python",
-          "updated": "2026-06-16T11:16:52Z"
+          "updated": "2026-06-16T17:03:15Z"
         },
         {
           "name": "jwasham/coding-interview-university",
-          "stars": 352596,
-          "forks": 83605,
+          "stars": 352656,
+          "forks": 83617,
           "language": null,
-          "updated": "2026-06-16T11:19:24Z"
+          "updated": "2026-06-16T16:55:13Z"
         },
         {
           "name": "vinta/awesome-python",
-          "stars": 303181,
-          "forks": 28098,
+          "stars": 303238,
+          "forks": 28102,
           "language": "Python",
-          "updated": "2026-06-16T11:19:47Z"
+          "updated": "2026-06-16T16:57:19Z"
         }
       ],
       "source": "GitHub"
@@ -5579,64 +4915,64 @@
     },
     "spaceflight": [
       {
-        "title": "Tianwen-2 makes series of burns on approach to asteroid, according to radio tracking",
-        "published": "2026-06-16T10:30:08Z",
+        "title": "NASA’s Quantum Lab Aboard Space Station Gets Chilly Upgrade",
+        "published": "2026-06-16T16:50:40Z",
+        "source": "NASA",
+        "summary": "Astronauts aboard the International Space Station have switched on NASA’s newly upgraded Cold Atom Lab, a one-of-a-kind facility designed to improve how scientists explore the fundamental workings of "
+      },
+      {
+        "title": "Artemis Under Ignition",
+        "published": "2026-06-16T16:17:31Z",
+        "source": "Space Scout",
+        "summary": "Now that Ignition is under way, what does NASA seek to accomplish with Artemis, and how does the program's vision compare to its previous roadmap?"
+      },
+      {
+        "title": "The SpaceNews space unicorn tracker",
+        "published": "2026-06-16T16:05:57Z",
         "source": "SpaceNews",
-        "summary": "\nChina’s Tianwen-2 spacecraft has carried out a series of small propulsive maneuvers following a main burn June 7, setting up an asteroid rendezvous in July.\nThe post Tianwen-2 makes series of burns o"
+        "summary": "\nOur ongoing list of current private space companies with a valuation of $1 billion or more.\nThe post The SpaceNews space unicorn tracker appeared first on SpaceNews."
       },
       {
-        "title": "Nebraska’s Wide, Rolling Domain",
-        "published": "2026-06-16T04:01:00Z",
-        "source": "NASA",
-        "summary": "The Nebraska Sandhills—the largest system of sand dunes in the Western Hemisphere—stretch across about one-quarter of the state."
-      },
-      {
-        "title": "Astrobotic showcases Griffin-1 lander ahead of environmental testing in California",
-        "published": "2026-06-16T01:08:24Z",
-        "source": "Spaceflight Now",
-        "summary": "The mission, originally billed as Griffin-1 for NASA’s Commercial Lunar Payload Services (CLPS) program was rebranded as Moon Base 2 by the agency. Launch is scheduled for late 2026."
-      },
-      {
-        "title": "Astrobotic Unveils Griffin “Moon Base II” Lander",
-        "published": "2026-06-16T01:05:56Z",
-        "source": "SpacePolicyOnline.com",
-        "summary": "Astrobotic unveiled its Griffin lunar lander today as it gets ready to ship to JPL for environmental testing prior to launch later this year. When it lands, it will be […]"
-      },
-      {
-        "title": "Explore JPL to Take Place Oct. 10, 11",
-        "published": "2026-06-16T00:34:34Z",
-        "source": "NASA",
-        "summary": "Celebrating its 90th anniversary this year, NASA’s Jet Propulsion Laboratory invites the public to its campus at the base of the San Gabriel Mountains in Southern California for an open-house event, E"
-      },
-      {
-        "title": "Gilat to buy Comtech satcoms business six years after failed merger",
-        "published": "2026-06-15T20:54:05Z",
+        "title": "Katalyst Space raises $12 million for GEO servicing demo mission",
+        "published": "2026-06-16T15:30:00Z",
         "source": "SpaceNews",
-        "summary": "\nIsrael’s Gilat Satellite Networks plans to expand its defense capabilities by acquiring most of Comtech’s space-related communications business, six years after the U.S. company’s own takeover bid co"
+        "summary": "\nSatellite servicing startup Katalyst Space Technologies has raised $12 million for a geosynchronous orbit demonstration as its mission to boost the orbit of a NASA observatory nears launch.\nThe post "
       },
       {
-        "title": "Space Force orders two more GPS satellites from Lockheed Martin for $514 million",
-        "published": "2026-06-15T20:27:15Z",
+        "title": "NASA Uses Machine Learning to Enhance Flash Flood Warnings",
+        "published": "2026-06-16T15:23:02Z",
+        "source": "NASA",
+        "summary": "The Transient Artifact and Continuous Learning System (TACLS) leverages data from continuously operating satellite networks coupled with machine learning models to help meteorologists at the National "
+      },
+      {
+        "title": "Department of Health and Human Services Digital Stockpile & Manufacturing Response Network Challenge",
+        "published": "2026-06-16T14:39:54Z",
+        "source": "NASA",
+        "summary": "NASA’s Center of Excellence for Collaborative Innovation (CoECI) assists in the use of crowdsourcing across the federal government. CoECI’s NASA Tournament Lab offers the contract capability to run ex"
+      },
+      {
+        "title": "Aurora Australis",
+        "published": "2026-06-16T14:20:58Z",
+        "source": "NASA",
+        "summary": "The aurora australis arcs over Earth during an active solar event in this photograph taken on June 5, 2026, from the International Space Station as it orbited 271 miles above the Indian Ocean southwes"
+      },
+      {
+        "title": "PiLogic partners with Air Force lab to test satellite fault-prediction software",
+        "published": "2026-06-16T14:00:00Z",
         "source": "SpaceNews",
-        "summary": "\nContract brings GPS 3F orders to 14 satellites that add anti-jam features, digital payloads and upgraded civilian navigation signals\nThe post Space Force orders two more GPS satellites from Lockheed "
+        "summary": "\nThe startup uses probabilistic reasoning to diagnose spacecraft anomalies \nThe post PiLogic partners with Air Force lab to test satellite fault-prediction software appeared first on SpaceNews."
       },
       {
-        "title": "NASA’s Chandra Finds Unexpected Fireworks in Aftermath of Stellar Explosions",
-        "published": "2026-06-15T18:45:40Z",
-        "source": "NASA",
-        "summary": "The aftermath of a supernova, a stellar explosion, is usually a slowly fading cloud of hot gas. So when astronomers pointed NASA’s Chandra X-ray Observatory at the nearby galaxy Messier 83 (M83), they"
+        "title": "A UN agency that works for US space",
+        "published": "2026-06-16T13:00:00Z",
+        "source": "SpaceNews",
+        "summary": "\nIf United States policymakers deride the wider United Nations, they still spend on the International Telecommunication Union (ITU) because it amplifies the commercial reach of U.S. standards. This in"
       },
       {
-        "title": "NASA Astronauts to Answer Questions from New Jersey Students",
-        "published": "2026-06-15T18:06:18Z",
-        "source": "NASA",
-        "summary": "Students in New Jersey will hear from NASA astronauts Chris Williams and Jessica Meir as they answer prerecorded STEM questions while aboard the International Space Station. The Earth-to-space call wi"
-      },
-      {
-        "title": "NASA’s SpaceX CRS-34 Dragon Returns Packed with Space Station Science",
-        "published": "2026-06-15T17:30:00Z",
-        "source": "NASA",
-        "summary": "Scientists await a big splash in the Pacific Ocean as one of the most research-packed Dragon spacecraft to date returns, completing the 34th SpaceX commercial resupply mission to the International Spa"
+        "title": "Geospatial industry launches maritime initiative",
+        "published": "2026-06-16T12:00:00Z",
+        "source": "SpaceNews",
+        "summary": "\nGrowing demand from defense agencies and commercial shipping sectors is driving investment in maritime domain awareness technologies\nThe post Geospatial industry launches maritime initiative appeared"
       }
     ]
   },
@@ -5644,87 +4980,87 @@
     "earthquakes": {
       "last24h": [
         {
-          "location": "4 km NW of Noda, Japan",
-          "magnitude": 5.5,
-          "depth": 71.777,
-          "lat": 35.9814,
-          "lng": 139.8371,
-          "time": "2026-06-16T10:46:34.658Z",
+          "location": "64 km NNE of Petersville, Alaska",
+          "magnitude": 2.6,
+          "depth": 106.9,
+          "lat": 63.058,
+          "lng": -150.438,
+          "time": "2026-06-16T15:27:19.323Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "66 km NW of Eureka Roadhouse, Alaska",
-          "magnitude": 3.2,
-          "depth": 8.5,
-          "lat": 62.436,
-          "lng": -147.875,
-          "time": "2026-06-16T09:57:08.852Z",
+          "location": "6 km SSE of Pa‘auilo, Hawaii",
+          "magnitude": 2.69,
+          "depth": 9.55000019073486,
+          "lat": 19.9909992218018,
+          "lng": -155.336837768555,
+          "time": "2026-06-16T14:54:44.410Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "277 km S of Dunhuang, China",
-          "magnitude": 5.4,
-          "depth": 10,
-          "lat": 37.6989,
-          "lng": 95.2125,
-          "time": "2026-06-16T09:45:26.434Z",
+          "location": "4 km SSW of Pāhala, Hawaii",
+          "magnitude": 2.88,
+          "depth": 31.1299991607666,
+          "lat": 19.1674995422363,
+          "lng": -155.503173828125,
+          "time": "2026-06-16T14:48:47.960Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "242 km SSE of Dunhuang, China",
-          "magnitude": 5.2,
-          "depth": 10,
-          "lat": 38.0579,
-          "lng": 95.4312,
-          "time": "2026-06-16T09:42:35.214Z",
+          "location": "28 km NW of Ivanof Bay, Alaska",
+          "magnitude": 4.1,
+          "depth": 5,
+          "lat": 56.054,
+          "lng": -159.846,
+          "time": "2026-06-16T13:57:58.902Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "260 km SSE of Dunhuang, China",
-          "magnitude": 6.3,
-          "depth": 10,
-          "lat": 37.8888,
-          "lng": 95.4028,
-          "time": "2026-06-16T09:06:55.226Z",
+          "location": "256 km SSE of Dunhuang, China",
+          "magnitude": 4.9,
+          "depth": 12.517,
+          "lat": 37.9084,
+          "lng": 95.2912,
+          "time": "2026-06-16T13:27:36.651Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "49 km ESE of Palu, Indonesia",
+          "location": "65 km S of Kokopo, Papua New Guinea",
+          "magnitude": 4.8,
+          "depth": 66.484,
+          "lat": -4.9284,
+          "lng": 152.3659,
+          "time": "2026-06-16T13:03:41.301Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "47 km WSW of Port Alexander, Alaska",
+          "magnitude": 2.7,
+          "depth": 11.6,
+          "lat": 56.132,
+          "lng": -135.38,
+          "time": "2026-06-16T11:54:43.767Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "261 km SSE of Dunhuang, China",
           "magnitude": 5,
-          "depth": 48.869,
-          "lat": -1.1234,
-          "lng": 120.2567,
-          "time": "2026-06-16T08:04:46.472Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "Fiji region",
-          "magnitude": 4.3,
-          "depth": 604.532,
-          "lat": -21.8089,
-          "lng": -179.5434,
-          "time": "2026-06-16T07:09:26.884Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "58 km SSE of Perryville, Alaska",
-          "magnitude": 3.6,
-          "depth": 47.3,
-          "lat": 55.416,
-          "lng": -158.834,
-          "time": "2026-06-16T07:09:07.047Z",
+          "depth": 10,
+          "lat": 37.8819,
+          "lng": 95.4313,
+          "time": "2026-06-16T11:14:17.721Z",
           "tsunami": false,
           "type": "earthquake"
         }
       ],
-      "total24h": 41,
+      "total24h": 46,
       "source": "USGS"
     },
     "newsSentiment": {
@@ -5753,124 +5089,124 @@
     },
     "news": [
       {
-        "title": "Trump says ‘hell will rain down’ if Iran gets nuclear weapons",
-        "pubDate": "Tue, 16 Jun 2026 11:12:17 +0000",
-        "link": "https://www.aljazeera.com/video/newsfeed/2026/6/16/trump-says-hell-will-rain-down-if-iran-gets-nuclear-weapons?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "Flag debate divides diaspora as Iran begin World Cup with New Zealand draw",
-        "pubDate": "Tue, 16 Jun 2026 11:08:04 GMT",
-        "link": "https://www.france24.com/en/video/20260616-flag-debate-divides-diaspora-as-iran-begin-world-cup-with-new-zealand-draw",
-        "source": "France24"
-      },
-      {
-        "title": "Qatar’s Emir hails Iran deal and touts US investments in Trump meeting",
-        "pubDate": "Tue, 16 Jun 2026 10:57:16 +0000",
-        "link": "https://www.aljazeera.com/video/newsfeed/2026/6/16/qatars-emir-hails-iran-deal-and-touts-us-investments-in-trump-meeting?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "No toll but ‘maritime service fees’ for Strait of Hormuz?",
-        "pubDate": "Tue, 16 Jun 2026 10:53:29 GMT",
-        "link": "https://www.france24.com/en/video/20260616-no-toll-but-maritime-service-fees-for-strait-of-hormuz",
-        "source": "France24"
-      },
-      {
-        "title": "Trump threatens 100% tariff on French wines unless digital tax dropped",
-        "pubDate": "Tue, 16 Jun 2026 10:49:54 GMT",
-        "link": "https://www.france24.com/en/video/20260616-trump-threatens-100-tariff-on-french-wines-unless-digital-tax-dropped",
-        "source": "France24"
-      },
-      {
-        "title": "Why the global economy has not broadly slowed despite Middle East conflict, energy shocks - Economy Middle East",
-        "pubDate": "Tue, 16 Jun 2026 10:46:16 GMT",
-        "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOX3dlZ2Zwc3FxclZXejI2SkVfYkV1UGtHVldDLW90aGtsQ1MtSkRfVWhWVHlreHk5MVIwYnNUbDJ5WmczZlpONlVwcW50WTZkeHVpOVlTc2RUY3VFcTNpcFdycXMxdEp0QUxlOVRPSGlGMG9BR3VtYzBkeDluSU1YYnNmNy1iZUlTOTFwNngyYUM0TWY5RkRGcUFVaEh5ZnB5SC1sMlNIdU5yem1ndTdkV2JHazZVOE1yVVBBZzJybzZYUQ?oc=5",
-        "source": "IMF"
-      },
-      {
-        "title": "Russian artist and Putin critic shot dead in Poland",
-        "pubDate": "Tue, 16 Jun 2026 10:37:16 GMT",
-        "link": "https://www.bbc.com/news/articles/clyrzd5g6k2o?at_medium=RSS&amp;at_campaign=rss",
-        "source": "BBC World"
-      },
-      {
-        "title": "Australia warns El Nino weather pattern set to be strongest in decades",
-        "pubDate": "Tue, 16 Jun 2026 10:35:32 +0000",
-        "link": "https://www.aljazeera.com/news/2026/6/16/australia-warns-el-nino-weather-pattern-set-to-be-strongest-in-decades?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "Sigh of relief in Africa as the Strait of Hormuz &#039;reopens&#039;",
-        "pubDate": "Tue, 16 Jun 2026 10:25:00 GMT",
-        "link": "https://www.dw.com/en/sigh-of-relief-in-africa-as-the-strait-of-hormuz-reopens/a-77564378?maca=en-rss-en-world-4025-xml-mrss",
-        "source": "DW News"
-      },
-      {
-        "title": "World Bank Calls for Stronger Financial Oversight in Togo's Development Projects - Togo First",
-        "pubDate": "Tue, 16 Jun 2026 09:08:34 GMT",
-        "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOT0swZ0FnWDNZbm1tbmpLLWk5ZHhtcGFocXhjNE4zYUlvRzVnM3huSmE4UXA2UEdBWUpYaUJ5Y29ubVlna19Vdk82YWdFT0s0bWdaSXRGSTk0RTNyWFFIVVQ4SVhtZnYyNTRMbVZFWHkwUGtFYUNRUnd2amxmZlU5R3hTcV9BZnU4dTRob2hYTUhYRjBTM0Y3Y3FCQS1mbDBQRnRrY1d3Rm9EZHJCWnVmUjJEREVVMERDY2pPQ2tORFNGck9iZFFYZVRCX3FWSjljUHEzR09n?oc=5",
+        "title": "Empowering South Asia with skills for a ‘green jobs’ future - World Bank Blogs",
+        "pubDate": "Tue, 16 Jun 2026 16:55:33 GMT",
+        "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQTXpDQWtPSzJBUEZ5cHZlVmNVYnRJYUdFaVNPUGpKY3R4UVY1NDZtVUU0b0V5RXNiV3Roc2JYSFFzSTluSXJMTm5CSmFZT2JMTTE0LVU3NHFsLWszaW5PMUVDd2hpUV9mUTVydnB2QzhWUElwYjZnb2tBRm03eXd6UmtUaVBuNU5WUTRpM1hqZzFEMHRZTWFnOFBrRkstX2M?oc=5",
         "source": "World Bank"
       },
       {
-        "title": "Musk to sue German broadcaster ZDF over &#039;hunt for migrants&#039;",
-        "pubDate": "Tue, 16 Jun 2026 07:35:00 GMT",
-        "link": "https://www.dw.com/en/musk-to-sue-german-broadcaster-zdf-over-hunt-for-migrants/a-77571443?maca=en-rss-en-world-4025-xml-mrss",
-        "source": "DW News"
+        "title": "UNHCR Calls to Expand Refugee Resettlement Lifeline as Part of Global Solutions Drive - USA for UNHCR",
+        "pubDate": "Tue, 16 Jun 2026 16:54:58 GMT",
+        "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPbFdRX1V2cURvUkg2T2Vuc3lZNG5BUUNDSWpWQndaVnhoaFNsMEJFaDhsSXcwaVhiZ1R2MW5YU1Vlb2pQbGc2NHNoSVBLVnBzM1FGakFlYmpzdzAzTUJlYTNQNl9yWWotWk9fV256WkRxY0ZwSTYtdEMzZXVreFgxbFlWamo0V1NEMkQybEU5V3RxNDBCY3hVUzg5cGd1MXR1RzczLW9kY2xIQjVieEZLQ3VmSVo2bDlEdFpGazlING0yWXM?oc=5",
+        "source": "UNHCR"
       },
       {
-        "title": "'Dancing girl's' bare torso restored in Indian textbook after backlash",
-        "pubDate": "Tue, 16 Jun 2026 07:05:54 GMT",
-        "link": "https://www.bbc.com/news/articles/c7vyzgl2142o?at_medium=RSS&amp;at_campaign=rss",
+        "title": "Qatar renews mediation efforts for regional stability after US-Iran deal",
+        "pubDate": "Tue, 16 Jun 2026 16:51:19 +0000",
+        "link": "https://www.aljazeera.com/video/newsfeed/2026/6/16/aje-onl-nf_qatar-renews-mediation-efforts-after-us-iran-deal-160626?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "NASA’s Quantum Lab Aboard Space Station Gets Chilly Upgrade",
+        "pubDate": "Tue, 16 Jun 2026 16:50:40 +0000",
+        "link": "https://www.nasa.gov/missions/station/iss-research/cold-atom-laboratory/nasas-quantum-lab-aboard-space-station-gets-chilly-upgrade/",
+        "source": "NASA"
+      },
+      {
+        "title": "Post-apartheid South Africa: 50 years after Soweto riots, what has changed?",
+        "pubDate": "Tue, 16 Jun 2026 16:45:31 +0000",
+        "link": "https://www.aljazeera.com/news/2026/6/16/post-apartheid-south-africa-50-years-after-soweto-riots-what-has-changed?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "The overnight World Cup?",
+        "pubDate": "Tue, 16 Jun 2026 16:42:23 +0000",
+        "link": "https://www.aljazeera.com/video/newsfeed/2026/6/16/the-overnight-world-cup?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "UK investigating reports Russian warship fired warning shots near yacht in English Channel",
+        "pubDate": "Tue, 16 Jun 2026 16:38:55 GMT",
+        "link": "https://www.bbc.com/news/articles/c20yzm84r7lo?at_medium=RSS&amp;at_campaign=rss",
         "source": "BBC World"
       },
       {
-        "title": "Fact check: Hitler look-alike at Germany&#039;s World Cup match?",
-        "pubDate": "Tue, 16 Jun 2026 05:56:00 GMT",
-        "link": "https://www.dw.com/en/fact-check-hitler-look-alike-at-germany-s-world-cup-match/a-77561962?maca=en-rss-en-world-4025-xml-mrss",
+        "title": "US-Iran: Uncertainty over Iran deal looms large at G7 summit",
+        "pubDate": "Tue, 16 Jun 2026 16:32:02 GMT",
+        "link": "https://www.france24.com/en/video/20260616-us-iran-uncertainty-over-iran-deal-looms-large-at-g7-summit",
+        "source": "France24"
+      },
+      {
+        "title": "Why women&#039;s inheritance reform has stalled across Arab world",
+        "pubDate": "Tue, 16 Jun 2026 16:29:00 GMT",
+        "link": "https://www.dw.com/en/why-women-s-inheritance-reform-has-stalled-across-arab-world/a-77577835?maca=en-rss-en-world-4025-xml-mrss",
         "source": "DW News"
       },
       {
-        "title": "Nebraska’s Wide, Rolling Domain",
-        "pubDate": "Tue, 16 Jun 2026 04:01:00 +0000",
-        "link": "https://science.nasa.gov/earth/earth-observatory/nebraskas-wide-rolling-domain/",
-        "source": "NASA"
-      },
-      {
-        "title": "Iran deal presents political nightmare for Netanyahu",
-        "pubDate": "Tue, 16 Jun 2026 03:40:36 GMT",
-        "link": "https://www.bbc.com/news/articles/cj4gnqw8j52o?at_medium=RSS&amp;at_campaign=rss",
+        "title": "Fragile quiet in Lebanon as US-Iran truce leaves unanswered questions",
+        "pubDate": "Tue, 16 Jun 2026 16:20:33 GMT",
+        "link": "https://www.bbc.com/news/articles/cvgepl5gdp1o?at_medium=RSS&amp;at_campaign=rss",
         "source": "BBC World"
       },
       {
-        "title": "Explore JPL to Take Place Oct. 10, 11",
-        "pubDate": "Tue, 16 Jun 2026 00:34:34 +0000",
-        "link": "https://www.nasa.gov/centers-and-facilities/jpl/explore-jpl-to-take-place-oct-10-11/",
+        "title": "Failed joint jet project highlights Europe&#039;s defense dilemma",
+        "pubDate": "Tue, 16 Jun 2026 16:03:00 GMT",
+        "link": "https://www.dw.com/en/failed-joint-jet-project-highlights-europe-s-defense-dilemma/a-77572732?maca=en-rss-en-world-4025-xml-mrss",
+        "source": "DW News"
+      },
+      {
+        "title": "Tehran selling deal with US as victory – but for Iranians it was necessity",
+        "pubDate": "Tue, 16 Jun 2026 15:31:24 GMT",
+        "link": "https://www.bbc.com/news/articles/cn4rwzxvl8ko?at_medium=RSS&amp;at_campaign=rss",
+        "source": "BBC World"
+      },
+      {
+        "title": "In post-Assad Syria, displaced people await reconstruction",
+        "pubDate": "Tue, 16 Jun 2026 15:30:55 GMT",
+        "link": "https://www.france24.com/en/tv-shows/focus/20260616-in-post-assad-syria-displaced-people-await-reconstruction",
+        "source": "France24"
+      },
+      {
+        "title": "NASA Uses Machine Learning to Enhance Flash Flood Warnings",
+        "pubDate": "Tue, 16 Jun 2026 15:23:02 +0000",
+        "link": "https://science.nasa.gov/science-research/science-enabling-technology/nasa-uses-machine-learning-to-enhance-flash-flood-warnings/",
         "source": "NASA"
       },
       {
-        "title": "NASA’s Chandra Finds Unexpected Fireworks in Aftermath of Stellar Explosions",
-        "pubDate": "Mon, 15 Jun 2026 18:45:40 +0000",
-        "link": "https://science.nasa.gov/missions/chandra/nasas-chandra-finds-unexpected-fireworks-in-aftermath-of-stellar-explosions/",
+        "title": "Football fashion: Has France already won?",
+        "pubDate": "Tue, 16 Jun 2026 15:21:34 GMT",
+        "link": "https://www.france24.com/en/tv-shows/entre-nous/20260616-football-fashion-has-france-already-won",
+        "source": "France24"
+      },
+      {
+        "title": "Department of Health and Human Services Digital Stockpile &#038; Manufacturing Response Network Challenge",
+        "pubDate": "Tue, 16 Jun 2026 14:39:54 +0000",
+        "link": "https://www.nasa.gov/directorates/stmd/prizes-challenges-crowdsourcing-program/center-of-excellence-for-collaborative-innovation-coeci/department-of-health-and-human-services-digital-stockpile-manufacturing-response-network-challenge/",
         "source": "NASA"
       },
       {
-        "title": "Global economy has absorbed war shock so far, IMF says (URTH:NYSEARCA) - Seeking Alpha",
-        "pubDate": "Mon, 15 Jun 2026 18:27:07 GMT",
-        "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPNXQ1NGM0cVNaTFB1RF96bkoweDNTNEhzY2RnbjY1TU5ha2U4OU9uS1lxNktucTBCWlNIQjc4N3JFd1BhbmRpZVo0eFpsM3pST3loN1YyQ0dBcUVhRjBwWkdMNUZmU2ZNMG9OMks4b2syNmQxQXRrb2hmNTNTYUNyazJHWDRfS3Nrbm93NEhqTTVQV1ctZnc?oc=5",
+        "title": "How the World Bank’s Rethink on Industrial Policy Could Affect Energy Sector Support for Developing Countries - Columbia University",
+        "pubDate": "Tue, 16 Jun 2026 14:17:33 GMT",
+        "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxQWnozRzBuTU1nSTByR3VIUFdQX1JGNzdyZllteTVSQ3J6azNiUEdhSjJuandQSkZab2I5VE9WZElzTjJ3aXQzdkdEN1FOc0dEQmMxMXhLRmk3d0lUQVF5aGNhSjFkOVF4cUs1WmZ2ZTVabjNHVFVyclVBb3FtcC1yc1JOSTZ3X0RTZTNFTlZRUm1yczc0a2xiZEpLQ3BrVGRvTjBsNGZrSlU4Z0s5cHlncFI1SUVwZ0E2bjhkZ2dRTnZxb3BLbG9wT25qNXktclhseXJyNnpOWmw1Y1J0S3FBLQ?oc=5",
+        "source": "World Bank"
+      },
+      {
+        "title": "Liberia’s untapped potential: What the new agriculture census and survey reveal - World Bank Blogs",
+        "pubDate": "Tue, 16 Jun 2026 14:13:43 GMT",
+        "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPYV9hZzhpRkRGdExLeG5pWmtyc3JHNkJiZTBnemwwemcxYUxKRG04R2RxSll1VVZNMmtVTklwbmdLd1FWQzYyRDgyZGFCRDlfbzNfLXRtZS1IZUJjTWNwb3BMcGhDTmV2OHpqdXhvNTk2Y1JUYUp3b0tJVzJsZkMyemd1Q0dSeDZ5V2hNUkdHV2RfMGowZzJhMUVpU09PRGdheW53WThmSQ?oc=5",
+        "source": "World Bank"
+      },
+      {
+        "title": "IMF Chief: Global Economy So Far From the Shock of the Middle East War - صحيفة مال",
+        "pubDate": "Tue, 16 Jun 2026 13:30:45 GMT",
+        "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBNWDJCNENqSE1jYjVMQmQ5ZWY4Ymc2UEt3Z2ZxbHBqY2ZfNXdYT2JLMEdxazA3b0RENExkWnB0UU4zWUZIOXpRcWlLeWtoS184aUcxZGRKajl6WE1RcDBsdlVJeXY1dHl3bTVB?oc=5",
         "source": "IMF"
       },
       {
-        "title": "IMF chief says world economy is absorbing war shock, warns risks remain high - Türkiye Today",
-        "pubDate": "Mon, 15 Jun 2026 17:57:55 GMT",
-        "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQX3EzREgwQk51bmZXTUtESkFPVERVeXhmT2QxaThIWi1JZk1id2J0VU9vNEpaT3ZTWGFjSERRTnI1WmVkdmk0RkcxQ3ZnYkppcFBQb25oX1RkRDRYOEJkUlZzSWw2Ynp6RnpQb3hEaDNmTzRDOXhOemNYaVVHLWVzRVFsUGE5dUhQTXRJNFRYWXVVQU1mTkNwWU5JbkFFdUtlb3NuS0ppRlp4eUtsODB1STlPMU80Q3RFOWZv?oc=5",
-        "source": "IMF"
-      },
-      {
-        "title": "South African jazz pianist Abdullah Ibrahim dies aged 91",
-        "pubDate": "Mon, 15 Jun 2026 17:03:14 GMT",
-        "link": "https://www.theguardian.com/music/2026/jun/15/pianist-abdullah-ibrahim-dies",
-        "source": "Guardian"
+        "title": "Pakistan raises defense spending amid regional conflicts",
+        "pubDate": "Tue, 16 Jun 2026 13:00:00 GMT",
+        "link": "https://www.dw.com/en/pakistan-raises-defense-spending-amid-regional-conflicts/a-77577772?maca=en-rss-en-world-4025-xml-mrss",
+        "source": "DW News"
       }
     ],
     "volcanic": [],
@@ -5924,7 +5260,7 @@
         "sunspots": 101.4
       }
     ],
-    "lastUpdated": "2026-06-16T11:24:56.980Z"
+    "lastUpdated": "2026-06-16T17:07:21.490Z"
   },
   "momentum": {
     "indicators": [
