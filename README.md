@@ -5,24 +5,24 @@
 
 ---
 
-## 🌍 Welt-Indikator: 63.2 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 63.9 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  63.2/100  ↑ +0.1
+█████████████░░░░░░░  63.9/100  ↑ +0.7
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 30.06.2026 14:32 UTC
+> **Letzte Aktualisierung:** 30.06.2026 20:07 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟠 Umwelt | **34.7**/100 | → +0.1 | 25% |
-| 🟡 Gesellschaft | **55.8**/100 | → +0.1 | 25% |
-| 🟢 Wirtschaft | **69.7**/100 | → +0 | 20% |
+| 🟠 Umwelt | **34.5**/100 | ↓ -0.2 | 25% |
+| 🟡 Gesellschaft | **55.8**/100 | → +0 | 25% |
+| 🟢 Wirtschaft | **72.2**/100 | ↑ +2.5 | 20% |
 | 🟢 Fortschritt | **78.1**/100 | → +0 | 20% |
-| 🟢 Momentum | **80**/100 | → +0 | 10% |
+| 🔵 Momentum | **81**/100 | ↑ +1 | 10% |
 
 ---
 
@@ -34,7 +34,7 @@
 | Temperaturanomalie | **+1.19°C** | NASA GISTEMP |
 | CO2-Konzentration | **432 ppm** | NOAA |
 | Arktis-Eisfläche | **4.2 Mio km²** (46.2% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **83** | WAQI |
+| Luftqualität (Ø) | AQI **89** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -47,7 +47,7 @@
 ### 💰 Wirtschaft
 | Indikator | Wert | Quelle |
 |-----------|------|--------|
-| BIP-Wachstum | **2.87%** | IMF |
+| BIP-Wachstum | **2.92%** | IMF |
 | Gini-Index | **42** | World Bank |
 | Extreme Armut | **648.0 Mio** | World Bank |
 | Milliardäre | **2.8K** (45.8% Vermögen) | Oxfam |
@@ -69,34 +69,35 @@
 
 ---
 
-## 📈 Momentum: 16/20 Trends positiv
+## 📈 Momentum: 17/21 Trends positiv
 
 <details>
-<summary>Alle 20 Indikatoren anzeigen</summary>
+<summary>Alle 21 Indikatoren anzeigen</summary>
 
-#### ✅ Verbessert sich (16)
+#### ✅ Verbessert sich (17)
 - **Lebenserwartung**: +1.6%
 - **Kindersterblichkeit**: -2.3%
 - **Erneuerbare Energie**: +6.7%
 - **Internet-Zugang**: +12.1%
-- **BIP-Wachstum**: +48.9%
+- **BIP-Wachstum**: +23.3%
+- **Inflation**: -12.0%
 - **Arbeitslosigkeit**: -19.1%
-- **BIP pro Kopf**: +14.3%
-- **Globaler Handel**: +7.8%
+- **BIP pro Kopf**: +14.0%
+- **Globaler Handel**: +7.5%
 - **Alphabetisierung**: +0.7%
 - **Mobilfunk**: +3.8%
 - **F&E Ausgaben**: +10.8%
 - **Elektrizitätszugang**: +1.4%
 - **Trinkwasser**: +2.7%
-- **Gesundheitsausgaben**: +1.0%
-- **Urbanisierung**: +1.6%
+- **Gesundheitsausgaben**: +1.1%
+- **Urbanisierung**: +1.4%
 - **Patentanmeldungen**: +1.2%
 
 #### ❌ Verschlechtert sich (4)
 - **CO2-Konzentration**: +2.1%
-- **Waldfläche**: -0.3%
+- **Waldfläche**: -0.2%
 - **CO2 pro Kopf**: +1.4%
-- **Militärausgaben (% BIP)**: +5.6%
+- **Militärausgaben (% BIP)**: +5.3%
 
 </details>
 
@@ -254,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 30.06.2026 14:32 UTC | 65/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 30.06.2026 20:07 UTC | 65/65 Quellen aktiv
 </sub>
