@@ -5,24 +5,24 @@
 
 ---
 
-## 🌍 Welt-Indikator: 63.3 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 63.9 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  63.3/100  ↓ -0.6
+█████████████░░░░░░░  63.9/100  ↑ +0.6
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 15.07.2026 08:42 UTC
+> **Letzte Aktualisierung:** 15.07.2026 13:56 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟠 Umwelt | **34.1**/100 | → +0 | 25% |
-| 🟡 Gesellschaft | **55.7**/100 | → +0 | 25% |
-| 🟢 Wirtschaft | **71.3**/100 | ↓ -1.5 | 20% |
-| 🟢 Fortschritt | **78.1**/100 | ↑ +0.3 | 20% |
-| 🟢 Momentum | **80**/100 | ↓ -1 | 10% |
+| 🟠 Umwelt | **34**/100 | → -0.1 | 25% |
+| 🟡 Gesellschaft | **55.8**/100 | → +0.1 | 25% |
+| 🟢 Wirtschaft | **72.8**/100 | ↑ +1.5 | 20% |
+| 🟢 Fortschritt | **78.1**/100 | → +0 | 20% |
+| 🔵 Momentum | **81**/100 | ↑ +1 | 10% |
 
 ---
 
@@ -34,7 +34,7 @@
 | Temperaturanomalie | **+1.19°C** | NASA GISTEMP |
 | CO2-Konzentration | **431 ppm** | NOAA |
 | Arktis-Eisfläche | **4.2 Mio km²** (46.2% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **74** | WAQI |
+| Luftqualität (Ø) | AQI **75** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -69,18 +69,19 @@
 
 ---
 
-## 📈 Momentum: 16/20 Trends positiv
+## 📈 Momentum: 17/21 Trends positiv
 
 <details>
-<summary>Alle 20 Indikatoren anzeigen</summary>
+<summary>Alle 21 Indikatoren anzeigen</summary>
 
-#### ✅ Verbessert sich (16)
+#### ✅ Verbessert sich (17)
 - **Lebenserwartung**: +1.6%
 - **Kindersterblichkeit**: -2.3%
 - **Erneuerbare Energie**: +6.7%
 - **Internet-Zugang**: +12.1%
 - **BIP-Wachstum**: +23.3%
 - **Inflation**: -12.0%
+- **Arbeitslosigkeit**: -19.1%
 - **BIP pro Kopf**: +14.0%
 - **Globaler Handel**: +7.5%
 - **Alphabetisierung**: +0.7%
@@ -254,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 15.07.2026 08:42 UTC | 65/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 15.07.2026 13:56 UTC | 65/65 Quellen aktiv
 </sub>
