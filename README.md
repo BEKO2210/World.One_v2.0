@@ -12,7 +12,7 @@
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 16.07.2026 08:25 UTC
+> **Letzte Aktualisierung:** 16.07.2026 14:07 UTC
 
 ### Sub-Scores
 
@@ -255,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 16.07.2026 08:25 UTC | 65/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 16.07.2026 14:07 UTC | 65/65 Quellen aktiv
 </sub>
