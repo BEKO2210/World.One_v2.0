@@ -1,50 +1,49 @@
 {
   "meta": {
-    "generated": "2026-07-18T13:35:29.619Z",
+    "generated": "2026-07-18T19:31:59.572Z",
     "version": "2.0.0",
     "sources_count": 65,
     "sources_available": 65,
     "sources_success_rate": 100,
-    "next_update": "2026-07-18T19:35:29.619Z",
+    "next_update": "2026-07-19T01:31:59.572Z",
     "realtimePulse": {
-      "environment": -1.58,
-      "society": -0.6,
+      "environment": -1.06,
+      "society": 0,
       "economy": -0.4,
       "progress": 0.8,
       "details": {
-        "quakeCount": 75,
-        "maxMagnitude": 7.3,
-        "avgGlobalTemp": 23.1,
-        "newsSentiment": -0.42,
+        "quakeCount": 64,
+        "maxMagnitude": 5.7,
+        "avgGlobalTemp": 22.2,
         "cryptoFearGreed": 25,
         "arxivPapers": 20
       }
     },
     "cacheFreshness": {
       "environment": {
-        "newest": "2026-07-18T13:35:29.190Z",
-        "oldest": "2026-07-18T13:35:17.373Z",
+        "newest": "2026-07-18T19:31:59.169Z",
+        "oldest": "2026-07-18T13:35:17.721Z",
         "newestHours": 0,
-        "oldestHours": 0,
+        "oldestHours": 5.9,
         "sourceCount": 6
       },
       "society": {
-        "newest": "2026-07-18T13:35:29.450Z",
-        "oldest": "2026-07-18T13:28:21.288Z",
+        "newest": "2026-07-18T19:31:59.392Z",
+        "oldest": "2026-07-18T13:35:22.950Z",
         "newestHours": 0,
-        "oldestHours": 0.1,
+        "oldestHours": 5.9,
         "sourceCount": 4
       },
       "economy": {
-        "newest": "2026-07-18T13:35:25.405Z",
-        "oldest": "2026-07-18T13:35:25.405Z",
+        "newest": "2026-07-18T19:31:55.309Z",
+        "oldest": "2026-07-18T19:31:55.309Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 1
       },
       "progress": {
-        "newest": "2026-07-18T13:35:22.979Z",
-        "oldest": "2026-07-18T13:35:22.462Z",
+        "newest": "2026-07-18T19:31:53.298Z",
+        "oldest": "2026-07-18T19:30:06.900Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 2
@@ -52,13 +51,13 @@
     }
   },
   "worldIndex": {
-    "value": 63.7,
-    "rawValue": 60.5,
+    "value": 63.5,
+    "rawValue": 60.3,
     "label": "POSITIV",
     "zone": "positive",
     "previous": 63.7,
-    "change": 0,
-    "trend": "stable",
+    "change": -0.2,
+    "trend": "declining",
     "carryingCapacity": {
       "checks": {
         "existence": {
@@ -77,13 +76,13 @@
       "spectrum": {
         "environment": {
           "direction": "erosion",
-          "position": "strained",
-          "level": -1
+          "position": "fragile",
+          "level": -2
         },
         "society": {
           "direction": "expansion",
-          "position": "stable",
-          "level": 0
+          "position": "elastic",
+          "level": 1
         },
         "economy": {
           "direction": "expansion",
@@ -103,12 +102,12 @@
       },
       "indicators": {
         "environment": {
-          "bufferDistance": 21.9,
+          "bufferDistance": 20.1,
           "recoveryTime": 0,
           "maintenanceCost": 0.16
         },
         "society": {
-          "bufferDistance": 47.3,
+          "bufferDistance": 48,
           "recoveryTime": 0,
           "maintenanceCost": 0.77
         },
@@ -133,20 +132,20 @@
   },
   "subScores": {
     "environment": {
-      "value": 33.6,
+      "value": 32.1,
       "label": "BESORGNISERREGEND",
       "zone": "concerning",
       "weight": 0.25,
-      "trend": "stable",
-      "change": 0,
+      "trend": "declining",
+      "change": -1.5,
       "indicators": [
         {
           "name": "Globale Temperaturanomalie",
           "value": "+1.19°C",
           "score": 60,
           "trend": "declining",
-          "fetchedAt": "2026-07-18T13:35:17.681Z",
-          "ageHours": 0,
+          "fetchedAt": "2026-07-18T19:26:29.468Z",
+          "ageHours": 0.1,
           "source": "NASA GISTEMP v4 (base 1951-1980)"
         },
         {
@@ -154,8 +153,8 @@
           "value": "431 ppm",
           "score": 31,
           "trend": "declining",
-          "fetchedAt": "2026-07-18T13:26:19.154Z",
-          "ageHours": 0.2,
+          "fetchedAt": "2026-07-18T19:11:22.777Z",
+          "ageHours": 0.3,
           "source": "NOAA Mauna Loa"
         },
         {
@@ -164,7 +163,7 @@
           "score": 56,
           "trend": "declining",
           "fetchedAt": "2026-07-18T13:35:17.721Z",
-          "ageHours": 0,
+          "ageHours": 5.9,
           "source": "World Bank / FAO (AG.LND.FRST.ZS)"
         },
         {
@@ -173,15 +172,15 @@
           "score": 33,
           "trend": "improving",
           "fetchedAt": "2026-07-18T13:35:17.746Z",
-          "ageHours": 0,
+          "ageHours": 5.9,
           "source": "World Bank (EG.FEC.RNEW.ZS)"
         },
         {
           "name": "Luftqualität (Global Avg AQI)",
-          "value": 73,
-          "score": 45,
+          "value": 103,
+          "score": 25,
           "trend": "stable",
-          "fetchedAt": "2026-07-18T13:35:29.190Z",
+          "fetchedAt": "2026-07-18T19:31:59.169Z",
           "ageHours": 0,
           "source": "WAQI official stations (19 cities)"
         },
@@ -199,19 +198,19 @@
           "value": "40 events, -10 Pkt",
           "score": 0,
           "trend": "declining",
-          "fetchedAt": "2026-07-18T13:35:17.373Z",
-          "ageHours": 0,
+          "fetchedAt": "2026-07-18T19:24:43.232Z",
+          "ageHours": 0.1,
           "source": "GDACS (JRC/EU)"
         }
       ]
     },
     "society": {
-      "value": 55.2,
+      "value": 55.8,
       "label": "GEMISCHT",
       "zone": "mixed",
       "weight": 0.25,
-      "trend": "stable",
-      "change": 0,
+      "trend": "improving",
+      "change": 0.6,
       "indicators": [
         {
           "name": "Lebenserwartung",
@@ -219,7 +218,7 @@
           "score": 67,
           "trend": "improving",
           "fetchedAt": "2026-07-18T13:35:22.950Z",
-          "ageHours": 0,
+          "ageHours": 5.9,
           "source": "World Bank (SP.DYN.LE00.IN)"
         },
         {
@@ -228,7 +227,7 @@
           "score": 66,
           "trend": "improving",
           "fetchedAt": "2026-07-18T13:35:22.950Z",
-          "ageHours": 0,
+          "ageHours": 5.9,
           "source": "World Bank (SH.DYN.MORT)"
         },
         {
@@ -236,8 +235,8 @@
           "value": 59,
           "score": 29,
           "trend": "declining",
-          "fetchedAt": "2026-07-18T13:28:59.159Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-07-18T19:13:29.596Z",
+          "ageHours": 0.3,
           "source": "ACLED/Crisis Group (baseline)"
         },
         {
@@ -245,8 +244,8 @@
           "value": "91.9%",
           "score": 84,
           "trend": "improving",
-          "fetchedAt": "2026-07-18T13:26:22.001Z",
-          "ageHours": 0.2,
+          "fetchedAt": "2026-07-18T19:11:25.723Z",
+          "ageHours": 0.3,
           "source": "World Bank (raw)"
         },
         {
@@ -254,8 +253,8 @@
           "value": "73.7%",
           "score": 56,
           "trend": "improving",
-          "fetchedAt": "2026-07-18T13:26:22.021Z",
-          "ageHours": 0.2,
+          "fetchedAt": "2026-07-18T19:11:25.745Z",
+          "ageHours": 0.3,
           "source": "World Bank (raw)"
         },
         {
@@ -272,8 +271,8 @@
           "value": "84 frei / 55 unfrei",
           "score": 46,
           "trend": "declining",
-          "fetchedAt": "2026-07-18T13:28:21.288Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-07-18T19:12:54.605Z",
+          "ageHours": 0.3,
           "source": "Freedom House - Freedom in the World"
         }
       ]
@@ -291,8 +290,8 @@
           "value": "2.92%",
           "score": 72,
           "trend": "improving",
-          "fetchedAt": "2026-07-18T13:26:22.808Z",
-          "ageHours": 0.2,
+          "fetchedAt": "2026-07-18T19:11:26.343Z",
+          "ageHours": 0.3,
           "source": "World Bank / IMF"
         },
         {
@@ -300,8 +299,8 @@
           "value": 42,
           "score": 51,
           "trend": "stable",
-          "fetchedAt": "2026-07-18T13:26:22.831Z",
-          "ageHours": 0.2,
+          "fetchedAt": "2026-07-18T19:11:26.366Z",
+          "ageHours": 0.3,
           "source": "World Bank"
         },
         {
@@ -309,7 +308,7 @@
           "value": "3.4%",
           "score": 92,
           "trend": "stable",
-          "fetchedAt": "2026-07-18T13:35:25.405Z",
+          "fetchedAt": "2026-07-18T19:31:55.309Z",
           "ageHours": 0,
           "source": "FRED + World Bank (avg)"
         },
@@ -318,8 +317,8 @@
           "value": "4.79%",
           "score": 79,
           "trend": "stable",
-          "fetchedAt": "2026-07-18T13:26:22.875Z",
-          "ageHours": 0.2,
+          "fetchedAt": "2026-07-18T19:11:26.434Z",
+          "ageHours": 0.3,
           "source": "World Bank / ILO"
         },
         {
@@ -336,7 +335,7 @@
           "value": "3.63%",
           "score": 70.96000000000001,
           "trend": "stable",
-          "fetchedAt": "2026-07-18T13:35:25.405Z",
+          "fetchedAt": "2026-07-18T19:31:55.309Z",
           "ageHours": 0,
           "source": "FRED (St. Louis Fed)"
         },
@@ -345,7 +344,7 @@
           "value": "0.37%",
           "score": 80,
           "trend": "stable",
-          "fetchedAt": "2026-07-18T13:35:25.405Z",
+          "fetchedAt": "2026-07-18T19:31:55.309Z",
           "ageHours": 0,
           "source": "FRED (St. Louis Fed)"
         }
@@ -364,7 +363,7 @@
           "value": "73.6%",
           "score": 82,
           "trend": "improving",
-          "fetchedAt": "2026-07-18T13:35:22.979Z",
+          "fetchedAt": "2026-07-18T19:31:53.298Z",
           "ageHours": 0,
           "source": "World Bank (IT.NET.USER.ZS)"
         },
@@ -373,8 +372,8 @@
           "value": "87.7%",
           "score": 75,
           "trend": "improving",
-          "fetchedAt": "2026-07-18T13:26:24.176Z",
-          "ageHours": 0.2,
+          "fetchedAt": "2026-07-18T19:11:27.905Z",
+          "ageHours": 0.3,
           "source": "World Bank / UNESCO"
         },
         {
@@ -382,8 +381,8 @@
           "value": "2.6%",
           "score": 65,
           "trend": "improving",
-          "fetchedAt": "2026-07-18T13:26:23.922Z",
-          "ageHours": 0.2,
+          "fetchedAt": "2026-07-18T19:11:27.786Z",
+          "ageHours": 0.3,
           "source": "World Bank"
         },
         {
@@ -391,7 +390,7 @@
           "value": "111.5/100",
           "score": 86,
           "trend": "improving",
-          "fetchedAt": "2026-07-18T13:35:22.979Z",
+          "fetchedAt": "2026-07-18T19:31:53.298Z",
           "ageHours": 0,
           "source": "World Bank (IT.CEL.SETS.P2)"
         },
@@ -400,8 +399,8 @@
           "value": "0K+",
           "score": 80,
           "trend": "improving",
-          "fetchedAt": "2026-07-18T13:26:23.582Z",
-          "ageHours": 0.2,
+          "fetchedAt": "2026-07-18T19:11:27.346Z",
+          "ageHours": 0.3,
           "source": "GitHub"
         },
         {
@@ -409,7 +408,7 @@
           "value": "0.4M total",
           "score": 75,
           "trend": "improving",
-          "fetchedAt": "2026-07-18T13:35:22.462Z",
+          "fetchedAt": "2026-07-18T19:30:06.900Z",
           "ageHours": 0,
           "source": "arXiv (cs.AI + cs.LG)"
         }
@@ -1433,77 +1432,77 @@
       "source": "NOAA"
     },
     "airQuality": {
-      "globalAvgAQI": 73,
+      "globalAvgAQI": 103,
       "cleanestCities": [
         {
           "city": "Tokyo",
           "country": "JP",
-          "aqi": 21,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Los Angeles",
-          "country": "US",
-          "aqi": 22,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Moscow",
-          "country": "RU",
-          "aqi": 25,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Lagos",
-          "country": "NG",
-          "aqi": 30,
+          "aqi": 5,
           "lat": null,
           "lng": null
         },
         {
           "city": "Sydney",
           "country": "AU",
-          "aqi": 30,
+          "aqi": 23,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Los Angeles",
+          "country": "US",
+          "aqi": 32,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "São Paulo",
+          "country": "BR",
+          "aqi": 37,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Lagos",
+          "country": "NG",
+          "aqi": 38,
           "lat": null,
           "lng": null
         }
       ],
       "mostPolluted": [
         {
-          "city": "New York",
-          "country": "US",
-          "aqi": 174,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Jakarta",
-          "country": "ID",
-          "aqi": 135,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Delhi",
+          "city": "Mumbai",
           "country": "IN",
-          "aqi": 131,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Shanghai",
-          "country": "CN",
-          "aqi": 82,
+          "aqi": 286,
           "lat": null,
           "lng": null
         },
         {
           "city": "Karachi",
           "country": "PK",
-          "aqi": 78,
+          "aqi": 208,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "New York",
+          "country": "US",
+          "aqi": 160,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Jakarta",
+          "country": "ID",
+          "aqi": 141,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Delhi",
+          "country": "IN",
+          "aqi": 100,
           "lat": null,
           "lng": null
         }
@@ -1909,8 +1908,8 @@
       "endangered": 55191,
       "criticallyEndangered": 30032,
       "source": "GBIF / IUCN",
-      "fetchedAt": "2026-07-18T13:28:19.484Z",
-      "ageHours": 0.1
+      "fetchedAt": "2026-07-18T19:12:52.832Z",
+      "ageHours": 0.3
     },
     "weather": [
       {
@@ -1918,11 +1917,11 @@
         "lat": 52.52,
         "lng": 13.41,
         "current": {
-          "time": "2026-07-18T15:15",
+          "time": "2026-07-18T21:00",
           "interval": 900,
-          "temperature_2m": 23.5,
-          "relative_humidity_2m": 45,
-          "wind_speed_10m": 17.4,
+          "temperature_2m": 19.9,
+          "relative_humidity_2m": 59,
+          "wind_speed_10m": 13.9,
           "weather_code": 2
         }
       },
@@ -1931,11 +1930,11 @@
         "lat": 40.71,
         "lng": -74.01,
         "current": {
-          "time": "2026-07-18T09:15",
+          "time": "2026-07-18T15:00",
           "interval": 900,
-          "temperature_2m": 24.9,
-          "relative_humidity_2m": 72,
-          "wind_speed_10m": 15.7,
+          "temperature_2m": 24.6,
+          "relative_humidity_2m": 92,
+          "wind_speed_10m": 10.1,
           "weather_code": 3
         }
       },
@@ -1944,11 +1943,11 @@
         "lat": 35.68,
         "lng": 139.69,
         "current": {
-          "time": "2026-07-18T22:15",
+          "time": "2026-07-19T04:00",
           "interval": 900,
-          "temperature_2m": 25.4,
-          "relative_humidity_2m": 87,
-          "wind_speed_10m": 4.5,
+          "temperature_2m": 24.7,
+          "relative_humidity_2m": 90,
+          "wind_speed_10m": 4.7,
           "weather_code": 1
         }
       },
@@ -1957,12 +1956,12 @@
         "lat": -33.87,
         "lng": 151.21,
         "current": {
-          "time": "2026-07-18T23:15",
+          "time": "2026-07-19T05:00",
           "interval": 900,
-          "temperature_2m": 13.8,
-          "relative_humidity_2m": 80,
-          "wind_speed_10m": 5.1,
-          "weather_code": 2
+          "temperature_2m": 12.1,
+          "relative_humidity_2m": 90,
+          "wind_speed_10m": 4.6,
+          "weather_code": 3
         }
       },
       {
@@ -1970,11 +1969,11 @@
         "lat": -23.55,
         "lng": -46.63,
         "current": {
-          "time": "2026-07-18T10:15",
+          "time": "2026-07-18T16:00",
           "interval": 900,
-          "temperature_2m": 19.5,
-          "relative_humidity_2m": 46,
-          "wind_speed_10m": 14.4,
+          "temperature_2m": 22.7,
+          "relative_humidity_2m": 38,
+          "wind_speed_10m": 15.8,
           "weather_code": 0
         }
       },
@@ -1983,12 +1982,12 @@
         "lat": 6.45,
         "lng": 3.4,
         "current": {
-          "time": "2026-07-18T14:15",
+          "time": "2026-07-18T20:00",
           "interval": 900,
-          "temperature_2m": 27.5,
-          "relative_humidity_2m": 76,
-          "wind_speed_10m": 15.4,
-          "weather_code": 2
+          "temperature_2m": 26.1,
+          "relative_humidity_2m": 85,
+          "wind_speed_10m": 13.5,
+          "weather_code": 3
         }
       },
       {
@@ -1996,12 +1995,12 @@
         "lat": 19.08,
         "lng": 72.88,
         "current": {
-          "time": "2026-07-18T18:45",
+          "time": "2026-07-19T00:30",
           "interval": 900,
-          "temperature_2m": 26.5,
+          "temperature_2m": 26,
           "relative_humidity_2m": 90,
-          "wind_speed_10m": 11.5,
-          "weather_code": 51
+          "wind_speed_10m": 10.1,
+          "weather_code": 53
         }
       },
       {
@@ -2009,12 +2008,12 @@
         "lat": 51.51,
         "lng": -0.13,
         "current": {
-          "time": "2026-07-18T14:15",
+          "time": "2026-07-18T20:00",
           "interval": 900,
-          "temperature_2m": 23.4,
-          "relative_humidity_2m": 36,
-          "wind_speed_10m": 11.5,
-          "weather_code": 3
+          "temperature_2m": 21.1,
+          "relative_humidity_2m": 46,
+          "wind_speed_10m": 14,
+          "weather_code": 0
         }
       }
     ],
@@ -4530,73 +4529,73 @@
       "topRepos": [
         {
           "name": "codecrafters-io/build-your-own-x",
-          "stars": 527950,
-          "forks": 49958,
+          "stars": 528111,
+          "forks": 49976,
           "language": "Markdown",
-          "updated": "2026-07-18T13:26:22Z"
+          "updated": "2026-07-18T19:11:17Z"
         },
         {
           "name": "sindresorhus/awesome",
-          "stars": 486308,
-          "forks": 35941,
+          "stars": 486391,
+          "forks": 35942,
           "language": null,
-          "updated": "2026-07-18T13:26:01Z"
+          "updated": "2026-07-18T19:08:57Z"
         },
         {
           "name": "freeCodeCamp/freeCodeCamp",
-          "stars": 452007,
-          "forks": 45580,
+          "stars": 452015,
+          "forks": 45583,
           "language": "TypeScript",
-          "updated": "2026-07-18T13:03:12Z"
+          "updated": "2026-07-18T19:02:39Z"
         },
         {
           "name": "public-apis/public-apis",
-          "stars": 451130,
-          "forks": 49630,
+          "stars": 451168,
+          "forks": 49638,
           "language": "Python",
-          "updated": "2026-07-18T13:24:18Z"
+          "updated": "2026-07-18T19:02:18Z"
         },
         {
           "name": "EbookFoundation/free-programming-books",
-          "stars": 392395,
+          "stars": 392410,
           "forks": 66541,
           "language": "Python",
-          "updated": "2026-07-18T13:08:59Z"
+          "updated": "2026-07-18T19:10:47Z"
         },
         {
           "name": "openclaw/openclaw",
-          "stars": 383357,
-          "forks": 80528,
+          "stars": 383385,
+          "forks": 80526,
           "language": "TypeScript",
-          "updated": "2026-07-18T13:25:04Z"
+          "updated": "2026-07-18T19:09:45Z"
         },
         {
           "name": "nilbuild/developer-roadmap",
-          "stars": 361441,
-          "forks": 44560,
+          "stars": 361477,
+          "forks": 44568,
           "language": "TypeScript",
-          "updated": "2026-07-18T13:25:53Z"
+          "updated": "2026-07-18T19:04:49Z"
         },
         {
           "name": "donnemartin/system-design-primer",
-          "stars": 358065,
-          "forks": 57257,
+          "stars": 358090,
+          "forks": 57258,
           "language": "Python",
-          "updated": "2026-07-18T13:18:56Z"
+          "updated": "2026-07-18T19:10:37Z"
         },
         {
           "name": "jwasham/coding-interview-university",
-          "stars": 356524,
-          "forks": 84320,
+          "stars": 356529,
+          "forks": 84326,
           "language": null,
-          "updated": "2026-07-18T13:21:06Z"
+          "updated": "2026-07-18T19:09:25Z"
         },
         {
           "name": "vinta/awesome-python",
-          "stars": 308858,
-          "forks": 28345,
+          "stars": 308899,
+          "forks": 28346,
           "language": "Python",
-          "updated": "2026-07-18T13:19:44Z"
+          "updated": "2026-07-18T19:09:02Z"
         }
       ],
       "source": "GitHub"
@@ -5070,6 +5069,24 @@
     },
     "spaceflight": [
       {
+        "title": "Mauritius becomes 70th nation to sign the Artemis Accords",
+        "published": "2026-07-18T18:03:11Z",
+        "source": "SpaceNews",
+        "summary": "\nThe island nation of Mauritius signed the Artemis Accords July 17, becoming the 70th nation to do so in less than six years.\nThe post Mauritius becomes 70th nation to sign the Artemis Accords appeare"
+      },
+      {
+        "title": "Space Force triples launch contract ceiling amid rising demand",
+        "published": "2026-07-18T17:40:06Z",
+        "source": "SpaceNews",
+        "summary": "\nThe maximum value of the National Security Space Launch Phase 3 Lane 1 contract was raised from $5.6 billion to $17 billion\nThe post Space Force triples launch contract ceiling amid rising demand app"
+      },
+      {
+        "title": "Pentagon awards $7.1 million to expand U.S. production of cover glass for satellites",
+        "published": "2026-07-18T16:59:56Z",
+        "source": "SpaceNews",
+        "summary": "\nDefense Production Act funding was awarded to Martin Materials Solutions, a small business that makes radiation-resistant cover glass used on spacecraft solar arrays and thermal-control systems\nThe p"
+      },
+      {
         "title": "Skyroot Aerospace reaches orbit on first Vikram-1 launch",
         "published": "2026-07-18T08:03:59Z",
         "source": "SpaceNews",
@@ -5110,24 +5127,6 @@
         "published": "2026-07-17T20:34:59Z",
         "source": "NASA",
         "summary": "CONTRACT RELEASE NASA has selected Chugach Intelligence Solutions LLC to provide comprehensive operations, maintenance, and repair services for NASA’s Ames Research Center in California’s Silicon Vall"
-      },
-      {
-        "title": "NASA’s Chandra and IXPE Study Pulsar in Lighthouse Nebula",
-        "published": "2026-07-17T20:05:23Z",
-        "source": "NASA",
-        "summary": "This composite image, released on July 9, 2026, shows the region around a pulsar – a neutron star with a strong magnetic field that spins incredibly fast – within the Lighthouse nebula. The image cont"
-      },
-      {
-        "title": "La NASA invita a los medios de comunicación al lanzamiento del telescopio espacial Roman",
-        "published": "2026-07-17T19:27:06Z",
-        "source": "NASA",
-        "summary": "Read this release in English here. Ya está abierto el plazo de acreditación de los medios de comunicación para el lanzamiento de la misión del telescopio espacial Nancy Grace Roman de la NASA. El lanz"
-      },
-      {
-        "title": "NASA Invites Media to Roman Space Telescope, Crew-13 Launches",
-        "published": "2026-07-17T18:00:57Z",
-        "source": "NASA",
-        "summary": "Media accreditation now is open for the launch of NASA’s Nancy Grace Roman Space Telescope and the agency’s SpaceX Crew-13 missions, both targeting launch in the coming months. The Roman telescope is "
       }
     ]
   },
@@ -5135,87 +5134,87 @@
     "earthquakes": {
       "last24h": [
         {
-          "location": "southern East Pacific Rise",
-          "magnitude": 4.9,
+          "location": "72 km SW of Puerto Madero, Mexico",
+          "magnitude": 5.7,
           "depth": 10,
-          "lat": -24.3838,
-          "lng": -116.1102,
-          "time": "2026-07-18T11:12:57.724Z",
+          "lat": 14.2392,
+          "lng": -92.8805,
+          "time": "2026-07-18T17:26:25.879Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "109 km ENE of Khorugh, Tajikistan",
+          "location": "South Sandwich Islands region",
           "magnitude": 4.8,
-          "depth": 136.85,
-          "lat": 37.9146,
-          "lng": 72.6745,
-          "time": "2026-07-18T10:36:19.521Z",
+          "depth": 122.006,
+          "lat": -59.4387,
+          "lng": -26.2427,
+          "time": "2026-07-18T16:57:34.133Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "102 km SSE of Akhiok, Alaska",
-          "magnitude": 4,
-          "depth": 23.9,
-          "lat": 56.159,
-          "lng": -153.294,
-          "time": "2026-07-18T10:00:54.382Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "69 km SW of Puerto Madero, Mexico",
-          "magnitude": 5.2,
-          "depth": 44.887,
-          "lat": 14.3207,
-          "lng": -92.9174,
-          "time": "2026-07-18T09:59:22.033Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "58 km SW of Brisas Barra de Suchiate, Mexico",
+          "location": "76 km SW of Puerto Madero, Mexico",
           "magnitude": 4.3,
-          "depth": 35,
-          "lat": 14.1224,
-          "lng": -92.564,
-          "time": "2026-07-18T09:51:33.269Z",
+          "depth": 10,
+          "lat": 14.2321,
+          "lng": -92.9189,
+          "time": "2026-07-18T16:55:57.788Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "50 km N of Loíza, Puerto Rico",
-          "magnitude": 3.26,
-          "depth": 40.1,
-          "lat": 18.887,
-          "lng": -65.8885,
-          "time": "2026-07-18T09:49:21.690Z",
+          "location": "149 km S of George Town, Cayman Islands",
+          "magnitude": 5.1,
+          "depth": 10,
+          "lat": 17.9439,
+          "lng": -81.5431,
+          "time": "2026-07-18T16:08:44.116Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "47 km WSW of Aquiles Serdán, Mexico",
-          "magnitude": 4.4,
-          "depth": 39.854,
-          "lat": 14.761,
-          "lng": -92.9169,
-          "time": "2026-07-18T09:34:21.347Z",
+          "location": "27 km NW of Rincón, Puerto Rico",
+          "magnitude": 2.91,
+          "depth": 18.53,
+          "lat": 18.4775,
+          "lng": -67.462,
+          "time": "2026-07-18T15:47:56.500Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "25 km N of Gázi, Greece",
+          "location": "12 km SE of Pāhala, Hawaii",
+          "magnitude": 2.47,
+          "depth": 40.9599990844727,
+          "lat": 19.1308326721191,
+          "lng": -155.390670776367,
+          "time": "2026-07-18T14:10:08.080Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "134 km SW of Puerto Madero, Mexico",
           "magnitude": 4.3,
-          "depth": 18.491,
-          "lat": 35.5522,
-          "lng": 25.029,
-          "time": "2026-07-18T09:04:09.589Z",
+          "depth": 10,
+          "lat": 14.0152,
+          "lng": -93.4317,
+          "time": "2026-07-18T13:28:37.704Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "70 km NNE of Vieques, Puerto Rico",
+          "magnitude": 2.83,
+          "depth": 6.97,
+          "lat": 18.995,
+          "lng": -65.5345,
+          "time": "2026-07-18T13:27:51.770Z",
           "tsunami": false,
           "type": "earthquake"
         }
       ],
-      "total24h": 75,
+      "total24h": 64,
       "source": "USGS"
     },
     "newsSentiment": {
@@ -5244,58 +5243,76 @@
     },
     "news": [
       {
-        "title": "Death toll from Uganda school bus crash rises to 24",
-        "pubDate": "Sat, 18 Jul 2026 13:07:39 +0000",
-        "link": "https://www.aljazeera.com/news/2026/7/18/death-toll-from-uganda-school-bus-crash-rises-to-24?traffic_source=rss",
+        "title": "Iran supreme leader warns of ‘unforgettable lessons’ if US attacks continue",
+        "pubDate": "Sat, 18 Jul 2026 18:55:05 +0000",
+        "link": "https://www.aljazeera.com/news/2026/7/18/iran-supreme-leader-warns-of-unforgettable-lessons-if-us-attacks-continue?traffic_source=rss",
         "source": "Al Jazeera"
       },
       {
-        "title": "Russian online retail warehouses hit by deadly Ukrainian strikes",
-        "pubDate": "Sat, 18 Jul 2026 13:06:25 GMT",
-        "link": "https://www.bbc.co.uk/news/articles/clyxlm877p2o?at_medium=RSS&amp;at_campaign=rss",
+        "title": "Israeli attacks on residential areas in Gaza kill eight",
+        "pubDate": "Sat, 18 Jul 2026 18:45:49 +0000",
+        "link": "https://www.aljazeera.com/news/2026/7/18/israeli-attacks-on-residential-areas-in-gaza-kill-eight?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "Israel: How real is threat of gender segregation on street?",
+        "pubDate": "Sat, 18 Jul 2026 18:45:00 GMT",
+        "link": "https://www.dw.com/en/israel-how-real-is-threat-of-gender-segregation-on-street/a-78020879?maca=en-rss-en-world-4025-xml-mrss",
+        "source": "DW News"
+      },
+      {
+        "title": "Two US troops killed and one missing after Iranian attack in Jordan",
+        "pubDate": "Sat, 18 Jul 2026 18:41:36 GMT",
+        "link": "https://www.bbc.co.uk/news/articles/cn8nynv8ze8o?at_medium=RSS&amp;at_campaign=rss",
         "source": "BBC World"
       },
       {
-        "title": "Indian police shift Cockroach Party activist on hunger strike to hospital against his wish",
-        "pubDate": "Sat, 18 Jul 2026 13:00:36 GMT",
-        "link": "https://www.france24.com/en/asia-pacific/20260718-indian-police-shift-cockroach-party-activist-on-hunger-strike-to-hospital-against-his-wish",
-        "source": "France24"
-      },
-      {
-        "title": "Iran accuses US of striking critical infrastructure as war intensifies",
-        "pubDate": "Sat, 18 Jul 2026 12:59:26 +0000",
-        "link": "https://www.aljazeera.com/news/2026/7/18/iran-accuses-us-of-striking-critical-infrastructure-as-war-intensifies?traffic_source=rss",
+        "title": "New York’s Mamdani says looking into Netanyahu arrest during city visit",
+        "pubDate": "Sat, 18 Jul 2026 18:17:00 +0000",
+        "link": "https://www.aljazeera.com/news/2026/7/18/new-yorks-mamdani-says-looking-into-netanyahu-arrest-during-city-visit?traffic_source=rss",
         "source": "Al Jazeera"
       },
       {
-        "title": "Ukrainian strikes hit Russian logistics center",
-        "pubDate": "Sat, 18 Jul 2026 12:57:21 +0000",
-        "link": "https://www.aljazeera.com/video/newsfeed/2026/7/18/ukrainian-strikes-hit-russian-logistics-center?traffic_source=rss",
-        "source": "Al Jazeera"
+        "title": "Hungary's president agrees to stand down after parliament backs removal",
+        "pubDate": "Sat, 18 Jul 2026 17:33:28 GMT",
+        "link": "https://www.bbc.co.uk/news/articles/cpd7q7eev7po?at_medium=RSS&amp;at_campaign=rss",
+        "source": "BBC World"
       },
       {
-        "title": "Fight or Flight: Trump administration subpoenas journalists over Air Force One reporting",
-        "pubDate": "Sat, 18 Jul 2026 12:22:35 GMT",
-        "link": "https://www.france24.com/en/tv-shows/scoop/20260718-fight-or-flight-trump-administration-subpoenas-journalists-over-air-force-one-reporting",
+        "title": "🔴 Middle East live: Two US service members in Jordan killed, one missing in action",
+        "pubDate": "Sat, 18 Jul 2026 17:30:41 GMT",
+        "link": "https://www.france24.com/en/middle-east/20260718-middle-east-live-tehran-threatens-full-scale-offensive-as-us-launches-seventh-night-of-attacks",
         "source": "France24"
       },
       {
-        "title": "World Cup 2026 : Deschamps last dance",
-        "pubDate": "Sat, 18 Jul 2026 12:18:36 GMT",
-        "link": "https://www.france24.com/en/tv-shows/world-cup-debrief/20260718-world-cup-2026-the-match-no-one-wants-to-play-england-france-in-third-place-game",
+        "title": "What's at stake for the EU's carbon market blueprint",
+        "pubDate": "Sat, 18 Jul 2026 17:23:10 GMT",
+        "link": "https://www.france24.com/en/tv-shows/spotlight/20260718-what-s-at-stake-for-the-eu-s-carbon-market-blueprint",
         "source": "France24"
+      },
+      {
+        "title": "Gulf council blasts \"war crimes\" by Iran",
+        "pubDate": "Sat, 18 Jul 2026 16:23:09 GMT",
+        "link": "https://www.france24.com/en/gulf-council-blasts-war-crimes-by-iran",
+        "source": "France24"
+      },
+      {
+        "title": "German politician resigns over surrogacy child controversy",
+        "pubDate": "Sat, 18 Jul 2026 15:23:31 GMT",
+        "link": "https://www.bbc.co.uk/news/articles/cq56e9n1ddzo?at_medium=RSS&amp;at_campaign=rss",
+        "source": "BBC World"
       },
       {
         "title": "Germany: CDU&#039;s Jens Spahn resigns amid surrogacy controversy",
-        "pubDate": "Sat, 18 Jul 2026 12:03:00 GMT",
+        "pubDate": "Sat, 18 Jul 2026 15:10:00 GMT",
         "link": "https://www.dw.com/en/germany-cdu-s-jens-spahn-resigns-amid-surrogacy-controversy/a-78019238?maca=en-rss-en-world-4025-xml-mrss",
         "source": "DW News"
       },
       {
-        "title": "US strikes hit Iran for seventh consecutive night",
-        "pubDate": "Sat, 18 Jul 2026 11:48:44 GMT",
-        "link": "https://www.bbc.co.uk/news/articles/cy748n8zx8ro?at_medium=RSS&amp;at_campaign=rss",
-        "source": "BBC World"
+        "title": "California remains world’s No. 4 economy – barely - Orange County Register",
+        "pubDate": "Sat, 18 Jul 2026 15:08:34 GMT",
+        "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOcDhYZ2lwX2tkNTZDOXVab1k3MVp2WURDVldiNllMdU8xRTBwYUZKUzRzOUc3NDlObXhzSXV3YXNlWlYzN1Y0YnRtdU9QTHR5NFJGOTdydXZjN05HZ2pLNnNTa1RDU1RnTjlDOTVlbzBvQW9aNzlTSVRQUkM2aGV4STlqTjh4aUtTbFJNUg?oc=5",
+        "source": "IMF"
       },
       {
         "title": "IOM and UNHCR Deeply Concerned by Reports of Maritime Incidents off Myanmar Coast; Over 500 Feared Dead - International Organization for Migration",
@@ -5308,18 +5325,6 @@
         "pubDate": "Sat, 18 Jul 2026 10:12:00 GMT",
         "link": "https://www.dw.com/en/india-launches-first-private-rocket-into-space/a-78016562?maca=en-rss-en-world-4025-xml-mrss",
         "source": "DW News"
-      },
-      {
-        "title": "Japan&#039;s superstitions make some homes hard to sell or rent",
-        "pubDate": "Sat, 18 Jul 2026 07:32:00 GMT",
-        "link": "https://www.dw.com/en/japan-s-superstitions-make-some-homes-hard-to-sell-or-rent/a-78005455?maca=en-rss-en-world-4025-xml-mrss",
-        "source": "DW News"
-      },
-      {
-        "title": "Space start-up launches India’s first commercial rocket designed for orbit",
-        "pubDate": "Sat, 18 Jul 2026 07:05:19 GMT",
-        "link": "https://www.bbc.co.uk/news/articles/clyekv7rld3o?at_medium=RSS&amp;at_campaign=rss",
-        "source": "BBC World"
       },
       {
         "title": "‘We are preserving a tradition’: how Ghana’s sensationalist film posters became collectible art",
@@ -5344,12 +5349,6 @@
         "pubDate": "Fri, 17 Jul 2026 21:01:38 +0000",
         "link": "https://www.nasa.gov/organizations/ochmo/establishing-a-vte-risk-score-for-astronauts-algorithm/",
         "source": "NASA"
-      },
-      {
-        "title": "Refugees and immigrants contribute more than they cost, UNHCR says - Valor International",
-        "pubDate": "Fri, 17 Jul 2026 21:00:11 GMT",
-        "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxNUnVjZkhGSnlKU1FTNzdaTVh3VW55aS1qczhnSnFhbnBvMDQzMU1KeVFPS1M3QWJaNHBCblNlOHBkR2hkRmY0NFNCcm9Kcy0tOXhuVnd3QlByRWVRbU01ODJCcENSQzNxMHFpcWl0NnBfNmVLb2lZYlItcXd5ZTUwaDRNdDhCaXJMVkhra1llY19EWkFnd1RXTWlkSnFsZ3IxeVVEcEhoM3FpeU8tSnhFWFlBYTJrN2JNclZQTk5JYlh2MGFqMVRTcHppWULSAdsBQVVfeXFMTjlHaG1pYzJPVEkyaVZnaWZmMnYwLTBiYkU3YmdMQVphbzZMcHVKdDBrc09pNTRtel84N0FhXzFoZlVrei1mWUU1eXdwQzU0cTlFNWtkTFVrN2cwSFNxQjB1M2hwTVdQWDNUV1A1Um96Y3M0VW9FVm5VQnZRV01WX09BcGlZTGJKWlVDRG5sTENYUTRndE5mWmQwQTRqcF9kWnBOZmp3aHFpXzFrUEhWQ2M5OUQwRV9QM0MtaGlPeXJ6Y09hR0RsRnE5UWZzSW9IZW9La1VTaEVtM3Vn?oc=5",
-        "source": "UNHCR"
       },
       {
         "title": "NASA’s Psyche Mission Images Details of Martian Surface During Flyby",
@@ -5415,7 +5414,7 @@
         "sunspots": 94.4
       }
     ],
-    "lastUpdated": "2026-07-18T13:35:29.620Z"
+    "lastUpdated": "2026-07-18T19:31:59.572Z"
   },
   "momentum": {
     "indicators": [
