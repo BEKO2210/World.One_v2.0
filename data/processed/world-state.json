@@ -1,20 +1,20 @@
 {
   "meta": {
-    "generated": "2026-07-21T14:12:07.666Z",
+    "generated": "2026-07-21T19:48:35.587Z",
     "version": "2.0.0",
     "sources_count": 65,
     "sources_available": 65,
     "sources_success_rate": 100,
-    "next_update": "2026-07-21T20:12:07.666Z",
+    "next_update": "2026-07-22T01:48:35.587Z",
     "realtimePulse": {
-      "environment": -0.96,
+      "environment": -0.83,
       "society": 0.05,
       "economy": -0.4,
       "progress": 0.8,
       "details": {
-        "quakeCount": 47,
+        "quakeCount": 42,
         "maxMagnitude": 5.6,
-        "avgGlobalTemp": 23.2,
+        "avgGlobalTemp": 23.1,
         "newsSentiment": -0.42,
         "cryptoFearGreed": 25,
         "arxivPapers": 20
@@ -22,29 +22,29 @@
     },
     "cacheFreshness": {
       "environment": {
-        "newest": "2026-07-21T14:12:07.201Z",
-        "oldest": "2026-07-21T14:11:35.801Z",
+        "newest": "2026-07-21T19:48:35.058Z",
+        "oldest": "2026-07-21T19:46:45.121Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 6
       },
       "society": {
-        "newest": "2026-07-21T14:12:07.491Z",
-        "oldest": "2026-07-21T14:07:22.951Z",
+        "newest": "2026-07-21T19:48:35.399Z",
+        "oldest": "2026-07-21T19:42:42.799Z",
         "newestHours": 0,
         "oldestHours": 0.1,
         "sourceCount": 4
       },
       "economy": {
-        "newest": "2026-07-21T14:12:03.341Z",
-        "oldest": "2026-07-21T14:12:03.341Z",
+        "newest": "2026-07-21T19:48:31.269Z",
+        "oldest": "2026-07-21T19:48:31.269Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 1
       },
       "progress": {
-        "newest": "2026-07-21T14:11:55.764Z",
-        "oldest": "2026-07-21T14:11:42.312Z",
+        "newest": "2026-07-21T19:48:28.020Z",
+        "oldest": "2026-07-21T19:47:37.524Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 2
@@ -52,13 +52,13 @@
     }
   },
   "worldIndex": {
-    "value": 63.9,
+    "value": 64.1,
     "rawValue": 60.9,
     "label": "POSITIV",
     "zone": "positive",
-    "previous": 64,
-    "change": -0.1,
-    "trend": "declining",
+    "previous": 63.9,
+    "change": 0.2,
+    "trend": "improving",
     "carryingCapacity": {
       "checks": {
         "existence": {
@@ -66,8 +66,8 @@
           "passed": true
         },
         "balance": {
-          "multiplier": 1.05,
-          "ratio": 0.8
+          "multiplier": 1.052,
+          "ratio": 0.8095238095238095
         },
         "cascading": {
           "penalty": 0,
@@ -77,8 +77,8 @@
       "spectrum": {
         "environment": {
           "direction": "erosion",
-          "position": "strained",
-          "level": -1
+          "position": "fragile",
+          "level": -2
         },
         "society": {
           "direction": "expansion",
@@ -87,8 +87,8 @@
         },
         "economy": {
           "direction": "expansion",
-          "position": "elastic",
-          "level": 1
+          "position": "capacitive",
+          "level": 2
         },
         "progress": {
           "direction": "expansion",
@@ -97,13 +97,13 @@
         },
         "momentum": {
           "direction": "expansion",
-          "position": "elastic",
-          "level": 1
+          "position": "capacitive",
+          "level": 2
         }
       },
       "indicators": {
         "environment": {
-          "bufferDistance": 25.5,
+          "bufferDistance": 22.8,
           "recoveryTime": 0,
           "maintenanceCost": 0.16
         },
@@ -113,7 +113,7 @@
           "maintenanceCost": 0.77
         },
         "economy": {
-          "bufferDistance": 65.3,
+          "bufferDistance": 68,
           "recoveryTime": 0,
           "maintenanceCost": 2.78
         },
@@ -123,7 +123,7 @@
           "maintenanceCost": 4.52
         },
         "momentum": {
-          "bufferDistance": 76.5,
+          "bufferDistance": 77.6,
           "recoveryTime": 0,
           "maintenanceCost": 0
         }
@@ -133,19 +133,19 @@
   },
   "subScores": {
     "environment": {
-      "value": 36.7,
+      "value": 34.4,
       "label": "BESORGNISERREGEND",
       "zone": "concerning",
       "weight": 0.25,
-      "trend": "improving",
-      "change": 2.5,
+      "trend": "declining",
+      "change": -2.3,
       "indicators": [
         {
           "name": "Globale Temperaturanomalie",
           "value": "+1.19°C",
           "score": 60,
           "trend": "declining",
-          "fetchedAt": "2026-07-21T14:11:36.218Z",
+          "fetchedAt": "2026-07-21T19:47:29.768Z",
           "ageHours": 0,
           "source": "NASA GISTEMP v4 (base 1951-1980)"
         },
@@ -154,8 +154,8 @@
           "value": "431 ppm",
           "score": 31,
           "trend": "declining",
-          "fetchedAt": "2026-07-21T14:04:53.804Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-07-21T19:38:16.445Z",
+          "ageHours": 0.2,
           "source": "NOAA Mauna Loa"
         },
         {
@@ -163,7 +163,7 @@
           "value": "31.1%",
           "score": 56,
           "trend": "declining",
-          "fetchedAt": "2026-07-21T14:11:36.400Z",
+          "fetchedAt": "2026-07-21T19:47:31.497Z",
           "ageHours": 0,
           "source": "World Bank / FAO (AG.LND.FRST.ZS)"
         },
@@ -172,16 +172,16 @@
           "value": "19.74%",
           "score": 33,
           "trend": "improving",
-          "fetchedAt": "2026-07-21T14:11:36.489Z",
+          "fetchedAt": "2026-07-21T19:47:32.418Z",
           "ageHours": 0,
           "source": "World Bank (EG.FEC.RNEW.ZS)"
         },
         {
           "name": "Luftqualität (Global Avg AQI)",
-          "value": 50,
-          "score": 70,
+          "value": 61,
+          "score": 45,
           "trend": "stable",
-          "fetchedAt": "2026-07-21T14:12:07.201Z",
+          "fetchedAt": "2026-07-21T19:48:35.058Z",
           "ageHours": 0,
           "source": "WAQI official stations (19 cities)"
         },
@@ -199,7 +199,7 @@
           "value": "40 events, -10 Pkt",
           "score": 0,
           "trend": "declining",
-          "fetchedAt": "2026-07-21T14:11:35.801Z",
+          "fetchedAt": "2026-07-21T19:46:45.121Z",
           "ageHours": 0,
           "source": "GDACS (JRC/EU)"
         }
@@ -211,14 +211,14 @@
       "zone": "mixed",
       "weight": 0.25,
       "trend": "stable",
-      "change": 0.1,
+      "change": 0,
       "indicators": [
         {
           "name": "Lebenserwartung",
           "value": "73.48 Jahre",
           "score": 67,
           "trend": "improving",
-          "fetchedAt": "2026-07-21T14:11:55.687Z",
+          "fetchedAt": "2026-07-21T19:48:27.324Z",
           "ageHours": 0,
           "source": "World Bank (SP.DYN.LE00.IN)"
         },
@@ -227,7 +227,7 @@
           "value": "37.4/1000",
           "score": 66,
           "trend": "improving",
-          "fetchedAt": "2026-07-21T14:11:55.687Z",
+          "fetchedAt": "2026-07-21T19:48:27.324Z",
           "ageHours": 0,
           "source": "World Bank (SH.DYN.MORT)"
         },
@@ -236,7 +236,7 @@
           "value": 59,
           "score": 29,
           "trend": "declining",
-          "fetchedAt": "2026-07-21T14:08:00.289Z",
+          "fetchedAt": "2026-07-21T19:43:28.656Z",
           "ageHours": 0.1,
           "source": "ACLED/Crisis Group (baseline)"
         },
@@ -245,8 +245,8 @@
           "value": "91.9%",
           "score": 84,
           "trend": "improving",
-          "fetchedAt": "2026-07-21T14:05:11.972Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-07-21T19:39:07.430Z",
+          "ageHours": 0.2,
           "source": "World Bank (raw)"
         },
         {
@@ -254,8 +254,8 @@
           "value": "73.7%",
           "score": 56,
           "trend": "improving",
-          "fetchedAt": "2026-07-21T14:05:12.104Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-07-21T19:39:07.688Z",
+          "ageHours": 0.2,
           "source": "World Bank (raw)"
         },
         {
@@ -272,26 +272,26 @@
           "value": "84 frei / 55 unfrei",
           "score": 46,
           "trend": "declining",
-          "fetchedAt": "2026-07-21T14:07:22.951Z",
+          "fetchedAt": "2026-07-21T19:42:42.799Z",
           "ageHours": 0.1,
           "source": "Freedom House - Freedom in the World"
         }
       ]
     },
     "economy": {
-      "value": 70.5,
+      "value": 72.8,
       "label": "POSITIV",
       "zone": "positive",
       "weight": 0.2,
-      "trend": "declining",
-      "change": -2.3,
+      "trend": "improving",
+      "change": 2.3,
       "indicators": [
         {
           "name": "BIP-Wachstum",
           "value": "2.92%",
           "score": 72,
           "trend": "improving",
-          "fetchedAt": "2026-07-21T14:05:13.093Z",
+          "fetchedAt": "2026-07-21T19:40:33.267Z",
           "ageHours": 0.1,
           "source": "World Bank / IMF"
         },
@@ -300,16 +300,16 @@
           "value": 42,
           "score": 51,
           "trend": "stable",
-          "fetchedAt": "2026-07-21T14:05:13.149Z",
+          "fetchedAt": "2026-07-21T19:40:33.789Z",
           "ageHours": 0.1,
           "source": "World Bank"
         },
         {
           "name": "Inflation",
-          "value": "5.1%",
-          "score": 83,
+          "value": "3.4%",
+          "score": 92,
           "trend": "stable",
-          "fetchedAt": "2026-07-21T14:12:03.341Z",
+          "fetchedAt": "2026-07-21T19:48:31.269Z",
           "ageHours": 0,
           "source": "FRED + World Bank (avg)"
         },
@@ -318,7 +318,7 @@
           "value": "4.79%",
           "score": 79,
           "trend": "stable",
-          "fetchedAt": "2026-07-21T14:06:01.251Z",
+          "fetchedAt": "2026-07-21T19:40:35.712Z",
           "ageHours": 0.1,
           "source": "World Bank / ILO"
         },
@@ -336,7 +336,7 @@
           "value": "3.63%",
           "score": 70.96000000000001,
           "trend": "stable",
-          "fetchedAt": "2026-07-21T14:12:03.341Z",
+          "fetchedAt": "2026-07-21T19:48:31.269Z",
           "ageHours": 0,
           "source": "FRED (St. Louis Fed)"
         },
@@ -345,7 +345,7 @@
           "value": "0.39%",
           "score": 80,
           "trend": "stable",
-          "fetchedAt": "2026-07-21T14:12:03.341Z",
+          "fetchedAt": "2026-07-21T19:48:31.269Z",
           "ageHours": 0,
           "source": "FRED (St. Louis Fed)"
         }
@@ -364,7 +364,7 @@
           "value": "73.6%",
           "score": 82,
           "trend": "improving",
-          "fetchedAt": "2026-07-21T14:11:55.764Z",
+          "fetchedAt": "2026-07-21T19:48:28.020Z",
           "ageHours": 0,
           "source": "World Bank (IT.NET.USER.ZS)"
         },
@@ -373,7 +373,7 @@
           "value": "87.7%",
           "score": 75,
           "trend": "improving",
-          "fetchedAt": "2026-07-21T14:06:14.348Z",
+          "fetchedAt": "2026-07-21T19:41:15.626Z",
           "ageHours": 0.1,
           "source": "World Bank / UNESCO"
         },
@@ -382,7 +382,7 @@
           "value": "2.6%",
           "score": 65,
           "trend": "improving",
-          "fetchedAt": "2026-07-21T14:06:13.965Z",
+          "fetchedAt": "2026-07-21T19:41:14.298Z",
           "ageHours": 0.1,
           "source": "World Bank"
         },
@@ -391,7 +391,7 @@
           "value": "111.5/100",
           "score": 86,
           "trend": "improving",
-          "fetchedAt": "2026-07-21T14:11:55.764Z",
+          "fetchedAt": "2026-07-21T19:48:28.020Z",
           "ageHours": 0,
           "source": "World Bank (IT.CEL.SETS.P2)"
         },
@@ -400,7 +400,7 @@
           "value": "0K+",
           "score": 80,
           "trend": "improving",
-          "fetchedAt": "2026-07-21T14:06:13.573Z",
+          "fetchedAt": "2026-07-21T19:40:50.367Z",
           "ageHours": 0.1,
           "source": "GitHub"
         },
@@ -409,22 +409,22 @@
           "value": "0.4M total",
           "score": 75,
           "trend": "improving",
-          "fetchedAt": "2026-07-21T14:11:42.312Z",
+          "fetchedAt": "2026-07-21T19:47:37.524Z",
           "ageHours": 0,
           "source": "arXiv (cs.AI + cs.LG)"
         }
       ]
     },
     "momentum": {
-      "value": 80,
+      "value": 81,
       "weight": 0.1,
       "label": "EXZELLENT",
       "zone": "excellent",
-      "trend": "declining",
-      "change": -1,
-      "positiveCount": 16,
+      "trend": "improving",
+      "change": 1,
+      "positiveCount": 17,
       "negativeCount": 4,
-      "totalIndicators": 20,
+      "totalIndicators": 21,
       "indicators": [
         {
           "name": "Lebenserwartung",
@@ -466,6 +466,12 @@
           "name": "BIP-Wachstum",
           "direction": "improving",
           "change": "+23.3%",
+          "icon": "up"
+        },
+        {
+          "name": "Inflation",
+          "direction": "improving",
+          "change": "-12.0%",
           "icon": "up"
         },
         {
@@ -1427,77 +1433,77 @@
       "source": "NOAA"
     },
     "airQuality": {
-      "globalAvgAQI": 50,
+      "globalAvgAQI": 61,
       "cleanestCities": [
         {
-          "city": "Sydney",
-          "country": "AU",
-          "aqi": 11,
+          "city": "Berlin",
+          "country": "DE",
+          "aqi": 27,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Moscow",
+          "country": "RU",
+          "aqi": 34,
           "lat": null,
           "lng": null
         },
         {
           "city": "Los Angeles",
           "country": "US",
-          "aqi": 18,
+          "aqi": 36,
           "lat": null,
           "lng": null
         },
         {
-          "city": "Berlin",
-          "country": "DE",
-          "aqi": 21,
+          "city": "Lagos",
+          "country": "NG",
+          "aqi": 38,
           "lat": null,
           "lng": null
         },
         {
-          "city": "London",
-          "country": "GB",
-          "aqi": 30,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Shanghai",
-          "country": "CN",
-          "aqi": 31,
+          "city": "Sydney",
+          "country": "AU",
+          "aqi": 38,
           "lat": null,
           "lng": null
         }
       ],
       "mostPolluted": [
         {
-          "city": "São Paulo",
-          "country": "BR",
-          "aqi": 87,
+          "city": "Mexico City",
+          "country": "MX",
+          "aqi": 144,
           "lat": null,
           "lng": null
         },
         {
           "city": "Jakarta",
           "country": "ID",
-          "aqi": 80,
+          "aqi": 90,
           "lat": null,
           "lng": null
         },
         {
-          "city": "Delhi",
-          "country": "IN",
-          "aqi": 74,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Karachi",
-          "country": "PK",
+          "city": "Tokyo",
+          "country": "JP",
           "aqi": 72,
           "lat": null,
           "lng": null
         },
         {
-          "city": "Mumbai",
-          "country": "IN",
-          "aqi": 72,
+          "city": "London",
+          "country": "GB",
+          "aqi": 65,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Istanbul",
+          "country": "TR",
+          "aqi": 64,
           "lat": null,
           "lng": null
         }
@@ -1903,7 +1909,7 @@
       "endangered": 55191,
       "criticallyEndangered": 30032,
       "source": "GBIF / IUCN",
-      "fetchedAt": "2026-07-21T14:07:20.911Z",
+      "fetchedAt": "2026-07-21T19:42:21.920Z",
       "ageHours": 0.1
     },
     "weather": [
@@ -1912,11 +1918,11 @@
         "lat": 52.52,
         "lng": 13.41,
         "current": {
-          "time": "2026-07-21T16:00",
+          "time": "2026-07-21T21:30",
           "interval": 900,
-          "temperature_2m": 22.5,
-          "relative_humidity_2m": 30,
-          "wind_speed_10m": 12.5,
+          "temperature_2m": 21.4,
+          "relative_humidity_2m": 32,
+          "wind_speed_10m": 8.9,
           "weather_code": 2
         }
       },
@@ -1925,11 +1931,11 @@
         "lat": 40.71,
         "lng": -74.01,
         "current": {
-          "time": "2026-07-21T10:00",
+          "time": "2026-07-21T15:30",
           "interval": 900,
-          "temperature_2m": 23.3,
-          "relative_humidity_2m": 81,
-          "wind_speed_10m": 22,
+          "temperature_2m": 29.1,
+          "relative_humidity_2m": 78,
+          "wind_speed_10m": 18.6,
           "weather_code": 3
         }
       },
@@ -1938,12 +1944,12 @@
         "lat": 35.68,
         "lng": 139.69,
         "current": {
-          "time": "2026-07-21T23:00",
+          "time": "2026-07-22T04:30",
           "interval": 900,
-          "temperature_2m": 27.3,
-          "relative_humidity_2m": 92,
-          "wind_speed_10m": 1.6,
-          "weather_code": 1
+          "temperature_2m": 24.9,
+          "relative_humidity_2m": 99,
+          "wind_speed_10m": 3.2,
+          "weather_code": 0
         }
       },
       {
@@ -1951,12 +1957,12 @@
         "lat": -33.87,
         "lng": 151.21,
         "current": {
-          "time": "2026-07-22T00:00",
+          "time": "2026-07-22T05:30",
           "interval": 900,
-          "temperature_2m": 11.7,
-          "relative_humidity_2m": 92,
+          "temperature_2m": 7.7,
+          "relative_humidity_2m": 98,
           "wind_speed_10m": 6.7,
-          "weather_code": 0
+          "weather_code": 3
         }
       },
       {
@@ -1964,12 +1970,12 @@
         "lat": -23.55,
         "lng": -46.63,
         "current": {
-          "time": "2026-07-21T11:00",
+          "time": "2026-07-21T16:30",
           "interval": 900,
-          "temperature_2m": 24.7,
-          "relative_humidity_2m": 35,
-          "wind_speed_10m": 12.2,
-          "weather_code": 1
+          "temperature_2m": 26.1,
+          "relative_humidity_2m": 34,
+          "wind_speed_10m": 11.5,
+          "weather_code": 0
         }
       },
       {
@@ -1977,12 +1983,12 @@
         "lat": 6.45,
         "lng": 3.4,
         "current": {
-          "time": "2026-07-21T15:00",
+          "time": "2026-07-21T20:30",
           "interval": 900,
-          "temperature_2m": 27.7,
-          "relative_humidity_2m": 75,
-          "wind_speed_10m": 14.4,
-          "weather_code": 3
+          "temperature_2m": 25.8,
+          "relative_humidity_2m": 85,
+          "wind_speed_10m": 13.4,
+          "weather_code": 1
         }
       },
       {
@@ -1990,12 +1996,12 @@
         "lat": 19.08,
         "lng": 72.88,
         "current": {
-          "time": "2026-07-21T19:30",
+          "time": "2026-07-22T01:00",
           "interval": 900,
-          "temperature_2m": 25.6,
-          "relative_humidity_2m": 92,
-          "wind_speed_10m": 18.8,
-          "weather_code": 80
+          "temperature_2m": 26.4,
+          "relative_humidity_2m": 90,
+          "wind_speed_10m": 19,
+          "weather_code": 95
         }
       },
       {
@@ -2003,12 +2009,12 @@
         "lat": 51.51,
         "lng": -0.13,
         "current": {
-          "time": "2026-07-21T15:00",
+          "time": "2026-07-21T20:30",
           "interval": 900,
-          "temperature_2m": 23.1,
-          "relative_humidity_2m": 46,
-          "wind_speed_10m": 11.2,
-          "weather_code": 2
+          "temperature_2m": 23,
+          "relative_humidity_2m": 49,
+          "wind_speed_10m": 7.2,
+          "weather_code": 0
         }
       }
     ],
@@ -3101,101 +3107,7 @@
       "source": "World Bank"
     },
     "education": {
-      "enrollment": 89.4,
-      "history": [
-        {
-          "year": 1996,
-          "value": 81.4
-        },
-        {
-          "year": 1997,
-          "value": 81.5
-        },
-        {
-          "year": 1998,
-          "value": 82
-        },
-        {
-          "year": 1999,
-          "value": 82.7
-        },
-        {
-          "year": 2000,
-          "value": 83.4
-        },
-        {
-          "year": 2001,
-          "value": 83.6
-        },
-        {
-          "year": 2002,
-          "value": 83.8
-        },
-        {
-          "year": 2003,
-          "value": 85.1
-        },
-        {
-          "year": 2004,
-          "value": 86.2
-        },
-        {
-          "year": 2005,
-          "value": 86.8
-        },
-        {
-          "year": 2006,
-          "value": 87.2
-        },
-        {
-          "year": 2007,
-          "value": 88.4
-        },
-        {
-          "year": 2008,
-          "value": 88.7
-        },
-        {
-          "year": 2009,
-          "value": 88.6
-        },
-        {
-          "year": 2010,
-          "value": 88.6
-        },
-        {
-          "year": 2011,
-          "value": 88.7
-        },
-        {
-          "year": 2012,
-          "value": 89
-        },
-        {
-          "year": 2013,
-          "value": 89
-        },
-        {
-          "year": 2014,
-          "value": 89.2
-        },
-        {
-          "year": 2015,
-          "value": 89.2
-        },
-        {
-          "year": 2016,
-          "value": 89.4
-        },
-        {
-          "year": 2017,
-          "value": 89.3
-        },
-        {
-          "year": 2018,
-          "value": 89.4
-        }
-      ],
+      "history": [],
       "source": "World Bank / UNESCO"
     },
     "healthExpenditure": {
@@ -3859,8 +3771,129 @@
       "source": "World Bank"
     },
     "inflation": {
-      "current": 5.1,
-      "history": [],
+      "current": 3.4,
+      "history": [
+        {
+          "year": 1996,
+          "value": 6.53
+        },
+        {
+          "year": 1997,
+          "value": 5.55
+        },
+        {
+          "year": 1998,
+          "value": 5.1
+        },
+        {
+          "year": 1999,
+          "value": 3.04
+        },
+        {
+          "year": 2000,
+          "value": 3.43
+        },
+        {
+          "year": 2001,
+          "value": 3.84
+        },
+        {
+          "year": 2002,
+          "value": 2.91
+        },
+        {
+          "year": 2003,
+          "value": 3.03
+        },
+        {
+          "year": 2004,
+          "value": 3.52
+        },
+        {
+          "year": 2005,
+          "value": 4.11
+        },
+        {
+          "year": 2006,
+          "value": 4.27
+        },
+        {
+          "year": 2007,
+          "value": 4.81
+        },
+        {
+          "year": 2008,
+          "value": 8.95
+        },
+        {
+          "year": 2009,
+          "value": 2.86
+        },
+        {
+          "year": 2010,
+          "value": 3.33
+        },
+        {
+          "year": 2011,
+          "value": 4.8
+        },
+        {
+          "year": 2012,
+          "value": 3.73
+        },
+        {
+          "year": 2013,
+          "value": 2.65
+        },
+        {
+          "year": 2014,
+          "value": 2.39
+        },
+        {
+          "year": 2015,
+          "value": 1.44
+        },
+        {
+          "year": 2016,
+          "value": 1.6
+        },
+        {
+          "year": 2017,
+          "value": 2.22
+        },
+        {
+          "year": 2018,
+          "value": 2.44
+        },
+        {
+          "year": 2019,
+          "value": 2.21
+        },
+        {
+          "year": 2020,
+          "value": 1.91
+        },
+        {
+          "year": 2021,
+          "value": 3.48
+        },
+        {
+          "year": 2022,
+          "value": 8.08
+        },
+        {
+          "year": 2023,
+          "value": 5.8
+        },
+        {
+          "year": 2024,
+          "value": 3.01
+        },
+        {
+          "year": 2025,
+          "value": 3.04
+        }
+      ],
       "source": "World Bank"
     },
     "unemployment": {
@@ -4403,73 +4436,73 @@
       "topRepos": [
         {
           "name": "codecrafters-io/build-your-own-x",
-          "stars": 529743,
-          "forks": 50108,
+          "stars": 529822,
+          "forks": 50119,
           "language": "Markdown",
-          "updated": "2026-07-21T14:04:38Z"
+          "updated": "2026-07-21T19:40:03Z"
         },
         {
           "name": "sindresorhus/awesome",
-          "stars": 487277,
-          "forks": 35978,
+          "stars": 487382,
+          "forks": 35980,
           "language": null,
-          "updated": "2026-07-21T14:04:42Z"
+          "updated": "2026-07-21T19:39:35Z"
         },
         {
           "name": "freeCodeCamp/freeCodeCamp",
-          "stars": 452285,
-          "forks": 45616,
+          "stars": 452319,
+          "forks": 45619,
           "language": "TypeScript",
-          "updated": "2026-07-21T14:06:05Z"
+          "updated": "2026-07-21T19:32:11Z"
         },
         {
           "name": "public-apis/public-apis",
-          "stars": 451759,
-          "forks": 49723,
+          "stars": 451808,
+          "forks": 49730,
           "language": "Python",
-          "updated": "2026-07-21T13:58:28Z"
+          "updated": "2026-07-21T19:31:50Z"
         },
         {
           "name": "EbookFoundation/free-programming-books",
-          "stars": 392622,
-          "forks": 66548,
+          "stars": 392648,
+          "forks": 66553,
           "language": "Python",
-          "updated": "2026-07-21T13:57:16Z"
+          "updated": "2026-07-21T19:40:30Z"
         },
         {
           "name": "openclaw/openclaw",
-          "stars": 383680,
-          "forks": 80614,
+          "stars": 383705,
+          "forks": 80624,
           "language": "TypeScript",
-          "updated": "2026-07-21T14:06:00Z"
+          "updated": "2026-07-21T19:34:46Z"
         },
         {
           "name": "nilbuild/developer-roadmap",
-          "stars": 362057,
-          "forks": 44616,
+          "stars": 362121,
+          "forks": 44619,
           "language": "TypeScript",
-          "updated": "2026-07-21T13:59:05Z"
+          "updated": "2026-07-21T19:34:37Z"
         },
         {
           "name": "donnemartin/system-design-primer",
-          "stars": 358577,
-          "forks": 57315,
+          "stars": 358626,
+          "forks": 57320,
           "language": "Python",
-          "updated": "2026-07-21T13:48:54Z"
+          "updated": "2026-07-21T19:30:05Z"
         },
         {
           "name": "jwasham/coding-interview-university",
-          "stars": 356777,
-          "forks": 84351,
+          "stars": 356813,
+          "forks": 84353,
           "language": null,
-          "updated": "2026-07-21T13:36:03Z"
+          "updated": "2026-07-21T19:33:28Z"
         },
         {
           "name": "vinta/awesome-python",
-          "stars": 309464,
+          "stars": 309511,
           "forks": 28353,
           "language": "Python",
-          "updated": "2026-07-21T14:02:22Z"
+          "updated": "2026-07-21T19:32:50Z"
         }
       ],
       "source": "GitHub"
@@ -4943,64 +4976,64 @@
     },
     "spaceflight": [
       {
-        "title": "A New Compact Instrument Enables High-Fidelity Measurements of Energetic Particles on CubeSats",
-        "published": "2026-07-21T13:00:00Z",
+        "title": "Commercial Space Federation (CSF) Welcomes Three New Associate Members",
+        "published": "2026-07-21T19:00:00Z",
+        "source": "SpaceNews",
+        "summary": "\nWashington, D.C.— July 21, 2026 —The Commercial Space Federation (CSF) is pleased to welcome Overview Energy,  Loft Orbital, and Star Catcher as new associate members — companies advancing space-base"
+      },
+      {
+        "title": "Falcon 9 to launch MRV-1 robotic servicing spacecraft for Northrop Grumman",
+        "published": "2026-07-21T18:30:58Z",
+        "source": "NASASpaceflight",
+        "summary": "SpaceX’s Falcon 9 is set to launch the Mission Robotic Vehicle (MRV-1) mission from Florida…\nThe post Falcon 9 to launch MRV-1 robotic servicing spacecraft for Northrop Grumman appeared first on NASAS"
+      },
+      {
+        "title": "US-India Satellite Delivers Data, Reveals ‘Hummingbird’ in Antarctica",
+        "published": "2026-07-21T18:14:52Z",
         "source": "NASA",
-        "summary": "A team of NASA-sponsored scientists and engineers has developed a novel approach to observing high-energy particles in the near-Earth space environment, incorporating miniaturized sensors into a compa"
+        "summary": "As of July 20, the public can access data from the two powerful radar instruments aboard the NISAR (NASA-ISRO Synthetic Aperture Radar) satellite. Teams in the United States and India will release fil"
       },
       {
-        "title": "UK and Florida commit $400,000 to joint space projects",
-        "published": "2026-07-21T12:00:00Z",
-        "source": "SpaceNews",
-        "summary": "\nThe British government and Florida’s space-focused economic development agency have each committed $200,000 to support joint research, innovation and commercialization projects.\nThe post UK and Flori"
+        "title": "NASA Langley Celebrates Community through Music with ‘Symphony Under the Stars’ Event",
+        "published": "2026-07-21T18:00:43Z",
+        "source": "NASA",
+        "summary": "NASA Langley’s “Stars, Stripes, and Supernovas – Symphony Under the Stars” event brought employees, families, and community members together for an evening filled with music, connection, and celebrati"
       },
       {
-        "title": "German component supplier deltaVision raises 10.2 million euros",
-        "published": "2026-07-21T11:57:21Z",
-        "source": "SpaceNews",
-        "summary": "\nGerman spacecraft component developer deltaVision has raised 10.2 million euros ($11.6 million) to expand production of valves and related equipment, with a focus on enabling in-space refueling.\nThe "
+        "title": "Poland Boosts Its Contribution to Europe’s IRIS2 Constellation to €656M",
+        "published": "2026-07-21T15:40:38Z",
+        "source": "European Spaceflight",
+        "summary": "Poland has formalised its participation in Europe’s IRIS2 secure communications constellation and agreed to increase its contribution by more than €150 million. The additional funding will double Pola"
       },
       {
-        "title": "Live coverage: SpaceX to launch novel geosynchronous robotic servicing satellite on decade-long mission",
-        "published": "2026-07-21T11:46:14Z",
-        "source": "Spaceflight Now",
-        "summary": "Northrop Grumman’s Mission Robotic Vehicle features the Robotic Servicing of Geosynchronous Satellites (RSGS) payload from the U.S. Naval Research Laboratory and DARPA. Liftoff from pad 40 at Cape Can"
+        "title": "NIAC 2026 Selections",
+        "published": "2026-07-21T15:30:15Z",
+        "source": "NASA",
+        "summary": "Phase I Saptarshi BandyopadhyayDimming the Sun (DimSun) Using Controllable Dust Cloud to Reduce Solar InsolationNASA Jet Propulsion LaboratoryPasadena, CA 91109-80012026 Phase I David BugbyCombinatory"
       },
       {
-        "title": "ExoMars ramps put up with cold, shaking and vacuum",
-        "published": "2026-07-21T11:01:00Z",
-        "source": "ESA",
-        "summary": "From the ESA Blogs."
+        "title": "Precision Astrometry Using Optically Independent Spacecraft for Graviational Wave Detection",
+        "published": "2026-07-21T15:23:54Z",
+        "source": "NASA",
+        "summary": "Paul StankusBrookhaven Science Associates  The scientific goal is to enable a new method for observing gravitational waves at low frequencies, based on the astrometric GW signature — gravitational wav"
       },
       {
-        "title": "Agile Space Industries Appoints new CTO and Board member.",
-        "published": "2026-07-21T11:00:00Z",
-        "source": "SpaceNews",
-        "summary": "\nDurango, Co – July 21, 2026 – Agile Space Industries today announced the appointment of Jake Mills as Chief Technology Officer (CTO) and Mark Pasquale as an independent member of […]\nThe post Agile S"
+        "title": "Mapping Alien Continents: Achieving Optical VLBI for Exoplanet Imaging",
+        "published": "2026-07-21T15:23:51Z",
+        "source": "NASA",
+        "summary": "Paul StankusBrookhaven Science Associates The scientific goal of the proposed work will be reconstructing the image, ie resolving surface features, of an Earth-like exoplanet around a nearby star as s"
       },
       {
-        "title": "Live coverage: SpaceX tries again to launch Starlink mission from California following abort",
-        "published": "2026-07-21T10:49:41Z",
-        "source": "Spaceflight Now",
-        "summary": "The Starlink 17-39 mission is SpaceX’s 85th Falcon 9 rocket launch of the year. Liftoff from pad 4E at Vandenberg Space Force Base is scheduled for 7:43 a.m. PDT (10:43 a.m. EDT / 1443 UTC). "
+        "title": "Interworld Slingshot Resource Surveys",
+        "published": "2026-07-21T15:23:49Z",
+        "source": "NASA",
+        "summary": "Pablo SobronSETI Institute This proposal explores a new class of reconnaissance spacecraft that map minerals from orbit using Raman spectroscopy during high-speed flybys–without landing, sample return"
       },
       {
-        "title": "KBR organizes defense technology business to pursue Golden Dome work",
-        "published": "2026-07-21T10:00:00Z",
-        "source": "SpaceNews",
-        "summary": "\nCompany points to digital engineering, space tracking and missile-defense experience \nThe post KBR organizes defense technology business to pursue Golden Dome work appeared first on SpaceNews."
-      },
-      {
-        "title": "IHI explores Kuva hyperspectral satellites for Japan’s multi-sensor constellation",
-        "published": "2026-07-21T07:00:00Z",
-        "source": "SpaceNews",
-        "summary": "\nJapan’s IHI is considering adding next-generation hyperspectral satellites from Finnish startup Kuva Space to its planned 100-strong, multi-sensor sovereign Earth observation constellation.\nThe post "
-      },
-      {
-        "title": "Italian startup ORiS raises funding for laser power-beaming technology",
-        "published": "2026-07-21T04:01:41Z",
-        "source": "SpaceNews",
-        "summary": "\nItalian startup ORiS has raised 5 million euros ($5.7 million) to help it develop wireless power-beaming technology for satellites using lasers.\nThe post Italian startup ORiS raises funding for laser"
+        "title": "Robotically Assembled Electromagnetic Metamaterials for Long-Range Space Situational Awareness",
+        "published": "2026-07-21T15:23:46Z",
+        "source": "NASA",
+        "summary": "David SmithDuke University  The increasing population of spacefaring vehicles and satellites motivates increasingly powerful technologies for space situational awareness (SSA). While the US space surv"
       }
     ]
   },
@@ -5008,87 +5041,87 @@
     "earthquakes": {
       "last24h": [
         {
-          "location": "132 km ENE of Santa Cruz das Flores, Portugal",
-          "magnitude": 5.3,
-          "depth": 6.736,
-          "lat": 39.9371,
-          "lng": -29.7175,
-          "time": "2026-07-21T13:13:11.261Z",
+          "location": "7 km WNW of Kalbay, Philippines",
+          "magnitude": 5.1,
+          "depth": 68.769,
+          "lat": 5.739,
+          "lng": 125.4295,
+          "time": "2026-07-21T18:33:27.762Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "Kermadec Islands region",
-          "magnitude": 5.6,
+          "location": "214 km W of Bandon, Oregon",
+          "magnitude": 4.6,
+          "depth": 17.396,
+          "lat": 43.3469,
+          "lng": -127.0338,
+          "time": "2026-07-21T18:32:56.368Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "49 km W of Happy Valley, Alaska",
+          "magnitude": 3,
+          "depth": 105.5,
+          "lat": 59.984,
+          "lng": -152.617,
+          "time": "2026-07-21T18:32:41.568Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "139 km W of Puerto Santa, Peru",
+          "magnitude": 4.7,
+          "depth": 35,
+          "lat": -9.0849,
+          "lng": -79.9136,
+          "time": "2026-07-21T17:43:01.447Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "281 km SSE of Ushuaia, Argentina",
+          "magnitude": 4.8,
           "depth": 10,
-          "lat": -29.5116,
-          "lng": -176.9951,
-          "time": "2026-07-21T12:14:33.338Z",
+          "lat": -57.1718,
+          "lng": -66.6861,
+          "time": "2026-07-21T17:21:06.859Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "137 km NNE of Maumere, Indonesia",
-          "magnitude": 4.5,
-          "depth": 550.12,
-          "lat": -7.5366,
-          "lng": 122.8227,
-          "time": "2026-07-21T11:47:15.816Z",
+          "location": "78 km W of Ollagüe, Chile",
+          "magnitude": 4.2,
+          "depth": 114.381,
+          "lat": -21.329,
+          "lng": -69.0034,
+          "time": "2026-07-21T17:09:54.073Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "78 km NE of Simao, China",
-          "magnitude": 4.9,
+          "location": "18 km SSE of Talisay, Philippines",
+          "magnitude": 4.6,
           "depth": 10,
-          "lat": 23.2707,
-          "lng": 101.5395,
-          "time": "2026-07-21T11:43:08.411Z",
+          "lat": 13.0193,
+          "lng": 122.6735,
+          "time": "2026-07-21T13:48:06.868Z",
           "tsunami": false,
           "type": "earthquake"
         },
         {
-          "location": "58 km SSW of Merizo Village, Guam",
-          "magnitude": 5,
-          "depth": 12.164,
-          "lat": 12.8216,
-          "lng": 144.3814,
-          "time": "2026-07-21T11:09:45.478Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "14 km SSE of Jurm, Afghanistan",
-          "magnitude": 4,
-          "depth": 209.032,
-          "lat": 36.7521,
-          "lng": 70.9186,
-          "time": "2026-07-21T10:18:11.170Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "148 km E of McCarthy, Alaska",
-          "magnitude": 2.6,
-          "depth": 5,
-          "lat": 61.4217,
-          "lng": -140.1347,
-          "time": "2026-07-21T10:18:01.388Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "3 km S of Pāhala, Hawaii",
-          "magnitude": 2.53,
-          "depth": 31.0699996948242,
-          "lat": 19.174165725708,
-          "lng": -155.483840942383,
-          "time": "2026-07-21T09:52:20.670Z",
+          "location": "195 km W of Abepura, Indonesia",
+          "magnitude": 4.7,
+          "depth": 7.875,
+          "lat": -2.5778,
+          "lng": 138.8732,
+          "time": "2026-07-21T13:47:12.433Z",
           "tsunami": false,
           "type": "earthquake"
         }
       ],
-      "total24h": 47,
+      "total24h": 42,
       "source": "USGS"
     },
     "newsSentiment": {
@@ -5117,124 +5150,124 @@
     },
     "news": [
       {
-        "title": "'France wants to lead the way' with under-15s social media ban",
-        "pubDate": "Tue, 21 Jul 2026 13:47:25 GMT",
-        "link": "https://www.france24.com/en/france-wants-to-lead-the-way-with-under-15s-social-media-ban",
-        "source": "France24"
-      },
-      {
-        "title": "What the UK's new government says about the country's political turn",
-        "pubDate": "Tue, 21 Jul 2026 13:41:10 GMT",
-        "link": "https://www.france24.com/en/what-the-uk-s-new-government-says-about-the-country-s-political-turn",
-        "source": "France24"
-      },
-      {
-        "title": "Israel and Lebanon trial 'safe zones' in southern Lebanon as part of deal",
-        "pubDate": "Tue, 21 Jul 2026 13:38:47 GMT",
-        "link": "https://www.france24.com/en/israel-and-lebanon-trial-safe-zones-in-southern-lebanon-as-part-of-deal",
-        "source": "France24"
-      },
-      {
-        "title": "India tunnel collapse at a hydropower project kills 10 as 17 remain missing",
-        "pubDate": "Tue, 21 Jul 2026 13:32:04 +0000",
-        "link": "https://www.aljazeera.com/news/2026/7/21/india-tunnel-collapse-at-a-hydropower-project-kills-10-as-17-remain-missing?traffic_source=rss",
+        "title": "Can mediators broker a truce between the US and Iran?",
+        "pubDate": "Tue, 21 Jul 2026 19:27:26 +0000",
+        "link": "https://www.aljazeera.com/news/2026/7/21/can-mediators-broker-a-truce-between-the-us-and-iran?traffic_source=rss",
         "source": "Al Jazeera"
       },
       {
-        "title": "‘There is ‌no safe place’: Israeli attack kills family of six in Gaza",
-        "pubDate": "Tue, 21 Jul 2026 13:26:40 +0000",
-        "link": "https://www.aljazeera.com/news/2026/7/21/there-is-no-safe-place-israeli-attack-kills-family-of-six-in-gaza?traffic_source=rss",
+        "title": "Rescuers search for flood survivors in Afghanistan",
+        "pubDate": "Tue, 21 Jul 2026 19:21:15 +0000",
+        "link": "https://www.aljazeera.com/video/newsfeed/2026/7/21/rescuers-search-for-flood-survivors-in-afghanistan?traffic_source=rss",
         "source": "Al Jazeera"
       },
       {
-        "title": "Trump’s new 50 percent Canada tariffs: What products are affected and why?",
-        "pubDate": "Tue, 21 Jul 2026 13:25:37 +0000",
-        "link": "https://www.aljazeera.com/news/2026/7/21/trumps-new-50-percent-canada-tariffs-what-products-are-affected-and-why?traffic_source=rss",
+        "title": "Trump says he’s open to talks with Hezbollah, vows to help Lebanon",
+        "pubDate": "Tue, 21 Jul 2026 19:16:08 +0000",
+        "link": "https://www.aljazeera.com/video/newsfeed/2026/7/21/trump-says-hes-open-to-talks-with-hezbollah-vows-to-help-lebanon?traffic_source=rss",
         "source": "Al Jazeera"
       },
       {
-        "title": "A New Compact Instrument Enables High-Fidelity Measurements of Energetic Particles on CubeSats",
-        "pubDate": "Tue, 21 Jul 2026 13:00:00 +0000",
-        "link": "https://science.nasa.gov/science-research/science-enabling-technology/technology-highlights/a-new-compact-instrument-enables-high-fidelity-measurements-of-energetic-particles-on-cubesats/",
-        "source": "NASA"
+        "title": "Sunsetting the Hive: 11 Years of Data-Driven Innovation for Refugees - USA for UNHCR",
+        "pubDate": "Tue, 21 Jul 2026 19:12:25 GMT",
+        "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNR1VQa2RFakhGTmg4RWNhMXdfLTl5RjZhV1V3TkpVX3BIRUowMVJJa0s4cWMwY1FTWjVsd0dGTm5hSU40YzRaSlU1TlF1Skxob0xXR1AyY04zVlNUbEFhd3FDWnBOTldOSUhaR2ZKWTVJX3hyTHZyUzhTZTZyZGlnTTVpS2ExcWxwX1R2bWN1bDc3WFRCdGJzRldRLWNEV0UzOU5fZlNWX080ZXM?oc=5",
+        "source": "UNHCR"
       },
       {
-        "title": "Dozens hurt in Bologna protests after man dies while being restrained by police",
-        "pubDate": "Tue, 21 Jul 2026 12:48:37 GMT",
-        "link": "https://www.bbc.co.uk/news/articles/c86nwgw148xo?at_medium=RSS&amp;at_campaign=rss",
-        "source": "BBC World"
+        "title": "Scaling AI in Education Systems: Lessons from Mongolia - World Bank Blogs",
+        "pubDate": "Tue, 21 Jul 2026 19:05:58 GMT",
+        "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOck9IMWpWS3pvaVJYNXdKQnUzZlUzZVgzMnNXWVRNb3ZBQWdTY3pSS1RGMGxYUm5DQTR6R3BiTXpTY3V4Y1JXQWpZMmRKODZBU05SLTBCdjVHSVYzRndGRlBDOTFJYzZ5Q1JlaDFwZElZOUw2WnFFQkYxWThleUZmeUduLTByQnZSTU9ERHpOMmxHdFZaMnFzeWliQQ?oc=5",
+        "source": "World Bank"
       },
       {
         "title": "IOM and UNHCR Deeply Concerned by Reports of Maritime Incidents off Myanmar Coast; Over 500 Feared Dead - International Organization for Migration",
-        "pubDate": "Tue, 21 Jul 2026 12:42:21 GMT",
+        "pubDate": "Tue, 21 Jul 2026 18:54:50 GMT",
         "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxORUZZRXR2a3lCTzhaSWNhbVNrbW1LMEVrTFZuU2pxaWloUkRHcGFIS1lELUI3bEstbTJfTnNyWHJfZXUtell0a05yQkhtZDRYcjB0ZHRMTHdrNDZsN01EVktKSTVkSlJ6TXA5eklKX2I2bFJSakxvVTlITEtGY2hOalBxT3l0OGplVDFab0ZiOVRISG5vTEZXcFU1NlZ0LVZzdW1pMkZWbml3ZVpKbmdJM3RVSDVPMnFx?oc=5",
         "source": "UNHCR"
       },
       {
         "title": "Row escalates in Ukraine over army chief's future",
-        "pubDate": "Tue, 21 Jul 2026 12:33:15 GMT",
+        "pubDate": "Tue, 21 Jul 2026 18:49:19 GMT",
         "link": "https://www.bbc.co.uk/news/articles/c7vgel8374yo?at_medium=RSS&amp;at_campaign=rss",
         "source": "BBC World"
       },
       {
-        "title": "DR Congo: Ebola outbreak still expanding, WHO sees signs of stabilization",
-        "pubDate": "Tue, 21 Jul 2026 12:00:00 +0000",
-        "link": "https://news.un.org/feed/view/en/story/2026/07/1167983",
-        "source": "UN News"
+        "title": "Jordan faces growing risk of becoming latest frontline state in US-Iran conflict",
+        "pubDate": "Tue, 21 Jul 2026 18:39:00 GMT",
+        "link": "https://www.dw.com/en/jordan-faces-growing-risk-of-becoming-latest-frontline-state-in-us-iran-conflict/a-78055209?maca=en-rss-en-world-4025-xml-mrss",
+        "source": "DW News"
       },
       {
-        "title": "Trump slaps 50% tariffs on Canada and Carney vows to 'intensify' trade talks",
-        "pubDate": "Tue, 21 Jul 2026 11:42:41 GMT",
+        "title": "Zelensky faces deepening political crisis as protests dig in",
+        "pubDate": "Tue, 21 Jul 2026 18:38:29 GMT",
+        "link": "https://www.france24.com/en/zelensky-faces-deepening-political-crisis-as-protests-dig-in",
+        "source": "France24"
+      },
+      {
+        "title": "Lebanon's president urges Trump to 'keep supporting' its army",
+        "pubDate": "Tue, 21 Jul 2026 18:31:28 GMT",
+        "link": "https://www.france24.com/en/lebanon-s-president-urges-trump-to-keep-supporting-its-army",
+        "source": "France24"
+      },
+      {
+        "title": "French parliament backs social media ban for under-15s in EU first",
+        "pubDate": "Tue, 21 Jul 2026 18:23:54 GMT",
+        "link": "https://www.france24.com/en/french-parliament-backs-social-media-ban-for-under-15s-in-eu-first",
+        "source": "France24"
+      },
+      {
+        "title": "US-India Satellite Delivers Data, Reveals ‘Hummingbird’ in Antarctica",
+        "pubDate": "Tue, 21 Jul 2026 18:14:52 +0000",
+        "link": "https://www.nasa.gov/missions/nisar/us-india-satellite-delivers-data-reveals-hummingbird-in-antarctica/",
+        "source": "NASA"
+      },
+      {
+        "title": "Lebanese army says troops deploying in 'pilot zone' after Israeli withdrawal",
+        "pubDate": "Tue, 21 Jul 2026 18:07:34 GMT",
+        "link": "https://www.bbc.co.uk/news/articles/cy8mynlmn55o?at_medium=RSS&amp;at_campaign=rss",
+        "source": "BBC World"
+      },
+      {
+        "title": "NASA Langley Celebrates Community through Music with ‘Symphony Under the Stars’ Event",
+        "pubDate": "Tue, 21 Jul 2026 18:00:43 +0000",
+        "link": "https://www.nasa.gov/general/nasa-langley-celebrates-community-through-music-with-symphony-under-the-stars-event/",
+        "source": "NASA"
+      },
+      {
+        "title": "Carney looking at 'all options' as Trump announces 50% tariffs on Canada",
+        "pubDate": "Tue, 21 Jul 2026 17:33:22 GMT",
         "link": "https://www.bbc.co.uk/news/articles/cg4dzq3x3e1o?at_medium=RSS&amp;at_campaign=rss",
         "source": "BBC World"
       },
       {
-        "title": "How India&#039;s youth-led &#039;Cockroach&#039; movement challenges Modi",
-        "pubDate": "Tue, 21 Jul 2026 11:35:00 GMT",
-        "link": "https://www.dw.com/en/how-india-s-youth-led-cockroach-movement-challenges-modi/a-78048621?maca=en-rss-en-world-4025-xml-mrss",
+        "title": "Diplomats seek to avert Trump-UNHCR split - Taipei Times",
+        "pubDate": "Tue, 21 Jul 2026 16:00:00 GMT",
+        "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5Kd3RzSkJsUVphOWtRUmJ2eUFVVzN5UlZrSFA1d2VqY1FaLWJTekYteU1wTnNaeER4UlJZTmVtRGw4SGdrRUtINHJnUXo1YUotaEluZmVtZnc2eDRxTVh2Y0sxbWdoMGdHVWREdTVMNnNNMmZxcGZKLQ?oc=5",
+        "source": "UNHCR"
+      },
+      {
+        "title": "NIAC 2026 Selections",
+        "pubDate": "Tue, 21 Jul 2026 15:30:15 +0000",
+        "link": "https://www.nasa.gov/directorates/stmd/niac/niac-studies/niac-2026-selections/",
+        "source": "NASA"
+      },
+      {
+        "title": "China narrows AI gap, challenges US influence",
+        "pubDate": "Tue, 21 Jul 2026 14:16:00 GMT",
+        "link": "https://www.dw.com/en/china-narrows-ai-gap-challenges-us-influence/a-78053001?maca=en-rss-en-world-4025-xml-mrss",
         "source": "DW News"
       },
       {
-        "title": "At least 144 refugees dead or missing off coast of Mauritania, UN agency says - The Jerusalem Post",
-        "pubDate": "Tue, 21 Jul 2026 11:22:34 GMT",
-        "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5mUVFfVExJS0RJa0Z1a3ZzOTFkNzdIbDdXRXdJNVFELUZoSE9jLWk1dnVuMjloYzNld0FyRXlVUVRiM3E3akVMYU5EcW1pV29wQlJTeXhHUzE0bXVFMU1r?oc=5",
-        "source": "UNHCR"
-      },
-      {
-        "title": "US mulls cutting ties with UN refugee agency, prompting diplomatic flurry — sources - The Times of Israel",
-        "pubDate": "Tue, 21 Jul 2026 10:19:41 GMT",
-        "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNVV9CaFFjTmk0WTJMOW9wNnVQaXZZd2JKb0ZNUnc5YkhBSFJ4dWQxVU5Lbk8xUFBiY2xTRURUTEZiNzM5bVYwdlZOdVAwZEZ6RndGd0NUU1psVFlCN0c1RlpFWEdMZHk5b19zRjZ3TW0wZDM4N0dPLXM1TzVXUGZyTEkyRHBCQ1FyVEEwX1VzMTYtRHNvSUYxSnRlbGNlNFVkZTFYQVNKYTVmUzFZUDRqcdIBtgFBVV95cUxObDg5OHItSlNOU3NOZjJjcHQ3aFpod1pJaXJPTGZTYzJ4clc2MzVvTnRGanl2Q1l5c3NTU1Npak5SaFNQUHdaVHhibVYxSV9lSEhsQlFVTUhhelNyRm4wbG1ULWUxcGNvLWU3UFVQdUhER29IYjQxRGU2RVNQTnR4WEd5MGYtYnFmcnBieERLYW5DZ0NtRTBuSmhfVVJmODJOVE1FSVUxV2ZjRTkwUXpLenZnbHc3dw?oc=5",
-        "source": "UNHCR"
-      },
-      {
-        "title": "Healthy diet too expensive for one in three people globally, UN report finds",
-        "pubDate": "Tue, 21 Jul 2026 10:00:42 GMT",
-        "link": "https://www.theguardian.com/global-development/2026/jul/21/healthy-diet-too-expensive-for-one-in-three-people-globally-un-report-finds",
-        "source": "Guardian"
-      },
-      {
-        "title": "South Africa gets $1.5 billion World Bank loan for infrastructure - Reuters",
-        "pubDate": "Tue, 21 Jul 2026 06:41:00 GMT",
-        "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOdXNFaFAzMm1CdmNIT0Q1eUE1NnExNmF4Um1IUF9lWGpSWWVDVTBhd1JuLWRadTZzOGJJcEtpOVhZVVdzNk5JTTRGZ2k0M200SlNrNS1DTlhCOWVDd3J5ek0wVGt1bEEyNmV5RGktaExrWGtKN1dUZkhSTFo2ZjJMaUxCQmlyRkU5cjQ3RFRaMjRtS3ZDNXVkMFNiNGlPUXpfd3hWWjk5cVkxT2Q1?oc=5",
+        "title": "South Africa, World Bank Sign $1.5bn Loan to Support Infrastructure Reforms - allAfrica.com",
+        "pubDate": "Tue, 21 Jul 2026 12:19:44 GMT",
+        "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1Ga2xYa0N1aHljME5rWmRHbllvNmtaX2V2MjVjRHNfNXBRUlIyUU9ndnhTai1vVF9kLUlJMDZWVmc3dFpXZnJqdWZUOE1hX1lIVENwOG56Mk9tQW8?oc=5",
         "source": "World Bank"
       },
       {
-        "title": "Why Maine’s Sandy Shorelines Turn Jagged",
-        "pubDate": "Tue, 21 Jul 2026 04:00:00 +0000",
-        "link": "https://science.nasa.gov/earth/earth-observatory/why-maines-sandy-shorelines-turn-jagged/",
-        "source": "NASA"
-      },
-      {
-        "title": "Why Maine&#8217;s Sandy Shorelines Turn Jagged",
-        "pubDate": "Tue, 21 Jul 2026 04:00:00 +0000",
-        "link": "https://science.nasa.gov/earth/earth-observatory/why-maines-sandy-shorelines-turn-jagged/",
-        "source": "NASA Earth"
-      },
-      {
-        "title": "NASA Sets Briefings for SpaceX Crew-13 Mission to Space Station",
-        "pubDate": "Mon, 20 Jul 2026 20:00:52 +0000",
-        "link": "https://www.nasa.gov/news-release/nasa-sets-briefings-for-spacex-crew-13-mission-to-space-station/",
-        "source": "NASA"
+        "title": "South Africa signs $1.5bn World Bank loan for infrastructure development - africanews.com",
+        "pubDate": "Tue, 21 Jul 2026 12:13:43 GMT",
+        "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNZmloUG9uRWM4ek9Cd0plc2doNFF1cndDX0NXVUVHSHhsNGRvTElNQzhKSFdiNDZJVERTU2IyR3doUkVHZDdBX3cxUkpmMURycE5GZnZxN0l1eWpDMHFPQUZVRWVRVEY5cHRVOW1mTkxLbWVnQTVoVjJBZEtrTGVCNDdic1BJM3ZKYUxBbUJpRF9LZThDRkNEakVVcUJTVTJFXzkwSFctNTdTdGZmTEHSAbMBQVVfeXFMTktHWm00M1hBM0hRVndYN3BzTnc1VExJa2c5NnhnWFpNVkNmQWV6ZTc4aWNfb0J1dXIzZ0F6V1J5YzJiaWlpdVM2WGIzVXQ5NmxBaW93ZWN6N1A4eVZWTmFrWXVBdkFCc3NhLUFtalBqUzI5U0Z4a1R0a0lhZlV5NlNDZ0pFMGRNSmQ5NXZGZWZIVUtjTWotaDdmbDNIeDRJeldSVHBmQmVmNEVNYnNOWDhKR28?oc=5",
+        "source": "World Bank"
       }
     ],
     "volcanic": [],
@@ -5288,7 +5321,7 @@
         "sunspots": 94.4
       }
     ],
-    "lastUpdated": "2026-07-21T14:12:07.667Z"
+    "lastUpdated": "2026-07-21T19:48:35.588Z"
   },
   "momentum": {
     "indicators": [
@@ -5332,6 +5365,12 @@
         "name": "BIP-Wachstum",
         "direction": "improving",
         "change": "+23.3%",
+        "icon": "up"
+      },
+      {
+        "name": "Inflation",
+        "direction": "improving",
+        "change": "-12.0%",
         "icon": "up"
       },
       {
