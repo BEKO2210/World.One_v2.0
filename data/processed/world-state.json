@@ -1,49 +1,50 @@
 {
   "meta": {
-    "generated": "2026-08-03T15:14:03.390Z",
+    "generated": "2026-08-03T19:53:28.074Z",
     "version": "2.0.0",
     "sources_count": 65,
     "sources_available": 65,
     "sources_success_rate": 100,
-    "next_update": "2026-08-03T21:14:03.390Z",
+    "next_update": "2026-08-04T01:53:28.074Z",
     "realtimePulse": {
-      "environment": -0.87,
-      "society": 0,
+      "environment": -0.85,
+      "society": 0.05,
       "economy": -0.35,
       "progress": 0.8,
       "details": {
-        "quakeCount": 45,
+        "quakeCount": 44,
         "maxMagnitude": 5.2,
-        "avgGlobalTemp": 24.7,
+        "avgGlobalTemp": 23.2,
+        "newsSentiment": -0.42,
         "cryptoFearGreed": 28,
         "arxivPapers": 20
       }
     },
     "cacheFreshness": {
       "environment": {
-        "newest": "2026-08-03T15:14:02.536Z",
-        "oldest": "2026-08-03T15:12:41.520Z",
+        "newest": "2026-08-03T19:53:27.248Z",
+        "oldest": "2026-08-03T19:53:03.483Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 6
       },
       "society": {
-        "newest": "2026-08-03T15:14:03.231Z",
-        "oldest": "2026-08-03T14:54:18.871Z",
+        "newest": "2026-08-03T19:53:27.910Z",
+        "oldest": "2026-08-03T19:47:00.365Z",
         "newestHours": 0,
-        "oldestHours": 0.3,
+        "oldestHours": 0.1,
         "sourceCount": 4
       },
       "economy": {
-        "newest": "2026-08-03T15:13:59.528Z",
-        "oldest": "2026-08-03T15:13:59.528Z",
+        "newest": "2026-08-03T19:53:24.909Z",
+        "oldest": "2026-08-03T19:53:24.909Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 1
       },
       "progress": {
-        "newest": "2026-08-03T15:13:56.832Z",
-        "oldest": "2026-08-03T15:12:50.002Z",
+        "newest": "2026-08-03T19:53:23.063Z",
+        "oldest": "2026-08-03T19:53:12.057Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 2
@@ -51,13 +52,13 @@
     }
   },
   "worldIndex": {
-    "value": 64,
-    "rawValue": 60.8,
+    "value": 64.1,
+    "rawValue": 60.9,
     "label": "POSITIV",
     "zone": "positive",
-    "previous": 64.1,
-    "change": -0.1,
-    "trend": "declining",
+    "previous": 64,
+    "change": 0.1,
+    "trend": "improving",
     "carryingCapacity": {
       "checks": {
         "existence": {
@@ -102,12 +103,12 @@
       },
       "indicators": {
         "environment": {
-          "bufferDistance": 22.7,
+          "bufferDistance": 22.8,
           "recoveryTime": 0,
           "maintenanceCost": 0.16
         },
         "society": {
-          "bufferDistance": 48,
+          "bufferDistance": 48.1,
           "recoveryTime": 0,
           "maintenanceCost": 0.77
         },
@@ -132,19 +133,19 @@
   },
   "subScores": {
     "environment": {
-      "value": 34.3,
+      "value": 34.4,
       "label": "BESORGNISERREGEND",
       "zone": "concerning",
       "weight": 0.25,
       "trend": "stable",
-      "change": -0.1,
+      "change": 0.1,
       "indicators": [
         {
           "name": "Globale Temperaturanomalie",
           "value": "+1.19°C",
           "score": 60,
           "trend": "declining",
-          "fetchedAt": "2026-08-03T15:12:42.294Z",
+          "fetchedAt": "2026-08-03T19:53:04.168Z",
           "ageHours": 0,
           "source": "NASA GISTEMP v4 (base 1951-1980)"
         },
@@ -153,8 +154,8 @@
           "value": "431 ppm",
           "score": 31,
           "trend": "declining",
-          "fetchedAt": "2026-08-03T14:49:57.138Z",
-          "ageHours": 0.4,
+          "fetchedAt": "2026-08-03T19:44:16.290Z",
+          "ageHours": 0.2,
           "source": "NOAA Mauna Loa"
         },
         {
@@ -162,7 +163,7 @@
           "value": "31.1%",
           "score": 56,
           "trend": "declining",
-          "fetchedAt": "2026-08-03T15:12:42.624Z",
+          "fetchedAt": "2026-08-03T19:53:04.241Z",
           "ageHours": 0,
           "source": "World Bank / FAO (AG.LND.FRST.ZS)"
         },
@@ -171,16 +172,16 @@
           "value": "19.74%",
           "score": 33,
           "trend": "improving",
-          "fetchedAt": "2026-08-03T15:12:42.745Z",
+          "fetchedAt": "2026-08-03T19:53:04.349Z",
           "ageHours": 0,
           "source": "World Bank (EG.FEC.RNEW.ZS)"
         },
         {
           "name": "Luftqualität (Global Avg AQI)",
-          "value": 58,
+          "value": 52,
           "score": 45,
           "trend": "stable",
-          "fetchedAt": "2026-08-03T15:14:02.536Z",
+          "fetchedAt": "2026-08-03T19:53:27.248Z",
           "ageHours": 0,
           "source": "WAQI official stations (17 cities)"
         },
@@ -198,26 +199,26 @@
           "value": "40 events, -10 Pkt",
           "score": 0,
           "trend": "declining",
-          "fetchedAt": "2026-08-03T15:12:41.520Z",
+          "fetchedAt": "2026-08-03T19:53:03.483Z",
           "ageHours": 0,
           "source": "GDACS (JRC/EU)"
         }
       ]
     },
     "society": {
-      "value": 55.8,
+      "value": 55.9,
       "label": "GEMISCHT",
       "zone": "mixed",
       "weight": 0.25,
       "trend": "stable",
-      "change": -0.1,
+      "change": 0.1,
       "indicators": [
         {
           "name": "Lebenserwartung",
           "value": "73.48 Jahre",
           "score": 67,
           "trend": "improving",
-          "fetchedAt": "2026-08-03T15:13:56.618Z",
+          "fetchedAt": "2026-08-03T19:53:22.970Z",
           "ageHours": 0,
           "source": "World Bank (SP.DYN.LE00.IN)"
         },
@@ -226,7 +227,7 @@
           "value": "37.4/1000",
           "score": 66,
           "trend": "improving",
-          "fetchedAt": "2026-08-03T15:13:56.618Z",
+          "fetchedAt": "2026-08-03T19:53:22.970Z",
           "ageHours": 0,
           "source": "World Bank (SH.DYN.MORT)"
         },
@@ -235,8 +236,8 @@
           "value": 59,
           "score": 29,
           "trend": "declining",
-          "fetchedAt": "2026-08-03T14:54:56.700Z",
-          "ageHours": 0.3,
+          "fetchedAt": "2026-08-03T19:47:47.380Z",
+          "ageHours": 0.1,
           "source": "ACLED/Crisis Group (baseline)"
         },
         {
@@ -244,8 +245,8 @@
           "value": "91.9%",
           "score": 84,
           "trend": "improving",
-          "fetchedAt": "2026-08-03T14:50:02.115Z",
-          "ageHours": 0.4,
+          "fetchedAt": "2026-08-03T19:44:21.389Z",
+          "ageHours": 0.2,
           "source": "World Bank (raw)"
         },
         {
@@ -253,8 +254,8 @@
           "value": "73.7%",
           "score": 56,
           "trend": "improving",
-          "fetchedAt": "2026-08-03T14:50:02.242Z",
-          "ageHours": 0.4,
+          "fetchedAt": "2026-08-03T19:44:21.471Z",
+          "ageHours": 0.2,
           "source": "World Bank (raw)"
         },
         {
@@ -271,8 +272,8 @@
           "value": "84 frei / 55 unfrei",
           "score": 46,
           "trend": "declining",
-          "fetchedAt": "2026-08-03T14:54:18.871Z",
-          "ageHours": 0.3,
+          "fetchedAt": "2026-08-03T19:47:00.365Z",
+          "ageHours": 0.1,
           "source": "Freedom House - Freedom in the World"
         }
       ]
@@ -290,8 +291,8 @@
           "value": "2.92%",
           "score": 72,
           "trend": "improving",
-          "fetchedAt": "2026-08-03T14:50:04.123Z",
-          "ageHours": 0.4,
+          "fetchedAt": "2026-08-03T19:44:22.060Z",
+          "ageHours": 0.2,
           "source": "World Bank / IMF"
         },
         {
@@ -299,8 +300,8 @@
           "value": 42,
           "score": 51,
           "trend": "stable",
-          "fetchedAt": "2026-08-03T14:50:04.251Z",
-          "ageHours": 0.4,
+          "fetchedAt": "2026-08-03T19:44:22.090Z",
+          "ageHours": 0.2,
           "source": "World Bank"
         },
         {
@@ -308,7 +309,7 @@
           "value": "3.4%",
           "score": 92,
           "trend": "stable",
-          "fetchedAt": "2026-08-03T15:13:59.528Z",
+          "fetchedAt": "2026-08-03T19:53:24.909Z",
           "ageHours": 0,
           "source": "FRED + World Bank (avg)"
         },
@@ -317,8 +318,8 @@
           "value": "4.79%",
           "score": 79,
           "trend": "stable",
-          "fetchedAt": "2026-08-03T14:50:04.460Z",
-          "ageHours": 0.4,
+          "fetchedAt": "2026-08-03T19:44:22.263Z",
+          "ageHours": 0.2,
           "source": "World Bank / ILO"
         },
         {
@@ -335,7 +336,7 @@
           "value": "3.63%",
           "score": 70.96000000000001,
           "trend": "stable",
-          "fetchedAt": "2026-08-03T15:13:59.528Z",
+          "fetchedAt": "2026-08-03T19:53:24.909Z",
           "ageHours": 0,
           "source": "FRED (St. Louis Fed)"
         },
@@ -344,7 +345,7 @@
           "value": "0.47%",
           "score": 80,
           "trend": "stable",
-          "fetchedAt": "2026-08-03T15:13:59.528Z",
+          "fetchedAt": "2026-08-03T19:53:24.909Z",
           "ageHours": 0,
           "source": "FRED (St. Louis Fed)"
         }
@@ -363,7 +364,7 @@
           "value": "73.6%",
           "score": 82,
           "trend": "improving",
-          "fetchedAt": "2026-08-03T15:13:56.832Z",
+          "fetchedAt": "2026-08-03T19:53:23.063Z",
           "ageHours": 0,
           "source": "World Bank (IT.NET.USER.ZS)"
         },
@@ -372,8 +373,8 @@
           "value": "87.7%",
           "score": 75,
           "trend": "improving",
-          "fetchedAt": "2026-08-03T14:50:08.475Z",
-          "ageHours": 0.4,
+          "fetchedAt": "2026-08-03T19:44:25.176Z",
+          "ageHours": 0.2,
           "source": "World Bank / UNESCO"
         },
         {
@@ -381,8 +382,8 @@
           "value": "2.6%",
           "score": 65,
           "trend": "improving",
-          "fetchedAt": "2026-08-03T14:50:07.720Z",
-          "ageHours": 0.4,
+          "fetchedAt": "2026-08-03T19:44:24.461Z",
+          "ageHours": 0.2,
           "source": "World Bank"
         },
         {
@@ -390,7 +391,7 @@
           "value": "111.5/100",
           "score": 86,
           "trend": "improving",
-          "fetchedAt": "2026-08-03T15:13:56.832Z",
+          "fetchedAt": "2026-08-03T19:53:23.063Z",
           "ageHours": 0,
           "source": "World Bank (IT.CEL.SETS.P2)"
         },
@@ -399,8 +400,8 @@
           "value": "0K+",
           "score": 80,
           "trend": "improving",
-          "fetchedAt": "2026-08-03T14:50:06.967Z",
-          "ageHours": 0.4,
+          "fetchedAt": "2026-08-03T19:44:23.670Z",
+          "ageHours": 0.2,
           "source": "GitHub"
         },
         {
@@ -408,7 +409,7 @@
           "value": "0.4M total",
           "score": 75,
           "trend": "improving",
-          "fetchedAt": "2026-08-03T15:12:50.002Z",
+          "fetchedAt": "2026-08-03T19:53:12.057Z",
           "ageHours": 0,
           "source": "arXiv (cs.AI + cs.LG)"
         }
@@ -1432,40 +1433,40 @@
       "source": "NOAA"
     },
     "airQuality": {
-      "globalAvgAQI": 58,
+      "globalAvgAQI": 52,
       "cleanestCities": [
+        {
+          "city": "New York",
+          "country": "US",
+          "aqi": 15,
+          "lat": null,
+          "lng": null
+        },
         {
           "city": "Tokyo",
           "country": "JP",
-          "aqi": 11,
+          "aqi": 19,
           "lat": null,
           "lng": null
         },
         {
           "city": "Moscow",
           "country": "RU",
-          "aqi": 28,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "New York",
-          "country": "US",
-          "aqi": 29,
+          "aqi": 21,
           "lat": null,
           "lng": null
         },
         {
           "city": "Beijing",
           "country": "CN",
-          "aqi": 34,
+          "aqi": 25,
           "lat": null,
           "lng": null
         },
         {
-          "city": "Lagos",
-          "country": "NG",
-          "aqi": 36,
+          "city": "Sydney",
+          "country": "AU",
+          "aqi": 26,
           "lat": null,
           "lng": null
         }
@@ -1474,35 +1475,35 @@
         {
           "city": "Karachi",
           "country": "PK",
-          "aqi": 100,
+          "aqi": 112,
           "lat": null,
           "lng": null
         },
         {
           "city": "Jakarta",
           "country": "ID",
-          "aqi": 99,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "São Paulo",
-          "country": "BR",
-          "aqi": 87,
+          "aqi": 85,
           "lat": null,
           "lng": null
         },
         {
           "city": "Mexico City",
           "country": "MX",
-          "aqi": 85,
+          "aqi": 82,
           "lat": null,
           "lng": null
         },
         {
-          "city": "Paris",
-          "country": "FR",
-          "aqi": 72,
+          "city": "Los Angeles",
+          "country": "US",
+          "aqi": 67,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Istanbul",
+          "country": "TR",
+          "aqi": 65,
           "lat": null,
           "lng": null
         }
@@ -1908,8 +1909,8 @@
       "endangered": 55570,
       "criticallyEndangered": 30162,
       "source": "GBIF / IUCN",
-      "fetchedAt": "2026-08-03T14:52:30.628Z",
-      "ageHours": 0.4
+      "fetchedAt": "2026-08-03T19:46:35.230Z",
+      "ageHours": 0.1
     },
     "weather": [
       {
@@ -1917,11 +1918,11 @@
         "lat": 52.52,
         "lng": 13.41,
         "current": {
-          "time": "2026-08-03T16:45",
+          "time": "2026-08-03T21:30",
           "interval": 900,
-          "temperature_2m": 29.2,
-          "relative_humidity_2m": 44,
-          "wind_speed_10m": 7.9,
+          "temperature_2m": 26.9,
+          "relative_humidity_2m": 56,
+          "wind_speed_10m": 9.4,
           "weather_code": 3
         }
       },
@@ -1930,12 +1931,12 @@
         "lat": 40.71,
         "lng": -74.01,
         "current": {
-          "time": "2026-08-03T10:45",
+          "time": "2026-08-03T15:30",
           "interval": 900,
-          "temperature_2m": 25.2,
-          "relative_humidity_2m": 96,
-          "wind_speed_10m": 14.7,
-          "weather_code": 51
+          "temperature_2m": 26.4,
+          "relative_humidity_2m": 91,
+          "wind_speed_10m": 14.6,
+          "weather_code": 3
         }
       },
       {
@@ -1943,12 +1944,12 @@
         "lat": 35.68,
         "lng": 139.69,
         "current": {
-          "time": "2026-08-03T23:45",
+          "time": "2026-08-04T04:30",
           "interval": 900,
-          "temperature_2m": 23,
-          "relative_humidity_2m": 82,
-          "wind_speed_10m": 4.8,
-          "weather_code": 2
+          "temperature_2m": 21.7,
+          "relative_humidity_2m": 87,
+          "wind_speed_10m": 5.1,
+          "weather_code": 1
         }
       },
       {
@@ -1956,11 +1957,11 @@
         "lat": -33.87,
         "lng": 151.21,
         "current": {
-          "time": "2026-08-04T00:45",
+          "time": "2026-08-04T05:30",
           "interval": 900,
-          "temperature_2m": 9.9,
-          "relative_humidity_2m": 80,
-          "wind_speed_10m": 8.7,
+          "temperature_2m": 7.2,
+          "relative_humidity_2m": 85,
+          "wind_speed_10m": 6.8,
           "weather_code": 0
         }
       },
@@ -1969,11 +1970,11 @@
         "lat": -23.55,
         "lng": -46.63,
         "current": {
-          "time": "2026-08-03T11:45",
+          "time": "2026-08-03T16:30",
           "interval": 900,
-          "temperature_2m": 25.1,
-          "relative_humidity_2m": 28,
-          "wind_speed_10m": 2.2,
+          "temperature_2m": 25.5,
+          "relative_humidity_2m": 26,
+          "wind_speed_10m": 7.2,
           "weather_code": 3
         }
       },
@@ -1982,12 +1983,12 @@
         "lat": 6.45,
         "lng": 3.4,
         "current": {
-          "time": "2026-08-03T15:45",
+          "time": "2026-08-03T20:30",
           "interval": 900,
-          "temperature_2m": 26.9,
-          "relative_humidity_2m": 78,
-          "wind_speed_10m": 17.1,
-          "weather_code": 0
+          "temperature_2m": 25,
+          "relative_humidity_2m": 88,
+          "wind_speed_10m": 9.6,
+          "weather_code": 2
         }
       },
       {
@@ -1995,11 +1996,11 @@
         "lat": 19.08,
         "lng": 72.88,
         "current": {
-          "time": "2026-08-03T20:15",
+          "time": "2026-08-04T01:00",
           "interval": 900,
-          "temperature_2m": 27.1,
-          "relative_humidity_2m": 84,
-          "wind_speed_10m": 13.8,
+          "temperature_2m": 26.8,
+          "relative_humidity_2m": 86,
+          "wind_speed_10m": 11.6,
           "weather_code": 51
         }
       },
@@ -2008,12 +2009,12 @@
         "lat": 51.51,
         "lng": -0.13,
         "current": {
-          "time": "2026-08-03T15:45",
+          "time": "2026-08-03T20:30",
           "interval": 900,
-          "temperature_2m": 30.9,
-          "relative_humidity_2m": 28,
-          "wind_speed_10m": 9,
-          "weather_code": 2
+          "temperature_2m": 25.9,
+          "relative_humidity_2m": 44,
+          "wind_speed_10m": 13.3,
+          "weather_code": 1
         }
       }
     ],
@@ -2197,660 +2198,7 @@
       "source": "ACLED/Crisis Group (baseline)",
       "headlines": [],
       "crises": [],
-      "trendArticles": [
-        {
-          "date": "20260727T150000Z",
-          "volume": 17.5892
-        },
-        {
-          "date": "20260727T160000Z",
-          "volume": 16.7324
-        },
-        {
-          "date": "20260727T170000Z",
-          "volume": 18.2832
-        },
-        {
-          "date": "20260727T180000Z",
-          "volume": 17.5789
-        },
-        {
-          "date": "20260727T190000Z",
-          "volume": 19.3856
-        },
-        {
-          "date": "20260727T200000Z",
-          "volume": 17.9942
-        },
-        {
-          "date": "20260727T210000Z",
-          "volume": 17.2221
-        },
-        {
-          "date": "20260727T220000Z",
-          "volume": 17.3508
-        },
-        {
-          "date": "20260727T230000Z",
-          "volume": 16.4183
-        },
-        {
-          "date": "20260728T000000Z",
-          "volume": 15.5659
-        },
-        {
-          "date": "20260728T010000Z",
-          "volume": 16.4936
-        },
-        {
-          "date": "20260728T020000Z",
-          "volume": 16.5616
-        },
-        {
-          "date": "20260728T030000Z",
-          "volume": 16.0928
-        },
-        {
-          "date": "20260728T040000Z",
-          "volume": 18.3489
-        },
-        {
-          "date": "20260728T050000Z",
-          "volume": 16.4072
-        },
-        {
-          "date": "20260728T060000Z",
-          "volume": 17.28
-        },
-        {
-          "date": "20260728T070000Z",
-          "volume": 17.1145
-        },
-        {
-          "date": "20260728T080000Z",
-          "volume": 18.2948
-        },
-        {
-          "date": "20260728T090000Z",
-          "volume": 15.923
-        },
-        {
-          "date": "20260728T100000Z",
-          "volume": 15.6161
-        },
-        {
-          "date": "20260728T110000Z",
-          "volume": 14.943
-        },
-        {
-          "date": "20260728T120000Z",
-          "volume": 15.911
-        },
-        {
-          "date": "20260728T130000Z",
-          "volume": 15.9825
-        },
-        {
-          "date": "20260728T140000Z",
-          "volume": 16.1442
-        },
-        {
-          "date": "20260728T150000Z",
-          "volume": 15.6841
-        },
-        {
-          "date": "20260728T160000Z",
-          "volume": 15.5822
-        },
-        {
-          "date": "20260728T170000Z",
-          "volume": 16.6715
-        },
-        {
-          "date": "20260728T180000Z",
-          "volume": 15.7688
-        },
-        {
-          "date": "20260728T190000Z",
-          "volume": 17.0145
-        },
-        {
-          "date": "20260728T200000Z",
-          "volume": 17.9484
-        },
-        {
-          "date": "20260728T210000Z",
-          "volume": 18.6298
-        },
-        {
-          "date": "20260728T220000Z",
-          "volume": 17.9854
-        },
-        {
-          "date": "20260728T230000Z",
-          "volume": 18.1467
-        },
-        {
-          "date": "20260729T000000Z",
-          "volume": 16.7438
-        },
-        {
-          "date": "20260729T010000Z",
-          "volume": 17.9165
-        },
-        {
-          "date": "20260729T020000Z",
-          "volume": 17.1269
-        },
-        {
-          "date": "20260729T030000Z",
-          "volume": 18.0505
-        },
-        {
-          "date": "20260729T040000Z",
-          "volume": 16.613
-        },
-        {
-          "date": "20260729T050000Z",
-          "volume": 17.5713
-        },
-        {
-          "date": "20260729T060000Z",
-          "volume": 15.9148
-        },
-        {
-          "date": "20260729T070000Z",
-          "volume": 17.4653
-        },
-        {
-          "date": "20260729T080000Z",
-          "volume": 18.283
-        },
-        {
-          "date": "20260729T090000Z",
-          "volume": 16.5055
-        },
-        {
-          "date": "20260729T100000Z",
-          "volume": 16.5886
-        },
-        {
-          "date": "20260729T110000Z",
-          "volume": 18.1002
-        },
-        {
-          "date": "20260729T120000Z",
-          "volume": 16.4227
-        },
-        {
-          "date": "20260729T130000Z",
-          "volume": 16.7025
-        },
-        {
-          "date": "20260729T140000Z",
-          "volume": 16.2327
-        },
-        {
-          "date": "20260729T150000Z",
-          "volume": 15.3118
-        },
-        {
-          "date": "20260729T160000Z",
-          "volume": 15.8626
-        },
-        {
-          "date": "20260729T170000Z",
-          "volume": 15.0229
-        },
-        {
-          "date": "20260729T180000Z",
-          "volume": 16.6146
-        },
-        {
-          "date": "20260729T190000Z",
-          "volume": 16.3139
-        },
-        {
-          "date": "20260729T200000Z",
-          "volume": 17.495
-        },
-        {
-          "date": "20260729T210000Z",
-          "volume": 18
-        },
-        {
-          "date": "20260729T220000Z",
-          "volume": 18.2477
-        },
-        {
-          "date": "20260729T230000Z",
-          "volume": 17.698
-        },
-        {
-          "date": "20260730T000000Z",
-          "volume": 18.286
-        },
-        {
-          "date": "20260730T010000Z",
-          "volume": 18.1971
-        },
-        {
-          "date": "20260730T020000Z",
-          "volume": 17.7352
-        },
-        {
-          "date": "20260730T030000Z",
-          "volume": 19.7643
-        },
-        {
-          "date": "20260730T040000Z",
-          "volume": 19.421
-        },
-        {
-          "date": "20260730T050000Z",
-          "volume": 17.9968
-        },
-        {
-          "date": "20260730T060000Z",
-          "volume": 19.7464
-        },
-        {
-          "date": "20260730T070000Z",
-          "volume": 17.967
-        },
-        {
-          "date": "20260730T080000Z",
-          "volume": 19.3798
-        },
-        {
-          "date": "20260730T090000Z",
-          "volume": 18.0814
-        },
-        {
-          "date": "20260730T100000Z",
-          "volume": 18.6865
-        },
-        {
-          "date": "20260730T110000Z",
-          "volume": 16.9741
-        },
-        {
-          "date": "20260730T120000Z",
-          "volume": 16.6109
-        },
-        {
-          "date": "20260730T130000Z",
-          "volume": 17.4578
-        },
-        {
-          "date": "20260730T140000Z",
-          "volume": 16.8395
-        },
-        {
-          "date": "20260730T150000Z",
-          "volume": 17.128
-        },
-        {
-          "date": "20260730T160000Z",
-          "volume": 16.5375
-        },
-        {
-          "date": "20260730T170000Z",
-          "volume": 16.7707
-        },
-        {
-          "date": "20260730T180000Z",
-          "volume": 15.8225
-        },
-        {
-          "date": "20260730T190000Z",
-          "volume": 15.8868
-        },
-        {
-          "date": "20260730T200000Z",
-          "volume": 16.1811
-        },
-        {
-          "date": "20260730T210000Z",
-          "volume": 15.8585
-        },
-        {
-          "date": "20260730T220000Z",
-          "volume": 17.372
-        },
-        {
-          "date": "20260730T230000Z",
-          "volume": 16.7037
-        },
-        {
-          "date": "20260731T000000Z",
-          "volume": 16.3016
-        },
-        {
-          "date": "20260731T010000Z",
-          "volume": 17.1275
-        },
-        {
-          "date": "20260731T020000Z",
-          "volume": 18.1604
-        },
-        {
-          "date": "20260731T030000Z",
-          "volume": 18.8535
-        },
-        {
-          "date": "20260731T040000Z",
-          "volume": 18.0353
-        },
-        {
-          "date": "20260731T050000Z",
-          "volume": 19.2711
-        },
-        {
-          "date": "20260731T060000Z",
-          "volume": 18.515
-        },
-        {
-          "date": "20260731T070000Z",
-          "volume": 18.3575
-        },
-        {
-          "date": "20260731T080000Z",
-          "volume": 16.8055
-        },
-        {
-          "date": "20260731T090000Z",
-          "volume": 18.6162
-        },
-        {
-          "date": "20260731T100000Z",
-          "volume": 15.9452
-        },
-        {
-          "date": "20260731T110000Z",
-          "volume": 16.7213
-        },
-        {
-          "date": "20260731T120000Z",
-          "volume": 16.9114
-        },
-        {
-          "date": "20260731T130000Z",
-          "volume": 17.214
-        },
-        {
-          "date": "20260731T140000Z",
-          "volume": 16.7173
-        },
-        {
-          "date": "20260731T150000Z",
-          "volume": 16.1967
-        },
-        {
-          "date": "20260731T160000Z",
-          "volume": 16.3124
-        },
-        {
-          "date": "20260731T170000Z",
-          "volume": 14.8224
-        },
-        {
-          "date": "20260731T180000Z",
-          "volume": 15.3825
-        },
-        {
-          "date": "20260731T190000Z",
-          "volume": 15.9402
-        },
-        {
-          "date": "20260731T200000Z",
-          "volume": 14.8784
-        },
-        {
-          "date": "20260731T210000Z",
-          "volume": 16.6763
-        },
-        {
-          "date": "20260731T220000Z",
-          "volume": 17.6013
-        },
-        {
-          "date": "20260801T010000Z",
-          "volume": 19.91
-        },
-        {
-          "date": "20260801T030000Z",
-          "volume": 18.8216
-        },
-        {
-          "date": "20260801T040000Z",
-          "volume": 16.25
-        },
-        {
-          "date": "20260801T050000Z",
-          "volume": 17.1103
-        },
-        {
-          "date": "20260801T060000Z",
-          "volume": 18.879
-        },
-        {
-          "date": "20260801T070000Z",
-          "volume": 19.3329
-        },
-        {
-          "date": "20260801T080000Z",
-          "volume": 19.5596
-        },
-        {
-          "date": "20260801T090000Z",
-          "volume": 17.3892
-        },
-        {
-          "date": "20260801T100000Z",
-          "volume": 17.9657
-        },
-        {
-          "date": "20260801T110000Z",
-          "volume": 18.8383
-        },
-        {
-          "date": "20260801T120000Z",
-          "volume": 18.141
-        },
-        {
-          "date": "20260801T130000Z",
-          "volume": 17.211
-        },
-        {
-          "date": "20260801T140000Z",
-          "volume": 17.7908
-        },
-        {
-          "date": "20260801T150000Z",
-          "volume": 17.8115
-        },
-        {
-          "date": "20260801T160000Z",
-          "volume": 18.2892
-        },
-        {
-          "date": "20260801T170000Z",
-          "volume": 19.2878
-        },
-        {
-          "date": "20260801T180000Z",
-          "volume": 18.1077
-        },
-        {
-          "date": "20260801T190000Z",
-          "volume": 19.3593
-        },
-        {
-          "date": "20260801T200000Z",
-          "volume": 19.6809
-        },
-        {
-          "date": "20260801T210000Z",
-          "volume": 19.4497
-        },
-        {
-          "date": "20260801T220000Z",
-          "volume": 20.5405
-        },
-        {
-          "date": "20260801T230000Z",
-          "volume": 17.6603
-        },
-        {
-          "date": "20260802T000000Z",
-          "volume": 20.8955
-        },
-        {
-          "date": "20260802T010000Z",
-          "volume": 20.9302
-        },
-        {
-          "date": "20260802T020000Z",
-          "volume": 20.8725
-        },
-        {
-          "date": "20260802T030000Z",
-          "volume": 20.0049
-        },
-        {
-          "date": "20260802T040000Z",
-          "volume": 20.5736
-        },
-        {
-          "date": "20260802T050000Z",
-          "volume": 22.9288
-        },
-        {
-          "date": "20260802T060000Z",
-          "volume": 21.6794
-        },
-        {
-          "date": "20260802T070000Z",
-          "volume": 20.684
-        },
-        {
-          "date": "20260802T080000Z",
-          "volume": 19.9469
-        },
-        {
-          "date": "20260802T090000Z",
-          "volume": 19.929
-        },
-        {
-          "date": "20260802T100000Z",
-          "volume": 20.4854
-        },
-        {
-          "date": "20260802T110000Z",
-          "volume": 20.1502
-        },
-        {
-          "date": "20260802T120000Z",
-          "volume": 18.8042
-        },
-        {
-          "date": "20260802T130000Z",
-          "volume": 18.6099
-        },
-        {
-          "date": "20260802T140000Z",
-          "volume": 20.3857
-        },
-        {
-          "date": "20260802T150000Z",
-          "volume": 18.6863
-        },
-        {
-          "date": "20260802T160000Z",
-          "volume": 18.8757
-        },
-        {
-          "date": "20260802T170000Z",
-          "volume": 19.1273
-        },
-        {
-          "date": "20260802T180000Z",
-          "volume": 19.4923
-        },
-        {
-          "date": "20260802T190000Z",
-          "volume": 20.839
-        },
-        {
-          "date": "20260802T200000Z",
-          "volume": 19.2567
-        },
-        {
-          "date": "20260802T210000Z",
-          "volume": 22.293
-        },
-        {
-          "date": "20260802T220000Z",
-          "volume": 18.3165
-        },
-        {
-          "date": "20260802T230000Z",
-          "volume": 20.0576
-        },
-        {
-          "date": "20260803T000000Z",
-          "volume": 19.4325
-        },
-        {
-          "date": "20260803T010000Z",
-          "volume": 19.7719
-        },
-        {
-          "date": "20260803T020000Z",
-          "volume": 18.4182
-        },
-        {
-          "date": "20260803T030000Z",
-          "volume": 17.8448
-        },
-        {
-          "date": "20260803T040000Z",
-          "volume": 17.5866
-        },
-        {
-          "date": "20260803T050000Z",
-          "volume": 17.7075
-        },
-        {
-          "date": "20260803T060000Z",
-          "volume": 18.9292
-        },
-        {
-          "date": "20260803T070000Z",
-          "volume": 18.933
-        },
-        {
-          "date": "20260803T080000Z",
-          "volume": 19.2936
-        },
-        {
-          "date": "20260803T090000Z",
-          "volume": 17.4471
-        },
-        {
-          "date": "20260803T100000Z",
-          "volume": 16.6275
-        },
-        {
-          "date": "20260803T110000Z",
-          "volume": 16.8945
-        },
-        {
-          "date": "20260803T120000Z",
-          "volume": 22.3951
-        }
-      ],
+      "trendArticles": null,
       "acled": null
     },
     "refugees": {
@@ -5182,73 +4530,73 @@
       "topRepos": [
         {
           "name": "codecrafters-io/build-your-own-x",
-          "stars": 535522,
-          "forks": 50597,
+          "stars": 535603,
+          "forks": 50599,
           "language": "Markdown",
-          "updated": "2026-08-03T14:50:06Z"
+          "updated": "2026-08-03T19:43:07Z"
         },
         {
           "name": "sindresorhus/awesome",
-          "stars": 491918,
-          "forks": 36197,
+          "stars": 492031,
+          "forks": 36202,
           "language": null,
-          "updated": "2026-08-03T14:49:11Z"
+          "updated": "2026-08-03T19:38:25Z"
         },
         {
           "name": "public-apis/public-apis",
-          "stars": 454225,
-          "forks": 50070,
+          "stars": 454250,
+          "forks": 50074,
           "language": "Python",
-          "updated": "2026-08-03T14:38:55Z"
+          "updated": "2026-08-03T19:43:50Z"
         },
         {
           "name": "freeCodeCamp/freeCodeCamp",
-          "stars": 453411,
-          "forks": 45818,
+          "stars": 453423,
+          "forks": 45843,
           "language": "TypeScript",
-          "updated": "2026-08-03T14:41:41Z"
+          "updated": "2026-08-03T19:22:31Z"
         },
         {
           "name": "EbookFoundation/free-programming-books",
-          "stars": 393627,
-          "forks": 66602,
+          "stars": 393641,
+          "forks": 66601,
           "language": "Python",
-          "updated": "2026-08-03T14:39:04Z"
+          "updated": "2026-08-03T19:29:01Z"
         },
         {
           "name": "openclaw/openclaw",
-          "stars": 385037,
-          "forks": 80932,
+          "stars": 385043,
+          "forks": 80931,
           "language": "TypeScript",
-          "updated": "2026-08-03T14:47:19Z"
+          "updated": "2026-08-03T19:41:28Z"
         },
         {
           "name": "nilbuild/developer-roadmap",
-          "stars": 363453,
-          "forks": 44722,
+          "stars": 363478,
+          "forks": 44723,
           "language": "TypeScript",
-          "updated": "2026-08-03T14:40:37Z"
+          "updated": "2026-08-03T19:43:05Z"
         },
         {
           "name": "donnemartin/system-design-primer",
-          "stars": 360331,
-          "forks": 57515,
+          "stars": 360440,
+          "forks": 57519,
           "language": "Python",
-          "updated": "2026-08-03T14:46:51Z"
+          "updated": "2026-08-03T19:42:52Z"
         },
         {
           "name": "jwasham/coding-interview-university",
-          "stars": 357721,
-          "forks": 84478,
+          "stars": 357728,
+          "forks": 84481,
           "language": null,
-          "updated": "2026-08-03T14:42:26Z"
+          "updated": "2026-08-03T17:38:28Z"
         },
         {
           "name": "vinta/awesome-python",
-          "stars": 311921,
-          "forks": 28433,
+          "stars": 311974,
+          "forks": 28436,
           "language": "Python",
-          "updated": "2026-08-03T14:43:09Z"
+          "updated": "2026-08-03T19:40:57Z"
         }
       ],
       "source": "GitHub"
@@ -5722,6 +5070,48 @@
     },
     "spaceflight": [
       {
+        "title": "Louisiana Students Loft Payloads from NASA Balloon Facility in Texas",
+        "published": "2026-08-03T19:22:43Z",
+        "source": "NASA",
+        "summary": "Every spring in Palestine, Texas, the wide-open fields around NASA’s Columbia Scientific Balloon Facility fill with students and faculty from across Louisiana. They arrive carrying sensors, laptops, a"
+      },
+      {
+        "title": "Guinea-Bissau Tidal Waters",
+        "published": "2026-08-03T17:15:39Z",
+        "source": "NASA",
+        "summary": "Twice each day, tides ebb and flow through a maze of sandy channels, mudflats, and mangrove forests that flank the 88 islands and islets of Guinea-Bissau’s Bijagós Archipelago (Arquipélago dos Bijagós"
+      },
+      {
+        "title": "Hughes files for bankruptcy after GEO business loses ground to Starlink",
+        "published": "2026-08-03T16:06:47Z",
+        "source": "SpaceNews",
+        "summary": "\nEchoStar’s Hughes geostationary satellite broadband business has filed for bankruptcy in the United States after years of mounting competition from SpaceX’s Starlink constellation.\nThe post Hughes fi"
+      },
+      {
+        "title": "Starship Soars as SpaceX Looks to AI",
+        "published": "2026-08-03T15:37:50Z",
+        "source": "Space Scout",
+        "summary": "SpaceX’s colossal Starship launch vehicle lifted off July 24th from the company’s launch facility in South Texas on its thirteenth integrated flight test."
+      },
+      {
+        "title": "Xona secures spectrum approval for 250-satellite navigation network",
+        "published": "2026-08-03T15:36:37Z",
+        "source": "SpaceNews",
+        "summary": "\nThe approval allows the startup to transmit stronger signals in spectrum adjacent to GPS frequencies\nThe post Xona secures spectrum approval for 250-satellite navigation network appeared first on Spa"
+      },
+      {
+        "title": "MaiaSpace Losses Required ArianeGroup to Decide on Company’s Future",
+        "published": "2026-08-03T15:12:24Z",
+        "source": "European Spaceflight",
+        "summary": "ArianeGroup has decided against dissolving MaiaSpace after the company posted a €37.5 million loss for 2025, pushing its shareholders’ equity below zero. According to the company’s 2025 annual account"
+      },
+      {
+        "title": "SpaceX is set to acquire 130,000 acres of marshland in southern Louisiana",
+        "published": "2026-08-03T14:41:46Z",
+        "source": "Arstechnica",
+        "summary": "A Louisiana launch site would offer several significant advantages."
+      },
+      {
         "title": "NASA Delivers Navigation System for Commercial Lunar Relay",
         "published": "2026-08-03T14:20:26Z",
         "source": "NASA",
@@ -5738,54 +5128,62 @@
         "published": "2026-08-03T13:55:32Z",
         "source": "NASA",
         "summary": "From June 11 through July 19, NASA’s free interactive exhibit at FIFA Fan Festival™ brought space exploration to soccer fans in East Downtown Houston.   More than 500,000 visitors explored the exhibit"
-      },
-      {
-        "title": "Airbus and Thales win order for SpainSat replacement",
-        "published": "2026-08-03T12:15:34Z",
-        "source": "SpaceNews",
-        "summary": "\nAirbus Defence and Space and Thales Alenia Space will build a replacement military communications satellite for Spain as they, along with Leonardo, continue efforts on a space joint venture.\nThe post"
-      },
-      {
-        "title": "The journey of Sophie Adenot's bonus food",
-        "published": "2026-08-03T12:00:00Z",
-        "source": "ESA",
-        "summary": "What does it take to send gourmet food to the International Space Station? Follow ESA astronaut Sophie Adenot's bonus menu from a French kitchen to orbit, where chefs, engineers and food specialists w"
-      },
-      {
-        "title": "APOD: 2026 August 3 – Vaporizing Meteor Photobombs the Lacerta Nebula",
-        "published": "2026-08-03T04:05:00Z",
-        "source": "NASA",
-        "summary": "APOD Science APOD APOD: 2026 August 3 –… Today’s APOD Archive Submissions Index Search Calendar RSS Education About Discuss   APOD Astronomy Picture of the Day Discover the cosmos! Each day a differen"
-      },
-      {
-        "title": "APOD: 2026 August 3 – Vaporizing Meteor Photobombs the Lacerta Nebula",
-        "published": "2026-08-03T04:05:00Z",
-        "source": "NASA",
-        "summary": "APODScienceAPODAPOD: 2026 August 3 –…Today’s APODArchiveSubmissionsIndexSearchCalendarRSSEducationAboutDiscuss  APOD Astronomy Picture of the Day Discover the cosmos! Each day a different image or pho"
-      },
-      {
-        "title": "What’s Happening in Space Policy August 2-8, 2026",
-        "published": "2026-08-02T21:23:13Z",
-        "source": "SpacePolicyOnline.com",
-        "summary": "Here is SpacePolicyOnline.com’s list of space policy events for the week of August 2-8, 2026 and any insight we can offer about them. The Senate is in session this week. […]"
-      },
-      {
-        "title": "U.S. Air Force expands Blue Origin rocket cargo contract",
-        "published": "2026-08-02T12:03:27Z",
-        "source": "SpaceNews",
-        "summary": "The Air Force Research Laboratory increased by $11.7 million Blue Origin’s contract to study the use of space rockets for point-to-point deliveries \r\nThe post U.S. Air Force expands Blue Origin rocket"
-      },
-      {
-        "title": "APOD: 2026 August 2 – A Fire Rainbow over West Virginia",
-        "published": "2026-08-02T04:05:00Z",
-        "source": "NASA",
-        "summary": "APOD Science APOD APOD: 2026 August 2 – A Fire… Today’s APOD Archive Submissions Index Search Calendar RSS Education About Discuss   APOD Astronomy Picture of the Day Discover the cosmos! Each day a d"
       }
     ]
   },
   "realtime": {
     "earthquakes": {
       "last24h": [
+        {
+          "location": "22 km SSE of Lindsay, Texas",
+          "magnitude": 2.6,
+          "depth": 6.161,
+          "lat": 31.174,
+          "lng": -103.471,
+          "time": "2026-08-03T19:15:16.810Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "229 km ESE of Attu Station, Alaska",
+          "magnitude": 3.4,
+          "depth": 0.9,
+          "lat": 52.144,
+          "lng": 176.363,
+          "time": "2026-08-03T16:36:44.763Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "123 km E of Miyako, Japan",
+          "magnitude": 4.5,
+          "depth": 35,
+          "lat": 39.6999,
+          "lng": 143.3753,
+          "time": "2026-08-03T15:54:05.781Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "232 km ESE of Attu Station, Alaska",
+          "magnitude": 4,
+          "depth": 0.2,
+          "lat": 51.999,
+          "lng": 176.314,
+          "time": "2026-08-03T14:56:35.226Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "61 km S of Shikotan, Russia",
+          "magnitude": 4.7,
+          "depth": 35,
+          "lat": 43.2547,
+          "lng": 146.8482,
+          "time": "2026-08-03T14:39:45.353Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
         {
           "location": "74 km SSE of Yakutat, Alaska",
           "magnitude": 3.6,
@@ -5815,59 +5213,9 @@
           "time": "2026-08-03T13:07:20.930Z",
           "tsunami": false,
           "type": "earthquake"
-        },
-        {
-          "location": "20 km S of Cruz Bay, U.S. Virgin Islands",
-          "magnitude": 3.09,
-          "depth": 43.64,
-          "lat": 18.1465,
-          "lng": -64.7966666666667,
-          "time": "2026-08-03T12:24:20.890Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "44 km N of Charlotte Amalie, U.S. Virgin Islands",
-          "magnitude": 2.87,
-          "depth": 22.91,
-          "lat": 18.7398333333333,
-          "lng": -64.932,
-          "time": "2026-08-03T12:18:38.320Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "43 km N of Charlotte Amalie, U.S. Virgin Islands",
-          "magnitude": 2.92,
-          "depth": 18.3,
-          "lat": 18.7386666666667,
-          "lng": -64.9378333333333,
-          "time": "2026-08-03T12:16:37.480Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "85 km S of Severo-Kuril’sk, Russia",
-          "magnitude": 4.9,
-          "depth": 57.695,
-          "lat": 49.9188,
-          "lng": 155.9445,
-          "time": "2026-08-03T11:26:42.305Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "88 km WSW of San Antonio de los Cobres, Argentina",
-          "magnitude": 4.6,
-          "depth": 182.541,
-          "lat": -24.4954,
-          "lng": -67.1352,
-          "time": "2026-08-03T10:55:35.633Z",
-          "tsunami": false,
-          "type": "earthquake"
         }
       ],
-      "total24h": 45,
+      "total24h": 44,
       "source": "USGS"
     },
     "newsSentiment": {
@@ -5896,52 +5244,88 @@
     },
     "news": [
       {
-        "title": "Anti-war politician and Kremlin critic Boris Nadezhdin flees Russia for France",
-        "pubDate": "Mon, 03 Aug 2026 14:47:54 GMT",
-        "link": "https://www.france24.com/en/europe/20260803-anti-war-politician-and-kremlin-critic-boris-nadezhdin-flees-russia-for-france",
-        "source": "France24"
-      },
-      {
-        "title": "Iran 'calls Trump's bluff' as it denies negotiating with the US",
-        "pubDate": "Mon, 03 Aug 2026 14:44:31 GMT",
-        "link": "https://www.france24.com/en/iran-calls-trump-s-bluff-as-it-denies-negotiating-with-the-us",
-        "source": "France24"
-      },
-      {
-        "title": "Trump slams Chevron CEO, demands immediate reduction in US fuel prices",
-        "pubDate": "Mon, 03 Aug 2026 14:33:33 +0000",
-        "link": "https://www.aljazeera.com/economy/2026/8/3/trump-slams-chevron-ceo-demands-immediate-reduction-in-us-fuel-prices?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "Pochettino agrees to new contract with US Soccer through to 2030 World Cup",
-        "pubDate": "Mon, 03 Aug 2026 14:24:24 +0000",
-        "link": "https://www.aljazeera.com/sports/2026/8/3/pochettino-agrees-to-new-us-coach-soccer-contract-through-to-2030-world-cup?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "More than 10 killed as Russia and Ukraine trade heavy attacks",
-        "pubDate": "Mon, 03 Aug 2026 14:23:07 +0000",
-        "link": "https://www.aljazeera.com/news/2026/8/3/more-than-10-killed-as-russia-and-ukraine-trade-heavy-attacks?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "Aung San Suu Kyi appears healthy in first confirmed outside contact for 2.5 years",
-        "pubDate": "Mon, 03 Aug 2026 14:20:56 GMT",
-        "link": "https://www.bbc.co.uk/news/articles/c1e1d5j6660o?at_medium=RSS&amp;at_campaign=rss",
-        "source": "BBC World"
-      },
-      {
-        "title": "NASA Delivers Navigation System for Commercial Lunar Relay",
-        "pubDate": "Mon, 03 Aug 2026 14:20:26 +0000",
-        "link": "https://www.nasa.gov/technology/space-comms/nasa-delivers-navigation-system-for-commercial-lunar-relay/",
-        "source": "NASA"
-      },
-      {
         "title": "Iran says it is in talks with Oman but not the US after Trump says negotiations to resume",
-        "pubDate": "Mon, 03 Aug 2026 14:18:30 GMT",
+        "pubDate": "Mon, 03 Aug 2026 19:42:55 GMT",
         "link": "https://www.bbc.co.uk/news/articles/c23579jzv08o?at_medium=RSS&amp;at_campaign=rss",
         "source": "BBC World"
+      },
+      {
+        "title": "Bomb disposal underway in Le Porge after wildfires unearth WWII shells",
+        "pubDate": "Mon, 03 Aug 2026 18:55:25 +0000",
+        "link": "https://www.aljazeera.com/video/newsfeed/2026/8/3/aje-onl-nf_wildfire-reveals-wwii-shells-in-le-porge-france-030826?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "US announces first two deaths from cyclospora outbreak",
+        "pubDate": "Mon, 03 Aug 2026 18:35:09 +0000",
+        "link": "https://www.aljazeera.com/news/2026/8/3/us-announces-first-two-deaths-from-cyclospora-outbreak?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "Can Netanyahu survive Israel’s most consequential election?",
+        "pubDate": "Mon, 03 Aug 2026 18:16:00 +0000",
+        "link": "https://www.aljazeera.com/video/newsfeed/2026/8/3/can-netanyahu-survive-israels-most-consequential-election?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "Russia says seven killed and 40 injured by Ukrainian drone hitting busy beach",
+        "pubDate": "Mon, 03 Aug 2026 18:04:30 GMT",
+        "link": "https://www.bbc.co.uk/news/articles/cr7kmnyrdn7o?at_medium=RSS&amp;at_campaign=rss",
+        "source": "BBC World"
+      },
+      {
+        "title": "Dry Danube River threatens nuclear power in Romania, Hungary",
+        "pubDate": "Mon, 3 Aug 2026 17:59:00 GMT",
+        "link": "https://www.dw.com/en/dry-danube-river-threatens-nuclear-power-in-romania-hungary/a-78223402?maca=en-rss-en-world-4025-xml-mrss",
+        "source": "DW News"
+      },
+      {
+        "title": "Stronger EU borders needed after Ceuta crisis, von der Leyen says",
+        "pubDate": "Mon, 03 Aug 2026 17:44:01 GMT",
+        "link": "https://www.theguardian.com/world/2026/aug/03/stronger-eu-borders-physical-barriers-ceuta-von-der-leyen",
+        "source": "Guardian"
+      },
+      {
+        "title": "Norway's Haugset wins stage 3 to claim Tour de France Femmes lead",
+        "pubDate": "Mon, 03 Aug 2026 16:59:09 GMT",
+        "link": "https://www.france24.com/en/sport/20260803-norway-s-haugset-wins-stage-3-to-claim-tour-de-france-femmes-lead",
+        "source": "France24"
+      },
+      {
+        "title": "Rhine falls to record low levels as drought strains Europe's rivers",
+        "pubDate": "Mon, 03 Aug 2026 16:27:43 GMT",
+        "link": "https://www.bbc.co.uk/news/articles/c78gn8zvrx4o?at_medium=RSS&amp;at_campaign=rss",
+        "source": "BBC World"
+      },
+      {
+        "title": "France: Water sports enthusiasts 'fly' above the River Seine",
+        "pubDate": "Mon, 03 Aug 2026 16:27:37 GMT",
+        "link": "https://www.france24.com/en/video/20260803-france-water-sports-enthusiasts-fly-above-the-river-seine",
+        "source": "France24"
+      },
+      {
+        "title": "How Ceuta migrant crisis exposes divisions within Europe - The Latest",
+        "pubDate": "Mon, 03 Aug 2026 16:05:20 GMT",
+        "link": "https://www.theguardian.com/news/audio/2026/aug/03/how-ceuta-migrant-crisis-exposes-divisions-within-europe-the-latest",
+        "source": "Guardian"
+      },
+      {
+        "title": "A Bare Summer for Barnes Ice Cap",
+        "pubDate": "Mon, 03 Aug 2026 16:00:00 +0000",
+        "link": "https://science.nasa.gov/earth/earth-observatory/a-bare-summer-for-barnes-ice-cap/",
+        "source": "NASA Earth"
+      },
+      {
+        "title": "Ceuta: EU calls borders a &#039;shared European responsibility&#039;",
+        "pubDate": "Mon, 3 Aug 2026 16:00:00 GMT",
+        "link": "https://www.dw.com/en/ceuta-eu-calls-borders-a-shared-european-responsibility/a-78220701?maca=en-rss-en-world-4025-xml-mrss",
+        "source": "DW News"
+      },
+      {
+        "title": "Ceuta migrant influx reignites immigration divisions in Europe",
+        "pubDate": "Mon, 03 Aug 2026 15:57:17 GMT",
+        "link": "https://www.france24.com/en/europe/20260803-ceuta-migrant-influx-reignites-immigration-divisions-in-europe",
+        "source": "France24"
       },
       {
         "title": "Ceuta leader accuses Morocco over ‘atrocity’ of mass border crossing",
@@ -5950,34 +5334,22 @@
         "source": "Guardian"
       },
       {
-        "title": "Ike Theriot Helps Prepare Astronauts to Work on the Moon",
-        "pubDate": "Mon, 03 Aug 2026 14:00:00 +0000",
-        "link": "https://www.nasa.gov/centers-and-facilities/johnson/ike-theriot-helps-prepare-astronauts-to-work-on-the-moon/",
-        "source": "NASA"
-      },
-      {
-        "title": "NASA Brings Space Exploration to the FIFA World Cup",
-        "pubDate": "Mon, 03 Aug 2026 13:55:32 +0000",
-        "link": "https://www.nasa.gov/centers-and-facilities/johnson/nasa-brings-space-exploration-to-the-fifa-world-cup/",
-        "source": "NASA"
-      },
-      {
-        "title": "Hard-right Reform UK proposes navy-led operation to stop small migrant boats",
-        "pubDate": "Mon, 03 Aug 2026 13:29:32 GMT",
-        "link": "https://www.france24.com/en/europe/20260803-hard-right-reform-uk-proposes-navy-led-operation-to-stop-small-migrant-boats",
-        "source": "France24"
-      },
-      {
         "title": "Can PM Modi reconnect with India&#039;s Gen Z?",
         "pubDate": "Mon, 3 Aug 2026 12:41:00 GMT",
         "link": "https://www.dw.com/en/can-pm-modi-reconnect-with-india-s-gen-z/a-78216627?maca=en-rss-en-world-4025-xml-mrss",
         "source": "DW News"
       },
       {
-        "title": "Ariana Grande to take a break from public life amid 'endless' scrutiny",
-        "pubDate": "Mon, 03 Aug 2026 10:59:12 GMT",
-        "link": "https://www.bbc.co.uk/news/articles/c80ngjjvevyo?at_medium=RSS&amp;at_campaign=rss",
-        "source": "BBC World"
+        "title": "Mothers still lack support to breastfeed, UN warns",
+        "pubDate": "Mon, 03 Aug 2026 12:00:00 +0000",
+        "link": "https://news.un.org/feed/view/en/story/2026/08/1168065",
+        "source": "UN News"
+      },
+      {
+        "title": "DR Congo: New centre opens at heart of record Ebola outbreak",
+        "pubDate": "Mon, 03 Aug 2026 12:00:00 +0000",
+        "link": "https://news.un.org/feed/view/en/story/2026/08/1168064",
+        "source": "UN News"
       },
       {
         "title": "World Bank Supports Fiscal Reform and Sustainable Urban Growth in Fortaleza, Brazil - fundsforNGOs News",
@@ -5986,34 +5358,10 @@
         "source": "World Bank"
       },
       {
-        "title": "Russia: Bridge-building with North Korea",
-        "pubDate": "Mon, 3 Aug 2026 10:26:00 GMT",
-        "link": "https://www.dw.com/en/russia-bridge-building-with-north-korea/a-78212053?maca=en-rss-en-world-4025-xml-mrss",
-        "source": "DW News"
-      },
-      {
-        "title": "Cuba suffers yet another nationwide blackout",
-        "pubDate": "Mon, 3 Aug 2026 05:57:00 GMT",
-        "link": "https://www.dw.com/en/cuba-suffers-yet-another-nationwide-blackout/a-78210761?maca=en-rss-en-world-4025-xml-mrss",
-        "source": "DW News"
-      },
-      {
-        "title": "Chaos of border crossing gives way to limbo for Moroccans on Ceuta’s streets",
-        "pubDate": "Sun, 02 Aug 2026 13:11:56 GMT",
-        "link": "https://www.theguardian.com/world/2026/aug/02/ceuta-border-crossing-spain-morocco",
-        "source": "Guardian"
-      },
-      {
         "title": "Trapped by a Facebook job advert, freed by a stranger in a taxi",
         "pubDate": "Sun, 02 Aug 2026 12:00:00 +0000",
         "link": "https://news.un.org/feed/view/en/story/2026/08/1168058",
         "source": "UN News"
-      },
-      {
-        "title": "Anti-LGBTQ+ laws are on the rise across west Africa, campaigners warn",
-        "pubDate": "Sun, 02 Aug 2026 04:00:11 GMT",
-        "link": "https://www.theguardian.com/world/2026/aug/02/anti-lgbtq-laws-are-on-the-rise-across-west-africa-campaigners-warn",
-        "source": "Guardian"
       }
     ],
     "volcanic": [],
@@ -6067,7 +5415,7 @@
         "sunspots": 78.1
       }
     ],
-    "lastUpdated": "2026-08-03T15:14:03.390Z"
+    "lastUpdated": "2026-08-03T19:53:28.075Z"
   },
   "momentum": {
     "indicators": [
