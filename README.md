@@ -5,24 +5,24 @@
 
 ---
 
-## 🌍 Welt-Indikator: 66.7 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 64.1 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  66.7/100  ↑ +0.8
+█████████████░░░░░░░  64.1/100  ↓ -2.6
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 03.08.2026 03:44 UTC
+> **Letzte Aktualisierung:** 03.08.2026 10:03 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟡 Umwelt | **41.3**/100 | → +0.1 | 25% |
+| 🟠 Umwelt | **34.4**/100 | ↓ -6.9 | 25% |
 | 🟡 Gesellschaft | **55.9**/100 | → +0 | 25% |
-| 🟢 Wirtschaft | **72.9**/100 | → +0.1 | 20% |
+| 🟢 Wirtschaft | **72.9**/100 | → +0 | 20% |
 | 🟢 Fortschritt | **78.1**/100 | → +0 | 20% |
-| 🔵 Momentum | **84.2**/100 | ↑ +3.2 | 10% |
+| 🔵 Momentum | **81**/100 | ↓ -3.2 | 10% |
 
 ---
 
@@ -34,7 +34,7 @@
 | Temperaturanomalie | **+1.19°C** | NASA GISTEMP |
 | CO2-Konzentration | **431 ppm** | NOAA |
 | Arktis-Eisfläche | **4.2 Mio km²** (46.2% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **62** | WAQI |
+| Luftqualität (Ø) | AQI **63** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -69,16 +69,17 @@
 
 ---
 
-## 📈 Momentum: 16/19 Trends positiv
+## 📈 Momentum: 17/21 Trends positiv
 
 <details>
-<summary>Alle 19 Indikatoren anzeigen</summary>
+<summary>Alle 21 Indikatoren anzeigen</summary>
 
-#### ✅ Verbessert sich (16)
+#### ✅ Verbessert sich (17)
 - **Lebenserwartung**: +1.6%
 - **Kindersterblichkeit**: -2.3%
 - **Erneuerbare Energie**: +6.7%
 - **Internet-Zugang**: +12.1%
+- **BIP-Wachstum**: +23.3%
 - **Inflation**: -12.0%
 - **Arbeitslosigkeit**: -19.1%
 - **BIP pro Kopf**: +14.0%
@@ -92,10 +93,11 @@
 - **Urbanisierung**: +1.4%
 - **Patentanmeldungen**: +1.2%
 
-#### ❌ Verschlechtert sich (3)
+#### ❌ Verschlechtert sich (4)
 - **CO2-Konzentration**: +2.1%
 - **Waldfläche**: -0.2%
 - **CO2 pro Kopf**: +1.4%
+- **Militärausgaben (% BIP)**: +5.3%
 
 </details>
 
@@ -253,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 03.08.2026 03:44 UTC | 65/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 03.08.2026 10:03 UTC | 65/65 Quellen aktiv
 </sub>
