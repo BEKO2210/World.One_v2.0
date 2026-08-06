@@ -1,49 +1,50 @@
 {
   "meta": {
-    "generated": "2026-08-06T09:05:54.608Z",
+    "generated": "2026-08-06T14:36:01.918Z",
     "version": "2.0.0",
     "sources_count": 65,
     "sources_available": 65,
     "sources_success_rate": 100,
-    "next_update": "2026-08-06T15:05:54.608Z",
+    "next_update": "2026-08-06T20:36:01.918Z",
     "realtimePulse": {
       "environment": -0.71,
-      "society": 0,
+      "society": 0.05,
       "economy": -0.4,
       "progress": 0.8,
       "details": {
         "quakeCount": 37,
         "maxMagnitude": 5.6,
-        "avgGlobalTemp": 22.5,
+        "avgGlobalTemp": 23.7,
+        "newsSentiment": -0.42,
         "cryptoFearGreed": 25,
         "arxivPapers": 20
       }
     },
     "cacheFreshness": {
       "environment": {
-        "newest": "2026-08-06T09:05:53.831Z",
-        "oldest": "2026-08-06T09:04:34.419Z",
+        "newest": "2026-08-06T14:36:01.091Z",
+        "oldest": "2026-08-06T14:35:45.761Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 6
       },
       "society": {
-        "newest": "2026-08-06T09:05:54.440Z",
-        "oldest": "2026-08-06T08:59:48.226Z",
+        "newest": "2026-08-06T14:36:01.754Z",
+        "oldest": "2026-08-06T14:25:57.788Z",
         "newestHours": 0,
-        "oldestHours": 0.1,
+        "oldestHours": 0.2,
         "sourceCount": 4
       },
       "economy": {
-        "newest": "2026-08-06T09:05:51.094Z",
-        "oldest": "2026-08-06T09:05:51.094Z",
+        "newest": "2026-08-06T14:35:58.150Z",
+        "oldest": "2026-08-06T14:35:58.150Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 1
       },
       "progress": {
-        "newest": "2026-08-06T09:05:49.137Z",
-        "oldest": "2026-08-06T09:05:00.607Z",
+        "newest": "2026-08-06T14:35:55.911Z",
+        "oldest": "2026-08-06T14:35:53.978Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 2
@@ -51,13 +52,13 @@
     }
   },
   "worldIndex": {
-    "value": 62.6,
-    "rawValue": 60.5,
+    "value": 64.2,
+    "rawValue": 61,
     "label": "POSITIV",
     "zone": "positive",
-    "previous": 65.7,
-    "change": -3.1,
-    "trend": "declining",
+    "previous": 62.6,
+    "change": 1.6,
+    "trend": "improving",
     "carryingCapacity": {
       "checks": {
         "existence": {
@@ -65,19 +66,19 @@
           "passed": true
         },
         "balance": {
-          "multiplier": 1.05,
-          "ratio": 0.8
+          "multiplier": 1.052,
+          "ratio": 0.8095238095238095
         },
         "cascading": {
-          "penalty": -0.9,
-          "activePairs": 1
+          "penalty": 0,
+          "activePairs": 0
         }
       },
       "spectrum": {
         "environment": {
           "direction": "erosion",
-          "position": "fragile",
-          "level": -2
+          "position": "strained",
+          "level": -1
         },
         "society": {
           "direction": "expansion",
@@ -86,18 +87,18 @@
         },
         "economy": {
           "direction": "expansion",
-          "position": "elastic",
-          "level": 1
-        },
-        "progress": {
-          "direction": "expansion",
           "position": "capacitive",
           "level": 2
         },
-        "momentum": {
+        "progress": {
           "direction": "expansion",
           "position": "elastic",
           "level": 1
+        },
+        "momentum": {
+          "direction": "expansion",
+          "position": "capacitive",
+          "level": 2
         }
       },
       "indicators": {
@@ -107,12 +108,12 @@
           "maintenanceCost": 0.16
         },
         "society": {
-          "bufferDistance": 48,
+          "bufferDistance": 48.1,
           "recoveryTime": 0,
           "maintenanceCost": 0.77
         },
         "economy": {
-          "bufferDistance": 66.2,
+          "bufferDistance": 68,
           "recoveryTime": 0,
           "maintenanceCost": 2.78
         },
@@ -122,7 +123,7 @@
           "maintenanceCost": 4.52
         },
         "momentum": {
-          "bufferDistance": 76.5,
+          "bufferDistance": 77.6,
           "recoveryTime": 0,
           "maintenanceCost": 0
         }
@@ -136,15 +137,15 @@
       "label": "BESORGNISERREGEND",
       "zone": "concerning",
       "weight": 0.25,
-      "trend": "declining",
-      "change": -6.4,
+      "trend": "stable",
+      "change": 0,
       "indicators": [
         {
           "name": "Globale Temperaturanomalie",
           "value": "+1.19°C",
           "score": 60,
           "trend": "declining",
-          "fetchedAt": "2026-08-06T09:04:35.188Z",
+          "fetchedAt": "2026-08-06T14:35:46.364Z",
           "ageHours": 0,
           "source": "NASA GISTEMP v4 (base 1951-1980)"
         },
@@ -153,8 +154,8 @@
           "value": "429 ppm",
           "score": 32,
           "trend": "declining",
-          "fetchedAt": "2026-08-06T08:44:58.634Z",
-          "ageHours": 0.3,
+          "fetchedAt": "2026-08-06T14:24:06.092Z",
+          "ageHours": 0.2,
           "source": "NOAA Mauna Loa"
         },
         {
@@ -162,7 +163,7 @@
           "value": "31.1%",
           "score": 56,
           "trend": "declining",
-          "fetchedAt": "2026-08-06T09:04:52.671Z",
+          "fetchedAt": "2026-08-06T14:35:46.711Z",
           "ageHours": 0,
           "source": "World Bank / FAO (AG.LND.FRST.ZS)"
         },
@@ -171,16 +172,16 @@
           "value": "19.74%",
           "score": 33,
           "trend": "improving",
-          "fetchedAt": "2026-08-06T09:04:52.814Z",
+          "fetchedAt": "2026-08-06T14:35:46.873Z",
           "ageHours": 0,
           "source": "World Bank (EG.FEC.RNEW.ZS)"
         },
         {
           "name": "Luftqualität (Global Avg AQI)",
-          "value": 64,
+          "value": 56,
           "score": 45,
           "trend": "stable",
-          "fetchedAt": "2026-08-06T09:05:53.831Z",
+          "fetchedAt": "2026-08-06T14:36:01.091Z",
           "ageHours": 0,
           "source": "WAQI official stations (19 cities)"
         },
@@ -198,14 +199,14 @@
           "value": "40 events, -10 Pkt",
           "score": 0,
           "trend": "declining",
-          "fetchedAt": "2026-08-06T09:04:34.419Z",
+          "fetchedAt": "2026-08-06T14:35:45.761Z",
           "ageHours": 0,
           "source": "GDACS (JRC/EU)"
         }
       ]
     },
     "society": {
-      "value": 55.8,
+      "value": 55.9,
       "label": "GEMISCHT",
       "zone": "mixed",
       "weight": 0.25,
@@ -217,7 +218,7 @@
           "value": "73.48 Jahre",
           "score": 67,
           "trend": "improving",
-          "fetchedAt": "2026-08-06T09:05:28.770Z",
+          "fetchedAt": "2026-08-06T14:35:55.778Z",
           "ageHours": 0,
           "source": "World Bank (SP.DYN.LE00.IN)"
         },
@@ -226,7 +227,7 @@
           "value": "37.4/1000",
           "score": 66,
           "trend": "improving",
-          "fetchedAt": "2026-08-06T09:05:28.770Z",
+          "fetchedAt": "2026-08-06T14:35:55.778Z",
           "ageHours": 0,
           "source": "World Bank (SH.DYN.MORT)"
         },
@@ -235,8 +236,8 @@
           "value": 59,
           "score": 29,
           "trend": "declining",
-          "fetchedAt": "2026-08-06T09:00:25.746Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-08-06T14:26:38.035Z",
+          "ageHours": 0.2,
           "source": "ACLED/Crisis Group (baseline)"
         },
         {
@@ -244,8 +245,8 @@
           "value": "91.9%",
           "score": 84,
           "trend": "improving",
-          "fetchedAt": "2026-08-06T08:49:08.959Z",
-          "ageHours": 0.3,
+          "fetchedAt": "2026-08-06T14:24:11.185Z",
+          "ageHours": 0.2,
           "source": "World Bank (raw)"
         },
         {
@@ -253,8 +254,8 @@
           "value": "73.7%",
           "score": 56,
           "trend": "improving",
-          "fetchedAt": "2026-08-06T08:49:41.994Z",
-          "ageHours": 0.3,
+          "fetchedAt": "2026-08-06T14:24:11.328Z",
+          "ageHours": 0.2,
           "source": "World Bank (raw)"
         },
         {
@@ -271,26 +272,26 @@
           "value": "84 frei / 55 unfrei",
           "score": 46,
           "trend": "declining",
-          "fetchedAt": "2026-08-06T08:59:48.226Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-08-06T14:25:57.788Z",
+          "ageHours": 0.2,
           "source": "Freedom House - Freedom in the World"
         }
       ]
     },
     "economy": {
-      "value": 71.3,
+      "value": 72.8,
       "label": "POSITIV",
       "zone": "positive",
       "weight": 0.2,
-      "trend": "declining",
-      "change": -1.5,
+      "trend": "improving",
+      "change": 1.5,
       "indicators": [
         {
           "name": "BIP-Wachstum",
           "value": "2.92%",
           "score": 72,
           "trend": "improving",
-          "fetchedAt": "2026-08-06T08:51:38.241Z",
+          "fetchedAt": "2026-08-06T14:24:12.704Z",
           "ageHours": 0.2,
           "source": "World Bank / IMF"
         },
@@ -299,7 +300,7 @@
           "value": 42,
           "score": 51,
           "trend": "stable",
-          "fetchedAt": "2026-08-06T08:52:18.297Z",
+          "fetchedAt": "2026-08-06T14:24:12.848Z",
           "ageHours": 0.2,
           "source": "World Bank"
         },
@@ -308,17 +309,17 @@
           "value": "3.4%",
           "score": 92,
           "trend": "stable",
-          "fetchedAt": "2026-08-06T09:05:51.094Z",
+          "fetchedAt": "2026-08-06T14:35:58.150Z",
           "ageHours": 0,
           "source": "FRED + World Bank (avg)"
         },
         {
           "name": "Arbeitslosigkeit",
-          "value": "5.8%",
-          "score": 71,
+          "value": "4.79%",
+          "score": 79,
           "trend": "stable",
-          "fetchedAt": null,
-          "ageHours": null,
+          "fetchedAt": "2026-08-06T14:24:13.102Z",
+          "ageHours": 0.2,
           "source": "World Bank / ILO"
         },
         {
@@ -335,7 +336,7 @@
           "value": "3.63%",
           "score": 70.96000000000001,
           "trend": "stable",
-          "fetchedAt": "2026-08-06T09:05:51.094Z",
+          "fetchedAt": "2026-08-06T14:35:58.150Z",
           "ageHours": 0,
           "source": "FRED (St. Louis Fed)"
         },
@@ -344,7 +345,7 @@
           "value": "0.45%",
           "score": 80,
           "trend": "stable",
-          "fetchedAt": "2026-08-06T09:05:51.094Z",
+          "fetchedAt": "2026-08-06T14:35:58.150Z",
           "ageHours": 0,
           "source": "FRED (St. Louis Fed)"
         }
@@ -355,15 +356,15 @@
       "label": "POSITIV",
       "zone": "positive",
       "weight": 0.2,
-      "trend": "improving",
-      "change": 0.3,
+      "trend": "stable",
+      "change": 0,
       "indicators": [
         {
           "name": "Internet-Durchdringung",
           "value": "73.6%",
           "score": 82,
           "trend": "improving",
-          "fetchedAt": "2026-08-06T09:05:49.137Z",
+          "fetchedAt": "2026-08-06T14:35:55.911Z",
           "ageHours": 0,
           "source": "World Bank (IT.NET.USER.ZS)"
         },
@@ -372,8 +373,8 @@
           "value": "87.7%",
           "score": 75,
           "trend": "improving",
-          "fetchedAt": "2026-08-06T08:57:13.875Z",
-          "ageHours": 0.1,
+          "fetchedAt": "2026-08-06T14:24:17.108Z",
+          "ageHours": 0.2,
           "source": "World Bank / UNESCO"
         },
         {
@@ -381,7 +382,7 @@
           "value": "2.6%",
           "score": 65,
           "trend": "improving",
-          "fetchedAt": "2026-08-06T08:56:07.621Z",
+          "fetchedAt": "2026-08-06T14:24:16.407Z",
           "ageHours": 0.2,
           "source": "World Bank"
         },
@@ -390,7 +391,7 @@
           "value": "111.5/100",
           "score": 86,
           "trend": "improving",
-          "fetchedAt": "2026-08-06T09:05:49.137Z",
+          "fetchedAt": "2026-08-06T14:35:55.911Z",
           "ageHours": 0,
           "source": "World Bank (IT.CEL.SETS.P2)"
         },
@@ -399,7 +400,7 @@
           "value": "0K+",
           "score": 80,
           "trend": "improving",
-          "fetchedAt": "2026-08-06T08:56:07.072Z",
+          "fetchedAt": "2026-08-06T14:24:15.680Z",
           "ageHours": 0.2,
           "source": "GitHub"
         },
@@ -408,22 +409,22 @@
           "value": "0.4M total",
           "score": 75,
           "trend": "improving",
-          "fetchedAt": "2026-08-06T09:05:00.607Z",
+          "fetchedAt": "2026-08-06T14:35:53.978Z",
           "ageHours": 0,
           "source": "arXiv (cs.AI + cs.LG)"
         }
       ]
     },
     "momentum": {
-      "value": 80,
+      "value": 81,
       "weight": 0.1,
       "label": "EXZELLENT",
       "zone": "excellent",
-      "trend": "declining",
-      "change": -1,
-      "positiveCount": 16,
+      "trend": "improving",
+      "change": 1,
+      "positiveCount": 17,
       "negativeCount": 4,
-      "totalIndicators": 20,
+      "totalIndicators": 21,
       "indicators": [
         {
           "name": "Lebenserwartung",
@@ -474,6 +475,12 @@
           "icon": "up"
         },
         {
+          "name": "Arbeitslosigkeit",
+          "direction": "improving",
+          "change": "-19.1%",
+          "icon": "up"
+        },
+        {
           "name": "BIP pro Kopf",
           "direction": "improving",
           "change": "+14.0%",
@@ -518,7 +525,7 @@
         {
           "name": "CO2 pro Kopf",
           "direction": "declining",
-          "change": "+1.9%",
+          "change": "+1.4%",
           "icon": "down"
         },
         {
@@ -1426,77 +1433,77 @@
       "source": "NOAA"
     },
     "airQuality": {
-      "globalAvgAQI": 64,
+      "globalAvgAQI": 56,
       "cleanestCities": [
         {
-          "city": "São Paulo",
-          "country": "BR",
-          "aqi": 21,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Paris",
-          "country": "FR",
-          "aqi": 26,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Los Angeles",
-          "country": "US",
-          "aqi": 28,
+          "city": "London",
+          "country": "GB",
+          "aqi": 25,
           "lat": null,
           "lng": null
         },
         {
           "city": "Lagos",
           "country": "NG",
-          "aqi": 34,
+          "aqi": 30,
           "lat": null,
           "lng": null
         },
         {
-          "city": "London",
-          "country": "GB",
-          "aqi": 34,
+          "city": "Los Angeles",
+          "country": "US",
+          "aqi": 35,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Paris",
+          "country": "FR",
+          "aqi": 35,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "São Paulo",
+          "country": "BR",
+          "aqi": 36,
           "lat": null,
           "lng": null
         }
       ],
       "mostPolluted": [
         {
-          "city": "Mumbai",
-          "country": "IN",
-          "aqi": 135,
-          "lat": null,
-          "lng": null
-        },
-        {
           "city": "Beijing",
           "country": "CN",
-          "aqi": 102,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Jakarta",
-          "country": "ID",
-          "aqi": 91,
+          "aqi": 89,
           "lat": null,
           "lng": null
         },
         {
           "city": "Karachi",
           "country": "PK",
-          "aqi": 87,
+          "aqi": 85,
           "lat": null,
           "lng": null
         },
         {
-          "city": "Delhi",
+          "city": "Mumbai",
           "country": "IN",
+          "aqi": 85,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Jakarta",
+          "country": "ID",
           "aqi": 77,
+          "lat": null,
+          "lng": null
+        },
+        {
+          "city": "Istanbul",
+          "country": "TR",
+          "aqi": 66,
           "lat": null,
           "lng": null
         }
@@ -1775,927 +1782,123 @@
       "source": "World Bank / IRENA"
     },
     "co2PerCapita": {
-      "current": 4.73,
+      "current": 4.69,
       "history": [
         {
-          "year": 1750,
-          "value": 0.01
-        },
-        {
-          "year": 1760,
-          "value": 0.01
-        },
-        {
-          "year": 1770,
-          "value": 0.02
-        },
-        {
-          "year": 1780,
-          "value": 0.02
-        },
-        {
-          "year": 1790,
-          "value": 0.02
-        },
-        {
-          "year": 1800,
-          "value": 0.03
-        },
-        {
-          "year": 1801,
-          "value": 0.03
-        },
-        {
-          "year": 1802,
-          "value": 0.04
-        },
-        {
-          "year": 1803,
-          "value": 0.03
-        },
-        {
-          "year": 1804,
-          "value": 0.03
-        },
-        {
-          "year": 1805,
-          "value": 0.03
-        },
-        {
-          "year": 1806,
-          "value": 0.03
-        },
-        {
-          "year": 1807,
-          "value": 0.04
-        },
-        {
-          "year": 1808,
-          "value": 0.04
-        },
-        {
-          "year": 1809,
-          "value": 0.04
-        },
-        {
-          "year": 1810,
-          "value": 0.04
-        },
-        {
-          "year": 1811,
-          "value": 0.04
-        },
-        {
-          "year": 1812,
-          "value": 0.04
-        },
-        {
-          "year": 1813,
-          "value": 0.04
-        },
-        {
-          "year": 1814,
-          "value": 0.04
-        },
-        {
-          "year": 1815,
-          "value": 0.04
-        },
-        {
-          "year": 1816,
-          "value": 0.04
-        },
-        {
-          "year": 1817,
-          "value": 0.05
-        },
-        {
-          "year": 1818,
-          "value": 0.05
-        },
-        {
-          "year": 1819,
-          "value": 0.05
-        },
-        {
-          "year": 1820,
-          "value": 0.05
-        },
-        {
-          "year": 1821,
-          "value": 0.05
-        },
-        {
-          "year": 1822,
-          "value": 0.05
-        },
-        {
-          "year": 1823,
-          "value": 0.05
-        },
-        {
-          "year": 1824,
-          "value": 0.05
-        },
-        {
-          "year": 1825,
-          "value": 0.05
-        },
-        {
-          "year": 1826,
-          "value": 0.05
-        },
-        {
-          "year": 1827,
-          "value": 0.06
-        },
-        {
-          "year": 1828,
-          "value": 0.06
-        },
-        {
-          "year": 1829,
-          "value": 0.06
-        },
-        {
-          "year": 1830,
-          "value": 0.08
-        },
-        {
-          "year": 1831,
-          "value": 0.07
-        },
-        {
-          "year": 1832,
-          "value": 0.07
-        },
-        {
-          "year": 1833,
-          "value": 0.07
-        },
-        {
-          "year": 1834,
-          "value": 0.08
-        },
-        {
-          "year": 1835,
-          "value": 0.08
-        },
-        {
-          "year": 1836,
-          "value": 0.09
-        },
-        {
-          "year": 1837,
-          "value": 0.09
-        },
-        {
-          "year": 1838,
-          "value": 0.09
-        },
-        {
-          "year": 1839,
-          "value": 0.09
-        },
-        {
-          "year": 1840,
-          "value": 0.1
-        },
-        {
-          "year": 1841,
-          "value": 0.1
-        },
-        {
-          "year": 1842,
-          "value": 0.11
-        },
-        {
-          "year": 1843,
-          "value": 0.11
-        },
-        {
-          "year": 1844,
-          "value": 0.11
-        },
-        {
-          "year": 1845,
-          "value": 0.12
-        },
-        {
-          "year": 1846,
-          "value": 0.13
-        },
-        {
-          "year": 1847,
-          "value": 0.14
-        },
-        {
-          "year": 1848,
-          "value": 0.14
-        },
-        {
-          "year": 1849,
-          "value": 0.15
-        },
-        {
-          "year": 1850,
-          "value": 0.15
-        },
-        {
-          "year": 1851,
-          "value": 0.16
-        },
-        {
-          "year": 1852,
-          "value": 0.16
-        },
-        {
-          "year": 1853,
-          "value": 0.17
-        },
-        {
-          "year": 1854,
-          "value": 0.2
-        },
-        {
-          "year": 1855,
-          "value": 0.2
-        },
-        {
-          "year": 1856,
-          "value": 0.22
-        },
-        {
-          "year": 1857,
-          "value": 0.22
-        },
-        {
-          "year": 1858,
-          "value": 0.22
-        },
-        {
-          "year": 1859,
-          "value": 0.23
-        },
-        {
-          "year": 1860,
-          "value": 0.26
-        },
-        {
-          "year": 1861,
-          "value": 0.27
-        },
-        {
-          "year": 1862,
-          "value": 0.27
-        },
-        {
-          "year": 1863,
-          "value": 0.29
-        },
-        {
-          "year": 1864,
-          "value": 0.31
-        },
-        {
-          "year": 1865,
-          "value": 0.33
-        },
-        {
-          "year": 1866,
-          "value": 0.34
-        },
-        {
-          "year": 1867,
-          "value": 0.36
-        },
-        {
-          "year": 1868,
-          "value": 0.37
-        },
-        {
-          "year": 1869,
-          "value": 0.39
-        },
-        {
-          "year": 1870,
-          "value": 0.4
-        },
-        {
-          "year": 1871,
-          "value": 0.42
-        },
-        {
-          "year": 1872,
-          "value": 0.47
-        },
-        {
-          "year": 1873,
-          "value": 0.49
-        },
-        {
-          "year": 1874,
-          "value": 0.46
-        },
-        {
-          "year": 1875,
-          "value": 0.5
-        },
-        {
-          "year": 1876,
-          "value": 0.5
-        },
-        {
-          "year": 1877,
-          "value": 0.51
-        },
-        {
-          "year": 1878,
-          "value": 0.51
-        },
-        {
-          "year": 1879,
-          "value": 0.54
-        },
-        {
-          "year": 1880,
-          "value": 0.61
-        },
-        {
-          "year": 1881,
-          "value": 0.62
-        },
-        {
-          "year": 1882,
-          "value": 0.65
-        },
-        {
-          "year": 1883,
-          "value": 0.69
-        },
-        {
-          "year": 1884,
-          "value": 0.69
-        },
-        {
-          "year": 1885,
-          "value": 0.69
-        },
-        {
-          "year": 1886,
-          "value": 0.7
-        },
-        {
-          "year": 1887,
-          "value": 0.73
-        },
-        {
-          "year": 1888,
-          "value": 0.8
-        },
-        {
-          "year": 1889,
-          "value": 0.8
-        },
-        {
-          "year": 1890,
-          "value": 0.86
-        },
-        {
-          "year": 1891,
-          "value": 0.89
-        },
-        {
-          "year": 1892,
-          "value": 0.9
-        },
-        {
-          "year": 1893,
-          "value": 0.88
-        },
-        {
-          "year": 1894,
-          "value": 0.9
-        },
-        {
-          "year": 1895,
-          "value": 0.95
-        },
-        {
-          "year": 1896,
-          "value": 0.98
-        },
-        {
-          "year": 1897,
-          "value": 1.02
-        },
-        {
-          "year": 1898,
-          "value": 1.06
-        },
-        {
-          "year": 1899,
-          "value": 1.15
-        },
-        {
-          "year": 1900,
-          "value": 1.21
-        },
-        {
-          "year": 1901,
-          "value": 1.24
-        },
-        {
-          "year": 1902,
-          "value": 1.26
-        },
-        {
-          "year": 1903,
-          "value": 1.36
-        },
-        {
-          "year": 1904,
-          "value": 1.36
-        },
-        {
-          "year": 1905,
-          "value": 1.44
-        },
-        {
-          "year": 1906,
-          "value": 1.49
-        },
-        {
-          "year": 1907,
-          "value": 1.68
-        },
-        {
-          "year": 1908,
-          "value": 1.6
-        },
-        {
-          "year": 1909,
-          "value": 1.66
-        },
-        {
-          "year": 1910,
-          "value": 1.73
-        },
-        {
-          "year": 1911,
-          "value": 1.74
-        },
-        {
-          "year": 1912,
-          "value": 1.82
-        },
-        {
-          "year": 1913,
-          "value": 1.95
-        },
-        {
-          "year": 1914,
-          "value": 1.76
-        },
-        {
-          "year": 1915,
-          "value": 1.72
-        },
-        {
-          "year": 1916,
-          "value": 1.85
-        },
-        {
-          "year": 1917,
-          "value": 1.92
-        },
-        {
-          "year": 1918,
-          "value": 1.88
-        },
-        {
-          "year": 1919,
-          "value": 1.62
-        },
-        {
-          "year": 1920,
-          "value": 1.87
-        },
-        {
-          "year": 1921,
-          "value": 1.63
-        },
-        {
-          "year": 1922,
-          "value": 1.69
-        },
-        {
-          "year": 1923,
-          "value": 1.91
-        },
-        {
-          "year": 1924,
-          "value": 1.9
-        },
-        {
-          "year": 1925,
-          "value": 1.89
-        },
-        {
-          "year": 1926,
-          "value": 1.84
-        },
-        {
-          "year": 1927,
-          "value": 1.99
-        },
-        {
-          "year": 1928,
-          "value": 1.97
-        },
-        {
-          "year": 1929,
-          "value": 2.09
-        },
-        {
-          "year": 1930,
-          "value": 1.91
-        },
-        {
-          "year": 1931,
-          "value": 1.69
-        },
-        {
-          "year": 1932,
-          "value": 1.51
-        },
-        {
-          "year": 1933,
-          "value": 1.58
-        },
-        {
-          "year": 1934,
-          "value": 1.7
-        },
-        {
-          "year": 1935,
-          "value": 1.76
-        },
-        {
-          "year": 1936,
-          "value": 1.91
-        },
-        {
-          "year": 1937,
-          "value": 2.02
-        },
-        {
-          "year": 1938,
-          "value": 1.88
-        },
-        {
-          "year": 1939,
-          "value": 1.97
-        },
-        {
-          "year": 1940,
-          "value": 2.13
-        },
-        {
-          "year": 1941,
-          "value": 2.16
-        },
-        {
-          "year": 1942,
-          "value": 2.14
-        },
-        {
-          "year": 1943,
-          "value": 2.16
-        },
-        {
-          "year": 1944,
-          "value": 2.18
-        },
-        {
-          "year": 1945,
-          "value": 1.8
-        },
-        {
-          "year": 1946,
-          "value": 1.92
-        },
-        {
-          "year": 1947,
-          "value": 2.13
-        },
-        {
-          "year": 1948,
-          "value": 2.23
-        },
-        {
-          "year": 1949,
-          "value": 2.11
-        },
-        {
-          "year": 1950,
-          "value": 2.38
-        },
-        {
-          "year": 1951,
-          "value": 2.52
-        },
-        {
-          "year": 1952,
-          "value": 2.5
-        },
-        {
-          "year": 1953,
-          "value": 2.53
-        },
-        {
-          "year": 1954,
-          "value": 2.53
-        },
-        {
-          "year": 1955,
-          "value": 2.72
-        },
-        {
-          "year": 1956,
-          "value": 2.84
-        },
-        {
-          "year": 1957,
-          "value": 2.87
-        },
-        {
-          "year": 1958,
-          "value": 2.89
-        },
-        {
-          "year": 1959,
-          "value": 2.99
-        },
-        {
-          "year": 1960,
-          "value": 3.11
-        },
-        {
-          "year": 1961,
-          "value": 3.07
-        },
-        {
-          "year": 1962,
-          "value": 3.12
-        },
-        {
-          "year": 1963,
-          "value": 3.22
-        },
-        {
-          "year": 1964,
-          "value": 3.32
-        },
-        {
-          "year": 1965,
-          "value": 3.39
-        },
-        {
-          "year": 1966,
-          "value": 3.49
-        },
-        {
-          "year": 1967,
-          "value": 3.52
-        },
-        {
-          "year": 1968,
-          "value": 3.64
-        },
-        {
-          "year": 1969,
-          "value": 3.8
-        },
-        {
-          "year": 1970,
-          "value": 4.03
-        },
-        {
-          "year": 1971,
-          "value": 4.11
-        },
-        {
-          "year": 1972,
-          "value": 4.22
-        },
-        {
-          "year": 1973,
-          "value": 4.36
-        },
-        {
-          "year": 1974,
-          "value": 4.25
-        },
-        {
-          "year": 1975,
-          "value": 4.17
-        },
-        {
-          "year": 1976,
-          "value": 4.31
-        },
-        {
-          "year": 1977,
-          "value": 4.35
-        },
-        {
-          "year": 1978,
-          "value": 4.43
-        },
-        {
-          "year": 1979,
-          "value": 4.47
-        },
-        {
-          "year": 1980,
-          "value": 4.36
-        },
-        {
-          "year": 1981,
-          "value": 4.17
-        },
-        {
-          "year": 1982,
-          "value": 4.06
-        },
-        {
-          "year": 1983,
-          "value": 4.02
-        },
-        {
-          "year": 1984,
-          "value": 4.07
-        },
-        {
-          "year": 1985,
-          "value": 4.14
-        },
-        {
-          "year": 1986,
-          "value": 4.12
-        },
-        {
-          "year": 1987,
-          "value": 4.18
-        },
-        {
-          "year": 1988,
-          "value": 4.26
-        },
-        {
-          "year": 1989,
-          "value": 4.24
-        },
-        {
-          "year": 1990,
-          "value": 4.27
-        },
-        {
-          "year": 1991,
-          "value": 4.28
-        },
-        {
-          "year": 1992,
-          "value": 4.09
-        },
-        {
-          "year": 1993,
-          "value": 4.07
-        },
-        {
-          "year": 1994,
-          "value": 4.05
-        },
-        {
-          "year": 1995,
-          "value": 4.08
-        },
-        {
           "year": 1996,
-          "value": 4.15
+          "value": 4.01
         },
         {
           "year": 1997,
-          "value": 4.12
+          "value": 4.02
         },
         {
           "year": 1998,
-          "value": 4.05
+          "value": 3.98
         },
         {
           "year": 1999,
-          "value": 4.08
+          "value": 3.95
         },
         {
           "year": 2000,
-          "value": 4.13
+          "value": 4.01
         },
         {
           "year": 2001,
-          "value": 4.11
+          "value": 4.01
         },
         {
           "year": 2002,
-          "value": 4.14
+          "value": 4.01
         },
         {
           "year": 2003,
-          "value": 4.31
+          "value": 4.15
         },
         {
           "year": 2004,
-          "value": 4.4
+          "value": 4.28
         },
         {
           "year": 2005,
-          "value": 4.49
+          "value": 4.39
         },
         {
           "year": 2006,
-          "value": 4.59
+          "value": 4.48
         },
         {
           "year": 2007,
-          "value": 4.66
+          "value": 4.59
         },
         {
           "year": 2008,
-          "value": 4.68
+          "value": 4.56
         },
         {
           "year": 2009,
-          "value": 4.55
+          "value": 4.45
         },
         {
           "year": 2010,
-          "value": 4.75
+          "value": 4.67
         },
         {
           "year": 2011,
-          "value": 4.85
+          "value": 4.76
         },
         {
           "year": 2012,
-          "value": 4.85
+          "value": 4.77
         },
         {
           "year": 2013,
-          "value": 4.84
-        },
-        {
-          "year": 2014,
           "value": 4.81
         },
         {
+          "year": 2014,
+          "value": 4.78
+        },
+        {
           "year": 2015,
-          "value": 4.74
+          "value": 4.7
         },
         {
           "year": 2016,
-          "value": 4.68
+          "value": 4.65
         },
         {
           "year": 2017,
-          "value": 4.71
+          "value": 4.67
         },
         {
           "year": 2018,
-          "value": 4.75
+          "value": 4.73
         },
         {
           "year": 2019,
-          "value": 4.75
+          "value": 4.7
         },
         {
           "year": 2020,
-          "value": 4.46
+          "value": 4.47
         },
         {
           "year": 2021,
-          "value": 4.64
-        },
-        {
-          "year": 2022,
           "value": 4.68
         },
         {
+          "year": 2022,
+          "value": 4.67
+        },
+        {
           "year": 2023,
-          "value": 4.71
+          "value": 4.68
         },
         {
           "year": 2024,
-          "value": 4.73
+          "value": 4.69
         }
       ],
       "source": "World Bank"
@@ -2706,8 +1909,8 @@
       "endangered": 55570,
       "criticallyEndangered": 30162,
       "source": "GBIF / IUCN",
-      "fetchedAt": "2026-08-06T08:58:39.417Z",
-      "ageHours": 0.1
+      "fetchedAt": "2026-08-06T14:25:55.507Z",
+      "ageHours": 0.2
     },
     "weather": [
       {
@@ -2715,12 +1918,12 @@
         "lat": 52.52,
         "lng": 13.41,
         "current": {
-          "time": "2026-08-06T10:30",
+          "time": "2026-08-06T16:15",
           "interval": 900,
-          "temperature_2m": 24.7,
-          "relative_humidity_2m": 71,
-          "wind_speed_10m": 9,
-          "weather_code": 2
+          "temperature_2m": 27.2,
+          "relative_humidity_2m": 34,
+          "wind_speed_10m": 16.2,
+          "weather_code": 1
         }
       },
       {
@@ -2728,12 +1931,12 @@
         "lat": 40.71,
         "lng": -74.01,
         "current": {
-          "time": "2026-08-06T04:30",
+          "time": "2026-08-06T10:15",
           "interval": 900,
-          "temperature_2m": 24.2,
-          "relative_humidity_2m": 92,
-          "wind_speed_10m": 7.9,
-          "weather_code": 1
+          "temperature_2m": 27.1,
+          "relative_humidity_2m": 94,
+          "wind_speed_10m": 10.3,
+          "weather_code": 2
         }
       },
       {
@@ -2741,12 +1944,12 @@
         "lat": 35.68,
         "lng": 139.69,
         "current": {
-          "time": "2026-08-06T17:30",
+          "time": "2026-08-06T23:15",
           "interval": 900,
-          "temperature_2m": 30.3,
-          "relative_humidity_2m": 70,
-          "wind_speed_10m": 3.8,
-          "weather_code": 1
+          "temperature_2m": 25.9,
+          "relative_humidity_2m": 95,
+          "wind_speed_10m": 2.3,
+          "weather_code": 0
         }
       },
       {
@@ -2754,11 +1957,11 @@
         "lat": -33.87,
         "lng": 151.21,
         "current": {
-          "time": "2026-08-06T18:30",
+          "time": "2026-08-07T00:15",
           "interval": 900,
-          "temperature_2m": 12,
-          "relative_humidity_2m": 70,
-          "wind_speed_10m": 11.4,
+          "temperature_2m": 9.1,
+          "relative_humidity_2m": 72,
+          "wind_speed_10m": 6.7,
           "weather_code": 0
         }
       },
@@ -2767,12 +1970,12 @@
         "lat": -23.55,
         "lng": -46.63,
         "current": {
-          "time": "2026-08-06T05:30",
+          "time": "2026-08-06T11:15",
           "interval": 900,
-          "temperature_2m": 16.5,
-          "relative_humidity_2m": 82,
-          "wind_speed_10m": 10.3,
-          "weather_code": 1
+          "temperature_2m": 24.6,
+          "relative_humidity_2m": 49,
+          "wind_speed_10m": 14.3,
+          "weather_code": 3
         }
       },
       {
@@ -2780,11 +1983,11 @@
         "lat": 6.45,
         "lng": 3.4,
         "current": {
-          "time": "2026-08-06T09:45",
+          "time": "2026-08-06T15:15",
           "interval": 900,
-          "temperature_2m": 25.6,
-          "relative_humidity_2m": 85,
-          "wind_speed_10m": 11.9,
+          "temperature_2m": 27,
+          "relative_humidity_2m": 78,
+          "wind_speed_10m": 18.7,
           "weather_code": 51
         }
       },
@@ -2793,12 +1996,12 @@
         "lat": 19.08,
         "lng": 72.88,
         "current": {
-          "time": "2026-08-06T14:15",
+          "time": "2026-08-06T19:45",
           "interval": 900,
-          "temperature_2m": 29.1,
-          "relative_humidity_2m": 77,
-          "wind_speed_10m": 19.1,
-          "weather_code": 1
+          "temperature_2m": 27.5,
+          "relative_humidity_2m": 83,
+          "wind_speed_10m": 16.7,
+          "weather_code": 3
         }
       },
       {
@@ -2806,12 +2009,12 @@
         "lat": 51.51,
         "lng": -0.13,
         "current": {
-          "time": "2026-08-06T09:45",
+          "time": "2026-08-06T15:15",
           "interval": 900,
-          "temperature_2m": 17.3,
-          "relative_humidity_2m": 52,
-          "wind_speed_10m": 11.5,
-          "weather_code": 2
+          "temperature_2m": 21.6,
+          "relative_humidity_2m": 34,
+          "wind_speed_10m": 14,
+          "weather_code": 3
         }
       }
     ],
@@ -2995,7 +2198,664 @@
       "source": "ACLED/Crisis Group (baseline)",
       "headlines": [],
       "crises": [],
-      "trendArticles": null,
+      "trendArticles": [
+        {
+          "date": "20260730T150000Z",
+          "volume": 17.128
+        },
+        {
+          "date": "20260730T160000Z",
+          "volume": 16.5375
+        },
+        {
+          "date": "20260730T170000Z",
+          "volume": 16.7707
+        },
+        {
+          "date": "20260730T180000Z",
+          "volume": 15.8225
+        },
+        {
+          "date": "20260730T190000Z",
+          "volume": 15.8868
+        },
+        {
+          "date": "20260730T200000Z",
+          "volume": 16.1811
+        },
+        {
+          "date": "20260730T210000Z",
+          "volume": 15.8585
+        },
+        {
+          "date": "20260730T220000Z",
+          "volume": 17.372
+        },
+        {
+          "date": "20260730T230000Z",
+          "volume": 16.7037
+        },
+        {
+          "date": "20260731T000000Z",
+          "volume": 16.3016
+        },
+        {
+          "date": "20260731T010000Z",
+          "volume": 17.1275
+        },
+        {
+          "date": "20260731T020000Z",
+          "volume": 18.1604
+        },
+        {
+          "date": "20260731T030000Z",
+          "volume": 18.8535
+        },
+        {
+          "date": "20260731T040000Z",
+          "volume": 18.0353
+        },
+        {
+          "date": "20260731T050000Z",
+          "volume": 19.2711
+        },
+        {
+          "date": "20260731T060000Z",
+          "volume": 18.515
+        },
+        {
+          "date": "20260731T070000Z",
+          "volume": 18.3575
+        },
+        {
+          "date": "20260731T080000Z",
+          "volume": 16.8055
+        },
+        {
+          "date": "20260731T090000Z",
+          "volume": 18.6162
+        },
+        {
+          "date": "20260731T100000Z",
+          "volume": 15.9452
+        },
+        {
+          "date": "20260731T110000Z",
+          "volume": 16.7213
+        },
+        {
+          "date": "20260731T120000Z",
+          "volume": 16.9114
+        },
+        {
+          "date": "20260731T130000Z",
+          "volume": 17.214
+        },
+        {
+          "date": "20260731T140000Z",
+          "volume": 16.7173
+        },
+        {
+          "date": "20260731T150000Z",
+          "volume": 16.1967
+        },
+        {
+          "date": "20260731T160000Z",
+          "volume": 16.3124
+        },
+        {
+          "date": "20260731T170000Z",
+          "volume": 14.8224
+        },
+        {
+          "date": "20260731T180000Z",
+          "volume": 15.3825
+        },
+        {
+          "date": "20260731T190000Z",
+          "volume": 15.9402
+        },
+        {
+          "date": "20260731T200000Z",
+          "volume": 14.8784
+        },
+        {
+          "date": "20260731T210000Z",
+          "volume": 16.6763
+        },
+        {
+          "date": "20260731T220000Z",
+          "volume": 17.6013
+        },
+        {
+          "date": "20260801T010000Z",
+          "volume": 19.91
+        },
+        {
+          "date": "20260801T030000Z",
+          "volume": 18.8216
+        },
+        {
+          "date": "20260801T040000Z",
+          "volume": 16.25
+        },
+        {
+          "date": "20260801T050000Z",
+          "volume": 17.1103
+        },
+        {
+          "date": "20260801T060000Z",
+          "volume": 18.879
+        },
+        {
+          "date": "20260801T070000Z",
+          "volume": 19.3329
+        },
+        {
+          "date": "20260801T080000Z",
+          "volume": 19.5596
+        },
+        {
+          "date": "20260801T090000Z",
+          "volume": 17.3892
+        },
+        {
+          "date": "20260801T100000Z",
+          "volume": 17.9657
+        },
+        {
+          "date": "20260801T110000Z",
+          "volume": 18.8383
+        },
+        {
+          "date": "20260801T120000Z",
+          "volume": 18.141
+        },
+        {
+          "date": "20260801T130000Z",
+          "volume": 17.211
+        },
+        {
+          "date": "20260801T140000Z",
+          "volume": 17.7908
+        },
+        {
+          "date": "20260801T150000Z",
+          "volume": 17.8115
+        },
+        {
+          "date": "20260801T160000Z",
+          "volume": 18.2892
+        },
+        {
+          "date": "20260801T170000Z",
+          "volume": 19.2878
+        },
+        {
+          "date": "20260801T180000Z",
+          "volume": 18.1077
+        },
+        {
+          "date": "20260801T190000Z",
+          "volume": 19.3593
+        },
+        {
+          "date": "20260801T200000Z",
+          "volume": 19.6809
+        },
+        {
+          "date": "20260801T210000Z",
+          "volume": 19.4497
+        },
+        {
+          "date": "20260801T220000Z",
+          "volume": 20.5405
+        },
+        {
+          "date": "20260801T230000Z",
+          "volume": 17.6603
+        },
+        {
+          "date": "20260802T000000Z",
+          "volume": 20.8955
+        },
+        {
+          "date": "20260802T010000Z",
+          "volume": 20.9302
+        },
+        {
+          "date": "20260802T020000Z",
+          "volume": 20.8725
+        },
+        {
+          "date": "20260802T030000Z",
+          "volume": 20.0049
+        },
+        {
+          "date": "20260802T040000Z",
+          "volume": 20.5736
+        },
+        {
+          "date": "20260802T050000Z",
+          "volume": 22.9288
+        },
+        {
+          "date": "20260802T060000Z",
+          "volume": 21.6794
+        },
+        {
+          "date": "20260802T070000Z",
+          "volume": 20.684
+        },
+        {
+          "date": "20260802T080000Z",
+          "volume": 19.9469
+        },
+        {
+          "date": "20260802T090000Z",
+          "volume": 19.929
+        },
+        {
+          "date": "20260802T100000Z",
+          "volume": 20.4854
+        },
+        {
+          "date": "20260802T110000Z",
+          "volume": 20.1502
+        },
+        {
+          "date": "20260802T120000Z",
+          "volume": 18.8042
+        },
+        {
+          "date": "20260802T130000Z",
+          "volume": 18.6099
+        },
+        {
+          "date": "20260802T140000Z",
+          "volume": 20.3857
+        },
+        {
+          "date": "20260802T150000Z",
+          "volume": 18.6863
+        },
+        {
+          "date": "20260802T160000Z",
+          "volume": 18.8757
+        },
+        {
+          "date": "20260802T170000Z",
+          "volume": 19.1273
+        },
+        {
+          "date": "20260802T180000Z",
+          "volume": 19.4923
+        },
+        {
+          "date": "20260802T190000Z",
+          "volume": 20.839
+        },
+        {
+          "date": "20260802T200000Z",
+          "volume": 19.2567
+        },
+        {
+          "date": "20260802T210000Z",
+          "volume": 22.293
+        },
+        {
+          "date": "20260802T220000Z",
+          "volume": 18.3165
+        },
+        {
+          "date": "20260802T230000Z",
+          "volume": 20.0576
+        },
+        {
+          "date": "20260803T000000Z",
+          "volume": 19.4325
+        },
+        {
+          "date": "20260803T010000Z",
+          "volume": 19.7719
+        },
+        {
+          "date": "20260803T020000Z",
+          "volume": 18.4182
+        },
+        {
+          "date": "20260803T030000Z",
+          "volume": 17.8448
+        },
+        {
+          "date": "20260803T040000Z",
+          "volume": 17.5866
+        },
+        {
+          "date": "20260803T050000Z",
+          "volume": 17.7075
+        },
+        {
+          "date": "20260803T060000Z",
+          "volume": 18.9292
+        },
+        {
+          "date": "20260803T070000Z",
+          "volume": 18.933
+        },
+        {
+          "date": "20260803T080000Z",
+          "volume": 19.2936
+        },
+        {
+          "date": "20260803T090000Z",
+          "volume": 17.4471
+        },
+        {
+          "date": "20260803T100000Z",
+          "volume": 16.6275
+        },
+        {
+          "date": "20260803T110000Z",
+          "volume": 16.8945
+        },
+        {
+          "date": "20260803T120000Z",
+          "volume": 17.955
+        },
+        {
+          "date": "20260803T130000Z",
+          "volume": 16.2465
+        },
+        {
+          "date": "20260803T140000Z",
+          "volume": 17.1609
+        },
+        {
+          "date": "20260803T150000Z",
+          "volume": 16.3221
+        },
+        {
+          "date": "20260803T160000Z",
+          "volume": 16.4861
+        },
+        {
+          "date": "20260803T170000Z",
+          "volume": 16.5229
+        },
+        {
+          "date": "20260803T180000Z",
+          "volume": 16.2057
+        },
+        {
+          "date": "20260803T190000Z",
+          "volume": 17.4204
+        },
+        {
+          "date": "20260803T200000Z",
+          "volume": 18.7324
+        },
+        {
+          "date": "20260803T210000Z",
+          "volume": 18.0519
+        },
+        {
+          "date": "20260803T220000Z",
+          "volume": 17.6699
+        },
+        {
+          "date": "20260803T230000Z",
+          "volume": 16.4109
+        },
+        {
+          "date": "20260804T000000Z",
+          "volume": 16.3846
+        },
+        {
+          "date": "20260804T010000Z",
+          "volume": 17.1997
+        },
+        {
+          "date": "20260804T020000Z",
+          "volume": 17.0203
+        },
+        {
+          "date": "20260804T030000Z",
+          "volume": 17.5657
+        },
+        {
+          "date": "20260804T040000Z",
+          "volume": 16.7635
+        },
+        {
+          "date": "20260804T050000Z",
+          "volume": 17.2761
+        },
+        {
+          "date": "20260804T060000Z",
+          "volume": 18.0792
+        },
+        {
+          "date": "20260804T070000Z",
+          "volume": 18.4702
+        },
+        {
+          "date": "20260804T080000Z",
+          "volume": 18.3
+        },
+        {
+          "date": "20260804T090000Z",
+          "volume": 16.2315
+        },
+        {
+          "date": "20260804T100000Z",
+          "volume": 17.0791
+        },
+        {
+          "date": "20260804T110000Z",
+          "volume": 15.7685
+        },
+        {
+          "date": "20260804T120000Z",
+          "volume": 17.4745
+        },
+        {
+          "date": "20260804T130000Z",
+          "volume": 16.132
+        },
+        {
+          "date": "20260804T140000Z",
+          "volume": 16.5942
+        },
+        {
+          "date": "20260804T150000Z",
+          "volume": 17.3622
+        },
+        {
+          "date": "20260804T160000Z",
+          "volume": 15.6718
+        },
+        {
+          "date": "20260804T170000Z",
+          "volume": 16.9384
+        },
+        {
+          "date": "20260804T180000Z",
+          "volume": 15.6186
+        },
+        {
+          "date": "20260804T190000Z",
+          "volume": 15.3263
+        },
+        {
+          "date": "20260804T200000Z",
+          "volume": 17.809
+        },
+        {
+          "date": "20260804T210000Z",
+          "volume": 16.0569
+        },
+        {
+          "date": "20260804T220000Z",
+          "volume": 15.4387
+        },
+        {
+          "date": "20260804T230000Z",
+          "volume": 16.0446
+        },
+        {
+          "date": "20260805T000000Z",
+          "volume": 15.6084
+        },
+        {
+          "date": "20260805T010000Z",
+          "volume": 15.4755
+        },
+        {
+          "date": "20260805T020000Z",
+          "volume": 17.4024
+        },
+        {
+          "date": "20260805T030000Z",
+          "volume": 17.6471
+        },
+        {
+          "date": "20260805T040000Z",
+          "volume": 16.5795
+        },
+        {
+          "date": "20260805T050000Z",
+          "volume": 18.6788
+        },
+        {
+          "date": "20260805T060000Z",
+          "volume": 17.292
+        },
+        {
+          "date": "20260805T070000Z",
+          "volume": 19.1258
+        },
+        {
+          "date": "20260805T080000Z",
+          "volume": 18.9089
+        },
+        {
+          "date": "20260805T090000Z",
+          "volume": 17.7817
+        },
+        {
+          "date": "20260805T100000Z",
+          "volume": 17.9714
+        },
+        {
+          "date": "20260805T110000Z",
+          "volume": 17.9633
+        },
+        {
+          "date": "20260805T120000Z",
+          "volume": 17.3517
+        },
+        {
+          "date": "20260805T130000Z",
+          "volume": 16.0249
+        },
+        {
+          "date": "20260805T140000Z",
+          "volume": 17.7076
+        },
+        {
+          "date": "20260805T150000Z",
+          "volume": 16.6585
+        },
+        {
+          "date": "20260805T160000Z",
+          "volume": 16.4029
+        },
+        {
+          "date": "20260805T170000Z",
+          "volume": 17.1459
+        },
+        {
+          "date": "20260805T180000Z",
+          "volume": 16.4061
+        },
+        {
+          "date": "20260805T190000Z",
+          "volume": 15.6842
+        },
+        {
+          "date": "20260805T200000Z",
+          "volume": 15.6761
+        },
+        {
+          "date": "20260805T210000Z",
+          "volume": 17.1035
+        },
+        {
+          "date": "20260805T220000Z",
+          "volume": 16.3143
+        },
+        {
+          "date": "20260805T230000Z",
+          "volume": 16.2375
+        },
+        {
+          "date": "20260806T000000Z",
+          "volume": 17.6629
+        },
+        {
+          "date": "20260806T010000Z",
+          "volume": 16.5114
+        },
+        {
+          "date": "20260806T020000Z",
+          "volume": 17.276
+        },
+        {
+          "date": "20260806T030000Z",
+          "volume": 16.6667
+        },
+        {
+          "date": "20260806T040000Z",
+          "volume": 17.4952
+        },
+        {
+          "date": "20260806T050000Z",
+          "volume": 16.3689
+        },
+        {
+          "date": "20260806T060000Z",
+          "volume": 18.5092
+        },
+        {
+          "date": "20260806T070000Z",
+          "volume": 19.8206
+        },
+        {
+          "date": "20260806T080000Z",
+          "volume": 18.2807
+        },
+        {
+          "date": "20260806T090000Z",
+          "volume": 17.0536
+        },
+        {
+          "date": "20260806T100000Z",
+          "volume": 17.8645
+        },
+        {
+          "date": "20260806T110000Z",
+          "volume": 16.7948
+        },
+        {
+          "date": "20260806T120000Z",
+          "volume": 18.449
+        },
+        {
+          "date": "20260806T130000Z",
+          "volume": 17.119
+        }
+      ],
       "acled": null
     },
     "refugees": {
@@ -4496,6 +4356,12 @@
           "year": 2025
         },
         {
+          "region": "Europa & Zentralasien",
+          "code": "ECS",
+          "gdpGrowth": 1.7,
+          "year": 2025
+        },
+        {
           "region": "Lateinamerika & Karibik",
           "code": "LCN",
           "gdpGrowth": 2.32,
@@ -4782,8 +4648,129 @@
       "source": "World Bank"
     },
     "unemployment": {
-      "current": 5.8,
-      "history": [],
+      "current": 4.79,
+      "history": [
+        {
+          "year": 1996,
+          "value": 5.98
+        },
+        {
+          "year": 1997,
+          "value": 6.01
+        },
+        {
+          "year": 1998,
+          "value": 6.16
+        },
+        {
+          "year": 1999,
+          "value": 6.28
+        },
+        {
+          "year": 2000,
+          "value": 6.11
+        },
+        {
+          "year": 2001,
+          "value": 6.19
+        },
+        {
+          "year": 2002,
+          "value": 6.41
+        },
+        {
+          "year": 2003,
+          "value": 6.48
+        },
+        {
+          "year": 2004,
+          "value": 6.33
+        },
+        {
+          "year": 2005,
+          "value": 6.22
+        },
+        {
+          "year": 2006,
+          "value": 5.97
+        },
+        {
+          "year": 2007,
+          "value": 5.77
+        },
+        {
+          "year": 2008,
+          "value": 5.82
+        },
+        {
+          "year": 2009,
+          "value": 6.41
+        },
+        {
+          "year": 2010,
+          "value": 6.28
+        },
+        {
+          "year": 2011,
+          "value": 6.15
+        },
+        {
+          "year": 2012,
+          "value": 6.15
+        },
+        {
+          "year": 2013,
+          "value": 6.1
+        },
+        {
+          "year": 2014,
+          "value": 5.96
+        },
+        {
+          "year": 2015,
+          "value": 6
+        },
+        {
+          "year": 2016,
+          "value": 5.97
+        },
+        {
+          "year": 2017,
+          "value": 5.9
+        },
+        {
+          "year": 2018,
+          "value": 5.76
+        },
+        {
+          "year": 2019,
+          "value": 5.59
+        },
+        {
+          "year": 2020,
+          "value": 6.59
+        },
+        {
+          "year": 2021,
+          "value": 6.05
+        },
+        {
+          "year": 2022,
+          "value": 5.23
+        },
+        {
+          "year": 2023,
+          "value": 4.85
+        },
+        {
+          "year": 2024,
+          "value": 4.81
+        },
+        {
+          "year": 2025,
+          "value": 4.79
+        }
+      ],
       "source": "World Bank / ILO"
     },
     "gdpPerCapita": {
@@ -5200,73 +5187,73 @@
       "topRepos": [
         {
           "name": "codecrafters-io/build-your-own-x",
-          "stars": 536642,
-          "forks": 50694,
+          "stars": 536747,
+          "forks": 50699,
           "language": "Markdown",
-          "updated": "2026-08-06T08:53:45Z"
+          "updated": "2026-08-06T14:24:05Z"
         },
         {
           "name": "sindresorhus/awesome",
-          "stars": 492905,
-          "forks": 36290,
+          "stars": 493005,
+          "forks": 36295,
           "language": null,
-          "updated": "2026-08-06T08:52:51Z"
+          "updated": "2026-08-06T14:22:47Z"
         },
         {
           "name": "public-apis/public-apis",
-          "stars": 454578,
-          "forks": 50165,
+          "stars": 454634,
+          "forks": 50175,
           "language": "Python",
-          "updated": "2026-08-06T08:55:21Z"
+          "updated": "2026-08-06T14:23:05Z"
         },
         {
           "name": "freeCodeCamp/freeCodeCamp",
-          "stars": 453565,
-          "forks": 45874,
+          "stars": 453583,
+          "forks": 45881,
           "language": "TypeScript",
-          "updated": "2026-08-06T08:35:03Z"
+          "updated": "2026-08-06T14:14:42Z"
         },
         {
           "name": "EbookFoundation/free-programming-books",
-          "stars": 393832,
-          "forks": 66660,
+          "stars": 393855,
+          "forks": 66665,
           "language": "Python",
-          "updated": "2026-08-06T08:53:35Z"
+          "updated": "2026-08-06T14:16:30Z"
         },
         {
           "name": "openclaw/openclaw",
-          "stars": 385306,
-          "forks": 81000,
+          "stars": 385350,
+          "forks": 81009,
           "language": "TypeScript",
-          "updated": "2026-08-06T08:55:47Z"
+          "updated": "2026-08-06T14:22:59Z"
         },
         {
           "name": "nilbuild/developer-roadmap",
-          "stars": 363755,
-          "forks": 44739,
+          "stars": 363770,
+          "forks": 44741,
           "language": "TypeScript",
-          "updated": "2026-08-06T08:50:31Z"
+          "updated": "2026-08-06T14:23:07Z"
         },
         {
           "name": "donnemartin/system-design-primer",
-          "stars": 361825,
-          "forks": 57666,
+          "stars": 361931,
+          "forks": 57678,
           "language": "Python",
-          "updated": "2026-08-06T08:56:05Z"
+          "updated": "2026-08-06T14:23:00Z"
         },
         {
           "name": "jwasham/coding-interview-university",
-          "stars": 357957,
-          "forks": 84503,
+          "stars": 357985,
+          "forks": 84509,
           "language": null,
-          "updated": "2026-08-06T08:52:32Z"
+          "updated": "2026-08-06T14:23:00Z"
         },
         {
           "name": "vinta/awesome-python",
-          "stars": 312453,
-          "forks": 28461,
+          "stars": 312499,
+          "forks": 28466,
           "language": "Python",
-          "updated": "2026-08-06T08:46:26Z"
+          "updated": "2026-08-06T14:23:04Z"
         }
       ],
       "source": "GitHub"
@@ -5740,6 +5727,42 @@
     },
     "spaceflight": [
       {
+        "title": "NASA, Northrop Grumman repurpose Gateway elements for Moon Base demo missions",
+        "published": "2026-08-06T13:57:46Z",
+        "source": "Spaceflight Now",
+        "summary": "The shift amplifies the agency’s marked shift from crewed operations in lunar orbit to focus on surface-based missions. "
+      },
+      {
+        "title": "A match made in cleanrooms",
+        "published": "2026-08-06T13:00:00Z",
+        "source": "ESA",
+        "summary": "From the ESA Blogs."
+      },
+      {
+        "title": "Three companies building the tech to grow crops on the moon",
+        "published": "2026-08-06T12:00:00Z",
+        "source": "SpaceNews",
+        "summary": "\nRockets, rovers and landers have dominated the attention of the commercial space industry as the United States focuses on sending humans back to the moon, but a handful of companies […]\nThe post Thre"
+      },
+      {
+        "title": "Rocket Lab launches 8th iQPS satellite",
+        "published": "2026-08-06T11:17:27Z",
+        "source": "SpaceNews",
+        "summary": "\nRocket Lab launched a Japanese radar-imaging satellite Aug. 6, more than a month after the previous launch attempt was aborted.\nThe post Rocket Lab launches 8th iQPS satellite appeared first on Space"
+      },
+      {
+        "title": "Chinese launch startup Orienspace targets IPO, secures funding for reusable Gravity-2 rocket",
+        "published": "2026-08-06T10:48:03Z",
+        "source": "SpaceNews",
+        "summary": "\nHELSINKI — Commercial launch company Orienspace has kicked off preparations for an IPO coaching process while closing a funding round for accelerating its reusable Gravity-2 rocket. The Shandong-base"
+      },
+      {
+        "title": "ExoMars stretches out its legs",
+        "published": "2026-08-06T09:00:00Z",
+        "source": "ESA",
+        "summary": "The footage shows the simultaneous deployment of two landing legs from the ExoMars landing platform, in two sequential pairs.  "
+      },
+      {
         "title": "Webb opens a Treasure Chest filled with stars",
         "published": "2026-08-06T08:00:00Z",
         "source": "ESA",
@@ -5752,52 +5775,16 @@
         "summary": "APOD Science APOD APOD: 2026 August 6 – New… Today’s APOD Archive Submissions Index Search Calendar RSS Education About Discuss   APOD Astronomy Picture of the Day Discover the cosmos! Each day a diff"
       },
       {
+        "title": "How the Tide Turns at the Mouth of the Elbe",
+        "published": "2026-08-06T04:01:00Z",
+        "source": "NASA",
+        "summary": "The ocean’s ebbs and flows reveal dynamic tidal flats and a well-traveled shipping route along the coast of Germany."
+      },
+      {
         "title": "NASA and Roscosmos continue seat barter agreement",
         "published": "2026-08-06T02:23:47Z",
         "source": "SpaceNews",
         "summary": "\nNASA and Roscosmos have agreed to continue exchanging seats between Soyuz and Crew Dragon spacecraft, but that agreement does not yet extend to Starliner.\nThe post NASA and Roscosmos continue seat ba"
-      },
-      {
-        "title": "New Glenn explosion linked to rocket engine valve",
-        "published": "2026-08-05T22:30:16Z",
-        "source": "SpaceNews",
-        "summary": "\nBlue Origin has traced the explosion of its New Glenn rocket during a static-fire test in May to a valve in the rocket’s BE-4 engine.\nThe post New Glenn explosion linked to rocket engine valve appear"
-      },
-      {
-        "title": "This Atlantic hurricane season is looking like a dud, but there will be a price to pay",
-        "published": "2026-08-05T19:19:04Z",
-        "source": "Arstechnica",
-        "summary": "\"The models are forecasting something outside the envelope of anything we have ever observed.\""
-      },
-      {
-        "title": "CNES Sets 2028 Target for Hot-Fire Test of New High-Thrust Rocket Engine",
-        "published": "2026-08-05T18:49:25Z",
-        "source": "European Spaceflight",
-        "summary": "The head of the French space agency CNES told lawmakers in April that a subscale prototype of a future reusable full-flow staged-combustion rocket engine is expected to be tested for the first time in"
-      },
-      {
-        "title": "NASA’s IXPE May Have Proven 90-Year-Old Theory",
-        "published": "2026-08-05T18:49:14Z",
-        "source": "NASA",
-        "summary": "A first of its kind measurement of a magnetar may have captured empty space behaving in a way physicists have predicted for 90 years, but never directly observed. The results published Wednesday in Na"
-      },
-      {
-        "title": "Artemis III Orion Crew and Service Models Joined",
-        "published": "2026-08-05T17:27:18Z",
-        "source": "NASA",
-        "summary": "Technicians joined the Orion crew and service modules together on July 30, 2026, inside the Neil Armstrong Operations and Checkout Building at NASA’s Kennedy Space Center in Florida. The crew module w"
-      },
-      {
-        "title": "Capella, Iceye and Umbra win NRO radar-data contracts",
-        "published": "2026-08-05T17:05:00Z",
-        "source": "SpaceNews",
-        "summary": "\nSAN FRANCISCO – The National Reconnaissance Office has awarded contracts to Capella Space, Iceye U.S. and Umbra to expand the U.S. government’s use of commercial synthetic aperture radar (SAR). The ["
-      },
-      {
-        "title": "NASA’s Perseverance Captures Phobos and Earth",
-        "published": "2026-08-05T15:28:03Z",
-        "source": "NASA",
-        "summary": "Description This composite of seven images from the Mastcam-Z instrument aboard NASA’s Perseverance Mars rover shows Earth, visible as a small bright dot moving from upper left to lower right, passing"
       }
     ]
   },
@@ -5805,82 +5792,82 @@
     "earthquakes": {
       "last24h": [
         {
+          "location": "110 km W of Buala, Solomon Islands",
+          "magnitude": 5.1,
+          "depth": 54.348,
+          "lat": -8.0025,
+          "lng": 158.5995,
+          "time": "2026-08-06T13:42:11.429Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "5 km ENE of Matsubase, Japan",
+          "magnitude": 4.6,
+          "depth": 10,
+          "lat": 32.6611,
+          "lng": 130.7231,
+          "time": "2026-08-06T10:49:24.271Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "128 km WSW of Port Orford, Oregon",
+          "magnitude": 4.9,
+          "depth": 10,
+          "lat": 42.4079,
+          "lng": -125.9976,
+          "time": "2026-08-06T09:55:40.381Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "36 km WSW of Skwentna, Alaska",
+          "magnitude": 2.9,
+          "depth": 122.7,
+          "lat": 61.901,
+          "lng": -152.069,
+          "time": "2026-08-06T09:41:25.685Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "65 km ESE of Pedro Bay, Alaska",
+          "magnitude": 3.8,
+          "depth": 102,
+          "lat": 59.628,
+          "lng": -152.979,
+          "time": "2026-08-06T09:38:57.979Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "122 km NNE of Cruz Bay, U.S. Virgin Islands",
+          "magnitude": 3.15,
+          "depth": 20.02,
+          "lat": 19.4021666666667,
+          "lng": -64.4821666666667,
+          "time": "2026-08-06T09:13:03.220Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
+          "location": "9 km ESE of Caimito, Colombia",
+          "magnitude": 4.3,
+          "depth": 53.418,
+          "lat": 8.7415,
+          "lng": -75.0424,
+          "time": "2026-08-06T06:53:00.480Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
           "location": "40 km WNW of Houma, Tonga",
           "magnitude": 4.6,
           "depth": 126.513,
           "lat": -21.0594,
           "lng": -175.6733,
           "time": "2026-08-06T06:44:05.143Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "33 km SSW of Dry Creek, Alaska",
-          "magnitude": 2.9,
-          "depth": 1.1,
-          "lat": 63.375,
-          "lng": -144.903,
-          "time": "2026-08-06T06:35:05.439Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "15 km SSW of Funny River, Alaska",
-          "magnitude": 3.1,
-          "depth": 36.2,
-          "lat": 60.371,
-          "lng": -150.834,
-          "time": "2026-08-06T05:41:36.962Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "193 km SE of Perryville, Alaska",
-          "magnitude": 2.5,
-          "depth": 5,
-          "lat": 54.769,
-          "lng": -156.842,
-          "time": "2026-08-06T04:23:27.162Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "88 km SW of Corinto, Nicaragua",
-          "magnitude": 4.1,
-          "depth": 38.188,
-          "lat": 11.8219,
-          "lng": -87.6264,
-          "time": "2026-08-06T04:13:47.605Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "193 km SE of Perryville, Alaska",
-          "magnitude": 3.9,
-          "depth": 23.3,
-          "lat": 54.772,
-          "lng": -156.848,
-          "time": "2026-08-06T04:11:48.269Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "48 km WSW of Sarangani, Philippines",
-          "magnitude": 4.6,
-          "depth": 35,
-          "lat": 5.2096,
-          "lng": 125.0756,
-          "time": "2026-08-06T03:12:11.368Z",
-          "tsunami": false,
-          "type": "earthquake"
-        },
-        {
-          "location": "3 km SSE of Anderson, CA",
-          "magnitude": 2.72,
-          "depth": 17.5300006866455,
-          "lat": 40.4194984436035,
-          "lng": -122.283332824707,
-          "time": "2026-08-06T02:24:11.260Z",
           "tsunami": false,
           "type": "earthquake"
         }
@@ -5914,40 +5901,100 @@
     },
     "news": [
       {
-        "title": "Russian forces are now 20km away from Ukrainian city of Kramatorsk",
-        "pubDate": "Thu, 06 Aug 2026 08:47:41 GMT",
-        "link": "https://www.france24.com/en/russian-forces-are-now-20km-away-from-ukrainian-city-of-kramatorsk",
+        "title": "US Senate committee votes to hold Fauci in contempt over Covid hearing",
+        "pubDate": "Thu, 06 Aug 2026 14:20:56 GMT",
+        "link": "https://www.bbc.co.uk/news/articles/c1m18158my9o?at_medium=RSS&amp;at_campaign=rss",
+        "source": "BBC World"
+      },
+      {
+        "title": "Ukraine strikes Russian refineries deep into the country",
+        "pubDate": "Thu, 06 Aug 2026 14:18:33 GMT",
+        "link": "https://www.france24.com/en/ukraine-strikes-russian-refineries-deep-into-the-country",
         "source": "France24"
       },
       {
-        "title": "DR Congo’s Ebola outbreak outpaces response as health workers strike over pay",
-        "pubDate": "Thu, 06 Aug 2026 08:43:52 GMT",
-        "link": "https://www.france24.com/en/africa/20260806-dr-congo-ebola-outbreak-outpaces-response-efforts-health-workers-strike-pay",
+        "title": "Why $370bn tech group Palantir pays just 1.4 percent tax: Report",
+        "pubDate": "Thu, 06 Aug 2026 14:11:15 +0000",
+        "link": "https://www.aljazeera.com/news/2026/8/6/why-370bn-tech-group-palantir-pays-just-1-4-percent-tax-report?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "FIFA pays up on overdue prize money after Jordan ‘blackmail’ remark",
+        "pubDate": "Thu, 06 Aug 2026 14:08:11 +0000",
+        "link": "https://www.aljazeera.com/sports/2026/8/6/fifa-pay-up-on-overdue-prize-money-after-jordan-blackmail-remark?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "What does the world pay for a child’s education?",
+        "pubDate": "Thu, 06 Aug 2026 14:06:04 +0000",
+        "link": "https://www.aljazeera.com/video/by-the-numbers-3/2026/8/6/what-does-the-world-pay-for-a-childs-education?traffic_source=rss",
+        "source": "Al Jazeera"
+      },
+      {
+        "title": "DR Congo river boat under quarantine for Ebola after five deaths",
+        "pubDate": "Thu, 06 Aug 2026 14:04:27 GMT",
+        "link": "https://www.bbc.co.uk/news/articles/ce971plr2nvo?at_medium=RSS&amp;at_campaign=rss",
+        "source": "BBC World"
+      },
+      {
+        "title": "Russia ramps up disinformation war as French presidential elections draw nearer",
+        "pubDate": "Thu, 06 Aug 2026 13:57:55 GMT",
+        "link": "https://www.france24.com/en/russia-ramps-up-disinformation-war-as-french-presidential-elections-draw-nearer",
         "source": "France24"
       },
       {
-        "title": "UK police confirm Uganda boxers unaccounted for after Commonwealth Games",
-        "pubDate": "Thu, 06 Aug 2026 08:27:20 +0000",
-        "link": "https://www.aljazeera.com/sports/2026/8/6/uk-police-confirm-uganda-boxers-unaccounted-for-after-commonwealth-games?traffic_source=rss",
-        "source": "Al Jazeera"
+        "title": "Why Iran is sending mixed signals on talks",
+        "pubDate": "Thu, 6 Aug 2026 13:56:00 GMT",
+        "link": "https://www.dw.com/en/why-iran-is-sending-mixed-signals-on-talks/a-78265595?maca=en-rss-en-world-4025-xml-mrss",
+        "source": "DW News"
       },
       {
-        "title": "Shifting US politics offers opportunity for Palestinian self-determination",
-        "pubDate": "Thu, 06 Aug 2026 08:25:52 +0000",
-        "link": "https://www.aljazeera.com/opinions/2026/8/6/shifting-us-politics-offers-opportunity-for-palestinian-self-determination?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "Why is France developing a new nuclear strategy?",
-        "pubDate": "Thu, 06 Aug 2026 08:17:26 +0000",
-        "link": "https://www.aljazeera.com/video/project-force-2/2026/8/6/why-is-france-developing-a-new-nuclear-strategy?traffic_source=rss",
-        "source": "Al Jazeera"
-      },
-      {
-        "title": "Astrophysicist Jonathan McDowell explains why we need an international space traffic control agency",
-        "pubDate": "Thu, 06 Aug 2026 08:06:23 GMT",
-        "link": "https://www.france24.com/en/video/20260806-astrophysicist-jonathan-mcdowell-explains-why-we-need-an-international-space-traffic-control-agency",
+        "title": "Egyptian ​forward Salah signs two-year contract with Turkish club Trabzonspor",
+        "pubDate": "Thu, 06 Aug 2026 13:25:51 GMT",
+        "link": "https://www.france24.com/en/sport/20260806-egyptian-forward-salah-signs-two-year-contract-with-turkish-club-trabzonspor",
         "source": "France24"
+      },
+      {
+        "title": "Nigerian security forces free more than 300 hostages abducted by militants",
+        "pubDate": "Thu, 06 Aug 2026 12:40:32 GMT",
+        "link": "https://www.theguardian.com/world/2026/aug/06/nigerian-security-forces-free-hostages-abducted-by-militants",
+        "source": "Guardian"
+      },
+      {
+        "title": "Africa and the ICC: Why most countries are staying",
+        "pubDate": "Thu, 6 Aug 2026 12:32:00 GMT",
+        "link": "https://www.dw.com/en/africa-and-the-icc-why-most-countries-are-staying/a-78253463?maca=en-rss-en-world-4025-xml-mrss",
+        "source": "DW News"
+      },
+      {
+        "title": "Ukraine hits two oil refineries deep in Russian territory",
+        "pubDate": "Thu, 06 Aug 2026 12:18:48 GMT",
+        "link": "https://www.bbc.co.uk/news/articles/cwymv212xrxo?at_medium=RSS&amp;at_campaign=rss",
+        "source": "BBC World"
+      },
+      {
+        "title": "‘Wanton, intentional infliction of incredible pain’ by gangs in Haiti",
+        "pubDate": "Thu, 06 Aug 2026 12:00:00 +0000",
+        "link": "https://news.un.org/feed/view/en/story/2026/08/1168090",
+        "source": "UN News"
+      },
+      {
+        "title": "Security Council LIVE: Warnings of famine and collapse as South Sudan&#039;s peace deal frays",
+        "pubDate": "Thu, 06 Aug 2026 12:00:00 +0000",
+        "link": "https://news.un.org/feed/view/en/story/2026/08/1168089",
+        "source": "UN News"
+      },
+      {
+        "title": "Gaza: 300 children killed in 300 days of Israeli-Hamas ‘ceasefire’",
+        "pubDate": "Thu, 06 Aug 2026 12:00:00 +0000",
+        "link": "https://news.un.org/feed/view/en/story/2026/08/1168088",
+        "source": "UN News"
+      },
+      {
+        "title": "‘Morocco feels emboldened’: Trump’s influence in spotlight after Ceuta disaster",
+        "pubDate": "Thu, 06 Aug 2026 09:45:54 GMT",
+        "link": "https://www.theguardian.com/world/2026/aug/06/trump-influence-morocco-spotlight-ceuta-border-disaster",
+        "source": "Guardian"
       },
       {
         "title": "Webb opens a Treasure Chest filled with stars",
@@ -5956,22 +6003,10 @@
         "source": "ESA"
       },
       {
-        "title": "Indian journalist Tarun Tejpal convicted in 2013 rape case",
-        "pubDate": "Thu, 06 Aug 2026 07:27:17 GMT",
-        "link": "https://www.bbc.co.uk/news/articles/cx2v551w9v8o?at_medium=RSS&amp;at_campaign=rss",
-        "source": "BBC World"
-      },
-      {
         "title": "World Bank funds line upgrade in Togo - International Railway Journal",
-        "pubDate": "Thu, 06 Aug 2026 06:32:56 GMT",
+        "pubDate": "Thu, 06 Aug 2026 06:34:20 GMT",
         "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOcmhsb1lRZm9JWlQ4ZWE1VVktd1VNVVdNSTFfYll3dWo2ckpQRFd3QlF6RDU2aEdlTGI3Z0lCN0VtMmxIOGJlQmFMazcta3RFTlg5YjhFb2kyOW12cjJLeHh0MTJrZ1pfak54WS1HbFo2VHBtRmFBdUxMbFFINzFDVHBnMGVDdHdz?oc=5",
         "source": "World Bank"
-      },
-      {
-        "title": "Outrage as Ugandan football captain beaten to death in street gang attack",
-        "pubDate": "Thu, 06 Aug 2026 06:04:28 GMT",
-        "link": "https://www.bbc.co.uk/news/articles/cm2g0038yr8o?at_medium=RSS&amp;at_campaign=rss",
-        "source": "BBC World"
       },
       {
         "title": "Korea lost 11 top AI researchers a month over 13 years, World Bank says - Korea JoongAng Daily",
@@ -5984,54 +6019,6 @@
         "pubDate": "Thu, 6 Aug 2026 05:10:00 GMT",
         "link": "https://www.dw.com/en/what-s-behind-the-algeria-morocco-rivalry/a-78258062?maca=en-rss-en-world-4025-xml-mrss",
         "source": "DW News"
-      },
-      {
-        "title": "In Odesa, no-one is safe from Russia's new Black Sea strikes",
-        "pubDate": "Thu, 06 Aug 2026 05:00:54 GMT",
-        "link": "https://www.bbc.co.uk/news/articles/cy8ev4y172yo?at_medium=RSS&amp;at_campaign=rss",
-        "source": "BBC World"
-      },
-      {
-        "title": "Hiroshima survivors warn against Japan&#039;s rearmament",
-        "pubDate": "Thu, 6 Aug 2026 04:39:00 GMT",
-        "link": "https://www.dw.com/en/hiroshima-survivors-warn-against-japan-s-rearmament/a-78249290?maca=en-rss-en-world-4025-xml-mrss",
-        "source": "DW News"
-      },
-      {
-        "title": "How the Tide Turns at the Mouth of the Elbe",
-        "pubDate": "Thu, 06 Aug 2026 04:01:00 +0000",
-        "link": "https://science.nasa.gov/earth/earth-observatory/how-the-tide-turns-at-the-mouth-of-the-elbe/",
-        "source": "NASA Earth"
-      },
-      {
-        "title": "UNHCR Launches First Return Flight for Somali Refugees in Yemen - Yemen Online",
-        "pubDate": "Wed, 05 Aug 2026 21:10:40 GMT",
-        "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBsbjFwYTlLTWU2Zzd4Z1ItbFR1R1V6LVc0c0djS0s3MDF2TnoxSmtTZDVlWHFHNEFQRVBNZVRqcWVoSWQ5bFptRDR0eGhxWER5b2UtY2FfUkUwY0l3Wlh3?oc=5",
-        "source": "UNHCR"
-      },
-      {
-        "title": "Will Russia start a fresh mobilization drive?",
-        "pubDate": "Wed, 5 Aug 2026 19:43:00 GMT",
-        "link": "https://www.dw.com/en/will-russia-start-a-fresh-mobilization-drive/a-78253252?maca=en-rss-en-world-4025-xml-mrss",
-        "source": "DW News"
-      },
-      {
-        "title": "US to shut five consulates as critics fear China could fill diplomatic vacuum",
-        "pubDate": "Wed, 05 Aug 2026 19:20:28 GMT",
-        "link": "https://www.theguardian.com/us-news/2026/aug/05/us-state-department-consulate-closures",
-        "source": "Guardian"
-      },
-      {
-        "title": "NASA’s Perseverance Captures Phobos and Earth",
-        "pubDate": "Wed, 05 Aug 2026 15:28:03 +0000",
-        "link": "https://science.nasa.gov/photojournal/nasas-perseverance-captures-phobos-and-earth/",
-        "source": "NASA Earth"
-      },
-      {
-        "title": "World Bank approves $268 million to expand water and sanitation access in the Philippines - Smart Water Magazine",
-        "pubDate": "Wed, 05 Aug 2026 12:00:47 GMT",
-        "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOSDNwdm55MmdKX2h2RTViYjlGWEM0SjFIbTJELVNva0JwX1BUeFB6WnFCZTBCUFdCM2RUcndTVFNDU0wyNXpmdXRfVDJud3pvVF9PUzNQQkxhM3pTOWs3T09zd1ppa0pRUWthSE83ekhaS2hkS2RhLTkycHdtWTh1Z0ljeFFzUUczX01jSzdTTW5Mejg4OFNYQmlMMzc1NGxITHZaNXBLa3VqVHU2aTNPXzVwOGtSVGNobExuRjZ1Tm1YNEk0SGZOOU5xZkR0dw?oc=5",
-        "source": "World Bank"
       }
     ],
     "volcanic": [],
@@ -6085,7 +6072,7 @@
         "sunspots": 78.1
       }
     ],
-    "lastUpdated": "2026-08-06T09:05:54.608Z"
+    "lastUpdated": "2026-08-06T14:36:01.918Z"
   },
   "momentum": {
     "indicators": [
@@ -6138,6 +6125,12 @@
         "icon": "up"
       },
       {
+        "name": "Arbeitslosigkeit",
+        "direction": "improving",
+        "change": "-19.1%",
+        "icon": "up"
+      },
+      {
         "name": "BIP pro Kopf",
         "direction": "improving",
         "change": "+14.0%",
@@ -6182,7 +6175,7 @@
       {
         "name": "CO2 pro Kopf",
         "direction": "declining",
-        "change": "+1.9%",
+        "change": "+1.4%",
         "icon": "down"
       },
       {
