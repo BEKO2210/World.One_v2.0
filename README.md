@@ -8,20 +8,20 @@
 ## 🌍 Welt-Indikator: 64.1 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  64.1/100  ↓ -0.1
+█████████████░░░░░░░  64.1/100  ↑ +0
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 08.08.2026 02:03 UTC
+> **Letzte Aktualisierung:** 08.08.2026 07:04 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟠 Umwelt | **34.8**/100 | → +0 | 25% |
+| 🟠 Umwelt | **34.5**/100 | ↓ -0.3 | 25% |
 | 🟡 Gesellschaft | **55.9**/100 | → +0 | 25% |
 | 🟢 Wirtschaft | **72.9**/100 | → +0 | 20% |
-| 🟢 Fortschritt | **77.8**/100 | ↓ -0.3 | 20% |
+| 🟢 Fortschritt | **78.1**/100 | ↑ +0.3 | 20% |
 | 🔵 Momentum | **81**/100 | → +0 | 10% |
 
 ---
@@ -255,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 08.08.2026 02:03 UTC | 65/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 08.08.2026 07:04 UTC | 65/65 Quellen aktiv
 </sub>
