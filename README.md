@@ -5,23 +5,23 @@
 
 ---
 
-## 🌍 Welt-Indikator: 60.3 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 63.8 / 100 🟢 POSITIV
 
 ```
-████████████░░░░░░░░  60.3/100  ↓ -5.7
+█████████████░░░░░░░  63.8/100  ↑ +3.5
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 10.08.2026 13:22 UTC
+> **Letzte Aktualisierung:** 10.08.2026 19:19 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟠 Umwelt | **33.9**/100 | ↓ -7.6 | 25% |
-| 🟡 Gesellschaft | **55.2**/100 | ↓ -0.6 | 25% |
+| 🟠 Umwelt | **33.9**/100 | → +0 | 25% |
+| 🟡 Gesellschaft | **55.2**/100 | → +0 | 25% |
 | 🟢 Wirtschaft | **72.9**/100 | → +0 | 20% |
-| 🟢 Fortschritt | **77.8**/100 | ↓ -0.3 | 20% |
+| 🟢 Fortschritt | **78.1**/100 | ↑ +0.3 | 20% |
 | 🔵 Momentum | **81**/100 | → +0 | 10% |
 
 ---
@@ -34,7 +34,7 @@
 | Temperaturanomalie | **+1.19°C** | NASA GISTEMP |
 | CO2-Konzentration | **429 ppm** | NOAA |
 | Arktis-Eisfläche | **4.2 Mio km²** (46.2% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **56** | WAQI |
+| Luftqualität (Ø) | AQI **68** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -96,7 +96,7 @@
 #### ❌ Verschlechtert sich (4)
 - **CO2-Konzentration**: +2.1%
 - **Waldfläche**: -0.2%
-- **CO2 pro Kopf**: +1.4%
+- **CO2 pro Kopf**: +1.9%
 - **Militärausgaben (% BIP)**: +5.3%
 
 </details>
@@ -255,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 10.08.2026 13:22 UTC | 65/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 10.08.2026 19:19 UTC | 65/65 Quellen aktiv
 </sub>
