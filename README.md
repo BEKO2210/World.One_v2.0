@@ -5,24 +5,24 @@
 
 ---
 
-## 🌍 Welt-Indikator: 64 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 64.4 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  64/100  ↑ +0.2
+█████████████░░░░░░░  64.4/100  ↑ +0.4
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 11.08.2026 07:34 UTC
+> **Letzte Aktualisierung:** 11.08.2026 13:20 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟡 Umwelt | **41.3**/100 | ↑ +7.1 | 25% |
-| 🟡 Gesellschaft | **55.2**/100 | → +0 | 25% |
-| 🟢 Wirtschaft | **70.6**/100 | ↓ -2.3 | 20% |
-| 🟢 Fortschritt | **77.9**/100 | → +0.1 | 20% |
-| 🟢 Momentum | **76.5**/100 | ↓ -4.5 | 10% |
+| 🟠 Umwelt | **34.9**/100 | ↓ -6.4 | 25% |
+| 🟡 Gesellschaft | **55.9**/100 | ↑ +0.7 | 25% |
+| 🟢 Wirtschaft | **72.9**/100 | ↑ +2.3 | 20% |
+| 🟢 Fortschritt | **78.1**/100 | → +0.2 | 20% |
+| 🔵 Momentum | **81**/100 | ↑ +4.5 | 10% |
 
 ---
 
@@ -34,7 +34,7 @@
 | Temperaturanomalie | **+1.19°C** | NASA GISTEMP |
 | CO2-Konzentration | **429 ppm** | NOAA |
 | Arktis-Eisfläche | **4.2 Mio km²** (46.2% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **52** | WAQI |
+| Luftqualität (Ø) | AQI **70** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -56,7 +56,7 @@
 | Indikator | Wert | Quelle |
 |-----------|------|--------|
 | Internet-Nutzer | **73.6%** (5.4 Mrd) | ITU |
-| Alphabetisierung | **87.4%** | UNESCO |
+| Alphabetisierung | **87.7%** | UNESCO |
 | Wiss. Publikationen | **3.2 Mio/Jahr** | arXiv/Scopus |
 | GitHub Commits | **142.0 Mio/Tag** | GitHub |
 
@@ -69,22 +69,26 @@
 
 ---
 
-## 📈 Momentum: 13/17 Trends positiv
+## 📈 Momentum: 17/21 Trends positiv
 
 <details>
-<summary>Alle 17 Indikatoren anzeigen</summary>
+<summary>Alle 21 Indikatoren anzeigen</summary>
 
-#### ✅ Verbessert sich (13)
+#### ✅ Verbessert sich (17)
 - **Lebenserwartung**: +1.6%
 - **Kindersterblichkeit**: -2.3%
 - **Erneuerbare Energie**: +6.7%
 - **Internet-Zugang**: +12.1%
 - **BIP-Wachstum**: +23.3%
+- **Inflation**: -12.0%
 - **Arbeitslosigkeit**: -19.1%
 - **BIP pro Kopf**: +14.0%
 - **Globaler Handel**: +7.5%
+- **Alphabetisierung**: +0.7%
+- **Mobilfunk**: +3.8%
 - **F&E Ausgaben**: +10.8%
 - **Elektrizitätszugang**: +1.1%
+- **Trinkwasser**: +2.7%
 - **Gesundheitsausgaben**: +1.1%
 - **Urbanisierung**: +1.4%
 - **Patentanmeldungen**: +1.2%
@@ -251,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 11.08.2026 07:34 UTC | 65/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 11.08.2026 13:20 UTC | 65/65 Quellen aktiv
 </sub>
