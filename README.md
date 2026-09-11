@@ -5,24 +5,24 @@
 
 ---
 
-## 🌍 Welt-Indikator: 65.9 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 66.2 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  65.9/100  ↓ -0.4
+█████████████░░░░░░░  66.2/100  ↑ +0.3
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 11.09.2026 04:10 UTC
+> **Letzte Aktualisierung:** 11.09.2026 10:59 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
 | 🟡 Umwelt | **42.2**/100 | → +0 | 25% |
-| 🟡 Gesellschaft | **55.9**/100 | → +0 | 25% |
-| 🟢 Wirtschaft | **73.5**/100 | ↓ -0.2 | 20% |
+| 🟡 Gesellschaft | **55.8**/100 | → -0.1 | 25% |
+| 🟢 Wirtschaft | **73.5**/100 | → +0 | 20% |
 | 🟢 Fortschritt | **78.1**/100 | → +0 | 20% |
-| 🟢 Momentum | **80**/100 | ↓ -1 | 10% |
+| 🔵 Momentum | **81**/100 | ↑ +1 | 10% |
 
 ---
 
@@ -34,7 +34,7 @@
 | Temperaturanomalie | **+1.19°C** | NASA GISTEMP |
 | CO2-Konzentration | **428 ppm** | NOAA |
 | Arktis-Eisfläche | **4.2 Mio km²** (46.2% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **94** | WAQI |
+| Luftqualität (Ø) | AQI **57** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -69,12 +69,12 @@
 
 ---
 
-## 📈 Momentum: 16/20 Trends positiv
+## 📈 Momentum: 17/21 Trends positiv
 
 <details>
-<summary>Alle 20 Indikatoren anzeigen</summary>
+<summary>Alle 21 Indikatoren anzeigen</summary>
 
-#### ✅ Verbessert sich (16)
+#### ✅ Verbessert sich (17)
 - **Lebenserwartung**: +1.6%
 - **Kindersterblichkeit**: -2.3%
 - **Erneuerbare Energie**: +6.7%
@@ -85,6 +85,7 @@
 - **BIP pro Kopf**: +14.0%
 - **Globaler Handel**: +7.5%
 - **Alphabetisierung**: +0.7%
+- **Mobilfunk**: +3.8%
 - **F&E Ausgaben**: +10.8%
 - **Elektrizitätszugang**: +1.1%
 - **Trinkwasser**: +2.7%
@@ -254,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 11.09.2026 04:10 UTC | 65/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 11.09.2026 10:59 UTC | 65/65 Quellen aktiv
 </sub>
