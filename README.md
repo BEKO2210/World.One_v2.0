@@ -8,18 +8,18 @@
 ## 🌍 Welt-Indikator: 66.3 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  66.3/100  ↑ +0.9
+█████████████░░░░░░░  66.3/100  ↑ +0
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 22.09.2026 21:12 UTC
+> **Letzte Aktualisierung:** 22.09.2026 21:18 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟡 Umwelt | **42.4**/100 | ↑ +3.5 | 25% |
-| 🟡 Gesellschaft | **55.7**/100 | → -0.1 | 25% |
+| 🟡 Umwelt | **42.4**/100 | → +0 | 25% |
+| 🟡 Gesellschaft | **55.7**/100 | → +0 | 25% |
 | 🟢 Wirtschaft | **73.7**/100 | → +0 | 20% |
 | 🟢 Fortschritt | **78.1**/100 | → +0 | 20% |
 | 🔵 Momentum | **81**/100 | → +0 | 10% |
@@ -33,8 +33,8 @@
 |-----------|------|--------|
 | Temperaturanomalie | **+1.19°C** | NASA GISTEMP |
 | CO2-Konzentration | **428 ppm** | NOAA |
-| Arktis-Eisfläche | **4.2 Mio km²** (46.2% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **64** | WAQI |
+| Arktis-Eisfläche | **4.75 Mio km²** (38.1% verloren) | NSIDC |
+| Luftqualität (Ø) | AQI **67** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -49,8 +49,8 @@
 |-----------|------|--------|
 | BIP-Wachstum | **2.92%** | IMF |
 | Gini-Index | **42** | World Bank |
-| Extreme Armut | **648.0 Mio** | World Bank |
-| Milliardäre | **2.8K** (45.8% Vermögen) | Oxfam |
+| Extreme Armut | **824.3 Mio** | World Bank |
+| Milliardäre | **3.4K** (45.8% Vermögen) | Oxfam |
 
 ### 🚀 Fortschritt
 | Indikator | Wert | Quelle |
@@ -255,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 22.09.2026 21:12 UTC | 64/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 22.09.2026 21:18 UTC | 63/65 Quellen aktiv
 </sub>
