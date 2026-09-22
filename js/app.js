@@ -115,7 +115,7 @@ class BelkisOne {
     const canvas = document.getElementById('particles-canvas');
     if (!canvas) return;
 
-    canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;';
+    canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;transition:opacity 400ms ease;';
 
     // ── Performance-Gates (Schritt 8) ──
     // 1. prefers-reduced-motion: User hat System-weit Animationen deaktiviert
@@ -140,12 +140,10 @@ class BelkisOne {
 
     // Mobile ≈ 300, Desktop ≈ 1000 (pre-Schritt-8); 3g connections bekommen
     // die Mobile-Zahl auch auf Desktop.
+    // Höchstens 300 Partikel (vorher bis 1000): ~50 % Leerlauf-CPU gemessen
     const isMobile = DOMUtils.viewport().isMobile;
-    const cellular3g = navigator.connection?.effectiveType === '3g';
-    const desktopCount = cellular3g ? 400 : 1000;
-
     this.particles = new ParticleSystem(canvas, {
-      count: isMobile ? 300 : desktopCount,
+      count: isMobile ? 150 : 300,
       baseColor: { r: 255, g: 255, b: 255 },
       maxSize: 2,
       speed: 0.2,
@@ -153,15 +151,21 @@ class BelkisOne {
       mouseRepulsion: 100,
       mouseForce: 0.06
     });
+    // Nur im Prolog sichtbar und aktiv; sonst ausgeblendet und gestoppt
+    // (vorher lief das Sternenfeld hinter allen Sektionen weiter).
+    let prologVisible = true;
+    const sync = () => {
+      const on = prologVisible && !document.hidden;
+      canvas.style.opacity = prologVisible ? '1' : '0';
+      if (on) this.particles.start(); else this.particles.stop();
+    };
+    const prolog = document.getElementById('prolog');
+    if (prolog && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => { prologVisible = entry.isIntersecting; sync(); }, { threshold: 0.05 })
+        .observe(prolog);
+    }
     this.particles.start();
-
-    // Tab-Sichtbarkeit: wenn der User den Tab wechselt / minimiert,
-    // stoppe die Render-Loop. Spart CPU/Akku im Hintergrund.
-    document.addEventListener('visibilitychange', () => {
-      if (!this.particles) return;
-      if (document.hidden) this.particles.stop();
-      else this.particles.start();
-    });
+    document.addEventListener('visibilitychange', sync);
   }
 
   // ─── Scroll Engine Registration ───
@@ -1547,6 +1551,7 @@ class BelkisOne {
     range.addEventListener('change', () => {
       clearTimeout(debounce);
       debounce = setTimeout(() => loadSnapshot(parseInt(range.value)), 200);
+    });
     });
   }
 

@@ -98,12 +98,18 @@ export class ParticleSystem {
 
   stop() {
     this.running = false;
+    if (this._rafId) cancelAnimationFrame(this._rafId);
   }
 
   _loop() {
     if (!this.running) return;
 
+    // Auf 30 fps begrenzt (halbe CPU-Last gegenüber 60 fps)
     const now = performance.now();
+    if (now - this.lastTime < 1000 / 30 - 1) {
+      this._rafId = requestAnimationFrame(() => this._loop());
+      return;
+    }
     const dt = Math.min((now - this.lastTime) / 1000, 0.05);
     this.lastTime = now;
     this.time += dt;
