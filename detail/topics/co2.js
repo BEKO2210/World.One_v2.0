@@ -8,8 +8,9 @@
 import { i18n } from '../../js/i18n.js';
 import { DOMUtils } from '../../js/utils/dom.js';
 import { MathUtils } from '../../js/utils/math.js';
-import { fetchTopicData, fetchWithTimeout } from '../../js/utils/data-loader.js';
+import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
@@ -49,43 +50,30 @@ export async function render(blocks) {
   // Extract monthly series from cache data
   const monthly = (data && data.monthly) ? data.monthly : [];
 
-  // 2. Attempt live current ppm from Open-Meteo Air Quality API
-  let currentPpm = null;
-  try {
-    const liveRes = await fetchWithTimeout(
-      'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=19.5&longitude=-155.6&current=carbon_dioxide',
-      5000
-    );
-    if (liveRes.ok) {
-      const liveJson = await liveRes.json();
-      if (liveJson.current && liveJson.current.carbon_dioxide) {
-        currentPpm = liveJson.current.carbon_dioxide;
-      }
-    }
-  } catch (_err) {
-    // Non-blocking: fall through to cache/static
-  }
-
-  // Fallback: latest value from monthly array, or static 427.5
-  if (currentPpm === null && monthly.length > 0) {
-    currentPpm = monthly[monthly.length - 1].value;
-  }
-  if (currentPpm === null) {
-    currentPpm = 427.5;
-  }
+  // 2. Aktueller Wert = letzter Monatsmittelwert Mauna Loa (NOAA).
+  // Früher: Open-Meteo-Modellwert (CAMS, bodennah) — ~10 ppm über der
+  // Messreihe und nicht mit der Keeling-Kurve vergleichbar.
+  const last = monthly.length > 0 ? monthly[monthly.length - 1] : null;
+  const currentPpm = last ? last.value : 427.5;
+  const asOf = last ? `${last.year}-${String(last.month).padStart(2, '0')}` : null;
 
   // Store monthly data for getChartConfigs()
   _chartData = { monthly };
 
+  // Anstieg: Mittel der letzten 12 Monate gegen die 12 davor
+  const mean = (arr) => arr.reduce((sum, m) => sum + m.value, 0) / arr.length;
+  const annualIncrease = monthly.length >= 24
+    ? Math.round((mean(monthly.slice(-12)) - mean(monthly.slice(-24, -12))) * 100) / 100
+    : 2.4;
+
   // Static fallback values
-  const annualIncrease = 2.4;
   const totalEmissions = 37.4;
   const preIndustrial = 280;
   const increaseSincePreIndustrial = currentPpm - preIndustrial;
-  const increasePercent = ((increaseSincePreIndustrial / preIndustrial) * 100).toFixed(1);
+  const increasePercent = fmtNumber(((increaseSincePreIndustrial / preIndustrial) * 100), { decimals: 1 });
 
   // --- 3. Hero Block ---
-  _renderHero(blocks.hero, currentPpm, tier, age);
+  _renderHero(blocks.hero, currentPpm, tier, age, asOf);
 
   // --- 4. Chart Block (Keeling Curve canvas) ---
   _renderChartBlock(blocks.chart);
@@ -108,10 +96,10 @@ export async function render(blocks) {
 
 // --- Hero ---------------------------------------------------------------
 
-function _renderHero(heroEl, currentPpm, tier, age) {
-  const ppmFormatted = currentPpm.toFixed(1);
+function _renderHero(heroEl, currentPpm, tier, age, asOf) {
+  const ppmFormatted = fmtNumber(currentPpm, { decimals: 1 });
 
-  const badge = createTierBadge(tier, { age });
+  const badge = createTierBadge(tier, { age, dataAsOf: asOf, cadence: 'monthly', source: 'NOAA Mauna Loa' });
 
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'co2-hero' }, [
@@ -215,7 +203,7 @@ function _renderTiles(tilesEl, currentPpm, annualIncrease, totalEmissions, preIn
     },
     {
       label: i18n.t('detail.co2.tileSincePreIndustrial'),
-      value: `+${increaseSincePreIndustrial.toFixed(1)}`,
+      value: `+${fmtNumber(increaseSincePreIndustrial, { decimals: 1 })}`,
       unit: `${i18n.t('detail.co2.ppm')} (+${increasePercent}%)`,
     },
   ];
@@ -385,7 +373,7 @@ function _buildGreenhouseInfographic() {
 // --- Comparison Block ---------------------------------------------------
 
 function _renderComparison(compEl, currentPpm) {
-  const compText = i18n.t('detail.co2.comparison', { current: currentPpm.toFixed(1) });
+  const compText = i18n.t('detail.co2.comparison', { current: fmtNumber(currentPpm, { decimals: 1 }) });
 
   compEl.appendChild(
     DOMUtils.create('div', {}, [
@@ -407,7 +395,7 @@ function _renderComparison(compEl, currentPpm) {
           textContent: '\u2192',
           style: { color: 'var(--text-secondary)', fontSize: '1.2rem' },
         }),
-        _buildCompBar(`${currentPpm.toFixed(1)} ppm`, 100, 'rgba(255, 107, 107, 0.3)'),
+        _buildCompBar(`${fmtNumber(currentPpm, { decimals: 1 })} ppm`, 100, 'rgba(255, 107, 107, 0.3)'),
       ]),
       DOMUtils.create('p', {
         textContent: compText,
@@ -546,7 +534,7 @@ export function getChartConfigs() {
             tooltip: {
               callbacks: {
                 title: (items) => items[0]?.label || '',
-                label: (item) => `${item.parsed.y.toFixed(1)} ${i18n.t('detail.co2.ppm')}`,
+                label: (item) => `${fmtNumber(item.parsed.y, { decimals: 1 })} ${i18n.t('detail.co2.ppm')}`,
               },
             },
           },
