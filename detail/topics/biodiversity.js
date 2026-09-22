@@ -240,16 +240,6 @@ async function _renderLPIChart(chartEl) {
     },
   });
 
-  // Listen for timerangechange event on trend block
-  if (chartEl.closest) {
-    const trendBlock = chartEl.closest('[id]')?.parentElement?.querySelector('[id*="trend"]');
-    if (trendBlock) {
-      trendBlock.addEventListener('timerangechange', (e) => {
-        // Time range filtering could be added here if needed
-        console.log('[Biodiversity] timerangechange received:', e.detail?.range);
-      });
-    }
-  }
 }
 
 // --- Trend Block (IUCN Category Browser) --------------------------------

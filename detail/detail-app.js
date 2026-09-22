@@ -21,7 +21,7 @@ const VALID_TOPICS = [
   'inequality', 'poverty', 'currencies', 'science', 'internet',
   'space', 'weather', 'earthquakes', 'solar', 'crypto_sentiment',
   'momentum_detail', 'hunger', 'disasters', 'ocean_temp',
-  'ocean_ph', 'ocean_plastic', 'extinction', 'endangered', '_stub'
+  'ocean_ph', 'ocean_plastic', 'extinction', 'endangered'
 ];
 
 // ─── Init ────────────────────────────────────────────────────
@@ -155,8 +155,11 @@ function setupNavControls() {
   const backBtn = document.querySelector('.detail-nav__back');
   if (backBtn) {
     backBtn.addEventListener('click', (e) => {
-      // Only intercept if there's history to go back to (came from index.html)
-      if (window.history.length > 1) {
+      // Nur zurück, wenn wir von dieser Website kommen; bei Direkteinstieg
+      // (Link, Suchmaschine) führte history.back() aus der Seite heraus.
+      let sameOrigin = false;
+      try { sameOrigin = new URL(document.referrer).origin === window.location.origin; } catch { /* kein Referrer */ }
+      if (sameOrigin && window.history.length > 1) {
         e.preventDefault();
         window.history.back();
       }

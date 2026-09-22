@@ -230,11 +230,6 @@ async function _renderLossChart(chartEl) {
       },
     },
   });
-
-  // Listen for timerangechange event
-  chartEl.addEventListener('timerangechange', (e) => {
-    console.log('[Forests] timerangechange received:', e.detail?.range);
-  });
 }
 
 // --- Trend Block (Deforestation Causes - canvas for lazy loading) --------

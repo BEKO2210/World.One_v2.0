@@ -348,23 +348,6 @@ async function _renderPyramid(trendEl) {
   // Load Chart.js and create pyramid
   await ensureChartJs();
   _pyramidChart = createChart('pop-pyramid-canvas', _buildPyramidConfig(_currentPyramidYear));
-
-  // Listen for timerangechange
-  trendEl.addEventListener('timerangechange', (e) => {
-    const range = e.detail.range;
-    const rangeMap = { '1y': 2026, '5y': 2000, '20y': 1960, 'max': 2050 };
-    const year = rangeMap[range] || 2026;
-    if (year !== _currentPyramidYear) {
-      _currentPyramidYear = year;
-      for (const b of yearBtns) {
-        const isActive = parseInt(b.getAttribute('data-year'), 10) === year;
-        b.style.background = isActive ? toRgba(CHART_COLORS.society, 0.2) : 'transparent';
-        b.style.color = isActive ? toRgba(CHART_COLORS.society) : 'var(--text-muted)';
-        b.style.fontWeight = isActive ? '700' : '400';
-      }
-      _updatePyramid(year);
-    }
-  });
 }
 
 function _buildPyramidConfig(year) {
