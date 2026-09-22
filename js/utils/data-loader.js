@@ -116,6 +116,17 @@ function _getCacheAge(data) {
 }
 
 /**
+ * Static fallback value for a topic (data/fallback/static-values.json),
+ * for modules whose cache exists but lacks the needed series.
+ *
+ * @param {string} topic - Topic key
+ * @returns {Promise<any>} The topic's fallback data, or null
+ */
+export function fetchStaticFallback(topic) {
+  return _getStaticFallback(topic);
+}
+
+/**
  * Load and cache the static fallback file, then return the topic value.
  * The full JSON is fetched only once and stored in `_staticCache`.
  *
