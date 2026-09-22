@@ -21,6 +21,7 @@
   <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
 
   <!-- Styles -->
+  <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/core.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/sections.css">
@@ -40,7 +41,7 @@
     <div class="loading-screen__text">World.One</div>
     <div class="loading-screen__sub" data-i18n="loading.sub">Lade Weltdaten …</div>
     <div class="loading-screen__bar">
-      <div class="loading-screen__progress" style="width: 0%"></div>
+      <div class="loading-screen__progress" style="width:0%"></div>
     </div>
   </div>
 
@@ -156,7 +157,7 @@
         <div class="world-indicator__scale">
           <div class="world-indicator__track"></div>
           <div class="world-indicator__comet"></div>
-          <div class="world-indicator__pointer" style="left: 0%"></div>
+          <div class="world-indicator__pointer" style="left:0%"></div>
         </div>
         <div class="world-indicator__zones">
           <span class="world-indicator__zone-mark">0</span>
@@ -251,7 +252,7 @@
             <span class="data-card__source">NOAA Mauna Loa</span>
           </div>
           <div class="data-card__hero">
-            <span class="data-card__value" id="co2-value" data-counter data-target="429" data-suffix=" ppm" data-decimals="0" style="color:var(--warning)">0 ppm</span>
+            <span class="data-card__value" id="co2-value" data-counter data-target="429" data-suffix=" ppm" data-decimals="0">0 ppm</span>
           </div>
           <p class="data-card__explain" data-i18n="act2.co2Explain">Parts per Million in der Atmosphäre. Vor der Industrialisierung: ~280 ppm. Höchster Wert seit 800.000 Jahren.</p>
           <div id="co2-sparkline" class="data-card__sparkline"></div>
@@ -263,7 +264,7 @@
             <span class="data-card__source">NASA GISTEMP</span>
           </div>
           <div class="data-card__hero">
-            <span class="data-card__value" id="temp-anomaly-value" style="color:var(--danger-light)">+0.00°C</span>
+            <span class="data-card__value" id="temp-anomaly-value">+0.00°C</span>
           </div>
           <p class="data-card__explain" data-i18n="act2.tempExplain">Abweichung vom Durchschnitt (1951–1980). Das 1.5°C-Ziel von Paris ist fast erreicht.</p>
           <div id="temp-sparkline" class="data-card__sparkline"></div>
@@ -286,12 +287,12 @@
           <div class="data-card__comparison">
             <div class="data-card__compare-item">
               <span class="data-card__compare-label" data-i18n="act2.arcticSep1980">Sept. 1980</span>
-              <span class="data-card__compare-value" id="arctic-ice-1980" style="color:#5ac8fa">–</span>
+              <span class="data-card__compare-value" id="arctic-ice-1980" style="color:var(--accent)">–</span>
             </div>
             <span class="data-card__compare-arrow">→</span>
             <div class="data-card__compare-item">
               <span class="data-card__compare-label" id="arctic-ice-year-label">–</span>
-              <span class="data-card__compare-value" id="arctic-ice-value" style="color:#ff6b6b" data-counter data-target="0" data-decimals="2" data-suffix=" Mio km²">–</span>
+              <span class="data-card__compare-value" id="arctic-ice-value"  data-counter data-target="0" data-decimals="2" data-suffix=" Mio km²">–</span>
             </div>
           </div>
           <p class="data-card__explain" data-i18n="act2.arcticExplain">Eisverlust entspricht etwa der Fläche von Indien.</p>
@@ -303,7 +304,7 @@
             <span class="data-card__source">World Bank</span>
           </div>
           <div class="data-card__hero">
-            <span class="data-card__value" id="forest-value" style="color:#34c759">0%</span>
+            <span class="data-card__value" id="forest-value">0%</span>
           </div>
           <p class="data-card__explain" data-i18n="act2.forestExplain">Anteil der Landfläche mit Wald. ~10 Mio Hektar Verlust pro Jahr.</p>
           <div id="forest-sparkline" class="data-card__sparkline"></div>
@@ -315,7 +316,7 @@
             <span class="data-card__source">World Bank</span>
           </div>
           <div class="data-card__hero">
-            <span class="data-card__value" id="renewable-value" style="color:#00d4ff">0%</span>
+            <span class="data-card__value" id="renewable-value">0%</span>
           </div>
           <p class="data-card__explain" data-i18n="act2.renewableExplain">Anteil an der weltweiten Stromerzeugung. Wächst exponentiell dank Solar & Wind.</p>
           <div id="renewable-sparkline" class="data-card__sparkline"></div>
@@ -357,7 +358,7 @@
             <span class="data-card__source">IPBES</span>
           </div>
           <div class="data-card__hero">
-            <span class="data-card__value" style="color:var(--danger)">1.000x</span>
+            <span class="data-card__value">1.000x</span>
           </div>
           <p class="data-card__explain" data-i18n="act12.extinctionExplain">Die aktuelle Aussterberate liegt 100-1.000x über dem natürlichen Hintergrund.</p>
         </div>
@@ -368,7 +369,7 @@
             <span class="data-card__source">IUCN/GBIF</span>
           </div>
           <div class="data-card__hero">
-            <span class="data-card__value" id="bio-threatened-count" data-counter data-target="130285" style="color:var(--warning)">0</span>
+            <span class="data-card__value" id="bio-threatened-count" data-counter data-target="130285">0</span>
           </div>
           <p class="data-card__explain" data-i18n="act12.endangeredExplain">Auf der Roten Liste der IUCN als gefährdet eingestuft.</p>
         </div>
@@ -394,7 +395,7 @@
             <span class="data-card__source">NOAA</span>
           </div>
           <div class="data-card__hero">
-            <span class="data-card__value" id="sst-anomaly-value" style="color:var(--danger-light)">+0.00 C</span>
+            <span class="data-card__value" id="sst-anomaly-value">+0.00 C</span>
           </div>
           <p class="data-card__explain" data-i18n="act13.sstExplain">Meeresoberflaechen-Temperaturabweichung. Korallen bleichen ab +1C.</p>
         </div>
@@ -405,7 +406,7 @@
             <span class="data-card__source">NOAA/IPCC</span>
           </div>
           <div class="data-card__hero">
-            <span class="data-card__value" style="color:#5ac8fa">8.08</span>
+            <span class="data-card__value">8.08</span>
           </div>
           <p class="data-card__explain" data-i18n="act13.phExplain">Vorindustriell: 8.25. Jeder 0.1-Schritt = 26% säurer.</p>
         </div>
@@ -416,7 +417,7 @@
             <span class="data-card__source">GESAMP/UNEP</span>
           </div>
           <div class="data-card__hero">
-            <span class="data-card__value" id="ocean-plastic-value" data-counter data-target="170" data-suffix=" Mio t" style="color:var(--warning)">0 Mio t</span>
+            <span class="data-card__value" id="ocean-plastic-value" data-counter data-target="170" data-suffix=" Mio t">0 Mio t</span>
           </div>
           <p class="data-card__explain" data-i18n="act13.plasticExplain">Geschätzte Gesamtmenge. 8-12 Mio Tonnen kommen jährlich dazu.</p>
         </div>
@@ -439,22 +440,22 @@
       <div class="bento-grid bento-grid--4 reveal-stagger" style="margin-top:var(--space-xl)">
         <div class="data-card data-card--compact reveal">
           <div class="data-card__label" data-i18n="act3.population">WELTBEVÖLKERUNG</div>
-          <div class="data-card__value data-card__value--sm" id="population-value" data-counter data-target="8100" data-suffix=" Mio" style="color:var(--text-primary)">0</div>
+          <div class="data-card__value data-card__value--sm" id="population-value" data-counter data-target="8100" data-suffix=" Mio">0</div>
           <div class="data-card__mini-context" data-i18n="act3.popContext">+1% pro Jahr</div>
         </div>
         <div class="data-card data-card--compact reveal">
           <div class="data-card__label" data-i18n="act3.conflicts">AKTIVE KONFLIKTE</div>
-          <div class="data-card__value data-card__value--sm" id="conflicts-count" style="color:var(--danger)">0</div>
+          <div class="data-card__value data-card__value--sm" id="conflicts-count">0</div>
           <div class="data-card__mini-context" data-i18n="act3.conflictsContext">Kriege & bewaffnete Konflikte</div>
         </div>
         <div class="data-card data-card--compact reveal">
           <div class="data-card__label" data-i18n="act3.lifeExp">LEBENSERWARTUNG</div>
-          <div class="data-card__value data-card__value--sm" id="life-expectancy-value" data-counter data-target="73.5" data-decimals="1" data-suffix=" J." style="color:#e8a87c">0</div>
+          <div class="data-card__value data-card__value--sm" id="life-expectancy-value" data-counter data-target="73.5" data-decimals="1" data-suffix=" J.">0</div>
           <div class="data-card__mini-context" data-i18n="act3.lifeExpContext">1960: nur 52.6 Jahre</div>
         </div>
         <div class="data-card data-card--compact reveal">
           <div class="data-card__label" data-i18n="act3.childMort">KINDERSTERBLICHKEIT</div>
-          <div class="data-card__value data-card__value--sm" id="child-mortality-value" style="color:var(--warning)">0</div>
+          <div class="data-card__value data-card__value--sm" id="child-mortality-value">0</div>
           <div class="data-card__mini-context" data-i18n="act3.childMortContext">pro 1000 Lebendgeburten</div>
         </div>
       </div>
@@ -479,9 +480,9 @@
         <h3 class="text-sub text-center" data-i18n="act3.freedomTitle">Freiheitsindex weltweit</h3>
         <p class="text-label text-muted text-center" style="margin-bottom:var(--space-sm)" data-i18n="act3.freedomDesc">195 Länder bewertet nach politischen Rechten & bürgerlichen Freiheiten</p>
         <div class="freedom-legend">
-          <div class="freedom-legend__item"><span class="freedom-legend__dot" style="background:#34c759"></span><span data-i18n="act3.free">Frei</span></div>
-          <div class="freedom-legend__item"><span class="freedom-legend__dot" style="background:#ffcc00"></span><span data-i18n="act3.partlyFree">Teilweise frei</span></div>
-          <div class="freedom-legend__item"><span class="freedom-legend__dot" style="background:#ff3b30"></span><span data-i18n="act3.notFree">Nicht frei</span></div>
+          <div class="freedom-legend__item"><span class="freedom-legend__dot" style="background:var(--status-good)"></span><span data-i18n="act3.free">Frei</span></div>
+          <div class="freedom-legend__item"><span class="freedom-legend__dot" style="background:var(--status-warning)"></span><span data-i18n="act3.partlyFree">Teilweise frei</span></div>
+          <div class="freedom-legend__item"><span class="freedom-legend__dot" style="background:var(--status-critical)"></span><span data-i18n="act3.notFree">Nicht frei</span></div>
         </div>
         <p class="text-label text-muted text-center" style="margin-top:var(--space-sm)" data-i18n="act3.freedomDecline">18. Jahr in Folge mit Rückgang — Freedom House 2026</p>
       </div>
@@ -502,17 +503,17 @@
           <div class="infra-bars" id="infra-bars">
             <div class="infra-bar">
               <div class="infra-bar__label" data-i18n="act3.infraElec">Strom</div>
-              <div class="infra-bar__track"><div class="infra-bar__fill" id="electricity-bar" style="width:0%;background:#ffcc00"></div></div>
+              <div class="infra-bar__track"><div class="infra-bar__fill" id="electricity-bar" style="width:0%;background:var(--status-warning)"></div></div>
               <div class="infra-bar__value" id="electricity-value">0%</div>
             </div>
             <div class="infra-bar">
               <div class="infra-bar__label" data-i18n="act3.infraWater">Sauberes Wasser</div>
-              <div class="infra-bar__track"><div class="infra-bar__fill" id="water-bar" style="width:0%;background:#5ac8fa"></div></div>
+              <div class="infra-bar__track"><div class="infra-bar__fill" id="water-bar" style="width:0%;background:var(--accent)"></div></div>
               <div class="infra-bar__value" id="water-value">0%</div>
             </div>
             <div class="infra-bar">
               <div class="infra-bar__label" data-i18n="act3.infraEdu">Bildung</div>
-              <div class="infra-bar__track"><div class="infra-bar__fill" id="education-bar" style="width:0%;background:#34c759"></div></div>
+              <div class="infra-bar__track"><div class="infra-bar__fill" id="education-bar" style="width:0%;background:var(--status-good)"></div></div>
               <div class="infra-bar__value" id="education-value">0%</div>
             </div>
           </div>
@@ -536,13 +537,13 @@
       <!-- Wealth Comparison -->
       <div class="wealth-comparison reveal">
         <div class="wealth-comparison__side">
-          <div class="wealth-comparison__value" id="billionaires-value" style="color:#ffd700" data-counter data-target="0">–</div>
+          <div class="wealth-comparison__value" id="billionaires-value"  data-counter data-target="0">–</div>
           <div class="wealth-comparison__label" data-i18n="act4.billionaires">Milliardäre weltweit</div>
           <div class="wealth-comparison__sub" data-i18n="act4.billionairesOwn">–</div>
         </div>
         <div class="wealth-comparison__vs">vs.</div>
         <div class="wealth-comparison__side">
-          <div class="wealth-comparison__value" id="extreme-poverty-value" style="color:#ff9500" data-counter data-target="0" data-suffix=" Mio">–</div>
+          <div class="wealth-comparison__value" id="extreme-poverty-value"  data-counter data-target="0" data-suffix=" Mio">–</div>
           <div class="wealth-comparison__label" data-i18n="act4.poverty">Menschen in extremer Armut</div>
           <div class="wealth-comparison__sub" data-i18n="act4.povertyThreshold">unter 3,00 US-$ pro Tag</div>
         </div>
@@ -559,22 +560,22 @@
       <div class="bento-grid bento-grid--4 reveal-stagger" style="margin-top:var(--space-xl)">
         <div class="data-card data-card--compact reveal">
           <div class="data-card__label" data-i18n="act4.gdpGrowth">BIP-WACHSTUM</div>
-          <div class="data-card__value data-card__value--sm" id="gdp-growth-value" data-counter data-target="2.9" data-decimals="1" data-suffix="%" style="color:#34c759">0</div>
+          <div class="data-card__value data-card__value--sm" id="gdp-growth-value" data-counter data-target="2.9" data-decimals="1" data-suffix="%">0</div>
           <div class="data-card__mini-context" data-i18n="act4.gdpContext">Global 2026</div>
         </div>
         <div class="data-card data-card--compact reveal">
           <div class="data-card__label" data-i18n="act4.inflation">INFLATION</div>
-          <div class="data-card__value data-card__value--sm" id="inflation-value" style="color:var(--warning)">0%</div>
+          <div class="data-card__value data-card__value--sm" id="inflation-value">0%</div>
           <div class="data-card__mini-context" data-i18n="act4.inflationContext">Verbraucherpreise</div>
         </div>
         <div class="data-card data-card--compact reveal">
           <div class="data-card__label" data-i18n="act4.unemployment">ARBEITSLOSIGKEIT</div>
-          <div class="data-card__value data-card__value--sm" id="unemployment-value" style="color:var(--warning-dark)">0%</div>
+          <div class="data-card__value data-card__value--sm" id="unemployment-value">0%</div>
           <div class="data-card__mini-context" data-i18n="act4.unemploymentContext">Weltweite Quote</div>
         </div>
         <div class="data-card data-card--compact reveal">
           <div class="data-card__label" data-i18n="act4.gdpPerCapita">BIP PRO KOPF</div>
-          <div class="data-card__value data-card__value--sm" id="gdp-per-capita-value" style="color:var(--progress)">$0</div>
+          <div class="data-card__value data-card__value--sm" id="gdp-per-capita-value">$0</div>
           <div class="data-card__mini-context" data-i18n="act4.gdpPerCapitaContext">Durchschnitt</div>
         </div>
       </div>
@@ -596,7 +597,7 @@
             <span class="data-card__source">World Bank</span>
           </div>
           <div class="data-card__hero">
-            <span class="data-card__value" id="trade-value" style="color:var(--progress)">0%</span>
+            <span class="data-card__value" id="trade-value">0%</span>
           </div>
           <p class="data-card__explain" data-i18n="act4.tradeExplain">Handel als % des BIP. Rückläufig seit 2008 durch Protektionismus.</p>
           <div id="trade-sparkline" class="data-card__sparkline"></div>
@@ -637,22 +638,22 @@
       <div class="bento-grid bento-grid--4 reveal-stagger" style="margin-top:var(--space-xl)">
         <div class="data-card data-card--compact reveal">
           <div class="data-card__label" data-i18n="act5.internet">INTERNET-NUTZER</div>
-          <div class="data-card__value data-card__value--sm" id="internet-penetration-value" data-counter data-target="73.6" data-decimals="1" data-suffix="%" style="color:#5ac8fa">0</div>
+          <div class="data-card__value data-card__value--sm" id="internet-penetration-value" data-counter data-target="73.6" data-decimals="1" data-suffix="%">0</div>
           <div class="data-card__mini-context" data-i18n="act5.internetContext">5.4 Mrd online</div>
         </div>
         <div class="data-card data-card--compact reveal">
           <div class="data-card__label" data-i18n="act5.literacy">ALPHABETISIERUNG</div>
-          <div class="data-card__value data-card__value--sm" id="literacy-value" data-counter data-target="87.4" data-decimals="1" data-suffix="%" style="color:#34c759">0</div>
+          <div class="data-card__value data-card__value--sm" id="literacy-value" data-counter data-target="87.4" data-decimals="1" data-suffix="%">0</div>
           <div class="data-card__mini-context" data-i18n="act5.literacyContext">1900: nur ~21%</div>
         </div>
         <div class="data-card data-card--compact reveal">
           <div class="data-card__label" data-i18n="act5.mobile">MOBILFUNK</div>
-          <div class="data-card__value data-card__value--sm" id="mobile-value" style="color:#ff9500">0</div>
+          <div class="data-card__value data-card__value--sm" id="mobile-value">0</div>
           <div class="data-card__mini-context" data-i18n="act5.mobileContext">Abos/100 Menschen</div>
         </div>
         <div class="data-card data-card--compact reveal">
           <div class="data-card__label" data-i18n="act5.rd">F&amp;E-AUSGABEN</div>
-          <div class="data-card__value data-card__value--sm" id="rd-value" style="color:#00d4ff">0%</div>
+          <div class="data-card__value data-card__value--sm" id="rd-value">0%</div>
           <div class="data-card__mini-context" data-i18n="act5.rdContext">% des globalen BIP</div>
         </div>
       </div>
@@ -695,8 +696,8 @@
         <div class="data-card reveal">
           <div class="data-card__header"><span class="data-card__label" data-i18n="act5.literacyLabel">ALPHABETISIERUNG</span></div>
           <div class="freedom-legend" style="margin-bottom:var(--space-sm)">
-            <div class="freedom-legend__item"><span class="freedom-legend__dot" style="background:#5ac8fa;opacity:0.7"></span><span id="literacy-male-label">Männer: 90.1%</span></div>
-            <div class="freedom-legend__item"><span class="freedom-legend__dot" style="background:#34c759"></span><span id="literacy-female-label">Frauen: 84.7%</span></div>
+            <div class="freedom-legend__item"><span class="freedom-legend__dot" style="background:var(--accent);opacity:0.7"></span><span id="literacy-male-label">Männer: 90.1%</span></div>
+            <div class="freedom-legend__item"><span class="freedom-legend__dot" style="background:var(--status-good)"></span><span id="literacy-female-label">Frauen: 84.7%</span></div>
           </div>
           <div id="literacy-stairs" class="literacy-stairs" role="img" aria-label="Alphabetisierung"></div>
           <p class="data-card__explain" id="literacy-gap-text"></p>
@@ -746,7 +747,7 @@
             <p class="text-micro text-muted" style="margin-bottom:var(--space-xs)" data-i18n="act6.earthquakesDesc">USGS — Alle Beben M2.5+ in 24h</p>
             <ul id="earthquake-list" class="earthquake-list" aria-label="Erdbeben"></ul>
           </div>
-          <div class="widget__glow" style="--accent:#ff6b6b" aria-hidden="true"></div>
+          <div class="widget__glow" style="--accent:var(--status-critical)" aria-hidden="true"></div>
         </div>
 
         <!-- Air Quality -->
@@ -756,7 +757,7 @@
             <span class="live-badge live-badge--sm"><span class="live-badge__dot"></span> LIVE</span>
           </div>
           <div class="widget__body"><ul id="clean-cities" class="earthquake-list"></ul></div>
-          <div class="widget__glow" style="--accent:#34c759" aria-hidden="true"></div>
+          <div class="widget__glow" style="--accent:var(--status-good)" aria-hidden="true"></div>
         </div>
 
         <div class="widget reveal">
@@ -765,7 +766,7 @@
             <span class="live-badge live-badge--sm"><span class="live-badge__dot"></span> LIVE</span>
           </div>
           <div class="widget__body"><ul id="dirty-cities" class="earthquake-list"></ul></div>
-          <div class="widget__glow" style="--accent:#ff3b30" aria-hidden="true"></div>
+          <div class="widget__glow" style="--accent:var(--status-critical)" aria-hidden="true"></div>
         </div>
 
         <!-- Sentiment -->
@@ -778,7 +779,7 @@
             <p class="text-micro text-muted" style="margin-bottom:var(--space-xs)" data-i18n="act6.sentimentDesc">GDELT globale Nachrichtenstimmung</p>
             <div id="sentiment-wave" class="sentiment-wave" role="img" aria-label="Sentiment"></div>
             <div class="text-center text-muted" style="margin-top:var(--space-xs)">
-              Score: <span class="text-mono" id="sentiment-score" style="color:#ff6b6b">—</span>
+              Score: <span class="text-mono" id="sentiment-score" style="color:var(--status-critical)">—</span>
               <span id="sentiment-label"></span>
             </div>
           </div>
@@ -843,7 +844,7 @@
       <div id="momentum-list" class="momentum-list" role="list"></div>
 
       <div class="momentum-summary reveal" id="momentum-summary">
-        <span style="color:#34c759" data-counter data-target="16">0</span> /
+        <span  data-counter data-target="16">0</span> /
         <span data-counter data-target="20">0</span> <span data-i18n="act7.trendsPositive">Trends positiv</span>
       </div>
 
@@ -883,7 +884,7 @@
       </div>
 
       <div id="crisis-map-container" class="reveal" style="width:100%;min-height:400px;position:relative;margin-top:var(--space-md)">
-        <div style="width:100%;height:400px;background:rgba(255,255,255,0.02);border-radius:12px;border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;color:var(--text-muted)">
+        <div style="width:100%;height:400px;background:var(--surface-1);border-radius:12px;border:1px solid var(--line-1);display:flex;align-items:center;justify-content:center;color:var(--text-muted)">
           <span data-i18n="act8.mapPlaceholder">Interaktive Weltkarte — Layer ein/ausschaltbar</span>
         </div>
       </div>
@@ -910,54 +911,54 @@
 
       <div class="scenarios-grid reveal-stagger">
         <div id="scenario-bau" class="scenario scenario--bau reveal">
-          <div class="scenario__badge" style="color:#ff9500" data-i18n="act9.pathA">PFAD A</div>
-          <div class="scenario__title" style="color:#ff9500" data-i18n="act9.bauTitle">Weiter so</div>
+          <div class="scenario__badge" style="color:var(--status-serious)" data-i18n="act9.pathA">PFAD A</div>
+          <div class="scenario__title" style="color:var(--status-serious)" data-i18n="act9.bauTitle">Weiter so</div>
           <div class="scenario__subtitle" data-i18n="act9.bauSub">Business as Usual</div>
           <div class="scenario__scores">
             <div class="scenario__score-item">
               <span class="scenario__score-label">2030</span>
-              <span class="scenario__score" style="color:#ff9500">0</span>
+              <span class="scenario__score">0</span>
             </div>
             <span class="scenario__score-arrow">→</span>
             <div class="scenario__score-item">
               <span class="scenario__score-label">2050</span>
-              <span class="scenario__score scenario__score--main" style="color:#ff9500">0</span>
+              <span class="scenario__score scenario__score--main">0</span>
             </div>
           </div>
           <ul class="scenario__list"></ul>
         </div>
 
         <div id="scenario-worst" class="scenario scenario--worst reveal">
-          <div class="scenario__badge" style="color:#ff3b30" data-i18n="act9.pathB">PFAD B</div>
-          <div class="scenario__title" style="color:#ff3b30" data-i18n="act9.worstTitle">Schlimmster Fall</div>
+          <div class="scenario__badge" style="color:var(--status-critical)" data-i18n="act9.pathB">PFAD B</div>
+          <div class="scenario__title" style="color:var(--status-critical)" data-i18n="act9.worstTitle">Schlimmster Fall</div>
           <div class="scenario__subtitle" data-i18n="act9.worstSub">Kippunkte überschritten</div>
           <div class="scenario__scores">
             <div class="scenario__score-item">
               <span class="scenario__score-label">2030</span>
-              <span class="scenario__score" style="color:#ff3b30">0</span>
+              <span class="scenario__score">0</span>
             </div>
             <span class="scenario__score-arrow">→</span>
             <div class="scenario__score-item">
               <span class="scenario__score-label">2050</span>
-              <span class="scenario__score scenario__score--main" style="color:#ff3b30">0</span>
+              <span class="scenario__score scenario__score--main">0</span>
             </div>
           </div>
           <ul class="scenario__list"></ul>
         </div>
 
         <div id="scenario-best" class="scenario scenario--best reveal">
-          <div class="scenario__badge" style="color:#00d4ff" data-i18n="act9.pathC">PFAD C</div>
-          <div class="scenario__title" style="color:#00d4ff" data-i18n="act9.bestTitle">Bestmöglicher Kurs</div>
+          <div class="scenario__badge" style="color:var(--accent)" data-i18n="act9.pathC">PFAD C</div>
+          <div class="scenario__title" style="color:var(--accent)" data-i18n="act9.bestTitle">Bestmöglicher Kurs</div>
           <div class="scenario__subtitle" data-i18n="act9.bestSub">Volle Kooperation</div>
           <div class="scenario__scores">
             <div class="scenario__score-item">
               <span class="scenario__score-label">2030</span>
-              <span class="scenario__score" style="color:#00d4ff">0</span>
+              <span class="scenario__score">0</span>
             </div>
             <span class="scenario__score-arrow">→</span>
             <div class="scenario__score-item">
               <span class="scenario__score-label">2050</span>
-              <span class="scenario__score scenario__score--main" style="color:#00d4ff">0</span>
+              <span class="scenario__score scenario__score--main">0</span>
             </div>
           </div>
           <ul class="scenario__list"></ul>
@@ -984,11 +985,11 @@
           <span class="pipeline-status__label" data-i18n="act10.sources">Quellen</span>
         </div>
         <div class="pipeline-status__item">
-          <span class="pipeline-status__value" id="sources-success" style="color:#34c759">0</span>
+          <span class="pipeline-status__value" id="sources-success">0</span>
           <span class="pipeline-status__label" data-i18n="act10.successful">Erfolgreich</span>
         </div>
         <div class="pipeline-status__item">
-          <span class="pipeline-status__value" id="sources-rate" style="color:#00d4ff">0%</span>
+          <span class="pipeline-status__value" id="sources-rate">0%</span>
           <span class="pipeline-status__label" data-i18n="act10.rate">Rate</span>
         </div>
         <div class="pipeline-status__item">

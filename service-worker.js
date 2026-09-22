@@ -32,6 +32,7 @@ const PRECACHE_ASSETS = [
   './js/utils/fmt.js',
   './js/utils/as-of.js',
   './js/sw-register.js',
+  './assets/fonts/inter-latin.woff2',
   './js/visualizations/world-indicator.js',
   './js/visualizations/charts.js',
   './js/visualizations/maps.js',
