@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 /* ═══════════════════════════════════════════════════════════════
    World.One — Environment Extended Cache Generator
-   Fetches CO2 history, ocean SST anomaly, and solar cycle data
-   Output: data/cache/co2-history.json, ocean.json, solar.json
+   Fetches CO2 history, ocean SST anomaly, solar cycle and Arctic sea ice
+   Output: data/cache/co2-history.json, ocean.json, solar.json, arctic.json
    ═══════════════════════════════════════════════════════════════ */
 
 import { fetchJSON, fetchText, saveCache } from './cache-utils.js';
@@ -96,6 +96,38 @@ async function fetchSolarCycle() {
   return { solar_cycle: recent };
 }
 
+// ─── Arctic sea ice (NSIDC Sea Ice Index v4) ───
+// September = jährliches Minimum; der Vergleich 1980 → letzter vollständiger
+// September ist die übliche Kennzahl. Dazu die tagesaktuelle Ausdehnung.
+async function fetchArcticIce() {
+  console.log('  Fetching Arctic sea ice (NSIDC G02135 v4)...');
+  const base = 'https://noaadata.apps.nsidc.org/NOAA/G02135/north';
+  const monthly = await fetchText(`${base}/monthly/data/N_09_extent_v4.0.csv`);
+  const september = monthly.split('\n').slice(1)
+    .map(l => l.split(',').map(x => x.trim()))
+    .map(c => ({ year: Number(c[0]), value: Number(c[4]) }))
+    .filter(e => Number.isFinite(e.year) && e.value > 0);
+  if (september.length < 30) throw new Error(`NSIDC September: nur ${september.length} Jahre`);
+
+  const daily = await fetchText(`${base}/daily/data/N_seaice_extent_daily_v4.0.csv`);
+  const lastLine = daily.trim().split('\n').pop().split(',').map(x => x.trim());
+  const [y, m, d, extent] = lastLine;
+  const latestDaily = Number(extent) > 0
+    ? { date: `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`, value: Number(extent) }
+    : null;
+
+  const ref = september.find(e => e.year === 1980);
+  const last = september[september.length - 1];
+  console.log(`  Arctic: Sept ${ref?.year} ${ref?.value} → ${last.year} ${last.value}, daily ${latestDaily?.date} ${latestDaily?.value}`);
+  return {
+    september_extent: { history: september, unit: 'million km²', source: 'NSIDC Sea Ice Index v4 (G02135)' },
+    reference_1980: ref?.value ?? null,
+    latest_september: last,
+    latest_daily: latestDaily,
+    api_status: 'live'
+  };
+}
+
 // ─── Main ───
 async function main() {
   console.log('=== update-environment-ext ===');
@@ -117,6 +149,15 @@ async function main() {
     filesWritten++;
   } catch (err) {
     console.error(`  ERROR ocean: ${err.message}`);
+  }
+
+  // Arctic sea ice
+  try {
+    const arcticData = await fetchArcticIce();
+    saveCache('arctic.json', arcticData);
+    filesWritten++;
+  } catch (err) {
+    console.error(`  ERROR arctic: ${err.message}`);
   }
 
   // Solar Cycle

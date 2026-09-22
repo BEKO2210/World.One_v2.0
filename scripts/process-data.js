@@ -398,6 +398,25 @@ function buildWorldState() {
   const waqiCache         = readCacheFresh('waqi.json');               // WAQI official stations
   const disastersCache    = readCacheFresh('disasters.json');          // GDACS
   const biodiversityCache = readCacheFresh('biodiversity.json');       // GBIF threatened counts
+  const arcticCache       = readCacheFresh('arctic.json');             // NSIDC Sea Ice Index v4
+
+  // Arktis: September-Mittel (jährliches Minimum) aus NSIDC, sonst letzter Stand
+  const arcticSep = arcticCache?.data?.latest_september;
+  const arcticRef = arcticCache?.data?.reference_1980;
+  const arcticIce = arcticSep?.value > 0 && arcticRef > 0
+    ? {
+        current: arcticSep.value,
+        year: arcticSep.year,
+        unit: 'million km²',
+        reference1980: arcticRef,
+        percentLost: Math.round((1 - arcticSep.value / arcticRef) * 1000) / 10,
+        latestDaily: arcticCache.data.latest_daily || null,
+        history: arcticCache.data.september_extent?.history || [],
+        source: 'NSIDC Sea Ice Index v4',
+        isFallback: false
+      }
+    : { ...(existing?.environment?.arcticIce || { current: 4.2, unit: 'million km²', reference1980: 7.8, percentLost: 46.2, source: 'NSIDC' }), isFallback: true };
+  const arcticScore = normalize(arcticIce.current, 3, 7.7);
 
   // Raw timestamps, for freshness comparison
   const tempRawFetched   = tempData?.fetched || tempData?._meta?.fetched_at || null;
@@ -1196,7 +1215,7 @@ function buildWorldState() {
           { name: 'Waldfläche', value: `${forestCurrent || 31.2}%`, score: Math.round(envForestScore), trend: 'declining', ...freshness(forestFetchedAt, forestSource) },
           { name: 'Erneuerbare Energie', value: `${renewableCurrent}%`, score: Math.round(envRenewableScore), trend: 'improving', ...freshness(renewableFetchedAt, renewableSource) },
           { name: 'Luftqualität (Global Avg AQI)', value: globalAvgAQI, score: envAQIScore, trend: 'stable', ...freshness(airFetchedAt, airSource) },
-          { name: 'Arktis-Eisfläche', value: '4.2 Mio km²', score: 30, trend: 'declining', ...freshness(null, 'NSIDC (manual baseline)') },
+          { name: 'Arktis-Eisfläche', value: `${arcticIce.current} Mio km²`, score: Math.round(arcticScore), trend: 'declining', ...freshness(arcticIce.isFallback ? null : arcticCache?.fetchedAt, arcticIce.isFallback ? 'NSIDC (letzter Stand)' : arcticIce.source) },
           ...(disasterSource ? [{ name: 'Aktive Naturkatastrophen', value: `${disasterOngoing} laufend, -${disasterPenalty} Pkt`, score: Math.max(0, 100 - disasterPenalty * 10), trend: 'declining', ...freshness(disasterFetchedAt, disasterSource) }] : [])
         ]
       },
@@ -1285,9 +1304,7 @@ function buildWorldState() {
         mostPolluted,
         source: 'Open-Meteo Air Quality'
       },
-      arcticIce: existing?.environment?.arcticIce || {
-        current: 4.2, unit: 'million km²', reference1980: 7.8, percentLost: 46.2, source: 'NSIDC'
-      },
+      arcticIce,
       forest: { current: forestCurrent || 31.2, history: forestHistory, source: 'World Bank' },
       renewableEnergy: { current: renewableCurrent, history: renewableHistory, source: renewableSource },
       co2PerCapita: { current: latest(co2EmissionsData?.history || [])?.value, history: co2EmissionsData?.history || [], source: 'World Bank' },
@@ -1475,7 +1492,7 @@ function buildWorldState() {
     'Waldfläche':                    { cadence: 'annual',   dataAsOf: yearOf(forestHistory) },
     'Erneuerbare Energie':           { cadence: 'annual',   dataAsOf: yearOf(renewableHistory) },
     'Luftqualität (Global Avg AQI)': { cadence: 'realtime', dataAsOf: airFetchedAt },
-    'Arktis-Eisfläche':              { cadence: 'daily',    dataAsOf: null, tier: 'static' },
+    'Arktis-Eisfläche':              { cadence: 'annual',   dataAsOf: arcticIce.isFallback ? null : arcticIce.year, tier: arcticIce.isFallback ? 'fallback' : undefined },
     'Aktive Naturkatastrophen':      { cadence: 'realtime', dataAsOf: disasterFetchedAt },
     'Lebenserwartung':               { cadence: 'annual',   dataAsOf: yearOf(lifeExpHistory) },
     'Kindersterblichkeit':           { cadence: 'annual',   dataAsOf: yearOf(childMortHistory) },
