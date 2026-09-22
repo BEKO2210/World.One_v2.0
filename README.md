@@ -5,22 +5,22 @@
 
 ---
 
-## 🌍 Welt-Indikator: 65.4 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 66.4 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  65.4/100  ↑ +0
+█████████████░░░░░░░  66.4/100  ↑ +0
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 22.09.2026 20:46 UTC
+> **Letzte Aktualisierung:** 22.09.2026 21:50 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟠 Umwelt | **38.9**/100 | → +0 | 25% |
-| 🟡 Gesellschaft | **55.8**/100 | → +0 | 25% |
-| 🟢 Wirtschaft | **73.7**/100 | → +0 | 20% |
+| 🟡 Umwelt | **42.4**/100 | → +0.1 | 25% |
+| 🟡 Gesellschaft | **55.7**/100 | → +0 | 25% |
+| 🟢 Wirtschaft | **74.3**/100 | → +0 | 20% |
 | 🟢 Fortschritt | **78.1**/100 | → +0 | 20% |
 | 🔵 Momentum | **81**/100 | → +0 | 10% |
 
@@ -33,8 +33,8 @@
 |-----------|------|--------|
 | Temperaturanomalie | **+1.19°C** | NASA GISTEMP |
 | CO2-Konzentration | **428 ppm** | NOAA |
-| Arktis-Eisfläche | **4.2 Mio km²** (46.2% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **73** | WAQI |
+| Arktis-Eisfläche | **4.75 Mio km²** (38.1% verloren) | NSIDC |
+| Luftqualität (Ø) | AQI **68** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -49,22 +49,22 @@
 |-----------|------|--------|
 | BIP-Wachstum | **2.92%** | IMF |
 | Gini-Index | **42** | World Bank |
-| Extreme Armut | **648.0 Mio** | World Bank |
-| Milliardäre | **2.8K** (45.8% Vermögen) | Oxfam |
+| Extreme Armut | **824.3 Mio** | World Bank |
+| Milliardäre | **3.4K** (45.8% Vermögen) | Oxfam |
 
 ### 🚀 Fortschritt
 | Indikator | Wert | Quelle |
 |-----------|------|--------|
 | Internet-Nutzer | **73.6%** (5.4 Mrd) | ITU |
 | Alphabetisierung | **87.7%** | UNESCO |
-| Wiss. Publikationen | **3.2 Mio/Jahr** | arXiv/Scopus |
+| Wiss. Publikationen | **3.3 Mio/Jahr** | arXiv/Scopus |
 | GitHub Commits | **142.0 Mio/Tag** | GitHub |
 
 ### ⚡ Echtzeit
 | Indikator | Wert | Quelle |
 |-----------|------|--------|
 | Erdbeben (24h) | **8** Beben M2.5+ | USGS |
-| Nachrichten-Sentiment | **-0.42** (Leicht Negativ) | GDELT |
+| Nachrichten-Sentiment | **-0.42** (—) | GDELT |
 | Crypto Fear & Greed | **78/100** (Extreme Greed) | Alternative.me |
 
 ---
@@ -77,7 +77,7 @@
 #### ✅ Verbessert sich (17)
 - **Lebenserwartung**: +1.6%
 - **Kindersterblichkeit**: -2.3%
-- **Erneuerbare Energie**: +6.7%
+- **Erneuerbare Energie**: +12.2%
 - **Internet-Zugang**: +12.1%
 - **BIP-Wachstum**: +23.3%
 - **Inflation**: -12.0%
@@ -255,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 22.09.2026 20:46 UTC | 64/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 22.09.2026 21:50 UTC | 64/65 Quellen aktiv
 </sub>
