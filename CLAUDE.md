@@ -18,7 +18,12 @@ node scripts/validate-cache.js
 node scripts/validate-fallback.js
 node scripts/validate-routing.js
 node scripts/validate-score-coverage.js
+node scripts/validate-freshness.js    # live-Werte innerhalb ihrer Kadenz
+npm i --no-save eslint@9 globals@15 @eslint/js@9 playwright@1.55
+npx eslint --no-warn-ignored .
+BASE=http://localhost:8000 node tests/smoke.mjs   # CHROMIUM_PATH=… für lokales Chromium
 ```
+Dieselben Prüfungen laufen als `.github/workflows/pr-checks.yml` auf jedem PR.
 `process-data.js` und `self-heal.js` schreiben Dateien unter `data/` — nur ausführen, wenn Datenänderungen gewollt sind.
 
 ## Regeln
