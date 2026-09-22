@@ -59,6 +59,8 @@ let _trailEl = null;
 let _dotEl = null;
 let _posTextEl = null;
 let _geoToXY = null;
+let _heroValueEl = null;
+let _heroBadgeEl = null;
 
 // --- Render ------------------------------------------------------------
 
@@ -91,6 +93,7 @@ export async function render(blocks) {
       if (res.ok) {
         const data = await res.json();
         _updateISSPosition(data.latitude, data.longitude);
+        _setLiveAltitude(data.altitude);
       }
     } catch (err) {
       console.warn('[Space] ISS fetch failed:', err.message);
@@ -118,7 +121,10 @@ export async function render(blocks) {
 // --- Hero Block ---------------------------------------------------------
 
 function _renderHero(heroEl) {
-  const badge = createTierBadge('live', { age: 0 });
+  // Richtwert bis die ISS-API antwortet, dann Live-Höhe (_setLiveAltitude)
+  const badge = createTierBadge('static', { estimate: true, source: 'NASA' });
+  _heroBadgeEl = badge;
+  _heroValueEl = DOMUtils.create('span', { textContent: '~408' });
 
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'space-hero' }, [
@@ -131,7 +137,7 @@ function _renderHero(heroEl) {
           marginBottom: 'var(--space-xs)',
         },
       }, [
-        '~408',
+        _heroValueEl,
         DOMUtils.create('span', {
           style: {
             fontSize: '1.5rem',
@@ -158,6 +164,16 @@ function _renderHero(heroEl) {
       ]),
     ])
   );
+}
+
+function _setLiveAltitude(altitude) {
+  if (!Number.isFinite(altitude) || !_heroValueEl || !_heroBadgeEl) return;
+  _heroValueEl.textContent = String(Math.round(altitude));
+  if (!_heroBadgeEl.classList.contains('data-badge--live')) {
+    const live = createTierBadge('live', { age: 0, source: 'wheretheiss.at' });
+    _heroBadgeEl.replaceWith(live);
+    _heroBadgeEl = live;
+  }
 }
 
 // --- ISS SVG Map --------------------------------------------------------
@@ -607,5 +623,7 @@ export function cleanup() {
   _dotEl = null;
   _posTextEl = null;
   _geoToXY = null;
+  _heroValueEl = null;
+  _heroBadgeEl = null;
   console.log('[Space] cleanup()');
 }
