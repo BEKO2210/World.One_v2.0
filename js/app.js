@@ -367,6 +367,12 @@ class BelkisOne {
       return arr.find(i => (i.name || '').toLowerCase().includes(nameContains.toLowerCase())) || null;
     };
 
+    // ─── Epilog: World Index (HTML-Platzhalter sonst bereits animiert) ───
+    const epilogEl = document.querySelector('.epilog__value');
+    if (epilogEl && Number.isFinite(Number(data.worldIndex?.value))) {
+      epilogEl.dataset.target = String(data.worldIndex.value);
+    }
+
     // ─── Environment ───
     set('co2-value',            env.co2?.current,                 0, findInd('environment', 'CO2-'));
     set('arctic-ice-value',     env.arcticIce?.current,           1, findInd('environment', 'Arktis'));
