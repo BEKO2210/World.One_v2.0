@@ -193,7 +193,8 @@ class BelkisOne {
   _onSectionProgress(sectionId, progress, section, data) {
     this.cinematic.updateSection(sectionId, progress);
 
-    if (progress > 0.2 && progress < 0.8 && this.particles) {
+    // Partikel laufen nur im Prolog; sonst keine Farbanimation starten
+    if (progress > 0.2 && progress < 0.8 && this.particles?.running) {
       const color = this._sectionColors[sectionId];
       if (color) {
         this.particles.setColor(color.r, color.g, color.b, 2);
