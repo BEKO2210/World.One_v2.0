@@ -80,15 +80,39 @@ async function fetchInequality() {
   return { world_trend, country_latest };
 }
 
-// ─── Poverty Headcount (World Bank) ───
-async function fetchPoverty() {
-  console.log('  Fetching poverty data (World Bank $2.15/day)...');
-  const url = 'https://api.worldbank.org/v2/country/WLD/indicator/SI.POV.DDAY?format=json&per_page=60&date=1990:2025';
-  const data = await fetchJSON(url);
-  const poverty_trend = extractWorldBankEntries(data);
+// ─── Poverty Headcount (World Bank PIP, $3.00/Tag, 2021 PPP) ───
+// Seit Juni 2025 gilt $3.00 als internationale Armutsgrenze; die alte
+// WDI-Reihe SI.POV.DDAY ($2.15) ist überholt. PIP liefert Welt und Regionen.
+const PIP_REGIONS = ['WLD', 'SSF', 'SAS', 'EAS', 'LCN', 'ECS', 'MEA'];
 
-  console.log(`  Poverty: ${poverty_trend.length} data points`);
-  return { poverty_trend };
+async function fetchPoverty() {
+  console.log('  Fetching poverty data (World Bank PIP, $3.00/day)...');
+  const url = 'https://api.worldbank.org/pip/v1/pip-grp?country=all&year=all&povline=3&group_by=wb&format=json';
+  const rows = await fetchJSON(url, { timeout: 60000 });
+  if (!Array.isArray(rows)) throw new Error('PIP: unerwartete Antwort');
+
+  const series = (code, type) => rows
+    .filter(r => r.region_code === code && r.reporting_year >= 1990 && (!type || r.estimate_type === type))
+    .sort((a, b) => a.reporting_year - b.reporting_year);
+  const toPoint = r => ({ year: r.reporting_year, value: Math.round(r.headcount * 1000) / 10 });
+
+  const world = series('WLD', 'actual');
+  if (!world.length) throw new Error('PIP: keine Weltwerte');
+  const last = world[world.length - 1];
+  const nowcast = series('WLD', 'nowcast').pop() || null;
+
+  const regions = {};
+  for (const code of PIP_REGIONS.slice(1)) regions[code] = series(code, 'actual').map(toPoint);
+
+  console.log(`  Poverty: ${world.length} years, ${last.reporting_year} = ${(last.headcount * 100).toFixed(2)} % (${Math.round(last.pop_in_poverty / 1e6)} Mio)`);
+  return {
+    poverty_trend: world.map(r => ({ ...toPoint(r), people: Math.round(r.pop_in_poverty) })),
+    latest: { year: last.reporting_year, pct: Math.round(last.headcount * 10000) / 100, people: Math.round(last.pop_in_poverty) },
+    nowcast: nowcast ? { year: nowcast.reporting_year, pct: Math.round(nowcast.headcount * 10000) / 100, people: Math.round(nowcast.pop_in_poverty) } : null,
+    regions,
+    poverty_line_usd: 3.0,
+    source: 'World Bank PIP ($3.00/Tag, 2021 PPP)'
+  };
 }
 
 // ─── Main ───

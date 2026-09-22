@@ -37,7 +37,7 @@
       <div class="loading-screen__orb-core"></div>
     </div>
     <div class="loading-screen__text">World.One</div>
-    <div class="loading-screen__sub" data-i18n="loading.sub">Lade Weltdaten aus 65 Quellen</div>
+    <div class="loading-screen__sub" data-i18n="loading.sub">Lade Weltdaten …</div>
     <div class="loading-screen__bar">
       <div class="loading-screen__progress" style="width: 0%"></div>
     </div>
@@ -280,17 +280,17 @@
         <div class="data-card reveal">
           <div class="data-card__header">
             <span class="data-card__label" data-i18n="act2.arcticIce">ARKTISCHES EIS</span>
-            <span class="data-card__trend data-card__trend--down">-46.2%</span>
+            <span class="data-card__trend data-card__trend--down" id="arctic-ice-trend">–</span>
           </div>
           <div class="data-card__comparison">
             <div class="data-card__compare-item">
-              <span class="data-card__compare-label">1980</span>
-              <span class="data-card__compare-value" style="color:#5ac8fa">7.8 Mio km²</span>
+              <span class="data-card__compare-label" data-i18n="act2.arcticSep1980">Sept. 1980</span>
+              <span class="data-card__compare-value" id="arctic-ice-1980" style="color:#5ac8fa">–</span>
             </div>
             <span class="data-card__compare-arrow">→</span>
             <div class="data-card__compare-item">
-              <span class="data-card__compare-label" data-i18n="act2.today">Heute</span>
-              <span class="data-card__compare-value" id="arctic-ice-value" style="color:#ff6b6b" data-counter data-target="4.2" data-decimals="1" data-suffix=" Mio km²">0</span>
+              <span class="data-card__compare-label" id="arctic-ice-year-label">–</span>
+              <span class="data-card__compare-value" id="arctic-ice-value" style="color:#ff6b6b" data-counter data-target="0" data-decimals="2" data-suffix=" Mio km²">–</span>
             </div>
           </div>
           <p class="data-card__explain" data-i18n="act2.arcticExplain">Eisverlust entspricht etwa der Fläche von Indien.</p>
@@ -431,7 +431,7 @@
       <div class="section-header reveal">
         <span class="section-label" data-i18n="act3.label">AKT 05 — GESELLSCHAFT</span>
         <h2 class="text-section" data-i18n="act3.title">Wir Menschen</h2>
-        <p class="section-desc" data-i18n="act3.desc">8.1 Milliarden. Konflikte, Flucht, Freiheit, Gesundheit — wie es uns geht.</p>
+        <p class="section-desc" data-i18n="act3.desc">Acht Milliarden. Konflikte, Flucht, Freiheit, Gesundheit — wie es uns geht.</p>
       </div>
 
       <!-- Key Stats -->
@@ -478,9 +478,9 @@
         <h3 class="text-sub text-center" data-i18n="act3.freedomTitle">Freiheitsindex weltweit</h3>
         <p class="text-label text-muted text-center" style="margin-bottom:var(--space-sm)" data-i18n="act3.freedomDesc">195 Länder bewertet nach politischen Rechten & bürgerlichen Freiheiten</p>
         <div class="freedom-legend">
-          <div class="freedom-legend__item"><span class="freedom-legend__dot" style="background:#34c759"></span><span data-i18n="act3.free">Frei (84)</span></div>
-          <div class="freedom-legend__item"><span class="freedom-legend__dot" style="background:#ffcc00"></span><span data-i18n="act3.partlyFree">Teilweise frei (56)</span></div>
-          <div class="freedom-legend__item"><span class="freedom-legend__dot" style="background:#ff3b30"></span><span data-i18n="act3.notFree">Nicht frei (55)</span></div>
+          <div class="freedom-legend__item"><span class="freedom-legend__dot" style="background:#34c759"></span><span data-i18n="act3.free">Frei</span></div>
+          <div class="freedom-legend__item"><span class="freedom-legend__dot" style="background:#ffcc00"></span><span data-i18n="act3.partlyFree">Teilweise frei</span></div>
+          <div class="freedom-legend__item"><span class="freedom-legend__dot" style="background:#ff3b30"></span><span data-i18n="act3.notFree">Nicht frei</span></div>
         </div>
         <p class="text-label text-muted text-center" style="margin-top:var(--space-sm)" data-i18n="act3.freedomDecline">18. Jahr in Folge mit Rückgang — Freedom House 2026</p>
       </div>
@@ -535,15 +535,15 @@
       <!-- Wealth Comparison -->
       <div class="wealth-comparison reveal">
         <div class="wealth-comparison__side">
-          <div class="wealth-comparison__value" id="billionaires-value" style="color:#ffd700" data-counter data-target="2781">0</div>
+          <div class="wealth-comparison__value" id="billionaires-value" style="color:#ffd700" data-counter data-target="0">–</div>
           <div class="wealth-comparison__label" data-i18n="act4.billionaires">Milliardäre weltweit</div>
-          <div class="wealth-comparison__sub" data-i18n="act4.billionairesOwn">besitzen 45.8% des Weltvermögens</div>
+          <div class="wealth-comparison__sub" data-i18n="act4.billionairesOwn">–</div>
         </div>
         <div class="wealth-comparison__vs">vs.</div>
         <div class="wealth-comparison__side">
-          <div class="wealth-comparison__value" id="extreme-poverty-value" style="color:#ff9500" data-counter data-target="648" data-suffix=" Mio">0</div>
+          <div class="wealth-comparison__value" id="extreme-poverty-value" style="color:#ff9500" data-counter data-target="0" data-suffix=" Mio">–</div>
           <div class="wealth-comparison__label" data-i18n="act4.poverty">Menschen in extremer Armut</div>
-          <div class="wealth-comparison__sub" data-i18n="act4.povertyThreshold">unter $2.15 pro Tag</div>
+          <div class="wealth-comparison__sub" data-i18n="act4.povertyThreshold">unter 3,00 US-$ pro Tag</div>
         </div>
       </div>
 
@@ -586,7 +586,7 @@
             <span class="data-card__source">World Bank</span>
           </div>
           <div id="gini-chart" class="chart-container" role="img" aria-label="Gini-Index"></div>
-          <p class="data-card__explain">0 = Gleichheit, 100 = Ungleichheit. Global: 42 — Tendenz sinkend.</p>
+          <p class="data-card__explain" data-i18n="act4.giniExplain">0 = völlige Gleichheit, 100 = maximale Ungleichheit. Länderwerte laut World Bank.</p>
         </div>
 
         <div class="data-card reveal">

@@ -254,6 +254,7 @@ class BelkisOne {
     try { this._populateEnvironmentValues(data); } catch (e) { console.error('[BelkisOne] Env values error:', e); }
     try { this._populateOceanValues(data); } catch (e) { console.error('[BelkisOne] Ocean values error:', e); }
     try { this._populateSocietyValues(data); } catch (e) { console.error('[BelkisOne] Society values error:', e); }
+    try { this._populateArctic(data); } catch (e) { console.error('[BelkisOne] Arctic error:', e); }
     try { this._populateEconomyValues(data); } catch (e) { console.error('[BelkisOne] Economy values error:', e); }
     try { this._populateProgressValues(data); } catch (e) { console.error('[BelkisOne] Progress values error:', e); }
     try { this._populateRealtimeExtras(data); } catch (e) { console.error('[BelkisOne] Realtime extras error:', e); }
@@ -376,7 +377,7 @@ class BelkisOne {
 
     // ─── Environment ───
     set('co2-value',            env.co2?.current,                 0, findInd('environment', 'CO2-'));
-    set('arctic-ice-value',     env.arcticIce?.current,           1, findInd('environment', 'Arktis'));
+    set('arctic-ice-value',     env.arcticIce?.current,           2, findInd('environment', 'Arktis'));
     set('ocean-plastic-value',  env.ocean?.plasticMt,             0, { source: 'GESAMP / UNEP' });
     set('bio-threatened-count', env.biodiversity?.threatenedTotal, 0, {
       source: env.biodiversity?.source || 'GBIF / IUCN',
@@ -418,11 +419,25 @@ class BelkisOne {
     const popLatestYear  = popHist.length  ? popHist[popHist.length - 1]?.year  : null;
     const freedomStreak  = data?.society?.freedom?.yearDecline;
 
+    // Zahlen in Fließtexten: aus world-state, nie hartkodiert
+    const locale = i18n.lang === 'en' ? 'en-GB' : 'de-DE';
+    const num = (v, d = 1) => Number.isFinite(v) ? v.toLocaleString(locale, { maximumFractionDigits: d }) : '–';
+    const fr = data?.society?.freedom || {};
+    const w = data?.economy?.wealth || {};
+    const pop = data?.society?.population?.current;
+
     i18n.setGlobalParams({
       currentYear: now,
       tempLatestYear: Number.isFinite(tempLatestYear) ? tempLatestYear : now,
       popLatestYear:  Number.isFinite(popLatestYear)  ? popLatestYear  : now,
-      freedomStreak:  Number.isFinite(freedomStreak)  ? freedomStreak  : 18
+      freedomStreak:  Number.isFinite(freedomStreak)  ? freedomStreak  : 18,
+      freeCount:        num(fr.free, 0),
+      partlyFreeCount:  num(fr.partlyFree, 0),
+      notFreeCount:     num(fr.notFree, 0),
+      popBillion:       num(pop / 1e9, 1),
+      billionaireWealthT: num(w.billionaireWealth / 1e12, 1),
+      billionairesYear: w.billionairesYear ?? '–',
+      povertyYear:      w.extremePovertyYear ?? '–'
     });
   }
 
@@ -430,7 +445,7 @@ class BelkisOne {
   _populateProlog(data) {
     const meta = data.meta;
     if (!meta) return;
-    this._setText('#prolog-sources', meta.sources_count || '49');
+    this._setText('#prolog-sources', meta.sources_count || '–');
     if (meta.sources_available && meta.sources_count) {
       const rate = Math.min(100, Math.round((meta.sources_available / meta.sources_count) * 100));
       this._setText('#prolog-rate', `${rate}%`);
@@ -547,6 +562,17 @@ class BelkisOne {
         });
     const wrap = DOMUtils.create('div', { className: 'tier-flag', style: { marginTop: '4px', textAlign: 'center' } }, [badge]);
     anchor.insertAdjacentElement('afterend', wrap);
+  }
+
+  // ─── Arktis: September-Minimum 1980 → letzter vollständiger September ───
+  _populateArctic(data) {
+    const a = data.environment?.arcticIce;
+    if (!a?.current || !a?.reference1980) return;
+    const nf = (v) => v.toLocaleString(i18n.lang === 'en' ? 'en-GB' : 'de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    this._setText('#arctic-ice-1980', `${nf(a.reference1980)} ${i18n.t('unit.mioKm2')}`);
+    this._setText('#arctic-ice-trend', `−${a.percentLost.toLocaleString(i18n.lang === 'en' ? 'en-GB' : 'de-DE')} %`);
+    this._setText('#arctic-ice-year-label', a.year ? i18n.t('act2.arcticSepYear', { year: a.year }) : i18n.t('act2.today'));
+    this._setTierFlag(document.getElementById('arctic-ice-value'), a.isFallback ? a : null);
   }
 
   // ─── Society static values ───
@@ -802,7 +828,7 @@ class BelkisOne {
   _buildPipelineStatus(data) {
     const meta = data.meta;
     if (!meta) return;
-    this._setText('#sources-total', meta.sources_count || '49');
+    this._setText('#sources-total', meta.sources_count || '–');
     this._setText('#sources-success', Math.min(meta.sources_available, meta.sources_count) || '22');
     if (meta.sources_available && meta.sources_count) {
       const rate = Math.min(100, Math.round((meta.sources_available / meta.sources_count) * 100));
@@ -1525,6 +1551,7 @@ class BelkisOne {
 
   _rebuildDynamic(data) {
     this._currentData = data;
+    this._applyDynamicYears(data);
 
     // Re-render prolog title and subtitle (no typewriter on toggle — instant text)
     const prologTitle = document.querySelector('.prolog__title');
@@ -1562,6 +1589,7 @@ class BelkisOne {
 
     // Re-render society data
     this._populateSocietyValues(data);
+    this._populateArctic(data);
 
     // Re-render economy data
     this._populateEconomyValues(data);

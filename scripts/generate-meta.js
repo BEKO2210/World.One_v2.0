@@ -21,7 +21,7 @@ const META_PATH = join(CACHE_DIR, 'meta.json');
 /** Hardcoded job-to-files mapping */
 const JOB_FILES = {
   'biodiversity': ['biodiversity.json'],
-  'environment-ext': ['co2-history.json', 'ocean.json', 'solar.json'],
+  'environment-ext': ['co2-history.json', 'ocean.json', 'solar.json', 'arctic.json'],
   'society-ext': ['population.json', 'freedom.json', 'conflicts.json'],
   'economy-ext': ['currencies.json', 'inequality.json', 'poverty.json'],
   'progress-ext': ['arxiv-ai.json', 'space-news.json'],

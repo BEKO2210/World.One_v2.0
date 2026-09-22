@@ -28,67 +28,19 @@ export const meta = {
 let _trendChart = null;
 let _chartData = null;
 
-// --- Regional Poverty Breakdown (World Bank PIP 2024 estimates) --------
-// Percentage living below $2.15/day by world region
+// --- Regional Poverty Breakdown (World Bank PIP, $3.00/day) ------------
+// Werte kommen aus poverty.json (regions[code]); hier nur Zuordnung + Farbe.
 
-const REGIONAL_POVERTY = [
-  {
-    region: 'subSahara',
-    data: [
-      { year: 1990, value: 56.8 }, { year: 1995, value: 57.7 }, { year: 2000, value: 55.1 },
-      { year: 2005, value: 49.2 }, { year: 2010, value: 44.4 }, { year: 2015, value: 39.7 },
-      { year: 2020, value: 36.2 }, { year: 2024, value: 34.9 },
-    ],
-    color: '#d32f2f',
-  },
-  {
-    region: 'southAsia',
-    data: [
-      { year: 1990, value: 50.7 }, { year: 1995, value: 44.8 }, { year: 2000, value: 37.2 },
-      { year: 2005, value: 30.5 }, { year: 2010, value: 22.2 }, { year: 2015, value: 14.5 },
-      { year: 2020, value: 10.1 }, { year: 2024, value: 8.2 },
-    ],
-    color: '#f57c00',
-  },
-  {
-    region: 'eastAsia',
-    data: [
-      { year: 1990, value: 60.7 }, { year: 1995, value: 38.8 }, { year: 2000, value: 28.7 },
-      { year: 2005, value: 16.3 }, { year: 2010, value: 8.8 }, { year: 2015, value: 2.8 },
-      { year: 2020, value: 1.2 }, { year: 2024, value: 0.9 },
-    ],
-    color: '#fbc02d',
-  },
-  {
-    region: 'latinAmerica',
-    data: [
-      { year: 1990, value: 14.4 }, { year: 1995, value: 12.2 }, { year: 2000, value: 11.8 },
-      { year: 2005, value: 8.9 }, { year: 2010, value: 5.5 }, { year: 2015, value: 4.1 },
-      { year: 2020, value: 4.8 }, { year: 2024, value: 3.6 },
-    ],
-    color: '#4caf50',
-  },
-  {
-    region: 'europe',
-    data: [
-      { year: 1990, value: 3.2 }, { year: 1995, value: 6.3 }, { year: 2000, value: 6.1 },
-      { year: 2005, value: 3.2 }, { year: 2010, value: 2.0 }, { year: 2015, value: 1.5 },
-      { year: 2020, value: 1.3 }, { year: 2024, value: 1.1 },
-    ],
-    color: '#1976d2',
-  },
-  {
-    region: 'middleEast',
-    data: [
-      { year: 1990, value: 6.2 }, { year: 1995, value: 5.5 }, { year: 2000, value: 4.3 },
-      { year: 2005, value: 3.8 }, { year: 2010, value: 2.8 }, { year: 2015, value: 5.0 },
-      { year: 2020, value: 7.1 }, { year: 2024, value: 7.5 },
-    ],
-    color: '#7b1fa2',
-  },
+const REGIONS = [
+  { region: 'subSahara',    code: 'SSF', color: '#d32f2f' },
+  { region: 'southAsia',    code: 'SAS', color: '#f57c00' },
+  { region: 'eastAsia',     code: 'EAS', color: '#fbc02d' },
+  { region: 'latinAmerica', code: 'LCN', color: '#4caf50' },
+  { region: 'europe',       code: 'ECS', color: '#1976d2' },
+  { region: 'middleEast',   code: 'MEA', color: '#7b1fa2' },
 ];
 
-// --- Local hex-to-RGB helper (REGIONAL_POVERTY uses hex colors) --------
+// --- Local hex-to-RGB helper (REGIONS use hex colors) --------
 
 function _hexToRgb(hex) {
   const r = parseInt(hex.slice(1, 3), 16);
@@ -103,42 +55,32 @@ export async function render(blocks) {
   // 1. Fetch cached poverty data
   const { data, tier, age } = await fetchTopicData('poverty');
 
-  // Extract poverty_trend from cache data (34 entries, 1990-2024)
+  // Welt-Trend aus PIP ($3.00/Tag); ohne Cache die Jahreswerte aus static-values
   const poverty_trend = data?.poverty_trend || [];
+  const fb = tier === 'static' ? data : null;
   const latestValue = poverty_trend.length > 0
     ? poverty_trend[poverty_trend.length - 1].value
-    : 10.3;
-  const startValue = poverty_trend.length > 0
-    ? poverty_trend[0].value
-    : 43.4;
+    : fb?.extreme_poverty_pct?.value ?? null;
+  const latestYear = poverty_trend.length > 0
+    ? poverty_trend[poverty_trend.length - 1].year
+    : fb?.extreme_poverty_pct?.year ?? null;
+  const startValue = poverty_trend.length > 0 ? poverty_trend[0].value : null;
+  const people = data?.latest?.people ?? (fb?.people_in_poverty_m?.value ? fb.people_in_poverty_m.value * 1e6 : null);
 
   // Store full data for time range filtering
-  _chartData = poverty_trend.length > 0 ? poverty_trend : [
-    { year: 1990, value: 43.4 }, { year: 1991, value: 42.3 }, { year: 1992, value: 41.0 },
-    { year: 1993, value: 40.5 }, { year: 1994, value: 39.8 }, { year: 1995, value: 38.5 },
-    { year: 1996, value: 37.9 }, { year: 1997, value: 36.1 }, { year: 1998, value: 35.5 },
-    { year: 1999, value: 34.8 }, { year: 2000, value: 33.7 }, { year: 2001, value: 32.3 },
-    { year: 2002, value: 30.8 }, { year: 2003, value: 28.5 }, { year: 2004, value: 26.8 },
-    { year: 2005, value: 24.6 }, { year: 2006, value: 22.8 }, { year: 2007, value: 21.1 },
-    { year: 2008, value: 20.3 }, { year: 2009, value: 19.5 }, { year: 2010, value: 17.8 },
-    { year: 2011, value: 15.9 }, { year: 2012, value: 14.3 }, { year: 2013, value: 13.1 },
-    { year: 2014, value: 12.4 }, { year: 2015, value: 11.2 }, { year: 2016, value: 10.8 },
-    { year: 2017, value: 10.1 }, { year: 2018, value: 9.3 }, { year: 2019, value: 8.6 },
-    { year: 2020, value: 9.7 }, { year: 2021, value: 9.3 }, { year: 2022, value: 9.9 },
-    { year: 2024, value: 10.3 },
-  ];
+  _chartData = poverty_trend;
 
   // --- 2. Hero Block ---
-  _renderHero(blocks.hero, latestValue, startValue, tier, age);
+  _renderHero(blocks.hero, latestValue, startValue, tier, age, latestYear);
 
   // --- 3. Chart Block (Poverty trend line, animated) ---
   await _renderTrend(blocks.chart);
 
   // --- 4. Trend Block (Regional stacked area chart) ---
-  await _renderRegional(blocks.trend);
+  await _renderRegional(blocks.trend, data?.regions || null);
 
   // --- 5. Tiles Block ---
-  _renderTiles(blocks.tiles, latestValue);
+  _renderTiles(blocks.tiles, latestValue, startValue, people, poverty_trend);
 
   // --- 6. Explanation Block ---
   _renderExplanation(blocks.explanation);
@@ -152,9 +94,9 @@ export async function render(blocks) {
 
 // --- Hero ---------------------------------------------------------------
 
-function _renderHero(heroEl, latestValue, startValue, tier, age) {
-  const badge = createTierBadge(tier, { age });
-  const formatted = Number(latestValue).toFixed(1) + '%';
+function _renderHero(heroEl, latestValue, startValue, tier, age, latestYear) {
+  const badge = createTierBadge(tier, { age, dataAsOf: latestYear, cadence: 'annual', source: 'World Bank PIP' });
+  const formatted = latestValue != null ? Number(latestValue).toFixed(1) + '%' : '–';
 
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'poverty-hero' }, [
@@ -178,7 +120,7 @@ function _renderHero(heroEl, latestValue, startValue, tier, age) {
         },
       }, [
         DOMUtils.create('span', {
-          textContent: `${Number(startValue).toFixed(1)}%`,
+          textContent: startValue != null ? `${Number(startValue).toFixed(1)}%` : '–',
           style: {
             color: 'var(--text-secondary)',
             fontSize: '1.25rem',
@@ -322,7 +264,12 @@ function _createTrendChart(trendData) {
 
 // --- Trend Block (Regional Stacked Area Chart) ---------------------------
 
-async function _renderRegional(trendEl) {
+async function _renderRegional(trendEl, regions) {
+  const series = REGIONS
+    .map(r => ({ ...r, data: regions?.[r.code] || [] }))
+    .filter(r => r.data.length > 0);
+  if (series.length === 0) return;
+
   trendEl.appendChild(
     DOMUtils.create('div', {}, [
       DOMUtils.create('h2', {
@@ -339,35 +286,38 @@ async function _renderRegional(trendEl) {
 
   await ensureChartJs();
 
-  // Extract common years from the first region
-  const years = REGIONAL_POVERTY[0].data.map(d => String(d.year));
+  // Quoten je Region sind nicht addierbar: einzelne Linien, kein Stapel
+  const years = [...new Set(series.flatMap(r => r.data.map(d => d.year)))].sort((a, b) => a - b);
 
-  const datasets = REGIONAL_POVERTY.map(region => ({
+  const datasets = series.map(region => {
+    const byYear = new Map(region.data.map(d => [d.year, d.value]));
+    return {
     label: i18n.t(`detail.poverty.${region.region}`),
-    data: region.data.map(d => d.value),
+    data: years.map(y => byYear.get(y) ?? null),
     backgroundColor: toRgba(_hexToRgb(region.color), 0.4),
     borderColor: region.color,
-    fill: true,
+    fill: false,
+    spanGaps: true,
     tension: 0.3,
     pointRadius: 3,
     pointHitRadius: 8,
     borderWidth: 1.5,
-  }));
+    };
+  });
 
   createChart('poverty-regional-canvas', {
     type: 'line',
     data: {
-      labels: years,
+      labels: years.map(String),
       datasets,
     },
     options: {
       scales: {
         x: {
-          stacked: true,
           grid: { display: false },
         },
         y: {
-          stacked: true,
+          min: 0,
           title: {
             display: true,
             text: '%',
@@ -397,29 +347,32 @@ async function _renderRegional(trendEl) {
 
 // --- Tiles Block --------------------------------------------------------
 
-function _renderTiles(tilesEl, latestValue) {
+function _renderTiles(tilesEl, latestValue, startValue, people, trend) {
+  const first = trend[0]?.year;
+  const last = trend[trend.length - 1]?.year;
+  const change = latestValue != null && startValue ? Math.round((latestValue / startValue - 1) * 100) : null;
   const tileData = [
     {
       label: i18n.t('detail.poverty.tilePovRate'),
-      value: Number(latestValue).toFixed(1) + '%',
-      unit: '$2.15/day',
+      value: latestValue != null ? Number(latestValue).toFixed(1) + '%' : '–',
+      unit: i18n.t('detail.poverty.lineUnit'),
       accent: toRgba(CHART_COLORS.economy),
     },
     {
       label: i18n.t('detail.poverty.tilePeople'),
-      value: '~700M',
+      value: people ? `${Math.round(people / 1e6)} Mio` : '–',
       unit: i18n.t('detail.poverty.heroLabel'),
     },
     {
       label: i18n.t('detail.poverty.tileChange'),
-      value: '-76%',
-      unit: '1990-2024',
+      value: change != null ? `${change}%` : '–',
+      unit: first && last ? `${first}–${last}` : '',
       accent: '#4caf50',
     },
     {
       label: i18n.t('detail.poverty.tileGoal'),
       value: '0%',
-      unit: 'by 2030',
+      unit: i18n.t('detail.poverty.goalUnit'),
       accent: 'var(--text-secondary)',
     },
   ];
