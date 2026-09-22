@@ -6,6 +6,7 @@ const translations = {
   de: {
     // ─── Loading Screen ───
     'loading.sub': 'Lade Weltdaten …',
+    'theme.toggle': 'Hell/Dunkel umschalten',
     'empty.noData': 'Für diesen Bereich liegen gerade keine aktuellen Daten vor. Die Quelle wird beim nächsten Datenlauf erneut abgefragt.',
     'timeline.older': 'Älterer Stand',
     'timeline.newer': 'Neuerer Stand',
@@ -1264,6 +1265,7 @@ const translations = {
   en: {
     // ─── Loading Screen ───
     'loading.sub': 'Loading world data …',
+    'theme.toggle': 'Toggle light/dark',
     'empty.noData': 'No current data is available for this section. The source will be queried again in the next data run.',
     'timeline.older': 'Older snapshot',
     'timeline.newer': 'Newer snapshot',

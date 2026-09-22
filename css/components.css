@@ -813,3 +813,20 @@
   font-size: 0.875rem;
   line-height: 1.5;
 }
+
+/* ─── Theme-Umschalter ─── */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  color: var(--text-2);
+  transition: background var(--duration-fast) ease, color var(--duration-fast) ease;
+}
+.theme-toggle:hover { background: var(--surface-2); color: var(--text-1); }
+.theme-toggle__sun { display: none; }
+:root[data-theme="light"] .theme-toggle__sun { display: block; }
+:root[data-theme="light"] .theme-toggle__moon { display: none; }
+@media (max-width: 640px) { .theme-toggle { width: 44px; height: 44px; } }
