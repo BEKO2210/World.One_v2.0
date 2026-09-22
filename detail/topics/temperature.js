@@ -100,16 +100,17 @@ const STRIPE_EVENTS = {
 
 // --- Climate Tipping Points (IPCC AR6 / Earth Commission) --------------
 
+// Namen/Beschreibungen in i18n: detail.temperature.tp_<id>_name / _detail
 const TIPPING_POINTS = [
-  { threshold: '1.0\u00B0C', name: 'Coral Reef Die-Off', status: 'crossed', detail: 'Tropical coral reefs face mass bleaching at >1.0\u00B0C' },
-  { threshold: '1.5\u00B0C', name: 'West Antarctic Ice Sheet', status: 'imminent', detail: 'Irreversible collapse may begin above 1.5\u00B0C' },
-  { threshold: '1.5\u00B0C', name: 'Greenland Ice Sheet', status: 'imminent', detail: 'Sustained warming above 1.5\u00B0C triggers long-term melt' },
-  { threshold: '1.5\u00B0C', name: 'Boreal Forest Dieback', status: 'imminent', detail: 'Northern forests shift from carbon sink to source' },
-  { threshold: '2.0\u00B0C', name: 'Amazon Rainforest Dieback', status: 'risk', detail: 'Combination of warming and deforestation threatens collapse' },
-  { threshold: '2.0\u00B0C', name: 'Permafrost Collapse', status: 'risk', detail: 'Thawing releases trapped methane and CO2' },
-  { threshold: '3.0\u00B0C', name: 'Atlantic Circulation (AMOC)', status: 'risk', detail: 'Slowdown disrupts European climate and monsoons' },
-  { threshold: '4.0\u00B0C', name: 'East Antarctic Ice Sheet', status: 'distant', detail: 'Largest ice mass, potential 50m+ sea level rise' },
-  { threshold: '5.0\u00B0C', name: 'Arctic Winter Sea Ice', status: 'distant', detail: 'Complete loss of winter ice cover' },
+  { id: 'coral', threshold: '1.0\u00B0C', status: 'crossed' },
+  { id: 'wais', threshold: '1.5\u00B0C', status: 'imminent' },
+  { id: 'greenland', threshold: '1.5\u00B0C', status: 'imminent' },
+  { id: 'boreal', threshold: '1.5\u00B0C', status: 'imminent' },
+  { id: 'amazon', threshold: '2.0\u00B0C', status: 'risk' },
+  { id: 'permafrost', threshold: '2.0\u00B0C', status: 'risk' },
+  { id: 'amoc', threshold: '3.0\u00B0C', status: 'risk' },
+  { id: 'eais', threshold: '4.0\u00B0C', status: 'distant' },
+  { id: 'arcticwinter', threshold: '5.0\u00B0C', status: 'distant' },
 ];
 
 // --- Regional Warming Data (ISO-2 to anomaly, 2024) --------------------
@@ -485,7 +486,7 @@ function _renderTippingPoints(trendEl) {
           },
         }),
         DOMUtils.create('span', {
-          textContent: tp.name,
+          textContent: i18n.t(`detail.temperature.tp_${tp.id}_name`),
           style: { color: 'var(--text-primary)', fontWeight: '600', fontSize: '0.9rem' },
         }),
         DOMUtils.create('span', {
@@ -500,7 +501,7 @@ function _renderTippingPoints(trendEl) {
         }),
       ]),
       DOMUtils.create('p', {
-        textContent: tp.detail,
+        textContent: i18n.t(`detail.temperature.tp_${tp.id}_detail`),
         style: { color: 'var(--text-secondary)', fontSize: '0.8rem', margin: '0', lineHeight: '1.4' },
       }),
     ]);
@@ -555,7 +556,7 @@ function _renderTiles(tilesEl, anomaly) {
     {
       label: i18n.t('detail.temperature.tileSealevelRise'),
       value: '~20cm',
-      unit: 'since 1900',
+      unit: i18n.t('detail.temperature.since1900'),
     },
   ];
 

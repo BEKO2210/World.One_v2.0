@@ -3,6 +3,7 @@
    ═══════════════════════════════════════════════════════════ */
 
 import { i18n } from '../i18n.js';
+import { fmtNumber } from './fmt.js';
 
 export const MathUtils = {
   // ─── Clamping ───
@@ -121,13 +122,7 @@ export const MathUtils = {
 
   formatCompact(num) {
     if (!Number.isFinite(num)) return '—';
-    const abs = Math.abs(num);
-    const sign = num < 0 ? '-' : '';
-    if (abs >= 1e12) return sign + (abs / 1e12).toFixed(1) + ' ' + i18n.t('num.bio');
-    if (abs >= 1e9) return sign + (abs / 1e9).toFixed(1) + ' ' + i18n.t('num.mrd');
-    if (abs >= 1e6) return sign + (abs / 1e6).toFixed(1) + ' ' + i18n.t('num.mio');
-    if (abs >= 1e3) return sign + (abs / 1e3).toFixed(1) + 'K';
-    return num.toString();
+    return fmtNumber(num, { compact: true, maxDecimals: 1 });
   },
 
   // ─── Escape HTML to prevent XSS ───

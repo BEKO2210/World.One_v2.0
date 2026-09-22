@@ -689,7 +689,9 @@ class BelkisOne {
     if (rgdpEl && eco?.gdpGrowth?.regions) {
       const regions = eco.gdpGrowth.regions
         .map(r => ({
-          name: r.name || r.region || i18n.t('js.unknown'),
+          // Regionsname nach World-Bank-Code übersetzt; Pipeline liefert Deutsch
+          name: (r.code && i18n.t(`region.${r.code}`) !== `region.${r.code}` ? i18n.t(`region.${r.code}`) : null)
+            || r.name || r.region || i18n.t('js.unknown'),
           value: Number(r.value ?? r.gdpGrowth ?? 0)
         }))
         .filter(r => Number.isFinite(r.value));
@@ -698,7 +700,7 @@ class BelkisOne {
         const maxVal = Math.max(...regions.map(r => Math.abs(r.value))) || 1;
         rgdpEl.innerHTML = regions.map(r => `
           <div class="regional-gdp__item">
-            <div class="regional-gdp__name">${r.name}</div>
+            <div class="regional-gdp__name">${this._esc(r.name)}</div>
             <div class="regional-gdp__bar">
               <div class="regional-gdp__fill" style="width:${(Math.abs(r.value) / maxVal * 100).toFixed(0)}%"></div>
             </div>
@@ -1146,7 +1148,7 @@ class BelkisOne {
             className: 'comparison-item reveal',
             style: { transitionDelay: `${i * 100}ms` },
             innerHTML: `
-              <span class="comparison-item__name">${item.name}</span>
+              <span class="comparison-item__name">${this._esc(i18n.indicatorName(item.name))}</span>
               <div class="comparison-item__values">
                 <span class="comparison-item__then">${typeof item.then === 'number' ? MathUtils.formatCompact(item.then) : item.then}</span>
                 <span class="comparison-item__arrow">→</span>
@@ -1252,14 +1254,17 @@ class BelkisOne {
       }
     };
 
+    // Texte aus i18n (DE + EN); die Pipeline liefert nur deutsche Strings
+    const items = (key) => i18n.t(key).split('|');
+
     setScores('scenario-bau', sc.businessAsUsual.worldIndex2030, sc.businessAsUsual.worldIndex2050);
-    setList('scenario-bau', sc.businessAsUsual.keyChanges);
+    setList('scenario-bau', items('act9.bauItems'));
 
     setScores('scenario-worst', sc.worstCase.worldIndex2030, sc.worstCase.worldIndex2050);
-    setList('scenario-worst', sc.worstCase.keyChanges);
+    setList('scenario-worst', items('act9.worstItems'));
 
     setScores('scenario-best', sc.bestCase.worldIndex2030, sc.bestCase.worldIndex2050);
-    setList('scenario-best', sc.bestCase.keyChanges);
+    setList('scenario-best', items('act9.bestItems'));
   }
 
   // ─── Sources ───

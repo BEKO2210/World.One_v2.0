@@ -372,7 +372,7 @@ function _buildMiniCard(indicator) {
   // Row 2 children: value, change (if available), score badge
   const row2Children = [
     DOMUtils.create('span', {
-      textContent: String(indicator.value || '--'),
+      textContent: indicator.value != null && indicator.value !== '' ? i18n.indicatorValue(String(indicator.value)) : '--',
       style: { color: 'var(--text-secondary)', fontSize: '0.8rem', flex: '1' },
     }),
   ];
@@ -422,7 +422,7 @@ function _buildMiniCard(indicator) {
       },
     }, [
       DOMUtils.create('span', {
-        textContent: indicator.name,
+        textContent: i18n.indicatorName(indicator.name),
         style: { color: 'var(--text-primary)', fontWeight: '600', fontSize: '0.85rem', flex: '1' },
       }),
       ...row1Right,

@@ -3,6 +3,8 @@
    ═══════════════════════════════════════════════════════════ */
 
 import { MathUtils } from '../utils/math.js';
+import { fmtNumber } from '../utils/fmt.js';
+import { i18n } from '../i18n.js';
 
 export class Counter {
   constructor(element, options = {}) {
@@ -51,16 +53,15 @@ export class Counter {
   _render() {
     let displayValue;
 
+    // Sprachabhängig über fmt.js (vorher fest de-DE bzw. toFixed mit Punkt)
     if (this.suffix === 'compact') {
-      displayValue = MathUtils.formatCompact(Math.round(this.current));
+      displayValue = fmtNumber(Math.round(this.current), { compact: true, maxDecimals: 1 });
     } else {
-      displayValue = new Intl.NumberFormat(this.locale, {
-        minimumFractionDigits: this.decimals,
-        maximumFractionDigits: this.decimals
-      }).format(this.current);
+      displayValue = fmtNumber(this.current, { decimals: this.decimals });
     }
 
-    this.element.textContent = `${this.prefix}${displayValue}${this.suffix === 'compact' ? '' : this.suffix}`;
+    const suffix = this.suffix === 'compact' ? '' : i18n.indicatorValue(this.suffix);
+    this.element.textContent = `${this.prefix}${displayValue}${suffix}`;
   }
 
   setTarget(newTarget) {
