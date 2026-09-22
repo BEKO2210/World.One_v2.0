@@ -13,6 +13,7 @@ import { CinematicScroll } from './visualizations/cinematic.js';
 import { MathUtils } from './utils/math.js';
 import { DOMUtils } from './utils/dom.js';
 import { createTierBadge } from './utils/badge.js';
+import { formatAsOf } from './utils/as-of.js';
 import { i18n } from './i18n.js';
 
 class BelkisOne {
@@ -324,23 +325,23 @@ class BelkisOne {
     const eco = data.economy || {};
     const prog = data.progress || {};
 
-    // Formatiert ein Alter in Stunden als Text fürs Tooltip
+    // Formatiert ein Abrufalter in Stunden (nur für Echtzeit-Werte)
     const ageText = (h) => {
       if (h == null || !Number.isFinite(h)) return null;
       const m = Math.round(h * 60);
-      if (m < 2)   return 'gerade aktualisiert';
-      if (m < 60)  return `aktualisiert vor ${m} min`;
-      if (h < 24)  return `aktualisiert vor ${Math.round(h)}h`;
-      return `aktualisiert vor ${Math.round(h / 24)}d`;
+      if (m < 2)   return i18n.t('badge.ageJustNow');
+      if (m < 60)  return i18n.t('badge.ageMinutes', { n: m });
+      if (h < 24)  return i18n.t('badge.ageHours', { n: Math.round(h) });
+      return i18n.t('badge.ageDays', { n: Math.round(h / 24) });
     };
 
-    // Baut ein Hover-Tooltip "Quelle: X · aktualisiert vor Yh" aus einem
-    // Objekt mit {source, ageHours, fetchedAt} (wie von process-data.js
-    // an jedem scored indicator emittiert).
+    // Hover-Tooltip „Quelle: X · Jahreswert 2024“. Der Messzeitpunkt
+    // (dataAsOf + cadence) hat Vorrang vor dem Abrufalter, sonst trüge
+    // ein Jahreswert „vor 0 h“.
     const buildTooltip = (info) => {
       const parts = [];
-      if (info?.source) parts.push(`Quelle: ${info.source}`);
-      const t = ageText(info?.ageHours);
+      if (info?.source) parts.push(`${i18n.t('badge.sourceLabel')}: ${info.source}`);
+      const t = formatAsOf(info?.dataAsOf, info?.cadence) || ageText(info?.ageHours);
       if (t) parts.push(t);
       return parts.length ? parts.join(' · ') : null;
     };
@@ -386,7 +387,9 @@ class BelkisOne {
     // ─── Society ───
     set('population-value',       soc.population?.totalMillions, 0, { source: soc.population?.source || 'UN DESA / World Bank' });
     set('life-expectancy-value',  soc.lifeExpectancy?.global,    1, findInd('society', 'Lebenserwartung'));
-    set('refugee-counter-value',  soc.refugees?.total,           0, { source: soc.refugees?.source || 'UNHCR' });
+    set('refugee-counter-value',  soc.refugees?.total,           0, {
+      source: soc.refugees?.source || 'UNHCR', dataAsOf: soc.refugees?.dataYear, cadence: 'annual'
+    });
 
     // ─── Economy ───
     set('billionaires-value',     eco.wealth?.billionaires,      0, { source: eco.wealth?.source || 'Forbes / Oxfam' });
@@ -399,14 +402,8 @@ class BelkisOne {
     // ─── Progress ───
     set('internet-penetration-value', prog.internet?.penetration, 1, findInd('progress', 'Internet'));
     set('literacy-value',             prog.literacy?.global,      1, findInd('progress', 'Alphabet'));
-    if (prog.github?.dailyCommits != null) {
-      set('github-commits-value', Math.round(prog.github.dailyCommits / 1e6), 0,
-        findInd('progress', 'GitHub'));
-    }
-    if (prog.github?.activeDevs != null) {
-      set('github-devs-value', Math.round(prog.github.activeDevs / 1e6), 0,
-        findInd('progress', 'GitHub'));
-    }
+    set('github-commits-value', prog.github?.reposCreated24h, 0, findInd('progress', 'GitHub'));
+    set('github-devs-value',    prog.github?.reposOver50kStars, 0, findInd('progress', 'GitHub'));
   }
 
   // ─── Dynamische Jahresangaben (Schritt 4) ───
@@ -993,12 +990,16 @@ class BelkisOne {
 
     const sentWave = document.getElementById('sentiment-wave');
     if (sentWave && rt.newsSentiment) {
-      Charts.sentimentWave(sentWave, rt.newsSentiment.history24h);
+      Charts.sentimentWave(sentWave, rt.newsSentiment.distribution || rt.newsSentiment.history24h);
     }
 
-    // Sentiment label
-    this._setText('#sentiment-score', rt.newsSentiment?.score ?? '-0.42');
-    this._setText('#sentiment-label', `(${rt.newsSentiment?.label || i18n.t('js.slightlyNeg')})`);
+    // Sentiment label: aus dem Score abgeleitet, ohne Score kein Wert
+    const sScore = rt.newsSentiment?.score;
+    const sKey = !Number.isFinite(sScore) ? 'js.sentimentNA'
+      : sScore <= -2 ? 'js.sentimentNeg' : sScore < -0.3 ? 'js.slightlyNeg'
+      : sScore <= 0.3 ? 'js.sentimentNeutral' : 'js.sentimentPos';
+    this._setText('#sentiment-score', Number.isFinite(sScore) ? sScore.toFixed(2) : '—');
+    this._setText('#sentiment-label', `(${i18n.t(sKey)})`);
 
     // Fear & Greed
     const fgGauge = document.getElementById('fear-greed-gauge');

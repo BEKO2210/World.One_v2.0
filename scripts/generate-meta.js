@@ -34,6 +34,8 @@ const JOB_FILES = {
   ],
   'premium-sources': ['fred.json', 'waqi.json', 'news.json']
 };
+// Der V2-Workflow führt alle Cache-Jobs in einem Lauf aus.
+JOB_FILES['unified-v2'] = Object.values(JOB_FILES).flat();
 
 /**
  * Count data points in a cache file.
@@ -97,11 +99,14 @@ export function generateMeta(jobName, jobStatus) {
   const normalizedStatus = jobStatus === 'success' ? 'ok' : 'failed';
 
   // Update this job's details
-  if (jobName && JOB_FILES[jobName]) {
-    meta.job_details[jobName] = {
+  const jobsRun = jobName === 'unified-v2'
+    ? Object.keys(JOB_FILES).filter(j => j !== 'unified-v2')
+    : (jobName && JOB_FILES[jobName] ? [jobName] : []);
+  for (const job of jobsRun) {
+    meta.job_details[job] = {
       status: normalizedStatus,
       updated_at: new Date().toISOString(),
-      files: JOB_FILES[jobName]
+      files: JOB_FILES[job]
     };
   }
 

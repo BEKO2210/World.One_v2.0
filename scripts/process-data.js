@@ -262,6 +262,17 @@ function applyCarryingCapacity(rawIndex, scores, trends, momentumIndicators) {
 // Adds ±0.5–3 points per category based on current real-time data
 // ═══════════════════════════════════════════════════════════════
 
+// GDELT tonechart = Histogramm [{bin, count}] → gewichteter Mittelwert.
+function gdeltToneScore(data) {
+  const bins = Array.isArray(data?.tonechart) ? data.tonechart : null;
+  if (!bins) return Number.isFinite(data?.score) ? data.score : null;
+  let n = 0, sum = 0;
+  for (const b of bins) {
+    if (Number.isFinite(b.bin) && Number.isFinite(b.count)) { n += b.count; sum += b.bin * b.count; }
+  }
+  return n > 0 ? Math.round(sum / n * 100) / 100 : null;
+}
+
 function calculateRealtimePulse({ earthquakeData, weatherData, volcanicData, gdeltTone, cryptoData, githubData, arxivData }) {
   const pulse = { environment: 0, society: 0, economy: 0, progress: 0, details: {} };
 
@@ -304,9 +315,7 @@ function calculateRealtimePulse({ earthquakeData, weatherData, volcanicData, gde
 
   // ─── SOCIETY PULSE ───
   // News sentiment (GDELT tone): negative tone = penalty, positive = bonus
-  const sentimentScore = typeof gdeltTone?.data === 'object'
-    ? (gdeltTone.data.score ?? null)
-    : null;
+  const sentimentScore = gdeltToneScore(gdeltTone?.data);
   if (sentimentScore !== null) {
     // GDELT tone typically ranges -3 to +3, centered around -0.5
     // Shift so that -0.5 is neutral
@@ -989,7 +998,8 @@ function buildWorldState() {
   };
   const pulseWeather = weatherData || { cities: existing?.environment?.weather || [] };
   const pulseVolcanic = volcanicData || { alerts: existing?.realtime?.volcanic || [] };
-  const pulseSentiment = gdeltTone || (existing?.realtime?.newsSentiment ? { data: existing.realtime.newsSentiment } : null);
+  // Kein Rückgriff auf den alten Wert: ohne frische GDELT-Daten kein Stimmungs-Signal.
+  const pulseSentiment = gdeltTone || null;
   const pulseCrypto = cryptoData || (existing?.economy?.cryptoFearGreed ? { current: existing.economy.cryptoFearGreed } : null);
   const pulseGithub = githubData || existing?.progress?.github || null;
   const pulseArxiv = arxivData || { papers: existing?.progress?.publications?.latestArxiv || [] };
@@ -1071,7 +1081,7 @@ function buildWorldState() {
     { name: 'Internet-Nutzer', then: 6.7, now: internetCurrent, improved: internetCurrent > 6.7 },
     { name: 'Alphabetisierung', then: 81, now: literacyCurrent, improved: literacyCurrent > 81 },
     { name: 'CO2-Konzentration', then: 369, now: co2Current, improved: co2Current < 369 },
-    { name: 'Erneuerbare Energie', then: 17, now: renewableCurrent, improved: renewableCurrent > 17 },
+    { name: 'Erneuerbare Energie', then: 18.7, now: renewableCurrent, improved: renewableCurrent > 18.7 },
     { name: 'Mobilfunkverträge', then: 12, now: mobileCurrent, improved: mobileCurrent > 12 }
   ];
 
@@ -1236,8 +1246,8 @@ function buildWorldState() {
           { name: 'Alphabetisierung', value: `${literacyCurrent}%`, score: Math.round(progLiteracyScore), trend: 'improving', ...freshness(literacyData?.fetched, 'World Bank / UNESCO') },
           { name: 'F&E Ausgaben (% BIP)', value: `${rdCurrent}%`, score: Math.round(progRDScore), trend: 'improving', ...freshness(rdData?.fetched, 'World Bank') },
           { name: 'Mobilfunkverträge', value: `${mobileCurrent}/100`, score: Math.round(progMobileScore), trend: 'improving', ...freshness(mobileFetchedAt, mobileSource) },
-          { name: 'GitHub Repositories', value: githubData?.totalPublicRepos ? `${Math.round(githubData.totalPublicRepos / 1000)}K+` : '300K+', score: 80, trend: 'improving', ...freshness(githubData?.fetched, 'GitHub') },
-          { name: 'Wissenschaftliche Papers', value: arxivTotalPapers ? `${(arxivTotalPapers / 1e6).toFixed(1)}M total` : (arxivData?.papers?.length ? `${arxivData.papers.length}+ heute` : '3.2M/Jahr'), score: 75, trend: 'improving', ...freshness(scienceFetchedAt || arxivData?.fetched, scienceSource) }
+          { name: 'GitHub Repositories', value: githubData?.totalPublicRepos ? `${githubData.totalPublicRepos} Repos >50k★` : null, score: 80, trend: 'improving', ...freshness(githubData?.fetched, 'GitHub') },
+          { name: 'Wissenschaftliche Papers', value: arxivTotalPapers ? `${Math.round(arxivTotalPapers / 1000)}K total` : (arxivData?.papers?.length ? `${arxivData.papers.length}+ heute` : null), score: 75, trend: 'improving', ...freshness(scienceFetchedAt || arxivData?.fetched, scienceSource) }
         ]
       },
       momentum: {
@@ -1279,7 +1289,7 @@ function buildWorldState() {
         current: 4.2, unit: 'million km²', reference1980: 7.8, percentLost: 46.2, source: 'NSIDC'
       },
       forest: { current: forestCurrent || 31.2, history: forestHistory, source: 'World Bank' },
-      renewableEnergy: { current: renewableCurrent, history: renewableHistory, source: 'World Bank / IRENA' },
+      renewableEnergy: { current: renewableCurrent, history: renewableHistory, source: renewableSource },
       co2PerCapita: { current: latest(co2EmissionsData?.history || [])?.value, history: co2EmissionsData?.history || [], source: 'World Bank' },
       biodiversity: biodiversityCache?.data?.threatened_counts ? {
         threatenedTotal: biodiversityCache.data.threatened_counts.total,
@@ -1373,12 +1383,13 @@ function buildWorldState() {
         latestArxiv: arxivData?.papers?.slice(0, 5) || [],
         source: 'arXiv / Scopus'
       },
+      // Nur gemessene Werte (GitHub Search API); keine Schätzungen für Commits/Entwickler.
       github: {
-        dailyCommits: 142000000,
-        activeDevs: 120000000,
-        reposCreatedToday: 850000,
+        reposCreated24h: githubData?.reposCreated24h ?? null,
+        reposOver50kStars: githubData?.reposOver50kStars ?? githubData?.totalPublicRepos ?? null,
         topRepos: githubData?.topRepos || [],
-        source: 'GitHub'
+        source: 'GitHub Search API',
+        fetchedAt: githubData?.fetched || null
       },
       internet: {
         penetration: internetCurrent,
@@ -1410,17 +1421,15 @@ function buildWorldState() {
         total24h: earthquakeData?.count || 0,
         source: 'USGS'
       },
-      newsSentiment: gdeltTone?.data ? {
-        score: typeof gdeltTone.data === 'object' ? (gdeltTone.data.score ?? -0.42) : -0.42,
-        label: 'Leicht Negativ',
-        history24h: Array.isArray(gdeltTone.data) ? gdeltTone.data.slice(-12).map(d => d.tone ?? d.value ?? -0.4) :
-          [-0.3, -0.5, -0.4, -0.6, -0.3, -0.4, -0.5, -0.3, -0.4, -0.6, -0.5, -0.4],
-        source: 'GDELT'
-      } : (existing?.realtime?.newsSentiment || {
-        score: -0.42, label: 'Leicht Negativ',
-        history24h: [-0.3, -0.5, -0.4, -0.6, -0.3, -0.4, -0.5, -0.3, -0.4, -0.6, -0.5, -0.4],
-        source: 'GDELT'
-      }),
+      newsSentiment: (() => {
+        const score = gdeltToneScore(gdeltTone?.data);
+        if (score == null) return { score: null, distribution: [], history24h: [], source: 'GDELT', unavailable: true };
+        // Tonverteilung −10…+10: Vorzeichen = Stimmung, Betrag = Artikelzahl
+        const counts = new Map((gdeltTone.data.tonechart || []).map(b => [b.bin, b.count]));
+        const distribution = [];
+        for (let bin = -10; bin <= 10; bin++) distribution.push((bin < 0 ? -1 : 1) * (counts.get(bin) || 0));
+        return { score, distribution, history24h: [], source: 'GDELT', fetchedAt: gdeltTone.fetched || null };
+      })(),
       cryptoFearGreed: {
         value: cryptoData?.current?.value || existing?.realtime?.cryptoFearGreed?.value || 38,
         label: cryptoData?.current?.label || 'Fear',
@@ -1454,6 +1463,52 @@ function buildWorldState() {
 
     dataSources: sourcesList
   };
+
+  // ─── Datenalter pro Indikator (additiv) ───
+  // dataAsOf = Zeitpunkt der Messung (Jahr bzw. ISO-Datum), retrievedAt =
+  // Abruf, cadence = Veröffentlichungstakt der Quelle, tier = live (in
+  // diesem Lauf abgerufen) | fallback (alter Stand) | static (Baseline).
+  const yearOf = (h) => latest(h)?.year ?? null;
+  const INDICATOR_META = {
+    'Globale Temperaturanomalie':    { cadence: 'annual',   dataAsOf: yearOf(tempHistory) },
+    'CO2-Konzentration':             { cadence: 'monthly',  dataAsOf: (() => { const m = latest(co2Data?.monthly); return m ? `${m.year}-${String(m.month).padStart(2, '0')}` : yearOf(co2History); })() },
+    'Waldfläche':                    { cadence: 'annual',   dataAsOf: yearOf(forestHistory) },
+    'Erneuerbare Energie':           { cadence: 'annual',   dataAsOf: yearOf(renewableHistory) },
+    'Luftqualität (Global Avg AQI)': { cadence: 'realtime', dataAsOf: airFetchedAt },
+    'Arktis-Eisfläche':              { cadence: 'daily',    dataAsOf: null, tier: 'static' },
+    'Aktive Naturkatastrophen':      { cadence: 'realtime', dataAsOf: disasterFetchedAt },
+    'Lebenserwartung':               { cadence: 'annual',   dataAsOf: yearOf(lifeExpHistory) },
+    'Kindersterblichkeit':           { cadence: 'annual',   dataAsOf: yearOf(childMortHistory) },
+    'Aktive Konflikte':              { cadence: 'monthly',  dataAsOf: conflicts.isFallback ? null : conflictsCacheFresh?.fetchedAt, tier: conflicts.isFallback ? 'static' : undefined },
+    'Elektrizitätszugang':           { cadence: 'annual',   dataAsOf: yearOf(electricityData?.history) },
+    'Trinkwasserzugang':             { cadence: 'annual',   dataAsOf: yearOf(waterData?.history) },
+    'Menschen auf der Flucht':       { cadence: 'annual',   dataAsOf: refugees.dataYear ?? null, tier: refugees.isFallback ? 'fallback' : 'live' },
+    'Politische Freiheit':           { cadence: 'annual',   dataAsOf: yearOf(freedom.trend), tier: 'static' },
+    'BIP-Wachstum':                  { cadence: 'annual',   dataAsOf: yearOf(gdpData?.history) },
+    'Gini-Index':                    { cadence: 'annual',   dataAsOf: yearOf(giniHistory), tier: giniHistory.length ? undefined : 'static' },
+    'Inflation':                     { cadence: 'annual',   dataAsOf: yearOf(inflationData?.history) },
+    'Arbeitslosigkeit':              { cadence: 'annual',   dataAsOf: yearOf(unemploymentData?.history) },
+    'Extreme Armut':                 { cadence: 'annual',   dataAsOf: null, tier: 'static' },
+    'Fed Funds Rate':                { cadence: 'monthly',  dataAsOf: fredCache?.data?.series?.FEDFUNDS?.latest?.date || null },
+    '10Y-2Y Yield Spread':           { cadence: 'daily',    dataAsOf: fredCache?.data?.series?.T10Y2Y?.latest?.date || null },
+    'Internet-Durchdringung':        { cadence: 'annual',   dataAsOf: yearOf(internetHistory) },
+    'Alphabetisierung':              { cadence: 'annual',   dataAsOf: yearOf(literacyData?.history) },
+    'F&E Ausgaben (% BIP)':          { cadence: 'annual',   dataAsOf: yearOf(rdData?.history) },
+    'Mobilfunkverträge':             { cadence: 'annual',   dataAsOf: internetCache?.data?.mobile_per_100?.year ?? yearOf(mobileData?.history) },
+    'GitHub Repositories':           { cadence: 'daily',    dataAsOf: githubData?.fetched || null },
+    'Wissenschaftliche Papers':      { cadence: 'daily',    dataAsOf: scienceFetchedAt || arxivData?.fetched || null },
+  };
+  for (const cat of ['environment', 'society', 'economy', 'progress']) {
+    for (const ind of worldState.subScores[cat].indicators) {
+      const m = INDICATOR_META[ind.name] || {};
+      const retrievedAt = ind.fetchedAt || null;
+      const fresh = retrievedAt && (Date.now() - Date.parse(retrievedAt)) < 36 * 36e5;
+      ind.cadence = m.cadence || null;
+      ind.dataAsOf = m.dataAsOf ?? null;
+      ind.retrievedAt = retrievedAt;
+      ind.tier = m.tier || (fresh ? 'live' : retrievedAt ? 'fallback' : 'static');
+    }
+  }
 
   writeFileSync(OUTPUT, JSON.stringify(worldState, null, 2));
   console.log(`\n✓ Written to ${OUTPUT}`);

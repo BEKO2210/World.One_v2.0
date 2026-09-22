@@ -151,6 +151,16 @@ async function cacheFRED() {
 
 // ──────────────────────────────────────────────────────────────
 // 2. WAQI — World Air Quality Index (official station data)
+const MAX_STATION_KM = 50;
+
+function distanceKm(lat1, lon1, lat2, lon2) {
+  if (![lat1, lon1, lat2, lon2].every(Number.isFinite)) return Infinity;
+  const rad = (x) => x * Math.PI / 180;
+  const a = Math.sin(rad(lat2 - lat1) / 2) ** 2
+    + Math.cos(rad(lat1)) * Math.cos(rad(lat2)) * Math.sin(rad(lon2 - lon1) / 2) ** 2;
+  return 6371 * 2 * Math.asin(Math.sqrt(a));
+}
+
 // ──────────────────────────────────────────────────────────────
 
 async function cacheWAQI() {
@@ -172,10 +182,18 @@ async function cacheWAQI() {
         continue;
       }
       const d = r.data;
+      // WAQI liefert bei fehlender Station vor Ort die nächste weltweit
+      // (z. B. Mumbai → Delhi). Nur Stationen im Umkreis zählen.
+      const km = distanceKm(city.lat, city.lon, d.city?.geo?.[0], d.city?.geo?.[1]);
+      if (!(km <= MAX_STATION_KM)) {
+        errors.push(`${city.name}: nächste Station ${d.city?.name || '?'} ist ${Math.round(km)} km entfernt`);
+        continue;
+      }
       stations.push({
         name: city.name,
         country: city.country,
         station: d.city?.name || null,
+        station_km: Math.round(km),
         aqi: d.aqi,
         dominant_pollutant: d.dominentpol || null,
         pm25: d.iaqi?.pm25?.v ?? null,
