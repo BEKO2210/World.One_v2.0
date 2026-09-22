@@ -379,6 +379,10 @@ const translations = {
     'badge.ageHours': 'vor {n}h',
     'badge.ageDays': 'vor {n}d',
     'badge.staticNote': 'Statischer Fallback',
+    'badge.annual': 'Jahreswert {year}',
+    'badge.annualNote': 'Jährlich veröffentlichter Wert',
+    'badge.estimate': 'Schätzung',
+    'badge.estimateNote': 'Richtwert, keine aktuelle Messung',
     // ─── A11y ───
     'a11y.skipToMain': 'Zum Hauptinhalt springen',
     'a11y.scrollTop': 'Zurück nach oben',
@@ -1580,6 +1584,10 @@ const translations = {
     'badge.ageHours': '{n}h ago',
     'badge.ageDays': '{n}d ago',
     'badge.staticNote': 'Static fallback',
+    'badge.annual': 'Annual value {year}',
+    'badge.annualNote': 'Value published once a year',
+    'badge.estimate': 'Estimate',
+    'badge.estimateNote': 'Reference value, not a current measurement',
     // ─── A11y ───
     'a11y.skipToMain': 'Skip to main content',
     'a11y.scrollTop': 'Back to top',

@@ -64,9 +64,10 @@ async function fetchOceanSST() {
   if (cagData && cagData.data) {
     for (const [yearStr, val] of Object.entries(cagData.data)) {
       const year = parseInt(yearStr);
-      // API returns either a string or an object { anomaly: number }
+      // API returns either a string or an object { departure: number }
+      // (ältere Antworten: { anomaly: number })
       const anomaly = typeof val === 'object' && val !== null
-        ? parseFloat(val.anomaly)
+        ? parseFloat(val.departure ?? val.anomaly)
         : parseFloat(val);
       if (!isNaN(year) && Number.isFinite(anomaly)) {
         annual_sst_anomaly.push({ year, anomaly });

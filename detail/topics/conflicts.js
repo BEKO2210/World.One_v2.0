@@ -132,7 +132,11 @@ export async function render(blocks) {
   const acled = conflictData.acled || null;
 
   // ── Alle Zahlen aus dem Cache ziehen, Baseline nur als Fallback ──
-  const conflictYear = new Date().getFullYear();
+  // Live nur, wenn die Pipeline echte Daten hatte (api_status 'live');
+  // sonst ist die Zahl die UCDP/Crisis-Group-Baseline → Schätzung, ohne Jahr.
+  const isLive = tier !== 'static' && conflictData.api_status === 'live';
+  const fetchedAt = Date.parse(data?._meta?.fetched_at);
+  const conflictYear = isLive && Number.isFinite(fetchedAt) ? new Date(fetchedAt).getFullYear() : null;
   const activeConflicts = Math.max(
     acled?.countriesAffected || 0,
     conflictData.active_conflicts || 0,
@@ -157,7 +161,9 @@ export async function render(blocks) {
   const liveMarkers = _buildLiveMarkers(acled);
 
   // --- 2. Hero Block ---
-  _renderHero(blocks.hero, activeConflicts, conflictYear, tier, age, acled);
+  const heroSource = acled ? 'ACLED'
+    : isLive ? (conflictData.source || 'ReliefWeb/GDELT') : 'UCDP/Crisis Group (Baseline)';
+  _renderHero(blocks.hero, activeConflicts, conflictYear, isLive ? tier : 'static', age, acled, heroSource);
 
   // --- 3. Chart Block (SVG Conflict Map — now data-driven) ---
   await _renderMap(blocks.chart, liveMarkers);
@@ -210,11 +216,11 @@ function _buildLiveMarkers(acled) {
 
 // --- Hero ---------------------------------------------------------------
 
-function _renderHero(heroEl, activeConflicts, year, tier, age, acled) {
+function _renderHero(heroEl, activeConflicts, year, tier, age, acled, source) {
   const badge = createTierBadge(tier, {
     age,
-    year: tier === 'static' ? year : null,
-    source: acled ? 'ACLED' : 'UCDP/Crisis Group (Baseline)'
+    estimate: tier === 'static',
+    source
   });
 
   const children = [
@@ -236,7 +242,9 @@ function _renderHero(heroEl, activeConflicts, year, tier, age, acled) {
       },
     }, [
       DOMUtils.create('span', {
-        textContent: `${i18n.t('detail.conflicts.heroLabel')} (${year})`,
+        textContent: year != null
+          ? `${i18n.t('detail.conflicts.heroLabel')} (${year})`
+          : i18n.t('detail.conflicts.heroLabel'),
         style: { color: 'var(--text-secondary)', fontSize: '1rem' },
       }),
       badge,

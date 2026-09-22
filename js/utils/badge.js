@@ -14,14 +14,17 @@ import { i18n } from '../i18n.js';
  * @param {number|string|null} [options.year=null] - Reference year (static tier).
  * @param {string|null} [options.source=null] - Human-readable data source
  *   (appears in the hover tooltip: "Quelle: X · aktualisiert vor Yh").
+ * @param {boolean} [options.estimate=false] - Value is a baseline/estimate,
+ *   not a measurement: renders "Schätzung" with static styling.
  * @returns {HTMLSpanElement} The badge element.
  */
 export function createTierBadge(tier, options = {}) {
-  const { age = null, year = null, source = null } = options;
+  const { age = null, year = null, source = null, estimate = false } = options;
 
   const STALE_THRESHOLD = 86400000; // 24 hours in ms
   const isStale = tier === 'cache' && age !== null && age > STALE_THRESHOLD;
-  const normalizedTier = ['live', 'cache', 'static'].includes(tier) ? tier : 'static';
+  const normalizedTier = estimate ? 'static'
+    : ['live', 'cache', 'static'].includes(tier) ? tier : 'static';
 
   // ─── CSS variant class ───
   const variantMap = {
@@ -32,7 +35,12 @@ export function createTierBadge(tier, options = {}) {
   const variant = variantMap[normalizedTier];
 
   // ─── Label text via i18n ───
-  const label = i18n.t(`badge.${normalizedTier}`);
+  // Statisch mit Jahr = Jahreswert einer Messung, Schätzung = Baseline.
+  const label = estimate
+    ? i18n.t('badge.estimate')
+    : normalizedTier === 'static' && year != null
+      ? i18n.t('badge.annual', { year })
+      : i18n.t(`badge.${normalizedTier}`);
 
   // ─── Build children ───
   const children = [];
@@ -44,11 +52,6 @@ export function createTierBadge(tier, options = {}) {
 
   // Label text node
   children.push(label);
-
-  // Static tier appends reference year
-  if (normalizedTier === 'static' && year != null) {
-    children.push(` ${year}`);
-  }
 
   // ─── Visible age suffix (Run 9 follow-up) ───
   // "Cache soll dahinter immer in klein die Zeit haben wann es geCache
@@ -90,6 +93,10 @@ export function createTierBadge(tier, options = {}) {
           ? i18n.t('badge.ageHours', { n: Math.round(hours) })
           : i18n.t('badge.ageDays', { n: Math.round(hours / 24) });
     tooltipParts.push(ageLabel);
+  } else if (estimate) {
+    tooltipParts.push(i18n.t('badge.estimateNote'));
+  } else if (normalizedTier === 'static' && year != null) {
+    tooltipParts.push(i18n.t('badge.annualNote'));
   } else if (normalizedTier === 'static') {
     tooltipParts.push(i18n.t('badge.staticNote'));
   }

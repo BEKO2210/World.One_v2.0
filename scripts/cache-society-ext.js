@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 /* ═══════════════════════════════════════════════════════════════
    World.One — Society Extended Cache Generator
-   Fetches population, freedom index, and conflict data
-   Output: data/cache/population.json, freedom.json, conflicts.json
+   Fetches population, freedom index, conflict and refugee data
+   Output: data/cache/population.json, freedom.json, conflicts.json,
+           refugees.json
    ═══════════════════════════════════════════════════════════════ */
 
 import { fetchJSON, extractWorldBankEntries, saveCache } from './cache-utils.js';
@@ -301,6 +302,44 @@ async function fetchConflicts() {
   return result;
 }
 
+// ─── Refugees / Forcibly Displaced (UNHCR Refugee Data Finder API) ───
+// Keyless. Liefert globale Jahreswerte; das laufende Jahr ist oft noch leer,
+// daher rückwärts suchen bis ein Jahr mit Daten kommt.
+async function fetchRefugees() {
+  console.log('  Fetching refugee data (UNHCR)...');
+  const thisYear = new Date().getUTCFullYear();
+  for (let year = thisYear; year >= thisYear - 3; year--) {
+    const res = await fetchJSON(
+      `https://api.unhcr.org/population/v1/population/?year=${year}&limit=1`,
+      { timeout: 20000, retries: 1 }
+    );
+    const it = Array.isArray(res?.items) ? res.items[0] : null;
+    const num = (v) => (Number.isFinite(Number(v)) ? Number(v) : 0);
+    if (!it || num(it.refugees) <= 0) continue;
+    const refugees = num(it.refugees);
+    const asylumSeekers = num(it.asylum_seekers);
+    const idps = num(it.idps);
+    const oip = num(it.oip);
+    // Summe der UNHCR-Kategorien (ohne UNRWA-Palästina-Flüchtlinge, die die
+    // API nicht führt) — daher etwas niedriger als die Global-Trends-Zahl.
+    const total = refugees + asylumSeekers + idps + oip;
+    console.log(`  Refugees: ${year} total ${(total / 1e6).toFixed(1)}M`);
+    return {
+      year,
+      total,
+      refugees,
+      asylum_seekers: asylumSeekers,
+      idps,
+      other_in_need: oip,
+      stateless: num(it.stateless),
+      api_status: 'live',
+      source: `UNHCR Refugee Data Finder (${year})`,
+      note: 'Summe aus Flüchtlingen, Asylsuchenden, Binnenvertriebenen und weiteren Schutzbedürftigen, ohne UNRWA'
+    };
+  }
+  throw new Error('UNHCR returned no data for the last 4 years');
+}
+
 // ─── Main ───
 async function main() {
   console.log('=== update-society-ext ===');
@@ -331,6 +370,15 @@ async function main() {
     filesWritten++;
   } catch (err) {
     console.error(`  ERROR conflicts: ${err.message}`);
+  }
+
+  // Refugees
+  try {
+    const refugeeData = await fetchRefugees();
+    saveCache('refugees.json', refugeeData);
+    filesWritten++;
+  } catch (err) {
+    console.error(`  ERROR refugees: ${err.message}`);
   }
 
   console.log(`Done: ${filesWritten} files written`);

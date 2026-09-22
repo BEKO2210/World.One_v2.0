@@ -803,10 +803,15 @@ async function fetchNOAAGlobalTemp() {
   // More frequent updates than NASA GISTEMP
   const data = await fetchJSON('https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/global/time-series/globe/land_ocean/1/0/1880-2026.json');
   if (data?.data) {
+    // Werte kommen als { departure: number } (ältere Antworten: plain number)
     const entries = Object.entries(data.data).map(([yearMonth, value]) => ({
       yearMonth,
-      value: Number(value)
+      value: Number(typeof value === 'object' && value !== null
+        ? (value.departure ?? value.anomaly)
+        : value)
     })).filter(e => Number.isFinite(e.value));
+    // Leeres Ergebnis ist ein Fehler, sonst zählt die Quelle fälschlich als Erfolg.
+    if (!entries.length) throw new Error('NOAA global temp returned 0 entries');
     save('environment', 'noaa-global-temp.json', {
       description: data.description,
       entries: entries.slice(-120), // Last 10 years of monthly data
@@ -861,6 +866,16 @@ async function fetchOpenExchangeRatesExtra() {
   }
 }
 
+// Aktuelle Events zuerst, danach neueste zuerst.
+function sortGdacsFeatures(features) {
+  return [...features].sort((a, b) => {
+    const pa = a.properties || {}, pb = b.properties || {};
+    const ca = pa.iscurrent === 'true' ? 1 : 0, cb = pb.iscurrent === 'true' ? 1 : 0;
+    if (ca !== cb) return cb - ca;
+    return String(pb.fromdate || '').localeCompare(String(pa.fromdate || ''));
+  });
+}
+
 async function fetchNaturalDisasters() {
   // GDACS (Global Disaster Alert & Coordination System, JRC/EU) — keyless.
   // Replaces the old ReliefWeb v1 hit (v1 decommissioned 2025, v2 requires
@@ -870,14 +885,16 @@ async function fetchNaturalDisasters() {
     EQ: 'Earthquake', TC: 'Tropical Cyclone', FL: 'Flood',
     VO: 'Volcano', DR: 'Drought', WF: 'Wildfire'
   };
+  // MAP-Endpoint verlangt genau einen eventtype (sonst HTTP 400); SEARCH
+  // akzeptiert die Liste semikolon-getrennt und liefert Orange/Red-Events.
   const geo = await fetchJSON(
-    'https://www.gdacs.org/gdacsapi/api/events/geteventlist/MAP?eventlist=EQ,TC,FL,VO,DR,WF',
+    'https://www.gdacs.org/gdacsapi/api/events/geteventlist/SEARCH?eventlist=EQ;TC;FL;VO;DR;WF',
     { timeout: 20000 }
   );
   const features = Array.isArray(geo?.features) ? geo.features : [];
   if (features.length === 0) throw new Error('GDACS returned 0 events');
 
-  const disasters = features.slice(0, 50).map(f => {
+  const disasters = sortGdacsFeatures(features).slice(0, 50).map(f => {
     const p = f.properties || {};
     const coords = f.geometry?.coordinates || [];
     return {
@@ -888,6 +905,7 @@ async function fetchNaturalDisasters() {
       country: p.country || null,
       fromDate: p.fromdate || null,
       toDate: p.todate || null,
+      isCurrent: p.iscurrent === 'true',
       severity: Number.isFinite(p.severitydata?.severity) ? p.severitydata.severity : null,
       url: p.url?.report || p.url?.details || null,
       lat: coords[1] ?? null,

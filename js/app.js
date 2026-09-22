@@ -12,6 +12,7 @@ import { Counter, CounterManager, Typewriter } from './visualizations/counters.j
 import { CinematicScroll } from './visualizations/cinematic.js';
 import { MathUtils } from './utils/math.js';
 import { DOMUtils } from './utils/dom.js';
+import { createTierBadge } from './utils/badge.js';
 import { i18n } from './i18n.js';
 
 class BelkisOne {
@@ -528,6 +529,23 @@ class BelkisOne {
     }
   }
 
+  // Setzt direkt hinter `anchor` ein Badge: Fallback → „Schätzung“,
+  // Datenjahr/statisch → „Jahreswert <Jahr>“. Ohne Flag kein Badge.
+  _setTierFlag(anchor, info) {
+    if (!anchor) return;
+    const next = anchor.nextElementSibling;
+    if (next?.classList.contains('tier-flag')) next.remove();
+    if (!info || !(info.isFallback || info.isStatic || info.dataYear != null)) return;
+    const badge = info.isFallback
+      ? createTierBadge('static', { estimate: true, source: info.source })
+      : createTierBadge('static', {
+          year: info.dataYear ?? info.trend?.[info.trend.length - 1]?.year ?? null,
+          source: info.source
+        });
+    const wrap = DOMUtils.create('div', { className: 'tier-flag', style: { marginTop: '4px', textAlign: 'center' } }, [badge]);
+    anchor.insertAdjacentElement('afterend', wrap);
+  }
+
   // ─── Society static values ───
   _populateSocietyValues(data) {
     const soc = data.society;
@@ -536,6 +554,11 @@ class BelkisOne {
 
     // Conflicts count
     this._setText('#conflicts-count', soc.conflicts?.activeCount || 0);
+
+    // Tier-Badges aus den Pipeline-Flags (isFallback/isStatic/dataYear)
+    this._setTierFlag(document.getElementById('conflicts-count'), soc.conflicts);
+    this._setTierFlag(document.querySelector('.refugee-counter__label'), soc.refugees);
+    this._setTierFlag(document.querySelector('[data-i18n="act3.freedomDesc"]'), soc.freedom);
 
     // Child mortality from indicators
     if (sub) {

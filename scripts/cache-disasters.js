@@ -19,13 +19,22 @@ async function fetchDisasters() {
       EQ: 'Earthquake', TC: 'Tropical Cyclone', FL: 'Flood',
       VO: 'Volcano', DR: 'Drought', WF: 'Wildfire'
     };
+    // MAP-Endpoint verlangt genau einen eventtype (sonst HTTP 400); SEARCH
+    // akzeptiert die Liste semikolon-getrennt und liefert Orange/Red-Events.
     const geo = await fetchJSON(
-      'https://www.gdacs.org/gdacsapi/api/events/geteventlist/MAP?eventlist=EQ,TC,FL,VO,DR,WF',
+      'https://www.gdacs.org/gdacsapi/api/events/geteventlist/SEARCH?eventlist=EQ;TC;FL;VO;DR;WF',
       { timeout: 10000, retries: 1 }
     );
     const features = Array.isArray(geo?.features) ? geo.features : [];
     if (features.length > 0) {
-      const disasters = features.slice(0, 40).map(f => {
+      // Aktuelle Events zuerst, danach neueste zuerst.
+      const sorted = [...features].sort((a, b) => {
+        const pa = a.properties || {}, pb = b.properties || {};
+        const ca = pa.iscurrent === 'true' ? 1 : 0, cb = pb.iscurrent === 'true' ? 1 : 0;
+        if (ca !== cb) return cb - ca;
+        return String(pb.fromdate || '').localeCompare(String(pa.fromdate || ''));
+      });
+      const disasters = sorted.slice(0, 40).map(f => {
         const p = f.properties || {};
         return {
           name: p.name || p.htmldescription || `${TYPE_MAP[p.eventtype] || p.eventtype} event`,

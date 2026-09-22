@@ -9,7 +9,7 @@
 
 import { i18n } from '../../js/i18n.js';
 import { DOMUtils } from '../../js/utils/dom.js';
-import { fetchTopicData } from '../../js/utils/data-loader.js';
+import { fetchTopicData, fetchStaticFallback } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { renderChoropleth } from '../utils/choropleth.js';
@@ -62,12 +62,17 @@ export async function render(blocks) {
   _cacheData = data;
 
   const sstData = data?.annual_sst_anomaly || [];
-  const latest = sstData.length > 0
-    ? sstData[sstData.length - 1]
-    : { year: 2025, anomaly: 0.83 };
+  let latest = sstData.length > 0 ? sstData[sstData.length - 1] : null;
+  let heroTier = tier;
+  if (!latest) {
+    // Cache ohne SST-Reihe: Jahreswert aus static-values.json statt Cache-Badge
+    const fb = await fetchStaticFallback('ocean_temp').catch(() => null);
+    latest = { year: fb?.anomaly_c?.year ?? 2025, anomaly: fb?.anomaly_c?.value ?? 0.83 };
+    heroTier = 'static';
+  }
 
   // 2. Hero block
-  _renderHero(blocks.hero, latest, tier, age);
+  _renderHero(blocks.hero, latest, heroTier, age);
 
   // 3. Chart block -- SST anomaly timeline
   await _renderSSTChart(blocks.chart, sstData);
@@ -93,7 +98,7 @@ export async function render(blocks) {
 function _renderHero(heroEl, latest, tier, age) {
   const sign = latest.anomaly >= 0 ? '+' : '';
   const color = latest.anomaly >= 0.5 ? '#ff3b30' : '#ff9500';
-  const badge = createTierBadge(tier, { age });
+  const badge = createTierBadge(tier, { age, year: tier === 'static' ? latest.year : null });
 
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'ocean-temp-hero' }, [
