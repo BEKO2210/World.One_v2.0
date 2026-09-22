@@ -28,10 +28,49 @@ async function fetchCurrencies() {
   }
 
   console.log(`  Currencies: ${Object.keys(rates).length} major pairs`);
+
+  // 12-Monats-Verlauf (EZB-Referenzkurse via Frankfurter, keyless):
+  // erster Handelstag je Monat, Basis USD.
+  let history = null;
+  try {
+    const end = new Date();
+    const start = new Date(Date.UTC(end.getUTCFullYear() - 1, end.getUTCMonth(), 1));
+    const iso = d => d.toISOString().slice(0, 10);
+    const ts = await fetchJSON(`https://api.frankfurter.dev/v1/${iso(start)}..${iso(end)}?base=USD&symbols=EUR,GBP,JPY,CNY`);
+    const byMonth = new Map();
+    for (const [date, r] of Object.entries(ts?.rates || {}).sort()) {
+      const month = date.slice(0, 7);
+      if (!byMonth.has(month)) byMonth.set(month, { date, ...r });
+    }
+    history = [...byMonth.values()];
+    console.log(`  Currencies history: ${history.length} months (ECB)`);
+  } catch (err) {
+    console.warn(`  Currencies history failed: ${err.message}`);
+  }
+
+  // Höchste Inflationsraten (World Bank FP.CPI.TOTL.ZG, letzter Wert,
+  // nur Werte der letzten zwei Jahre, damit keine Altdaten vorne stehen)
+  let highInflation = null;
+  try {
+    const wb = await fetchJSON('https://api.worldbank.org/v2/country/all/indicator/FP.CPI.TOTL.ZG?format=json&mrnev=1&per_page=400');
+    const minYear = new Date().getUTCFullYear() - 2;
+    highInflation = (wb?.[1] || [])
+      .filter(r => r.value != null && Number(r.date) >= minYear && /^[A-Z]{3}$/.test(r.countryiso3code))
+      .sort((x, y) => y.value - x.value)
+      .slice(0, 6)
+      .map(r => ({ country: r.country.value, code: r.countryiso3code, inflation: Math.round(r.value * 10) / 10, year: Number(r.date) }));
+  } catch (err) {
+    console.warn(`  Inflation ranking failed: ${err.message}`);
+  }
+
   return {
     base: 'USD',
     rates,
-    rate_date: data.time_last_update_utc || new Date().toISOString()
+    rate_date: data.time_last_update_utc || new Date().toISOString(),
+    history,
+    history_source: 'EZB-Referenzkurse (Frankfurter)',
+    high_inflation: highInflation,
+    high_inflation_source: 'World Bank (FP.CPI.TOTL.ZG)'
   };
 }
 

@@ -91,11 +91,12 @@ export async function render(blocks) {
   // 1. Fetch topic data (no health cache file -- will resolve to static)
   const { data, tier, age } = await fetchTopicData('health');
 
-  // Life expectancy: hardcoded WHO 2024 estimate
-  const lifeExpectancy = 73.6;
+  // Lebenserwartung aus health.json (World Bank); ohne Cache der statische Wert
+  const le = data?.life_expectancy || data?.life_expectancy_years || null;
+  const lifeExpectancy = le?.value ?? 73.6;
 
   // 2. Hero block
-  _renderHero(blocks.hero, lifeExpectancy, tier, age);
+  _renderHero(blocks.hero, lifeExpectancy, tier, age, le?.year ?? null);
 
   // 3. Chart block -- Causes-of-death treemap (DOM-based)
   _renderTreemap(blocks.chart);
@@ -118,8 +119,10 @@ export async function render(blocks) {
 
 // --- Hero ---------------------------------------------------------------
 
-function _renderHero(heroEl, lifeExp, tier, age) {
-  const badge = createTierBadge('static', { year: 2024 });
+function _renderHero(heroEl, lifeExp, tier, age, year) {
+  const badge = year != null
+    ? createTierBadge(tier, { age, dataAsOf: year, cadence: 'annual', source: 'World Bank' })
+    : createTierBadge('static', { estimate: true, source: 'WHO' });
   const formatted = lifeExp.toFixed(1);
 
   heroEl.appendChild(

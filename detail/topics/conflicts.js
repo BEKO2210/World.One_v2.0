@@ -91,16 +91,11 @@ const EVENT_YEARS = {
   2025: i18n.t('detail.conflicts.event2025'),
 };
 
-// --- Refugees/Displacement data (UNHCR 2024 mid-year) -----------------
-
-// Aktuelle UNHCR-Baseline (Global Trends 2024, veröffentlicht Juni 2025).
-// Überschrieben aus world-state.json wenn Pipeline frischere Daten hat.
-const DISPLACEMENT_DEFAULTS = {
-  refugees: 43.4,       // Mio (end 2024)
-  idps: 75.9,           // Mio (mid 2024)
-  asylumSeekers: 7.6,   // Mio (end 2024)
-  total: 120,            // Mio (global forced displacement, UNHCR 2024)
-};
+// --- Displacement: refugees.json (UNHCR Refugee Data Finder, Pipeline) --
+// Ohne Cache: UNHCR Global Trends 2024 als Schätzung (Jahr mitgeführt).
+const DISPLACEMENT_FALLBACK = { total: 120, refugees: 43.4, idps: 75.9, asylumSeekers: 7.6, year: 2024 };
+// UCDP 2023: ~154.000 Todesopfer in Kampfhandlungen (nur ohne ACLED genutzt)
+const UCDP_BATTLE_DEATHS = { value: 154000, year: 2023 };
 
 // --- Intensity helpers -------------------------------------------------
 
@@ -143,19 +138,25 @@ export async function render(blocks) {
     CONFLICT_COUNTRIES.length
   );
   // UCDP 2023: ~154K battle-related deaths. ACLED 30d gibt die aktuellere Zahl.
-  const battleDeaths = acled?.totalFatalities || conflictData.battle_deaths || 154000;
+  const battleDeaths = acled?.totalFatalities || conflictData.battle_deaths || UCDP_BATTLE_DEATHS.value;
   const liveHeadlines = conflictData.headlines || [];
   const liveCrises = conflictData.crises || [];
 
-  // Displaced/Refugees: aus world-state.json (vom Processor gesetzt)
-  // oder UNHCR-Baseline wenn nicht verfügbar
-  const wsRefugees = data?._worldStateRef?.society?.refugees;
-  const displacedMillions = wsRefugees
-    ? Math.round(wsRefugees.total / 1e6 * 10) / 10
-    : DISPLACEMENT_DEFAULTS.total;
-  const refugeesMillions = wsRefugees
-    ? Math.round(wsRefugees.displaced / 1e6 * 10) / 10 || DISPLACEMENT_DEFAULTS.refugees
-    : DISPLACEMENT_DEFAULTS.refugees;
+  // Vertreibung: refugees.json (UNHCR); total = alle Schutzbedürftigen,
+  // refugees = Flüchtlinge unter UNHCR-Mandat (vorher fälschlich idps)
+  const { data: unhcr } = await fetchTopicData('refugees').catch(() => ({ data: null }));
+  const unhcrLive = unhcr?.api_status === 'live' && unhcr.total > 0;
+  const displacement = unhcrLive
+    ? {
+        total: Math.round(unhcr.total / 1e6 * 10) / 10,
+        refugees: Math.round(unhcr.refugees / 1e6 * 10) / 10,
+        idps: Math.round(unhcr.idps / 1e6 * 10) / 10,
+        asylumSeekers: Math.round(unhcr.asylum_seekers / 1e6 * 10) / 10,
+        year: unhcr.year
+      }
+    : DISPLACEMENT_FALLBACK;
+  const displacedMillions = displacement.total;
+  const refugeesMillions = displacement.refugees;
 
   // Build live map markers: merge ACLED highFatalityEvents with baseline
   const liveMarkers = _buildLiveMarkers(acled);
@@ -172,10 +173,12 @@ export async function render(blocks) {
   await _renderTrend(blocks.trend);
 
   // --- 5. Tiles Block ---
-  _renderTiles(blocks.tiles, activeConflicts, battleDeaths, displacedMillions, refugeesMillions, acled);
+  _renderTiles(blocks.tiles, activeConflicts, battleDeaths, displacedMillions, refugeesMillions, acled, displacement.year);
 
   // --- 6. Comparison Block (Refugees Doughnut + Live Headlines) ---
   _renderComparison(blocks.comparison, liveHeadlines, liveCrises, displacedMillions, refugeesMillions);
+  // Für getChartConfigs (Doughnut Flüchtlinge / Binnenvertriebene / Asylsuchende)
+  _chartData = { displacement };
 
   // --- 7. Explanation Block ---
   _renderExplanation(blocks.explanation);
@@ -583,8 +586,7 @@ function _updateTrendChart(filteredData) {
 
 // --- Tiles Block --------------------------------------------------------
 
-function _renderTiles(tilesEl, activeConflicts, battleDeaths, displacedMillions, refugeesMillions, acled) {
-  const year = new Date().getFullYear();
+function _renderTiles(tilesEl, activeConflicts, battleDeaths, displacedMillions, refugeesMillions, acled, unhcrYear) {
   const tileData = [
     {
       label: i18n.t('detail.conflicts.tileActiveConflicts'),
@@ -594,17 +596,17 @@ function _renderTiles(tilesEl, activeConflicts, battleDeaths, displacedMillions,
     {
       label: i18n.t('detail.conflicts.tileBattleDeaths'),
       value: MathUtils.formatCompact(battleDeaths),
-      unit: acled ? `ACLED (${acled.period?.split(' to ')[0]?.slice(5) || '30d'})` : `UCDP ${year - 2}`,
+      unit: acled ? `ACLED (${acled.period?.split(' to ')[0]?.slice(5) || '30d'})` : `UCDP ${UCDP_BATTLE_DEATHS.year}`,
     },
     {
       label: i18n.t('detail.conflicts.tileDisplaced'),
       value: `${displacedMillions}M`,
-      unit: `UNHCR ${year - 1}`,
+      unit: `UNHCR ${unhcrYear}`,
     },
     {
       label: i18n.t('detail.conflicts.tileRefugees'),
       value: `${refugeesMillions}M`,
-      unit: `UNHCR ${year - 1}`,
+      unit: `UNHCR ${unhcrYear}`,
     },
   ];
 
@@ -734,13 +736,6 @@ function _renderComparison(compEl, headlines, crises, displacedMillions, refugee
     compEl.appendChild(newsList);
   }
 
-  // Store data for lazy getChartConfigs
-  _chartData = { displacement: {
-    refugees: refugeesMillions || DISPLACEMENT_DEFAULTS.refugees,
-    idps: DISPLACEMENT_DEFAULTS.idps,
-    asylumSeekers: DISPLACEMENT_DEFAULTS.asylumSeekers,
-    total: displacedMillions || DISPLACEMENT_DEFAULTS.total,
-  }};
 }
 
 // --- Explanation Block ---------------------------------------------------

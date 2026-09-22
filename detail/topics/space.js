@@ -31,17 +31,12 @@ let _trail = [];
 let _chartData = null;
 const MAX_TRAIL = 30; // ~5 minutes of positions at 10s intervals
 
-// --- ISS Crew (Expedition 74, early 2026 -- hardcoded, changes ~6 months) --
+// --- ISS Crew: aus space.json (Launch Library 2), Flagge je Agentur ------
 
-const ISS_CREW = [
-  { name: 'Butch Wilmore', nationality: 'US', flag: '\u{1F1FA}\u{1F1F8}', role: 'Commander', agency: 'NASA' },
-  { name: 'Suni Williams', nationality: 'US', flag: '\u{1F1FA}\u{1F1F8}', role: 'Flight Engineer', agency: 'NASA' },
-  { name: 'Alexei Ovchinin', nationality: 'RU', flag: '\u{1F1F7}\u{1F1FA}', role: 'Flight Engineer', agency: 'Roscosmos' },
-  { name: 'Ivan Vagner', nationality: 'RU', flag: '\u{1F1F7}\u{1F1FA}', role: 'Flight Engineer', agency: 'Roscosmos' },
-  { name: 'Don Pettit', nationality: 'US', flag: '\u{1F1FA}\u{1F1F8}', role: 'Flight Engineer', agency: 'NASA' },
-  { name: 'Jonny Kim', nationality: 'US', flag: '\u{1F1FA}\u{1F1F8}', role: 'Flight Engineer', agency: 'NASA' },
-  { name: 'Takuya Onishi', nationality: 'JP', flag: '\u{1F1EF}\u{1F1F5}', role: 'Flight Engineer', agency: 'JAXA' },
-];
+const AGENCY_FLAG = {
+  NASA: '\u{1F1FA}\u{1F1F8}', Roscosmos: '\u{1F1F7}\u{1F1FA}', ESA: '\u{1F1EA}\u{1F1FA}',
+  JAXA: '\u{1F1EF}\u{1F1F5}', CSA: '\u{1F1E8}\u{1F1E6}',
+};
 
 // --- Satellite breakdown (UCS Satellite Database 2025) -----------------
 
@@ -103,10 +98,12 @@ export async function render(blocks) {
   _intervals.push(setInterval(update, 10000)); // 10s refresh
 
   // --- 3. Crew list (block 1 -- trend area) ---
-  _renderCrew(blocks.trend);
+  const { data: spaceCache } = await fetchTopicData('space');
+  const crew = spaceCache?.iss_crew || null;
+  _renderCrew(blocks.trend, crew);
 
   // --- 4. Tiles block ---
-  _renderTiles(blocks.tiles);
+  _renderTiles(blocks.tiles, crew);
 
   // --- 5. Spaceflight news feed (block 3 -- explanation area) ---
   await _renderNews(blocks.explanation);
@@ -169,6 +166,8 @@ function _renderHero(heroEl) {
 function _setLiveAltitude(altitude) {
   if (!Number.isFinite(altitude) || !_heroValueEl || !_heroBadgeEl) return;
   _heroValueEl.textContent = String(Math.round(altitude));
+  const tile = document.querySelector('.space-tile-altitude');
+  if (tile) tile.textContent = _heroValueEl.textContent;
   if (!_heroBadgeEl.classList.contains('data-badge--live')) {
     const live = createTierBadge('live', { age: 0, source: 'wheretheiss.at' });
     _heroBadgeEl.replaceWith(live);
@@ -272,15 +271,16 @@ function _updateISSPosition(lat, lng) {
 
 // --- Crew List (trend block) --------------------------------------------
 
-function _renderCrew(trendEl) {
+function _renderCrew(trendEl, crew) {
+  if (!crew?.members?.length) return;
   trendEl.appendChild(
     DOMUtils.create('h2', {
-      textContent: i18n.t('detail.space.crewTitle'),
+      textContent: `${i18n.t('detail.space.crewTitle')} · ${crew.expedition}`,
       style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)' },
     })
   );
 
-  const crewItems = ISS_CREW.map(member =>
+  const crewItems = crew.members.map(member =>
     DOMUtils.create('div', {
       style: {
         display: 'flex',
@@ -293,7 +293,7 @@ function _renderCrew(trendEl) {
       },
     }, [
       DOMUtils.create('span', {
-        textContent: member.flag,
+        textContent: AGENCY_FLAG[member.agency] || '\u{1F9D1}\u200D\u{1F680}',
         style: { fontSize: '1.3rem' },
       }),
       DOMUtils.create('div', {
@@ -304,7 +304,7 @@ function _renderCrew(trendEl) {
           style: { color: 'var(--text-primary)', fontWeight: '600', fontSize: '0.9rem' },
         }),
         DOMUtils.create('div', {
-          textContent: `${member.role} \u00B7 ${member.agency}`,
+          textContent: [member.role, member.agency].filter(Boolean).join(' \u00B7 '),
           style: { color: 'var(--text-secondary)', fontSize: '0.75rem' },
         }),
       ]),
@@ -332,12 +332,13 @@ function _renderCrew(trendEl) {
 
 // --- Context Tiles -------------------------------------------------------
 
-function _renderTiles(tilesEl) {
+function _renderTiles(tilesEl, crew) {
   const tileData = [
     {
       label: i18n.t('detail.space.tileAltitude'),
-      value: '~408',
+      value: _heroValueEl?.textContent || '~408',
       unit: 'km',
+      liveAltitude: true,
     },
     {
       label: i18n.t('detail.space.tileSpeed'),
@@ -346,7 +347,7 @@ function _renderTiles(tilesEl) {
     },
     {
       label: i18n.t('detail.space.tileCrew'),
-      value: String(ISS_CREW.length),
+      value: crew?.members?.length ? String(crew.members.length) : '–',
       unit: '',
     },
     {
@@ -356,7 +357,7 @@ function _renderTiles(tilesEl) {
     },
   ];
 
-  const tiles = tileData.map(({ label, value, unit }) =>
+  const tiles = tileData.map(({ label, value, unit, liveAltitude }) =>
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
@@ -371,6 +372,7 @@ function _renderTiles(tilesEl) {
       }),
       DOMUtils.create('div', {
         textContent: value,
+        className: liveAltitude ? 'space-tile-altitude' : '',
         style: { color: 'var(--text-primary)', fontSize: '1.5rem', fontWeight: '600' },
       }),
       unit

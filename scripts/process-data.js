@@ -842,9 +842,6 @@ function buildWorldState() {
     : null;
   const fredFetchedAt = fredCache?.fetchedAt || null;
 
-  // Inflation: prefer FRED-derived US YoY if available (fresher than
-  // the World Bank annual average) — counted alongside WB as two inputs.
-  const fredUsInflation = fredCache?.data?.derived?.us_inflation_yoy?.value;
   const fredFedFunds    = fredCache?.data?.derived?.fed_funds_rate?.value;
   const fredYieldSpread = fredCache?.data?.derived?.yield_curve_spread?.value;
 
@@ -856,11 +853,9 @@ function buildWorldState() {
     giniCurrent = Math.round(giniCurrent * 100 * 10) / 10;
   }
   const wbInflation = latest(inflationData?.history || [])?.value || 6.5;
-  // Combined inflation signal: if FRED has fresh US YoY, average it with
-  // World Bank (gives a mixed global/US reading when FRED is present).
-  const inflationCurrent = Number.isFinite(fredUsInflation)
-    ? Math.round((wbInflation + fredUsInflation) / 2 * 10) / 10
-    : wbInflation;
+  // Globale Inflation = World Bank Welt-Wert. Früher mit US-CPI (FRED)
+  // gemittelt — das vermischt zwei Größen; US-Inflation steht separat.
+  const inflationCurrent = Math.round(wbInflation * 10) / 10;
   const unemploymentCurrent = latest(unemploymentData?.history || [])?.value || 5.8;
 
   const ecoGDPScore = normalize(gdpGrowth, -5, 6);
@@ -1256,7 +1251,7 @@ function buildWorldState() {
         indicators: [
           { name: 'BIP-Wachstum', value: `${gdpGrowth}%`, score: Math.round(ecoGDPScore), trend: ecoGDPScore > 60 ? 'improving' : ecoGDPScore < 40 ? 'declining' : 'stable', ...freshness(gdpData?.fetched, 'World Bank / IMF') },
           { name: 'Gini-Index', value: giniCurrent, score: Math.round(ecoGiniScore), trend: 'stable', ...freshness(giniData?.fetched, 'World Bank') },
-          { name: 'Inflation', value: `${inflationCurrent}%`, score: Math.round(ecoInflScore), trend: 'stable', ...freshness(fredFetchedAt || inflationData?.fetched, fredUsInflation != null ? 'FRED + World Bank (avg)' : 'World Bank') },
+          { name: 'Inflation', value: `${inflationCurrent}%`, score: Math.round(ecoInflScore), trend: 'stable', ...freshness(inflationData?.fetched, 'World Bank (FP.CPI.TOTL.ZG)') },
           { name: 'Arbeitslosigkeit', value: `${unemploymentCurrent}%`, score: Math.round(ecoUnempScore), trend: 'stable', ...freshness(unemploymentData?.fetched, 'World Bank / ILO') },
           ...(poverty.pct != null ? [{ name: 'Extreme Armut', value: `${poverty.pct}%`, score: Math.round(normalize(poverty.pct, 40, 0)), trend: 'improving', ...freshness(povertyCache?.fetchedAt, poverty.source) }] : []),
           ...(fredFedFunds != null ? [{ name: 'Fed Funds Rate', value: `${fredFedFunds}%`, score: Math.max(0, 100 - fredFedFunds * 8), trend: 'stable', ...freshness(fredFetchedAt, fredSource) }] : []),
@@ -1410,16 +1405,18 @@ function buildWorldState() {
     },
 
     progress: {
-      publications: {
-        annualTotal: 3200000,
-        history: existing?.progress?.publications?.history || [
-          { year: 1980, value: 500000 }, { year: 1990, value: 900000 },
-          { year: 2000, value: 1400000 }, { year: 2010, value: 2100000 },
-          { year: 2020, value: 2900000 }, { year: 2026, value: 3200000 }
-        ],
-        latestArxiv: arxivData?.papers?.slice(0, 5) || [],
-        source: 'arXiv / Scopus'
-      },
+      // Fachartikel pro Jahr (World Bank/NSF); früher eingefrorene Mischreihe
+      publications: (() => {
+        const pub = readCache('publications.json');
+        const history = Array.isArray(pub?.history) && pub.history.length >= 10 ? pub.history : [];
+        return {
+          annualTotal: latest(history)?.value ?? null,
+          dataYear: latest(history)?.year ?? null,
+          history,
+          latestArxiv: arxivData?.papers?.slice(0, 5) || [],
+          source: pub?.source || 'World Bank / NSF'
+        };
+      })(),
       // Nur gemessene Werte (GitHub Search API); keine Schätzungen für Commits/Entwickler.
       github: {
         reposCreated24h: githubData?.reposCreated24h ?? null,

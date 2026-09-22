@@ -349,7 +349,16 @@ async function cacheScience() {
   console.log(`  [science] ${papers.length} papers (total=${total_results})`);
 }
 
-// ─── 9. Space alias (Spaceflight News) ─────────────────────────────
+// ─── 9. Space alias (Spaceflight News + ISS crew) ──────────────────
+function agencyShort(name = '') {
+  if (/National Aeronautics/i.test(name)) return 'NASA';
+  if (/Roscosmos|Russian Federal Space/i.test(name)) return 'Roscosmos';
+  if (/European Space Agency/i.test(name)) return 'ESA';
+  if (/Japan Aerospace/i.test(name)) return 'JAXA';
+  if (/Canadian Space/i.test(name)) return 'CSA';
+  return name || null;
+}
+
 async function cacheSpace() {
   console.log('  [space] Fetching Spaceflight News articles...');
   const data = await fetchJSON('https://api.spaceflightnewsapi.net/v4/articles/?limit=12&ordering=-published_at');
@@ -365,19 +374,33 @@ async function cacheSpace() {
     summary: a.summary
   }));
 
-  // Supplement with ISS data (best-effort)
-  let iss_altitude_km = null;
+  // Aktuelle ISS-Besatzung (Launch Library 2, aktive Expedition)
+  let iss_crew = null;
   try {
-    const astros = await fetchJSON('http://api.open-notify.org/astros.json', { retries: 1, timeout: 6000 });
-    if (astros && Number.isFinite(astros.number)) {
-      iss_altitude_km = 408;
+    const iss = await fetchJSON('https://ll.thespacedevs.com/2.2.0/spacestation/4/?mode=detailed', { retries: 1, timeout: 15000 });
+    const exp = (iss?.active_expeditions || [])[0];
+    if (exp?.crew?.length) {
+      iss_crew = {
+        expedition: exp.name,
+        start: exp.start,
+        members: exp.crew.map(c => ({
+          name: c.astronaut?.name,
+          role: c.role?.role || null,
+          agency: agencyShort(c.astronaut?.agency?.name)
+        })).filter(m => m.name),
+        source: 'Launch Library 2 (The Space Devs)'
+      };
     }
-  } catch (_err) { /* ignore */ }
+  } catch (err) {
+    console.warn(`  [space] ISS crew failed: ${err.message}`);
+  }
 
   const payload = {
     articles,
+    iss_crew,
+    // Nominale Bahnhöhe; die Detailseite zeigt die Live-Höhe von wheretheiss.at
     iss_altitude_km: {
-      value: iss_altitude_km ?? 408,
+      value: 408,
       year: CURRENT_YEAR,
       source: 'NASA (nominal ISS orbit)'
     }

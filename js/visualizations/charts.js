@@ -5,6 +5,20 @@
 import { MathUtils } from '../utils/math.js';
 import { DOMUtils } from '../utils/dom.js';
 import { i18n } from '../i18n.js';
+import { fmtAxis } from '../utils/fmt.js';
+
+// Tick-Werte im 1-2-5-Raster, die [min, max] einschließen
+function niceTicks(min, max, count = 5) {
+  if (!(max > min)) { max = min + 1; }
+  const raw = (max - min) / count;
+  const mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  const step = [1, 2, 2.5, 5, 10].map(f => f * mag).find(st => st >= raw);
+  const lo = Math.floor(min / step) * step;
+  const hi = Math.ceil(max / step) * step;
+  const ticks = [];
+  for (let v = lo; v <= hi + step / 2; v += step) ticks.push(Math.round(v / step) * step);
+  return ticks;
+}
 
 export class Charts {
   // ─── Warming Stripes ───
@@ -50,7 +64,7 @@ export class Charts {
       animate = true,
       progress = 1,
       yLabel = '',
-      padding = isMobile ? { top: 15, right: 10, bottom: 30, left: 35 } : { top: 20, right: 20, bottom: 40, left: 50 }
+      padding = isMobile ? { top: 24, right: 10, bottom: 30, left: 52 } : { top: 28, right: 20, bottom: 40, left: 62 }
     } = options;
 
     const plotWidth = width - padding.left - padding.right;
@@ -60,9 +74,10 @@ export class Charts {
     if (values.length < 2) return;
     const rawMin = Math.min(...values);
     const rawMax = Math.max(...values);
-    const range = rawMax - rawMin || 1;
-    const minVal = rawMin - range * 0.05;
-    const maxVal = rawMax + range * 0.05 || 1;
+    // „Runde“ Achsenwerte (1-2-5-Raster), Achse endet auf einem Tick
+    const ticks = niceTicks(rawMin, rawMax, 5);
+    const minVal = ticks[0];
+    const maxVal = ticks[ticks.length - 1];
 
     const xScale = (i) => padding.left + (i / (data.length - 1)) * plotWidth;
     const yScale = (v) => padding.top + plotHeight - ((v - minVal) / (maxVal - minVal)) * plotHeight;
@@ -89,24 +104,26 @@ export class Charts {
     </defs>`;
 
     // Grid lines
-    const gridSteps = 5;
-    for (let i = 0; i <= gridSteps; i++) {
-      const y = padding.top + (plotHeight / gridSteps) * i;
-      const val = maxVal - ((maxVal - minVal) / gridSteps) * i;
+    for (const val of ticks) {
+      const y = yScale(val);
       svg += `<line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}"
         stroke="rgba(255,255,255,0.05)" stroke-width="1" />`;
       if (showLabels) {
         svg += `<text x="${padding.left - 8}" y="${y + 4}" text-anchor="end"
-          fill="rgba(255,255,255,0.3)" font-size="10" font-family="var(--font-mono)">${val.toFixed(val >= 100 ? 0 : 1)}</text>`;
+          fill="rgba(255,255,255,0.3)" font-size="10" font-family="var(--font-mono)">${fmtAxis(val)}</text>`;
       }
     }
 
     // X axis labels
     if (showLabels) {
       const labelStep = Math.max(1, Math.floor(data.length / 6));
+      const last = data.length - 1;
       data.forEach((d, i) => {
-        if (i % labelStep === 0 || i === data.length - 1) {
-          svg += `<text x="${xScale(i)}" y="${height - 8}" text-anchor="middle"
+        // regulärer Tick nicht zu dicht vor dem letzten Label (sonst Überlappung)
+        const regular = i % labelStep === 0 && last - i >= labelStep * 0.6;
+        if (regular || i === last) {
+          const anchor = i === last ? 'end' : i === 0 ? 'start' : 'middle';
+          svg += `<text x="${xScale(i)}" y="${height - 8}" text-anchor="${anchor}"
             fill="rgba(255,255,255,0.3)" font-size="10" font-family="var(--font-mono)">${d.year || d.label || i}</text>`;
         }
       });
@@ -139,8 +156,8 @@ export class Charts {
 
     // Y label
     if (yLabel) {
-      svg += `<text x="12" y="${padding.top + plotHeight / 2}" transform="rotate(-90, 12, ${padding.top + plotHeight / 2})"
-        fill="rgba(255,255,255,0.3)" font-size="10" text-anchor="middle">${yLabel}</text>`;
+      // Achsentitel waagerecht über der y-Achse statt gedreht (überlappte die Werte)
+      svg += `<text x="4" y="${padding.top - 12}" fill="rgba(255,255,255,0.45)" font-size="10" text-anchor="start">${yLabel}</text>`;
     }
 
     svg += '</svg>';
