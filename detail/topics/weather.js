@@ -9,7 +9,7 @@
 import { i18n } from '../../js/i18n.js';
 import { DOMUtils } from '../../js/utils/dom.js';
 import { MathUtils } from '../../js/utils/math.js';
-import { fetchWithTimeout } from '../../js/utils/data-loader.js';
+import { fetchWithTimeout, fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 
@@ -103,13 +103,13 @@ function severityColor(severity) {
 // --- Render ------------------------------------------------------------
 
 export async function render(blocks) {
-  // --- 1. Hero block ---
-  const badge = createTierBadge('live', { age: 0 });
-  _renderHero(blocks.hero, badge);
-
-  // --- 2. Fetch weather data for all 24 cities ---
-  const cityResults = await _fetchAllCities();
+  // --- 1. Fetch weather data for all 24 cities, cache if all fail ---
+  const { cityResults, tier, age } = await _loadCities();
   _chartData = { cityResults };
+
+  // --- 2. Hero block (badge = tatsächlich genutzte Quelle) ---
+  const badge = createTierBadge(tier, { age, source: 'Open-Meteo' });
+  _renderHero(blocks.hero, badge, cityResults.length);
 
   // --- 3. Update hero with extremes ---
   _updateHeroExtremes(blocks.hero, cityResults);
@@ -135,7 +135,7 @@ export async function render(blocks) {
 
 // --- Hero Block ---------------------------------------------------------
 
-function _renderHero(heroEl, badge) {
+function _renderHero(heroEl, badge, cityCount) {
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'weather-hero' }, [
       DOMUtils.create('div', {
@@ -147,7 +147,7 @@ function _renderHero(heroEl, badge) {
           marginBottom: 'var(--space-xs)',
         },
       }, [
-        String(WEATHER_CITIES.length),
+        String(cityCount),
         DOMUtils.create('span', {
           style: {
             fontSize: '1.5rem',
@@ -210,6 +210,34 @@ function _updateHeroExtremes(heroEl, cityResults) {
       ])
     );
   }
+}
+
+// --- Load Cities (live -> cache -> none) ---------------------------------
+
+// Live nur, wenn mindestens eine Stadt geantwortet hat. Sonst der
+// Pipeline-Cache (nur aktuelle Werte, keine 24h-Reihe).
+async function _loadCities() {
+  const live = await _fetchAllCities();
+  if (live.some(c => c.available)) return { cityResults: live, tier: 'live', age: 0 };
+
+  const { data, tier, age } = await fetchTopicData('weather');
+  const cached = tier === 'cache' ? (data?.cities || []) : [];
+  if (cached.length === 0) return { cityResults: live, tier: 'static', age: null };
+
+  return {
+    cityResults: cached.map(c => ({
+      name: c.name,
+      lat: c.lat,
+      lng: c.lon,
+      hourlyTemps: [],
+      hourlyWeather: Number.isFinite(c.weather_code) ? [c.weather_code] : [],
+      currentTemp: Number.isFinite(c.temp_c) ? c.temp_c : null,
+      currentCode: c.weather_code ?? 0,
+      available: Number.isFinite(c.temp_c),
+    })),
+    tier: 'cache',
+    age,
+  };
 }
 
 // --- Fetch All Cities ----------------------------------------------------
