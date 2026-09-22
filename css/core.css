@@ -2,78 +2,210 @@
    World.One 2.0 — Core Design System
    ═══════════════════════════════════════════════════════════ */
 
-/* ─── Custom Properties ─── */
+/* ─── Webfont: Inter (selbst gehostet, OFL, assets/fonts/Inter-OFL.txt) ─── */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('../assets/fonts/inter-latin.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('../assets/fonts/inter-latin-ext.woff2') format('woff2-variations');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ═══ Design-Tokens in drei Ebenen ═══════════════════════════
+   1. Primitives  — Rohwerte (Grau-/Blau-Skala, Datenfarben)
+   2. Semantic    — Rollen (Fläche, Text, Linie, Akzent, Status)
+   3. Data        — Rollen für Diagramme (Serien, sequentiell, divergierend)
+   Komponenten verwenden nur Ebene 2 und 3. Datenfarben: validierte
+   Referenzpalette (farbenblind-sicher, dunkle/helle Stufen je Slot).
+   ═════════════════════════════════════════════════════════════ */
 :root {
-  /* Base Colors */
-  --bg-primary: #0a0a0f;
-  --bg-secondary: #12121a;
-  --text-primary: #f0f0f5;
-  --text-secondary: #8e8e93;
-  --text-muted: #5a5a65;
+  color-scheme: dark;
 
-  /* Semantic Colors */
-  --danger: #ff3b30;
-  --danger-light: #ff6b6b;
-  --warning: #ffcc00;
-  --warning-dark: #ff9500;
-  --success: #34c759;
-  --success-light: #30d158;
-  --progress: #00d4ff;
-  --progress-light: #5ac8fa;
-  --accent: #ffffff;
+  /* 1 · Primitives ────────────────────────────────────────── */
+  --gray-0: #ffffff;
+  --gray-50: #f8f9fa;
+  --gray-100: #f1f3f4;
+  --gray-200: #e8eaed;
+  --gray-300: #dadce0;
+  --gray-400: #bdc1c6;
+  --gray-500: #9aa0a6;
+  --gray-600: #80868b;
+  --gray-700: #5f6368;
+  --gray-800: #3c4043;
+  --gray-850: #2d3034;
+  --gray-900: #202124;
+  --gray-920: #1b1c1f;
+  --gray-940: #16171a;
+  --gray-960: #111214;
+  --gray-980: #0b0c0e;
 
-  /* Zone Colors */
-  --zone-critical: #ff3b30;
-  --zone-concerning: #ff9500;
-  --zone-mixed: #ffcc00;
-  --zone-positive: #34c759;
-  --zone-excellent: #00d4ff;
+  --blue-200: #aecbfa;
+  --blue-300: #8ab4f8;
+  --blue-500: #4285f4;
+  --blue-600: #1a73e8;
+  --blue-700: #1967d2;
 
-  /* Glass Effect */
-  --glass-bg: rgba(255, 255, 255, 0.04);
-  --glass-bg-hover: rgba(255, 255, 255, 0.08);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-hover: rgba(255, 255, 255, 0.15);
-  --glass-blur: 20px;
+  /* 2 · Semantic (Dark = Standard) ────────────────────────── */
+  --surface-0: var(--gray-980);      /* Seite */
+  --surface-1: var(--gray-940);      /* Karte */
+  --surface-2: var(--gray-920);      /* Karte, erhöht / Hover */
+  --surface-3: var(--gray-900);      /* Eingabe, Chip */
+  --surface-inverse: var(--gray-200);
 
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 48px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 30px rgba(0, 212, 255, 0.15);
+  --text-1: var(--gray-200);         /* Primärtext   ≥ 15:1 */
+  --text-2: var(--gray-400);         /* Sekundärtext ≥ 9:1 */
+  --text-3: var(--gray-500);         /* Hinweise     ≥ 6,5:1 */
+  --text-on-accent: var(--gray-980);
 
-  /* Typography */
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  --font-mono: 'SF Mono', 'Fira Code', 'Consolas', 'Liberation Mono', monospace;
+  --line-1: rgba(255, 255, 255, 0.08);   /* Haarlinie */
+  --line-2: rgba(255, 255, 255, 0.14);   /* Kante, betont */
+  --grid: rgba(255, 255, 255, 0.06);     /* Diagramm-Raster */
 
-  --text-hero: clamp(4rem, 10vw, 10rem);
-  --text-section: clamp(2rem, 5vw, 4rem);
-  --text-sub: clamp(1.2rem, 3vw, 2rem);
-  --text-body: clamp(0.875rem, 2vw, 1.125rem);
-  --text-label: clamp(0.75rem, 1.5vw, 0.875rem);
-  --text-micro: clamp(0.625rem, 1.2vw, 0.75rem);
+  --accent: var(--blue-300);
+  --accent-strong: var(--blue-200);
+  --accent-soft: rgba(138, 180, 248, 0.14);
 
-  /* Spacing */
-  --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
-  --space-sm: clamp(0.5rem, 1vw, 1rem);
-  --space-md: clamp(1rem, 2vw, 2rem);
-  --space-lg: clamp(2rem, 4vw, 4rem);
-  --space-xl: clamp(3rem, 6vw, 6rem);
-  --space-2xl: clamp(4rem, 8vw, 8rem);
+  --status-good: #81c995;
+  --status-warning: #fdd663;
+  --status-serious: #fcad70;
+  --status-critical: #f28b82;
+  --status-good-soft: rgba(129, 201, 149, 0.14);
+  --status-warning-soft: rgba(253, 214, 99, 0.14);
+  --status-critical-soft: rgba(242, 139, 130, 0.14);
 
-  /* Transitions */
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --duration-fast: 200ms;
-  --duration-normal: 400ms;
-  --duration-slow: 800ms;
-  --duration-slower: 1200ms;
+  --focus-ring: var(--blue-300);
+  --elevation-1: 0 1px 2px rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+  --elevation-2: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+
+  /* 3 · Data ──────────────────────────────────────────────── */
+  --series-1: #3987e5;  /* blau    */
+  --series-2: #d95926;  /* orange  */
+  --series-3: #199e70;  /* aqua    */
+  --series-4: #c98500;  /* gelb    */
+  --series-5: #d55181;  /* magenta */
+  --series-6: #008300;  /* grün    */
+  --series-7: #9085e9;  /* violett */
+  --series-8: #e66767;  /* rot     */
+  --seq-100: #cde2fb; --seq-200: #9ec5f4; --seq-300: #6da7ec; --seq-400: #3987e5;
+  --seq-500: #256abf; --seq-600: #184f95; --seq-700: #0d366b;
+  --div-neg: #e66767; --div-mid: #383835; --div-pos: #3987e5;
+
+  /* Themen (je eine Serienfarbe; ersetzt die Neon-Akzente je Akt) */
+  --topic-environment: var(--series-3);
+  --topic-society: var(--series-2);
+  --topic-economy: var(--series-4);
+  --topic-progress: var(--series-7);
+  --topic-realtime: var(--series-1);
+
+  /* Kompatibilität: alte Namen → neue Rollen ───────────────── */
+  --bg-primary: var(--surface-0);
+  --bg-secondary: var(--surface-1);
+  --text-primary: var(--text-1);
+  --text-secondary: var(--text-2);
+  --text-muted: var(--text-3);
+  --danger: var(--status-critical);
+  --danger-light: var(--status-critical);
+  --warning: var(--status-warning);
+  --warning-dark: var(--status-serious);
+  --success: var(--status-good);
+  --success-light: var(--status-good);
+  --progress: var(--accent);
+  --progress-light: var(--accent-strong);
+  --zone-critical: var(--status-critical);
+  --zone-concerning: var(--status-serious);
+  --zone-mixed: var(--status-warning);
+  --zone-positive: var(--status-good);
+  --zone-excellent: var(--accent);
+  --glass-bg: var(--surface-1);
+  --glass-bg-hover: var(--surface-2);
+  --glass-border: var(--line-1);
+  --glass-border-hover: var(--line-2);
+  --glass-blur: 0px;
+  --shadow-sm: var(--elevation-1);
+  --shadow-md: var(--elevation-2);
+  --shadow-lg: var(--elevation-2);
+  --shadow-glow: none;
+
+  /* Typografie ─────────────────────────────────────────────── */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-num: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, monospace;
+
+  --text-hero: clamp(3.5rem, 8vw, 7rem);
+  --text-section: clamp(1.875rem, 4vw, 3rem);
+  --text-sub: clamp(1.125rem, 2vw, 1.5rem);
+  --text-body: 1rem;
+  --text-label: 0.8125rem;
+  --text-micro: 0.75rem;
+
+  /* 8-px-Raster ──────────────────────────────────────────────── */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: clamp(3rem, 6vw, 5rem);
+  --space-2xl: clamp(4rem, 8vw, 7rem);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+
+  /* Bewegung: kurz und zweckgebunden */
+  --ease-out-expo: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out-quart: cubic-bezier(0.2, 0, 0, 1);
+  --ease-spring: cubic-bezier(0.2, 0, 0, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --duration-slower: 600ms;
 
   /* Layout */
   --max-width: 1200px;
   --max-width-wide: 1440px;
-  --section-padding: clamp(2rem, 5vw, 5rem);
+  --section-padding: clamp(4rem, 8vw, 7rem);
+}
+
+/* Light Theme — gleiche Rollen, eigene Stufen. Aktiv über data-theme. */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --surface-0: var(--gray-50);
+  --surface-1: var(--gray-0);
+  --surface-2: var(--gray-100);
+  --surface-3: var(--gray-200);
+  --surface-inverse: var(--gray-900);
+  --text-1: var(--gray-900);
+  --text-2: var(--gray-700);
+  --text-3: #5f6368;
+  --text-on-accent: var(--gray-0);
+  --line-1: rgba(32, 33, 36, 0.10);
+  --line-2: rgba(32, 33, 36, 0.18);
+  --grid: rgba(32, 33, 36, 0.08);
+  --accent: var(--blue-700);
+  --accent-strong: #174ea6;
+  --accent-soft: rgba(26, 115, 232, 0.10);
+  --status-good: #188038;
+  --status-warning: #955000;
+  --status-serious: #c5221f;
+  --status-critical: #c5221f;
+  --status-good-soft: rgba(24, 128, 56, 0.10);
+  --status-warning-soft: rgba(176, 96, 0, 0.10);
+  --status-critical-soft: rgba(197, 34, 31, 0.10);
+  --focus-ring: var(--blue-600);
+  --elevation-1: 0 1px 2px rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  --elevation-2: 0 1px 2px rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
+  --series-1: #2a78d6; --series-2: #eb6834; --series-3: #1baf7a; --series-4: #eda100;
+  --series-5: #e87ba4; --series-6: #008300; --series-7: #4a3aa7; --series-8: #e34948;
+  --div-neg: #e34948; --div-mid: #f0efec; --div-pos: #2a78d6;
 }
 
 /* ─── Reset ─── */
@@ -90,13 +222,14 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+  scrollbar-color: var(--line-2) transparent;
 }
 
 body {
   font-family: var(--font-sans);
   font-size: var(--text-body);
   line-height: 1.6;
+  font-feature-settings: 'cv11', 'ss01';
   color: var(--text-primary);
   background-color: var(--bg-primary);
   -webkit-font-smoothing: antialiased;
@@ -148,18 +281,19 @@ button {
 /* ─── Typography ─── */
 .text-hero {
   font-size: var(--text-hero);
-  font-weight: 800;
+  font-weight: 600;
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
   font-variant-numeric: tabular-nums;
-  font-family: var(--font-mono);
+  font-family: var(--font-num);
 }
 
 .text-section {
   font-size: var(--text-section);
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1.15;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
 .text-sub {
@@ -174,15 +308,19 @@ button {
   line-height: 1.6;
 }
 
+/* Beschreibende Zeilen in Satzschreibweise; Versalien nur für kurze
+   Überschriften-Labels (.section-label, .data-card__label) */
 .text-label {
-  font-size: var(--text-label);
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.5;
+  color: var(--text-2);
 }
 
+/* Zahlen: Inter mit tabellarischen Ziffern (früher Monospace) */
 .text-mono {
-  font-family: var(--font-mono);
+  font-family: var(--font-num);
   font-variant-numeric: tabular-nums;
 }
 
@@ -191,10 +329,7 @@ button {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, var(--progress), var(--success-light));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--accent);
 }
 
 /* ─── Layout ─── */
@@ -298,7 +433,7 @@ button {
 
 /* ─── Focus Styles ─── */
 :focus-visible {
-  outline: 2px solid var(--progress);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 4px;
   border-radius: 4px;
 }
@@ -353,6 +488,6 @@ button {
 
 /* ─── Selection ─── */
 ::selection {
-  background: rgba(0, 212, 255, 0.3);
+  background: var(--accent-soft);
   color: var(--text-primary);
 }

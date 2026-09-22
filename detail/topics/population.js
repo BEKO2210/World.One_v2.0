@@ -302,7 +302,7 @@ async function _renderPyramid(trendEl) {
         cursor: 'pointer',
         fontSize: '0.8rem',
         fontWeight: isActive ? '700' : '400',
-        fontFamily: 'var(--font-mono)',
+        fontFamily: 'var(--font-num)',
         transition: 'all 0.15s ease',
       },
     });

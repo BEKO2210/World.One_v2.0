@@ -13,6 +13,7 @@ import { CinematicScroll } from './visualizations/cinematic.js';
 import { MathUtils } from './utils/math.js';
 import { DOMUtils } from './utils/dom.js';
 import { createTierBadge } from './utils/badge.js';
+import { cssVar } from './utils/chart-manager.js';
 import { formatAsOf } from './utils/as-of.js';
 import { i18n } from './i18n.js';
 
@@ -114,7 +115,7 @@ class BelkisOne {
     const canvas = document.getElementById('particles-canvas');
     if (!canvas) return;
 
-    canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;';
+    canvas.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;transition:opacity 400ms ease;';
 
     // ── Performance-Gates (Schritt 8) ──
     // 1. prefers-reduced-motion: User hat System-weit Animationen deaktiviert
@@ -139,12 +140,10 @@ class BelkisOne {
 
     // Mobile ≈ 300, Desktop ≈ 1000 (pre-Schritt-8); 3g connections bekommen
     // die Mobile-Zahl auch auf Desktop.
+    // Höchstens 300 Partikel (vorher bis 1000): ~50 % Leerlauf-CPU gemessen
     const isMobile = DOMUtils.viewport().isMobile;
-    const cellular3g = navigator.connection?.effectiveType === '3g';
-    const desktopCount = cellular3g ? 400 : 1000;
-
     this.particles = new ParticleSystem(canvas, {
-      count: isMobile ? 300 : desktopCount,
+      count: isMobile ? 150 : 300,
       baseColor: { r: 255, g: 255, b: 255 },
       maxSize: 2,
       speed: 0.2,
@@ -152,15 +151,21 @@ class BelkisOne {
       mouseRepulsion: 100,
       mouseForce: 0.06
     });
+    // Nur im Prolog sichtbar und aktiv; sonst ausgeblendet und gestoppt
+    // (vorher lief das Sternenfeld hinter allen Sektionen weiter).
+    let prologVisible = true;
+    const sync = () => {
+      const on = prologVisible && !document.hidden;
+      canvas.style.opacity = prologVisible ? '1' : '0';
+      if (on) this.particles.start(); else this.particles.stop();
+    };
+    const prolog = document.getElementById('prolog');
+    if (prolog && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([entry]) => { prologVisible = entry.isIntersecting; sync(); }, { threshold: 0.05 })
+        .observe(prolog);
+    }
     this.particles.start();
-
-    // Tab-Sichtbarkeit: wenn der User den Tab wechselt / minimiert,
-    // stoppe die Render-Loop. Spart CPU/Akku im Hintergrund.
-    document.addEventListener('visibilitychange', () => {
-      if (!this.particles) return;
-      if (document.hidden) this.particles.stop();
-      else this.particles.start();
-    });
+    document.addEventListener('visibilitychange', sync);
   }
 
   // ─── Scroll Engine Registration ───
@@ -460,7 +465,7 @@ class BelkisOne {
     const wi = data.worldIndex;
     const isUp = wi.change >= 0;
     trendEl.innerHTML = `
-      <span style="color:${isUp ? '#34c759' : '#ff3b30'}">${isUp ? '↑' : '↓'} ${isUp ? '+' : ''}${this._esc(wi.change)}</span>
+      <span style="color:${isUp ? 'var(--status-good)' : 'var(--status-critical)'}">${isUp ? '↑' : '↓'} ${isUp ? '+' : ''}${this._esc(wi.change)}</span>
       <span class="text-muted"> ${i18n.t('act1.vsPeriod')}</span>
     `;
   }
@@ -499,12 +504,12 @@ class BelkisOne {
       aqGrid.innerHTML = '';
       const cities = [...env.airQuality.cleanestCities, ...env.airQuality.mostPolluted];
       cities.forEach(city => {
-        const color = city.aqi <= 50 ? '#34c759' : city.aqi <= 100 ? '#ffcc00' : city.aqi <= 150 ? '#ff9500' : '#ff3b30';
+        const color = city.aqi <= 50 ? 'var(--status-good)' : city.aqi <= 100 ? 'var(--status-warning)' : city.aqi <= 150 ? 'var(--status-serious)' : 'var(--status-critical)';
         const card = DOMUtils.create('div', {
           className: 'aqi-card',
           innerHTML: `
             <div class="aqi-card__city">${this._esc(city.city)}${city.country ? ' (' + this._esc(city.country) + ')' : ''}</div>
-            <div class="aqi-card__value" style="color:${color};background:${color}15">AQI ${Number(city.aqi) || 0}</div>
+            <div class="aqi-card__value" style="color:${color};background:color-mix(in srgb, ${color} 12%, transparent)">AQI ${Number(city.aqi) || 0}</div>
           `
         });
         aqGrid.appendChild(card);
@@ -604,17 +609,17 @@ class BelkisOne {
         <div style="display:flex;flex-wrap:wrap;gap:var(--space-sm);margin-top:var(--space-sm);justify-content:center">
           <div class="data-card data-card--compact" style="flex:1;min-width:140px;text-align:center">
             <div class="data-card__label">${i18n.t('js.displaced')}</div>
-            <div class="data-card__value data-card__value--sm" style="color:#ff9500">${MathUtils.formatCompact(r.displaced)}</div>
+            <div class="data-card__value data-card__value--sm">${MathUtils.formatCompact(r.displaced)}</div>
           </div>
           <div class="data-card data-card--compact" style="flex:1;min-width:140px;text-align:center">
             <div class="data-card__label">${i18n.t('js.asylumseekers')}</div>
-            <div class="data-card__value data-card__value--sm" style="color:#ffcc00">${MathUtils.formatCompact(r.asylumseekers)}</div>
+            <div class="data-card__value data-card__value--sm">${MathUtils.formatCompact(r.asylumseekers)}</div>
           </div>
         </div>
         ${r.flows ? `<div style="margin-top:var(--space-md)">
           <div class="text-label text-muted" style="margin-bottom:var(--space-xs)">${i18n.t('js.flightRoutes')}</div>
           ${r.flows.slice(0, 5).map(f => `
-            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px">
+            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--line-1);font-size:13px">
               <span>${this._esc(f.from)} → ${this._esc(f.to)}</span>
               <span class="text-mono" style="color:var(--warning)">${MathUtils.formatCompact(f.count)}</span>
             </div>
@@ -779,7 +784,7 @@ class BelkisOne {
       const latestSolar = Array.isArray(rt.solar) && rt.solar.length ? rt.solar[rt.solar.length - 1] : null;
       const ssn = Number(latestSolar?.sunspots);
       solarEl.innerHTML = `<div style="text-align:center">
-        <div class="text-mono" style="font-size:28px;color:#ffcc00;margin-bottom:8px">${Number.isFinite(ssn) ? ssn.toFixed(1) : '—'}</div>
+        <div class="text-mono" style="font-size:28px;margin-bottom:8px">${Number.isFinite(ssn) ? ssn.toFixed(1) : '—'}</div>
         <div class="text-label text-muted">${i18n.t('js.sunspotCount')}</div>
         <div style="margin-top:12px;font-size:13px;color:var(--text-secondary)">${latestSolar?.date ? this._esc(latestSolar.date) : i18n.t('js.noData')}<br><span class="text-muted">NOAA SWPC</span></div>
       </div>`;
@@ -791,7 +796,7 @@ class BelkisOne {
       const volcanic = Array.isArray(rt.volcanic) ? rt.volcanic : [];
       const names = volcanic.slice(0, 3).map(v => v.name || v.volcano).filter(Boolean).join(', ');
       volcanicEl.innerHTML = `<div style="text-align:center">
-        <div class="text-mono" style="font-size:28px;color:#ff9500;margin-bottom:8px">${volcanic.length || '–'}</div>
+        <div class="text-mono" style="font-size:28px;margin-bottom:8px">${volcanic.length || '–'}</div>
         <div class="text-label text-muted">${i18n.t('js.activeVolcanoes')}</div>
         <div style="margin-top:12px;font-size:13px;color:var(--text-secondary)">${names ? this._esc(names) : i18n.t('js.noReports')}<br><span class="text-muted">USGS / Smithsonian</span></div>
       </div>`;
@@ -844,29 +849,29 @@ class BelkisOne {
     const env = data.environment;
     const co2Spark = document.getElementById('co2-sparkline');
     if (co2Spark && env?.co2?.history) {
-      Charts.sparkline(co2Spark, env.co2.history, { color: '#ffcc00' });
+      Charts.sparkline(co2Spark, env.co2.history, { color: cssVar('--series-2') });
     }
     const tempSpark = document.getElementById('temp-sparkline');
     if (tempSpark && env?.temperatureAnomaly?.history) {
-      Charts.sparkline(tempSpark, env.temperatureAnomaly.history.slice(-15), { color: '#ff6b6b' });
+      Charts.sparkline(tempSpark, env.temperatureAnomaly.history.slice(-15), { color: cssVar('--series-8') });
     }
     const forestSpark = document.getElementById('forest-sparkline');
     if (forestSpark) {
       const forestHistory = env?.forest?.history;
       const forestData = forestHistory?.length > 2 ? forestHistory : [32.5, 32.2, 31.9, 31.7, 31.5, 31.2].map(v => ({ value: v }));
-      Charts.sparkline(forestSpark, forestData, { color: '#34c759' });
+      Charts.sparkline(forestSpark, forestData, { color: cssVar('--series-6') });
     }
     const renewSpark = document.getElementById('renewable-sparkline');
     if (renewSpark) {
       const renewHistory = env?.renewableEnergy?.history;
       const renewData = renewHistory?.length > 2 ? renewHistory : [17.5, 19.2, 21.8, 24.1, 26.5, 29.9].map(v => ({ value: v }));
-      Charts.sparkline(renewSpark, renewData, { color: '#00d4ff' });
+      Charts.sparkline(renewSpark, renewData, { color: cssVar('--series-3') });
     }
     const tradeSpark = document.getElementById('trade-sparkline');
     if (tradeSpark) {
       const tradeHistory = data.economy?.trade?.history;
       const tradeData = tradeHistory?.length > 2 ? tradeHistory : [52.1, 58.2, 60.1, 57.3, 55.8, 56.2].map(v => ({ value: v }));
-      Charts.sparkline(tradeSpark, tradeData, { color: '#00ffcc' });
+      Charts.sparkline(tradeSpark, tradeData, { color: cssVar('--series-1') });
     }
   }
 
@@ -884,7 +889,7 @@ class BelkisOne {
       const co2Chart = document.getElementById('co2-chart');
       if (co2Chart && env?.co2?.history) {
         Charts.lineChart(co2Chart, env.co2.history, {
-          color: '#ffcc00',
+          color: cssVar('--series-2'),
           height: 200,
           showArea: true,
           yLabel: 'ppm'
@@ -928,7 +933,7 @@ class BelkisOne {
       const lifeChart = document.getElementById('life-expectancy-chart');
       if (lifeChart && soc?.lifeExpectancy?.history) {
         Charts.lineChart(lifeChart, soc.lifeExpectancy.history, {
-          color: '#e8a87c',
+          color: cssVar('--series-1'),
           height: 200,
           yLabel: i18n.t('js.years')
         });
@@ -950,7 +955,7 @@ class BelkisOne {
       const giniChart = document.getElementById('gini-chart');
       if (giniChart && eco?.gini?.history) {
         Charts.lineChart(giniChart, eco.gini.history, {
-          color: '#ffd700',
+          color: cssVar('--series-4'),
           height: 180,
           yLabel: i18n.t('js.giniIndex'),
           showDots: true
@@ -968,7 +973,7 @@ class BelkisOne {
       const pubChart = document.getElementById('publications-chart');
       if (pubChart && prog?.publications?.history) {
         Charts.lineChart(pubChart, prog.publications.history, {
-          color: '#00ffcc',
+          color: cssVar('--series-7'),
           height: 200,
           showArea: true,
           yLabel: i18n.t('js.publications')
@@ -978,7 +983,7 @@ class BelkisOne {
       const netChart = document.getElementById('internet-chart');
       if (netChart && prog?.internet?.history) {
         Charts.lineChart(netChart, prog.internet.history, {
-          color: '#5ac8fa',
+          color: cssVar('--series-1'),
           height: 200,
           showArea: true,
           yLabel: '%'
@@ -1001,12 +1006,12 @@ class BelkisOne {
       eqList.innerHTML = '';
       rt.earthquakes.last24h.slice(0, 8).forEach(eq => {
         const mag = Number(eq.magnitude) || 0;
-        const color = mag >= 5 ? '#ff6b6b' : mag >= 4 ? '#ffcc00' : '#8e8e93';
+        const color = mag >= 5 ? 'var(--status-critical)' : mag >= 4 ? 'var(--status-warning)' : 'var(--text-3)';
         const li = DOMUtils.create('li', {
           className: 'earthquake-list__item',
           innerHTML: `
             <span>${this._esc(eq.location)}</span>
-            <span class="earthquake-list__mag" style="background:${color}20;color:${color}">M${mag.toFixed(1)}</span>
+            <span class="earthquake-list__mag" style="background:color-mix(in srgb, ${color} 14%, transparent);color:${color}">M${mag.toFixed(1)}</span>
           `
         });
         eqList.appendChild(li);
@@ -1042,7 +1047,7 @@ class BelkisOne {
       data.environment.airQuality.cleanestCities.forEach(city => {
         const li = DOMUtils.create('li', {
           className: 'earthquake-list__item',
-          innerHTML: `<span>${this._esc(city.city)}</span><span class="earthquake-list__mag" style="background:rgba(52,199,89,0.2);color:#34c759">AQI ${Number(city.aqi) || 0}</span>`
+          innerHTML: `<span>${this._esc(city.city)}</span><span class="earthquake-list__mag" style="background:var(--status-good-soft);color:var(--status-good)">AQI ${Number(city.aqi) || 0}</span>`
         });
         cleanList.appendChild(li);
       });
@@ -1051,7 +1056,7 @@ class BelkisOne {
       data.environment.airQuality.mostPolluted.forEach(city => {
         const li = DOMUtils.create('li', {
           className: 'earthquake-list__item',
-          innerHTML: `<span>${this._esc(city.city)}</span><span class="earthquake-list__mag" style="background:rgba(255,59,48,0.2);color:#ff3b30">AQI ${Number(city.aqi) || 0}</span>`
+          innerHTML: `<span>${this._esc(city.city)}</span><span class="earthquake-list__mag" style="background:var(--status-critical-soft);color:var(--status-critical)">AQI ${Number(city.aqi) || 0}</span>`
         });
         dirtyList.appendChild(li);
       });
@@ -1097,9 +1102,9 @@ class BelkisOne {
             className: 'momentum-item reveal swoosh-right',
             style: { transitionDelay: `${i * 60}ms` },
             innerHTML: `
-              <span class="momentum-item__arrow" style="color:${isUp ? '#34c759' : '#ff3b30'}">${isUp ? '↑' : '↓'}</span>
+              <span class="momentum-item__arrow" style="color:${isUp ? 'var(--status-good)' : 'var(--status-critical)'}">${isUp ? '↑' : '↓'}</span>
               <span class="momentum-item__name">${this._esc(i18n.indicatorName(ind.name))}</span>
-              <span class="momentum-item__change" style="color:${isUp ? '#34c759' : '#ff3b30'}">${this._esc(ind.change)}</span>
+              <span class="momentum-item__change" style="color:${isUp ? 'var(--status-good)' : 'var(--status-critical)'}">${this._esc(ind.change)}</span>
             `
           });
           const topic = MAIN_INDICATOR_TOPIC_MAP[ind.name] || null;
@@ -1132,7 +1137,7 @@ class BelkisOne {
         Charts.gauge(momGauge, gaugeValue, {
           size: 140,
           strokeWidth: 10,
-          color: '#5ac8fa',
+          color: cssVar('--accent'),
           label: i18n.t('js.momentum')
         });
       }
@@ -1151,7 +1156,7 @@ class BelkisOne {
                 <span class="comparison-item__arrow">→</span>
                 <span class="comparison-item__now">${typeof item.now === 'number' ? MathUtils.formatCompact(item.now) : item.now}</span>
               </div>
-              <span class="comparison-item__verdict" style="color:${item.improved ? '#34c759' : '#ff3b30'}">
+              <span class="comparison-item__verdict" style="color:${item.improved ? 'var(--status-good)' : 'var(--status-critical)'}">
                 ${item.improved ? i18n.t('act7.improved') : i18n.t('act7.worsened')}
               </span>
             `
@@ -1546,6 +1551,17 @@ class BelkisOne {
     range.addEventListener('change', () => {
       clearTimeout(debounce);
       debounce = setTimeout(() => loadSnapshot(parseInt(range.value)), 200);
+    });
+
+    // Schrittknöpfe (mobil): Regler um ±1 bewegen, gleiche Ereignisse wie Ziehen
+    el.querySelectorAll('.timeline__step').forEach(stepBtn => {
+      stepBtn.addEventListener('click', () => {
+        const next = Math.min(Number(range.max), Math.max(Number(range.min), parseInt(range.value) + Number(stepBtn.dataset.step)));
+        if (next === parseInt(range.value)) return;
+        range.value = String(next);
+        range.dispatchEvent(new Event('input'));
+        range.dispatchEvent(new Event('change'));
+      });
     });
   }
 

@@ -122,7 +122,7 @@
     opacity: 1;
   }
   70% {
-    box-shadow: 0 0 0 12px transparent;
+    box-shadow: none;
     opacity: 0.7;
   }
 }
@@ -148,11 +148,11 @@
 @keyframes orbCoreBreath {
   0%, 100% {
     transform: scale(1);
-    box-shadow: 0 0 20px rgba(255,255,255,0.5), 0 0 60px rgba(0,212,255,0.2), 0 0 100px rgba(0,212,255,0.1);
+    box-shadow: none;
   }
   50% {
     transform: scale(1.15);
-    box-shadow: 0 0 30px rgba(255,255,255,0.6), 0 0 80px rgba(0,212,255,0.3), 0 0 120px rgba(0,212,255,0.15);
+    box-shadow: none;
   }
 }
 

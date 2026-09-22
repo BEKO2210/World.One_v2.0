@@ -193,7 +193,7 @@ function _renderCounters(chartEl) {
         fontWeight: '700',
         color: toRgba(CHART_COLORS.progress),
         fontVariantNumeric: 'tabular-nums',
-        fontFamily: 'monospace, sans-serif',
+        fontFamily: 'var(--font-num)',
         lineHeight: '1.2',
       },
       textContent: '0',
