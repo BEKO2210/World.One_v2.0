@@ -11,6 +11,7 @@ import { DOMUtils } from '../../js/utils/dom.js';
 import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { createMarkerMap } from '../utils/marker-map.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -298,7 +299,7 @@ async function _renderGarbagePatches(trendEl) {
       'font-size': String(9 * radiusScale),
       'font-family': 'system-ui, sans-serif',
     });
-    sizeText.textContent = `~${(patch.size / 1_000_000).toFixed(1)}M km\u00B2`;
+    sizeText.textContent = `~${fmtNumber((patch.size / 1_000_000), { decimals: 1 })}M km\u00B2`;
     overlay.appendChild(sizeText);
   });
 

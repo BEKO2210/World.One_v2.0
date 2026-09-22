@@ -11,6 +11,7 @@ import { MathUtils } from '../../js/utils/math.js';
 import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -354,7 +355,7 @@ async function _renderScatterChart(trendEl) {
           },
           ticks: {
             callback: function (val) {
-              if (val >= 1000) return (val / 1000).toFixed(0) + 'k';
+              if (val >= 1000) return fmtNumber((val / 1000), { decimals: 0 }) + 'k';
               return val;
             },
           },

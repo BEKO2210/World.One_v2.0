@@ -10,6 +10,7 @@ import { DOMUtils } from '../../js/utils/dom.js';
 import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -112,7 +113,7 @@ export async function render(blocks) {
 
 function _renderHero(heroEl, forestCover, tier, age) {
   const badge = createTierBadge(tier, { age });
-  const formatted = typeof forestCover === 'number' ? forestCover.toFixed(1) : String(forestCover);
+  const formatted = typeof forestCover === 'number' ? fmtNumber(forestCover, { decimals: 1 }) : String(forestCover);
 
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'forests-hero' }, [
@@ -224,7 +225,7 @@ async function _renderLossChart(chartEl) {
         tooltip: {
           callbacks: {
             title: (items) => items[0]?.label || '',
-            label: (item) => i18n.t('detail.forests.tooltipLoss', { value: item.parsed.y.toFixed(1) }),
+            label: (item) => i18n.t('detail.forests.tooltipLoss', { value: fmtNumber(item.parsed.y, { decimals: 1 }) }),
           },
         },
       },

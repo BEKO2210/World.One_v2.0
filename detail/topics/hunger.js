@@ -13,6 +13,7 @@ import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { renderChoropleth } from '../utils/choropleth.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -97,7 +98,7 @@ export async function render(blocks) {
 
 function _renderHero(heroEl, latestEntry, tier, age) {
   const badge = createTierBadge(tier, { age });
-  const formatted = Number(latestEntry.value).toFixed(1);
+  const formatted = fmtNumber(Number(latestEntry.value), { decimals: 1 });
 
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'hunger-hero' }, [
@@ -471,10 +472,10 @@ export function getChartConfigs() {
             callbacks: {
               label: (item) => {
                 if (item.datasetIndex === 0) {
-                  return `${item.dataset.label}: ${item.parsed.y.toFixed(1)}`;
+                  return `${item.dataset.label}: ${fmtNumber(item.parsed.y, { decimals: 1 })}`;
                 }
                 return item.parsed.y !== null
-                  ? `${item.dataset.label}: ${item.parsed.y.toFixed(1)}%`
+                  ? `${item.dataset.label}: ${fmtNumber(item.parsed.y, { decimals: 1 })}%`
                   : null;
               },
             },

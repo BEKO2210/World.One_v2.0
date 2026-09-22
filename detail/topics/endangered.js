@@ -11,6 +11,7 @@ import { DOMUtils } from '../../js/utils/dom.js';
 import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -223,7 +224,7 @@ async function _renderDoughnut(chartEl, categories, total) {
             label: (ctx) => {
               const count = ctx.raw;
               const grandTotal = counts.reduce((a, b) => a + b, 0);
-              const pct = ((count / grandTotal) * 100).toFixed(1);
+              const pct = fmtNumber(((count / grandTotal) * 100), { decimals: 1 });
               return ` ${ctx.label}: ${count.toLocaleString()} (${pct}%)`;
             },
           },
@@ -273,7 +274,7 @@ function _renderCategoryBars(trendEl, cr, en, vu, total) {
   ];
 
   threatened.forEach(cat => {
-    const pct = ((cat.count / total) * 100).toFixed(1);
+    const pct = fmtNumber(((cat.count / total) * 100), { decimals: 1 });
     const barWidth = Math.max((cat.count / total) * 100, 3);
 
     trendEl.appendChild(

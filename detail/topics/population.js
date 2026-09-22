@@ -12,6 +12,7 @@ import { MathUtils } from '../../js/utils/math.js';
 import { fetchTopicData, fetchWithTimeout } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -266,7 +267,7 @@ function _renderBirthsDeathsClock(chartEl) {
   chartEl.appendChild(clockRow);
 
   // Net growth text
-  const netGrowth = (BIRTHS_PER_SEC - DEATHS_PER_SEC).toFixed(1);
+  const netGrowth = fmtNumber((BIRTHS_PER_SEC - DEATHS_PER_SEC), { decimals: 1 });
   chartEl.appendChild(
     DOMUtils.create('p', {
       textContent: i18n.t('detail.population.netGrowth', { count: netGrowth }),
@@ -440,7 +441,7 @@ function _renderTiles(tilesEl, growthRate, urbanPercent) {
   const tileData = [
     {
       label: i18n.t('detail.population.tileGrowthRate'),
-      value: `${(growthRate * 100).toFixed(1)}%`,
+      value: `${fmtNumber((growthRate * 100), { decimals: 1 })}%`,
       unit: '/yr',
     },
     {
@@ -647,7 +648,7 @@ export function getChartConfigs() {
             legend: { display: false },
             tooltip: {
               callbacks: {
-                label: (item) => `${item.parsed.y.toFixed(1)}%`,
+                label: (item) => `${fmtNumber(item.parsed.y, { decimals: 1 })}%`,
               },
             },
           },

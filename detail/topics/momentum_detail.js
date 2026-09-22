@@ -11,6 +11,7 @@ import { i18n } from '../../js/i18n.js';
 import { DOMUtils } from '../../js/utils/dom.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -341,7 +342,7 @@ function _buildMiniCard(indicator) {
   // % change element (cross-referenced from momentum.indicators)
   const changeEl = indicator.change
     ? DOMUtils.create('span', {
-        textContent: indicator.change,
+        textContent: Number.isFinite(parseFloat(indicator.change)) ? fmtNumber(parseFloat(indicator.change), { decimals: 1, sign: true }) + '%' : indicator.change,
         style: {
           fontSize: '0.7rem',
           fontWeight: '600',
@@ -490,7 +491,7 @@ function _renderTrendBar(trendEl, indicators) {
   const barSegments = segments.map(s =>
     DOMUtils.create('div', {
       style: {
-        width: `${(s.count / total * 100).toFixed(1)}%`,
+        width: `${((s.count / total * 100)).toFixed(1)}%`,
         height: '100%',
         background: s.color,
         display: s.count > 0 ? 'flex' : 'none',
@@ -567,7 +568,7 @@ function _renderTiles(tilesEl, subScores) {
     const indCount = (cat.indicators || []).length;
     return {
       label: i18n.t(config.key),
-      value: cat.value !== undefined ? cat.value.toFixed(1) : '--',
+      value: cat.value !== undefined ? fmtNumber(cat.value, { decimals: 1 }) : '--',
       unit: `${indCount} ` + i18n.t('detail.momentum_detail.indicatorsUnit'),
       accent: config.color,
     };

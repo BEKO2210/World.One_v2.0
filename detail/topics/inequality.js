@@ -14,6 +14,7 @@ import { MathUtils } from '../../js/utils/math.js';
 import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -130,7 +131,7 @@ export async function render(blocks) {
 function _renderHero(heroEl, giniValue, tier, age) {
   // Use 'static' tier with year 2024 since global Gini is hardcoded
   const badge = createTierBadge('static', { year: 2024 });
-  const formatted = giniValue.toFixed(1);
+  const formatted = fmtNumber(giniValue, { decimals: 1 });
 
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'inequality-hero' }, [
@@ -398,7 +399,7 @@ async function _renderRankingChart(trendEl) {
         tooltip: {
           callbacks: {
             label: function (ctx) {
-              return ctx.parsed.x.toFixed(1);
+              return fmtNumber(ctx.parsed.x, { decimals: 1 });
             },
           },
         },

@@ -13,6 +13,7 @@ import { fetchTopicData, fetchStaticFallback } from '../../js/utils/data-loader.
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { renderChoropleth } from '../utils/choropleth.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -112,7 +113,7 @@ function _renderHero(heroEl, latest, tier, age) {
         },
       }, [
         DOMUtils.create('span', {
-          textContent: `${sign}${latest.anomaly.toFixed(2)}`,
+          textContent: `${sign}${fmtNumber(latest.anomaly, { decimals: 2 })}`,
         }),
         DOMUtils.create('span', {
           textContent: ' \u00B0C',
@@ -208,7 +209,7 @@ async function _renderSSTChart(chartEl, sstData) {
             label: (item) => {
               const v = item.parsed.y;
               const sign = v >= 0 ? '+' : '';
-              return `${i18n.t('detail.ocean_temp.sstTooltip')}: ${sign}${v.toFixed(2)} °C`;
+              return `${i18n.t('detail.ocean_temp.sstTooltip')}: ${sign}${fmtNumber(v, { decimals: 2 })} °C`;
             },
           },
         },
@@ -254,7 +255,7 @@ function _renderMilestones(trendEl, sstData, latest) {
     tiles.push(_createTile(
       i18n.t('detail.ocean_temp.warmestYear'),
       `${warmest.year}`,
-      `+${warmest.anomaly.toFixed(2)} \u00B0C`,
+      `+${fmtNumber(warmest.anomaly, { decimals: 2 })} \u00B0C`,
       '#ff3b30'
     ));
   }
@@ -273,7 +274,7 @@ function _renderMilestones(trendEl, sstData, latest) {
     const slopePerDecade = (num / den) * 10;
     tiles.push(_createTile(
       i18n.t('detail.ocean_temp.rateOfWarming'),
-      `+${slopePerDecade.toFixed(2)} \u00B0C`,
+      `+${fmtNumber(slopePerDecade, { decimals: 2 })} \u00B0C`,
       i18n.t('detail.ocean_temp.perDecade'),
       '#ff9500'
     ));
@@ -286,7 +287,7 @@ function _renderMilestones(trendEl, sstData, latest) {
     const diff = latest.anomaly - avgPreInd;
     tiles.push(_createTile(
       i18n.t('detail.ocean_temp.sincePreIndustrial'),
-      `+${diff.toFixed(2)} \u00B0C`,
+      `+${fmtNumber(diff, { decimals: 2 })} \u00B0C`,
       i18n.t('detail.ocean_temp.vsAverage'),
       '#ff6b6b'
     ));
@@ -499,7 +500,7 @@ async function _renderChoropleth(compEl) {
     if (val >= 0.8) desc = 'Extreme';
     else if (val >= 0.6) desc = 'High';
     else if (val >= 0.4) desc = 'Moderate';
-    return `${iso}: ${desc} warming (${(val * 100).toFixed(0)}%)`;
+    return `${iso}: ${desc} warming (${fmtNumber((val * 100), { decimals: 0 })}%)`;
   }
 
   const legendItems = [

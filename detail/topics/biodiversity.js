@@ -12,6 +12,7 @@ import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { renderChoropleth } from '../utils/choropleth.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -233,7 +234,7 @@ async function _renderLPIChart(chartEl) {
         tooltip: {
           callbacks: {
             title: (items) => items[0]?.label || '',
-            label: (item) => i18n.t('detail.biodiversity.lpiTooltip', { value: item.parsed.y.toFixed(2), pct: ((1 - item.parsed.y) * 100).toFixed(0) }),
+            label: (item) => i18n.t('detail.biodiversity.lpiTooltip', { value: fmtNumber(item.parsed.y, { decimals: 2 }), pct: ((1 - item.parsed.y) * 100).toFixed(0) }),
           },
         },
       },
@@ -447,7 +448,7 @@ async function _renderMap(compEl) {
   }
 
   function tooltipFn(iso, val) {
-    return `${iso}: Threat index ${(val * 100).toFixed(0)}%`;
+    return `${iso}: Threat index ${fmtNumber((val * 100), { decimals: 0 })}%`;
   }
 
   const legendItems = [

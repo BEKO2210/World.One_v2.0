@@ -11,6 +11,7 @@ import { DOMUtils } from '../../js/utils/dom.js';
 import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -164,7 +165,7 @@ function _renderHero(heroEl, tier, age) {
           color: '#5ac8fa',
           marginBottom: 'var(--space-xs)',
         },
-        textContent: currentPH.toFixed(2),
+        textContent: fmtNumber(currentPH, { decimals: 2 }),
       }),
       DOMUtils.create('div', {
         style: {
@@ -175,7 +176,7 @@ function _renderHero(heroEl, tier, age) {
         },
       }, [
         DOMUtils.create('span', {
-          textContent: `${change.toFixed(2)} ${i18n.t('detail.ocean_ph.vsPreIndustrial')}`,
+          textContent: `${fmtNumber(change, { decimals: 2 })} ${i18n.t('detail.ocean_ph.vsPreIndustrial')}`,
           style: { color: '#ff9500', fontSize: '1rem', fontWeight: '600' },
         }),
       ]),
@@ -268,7 +269,7 @@ async function _renderPHChart(chartEl) {
         tooltip: {
           callbacks: {
             title: (items) => items[0]?.label || '',
-            label: (item) => `pH: ${item.parsed.y.toFixed(2)}`,
+            label: (item) => `pH: ${fmtNumber(item.parsed.y, { decimals: 2 })}`,
           },
         },
         annotation: {

@@ -11,6 +11,7 @@ import { fetchTopicData, fetchWithTimeout } from '../../js/utils/data-loader.js'
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { createMarkerMap } from '../utils/marker-map.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -165,7 +166,7 @@ function _renderHero(heroEl, count24h, largest24h, tier, age, unitKey = 'detail.
               marginBottom: 'var(--space-xs)',
               fontWeight: '600',
             },
-            textContent: `${i18n.t('detail.earthquakes.tileLargest')}: M${largest24h.toFixed(1)}`,
+            textContent: `${i18n.t('detail.earthquakes.tileLargest')}: M${fmtNumber(largest24h, { decimals: 1 })}`,
           })
         : null,
       DOMUtils.create('div', {
@@ -292,7 +293,7 @@ function _showPopup(container, quake, event) {
     },
   }, [
     DOMUtils.create('div', {
-      textContent: `M${quake.magnitude.toFixed(1)}`,
+      textContent: `M${fmtNumber(quake.magnitude, { decimals: 1 })}`,
       style: { fontWeight: '700', fontSize: '1.1rem', marginBottom: '4px' },
     }),
     DOMUtils.create('div', {
@@ -300,7 +301,7 @@ function _showPopup(container, quake, event) {
       style: { marginBottom: '4px' },
     }),
     DOMUtils.create('div', {
-      textContent: `${i18n.t('detail.earthquakes.depth')}: ${quake.depth.toFixed(1)} km`,
+      textContent: `${i18n.t('detail.earthquakes.depth')}: ${fmtNumber(quake.depth, { decimals: 1 })} km`,
       style: { color: 'var(--text-secondary)' },
     }),
     DOMUtils.create('div', {
@@ -399,12 +400,12 @@ function _renderTiles(tilesEl, count24h, largest24h, avgDepth, total7d, usgsSucc
     },
     {
       label: i18n.t('detail.earthquakes.tileLargest'),
-      value: usgsSuccess && largest24h > 0 ? `M${largest24h.toFixed(1)}` : '--',
+      value: usgsSuccess && largest24h > 0 ? `M${fmtNumber(largest24h, { decimals: 1 })}` : '--',
       unit: '24h',
     },
     {
       label: i18n.t('detail.earthquakes.tileDepthAvg'),
-      value: usgsSuccess && avgDepth > 0 ? `${avgDepth.toFixed(0)} km` : '--',
+      value: usgsSuccess && avgDepth > 0 ? `${fmtNumber(avgDepth, { decimals: 0 })} km` : '--',
       unit: '24h',
     },
     {

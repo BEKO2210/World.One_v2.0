@@ -14,6 +14,7 @@ import { MathUtils } from './utils/math.js';
 import { DOMUtils } from './utils/dom.js';
 import { createTierBadge } from './utils/badge.js';
 import { cssVar } from './utils/chart-manager.js';
+import { fmtNumber } from './utils/fmt.js';
 import { formatAsOf } from './utils/as-of.js';
 import { i18n } from './i18n.js';
 
@@ -382,7 +383,7 @@ class BelkisOne {
     }
 
     // ─── Environment ───
-    set('co2-value',            env.co2?.current,                 0, findInd('environment', 'CO2-'));
+    set('co2-value',            env.co2?.current,                 1, findInd('environment', 'CO2-'));
     set('arctic-ice-value',     env.arcticIce?.current,           2, findInd('environment', 'Arktis'));
     set('ocean-plastic-value',  env.ocean?.plasticMt,             0, { source: 'GESAMP / UNEP' });
     set('bio-threatened-count', env.biodiversity?.threatenedTotal, 0, {
@@ -530,7 +531,7 @@ class BelkisOne {
           className: 'weather-card',
           innerHTML: `
             <div class="weather-card__city">${this._esc(city.name || i18n.t('js.unknown'))}</div>
-            <div class="weather-card__temp">${Number.isFinite(temp) ? `${temp.toFixed(1)}°C` : '—'}</div>
+            <div class="weather-card__temp">${Number.isFinite(temp) ? `${fmtNumber(temp, { decimals: 1 })}°C` : '—'}</div>
             <div class="weather-card__detail">${i18n.t('js.humidity')} ${Number.isFinite(humidity) ? `${humidity}%` : '—'}</div>
             <div class="weather-card__detail">${i18n.t('js.wind')} ${Number.isFinite(wind) ? `${wind} km/h` : '—'}</div>
           `
@@ -549,7 +550,7 @@ class BelkisOne {
     // SST Anomaly
     const sst = Number(ocean.sstAnomaly);
     if (Number.isFinite(sst)) {
-      this._setText('#sst-anomaly-value', `+${sst.toFixed(2)}°C`);
+      this._setText('#sst-anomaly-value', `+${fmtNumber(sst, { decimals: 2 })}°C`);
     }
   }
 
@@ -653,9 +654,9 @@ class BelkisOne {
     const gdpPerCapita = Number(eco?.gdpPerCapita?.current);
     const trade = Number(eco?.trade?.current);
 
-    if (Number.isFinite(inflation)) this._setText('#inflation-value', `${inflation.toFixed(2)}%`);
+    if (Number.isFinite(inflation)) this._setText('#inflation-value', `${fmtNumber(inflation, { decimals: 2 })}%`);
     if (Number.isFinite(gdpPerCapita)) this._setText('#gdp-per-capita-value', `$${Math.round(gdpPerCapita).toLocaleString('en-US')}`);
-    if (Number.isFinite(trade)) this._setText('#trade-value', `${trade.toFixed(1)}%`);
+    if (Number.isFinite(trade)) this._setText('#trade-value', `${fmtNumber(trade, { decimals: 1 })}%`);
 
     if (sub) {
       const unemployment = sub.find(i => i.name.includes('Arbeitslosigkeit'));
@@ -665,7 +666,7 @@ class BelkisOne {
     if (!document.getElementById('unemployment-value')?.textContent || document.getElementById('unemployment-value')?.textContent.trim() === '0%') {
       const val = Number(eco?.unemployment?.current);
       if (Number.isFinite(val)) {
-        this._setText('#unemployment-value', `${val.toFixed(2)}%`);
+        this._setText('#unemployment-value', `${fmtNumber(val, { decimals: 2 })}%`);
       }
     }
 
@@ -685,7 +686,7 @@ class BelkisOne {
       exEl.innerHTML = pairs.map(r => `
         <div class="exchange-rate">
           <span class="exchange-rate__currency">${r.pair}</span>
-          <span class="exchange-rate__value">${r.value.toFixed(r.digits)}</span>
+          <span class="exchange-rate__value">${fmtNumber(r.value, { decimals: r.digits })}</span>
         </div>
       `).join('');
     }
@@ -710,7 +711,7 @@ class BelkisOne {
             <div class="regional-gdp__bar">
               <div class="regional-gdp__fill" style="width:${(Math.abs(r.value) / maxVal * 100).toFixed(0)}%"></div>
             </div>
-            <div class="regional-gdp__value">${r.value > 0 ? '+' : ''}${r.value.toFixed(1)}%</div>
+            <div class="regional-gdp__value">${r.value > 0 ? '+' : ''}${fmtNumber(r.value, { decimals: 1 })}%</div>
           </div>
         `).join('');
       }
@@ -721,8 +722,8 @@ class BelkisOne {
   _populateProgressValues(data) {
     const mobile = Number(data.progress?.mobile?.subscriptionsPer100);
     const rd = Number(data.progress?.rdSpending?.current);
-    if (Number.isFinite(mobile)) this._setText('#mobile-value', mobile.toFixed(1));
-    if (Number.isFinite(rd)) this._setText('#rd-value', `${rd.toFixed(2)}%`);
+    if (Number.isFinite(mobile)) this._setText('#mobile-value', fmtNumber(mobile, { decimals: 1 }));
+    if (Number.isFinite(rd)) this._setText('#rd-value', `${fmtNumber(rd, { decimals: 2 })}%`);
 
     // Literacy legend (dynamic)
     const litMale = Number(data.progress?.literacy?.male);
@@ -730,7 +731,7 @@ class BelkisOne {
     if (Number.isFinite(litMale)) this._setText('#literacy-male-label', i18n.t('js.maleLabel', { val: litMale }));
     if (Number.isFinite(litFemale)) this._setText('#literacy-female-label', i18n.t('js.femaleLabel', { val: litFemale }));
     if (Number.isFinite(litMale) && Number.isFinite(litFemale)) {
-      const gap = Math.abs(litMale - litFemale).toFixed(1);
+      const gap = fmtNumber(Math.abs(litMale - litFemale), { decimals: 1 });
       this._setText('#literacy-gap-text', i18n.t('act5.literacyGap', { gap }));
     }
 
@@ -784,7 +785,7 @@ class BelkisOne {
       const latestSolar = Array.isArray(rt.solar) && rt.solar.length ? rt.solar[rt.solar.length - 1] : null;
       const ssn = Number(latestSolar?.sunspots);
       solarEl.innerHTML = `<div style="text-align:center">
-        <div class="text-mono" style="font-size:28px;margin-bottom:8px">${Number.isFinite(ssn) ? ssn.toFixed(1) : '—'}</div>
+        <div class="text-mono" style="font-size:28px;margin-bottom:8px">${Number.isFinite(ssn) ? fmtNumber(ssn, { decimals: 1 }) : '—'}</div>
         <div class="text-label text-muted">${i18n.t('js.sunspotCount')}</div>
         <div style="margin-top:12px;font-size:13px;color:var(--text-secondary)">${latestSolar?.date ? this._esc(latestSolar.date) : i18n.t('js.noData')}<br><span class="text-muted">NOAA SWPC</span></div>
       </div>`;
@@ -1011,7 +1012,7 @@ class BelkisOne {
           className: 'earthquake-list__item',
           innerHTML: `
             <span>${this._esc(eq.location)}</span>
-            <span class="earthquake-list__mag" style="background:color-mix(in srgb, ${color} 14%, transparent);color:${color}">M${mag.toFixed(1)}</span>
+            <span class="earthquake-list__mag" style="background:color-mix(in srgb, ${color} 14%, transparent);color:${color}">M${fmtNumber(mag, { decimals: 1 })}</span>
           `
         });
         eqList.appendChild(li);
@@ -1028,7 +1029,7 @@ class BelkisOne {
     const sKey = !Number.isFinite(sScore) ? 'js.sentimentNA'
       : sScore <= -2 ? 'js.sentimentNeg' : sScore < -0.3 ? 'js.slightlyNeg'
       : sScore <= 0.3 ? 'js.sentimentNeutral' : 'js.sentimentPos';
-    this._setText('#sentiment-score', Number.isFinite(sScore) ? sScore.toFixed(2) : '—');
+    this._setText('#sentiment-score', Number.isFinite(sScore) ? fmtNumber(sScore, { decimals: 2 }) : '—');
     this._setText('#sentiment-label', `(${i18n.t(sKey)})`);
 
     // Fear & Greed
@@ -1104,7 +1105,7 @@ class BelkisOne {
             innerHTML: `
               <span class="momentum-item__arrow" style="color:${isUp ? 'var(--status-good)' : 'var(--status-critical)'}">${isUp ? '↑' : '↓'}</span>
               <span class="momentum-item__name">${this._esc(i18n.indicatorName(ind.name))}</span>
-              <span class="momentum-item__change" style="color:${isUp ? 'var(--status-good)' : 'var(--status-critical)'}">${this._esc(ind.change)}</span>
+              <span class="momentum-item__change" style="color:${isUp ? 'var(--status-good)' : 'var(--status-critical)'}">${this._esc(Number.isFinite(parseFloat(ind.change)) ? fmtNumber(parseFloat(ind.change), { decimals: 1, sign: true }) + '%' : ind.change)}</span>
             `
           });
           const topic = MAIN_INDICATOR_TOPIC_MAP[ind.name] || null;

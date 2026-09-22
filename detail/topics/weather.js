@@ -12,6 +12,7 @@ import { MathUtils } from '../../js/utils/math.js';
 import { fetchWithTimeout, fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -200,11 +201,11 @@ function _updateHeroExtremes(heroEl, cityResults) {
         style: { display: 'flex', gap: 'var(--space-sm)', flexWrap: 'wrap' },
       }, [
         DOMUtils.create('span', {
-          textContent: `${hottest.name}: ${hottest.currentTemp.toFixed(1)}\u00B0C`,
+          textContent: `${hottest.name}: ${fmtNumber(hottest.currentTemp, { decimals: 1 })}\u00B0C`,
           style: { color: '#ff3b30', fontWeight: '600' },
         }),
         DOMUtils.create('span', {
-          textContent: `${coldest.name}: ${coldest.currentTemp.toFixed(1)}\u00B0C`,
+          textContent: `${coldest.name}: ${fmtNumber(coldest.currentTemp, { decimals: 1 })}\u00B0C`,
           style: { color: '#5ac8fa', fontWeight: '600' },
         }),
       ])
@@ -321,7 +322,7 @@ function _buildCityCard(city) {
 
   // Temperature display
   const tempDisplay = city.currentTemp !== null
-    ? `${city.currentTemp.toFixed(1)}\u00B0C`
+    ? `${fmtNumber(city.currentTemp, { decimals: 1 })}\u00B0C`
     : '--';
 
   // Build sparkline
@@ -518,9 +519,9 @@ function _renderTiles(tilesEl, cityResults) {
       if (c.currentTemp < coldest.currentTemp) coldest = c;
     }
     hottestName = hottest.name;
-    hottestTemp = `${hottest.currentTemp.toFixed(1)}\u00B0C`;
+    hottestTemp = `${fmtNumber(hottest.currentTemp, { decimals: 1 })}\u00B0C`;
     coldestName = coldest.name;
-    coldestTemp = `${coldest.currentTemp.toFixed(1)}\u00B0C`;
+    coldestTemp = `${fmtNumber(coldest.currentTemp, { decimals: 1 })}\u00B0C`;
   }
 
   warningCount = _collectWarnings(cityResults).length;

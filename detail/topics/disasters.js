@@ -12,6 +12,7 @@ import { DOMUtils } from '../../js/utils/dom.js';
 import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -76,9 +77,9 @@ const DISASTER_TYPE_COLORS = {
 // --- Number formatting helper -------------------------------------------
 
 function _formatAffected(num) {
-  if (num >= 1_000_000_000) return `${(num / 1_000_000_000).toFixed(1)}B`;
-  if (num >= 1_000_000) return `${(num / 1_000_000).toFixed(1)}M`;
-  if (num >= 1_000) return `${(num / 1_000).toFixed(0)}K`;
+  if (num >= 1_000_000_000) return `${fmtNumber((num / 1_000_000_000), { decimals: 1 })}B`;
+  if (num >= 1_000_000) return `${fmtNumber((num / 1_000_000), { decimals: 1 })}M`;
+  if (num >= 1_000) return `${fmtNumber((num / 1_000), { decimals: 0 })}K`;
   return String(num);
 }
 
@@ -350,7 +351,7 @@ function _renderTiles(tilesEl, disasters) {
     },
     {
       label: i18n.t('detail.disasters.tileDamage'),
-      value: `$${totalDamage.toFixed(0)}B+`,
+      value: `$${fmtNumber(totalDamage, { decimals: 0 })}B+`,
       unit: 'total',
       accent: '#ff9500',
     },

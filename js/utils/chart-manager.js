@@ -85,6 +85,8 @@ function _applyDarkDefaults() {
 
   Chart.defaults.font.family = cssVar('--font-sans') || 'system-ui, sans-serif';
   Chart.defaults.font.size = 12;
+  // Achsen/Tooltips im Zahlenformat der Seitensprache (1.234,5 bzw. 1,234.5)
+  Chart.defaults.locale = document.documentElement.lang === 'en' ? 'en-GB' : 'de-DE';
   Chart.defaults.elements.line.borderWidth = 2;
   Chart.defaults.elements.point.radius = 0;
   Chart.defaults.elements.point.hoverRadius = 4;

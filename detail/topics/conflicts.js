@@ -12,6 +12,7 @@ import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { createMarkerMap } from '../utils/marker-map.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -867,7 +868,7 @@ export function getChartConfigs() {
                 label: (item) => {
                   const val = item.parsed;
                   const total = d.refugees + d.idps + d.asylumSeekers;
-                  const pct = ((val / total) * 100).toFixed(1);
+                  const pct = fmtNumber(((val / total) * 100), { decimals: 1 });
                   return `${item.label}: ${val}M (${pct}%)`;
                 },
               },

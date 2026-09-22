@@ -13,6 +13,7 @@ import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { renderChoropleth } from '../utils/choropleth.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -97,7 +98,7 @@ export async function render(blocks) {
 
 function _renderHero(heroEl, score, tier, age) {
   const badge = createTierBadge(tier, { age });
-  const formatted = Number(score).toFixed(1);
+  const formatted = fmtNumber(Number(score), { decimals: 1 });
 
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'freedom-hero' }, [
@@ -227,7 +228,7 @@ function _createTrendChart(trendData) {
         tooltip: {
           callbacks: {
             title: (items) => items[0]?.label || '',
-            label: (item) => `${i18n.t('detail.freedom.heroLabel')}: ${item.parsed.y.toFixed(1)}`,
+            label: (item) => `${i18n.t('detail.freedom.heroLabel')}: ${fmtNumber(item.parsed.y, { decimals: 1 })}`,
           },
         },
       },

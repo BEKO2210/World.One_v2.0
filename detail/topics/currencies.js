@@ -14,6 +14,7 @@ import { MathUtils } from '../../js/utils/math.js';
 import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -86,7 +87,7 @@ function _renderHero(heroEl, rates, tier, age) {
 
   // EUR/USD (US-$ je Euro) als große Zahl
   const eurUsd = quote(HERO_PAIRS[0], rates);
-  const formatted = eurUsd != null ? eurUsd.toFixed(4) : '–';
+  const formatted = eurUsd != null ? fmtNumber(eurUsd, { decimals: 4 }) : '–';
 
   const pairsContainer = DOMUtils.create('div', {
     style: {
@@ -114,7 +115,7 @@ function _renderHero(heroEl, rates, tier, age) {
           style: { color: 'var(--text-secondary)', fontSize: '0.8rem', marginBottom: '2px' },
         }),
         DOMUtils.create('div', {
-          textContent: rate.toFixed(rate < 10 ? 4 : 2),
+          textContent: fmtNumber(rate, { decimals: rate < 10 ? 4 : 2 }),
           style: {
             color: toRgba(CHART_COLORS.economy),
             fontSize: '1.25rem',
@@ -433,7 +434,7 @@ function _lineChartOptions(yLabel) {
       legend: { display: false },
       tooltip: {
         callbacks: {
-          label: (item) => `${yLabel}: ${item.parsed.y.toFixed(4)}`,
+          label: (item) => `${yLabel}: ${fmtNumber(item.parsed.y, { decimals: 4 })}`,
         },
       },
     },

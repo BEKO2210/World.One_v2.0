@@ -12,6 +12,7 @@ import { MathUtils } from '../../js/utils/math.js';
 import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -96,7 +97,7 @@ export async function render(blocks) {
 
 function _renderHero(heroEl, latestValue, startValue, tier, age, latestYear) {
   const badge = createTierBadge(tier, { age, dataAsOf: latestYear, cadence: 'annual', source: 'World Bank PIP' });
-  const formatted = latestValue != null ? Number(latestValue).toFixed(1) + '%' : '–';
+  const formatted = latestValue != null ? fmtNumber(Number(latestValue), { decimals: 1 }) + '%' : '–';
 
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'poverty-hero' }, [
@@ -120,7 +121,7 @@ function _renderHero(heroEl, latestValue, startValue, tier, age, latestYear) {
         },
       }, [
         DOMUtils.create('span', {
-          textContent: startValue != null ? `${Number(startValue).toFixed(1)}%` : '–',
+          textContent: startValue != null ? `${fmtNumber(Number(startValue), { decimals: 1 })}%` : '–',
           style: {
             color: 'var(--text-secondary)',
             fontSize: '1.25rem',
@@ -254,7 +255,7 @@ function _createTrendChart(trendData) {
         tooltip: {
           callbacks: {
             title: (items) => items[0]?.label || '',
-            label: (item) => `${i18n.t('detail.poverty.heroLabel')}: ${item.parsed.y.toFixed(1)}%`,
+            label: (item) => `${i18n.t('detail.poverty.heroLabel')}: ${fmtNumber(item.parsed.y, { decimals: 1 })}%`,
           },
         },
       },
@@ -337,7 +338,7 @@ async function _renderRegional(trendEl, regions) {
           mode: 'index',
           intersect: false,
           callbacks: {
-            label: (item) => `${item.dataset.label}: ${item.parsed.y.toFixed(1)}%`,
+            label: (item) => `${item.dataset.label}: ${fmtNumber(item.parsed.y, { decimals: 1 })}%`,
           },
         },
       },
@@ -354,7 +355,7 @@ function _renderTiles(tilesEl, latestValue, startValue, people, trend) {
   const tileData = [
     {
       label: i18n.t('detail.poverty.tilePovRate'),
-      value: latestValue != null ? Number(latestValue).toFixed(1) + '%' : '–',
+      value: latestValue != null ? fmtNumber(Number(latestValue), { decimals: 1 }) + '%' : '–',
       unit: i18n.t('detail.poverty.lineUnit'),
       accent: toRgba(CHART_COLORS.economy),
     },

@@ -12,6 +12,7 @@ import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { renderChoropleth } from '../utils/choropleth.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -108,7 +109,7 @@ export async function render(blocks) {
 // --- Hero ---------------------------------------------------------------
 
 function _renderHero(heroEl, renewablePct, tier, age) {
-  const formatted = renewablePct.toFixed(1);
+  const formatted = fmtNumber(renewablePct, { decimals: 1 });
   const badge = createTierBadge(tier, { age });
 
   heroEl.appendChild(
@@ -500,7 +501,7 @@ async function _renderMap(compEl) {
   }
 
   function tooltipFn(iso, val) {
-    return `${iso}: ${i18n.t('detail.renewables.tooltipRenewable', { value: (val * 100).toFixed(0) })}`;
+    return `${iso}: ${i18n.t('detail.renewables.tooltipRenewable', { value: fmtNumber((val * 100), { decimals: 0 }) })}`;
   }
 
   const legendItems = [

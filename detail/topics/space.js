@@ -14,6 +14,7 @@ import { fetchTopicData, fetchWithTimeout } from '../../js/utils/data-loader.js'
 import { createTierBadge } from '../../js/utils/badge.js';
 import { CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { createMarkerMap } from '../utils/marker-map.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -257,15 +258,15 @@ function _updateISSPosition(lat, lng) {
 
   // Update ISS dot position
   if (_dotEl) {
-    _dotEl.setAttribute('cx', String(x.toFixed(1)));
-    _dotEl.setAttribute('cy', String(y.toFixed(1)));
+    _dotEl.setAttribute('cx', x.toFixed(1));
+    _dotEl.setAttribute('cy', y.toFixed(1));
   }
 
   // Update position text
   if (_posTextEl) {
     const latDir = lat >= 0 ? 'N' : 'S';
     const lngDir = lng >= 0 ? 'E' : 'W';
-    _posTextEl.textContent = `ISS: ${Math.abs(lat).toFixed(2)}\u00B0${latDir}, ${Math.abs(lng).toFixed(2)}\u00B0${lngDir}`;
+    _posTextEl.textContent = `ISS: ${fmtNumber(Math.abs(lat), { decimals: 2 })}\u00B0${latDir}, ${fmtNumber(Math.abs(lng), { decimals: 2 })}\u00B0${lngDir}`;
   }
 }
 
