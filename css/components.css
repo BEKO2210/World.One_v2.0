@@ -717,8 +717,9 @@
    Safe-Area-Abstand; der Inhalt bekommt unten entsprechend Platz. */
 @media (max-width: 640px) {
   :root { --bottom-bar-h: calc(56px + env(safe-area-inset-bottom, 0px)); }
-  body { padding-bottom: var(--bottom-bar-h); }
-  body::after {
+  /* nur auf der Hauptseite (Detailseiten haben keine dieser Buttons) */
+  body:has(#lang-toggle) { padding-bottom: var(--bottom-bar-h); }
+  body:has(#lang-toggle)::after {
     content: '';
     position: fixed;
     left: 0; right: 0; bottom: 0;
@@ -777,3 +778,55 @@
     box-shadow: var(--elevation-2);
   }
 }
+
+/* ─── Empty State ─── */
+.empty-state__title {
+  color: var(--text-1);
+  margin: 0 0 var(--space-sm);
+  font-size: var(--text-sub);
+  font-weight: 600;
+}
+.empty-state__body {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border: 1px dashed var(--line-2);
+  border-radius: var(--radius-md);
+  background: var(--surface-1);
+}
+.empty-state__icon {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-3);
+  color: var(--text-3);
+  font-size: 16px;
+}
+.empty-state__text {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* ─── Theme-Umschalter ─── */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  color: var(--text-2);
+  transition: background var(--duration-fast) ease, color var(--duration-fast) ease;
+}
+.theme-toggle:hover { background: var(--surface-2); color: var(--text-1); }
+.theme-toggle__sun { display: none; }
+:root[data-theme="light"] .theme-toggle__sun { display: block; }
+:root[data-theme="light"] .theme-toggle__moon { display: none; }
+@media (max-width: 640px) { .theme-toggle { width: 44px; height: 44px; } }

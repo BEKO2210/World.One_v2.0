@@ -114,7 +114,7 @@ export class CinematicScroll {
         z-index: 1;
         pointer-events: none;
         background: linear-gradient(0deg,
-          rgba(10, 10, 15, 0.9) 0%,
+          color-mix(in srgb, var(--surface-0) 90%, transparent) 0%,
           transparent 100%
         );
       `;

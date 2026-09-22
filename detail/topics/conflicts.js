@@ -12,6 +12,7 @@ import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { createMarkerMap } from '../utils/marker-map.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -331,7 +332,7 @@ async function _buildConflictMap(markers) {
       cy: String(y),
       r: String(radius),
       fill: color,
-      stroke: 'rgba(255,255,255,0.2)',
+      stroke: 'var(--line-2)',
       'stroke-width': '1',
       style: 'cursor:pointer; pointer-events:auto;',
     });
@@ -502,7 +503,7 @@ function _createTrendChart(trendData) {
 
   const pointRadius = trendData.map(d => eventYearSet.has(d.year) ? 6 : 0);
   const pointBackgroundColor = trendData.map(d =>
-    eventYearSet.has(d.year) ? '#ffffff' : toRgba(CHART_COLORS.crisis)
+    eventYearSet.has(d.year) ? 'var(--text-1)' : toRgba(CHART_COLORS.crisis)
   );
   const pointBorderColor = trendData.map(d =>
     eventYearSet.has(d.year) ? toRgba(CHART_COLORS.crisis) : toRgba(CHART_COLORS.crisis)
@@ -576,7 +577,7 @@ function _updateTrendChart(filteredData) {
   _trendChart.data.datasets[0].data = filteredData.map(d => d.count);
   _trendChart.data.datasets[0].pointRadius = filteredData.map(d => eventYearSet.has(d.year) ? 6 : 0);
   _trendChart.data.datasets[0].pointBackgroundColor = filteredData.map(d =>
-    eventYearSet.has(d.year) ? '#ffffff' : toRgba(CHART_COLORS.crisis)
+    eventYearSet.has(d.year) ? 'var(--text-1)' : toRgba(CHART_COLORS.crisis)
   );
   _trendChart.data.datasets[0].pointBorderColor = filteredData.map(() => toRgba(CHART_COLORS.crisis));
   _trendChart.data.datasets[0].pointBorderWidth = filteredData.map(d => eventYearSet.has(d.year) ? 3 : 1);
@@ -614,7 +615,7 @@ function _renderTiles(tilesEl, activeConflicts, battleDeaths, displacedMillions,
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },
@@ -867,7 +868,7 @@ export function getChartConfigs() {
                 label: (item) => {
                   const val = item.parsed;
                   const total = d.refugees + d.idps + d.asylumSeekers;
-                  const pct = ((val / total) * 100).toFixed(1);
+                  const pct = fmtNumber(((val / total) * 100), { decimals: 1 });
                   return `${item.label}: ${val}M (${pct}%)`;
                 },
               },

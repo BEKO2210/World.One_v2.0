@@ -305,7 +305,7 @@ function _renderWarmingStripes(chartEl) {
       overflow: 'hidden',
       position: 'relative',
       cursor: 'crosshair',
-      background: 'rgba(255,255,255,0.02)',
+      background: 'var(--surface-2)',
       border: '1px solid rgba(255,255,255,0.06)',
     },
   });
@@ -403,9 +403,9 @@ function _renderTippingPoints(trendEl) {
   );
 
   const statusColors = {
-    crossed: '#ff3b30',
-    imminent: '#ff9500',
-    risk: '#ffcc00',
+    crossed: 'var(--status-critical)',
+    imminent: 'var(--status-serious)',
+    risk: 'var(--status-warning)',
     distant: 'rgba(255,255,255,0.3)',
   };
 
@@ -464,9 +464,9 @@ function _renderTippingPoints(trendEl) {
         position: 'relative',
         padding: 'var(--space-xs) var(--space-sm)',
         marginBottom: 'var(--space-xs)',
-        background: 'rgba(255,255,255,0.03)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
-        border: `1px solid ${color}22`,
+        border: `1px solid color-mix(in srgb, ${color} 13%, transparent)`,
         borderLeft: `3px solid ${color}`,
       },
     }, [
@@ -477,7 +477,7 @@ function _renderTippingPoints(trendEl) {
         DOMUtils.create('span', {
           textContent: tp.threshold,
           style: {
-            background: `${color}22`,
+            background: `color-mix(in srgb, ${color} 13%, transparent)`,
             color: color,
             padding: '2px 8px',
             borderRadius: '4px',
@@ -564,7 +564,7 @@ function _renderTiles(tilesEl, anomaly) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },

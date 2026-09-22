@@ -14,6 +14,7 @@ import { MathUtils } from '../../js/utils/math.js';
 import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -130,7 +131,7 @@ export async function render(blocks) {
 function _renderHero(heroEl, giniValue, tier, age) {
   // Use 'static' tier with year 2024 since global Gini is hardcoded
   const badge = createTierBadge('static', { year: 2024 });
-  const formatted = giniValue.toFixed(1);
+  const formatted = fmtNumber(giniValue, { decimals: 1 });
 
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'inequality-hero' }, [
@@ -202,7 +203,7 @@ function _renderWealthGrid(chartEl) {
         width: '24px',
         height: '24px',
         borderRadius: '50%',
-        background: 'rgba(255,255,255,0.12)',
+        background: 'var(--line-2)',
         transition: 'background 0.4s ease, box-shadow 0.4s ease',
         transitionDelay: (i * 20) + 'ms',
         margin: '0 auto',
@@ -310,7 +311,7 @@ async function _renderRankingChart(trendEl) {
         borderRadius: '6px',
         border: isActive ? '1px solid ' + toRgba(CHART_COLORS.economy, 0.5) : '1px solid rgba(255,255,255,0.1)',
         background: isActive ? toRgba(CHART_COLORS.economy, 0.3) : 'rgba(255,255,255,0.06)',
-        color: isActive ? '#fff' : 'var(--text-secondary)',
+        color: isActive ? 'var(--text-1)' : 'var(--text-secondary)',
         cursor: 'pointer',
         fontSize: '0.85rem',
         fontWeight: isActive ? '600' : '400',
@@ -343,7 +344,7 @@ async function _renderRankingChart(trendEl) {
       const isActive = b.getAttribute('data-mode') === mode;
       b.style.border = isActive ? '1px solid ' + toRgba(CHART_COLORS.economy, 0.5) : '1px solid rgba(255,255,255,0.1)';
       b.style.background = isActive ? toRgba(CHART_COLORS.economy, 0.3) : 'rgba(255,255,255,0.06)';
-      b.style.color = isActive ? '#fff' : 'var(--text-secondary)';
+      b.style.color = isActive ? 'var(--text-1)' : 'var(--text-secondary)';
       b.style.fontWeight = isActive ? '600' : '400';
     }
 
@@ -398,7 +399,7 @@ async function _renderRankingChart(trendEl) {
         tooltip: {
           callbacks: {
             label: function (ctx) {
-              return ctx.parsed.x.toFixed(1);
+              return fmtNumber(ctx.parsed.x, { decimals: 1 });
             },
           },
         },
@@ -442,7 +443,7 @@ function _renderTiles(tilesEl) {
     {
       label: i18n.t('detail.inequality.tileBottom50'),
       value: WEALTH_STATS.bottom50_pct + '%',
-      accent: '#d32f2f',
+      accent: 'var(--status-critical)',
     },
     {
       label: i18n.t('detail.inequality.tileGap'),
@@ -455,7 +456,7 @@ function _renderTiles(tilesEl) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },

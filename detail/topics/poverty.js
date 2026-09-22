@@ -12,6 +12,8 @@ import { MathUtils } from '../../js/utils/math.js';
 import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
+import { createEmptyState } from '../../js/utils/empty-state.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -32,22 +34,13 @@ let _chartData = null;
 // Werte kommen aus poverty.json (regions[code]); hier nur Zuordnung + Farbe.
 
 const REGIONS = [
-  { region: 'subSahara',    code: 'SSF', color: '#d32f2f' },
-  { region: 'southAsia',    code: 'SAS', color: '#f57c00' },
-  { region: 'eastAsia',     code: 'EAS', color: '#fbc02d' },
-  { region: 'latinAmerica', code: 'LCN', color: '#4caf50' },
-  { region: 'europe',       code: 'ECS', color: '#1976d2' },
-  { region: 'middleEast',   code: 'MEA', color: '#7b1fa2' },
+  { region: 'subSahara',    code: 'SSF', color: 'var(--series-8)' },
+  { region: 'southAsia',    code: 'SAS', color: 'var(--series-2)' },
+  { region: 'eastAsia',     code: 'EAS', color: 'var(--series-4)' },
+  { region: 'latinAmerica', code: 'LCN', color: 'var(--series-3)' },
+  { region: 'europe',       code: 'ECS', color: 'var(--series-1)' },
+  { region: 'middleEast',   code: 'MEA', color: 'var(--series-7)' },
 ];
-
-// --- Local hex-to-RGB helper (REGIONS use hex colors) --------
-
-function _hexToRgb(hex) {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return { r, g, b };
-}
 
 // --- Render ------------------------------------------------------------
 
@@ -96,7 +89,7 @@ export async function render(blocks) {
 
 function _renderHero(heroEl, latestValue, startValue, tier, age, latestYear) {
   const badge = createTierBadge(tier, { age, dataAsOf: latestYear, cadence: 'annual', source: 'World Bank PIP' });
-  const formatted = latestValue != null ? Number(latestValue).toFixed(1) + '%' : '–';
+  const formatted = latestValue != null ? fmtNumber(Number(latestValue), { decimals: 1 }) + '%' : '–';
 
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'poverty-hero' }, [
@@ -120,7 +113,7 @@ function _renderHero(heroEl, latestValue, startValue, tier, age, latestYear) {
         },
       }, [
         DOMUtils.create('span', {
-          textContent: startValue != null ? `${Number(startValue).toFixed(1)}%` : '–',
+          textContent: startValue != null ? `${fmtNumber(Number(startValue), { decimals: 1 })}%` : '–',
           style: {
             color: 'var(--text-secondary)',
             fontSize: '1.25rem',
@@ -130,11 +123,11 @@ function _renderHero(heroEl, latestValue, startValue, tier, age, latestYear) {
         }),
         DOMUtils.create('span', {
           textContent: '\u2192',
-          style: { color: '#4caf50', fontSize: '1.25rem' },
+          style: { color: 'var(--status-good)', fontSize: '1.25rem' },
         }),
         DOMUtils.create('span', {
           textContent: formatted,
-          style: { color: '#4caf50', fontSize: '1.25rem', fontWeight: '600' },
+          style: { color: 'var(--status-good)', fontSize: '1.25rem', fontWeight: '600' },
         }),
       ]),
       DOMUtils.create('div', {
@@ -254,7 +247,7 @@ function _createTrendChart(trendData) {
         tooltip: {
           callbacks: {
             title: (items) => items[0]?.label || '',
-            label: (item) => `${i18n.t('detail.poverty.heroLabel')}: ${item.parsed.y.toFixed(1)}%`,
+            label: (item) => `${i18n.t('detail.poverty.heroLabel')}: ${fmtNumber(item.parsed.y, { decimals: 1 })}%`,
           },
         },
       },
@@ -268,7 +261,10 @@ async function _renderRegional(trendEl, regions) {
   const series = REGIONS
     .map(r => ({ ...r, data: regions?.[r.code] || [] }))
     .filter(r => r.data.length > 0);
-  if (series.length === 0) return;
+  if (series.length === 0) {
+    trendEl.appendChild(createEmptyState({ title: i18n.t('detail.poverty.regionalTitle') }));
+    return;
+  }
 
   trendEl.appendChild(
     DOMUtils.create('div', {}, [
@@ -294,7 +290,7 @@ async function _renderRegional(trendEl, regions) {
     return {
     label: i18n.t(`detail.poverty.${region.region}`),
     data: years.map(y => byYear.get(y) ?? null),
-    backgroundColor: toRgba(_hexToRgb(region.color), 0.4),
+    backgroundColor: region.color,
     borderColor: region.color,
     fill: false,
     spanGaps: true,
@@ -337,7 +333,7 @@ async function _renderRegional(trendEl, regions) {
           mode: 'index',
           intersect: false,
           callbacks: {
-            label: (item) => `${item.dataset.label}: ${item.parsed.y.toFixed(1)}%`,
+            label: (item) => `${item.dataset.label}: ${fmtNumber(item.parsed.y, { decimals: 1 })}%`,
           },
         },
       },
@@ -354,7 +350,7 @@ function _renderTiles(tilesEl, latestValue, startValue, people, trend) {
   const tileData = [
     {
       label: i18n.t('detail.poverty.tilePovRate'),
-      value: latestValue != null ? Number(latestValue).toFixed(1) + '%' : '–',
+      value: latestValue != null ? fmtNumber(Number(latestValue), { decimals: 1 }) + '%' : '–',
       unit: i18n.t('detail.poverty.lineUnit'),
       accent: toRgba(CHART_COLORS.economy),
     },
@@ -367,7 +363,7 @@ function _renderTiles(tilesEl, latestValue, startValue, people, trend) {
       label: i18n.t('detail.poverty.tileChange'),
       value: change != null ? `${change}%` : '–',
       unit: first && last ? `${first}–${last}` : '',
-      accent: '#4caf50',
+      accent: 'var(--status-good)',
     },
     {
       label: i18n.t('detail.poverty.tileGoal'),
@@ -381,7 +377,7 @@ function _renderTiles(tilesEl, latestValue, startValue, people, trend) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },

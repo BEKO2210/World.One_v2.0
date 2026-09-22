@@ -66,18 +66,18 @@ const FG_HISTORY = [
 // --- Color Zone Function -----------------------------------------------
 
 function _fgColor(value) {
-  if (value <= 25) return 'rgba(255, 59, 48, 0.7)';   // Extreme Fear (red)
-  if (value <= 45) return 'rgba(255, 149, 0, 0.7)';   // Fear (orange)
-  if (value <= 55) return 'rgba(255, 204, 0, 0.7)';   // Neutral (yellow)
-  if (value <= 75) return 'rgba(52, 199, 89, 0.7)';   // Greed (light green)
+  if (value <= 25) return 'var(--status-critical)';   // Extreme Fear (red)
+  if (value <= 45) return 'var(--status-serious)';   // Fear (orange)
+  if (value <= 55) return 'var(--status-warning)';   // Neutral (yellow)
+  if (value <= 75) return 'var(--status-good)';   // Greed (light green)
   return 'rgba(0, 255, 127, 0.7)';                     // Extreme Greed (green)
 }
 
 function _fgColorSolid(value) {
-  if (value <= 25) return 'rgba(255, 59, 48, 1)';
-  if (value <= 45) return 'rgba(255, 149, 0, 1)';
-  if (value <= 55) return 'rgba(255, 204, 0, 1)';
-  if (value <= 75) return 'rgba(52, 199, 89, 1)';
+  if (value <= 25) return 'var(--status-critical)';
+  if (value <= 45) return 'var(--status-serious)';
+  if (value <= 55) return 'var(--status-warning)';
+  if (value <= 75) return 'var(--status-good)';
   return 'rgba(0, 255, 127, 1)';
 }
 
@@ -185,7 +185,7 @@ function _renderHero(heroEl, today, tier, age) {
           style: {
             fontSize: '3rem',
             fontWeight: '700',
-            color: '#1a1a2e',
+            color: 'var(--surface-3)',
             lineHeight: '1',
           },
         }),
@@ -248,10 +248,10 @@ function _renderGauge(trendEl, today) {
 
   // Zone segments for the gauge
   const zones = [
-    { width: '25%', bg: 'rgba(255, 59, 48, 0.5)',  label: 'Extreme Fear' },
-    { width: '20%', bg: 'rgba(255, 149, 0, 0.5)',   label: 'Fear' },
-    { width: '10%', bg: 'rgba(255, 204, 0, 0.5)',   label: 'Neutral' },
-    { width: '20%', bg: 'rgba(52, 199, 89, 0.5)',   label: 'Greed' },
+    { width: '25%', bg: 'var(--status-critical)',  label: 'Extreme Fear' },
+    { width: '20%', bg: 'var(--status-serious)',   label: 'Fear' },
+    { width: '10%', bg: 'var(--status-warning)',   label: 'Neutral' },
+    { width: '20%', bg: 'var(--status-good)',   label: 'Greed' },
     { width: '25%', bg: 'rgba(0, 255, 127, 0.5)',   label: 'Extreme Greed' },
   ];
 
@@ -288,7 +288,7 @@ function _renderGauge(trendEl, today) {
       width: '16px',
       height: '40px',
       borderRadius: '4px',
-      background: '#fff',
+      background: 'var(--surface-inverse)',
       border: '2px solid #1a1a2e',
       boxShadow: '0 2px 8px rgba(0,0,0,0.4)',
       transition: 'left 0.6s ease',
@@ -351,7 +351,7 @@ function _renderTiles(tilesEl, today, stats) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },
@@ -483,7 +483,7 @@ export function getChartConfigs() {
               label: i18n.t('detail.crypto_sentiment.extremeFear'),
               type: 'line',
               data: series.map(() => 25),
-              borderColor: 'rgba(255, 59, 48, 0.4)',
+              borderColor: 'var(--status-critical)',
               borderDash: [6, 4],
               borderWidth: 1,
               pointRadius: 0,
@@ -495,7 +495,7 @@ export function getChartConfigs() {
               label: i18n.t('detail.crypto_sentiment.neutral'),
               type: 'line',
               data: series.map(() => 50),
-              borderColor: 'rgba(255, 204, 0, 0.4)',
+              borderColor: 'var(--status-warning)',
               borderDash: [6, 4],
               borderWidth: 1,
               pointRadius: 0,

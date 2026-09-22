@@ -12,6 +12,7 @@ import { MathUtils } from '../../js/utils/math.js';
 import { fetchTopicData, fetchWithTimeout } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -180,7 +181,7 @@ function _renderBirthsDeathsClock(chartEl) {
     style: {
       fontSize: '2rem',
       fontWeight: '700',
-      color: '#34c759',
+      color: 'var(--status-good)',
       fontVariantNumeric: 'tabular-nums',
     },
     textContent: '0',
@@ -192,7 +193,7 @@ function _renderBirthsDeathsClock(chartEl) {
     style: {
       fontSize: '2rem',
       fontWeight: '700',
-      color: '#ff3b30',
+      color: 'var(--status-critical)',
       fontVariantNumeric: 'tabular-nums',
     },
     textContent: '0',
@@ -217,7 +218,7 @@ function _renderBirthsDeathsClock(chartEl) {
     style: {
       flex: '1',
       padding: 'var(--space-sm)',
-      background: 'rgba(52, 199, 89, 0.08)',
+      background: 'var(--status-good-soft)',
       borderRadius: '8px',
       border: '1px solid rgba(52, 199, 89, 0.2)',
       textAlign: 'center',
@@ -225,7 +226,7 @@ function _renderBirthsDeathsClock(chartEl) {
   }, [
     DOMUtils.create('div', {
       textContent: i18n.t('detail.population.births'),
-      style: { color: 'rgba(52, 199, 89, 0.9)', fontSize: '0.85rem', fontWeight: '600', marginBottom: '4px' },
+      style: { color: 'var(--status-good)', fontSize: '0.85rem', fontWeight: '600', marginBottom: '4px' },
     }),
     birthCountEl,
     DOMUtils.create('div', {
@@ -238,7 +239,7 @@ function _renderBirthsDeathsClock(chartEl) {
     style: {
       flex: '1',
       padding: 'var(--space-sm)',
-      background: 'rgba(255, 59, 48, 0.08)',
+      background: 'var(--status-critical-soft)',
       borderRadius: '8px',
       border: '1px solid rgba(255, 59, 48, 0.2)',
       textAlign: 'center',
@@ -246,7 +247,7 @@ function _renderBirthsDeathsClock(chartEl) {
   }, [
     DOMUtils.create('div', {
       textContent: i18n.t('detail.population.deaths'),
-      style: { color: 'rgba(255, 59, 48, 0.9)', fontSize: '0.85rem', fontWeight: '600', marginBottom: '4px' },
+      style: { color: 'var(--status-critical)', fontSize: '0.85rem', fontWeight: '600', marginBottom: '4px' },
     }),
     deathCountEl,
     DOMUtils.create('div', {
@@ -266,7 +267,7 @@ function _renderBirthsDeathsClock(chartEl) {
   chartEl.appendChild(clockRow);
 
   // Net growth text
-  const netGrowth = (BIRTHS_PER_SEC - DEATHS_PER_SEC).toFixed(1);
+  const netGrowth = fmtNumber((BIRTHS_PER_SEC - DEATHS_PER_SEC), { decimals: 1 });
   chartEl.appendChild(
     DOMUtils.create('p', {
       textContent: i18n.t('detail.population.netGrowth', { count: netGrowth }),
@@ -313,7 +314,7 @@ async function _renderPyramid(trendEl) {
       display: 'inline-flex',
       gap: '2px',
       marginBottom: 'var(--space-sm)',
-      background: 'rgba(255,255,255,0.04)',
+      background: 'var(--surface-2)',
       borderRadius: '24px',
       padding: '3px',
     },
@@ -392,14 +393,14 @@ function _buildPyramidConfig(year) {
             text: i18n.t('detail.population.chartAxisLabel'),
           },
           grid: {
-            color: 'rgba(255,255,255,0.04)',
+            color: 'var(--text-3)',
           },
         },
         y: {
           stacked: false,
           grid: { display: false },
           ticks: {
-            color: 'rgba(255,255,255,0.6)',
+            color: 'var(--text-2)',
             font: { size: 11 },
           },
         },
@@ -440,7 +441,7 @@ function _renderTiles(tilesEl, growthRate, urbanPercent) {
   const tileData = [
     {
       label: i18n.t('detail.population.tileGrowthRate'),
-      value: `${(growthRate * 100).toFixed(1)}%`,
+      value: `${fmtNumber((growthRate * 100), { decimals: 1 })}%`,
       unit: '/yr',
     },
     {
@@ -464,7 +465,7 @@ function _renderTiles(tilesEl, growthRate, urbanPercent) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },
@@ -647,7 +648,7 @@ export function getChartConfigs() {
             legend: { display: false },
             tooltip: {
               callbacks: {
-                label: (item) => `${item.parsed.y.toFixed(1)}%`,
+                label: (item) => `${fmtNumber(item.parsed.y, { decimals: 1 })}%`,
               },
             },
           },

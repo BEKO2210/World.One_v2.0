@@ -13,6 +13,8 @@ import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { renderChoropleth } from '../utils/choropleth.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
+import { createEmptyState } from '../../js/utils/empty-state.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -52,11 +54,11 @@ const MALNUTRITION_BY_COUNTRY = {
 // --- Choropleth Color Function -----------------------------------------
 
 function _malnutritionColor(value) {
-  if (value > 35) return '#ff3b30';  // Severe
-  if (value > 25) return '#ff9500';  // High
-  if (value > 15) return '#ffcc00';  // Moderate
-  if (value > 5) return '#34c759';   // Low
-  return '#5ac8fa';                   // Very low
+  if (value > 35) return 'var(--status-critical)';  // Severe
+  if (value > 25) return 'var(--status-serious)';  // High
+  if (value > 15) return 'var(--status-warning)';  // Moderate
+  if (value > 5) return 'var(--status-good)';   // Low
+  return 'var(--accent)';                   // Very low
 }
 
 // --- Render ------------------------------------------------------------
@@ -78,7 +80,11 @@ export async function render(blocks) {
   await _renderChoropleth(blocks.chart);
 
   // --- 4. Trend Block (FAO Food Price + Undernourishment dual-axis) ---
-  _renderTrendCanvas(blocks.trend, undernourishmentTrend);
+  if (data?.food_price_index?.annual?.length) {
+    _renderTrendCanvas(blocks.trend, undernourishmentTrend);
+  } else {
+    blocks.trend.appendChild(createEmptyState({ title: i18n.t('detail.hunger.trendTitle') }));
+  }
 
   // --- 5. Tiles Block ---
   _renderTiles(blocks.tiles);
@@ -97,7 +103,7 @@ export async function render(blocks) {
 
 function _renderHero(heroEl, latestEntry, tier, age) {
   const badge = createTierBadge(tier, { age });
-  const formatted = Number(latestEntry.value).toFixed(1);
+  const formatted = fmtNumber(Number(latestEntry.value), { decimals: 1 });
 
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'hunger-hero' }, [
@@ -147,11 +153,11 @@ async function _renderChoropleth(chartEl) {
   }
 
   const legendItems = [
-    { color: '#ff3b30', label: '> 35% (Severe)' },
-    { color: '#ff9500', label: '25-35% (High)' },
-    { color: '#ffcc00', label: '15-25% (Moderate)' },
-    { color: '#34c759', label: '5-15% (Low)' },
-    { color: '#5ac8fa', label: '< 5% (Very low)' },
+    { color: 'var(--status-critical)', label: '> 35% (Severe)' },
+    { color: 'var(--status-serious)', label: '25-35% (High)' },
+    { color: 'var(--status-warning)', label: '15-25% (Moderate)' },
+    { color: 'var(--status-good)', label: '5-15% (Low)' },
+    { color: 'var(--accent)', label: '< 5% (Very low)' },
   ];
 
   const result = await renderChoropleth(chartEl, {
@@ -202,13 +208,13 @@ function _renderTiles(tilesEl) {
       label: i18n.t('detail.hunger.tileStunting'),
       value: '~22%',
       unit: '< 5 years',
-      accent: '#ff9500',
+      accent: 'var(--status-serious)',
     },
     {
       label: i18n.t('detail.hunger.tileWasting'),
       value: '~6.8%',
       unit: '< 5 years',
-      accent: '#ffcc00',
+      accent: 'var(--status-warning)',
     },
   ];
 
@@ -216,7 +222,7 @@ function _renderTiles(tilesEl) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },
@@ -303,7 +309,7 @@ function _buildComparisonBars() {
         style: {
           flex: '1',
           height: '24px',
-          background: 'rgba(255,255,255,0.04)',
+          background: 'var(--surface-2)',
           borderRadius: '4px',
           overflow: 'hidden',
         },
@@ -321,7 +327,7 @@ function _buildComparisonBars() {
         }, [
           DOMUtils.create('span', {
             textContent: `${value}%`,
-            style: { color: '#fff', fontSize: '0.75rem', fontWeight: '600' },
+            style: { color: 'var(--text-1)', fontSize: '0.75rem', fontWeight: '600' },
           }),
         ]),
       ]),
@@ -471,10 +477,10 @@ export function getChartConfigs() {
             callbacks: {
               label: (item) => {
                 if (item.datasetIndex === 0) {
-                  return `${item.dataset.label}: ${item.parsed.y.toFixed(1)}`;
+                  return `${item.dataset.label}: ${fmtNumber(item.parsed.y, { decimals: 1 })}`;
                 }
                 return item.parsed.y !== null
-                  ? `${item.dataset.label}: ${item.parsed.y.toFixed(1)}%`
+                  ? `${item.dataset.label}: ${fmtNumber(item.parsed.y, { decimals: 1 })}%`
                   : null;
               },
             },

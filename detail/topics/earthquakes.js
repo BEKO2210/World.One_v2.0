@@ -11,6 +11,7 @@ import { fetchTopicData, fetchWithTimeout } from '../../js/utils/data-loader.js'
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { createMarkerMap } from '../utils/marker-map.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -30,10 +31,10 @@ let _tooltipEl = null;
 // --- Depth to color mapping -------------------------------------------
 
 function depthToColor(depth) {
-  if (depth < 10) return '#ff3b30';   // shallow -- red
-  if (depth < 70) return '#ff9500';   // medium -- orange
-  if (depth < 300) return '#ffcc00';  // deep -- yellow
-  return '#34c759';                    // very deep -- green
+  if (depth < 10) return 'var(--status-critical)';   // shallow -- red
+  if (depth < 70) return 'var(--status-serious)';   // medium -- orange
+  if (depth < 300) return 'var(--status-warning)';  // deep -- yellow
+  return 'var(--status-good)';                    // very deep -- green
 }
 
 // --- Parse USGS GeoJSON features --------------------------------------
@@ -165,7 +166,7 @@ function _renderHero(heroEl, count24h, largest24h, tier, age, unitKey = 'detail.
               marginBottom: 'var(--space-xs)',
               fontWeight: '600',
             },
-            textContent: `${i18n.t('detail.earthquakes.tileLargest')}: M${largest24h.toFixed(1)}`,
+            textContent: `${i18n.t('detail.earthquakes.tileLargest')}: M${fmtNumber(largest24h, { decimals: 1 })}`,
           })
         : null,
       DOMUtils.create('div', {
@@ -227,7 +228,7 @@ async function _buildSVGMap(quakes, usgsSuccess) {
     const text = DOMUtils.createSVG('text', {
       x: String(svgWidth / 2), y: '428',
       'text-anchor': 'middle',
-      fill: 'rgba(255,255,255,0.5)',
+      fill: 'var(--line-2)',
       'font-size': '32',
     });
     text.textContent = i18n.t('detail.earthquakes.dataUnavailable');
@@ -292,7 +293,7 @@ function _showPopup(container, quake, event) {
     },
   }, [
     DOMUtils.create('div', {
-      textContent: `M${quake.magnitude.toFixed(1)}`,
+      textContent: `M${fmtNumber(quake.magnitude, { decimals: 1 })}`,
       style: { fontWeight: '700', fontSize: '1.1rem', marginBottom: '4px' },
     }),
     DOMUtils.create('div', {
@@ -300,7 +301,7 @@ function _showPopup(container, quake, event) {
       style: { marginBottom: '4px' },
     }),
     DOMUtils.create('div', {
-      textContent: `${i18n.t('detail.earthquakes.depth')}: ${quake.depth.toFixed(1)} km`,
+      textContent: `${i18n.t('detail.earthquakes.depth')}: ${fmtNumber(quake.depth, { decimals: 1 })} km`,
       style: { color: 'var(--text-secondary)' },
     }),
     DOMUtils.create('div', {
@@ -322,10 +323,10 @@ function _showPopup(container, quake, event) {
 
 function _buildMapLegend() {
   const items = [
-    { color: '#ff3b30', label: '< 10 km' },
-    { color: '#ff9500', label: '10 - 70 km' },
-    { color: '#ffcc00', label: '70 - 300 km' },
-    { color: '#34c759', label: '> 300 km' },
+    { color: 'var(--status-critical)', label: '< 10 km' },
+    { color: 'var(--status-serious)', label: '10 - 70 km' },
+    { color: 'var(--status-warning)', label: '70 - 300 km' },
+    { color: 'var(--status-good)', label: '> 300 km' },
   ];
 
   const legendItems = items.map(({ color, label }) =>
@@ -399,12 +400,12 @@ function _renderTiles(tilesEl, count24h, largest24h, avgDepth, total7d, usgsSucc
     },
     {
       label: i18n.t('detail.earthquakes.tileLargest'),
-      value: usgsSuccess && largest24h > 0 ? `M${largest24h.toFixed(1)}` : '--',
+      value: usgsSuccess && largest24h > 0 ? `M${fmtNumber(largest24h, { decimals: 1 })}` : '--',
       unit: '24h',
     },
     {
       label: i18n.t('detail.earthquakes.tileDepthAvg'),
-      value: usgsSuccess && avgDepth > 0 ? `${avgDepth.toFixed(0)} km` : '--',
+      value: usgsSuccess && avgDepth > 0 ? `${fmtNumber(avgDepth, { decimals: 0 })} km` : '--',
       unit: '24h',
     },
     {
@@ -418,7 +419,7 @@ function _renderTiles(tilesEl, count24h, largest24h, avgDepth, total7d, usgsSucc
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },

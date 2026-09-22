@@ -133,7 +133,7 @@ function _renderHero(heroEl, totalThreatened, tier, age) {
         style: {
           marginTop: 'var(--space-sm)',
           padding: 'var(--space-xs) var(--space-sm)',
-          background: 'rgba(255,255,255,0.04)',
+          background: 'var(--surface-2)',
           borderRadius: '8px',
           display: 'inline-block',
         },
@@ -190,13 +190,13 @@ async function _renderBigFiveChart(chartEl) {
 
   // Colors: gradient from orange to deep red, with current in distinct pattern
   const barColors = [
-    '#e65100', '#d84315', '#bf360c', '#b71c1c', '#880e4f',
+    'var(--status-serious)', '#d84315', '#bf360c', 'var(--status-critical)', '#880e4f',
     'rgba(211, 47, 47, 0.6)',
   ];
 
   const borderColors = [
-    '#e65100', '#d84315', '#bf360c', '#b71c1c', '#880e4f',
-    '#d32f2f',
+    'var(--status-serious)', '#d84315', '#bf360c', 'var(--status-critical)', '#880e4f',
+    'var(--status-critical)',
   ];
 
   const borderDash = allEvents.map((_, i) => (i === 5 ? [6, 4] : []));
@@ -225,7 +225,7 @@ async function _renderBigFiveChart(chartEl) {
             display: true,
             text: i18n.t('detail.extinction.speciesLost'),
           },
-          grid: { color: 'rgba(255,255,255,0.06)' },
+          grid: { color: 'var(--text-3)' },
         },
         y: {
           grid: { display: false },
@@ -281,7 +281,7 @@ function _renderRateComparison(trendEl) {
     i18n.t('detail.extinction.currentRate'),
     `${RATE_MULTIPLIER_LOW} - ${RATE_MULTIPLIER_HIGH} E/MSY`,
     80,
-    '#fff',
+    'var(--text-1)',
     'var(--danger, #d32f2f)'
   );
 
@@ -383,7 +383,7 @@ function _renderTaxonomicTiles(tilesEl) {
       DOMUtils.create('div', {
         style: {
           height: '6px',
-          background: 'rgba(255,255,255,0.06)',
+          background: 'var(--surface-2)',
           borderRadius: '3px',
           overflow: 'hidden',
           marginBottom: '0.25rem',
@@ -487,7 +487,7 @@ function _renderTimeline(compEl) {
     {
       label: i18n.t('detail.extinction.timeline.bigFiveLabel'),
       duration: i18n.t('detail.extinction.timeline.bigFiveDuration'),
-      color: '#e65100',
+      color: 'var(--status-serious)',
       width: 100,
     },
     {
@@ -510,7 +510,7 @@ function _renderTimeline(compEl) {
         style: {
           padding: 'var(--space-sm)',
           marginBottom: 'var(--space-xs)',
-          background: 'rgba(255,255,255,0.04)',
+          background: 'var(--surface-2)',
           borderRadius: '8px',
           borderLeft: `4px solid ${tp.color}`,
         },
@@ -527,7 +527,7 @@ function _renderTimeline(compEl) {
         DOMUtils.create('div', {
           style: {
             height: '8px',
-            background: 'rgba(255,255,255,0.06)',
+            background: 'var(--surface-2)',
             borderRadius: '4px',
             overflow: 'hidden',
             marginBottom: '0.35rem',

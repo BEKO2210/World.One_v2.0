@@ -14,6 +14,8 @@ import { MathUtils } from '../../js/utils/math.js';
 import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
+import { createEmptyState } from '../../js/utils/empty-state.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -86,7 +88,7 @@ function _renderHero(heroEl, rates, tier, age) {
 
   // EUR/USD (US-$ je Euro) als große Zahl
   const eurUsd = quote(HERO_PAIRS[0], rates);
-  const formatted = eurUsd != null ? eurUsd.toFixed(4) : '–';
+  const formatted = eurUsd != null ? fmtNumber(eurUsd, { decimals: 4 }) : '–';
 
   const pairsContainer = DOMUtils.create('div', {
     style: {
@@ -104,7 +106,7 @@ function _renderHero(heroEl, rates, tier, age) {
       DOMUtils.create('div', {
         style: {
           padding: 'var(--space-xs)',
-          background: 'rgba(255,255,255,0.04)',
+          background: 'var(--surface-2)',
           borderRadius: '6px',
           textAlign: 'center',
         },
@@ -114,7 +116,7 @@ function _renderHero(heroEl, rates, tier, age) {
           style: { color: 'var(--text-secondary)', fontSize: '0.8rem', marginBottom: '2px' },
         }),
         DOMUtils.create('div', {
-          textContent: rate.toFixed(rate < 10 ? 4 : 2),
+          textContent: fmtNumber(rate, { decimals: rate < 10 ? 4 : 2 }),
           style: {
             color: toRgba(CHART_COLORS.economy),
             fontSize: '1.25rem',
@@ -189,7 +191,7 @@ function _renderConverter(chartEl, rates) {
       width: '100%',
       padding: '10px 12px',
       fontSize: '1.1rem',
-      background: 'rgba(255,255,255,0.06)',
+      background: 'var(--surface-2)',
       border: '1px solid rgba(255,255,255,0.15)',
       borderRadius: '6px',
       color: 'var(--text-primary)',
@@ -207,7 +209,7 @@ function _renderConverter(chartEl, rates) {
   const resultEl = DOMUtils.create('div', {
     style: {
       padding: 'var(--space-sm)',
-      background: 'rgba(255,255,255,0.04)',
+      background: 'var(--surface-2)',
       borderRadius: '8px',
       textAlign: 'center',
       marginTop: 'var(--space-sm)',
@@ -303,7 +305,7 @@ function _createSelect(options, defaultVal) {
       width: '100%',
       padding: '8px 10px',
       fontSize: '1rem',
-      background: 'rgba(255,255,255,0.06)',
+      background: 'var(--surface-2)',
       border: '1px solid rgba(255,255,255,0.15)',
       borderRadius: '6px',
       color: 'var(--text-primary)',
@@ -316,7 +318,7 @@ function _createSelect(options, defaultVal) {
     const opt = DOMUtils.create('option', {
       value: key,
       textContent: key,
-      style: { background: '#1a1a2e', color: '#fff' },
+      style: { background: 'var(--surface-3)', color: 'var(--text-1)' },
     });
     if (key === defaultVal) opt.selected = true;
     select.appendChild(opt);
@@ -328,7 +330,10 @@ function _createSelect(options, defaultVal) {
 // --- Trend Block (12-Month Line Charts) ---------------------------------
 
 async function _renderTrendCharts(trendEl, history) {
-  if (!history.length) return;
+  if (!history.length) {
+    trendEl.appendChild(createEmptyState({ title: i18n.t('detail.currencies.chartEURUSD') }));
+    return;
+  }
   const labels = history.map(h => new Date(h.date + 'T00:00:00Z')
     .toLocaleDateString(i18n.lang === 'en' ? 'en-GB' : 'de-DE', { month: 'short', year: '2-digit', timeZone: 'UTC' }));
   const eurUsd = history.map(h => (h.EUR > 0 ? Math.round(1 / h.EUR * 10000) / 10000 : null));
@@ -433,7 +438,7 @@ function _lineChartOptions(yLabel) {
       legend: { display: false },
       tooltip: {
         callbacks: {
-          label: (item) => `${yLabel}: ${item.parsed.y.toFixed(4)}`,
+          label: (item) => `${yLabel}: ${fmtNumber(item.parsed.y, { decimals: 4 })}`,
         },
       },
     },
@@ -471,7 +476,7 @@ function _renderTiles(tilesEl, rates, history, highInflation) {
       label: i18n.t('detail.currencies.tileVolatile'),
       value: top ? top.code : '–',
       unit: top ? `${fmtPct(top.inflation)} (${top.year})` : '',
-      accent: '#d32f2f',
+      accent: 'var(--status-critical)',
     },
     {
       label: i18n.t('detail.currencies.tileTracked'),
@@ -485,7 +490,7 @@ function _renderTiles(tilesEl, rates, history, highInflation) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },
@@ -587,7 +592,7 @@ function _renderHyperinflation(explEl, list) {
             height: '24px',
             borderRadius: '50%',
             background: badgeColor,
-            color: '#fff',
+            color: 'var(--text-1)',
             fontSize: '0.75rem',
             fontWeight: '700',
           },

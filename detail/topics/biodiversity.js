@@ -12,6 +12,7 @@ import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { renderChoropleth } from '../utils/choropleth.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -48,9 +49,9 @@ const LPI_DATA = [
 // --- IUCN Red List Categories ------------------------------------------
 
 const IUCN_CATEGORIES = [
-  { code: 'CR', count: 27358, color: '#d32f2f', labelKey: 'detail.biodiversity.tileCR' },
-  { code: 'EN', count: 48895, color: '#f57c00', labelKey: 'detail.biodiversity.tileEN' },
-  { code: 'VU', count: 53500, color: '#fbc02d', labelKey: 'detail.biodiversity.tileVU' },
+  { code: 'CR', count: 27358, color: 'var(--status-critical)', labelKey: 'detail.biodiversity.tileCR' },
+  { code: 'EN', count: 48895, color: 'var(--status-serious)', labelKey: 'detail.biodiversity.tileEN' },
+  { code: 'VU', count: 53500, color: 'var(--status-warning)', labelKey: 'detail.biodiversity.tileVU' },
 ];
 
 // Critically endangered example species (hardcoded reference data)
@@ -233,7 +234,7 @@ async function _renderLPIChart(chartEl) {
         tooltip: {
           callbacks: {
             title: (items) => items[0]?.label || '',
-            label: (item) => i18n.t('detail.biodiversity.lpiTooltip', { value: item.parsed.y.toFixed(2), pct: ((1 - item.parsed.y) * 100).toFixed(0) }),
+            label: (item) => i18n.t('detail.biodiversity.lpiTooltip', { value: fmtNumber(item.parsed.y, { decimals: 2 }), pct: ((1 - item.parsed.y) * 100).toFixed(0) }),
           },
         },
       },
@@ -271,7 +272,7 @@ function _renderIUCN(trendEl, cr, en, vu) {
         justifyContent: 'center',
         fontSize: '0.7rem',
         fontWeight: '600',
-        color: cat.code === 'VU' ? '#1a1a2e' : '#fff',
+        color: cat.code === 'VU' ? 'var(--surface-3)' : 'var(--text-1)',
       },
       textContent: cat.code,
     })
@@ -293,7 +294,7 @@ function _renderIUCN(trendEl, cr, en, vu) {
     const card = DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255,255,255,0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         marginBottom: 'var(--space-xs)',
         borderLeft: `4px solid ${cat.color}`,
@@ -313,7 +314,7 @@ function _renderIUCN(trendEl, cr, en, vu) {
             justifyContent: 'center',
             fontSize: '0.7rem',
             fontWeight: '700',
-            color: cat.code === 'VU' ? '#1a1a2e' : '#fff',
+            color: cat.code === 'VU' ? 'var(--surface-3)' : 'var(--text-1)',
             flexShrink: '0',
           },
           textContent: cat.code,
@@ -374,7 +375,7 @@ function _renderTiles(tilesEl, cr, en, vu) {
       label: i18n.t('detail.biodiversity.tileLPI'),
       value: '-73%',
       unit: '1970-2020',
-      accent: '#d32f2f',
+      accent: 'var(--status-critical)',
     },
   ];
 
@@ -382,7 +383,7 @@ function _renderTiles(tilesEl, cr, en, vu) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },
@@ -439,23 +440,23 @@ function _renderExplanation(explEl) {
 async function _renderMap(compEl) {
   // Stepped color function matching maps.js pattern
   function colorFn(value) {
-    if (value >= 0.35) return '#d32f2f';     // High threat (red)
-    if (value >= 0.25) return '#f57c00';     // Medium-high (orange)
-    if (value >= 0.15) return '#fbc02d';     // Medium (yellow)
-    if (value >= 0.05) return '#66bb6a';     // Low-medium (light green)
-    return '#1b5e20';                         // Low threat (dark green)
+    if (value >= 0.35) return 'var(--status-critical)';     // High threat (red)
+    if (value >= 0.25) return 'var(--status-serious)';     // Medium-high (orange)
+    if (value >= 0.15) return 'var(--status-warning)';     // Medium (yellow)
+    if (value >= 0.05) return 'var(--status-good)';     // Low-medium (light green)
+    return 'var(--status-good)';                         // Low threat (dark green)
   }
 
   function tooltipFn(iso, val) {
-    return `${iso}: Threat index ${(val * 100).toFixed(0)}%`;
+    return `${iso}: Threat index ${fmtNumber((val * 100), { decimals: 0 })}%`;
   }
 
   const legendItems = [
-    { color: '#d32f2f', label: i18n.t('detail.biodiversity.threatHigh') },
-    { color: '#f57c00', label: i18n.t('detail.biodiversity.threatMediumHigh') },
-    { color: '#fbc02d', label: i18n.t('detail.biodiversity.threatMedium') },
-    { color: '#66bb6a', label: i18n.t('detail.biodiversity.threatLowMedium') },
-    { color: '#1b5e20', label: i18n.t('detail.biodiversity.threatLow') },
+    { color: 'var(--status-critical)', label: i18n.t('detail.biodiversity.threatHigh') },
+    { color: 'var(--status-serious)', label: i18n.t('detail.biodiversity.threatMediumHigh') },
+    { color: 'var(--status-warning)', label: i18n.t('detail.biodiversity.threatMedium') },
+    { color: 'var(--status-good)', label: i18n.t('detail.biodiversity.threatLowMedium') },
+    { color: 'var(--status-good)', label: i18n.t('detail.biodiversity.threatLow') },
   ];
 
   const result = await renderChoropleth(compEl, {

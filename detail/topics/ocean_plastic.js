@@ -11,6 +11,7 @@ import { DOMUtils } from '../../js/utils/dom.js';
 import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { createMarkerMap } from '../utils/marker-map.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -40,21 +41,21 @@ PLASTIC_STATS.daily_input_kg = Math.round(PLASTIC_STATS.annual_input_mt * 1e9 / 
 // cx/cy are SVG coordinates in a 1000x500 viewBox
 
 const GARBAGE_PATCHES = [
-  { name: 'North Pacific Gyre',    cx: 340, cy: 170, size: 1600000, color: '#ff3b30' },
-  { name: 'South Pacific Gyre',    cx: 280, cy: 310, size: 2600000, color: '#ff6b6b' },
-  { name: 'North Atlantic Gyre',   cx: 550, cy: 180, size: 1100000, color: '#ff9500' },
-  { name: 'South Atlantic Gyre',   cx: 530, cy: 330, size: 700000,  color: '#ffcc00' },
+  { name: 'North Pacific Gyre',    cx: 340, cy: 170, size: 1600000, color: 'var(--status-critical)' },
+  { name: 'South Pacific Gyre',    cx: 280, cy: 310, size: 2600000, color: 'var(--status-critical)' },
+  { name: 'North Atlantic Gyre',   cx: 550, cy: 180, size: 1100000, color: 'var(--status-serious)' },
+  { name: 'South Atlantic Gyre',   cx: 530, cy: 330, size: 700000,  color: 'var(--status-warning)' },
   { name: 'Indian Ocean Gyre',     cx: 700, cy: 300, size: 900000,  color: '#ff6348' },
 ];
 
 // --- Decomposition Times (NOAA Marine Debris Program) ------------------
 
 const DECOMPOSITION_TIMES = [
-  { item: 'Plastic bag',     years: 20,  color: '#fbc02d' },
-  { item: 'Styrofoam cup',   years: 50,  color: '#ff9800' },
-  { item: 'Aluminum can',    years: 200, color: '#ff6d00' },
-  { item: 'Plastic bottle',  years: 450, color: '#f44336' },
-  { item: 'Fishing line',    years: 600, color: '#b71c1c' },
+  { item: 'Plastic bag',     years: 20,  color: 'var(--status-warning)' },
+  { item: 'Styrofoam cup',   years: 50,  color: 'var(--status-serious)' },
+  { item: 'Aluminum can',    years: 200, color: 'var(--status-serious)' },
+  { item: 'Plastic bottle',  years: 450, color: 'var(--status-critical)' },
+  { item: 'Fishing line',    years: 600, color: 'var(--status-critical)' },
 ];
 
 // --- Render ------------------------------------------------------------
@@ -98,7 +99,7 @@ function _renderHero(heroEl, tier, age) {
           fontSize: '3.5rem',
           fontWeight: '700',
           lineHeight: '1.1',
-          color: '#ff9500',
+          color: 'var(--status-serious)',
           marginBottom: 'var(--space-xs)',
         },
       }, [
@@ -130,7 +131,7 @@ function _renderHero(heroEl, tier, age) {
       }),
       DOMUtils.create('p', {
         textContent: i18n.t('detail.ocean_plastic.annualInput', { amount: PLASTIC_STATS.annual_input_mt }),
-        style: { color: '#ff9500', fontSize: '0.85rem', fontWeight: '600', margin: '0' },
+        style: { color: 'var(--status-serious)', fontSize: '0.85rem', fontWeight: '600', margin: '0' },
       }),
     ])
   );
@@ -150,7 +151,7 @@ function _renderCounter(chartEl) {
     style: {
       fontSize: '3rem',
       fontWeight: '700',
-      color: '#ff9500',
+      color: 'var(--status-serious)',
       fontVariantNumeric: 'tabular-nums',
       lineHeight: '1.2',
       textAlign: 'center',
@@ -283,7 +284,7 @@ async function _renderGarbagePatches(trendEl) {
     const text = DOMUtils.createSVG('text', {
       x: String(cx), y: String(cy + radius + 16 * radiusScale),
       'text-anchor': 'middle',
-      fill: 'rgba(255,255,255,0.8)',
+      fill: 'var(--line-2)',
       'font-size': String(11 * radiusScale),
       'font-family': 'system-ui, sans-serif',
     });
@@ -294,11 +295,11 @@ async function _renderGarbagePatches(trendEl) {
     const sizeText = DOMUtils.createSVG('text', {
       x: String(cx), y: String(cy + radius + 28 * radiusScale),
       'text-anchor': 'middle',
-      fill: 'rgba(255,255,255,0.5)',
+      fill: 'var(--line-2)',
       'font-size': String(9 * radiusScale),
       'font-family': 'system-ui, sans-serif',
     });
-    sizeText.textContent = `~${(patch.size / 1_000_000).toFixed(1)}M km\u00B2`;
+    sizeText.textContent = `~${fmtNumber((patch.size / 1_000_000), { decimals: 1 })}M km\u00B2`;
     overlay.appendChild(sizeText);
   });
 
@@ -419,25 +420,25 @@ function _renderComparison(compEl) {
       label: i18n.t('detail.ocean_plastic.everySecond'),
       value: `~${perSecond.toLocaleString()} kg`,
       desc: i18n.t('detail.ocean_plastic.enterOcean'),
-      color: '#fbc02d',
+      color: 'var(--status-warning)',
     },
     {
       label: i18n.t('detail.ocean_plastic.everyMinute'),
       value: `~${perMinute.toLocaleString()} kg`,
       desc: i18n.t('detail.ocean_plastic.garbageTruck'),
-      color: '#ff9500',
+      color: 'var(--status-serious)',
     },
     {
       label: i18n.t('detail.ocean_plastic.everyYear'),
       value: `${PLASTIC_STATS.annual_input_mt} ${i18n.t('detail.ocean_plastic.unitMt')}`,
       desc: i18n.t('detail.ocean_plastic.addedOceans'),
-      color: '#ff6d00',
+      color: 'var(--status-serious)',
     },
     {
       label: i18n.t('detail.ocean_plastic.totalAccumulated'),
       value: `~${PLASTIC_STATS.total_mt} ${i18n.t('detail.ocean_plastic.unitMt')}`,
       desc: i18n.t('detail.ocean_plastic.currentlyInOcean'),
-      color: '#f44336',
+      color: 'var(--status-critical)',
     },
   ];
 

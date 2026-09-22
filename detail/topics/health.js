@@ -13,6 +13,7 @@ import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { renderChoropleth } from '../utils/choropleth.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -31,11 +32,11 @@ let _choroplethCleanup = null;
 // --- WHO Top-10 Causes of Death (2024 estimates, millions) -------------
 
 const CAUSES_OF_DEATH = [
-  { name: { de: 'Herzerkrankungen', en: 'Heart Disease' }, deaths: 19100000, color: '#d32f2f' },
-  { name: { de: 'Krebs', en: 'Cancer' }, deaths: 10000000, color: '#7b1fa2' },
-  { name: { de: 'Schlaganfall', en: 'Stroke' }, deaths: 6900000, color: '#e65100' },
+  { name: { de: 'Herzerkrankungen', en: 'Heart Disease' }, deaths: 19100000, color: 'var(--status-critical)' },
+  { name: { de: 'Krebs', en: 'Cancer' }, deaths: 10000000, color: 'var(--series-7)' },
+  { name: { de: 'Schlaganfall', en: 'Stroke' }, deaths: 6900000, color: 'var(--status-serious)' },
   { name: { de: 'Atemwegserkrankungen', en: 'Respiratory Disease' }, deaths: 3600000, color: '#00838f' },
-  { name: { de: 'COVID-19', en: 'COVID-19' }, deaths: 3200000, color: '#c62828' },
+  { name: { de: 'COVID-19', en: 'COVID-19' }, deaths: 3200000, color: 'var(--status-critical)' },
   { name: { de: 'Neugeborene', en: 'Neonatal' }, deaths: 2400000, color: '#558b2f' },
   { name: { de: 'Diabetes', en: 'Diabetes' }, deaths: 2000000, color: '#f9a825' },
   { name: { de: 'Durchfallerkrankungen', en: 'Diarrheal Diseases' }, deaths: 1800000, color: '#4e342e' },
@@ -123,7 +124,7 @@ function _renderHero(heroEl, lifeExp, tier, age, year) {
   const badge = year != null
     ? createTierBadge(tier, { age, dataAsOf: year, cadence: 'annual', source: 'World Bank' })
     : createTierBadge('static', { estimate: true, source: 'WHO' });
-  const formatted = lifeExp.toFixed(1);
+  const formatted = fmtNumber(lifeExp, { decimals: 1 });
 
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'health-hero' }, [
@@ -216,7 +217,7 @@ function _renderTreemap(chartEl) {
       DOMUtils.create('div', {
         style: {
           height: '20px',
-          background: 'rgba(255,255,255,0.04)',
+          background: 'var(--surface-2)',
           borderRadius: '4px',
           overflow: 'hidden',
         },
@@ -375,7 +376,7 @@ function _renderTiles(tilesEl) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },
@@ -434,11 +435,11 @@ async function _renderVaccinationMap(compEl) {
 
   // Vaccination choropleth
   function colorFn(value) {
-    if (value >= 95) return '#1b5e20';   // Excellent (dark green)
-    if (value >= 85) return '#4caf50';   // Good (green)
-    if (value >= 70) return '#fbc02d';   // Moderate (yellow)
-    if (value >= 50) return '#f57c00';   // Concerning (orange)
-    return '#d32f2f';                     // Critical (red)
+    if (value >= 95) return 'var(--status-good)';   // Excellent (dark green)
+    if (value >= 85) return 'var(--status-good)';   // Good (green)
+    if (value >= 70) return 'var(--status-warning)';   // Moderate (yellow)
+    if (value >= 50) return 'var(--status-serious)';   // Concerning (orange)
+    return 'var(--status-critical)';                     // Critical (red)
   }
 
   function tooltipFn(iso, val) {
@@ -446,11 +447,11 @@ async function _renderVaccinationMap(compEl) {
   }
 
   const legendItems = [
-    { color: '#1b5e20', label: '>95%' },
-    { color: '#4caf50', label: '85-95%' },
-    { color: '#fbc02d', label: '70-85%' },
-    { color: '#f57c00', label: '50-70%' },
-    { color: '#d32f2f', label: '<50%' },
+    { color: 'var(--status-good)', label: '>95%' },
+    { color: 'var(--status-good)', label: '85-95%' },
+    { color: 'var(--status-warning)', label: '70-85%' },
+    { color: 'var(--status-serious)', label: '50-70%' },
+    { color: 'var(--status-critical)', label: '<50%' },
   ];
 
   const result = await renderChoropleth(compEl, {

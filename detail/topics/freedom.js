@@ -13,6 +13,7 @@ import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { renderChoropleth } from '../utils/choropleth.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -97,7 +98,7 @@ export async function render(blocks) {
 
 function _renderHero(heroEl, score, tier, age) {
   const badge = createTierBadge(tier, { age });
-  const formatted = Number(score).toFixed(1);
+  const formatted = fmtNumber(Number(score), { decimals: 1 });
 
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'freedom-hero' }, [
@@ -227,7 +228,7 @@ function _createTrendChart(trendData) {
         tooltip: {
           callbacks: {
             title: (items) => items[0]?.label || '',
-            label: (item) => `${i18n.t('detail.freedom.heroLabel')}: ${item.parsed.y.toFixed(1)}`,
+            label: (item) => `${i18n.t('detail.freedom.heroLabel')}: ${fmtNumber(item.parsed.y, { decimals: 1 })}`,
           },
         },
       },
@@ -242,7 +243,7 @@ function _renderTrendText(trendEl) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
       },
     }, [
@@ -277,19 +278,19 @@ function _renderTiles(tilesEl) {
       label: i18n.t('detail.freedom.tileFree'),
       value: String(freeCount),
       unit: i18n.t('detail.freedom.heroUnit'),
-      accent: '#4caf50',
+      accent: 'var(--status-good)',
     },
     {
       label: i18n.t('detail.freedom.tilePartly'),
       value: String(partlyFreeCount),
       unit: i18n.t('detail.freedom.heroUnit'),
-      accent: '#fbc02d',
+      accent: 'var(--status-warning)',
     },
     {
       label: i18n.t('detail.freedom.tileNotFree'),
       value: String(notFreeCount),
       unit: i18n.t('detail.freedom.heroUnit'),
-      accent: '#d32f2f',
+      accent: 'var(--status-critical)',
     },
     {
       label: i18n.t('detail.freedom.tileDecline'),
@@ -303,7 +304,7 @@ function _renderTiles(tilesEl) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },
@@ -353,9 +354,9 @@ function _renderExplanation(explEl) {
 
 async function _renderMap(compEl) {
   function colorFn(score) {
-    if (score >= 70) return '#4caf50';   // Free (green)
-    if (score >= 35) return '#fbc02d';   // Partly Free (yellow)
-    return '#d32f2f';                     // Not Free (red)
+    if (score >= 70) return 'var(--status-good)';   // Free (green)
+    if (score >= 35) return 'var(--status-warning)';   // Partly Free (yellow)
+    return 'var(--status-critical)';                     // Not Free (red)
   }
 
   function tooltipFn(iso, val) {
@@ -363,9 +364,9 @@ async function _renderMap(compEl) {
   }
 
   const legendItems = [
-    { color: '#4caf50', label: i18n.t('detail.freedom.free') },
-    { color: '#fbc02d', label: i18n.t('detail.freedom.partlyFree') },
-    { color: '#d32f2f', label: i18n.t('detail.freedom.notFree') },
+    { color: 'var(--status-good)', label: i18n.t('detail.freedom.free') },
+    { color: 'var(--status-warning)', label: i18n.t('detail.freedom.partlyFree') },
+    { color: 'var(--status-critical)', label: i18n.t('detail.freedom.notFree') },
   ];
 
   const result = await renderChoropleth(compEl, {

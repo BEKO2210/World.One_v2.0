@@ -12,6 +12,7 @@ import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { renderChoropleth } from '../utils/choropleth.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -108,7 +109,7 @@ export async function render(blocks) {
 // --- Hero ---------------------------------------------------------------
 
 function _renderHero(heroEl, renewablePct, tier, age) {
-  const formatted = renewablePct.toFixed(1);
+  const formatted = fmtNumber(renewablePct, { decimals: 1 });
   const badge = createTierBadge(tier, { age });
 
   heroEl.appendChild(
@@ -164,10 +165,10 @@ async function _renderChartBlock(chartEl) {
 
 function _renderCarbonIntensity(chartEl) {
   // Color based on carbon intensity value
-  let intensityColor = '#fbc02d'; // default yellow
-  if (CARBON_INTENSITY_DE < 200) intensityColor = '#4caf50';
-  else if (CARBON_INTENSITY_DE <= 400) intensityColor = '#fbc02d';
-  else intensityColor = '#f57c00';
+  let intensityColor = 'var(--status-warning)'; // default yellow
+  if (CARBON_INTENSITY_DE < 200) intensityColor = 'var(--status-good)';
+  else if (CARBON_INTENSITY_DE <= 400) intensityColor = 'var(--status-warning)';
+  else intensityColor = 'var(--status-serious)';
 
   const staticBadge = createTierBadge('static', {});
 
@@ -176,7 +177,7 @@ function _renderCarbonIntensity(chartEl) {
       style: {
         marginBottom: 'var(--space-md)',
         padding: 'var(--space-sm)',
-        background: 'rgba(255,255,255,0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '12px',
       },
     }, [
@@ -263,7 +264,7 @@ async function _renderRankingChart(chartEl) {
             display: true,
             text: '%',
           },
-          grid: { color: 'rgba(255,255,255,0.05)' },
+          grid: { color: 'var(--text-3)' },
         },
         y: {
           grid: { display: false },
@@ -356,13 +357,13 @@ function _createGrowthChart(labels, solarData, windData) {
         {
           label: i18n.t('detail.renewables.solar'),
           data: solarData,
-          borderColor: '#ffc107',
+          borderColor: 'var(--status-warning)',
           backgroundColor: 'rgba(255, 193, 7, 0.1)',
           fill: true,
           tension: 0.3,
           pointRadius: 4,
           pointHitRadius: 8,
-          pointBackgroundColor: '#ffc107',
+          pointBackgroundColor: 'var(--status-warning)',
           borderWidth: 2,
         },
         {
@@ -391,7 +392,7 @@ function _createGrowthChart(labels, solarData, windData) {
             display: true,
             text: i18n.t('detail.renewables.yAxisLabel'),
           },
-          grid: { color: 'rgba(255,255,255,0.05)' },
+          grid: { color: 'var(--text-3)' },
         },
       },
       plugins: {
@@ -439,7 +440,7 @@ function _renderTiles(tilesEl) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },
@@ -500,7 +501,7 @@ async function _renderMap(compEl) {
   }
 
   function tooltipFn(iso, val) {
-    return `${iso}: ${i18n.t('detail.renewables.tooltipRenewable', { value: (val * 100).toFixed(0) })}`;
+    return `${iso}: ${i18n.t('detail.renewables.tooltipRenewable', { value: fmtNumber((val * 100), { decimals: 0 }) })}`;
   }
 
   const legendItems = [

@@ -14,6 +14,7 @@ import { fetchTopicData, fetchWithTimeout } from '../../js/utils/data-loader.js'
 import { createTierBadge } from '../../js/utils/badge.js';
 import { CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { createMarkerMap } from '../utils/marker-map.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -44,7 +45,7 @@ const SATELLITE_DATA = [
   { operator: 'SpaceX / Starlink', count: 6000, color: toRgba(CHART_COLORS.progress, 0.9) },
   { operator: 'OneWeb', count: 600, color: 'rgba(90, 200, 250, 0.8)' },
   { operator: 'Planet Labs', count: 200, color: 'rgba(255, 215, 0, 0.8)' },
-  { operator: 'Others', count: 6200, color: 'rgba(255, 255, 255, 0.3)' },
+  { operator: 'Others', count: 6200, color: 'var(--text-3)' },
 ];
 const TOTAL_SATELLITES = 13000;
 
@@ -257,15 +258,15 @@ function _updateISSPosition(lat, lng) {
 
   // Update ISS dot position
   if (_dotEl) {
-    _dotEl.setAttribute('cx', String(x.toFixed(1)));
-    _dotEl.setAttribute('cy', String(y.toFixed(1)));
+    _dotEl.setAttribute('cx', x.toFixed(1));
+    _dotEl.setAttribute('cy', y.toFixed(1));
   }
 
   // Update position text
   if (_posTextEl) {
     const latDir = lat >= 0 ? 'N' : 'S';
     const lngDir = lng >= 0 ? 'E' : 'W';
-    _posTextEl.textContent = `ISS: ${Math.abs(lat).toFixed(2)}\u00B0${latDir}, ${Math.abs(lng).toFixed(2)}\u00B0${lngDir}`;
+    _posTextEl.textContent = `ISS: ${fmtNumber(Math.abs(lat), { decimals: 2 })}\u00B0${latDir}, ${fmtNumber(Math.abs(lng), { decimals: 2 })}\u00B0${lngDir}`;
   }
 }
 
@@ -287,7 +288,7 @@ function _renderCrew(trendEl, crew) {
         alignItems: 'center',
         gap: '10px',
         padding: '8px 12px',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         marginBottom: '6px',
       },
@@ -361,7 +362,7 @@ function _renderTiles(tilesEl, crew) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },
@@ -439,7 +440,7 @@ async function _renderNews(explEl) {
     return DOMUtils.create('div', {
       style: {
         padding: '12px 14px',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         borderLeft: `3px solid ${toRgba(CHART_COLORS.progress, 0.5)}`,
       },
@@ -539,7 +540,7 @@ function _renderSatellites(compEl) {
       DOMUtils.create('div', {
         style: {
           height: '8px',
-          background: 'rgba(255, 255, 255, 0.06)',
+          background: 'var(--surface-2)',
           borderRadius: '4px',
           overflow: 'hidden',
         },

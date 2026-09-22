@@ -11,6 +11,7 @@ import { MathUtils } from '../../js/utils/math.js';
 import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -94,7 +95,7 @@ const POLLUTANTS = [
     whoLimit: '15 \u00b5g/m\u00b3 annual',
     effects: 'Respiratory & cardiovascular disease, lung cancer',
     sources: 'Combustion, industry, vehicle exhaust',
-    color: '#d32f2f',
+    color: 'var(--status-critical)',
   },
   {
     name: 'PM10',
@@ -102,7 +103,7 @@ const POLLUTANTS = [
     whoLimit: '45 \u00b5g/m\u00b3 annual',
     effects: 'Lung inflammation, aggravated asthma',
     sources: 'Dust, construction, traffic, wildfires',
-    color: '#f57c00',
+    color: 'var(--status-serious)',
   },
   {
     name: 'NO\u2082',
@@ -110,17 +111,17 @@ const POLLUTANTS = [
     whoLimit: '25 \u00b5g/m\u00b3 annual',
     effects: 'Airway inflammation, reduced lung function',
     sources: 'Vehicles, power plants, industrial processes',
-    color: '#7b1fa2',
+    color: 'var(--series-7)',
   },
 ];
 
 // --- AQI Color Mapping -------------------------------------------------
 
 function _aqiColor(aqi) {
-  if (aqi <= 50) return '#4caf50';       // Good (green)
-  if (aqi <= 100) return '#ffc107';      // Moderate (yellow)
-  if (aqi <= 150) return '#ff9800';      // Unhealthy for sensitive (orange)
-  return '#f44336';                       // Unhealthy (red)
+  if (aqi <= 50) return 'var(--status-good)';       // Good (green)
+  if (aqi <= 100) return 'var(--status-warning)';      // Moderate (yellow)
+  if (aqi <= 150) return 'var(--status-serious)';      // Unhealthy for sensitive (orange)
+  return 'var(--status-critical)';                       // Unhealthy (red)
 }
 
 // --- Render ------------------------------------------------------------
@@ -243,7 +244,7 @@ async function _renderCitiesChart(chartEl) {
   const labels = allCities.map(c => c.city);
   const values = allCities.map(c => c.aqi);
   const colors = allCities.map(c =>
-    CITY_AQI.cleanest.includes(c) ? '#4caf50' : '#f44336'
+    CITY_AQI.cleanest.includes(c) ? 'var(--status-good)' : 'var(--status-critical)'
   );
 
   _chartData = { allCities, labels, values };
@@ -354,7 +355,7 @@ async function _renderScatterChart(trendEl) {
           },
           ticks: {
             callback: function (val) {
-              if (val >= 1000) return (val / 1000).toFixed(0) + 'k';
+              if (val >= 1000) return fmtNumber((val / 1000), { decimals: 0 }) + 'k';
               return val;
             },
           },
@@ -407,7 +408,7 @@ function _renderTiles(tilesEl) {
       label: i18n.t('detail.airquality.tileDeaths'),
       value: '4.2M',
       unit: '/year',
-      accent: '#d32f2f',
+      accent: 'var(--status-critical)',
     },
   ];
 
@@ -415,7 +416,7 @@ function _renderTiles(tilesEl) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },
@@ -466,7 +467,7 @@ function _renderExplanation(explEl) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '10px',
         borderLeft: `4px solid ${p.color}`,
         display: 'flex',
@@ -488,7 +489,7 @@ function _renderExplanation(explEl) {
             color: p.color,
             fontSize: '0.8rem',
             fontWeight: '600',
-            background: `${p.color}22`,
+            background: `color-mix(in srgb, ${p.color} 13%, transparent)`,
             padding: '0.15rem 0.5rem',
             borderRadius: '4px',
           },

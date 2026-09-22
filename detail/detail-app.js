@@ -92,6 +92,11 @@ async function loadTopic(topicId) {
     // Render topic content into blocks
     await module.render(blocks);
 
+    // Blöcke ohne Inhalt ausblenden (keine leeren Karten)
+    document.querySelectorAll('.detail-block').forEach(el => {
+      if (!el.children.length && !el.textContent.trim()) el.hidden = true;
+    });
+
     // Remove skeleton loaders from all blocks
     document.querySelectorAll('.detail-block--skeleton').forEach(el => {
       el.classList.remove('detail-block--skeleton');

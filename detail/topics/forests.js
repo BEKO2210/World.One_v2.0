@@ -10,6 +10,7 @@ import { DOMUtils } from '../../js/utils/dom.js';
 import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -55,9 +56,9 @@ const FOREST_LOSS = [
 // --- Deforestation Causes (FAO Global Forest Resources Assessment) ------
 
 const DEFORESTATION_CAUSES = [
-  { cause: 'Agriculture expansion', pct: 73, color: '#e65100' },
+  { cause: 'Agriculture expansion', pct: 73, color: 'var(--status-serious)' },
   { cause: 'Logging (commercial)', pct: 10, color: '#795548' },
-  { cause: 'Wildfires', pct: 8, color: '#f44336' },
+  { cause: 'Wildfires', pct: 8, color: 'var(--status-critical)' },
   { cause: 'Urbanization', pct: 5, color: '#9e9e9e' },
   { cause: 'Infrastructure', pct: 4, color: '#607d8b' },
 ];
@@ -112,7 +113,7 @@ export async function render(blocks) {
 
 function _renderHero(heroEl, forestCover, tier, age) {
   const badge = createTierBadge(tier, { age });
-  const formatted = typeof forestCover === 'number' ? forestCover.toFixed(1) : String(forestCover);
+  const formatted = typeof forestCover === 'number' ? fmtNumber(forestCover, { decimals: 1 }) : String(forestCover);
 
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'forests-hero' }, [
@@ -224,7 +225,7 @@ async function _renderLossChart(chartEl) {
         tooltip: {
           callbacks: {
             title: (items) => items[0]?.label || '',
-            label: (item) => i18n.t('detail.forests.tooltipLoss', { value: item.parsed.y.toFixed(1) }),
+            label: (item) => i18n.t('detail.forests.tooltipLoss', { value: fmtNumber(item.parsed.y, { decimals: 1 }) }),
           },
         },
       },
@@ -273,7 +274,7 @@ function _renderTiles(tilesEl) {
       label: i18n.t('detail.forests.tileRate'),
       value: '-0.09%',
       unit: '/year',
-      accent: '#d32f2f',
+      accent: 'var(--status-critical)',
     },
   ];
 
@@ -281,7 +282,7 @@ function _renderTiles(tilesEl) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },
@@ -378,7 +379,7 @@ function _renderComparison(compEl) {
         style: {
           flex: '1',
           height: '20px',
-          background: 'rgba(255, 255, 255, 0.06)',
+          background: 'var(--surface-2)',
           borderRadius: '4px',
           overflow: 'hidden',
         },
