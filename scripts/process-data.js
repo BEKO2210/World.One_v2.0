@@ -1071,7 +1071,7 @@ function buildWorldState() {
     { name: 'Internet-Nutzer', then: 6.7, now: internetCurrent, improved: internetCurrent > 6.7 },
     { name: 'Alphabetisierung', then: 81, now: literacyCurrent, improved: literacyCurrent > 81 },
     { name: 'CO2-Konzentration', then: 369, now: co2Current, improved: co2Current < 369 },
-    { name: 'Erneuerbare Energie', then: 17, now: renewableCurrent, improved: renewableCurrent > 17 },
+    { name: 'Erneuerbare Energie', then: 18.7, now: renewableCurrent, improved: renewableCurrent > 18.7 },
     { name: 'Mobilfunkverträge', then: 12, now: mobileCurrent, improved: mobileCurrent > 12 }
   ];
 
@@ -1236,8 +1236,8 @@ function buildWorldState() {
           { name: 'Alphabetisierung', value: `${literacyCurrent}%`, score: Math.round(progLiteracyScore), trend: 'improving', ...freshness(literacyData?.fetched, 'World Bank / UNESCO') },
           { name: 'F&E Ausgaben (% BIP)', value: `${rdCurrent}%`, score: Math.round(progRDScore), trend: 'improving', ...freshness(rdData?.fetched, 'World Bank') },
           { name: 'Mobilfunkverträge', value: `${mobileCurrent}/100`, score: Math.round(progMobileScore), trend: 'improving', ...freshness(mobileFetchedAt, mobileSource) },
-          { name: 'GitHub Repositories', value: githubData?.totalPublicRepos ? `${Math.round(githubData.totalPublicRepos / 1000)}K+` : '300K+', score: 80, trend: 'improving', ...freshness(githubData?.fetched, 'GitHub') },
-          { name: 'Wissenschaftliche Papers', value: arxivTotalPapers ? `${(arxivTotalPapers / 1e6).toFixed(1)}M total` : (arxivData?.papers?.length ? `${arxivData.papers.length}+ heute` : '3.2M/Jahr'), score: 75, trend: 'improving', ...freshness(scienceFetchedAt || arxivData?.fetched, scienceSource) }
+          { name: 'GitHub Repositories', value: githubData?.totalPublicRepos ? `${githubData.totalPublicRepos} Repos >50k★` : null, score: 80, trend: 'improving', ...freshness(githubData?.fetched, 'GitHub') },
+          { name: 'Wissenschaftliche Papers', value: arxivTotalPapers ? `${Math.round(arxivTotalPapers / 1000)}K total` : (arxivData?.papers?.length ? `${arxivData.papers.length}+ heute` : null), score: 75, trend: 'improving', ...freshness(scienceFetchedAt || arxivData?.fetched, scienceSource) }
         ]
       },
       momentum: {
@@ -1279,7 +1279,7 @@ function buildWorldState() {
         current: 4.2, unit: 'million km²', reference1980: 7.8, percentLost: 46.2, source: 'NSIDC'
       },
       forest: { current: forestCurrent || 31.2, history: forestHistory, source: 'World Bank' },
-      renewableEnergy: { current: renewableCurrent, history: renewableHistory, source: 'World Bank / IRENA' },
+      renewableEnergy: { current: renewableCurrent, history: renewableHistory, source: renewableSource },
       co2PerCapita: { current: latest(co2EmissionsData?.history || [])?.value, history: co2EmissionsData?.history || [], source: 'World Bank' },
       biodiversity: biodiversityCache?.data?.threatened_counts ? {
         threatenedTotal: biodiversityCache.data.threatened_counts.total,
@@ -1454,6 +1454,52 @@ function buildWorldState() {
 
     dataSources: sourcesList
   };
+
+  // ─── Datenalter pro Indikator (additiv) ───
+  // dataAsOf = Zeitpunkt der Messung (Jahr bzw. ISO-Datum), retrievedAt =
+  // Abruf, cadence = Veröffentlichungstakt der Quelle, tier = live (in
+  // diesem Lauf abgerufen) | fallback (alter Stand) | static (Baseline).
+  const yearOf = (h) => latest(h)?.year ?? null;
+  const INDICATOR_META = {
+    'Globale Temperaturanomalie':    { cadence: 'annual',   dataAsOf: yearOf(tempHistory) },
+    'CO2-Konzentration':             { cadence: 'monthly',  dataAsOf: (() => { const m = latest(co2Data?.monthly); return m ? `${m.year}-${String(m.month).padStart(2, '0')}` : yearOf(co2History); })() },
+    'Waldfläche':                    { cadence: 'annual',   dataAsOf: yearOf(forestHistory) },
+    'Erneuerbare Energie':           { cadence: 'annual',   dataAsOf: yearOf(renewableHistory) },
+    'Luftqualität (Global Avg AQI)': { cadence: 'realtime', dataAsOf: airFetchedAt },
+    'Arktis-Eisfläche':              { cadence: 'daily',    dataAsOf: null, tier: 'static' },
+    'Aktive Naturkatastrophen':      { cadence: 'realtime', dataAsOf: disasterFetchedAt },
+    'Lebenserwartung':               { cadence: 'annual',   dataAsOf: yearOf(lifeExpHistory) },
+    'Kindersterblichkeit':           { cadence: 'annual',   dataAsOf: yearOf(childMortHistory) },
+    'Aktive Konflikte':              { cadence: 'monthly',  dataAsOf: conflicts.isFallback ? null : conflictsCacheFresh?.fetchedAt, tier: conflicts.isFallback ? 'static' : undefined },
+    'Elektrizitätszugang':           { cadence: 'annual',   dataAsOf: yearOf(electricityData?.history) },
+    'Trinkwasserzugang':             { cadence: 'annual',   dataAsOf: yearOf(waterData?.history) },
+    'Menschen auf der Flucht':       { cadence: 'annual',   dataAsOf: refugees.dataYear ?? null, tier: refugees.isFallback ? 'fallback' : 'live' },
+    'Politische Freiheit':           { cadence: 'annual',   dataAsOf: yearOf(freedom.trend), tier: 'static' },
+    'BIP-Wachstum':                  { cadence: 'annual',   dataAsOf: yearOf(gdpData?.history) },
+    'Gini-Index':                    { cadence: 'annual',   dataAsOf: yearOf(giniHistory), tier: giniHistory.length ? undefined : 'static' },
+    'Inflation':                     { cadence: 'annual',   dataAsOf: yearOf(inflationData?.history) },
+    'Arbeitslosigkeit':              { cadence: 'annual',   dataAsOf: yearOf(unemploymentData?.history) },
+    'Extreme Armut':                 { cadence: 'annual',   dataAsOf: null, tier: 'static' },
+    'Fed Funds Rate':                { cadence: 'monthly',  dataAsOf: fredCache?.data?.series?.FEDFUNDS?.latest?.date || null },
+    '10Y-2Y Yield Spread':           { cadence: 'daily',    dataAsOf: fredCache?.data?.series?.T10Y2Y?.latest?.date || null },
+    'Internet-Durchdringung':        { cadence: 'annual',   dataAsOf: yearOf(internetHistory) },
+    'Alphabetisierung':              { cadence: 'annual',   dataAsOf: yearOf(literacyData?.history) },
+    'F&E Ausgaben (% BIP)':          { cadence: 'annual',   dataAsOf: yearOf(rdData?.history) },
+    'Mobilfunkverträge':             { cadence: 'annual',   dataAsOf: internetCache?.data?.mobile_per_100?.year ?? yearOf(mobileData?.history) },
+    'GitHub Repositories':           { cadence: 'daily',    dataAsOf: githubData?.fetched || null },
+    'Wissenschaftliche Papers':      { cadence: 'daily',    dataAsOf: scienceFetchedAt || arxivData?.fetched || null },
+  };
+  for (const cat of ['environment', 'society', 'economy', 'progress']) {
+    for (const ind of worldState.subScores[cat].indicators) {
+      const m = INDICATOR_META[ind.name] || {};
+      const retrievedAt = ind.fetchedAt || null;
+      const fresh = retrievedAt && (Date.now() - Date.parse(retrievedAt)) < 36 * 36e5;
+      ind.cadence = m.cadence || null;
+      ind.dataAsOf = m.dataAsOf ?? null;
+      ind.retrievedAt = retrievedAt;
+      ind.tier = m.tier || (fresh ? 'live' : retrievedAt ? 'fallback' : 'static');
+    }
+  }
 
   writeFileSync(OUTPUT, JSON.stringify(worldState, null, 2));
   console.log(`\n✓ Written to ${OUTPUT}`);
