@@ -243,6 +243,7 @@ const translations = {
     // ─── Epilog ───
     'epilog.message': 'Die Daten aktualisieren sich alle 6 Stunden.<br>Komm zurück — und sieh ob sich etwas verändert hat.',
     'epilog.backToTop': 'Zurück nach oben',
+    'epilog.indexLabel': 'World Index heute · 0–100',
     'epilog.easterEgg': 'Du interessierst dich.<br>Das ist der erste Schritt.',
 
     // ─── Footer ───
@@ -1448,6 +1449,7 @@ const translations = {
     // ─── Epilog ───
     'epilog.message': 'The data updates every 6 hours.<br>Come back — and see if something has changed.',
     'epilog.backToTop': 'Back to top',
+    'epilog.indexLabel': 'World Index today · 0–100',
     'epilog.easterEgg': 'You care.<br>That\'s the first step.',
 
     // ─── Footer ───
