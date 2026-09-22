@@ -4,6 +4,7 @@
 
 import { DOMUtils } from './dom.js';
 import { i18n } from '../i18n.js';
+import { formatAsOf } from './as-of.js';
 
 /**
  * Creates a badge DOM element indicating which data tier served a result.
@@ -14,12 +15,17 @@ import { i18n } from '../i18n.js';
  * @param {number|string|null} [options.year=null] - Reference year (static tier).
  * @param {string|null} [options.source=null] - Human-readable data source
  *   (appears in the hover tooltip: "Quelle: X · aktualisiert vor Yh").
+ * @param {number|string|null} [options.dataAsOf=null] - Messzeitpunkt
+ *   (Jahr, "YYYY-MM" oder ISO-Datum); mit cadence annual/monthly/daily
+ *   ersetzt er das Tier-Label („Jahreswert 2024“, „Monatswert Aug. 2026“).
+ * @param {string|null} [options.cadence=null] - realtime|daily|monthly|annual
  * @param {boolean} [options.estimate=false] - Value is a baseline/estimate,
  *   not a measurement: renders "Schätzung" with static styling.
  * @returns {HTMLSpanElement} The badge element.
  */
 export function createTierBadge(tier, options = {}) {
-  const { age = null, year = null, source = null, estimate = false } = options;
+  const { age = null, year = null, source = null, estimate = false, dataAsOf = null, cadence = null } = options;
+  const asOfLabel = estimate ? null : formatAsOf(dataAsOf, cadence);
 
   const STALE_THRESHOLD = 86400000; // 24 hours in ms
   const isStale = tier === 'cache' && age !== null && age > STALE_THRESHOLD;
@@ -32,12 +38,15 @@ export function createTierBadge(tier, options = {}) {
     cache: isStale ? 'data-badge--stale' : 'data-badge--cache',
     static: 'data-badge--static',
   };
-  const variant = variantMap[normalizedTier];
+  // Jahres-/Monatswerte sind nie „live“: neutrale Darstellung
+  const variant = asOfLabel && normalizedTier !== 'static' ? 'data-badge--cache' : variantMap[normalizedTier];
 
   // ─── Label text via i18n ───
   // Statisch mit Jahr = Jahreswert einer Messung, Schätzung = Baseline.
   const label = estimate
     ? i18n.t('badge.estimate')
+    : asOfLabel
+      ? asOfLabel
     : normalizedTier === 'static' && year != null
       ? i18n.t('badge.annual', { year })
       : i18n.t(`badge.${normalizedTier}`);
@@ -46,7 +55,7 @@ export function createTierBadge(tier, options = {}) {
   const children = [];
 
   // Live tier gets a pulsing dot
-  if (normalizedTier === 'live') {
+  if (normalizedTier === 'live' && !asOfLabel) {
     children.push(DOMUtils.create('span', { className: 'data-badge__dot' }));
   }
 
@@ -58,7 +67,7 @@ export function createTierBadge(tier, options = {}) {
   // wurde" — user-requested. Für cache-Tier und live-mit-Alter wird
   // die Aktualisierungs-Zeit als kleiner span direkt im Badge angezeigt
   // (vorher nur im title-tooltip).
-  if (normalizedTier === 'cache' && age !== null && Number.isFinite(age)) {
+  if (normalizedTier === 'cache' && !asOfLabel && age !== null && Number.isFinite(age)) {
     const hours = age / 3600000;
     const mins = Math.round(age / 60000);
     const ageLabel = mins < 2

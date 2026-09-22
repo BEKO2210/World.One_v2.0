@@ -382,6 +382,9 @@ const translations = {
     'badge.staticNote': 'Statischer Fallback',
     'badge.annual': 'Jahreswert {year}',
     'badge.annualNote': 'Jährlich veröffentlichter Wert',
+    'badge.monthly': 'Monatswert {date}',
+    'badge.daily': 'Tageswert {date}',
+    'badge.asOf': 'Stand',
     'badge.estimate': 'Schätzung',
     'badge.estimateNote': 'Richtwert, keine aktuelle Messung',
     // ─── A11y ───
@@ -1588,6 +1591,9 @@ const translations = {
     'badge.staticNote': 'Static fallback',
     'badge.annual': 'Annual value {year}',
     'badge.annualNote': 'Value published once a year',
+    'badge.monthly': 'Monthly value {date}',
+    'badge.daily': 'Daily value {date}',
+    'badge.asOf': 'As of',
     'badge.estimate': 'Estimate',
     'badge.estimateNote': 'Reference value, not a current measurement',
     // ─── A11y ───
