@@ -8,7 +8,7 @@
 import { i18n } from '../../js/i18n.js';
 import { DOMUtils } from '../../js/utils/dom.js';
 import { MathUtils } from '../../js/utils/math.js';
-import { fetchTopicData, fetchWithTimeout } from '../../js/utils/data-loader.js';
+import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 
@@ -126,42 +126,21 @@ function _aqiColor(aqi) {
 // --- Render ------------------------------------------------------------
 
 export async function render(blocks) {
-  // 1. Data fetch: Try live AQI from Open-Meteo, fallback to cache/static
+  // 1. Daten: Mittel der Städte aus airquality.json (US-AQI, Pipeline).
+  // Früher: Berlin live (EU-Skala) als „globaler“ Wert, mit US-Farbschwellen.
   let currentAqi = null;
-  let tier = 'stale';
+  let tier = 'static';
   let age = null;
-
   try {
-    const liveRes = await fetchWithTimeout(
-      'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=52.52&longitude=13.41&current=european_aqi',
-      5000
-    );
-    if (liveRes.ok) {
-      const liveJson = await liveRes.json();
-      if (liveJson.current && liveJson.current.european_aqi != null) {
-        currentAqi = Math.round(liveJson.current.european_aqi);
-        tier = 'live';
-        age = 0;
-      }
+    const cached = await fetchTopicData('airquality');
+    const point = cached.data?.global_aqi;
+    if (point?.value != null && point.unit === 'US AQI') {
+      currentAqi = Math.round(point.value);
+      tier = cached.tier;
+      age = cached.age;
     }
   } catch (_err) {
-    // Non-blocking: fall through to cache/static
-  }
-
-  // Fallback to cached topic data
-  if (currentAqi === null) {
-    try {
-      const cached = await fetchTopicData('airquality');
-      // Supports nested fallback ({ global_aqi: { value } }) and flat legacy shape.
-      const point = cached.data?.global_aqi ?? cached.data;
-      if (point && point.value != null) {
-        currentAqi = Math.round(point.value);
-      }
-      tier = cached.tier || 'stale';
-      age = cached.age;
-    } catch (_err) {
-      // Ignore
-    }
+    // Ignore
   }
 
   // Final static fallback

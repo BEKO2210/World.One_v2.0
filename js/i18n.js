@@ -560,7 +560,7 @@ const translations = {
 
     // ─── Detail: Air Quality (Phase 5) ───
     'detail.airquality.title': 'Luftqualität',
-    'detail.airquality.heroLabel': 'Globaler Luftqualitätsindex',
+    'detail.airquality.heroLabel': 'Mittel aus 20 Großstädten (US-AQI)',
     'detail.airquality.heroUnit': 'AQI',
     'detail.airquality.citiesTitle': 'Städtevergleich',
     'detail.airquality.scatterTitle': 'AQI vs. BIP pro Kopf',
@@ -1786,7 +1786,7 @@ const translations = {
 
     // ─── Detail: Air Quality (Phase 5) ───
     'detail.airquality.title': 'Air Quality',
-    'detail.airquality.heroLabel': 'Global Air Quality Index',
+    'detail.airquality.heroLabel': 'Average of 20 major cities (US AQI)',
     'detail.airquality.heroUnit': 'AQI',
     'detail.airquality.citiesTitle': 'City Comparison',
     'detail.airquality.scatterTitle': 'AQI vs. GDP per Capita',

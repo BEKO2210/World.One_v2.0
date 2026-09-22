@@ -163,14 +163,16 @@ async function cacheAirQuality() {
   const errors = [];
   for (const city of CITIES) {
     try {
-      const url = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${city.lat}&longitude=${city.lon}&current=pm10,pm2_5,european_aqi`;
+      const url = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${city.lat}&longitude=${city.lon}&current=pm10,pm2_5,us_aqi,european_aqi`;
       const r = await fetchJSON(url, { retries: 1, timeout: 12000 });
       const c = r?.current;
-      if (c && Number.isFinite(c.european_aqi)) {
+      // US-AQI als einheitliche Skala (wie WAQI); EU-Wert nur zusätzlich
+      if (c && Number.isFinite(c.us_aqi)) {
         cityResults.push({
           name: city.name,
           country: city.country,
-          aqi: Math.round(c.european_aqi),
+          aqi: Math.round(c.us_aqi),
+          european_aqi: Number.isFinite(c.european_aqi) ? Math.round(c.european_aqi) : null,
           pm25: c.pm2_5 ?? null,
           pm10: c.pm10 ?? null
         });
@@ -188,7 +190,7 @@ async function cacheAirQuality() {
   const payload = {
     global_aqi: {
       value: avg,
-      unit: 'European AQI',
+      unit: 'US AQI',
       year: CURRENT_YEAR,
       source: `Open-Meteo (${cityResults.length} cities avg)`
     },
