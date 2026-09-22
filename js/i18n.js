@@ -803,7 +803,7 @@ const translations = {
 
     // ─── Phase 8: Momentum Detail ───
     'detail.momentum_detail.title': 'Welt-Momentum',
-    'detail.momentum_detail.heroLabel': 'Positive Indikatoren',
+    'detail.momentum_detail.heroLabel': 'der {n} Zeitreihen verbessern sich (3-Jahres-Mittel)',
     'detail.momentum_detail.heroUnit': 'von 24',
     'detail.momentum_detail.cardImproving': 'Verbessert',
     'detail.momentum_detail.cardDeclining': 'Verschlechtert',
@@ -812,6 +812,9 @@ const translations = {
     'detail.momentum_detail.categorySoc': 'Gesellschaft',
     'detail.momentum_detail.categoryEcon': 'Wirtschaft',
     'detail.momentum_detail.categoryProg': 'Fortschritt',
+    'detail.momentum_detail.trend_improving': 'verbessert',
+    'detail.momentum_detail.trend_declining': 'verschlechtert',
+    'detail.momentum_detail.trend_stable': 'stabil',
     'detail.momentum_detail.explanation': 'Das Welt-Momentum zeigt, wie viele globale Schlüsselindikatoren sich verbessern, verschlechtern oder stabil bleiben. Es basiert auf Trendanalysen der letzten 5-10 Jahre über 20 Schlüsselindikatoren in 4 Kategorien.',
     'detail.momentum_detail.comparison': 'Aktuell verbessern sich mehr Indikatoren als sich verschlechtern -- aber der Fortschritt ist ungleich verteilt zwischen Umwelt (schwach) und Technologie (stark).',
     'detail.momentum_detail.sourceWorldOne': 'World.One Indicator Engine',
@@ -2025,7 +2028,7 @@ const translations = {
 
     // ─── Phase 8: Momentum Detail ───
     'detail.momentum_detail.title': 'World Momentum',
-    'detail.momentum_detail.heroLabel': 'Positive Indicators',
+    'detail.momentum_detail.heroLabel': 'of {n} time series are improving (3-year average)',
     'detail.momentum_detail.heroUnit': 'of 24',
     'detail.momentum_detail.cardImproving': 'Improving',
     'detail.momentum_detail.cardDeclining': 'Declining',
@@ -2034,6 +2037,9 @@ const translations = {
     'detail.momentum_detail.categorySoc': 'Society',
     'detail.momentum_detail.categoryEcon': 'Economy',
     'detail.momentum_detail.categoryProg': 'Progress',
+    'detail.momentum_detail.trend_improving': 'improving',
+    'detail.momentum_detail.trend_declining': 'worsening',
+    'detail.momentum_detail.trend_stable': 'stable',
     'detail.momentum_detail.explanation': 'World Momentum shows how many key global indicators are improving, declining, or remaining stable. It is based on trend analyses over the last 5-10 years across 20 key indicators in 4 categories.',
     'detail.momentum_detail.comparison': 'Currently more indicators are improving than declining -- but progress is unevenly distributed between environment (weak) and technology (strong).',
     'detail.momentum_detail.sourceWorldOne': 'World.One Indicator Engine',
