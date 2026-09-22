@@ -8,6 +8,43 @@ import { readFileSync, writeFileSync, existsSync, copyFileSync, readdirSync, unl
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
+// ─── History-Aufbewahrung ───
+// Vorher wuchs data/history um ~180 MB/Jahr (4 volle Snapshots pro Tag).
+// Jetzt: letzte 2 Tage alle, bis 90 Tage einer pro Tag, danach einer pro
+// Woche (jeweils der jüngste). Manifest und Dateien werden gleich gehalten.
+function pruneHistory(dir, now = new Date()) {
+  const DAY = 864e5;
+  const files = readdirSync(dir).filter(f => /^snapshot-\d{8}-\d{4}\.json$/.test(f));
+  const parsed = files.map(f => {
+    const [, d, hm] = f.match(/(\d{8})-(\d{4})/);
+    const t = Date.UTC(+d.slice(0, 4), +d.slice(4, 6) - 1, +d.slice(6, 8), +hm.slice(0, 2), +hm.slice(2));
+    return { f, id: `${d}-${hm}`, t };
+  }).sort((a, b) => b.t - a.t); // neueste zuerst
+
+  const keep = new Set();
+  const seenBucket = new Set();
+  for (const s of parsed) {
+    const age = now.getTime() - s.t;
+    let bucket;
+    if (age <= 2 * DAY) bucket = `all-${s.id}`;
+    else if (age <= 90 * DAY) bucket = `day-${new Date(s.t).toISOString().slice(0, 10)}`;
+    else bucket = `week-${Math.floor(s.t / (7 * DAY))}`;
+    if (!seenBucket.has(bucket)) { seenBucket.add(bucket); keep.add(s.id); }
+  }
+
+  let removed = 0;
+  for (const s of parsed) {
+    if (!keep.has(s.id)) { unlinkSync(join(dir, s.f)); removed++; }
+  }
+  const manifestPath = join(dir, 'manifest.json');
+  try {
+    const manifest = JSON.parse(readFileSync(manifestPath, 'utf-8'));
+    manifest.snapshots = (manifest.snapshots || []).filter(e => keep.has(e.id));
+    writeFileSync(manifestPath, JSON.stringify(manifest));
+  } catch { /* kein Manifest */ }
+  if (removed) console.log(`[HEAL] 🗂  History: ${removed} ältere Snapshots entfernt, ${keep.size} behalten`);
+}
+
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROCESSED_DIR = join(__dirname, '..', 'data', 'processed');
 const DATA_PATH = join(PROCESSED_DIR, 'world-state.json');
@@ -269,7 +306,8 @@ function main() {
   const snapTag = now.toISOString().slice(0, 16).replace(/[-:T]/g, '').replace(/(\d{8})(\d{4})/, '$1-$2');
   const snapPath = join(HISTORY_DIR, `snapshot-${snapTag}.json`);
   if (!existsSync(snapPath)) {
-    copyFileSync(DATA_PATH, snapPath);
+    // minifiziert (ohne Einrückung) — spart rund ein Drittel
+    writeFileSync(snapPath, JSON.stringify(data));
     console.log(`[HEAL] 📸 Archived snapshot: snapshot-${snapTag}.json`);
 
     // Update manifest (keep max 50,000 entries ≈ 34 years at 4/day)
@@ -288,6 +326,7 @@ function main() {
     }
     writeFileSync(manifestPath, JSON.stringify(manifest));
   }
+  pruneHistory(HISTORY_DIR, now);
 
   // 8. Save repaired data
   if (fixes.length > 0) {
