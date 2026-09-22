@@ -462,7 +462,7 @@ export function getChartConfigs() {
   return [
     {
       canvasId: 'fg-history-chart',
-      blockId: 'chart',
+      blockId: 'detail-chart',
       config: {
         type: 'bar',
         data: {
