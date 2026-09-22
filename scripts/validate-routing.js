@@ -55,7 +55,8 @@ pass(`${topicFiles.length} topic modules on disk`);
 
 // Disk vs allowlist diff
 const missingFiles = allowlist.filter(t => !topicFiles.includes(t));
-const orphanFiles = topicFiles.filter(t => !allowlist.includes(t));
+// _stub.js ist eine Vorlage für neue Topics und bewusst nicht routbar
+const orphanFiles = topicFiles.filter(t => !allowlist.includes(t) && t !== '_stub');
 missingFiles.forEach(t => fail(`Allowlist references missing file: ${t}.js`));
 orphanFiles.forEach(t => fail(`Topic file not in allowlist: ${t}.js`));
 if (missingFiles.length === 0 && orphanFiles.length === 0) {

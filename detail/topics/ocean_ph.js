@@ -400,7 +400,7 @@ function _renderImpactCards(tilesEl) {
     })
   );
 
-  const lang = i18n.currentLang === 'de' ? 'de' : 'en';
+  const lang = i18n.lang === 'de' ? 'de' : 'en';
 
   const grid = DOMUtils.create('div', {
     style: {

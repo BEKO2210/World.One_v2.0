@@ -6,6 +6,13 @@ const translations = {
   de: {
     // ─── Loading Screen ───
     'loading.sub': 'Lade Weltdaten …',
+    'region.EAS': 'Ostasien & Pazifik',
+    'region.ECS': 'Europa & Zentralasien',
+    'region.LCN': 'Lateinamerika & Karibik',
+    'region.MEA': 'Nahost & Nordafrika',
+    'region.SAS': 'Südasien',
+    'region.SSF': 'Subsahara-Afrika',
+    'region.NAC': 'Nordamerika',
 
     // ─── Navigation ───
     'nav.aria': 'Sektions-Navigation',
@@ -207,7 +214,10 @@ const translations = {
     // ─── Act 9 — Scenarios ───
     'act9.label': 'AKT 11 — SZENARIEN',
     'act9.title': 'Drei Zukünfte',
-    'act9.desc': 'Projektionen bis 2050 — basierend auf aktuellen Trends und wissenschaftlichen Modellen.',
+    'act9.desc': 'Illustrative Szenarien bis 2050 — keine Prognose. Sie zeigen, wie sich der World Index unter drei Annahmen entwickeln könnte.',
+    'act9.bauItems': 'Erwärmung um +2,1 °C bis 2050|Extreme Armut: rund 420 Mio. Menschen|Internet-Nutzung bei 82 %|Artenvielfalt: −50 % bis 2050',
+    'act9.worstItems': 'Erwärmung um +3,5 °C bis 2050|Extreme Armut: rund 900 Mio. Menschen|Migration: rund 500 Mio. Menschen|Ökosystem-Kollaps in Schlüsselregionen',
+    'act9.bestItems': 'Erwärmung stabilisiert bei +1,8 °C|Extreme Armut bis 2040 beseitigt|100 % erneuerbare Energie bis 2050|Bildungszugang für alle bis 2035',
     'act9.pathA': 'PFAD A',
     'act9.bauTitle': 'Weiter so',
     'act9.bauSub': 'Business as Usual',
@@ -456,6 +466,25 @@ const translations = {
     // ─── Detail: Temperature (~20 keys) ───
     'detail.temperature.title': 'Globale Temperatur',
     'detail.temperature.heroLabel': 'Temperaturanomalie',
+    'detail.temperature.tp_coral_name': 'Absterben der Korallenriffe',
+    'detail.temperature.tp_coral_detail': 'Tropische Korallenriffe erleiden ab 1,0 °C Massenbleichen',
+    'detail.temperature.tp_wais_name': 'Westantarktischer Eisschild',
+    'detail.temperature.tp_wais_detail': 'Oberhalb von 1,5 °C kann ein unumkehrbarer Zerfall beginnen',
+    'detail.temperature.tp_greenland_name': 'Grönländischer Eisschild',
+    'detail.temperature.tp_greenland_detail': 'Anhaltende Erwärmung über 1,5 °C löst langfristiges Abschmelzen aus',
+    'detail.temperature.tp_boreal_name': 'Absterben borealer Wälder',
+    'detail.temperature.tp_boreal_detail': 'Nördliche Wälder werden von der CO₂-Senke zur Quelle',
+    'detail.temperature.tp_amazon_name': 'Absterben des Amazonas-Regenwalds',
+    'detail.temperature.tp_amazon_detail': 'Erwärmung und Abholzung zusammen drohen ihn kollabieren zu lassen',
+    'detail.temperature.tp_permafrost_name': 'Kollaps des Permafrosts',
+    'detail.temperature.tp_permafrost_detail': 'Auftauen setzt gebundenes Methan und CO₂ frei',
+    'detail.temperature.tp_amoc_name': 'Atlantische Umwälzströmung (AMOC)',
+    'detail.temperature.tp_amoc_detail': 'Eine Abschwächung stört das Klima Europas und die Monsune',
+    'detail.temperature.tp_eais_name': 'Ostantarktischer Eisschild',
+    'detail.temperature.tp_eais_detail': 'Größte Eismasse, möglicher Meeresspiegelanstieg von über 50 m',
+    'detail.temperature.tp_arcticwinter_name': 'Arktisches Wintermeereis',
+    'detail.temperature.tp_arcticwinter_detail': 'Vollständiger Verlust der winterlichen Eisdecke',
+    'detail.temperature.since1900': 'seit 1900',
     'detail.temperature.heroUnit': '\u00b0C über Durchschnitt',
     'detail.temperature.stripesTitle': 'Warming Stripes (1880 bis heute)',
     'detail.temperature.choroplethTitle': 'Regionale Erwärmung',
@@ -1232,6 +1261,13 @@ const translations = {
   en: {
     // ─── Loading Screen ───
     'loading.sub': 'Loading world data …',
+    'region.EAS': 'East Asia & Pacific',
+    'region.ECS': 'Europe & Central Asia',
+    'region.LCN': 'Latin America & Caribbean',
+    'region.MEA': 'Middle East & North Africa',
+    'region.SAS': 'South Asia',
+    'region.SSF': 'Sub-Saharan Africa',
+    'region.NAC': 'North America',
 
     // ─── Navigation ───
     'nav.aria': 'Section Navigation',
@@ -1433,7 +1469,10 @@ const translations = {
     // ─── Act 9 — Scenarios ───
     'act9.label': 'ACT 11 — SCENARIOS',
     'act9.title': 'Three Futures',
-    'act9.desc': 'Projections to 2050 — based on current trends and scientific models.',
+    'act9.desc': 'Illustrative scenarios to 2050 — not a forecast. They show how the World Index could develop under three assumptions.',
+    'act9.bauItems': 'Warming of +2.1 °C by 2050|Extreme poverty: about 420 M people|Internet use at 82 %|Biodiversity: −50 % by 2050',
+    'act9.worstItems': 'Warming of +3.5 °C by 2050|Extreme poverty: about 900 M people|Migration: about 500 M people|Ecosystem collapse in key regions',
+    'act9.bestItems': 'Warming stabilised at +1.8 °C|Extreme poverty eliminated by 2040|100 % renewable energy by 2050|Universal access to education by 2035',
     'act9.pathA': 'PATH A',
     'act9.bauTitle': 'Business as Usual',
     'act9.bauSub': 'Current trajectory',
@@ -1682,6 +1721,25 @@ const translations = {
     // ─── Detail: Temperature (~20 keys) ───
     'detail.temperature.title': 'Global Temperature',
     'detail.temperature.heroLabel': 'Temperature Anomaly',
+    'detail.temperature.tp_coral_name': 'Coral Reef Die-Off',
+    'detail.temperature.tp_coral_detail': 'Tropical coral reefs face mass bleaching at >1.0°C',
+    'detail.temperature.tp_wais_name': 'West Antarctic Ice Sheet',
+    'detail.temperature.tp_wais_detail': 'Irreversible collapse may begin above 1.5°C',
+    'detail.temperature.tp_greenland_name': 'Greenland Ice Sheet',
+    'detail.temperature.tp_greenland_detail': 'Sustained warming above 1.5°C triggers long-term melt',
+    'detail.temperature.tp_boreal_name': 'Boreal Forest Dieback',
+    'detail.temperature.tp_boreal_detail': 'Northern forests shift from carbon sink to source',
+    'detail.temperature.tp_amazon_name': 'Amazon Rainforest Dieback',
+    'detail.temperature.tp_amazon_detail': 'Combination of warming and deforestation threatens collapse',
+    'detail.temperature.tp_permafrost_name': 'Permafrost Collapse',
+    'detail.temperature.tp_permafrost_detail': 'Thawing releases trapped methane and CO2',
+    'detail.temperature.tp_amoc_name': 'Atlantic Circulation (AMOC)',
+    'detail.temperature.tp_amoc_detail': 'Slowdown disrupts European climate and monsoons',
+    'detail.temperature.tp_eais_name': 'East Antarctic Ice Sheet',
+    'detail.temperature.tp_eais_detail': 'Largest ice mass, potential 50m+ sea level rise',
+    'detail.temperature.tp_arcticwinter_name': 'Arctic Winter Sea Ice',
+    'detail.temperature.tp_arcticwinter_detail': 'Complete loss of winter ice cover',
+    'detail.temperature.since1900': 'since 1900',
     'detail.temperature.heroUnit': '\u00b0C above average',
     'detail.temperature.stripesTitle': 'Warming Stripes (1880 to present)',
     'detail.temperature.choroplethTitle': 'Regional Warming',
@@ -2196,8 +2254,8 @@ const translations = {
     'detail.ocean_temp.choroplethTitle': 'Regional SST Anomalies',
 
     // ─── New i18n keys: Ocean Plastic ───
-    'detail.ocean_plastic.unitMt': 'Mio t',
-    'detail.ocean_plastic.annualInput': '+{amount} Mio t / year (UNEP 2023)',
+    'detail.ocean_plastic.unitMt': 'Mt',
+    'detail.ocean_plastic.annualInput': '+{amount} Mt / year (UNEP 2023)',
     'detail.ocean_plastic.today': 'today',
     'detail.ocean_plastic.dailyDesc': '{amount} kg of plastic enter the ocean every day.',
     'detail.ocean_plastic.mapUnavailable': 'Map unavailable',
@@ -2456,6 +2514,47 @@ const translations = {
   }
 };
 
+// Englische Namen der Pipeline-Indikatoren (Pipeline liefert deutsche Namen)
+const INDICATOR_NAMES_EN = {
+  "Lebenserwartung": "Life expectancy",
+  "Kindersterblichkeit": "Child mortality",
+  "CO2-Konzentration": "CO₂ concentration",
+  "Erneuerbare Energie": "Renewable energy",
+  "Waldfläche": "Forest area",
+  "Internet-Zugang": "Internet access",
+  "BIP-Wachstum": "GDP growth",
+  "Inflation": "Inflation",
+  "Arbeitslosigkeit": "Unemployment",
+  "BIP pro Kopf": "GDP per capita",
+  "Globaler Handel": "Global trade",
+  "Alphabetisierung": "Literacy",
+  "Mobilfunk": "Mobile subscriptions",
+  "F&E Ausgaben": "R&D spending",
+  "Elektrizitätszugang": "Access to electricity",
+  "Trinkwasser": "Drinking water",
+  "CO2 pro Kopf": "CO₂ per capita",
+  "Gesundheitsausgaben": "Health spending",
+  "Urbanisierung": "Urbanisation",
+  "Patentanmeldungen": "Patent applications",
+  "Militärausgaben (% BIP)": "Military spending (% GDP)",
+  "Globale Temperaturanomalie": "Global temperature anomaly",
+  "Luftqualität (Global Avg AQI)": "Air quality (avg AQI)",
+  "Arktis-Eisfläche": "Arctic sea ice",
+  "Aktive Naturkatastrophen": "Active natural disasters",
+  "Aktive Konflikte": "Active conflicts",
+  "Trinkwasserzugang": "Access to drinking water",
+  "Menschen auf der Flucht": "Forcibly displaced people",
+  "Politische Freiheit": "Political freedom",
+  "Gini-Index": "Gini index",
+  "Extreme Armut": "Extreme poverty",
+  "Internet-Durchdringung": "Internet penetration",
+  "F&E Ausgaben (% BIP)": "R&D spending (% GDP)",
+  "Mobilfunkverträge": "Mobile subscriptions",
+  "GitHub Repositories": "GitHub repositories",
+  "Wissenschaftliche Papers": "Scientific papers",
+  "Internet-Nutzer": "Internet users"
+};
+
 class I18n {
   constructor() {
     this._lang = localStorage.getItem('world-one-lang') || 'de';
@@ -2482,6 +2581,26 @@ class I18n {
   }
 
   get lang() { return this._lang; }
+
+  /** Anzeigename eines Pipeline-Indikators in der aktuellen Sprache */
+  indicatorName(name) {
+    return (this._lang === 'en' && INDICATOR_NAMES_EN[name]) || name;
+  }
+
+  /** Wert-Text eines Pipeline-Indikators („73.48 Jahre“) für EN übersetzen */
+  indicatorValue(text) {
+    if (this._lang !== 'en') return text;
+    return text
+      .replace(/\bMio km²/g, 'M km²')
+      .replace(/\bMio t\b/g, 'Mt')
+      .replace(/\bJahre\b/g, 'years')
+      .replace(/\bMio\b/g, 'M')
+      .replace(/\blaufend\b/g, 'ongoing')
+      .replace(/\bPkt\b/g, 'pts')
+      .replace(/\bunfrei\b/g, 'not free')
+      .replace(/\bfrei\b/g, 'free')
+      .replace(/\bheute\b/g, 'today');
+  }
 
   set lang(value) {
     if (value !== 'de' && value !== 'en') return;

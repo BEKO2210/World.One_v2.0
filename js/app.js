@@ -75,7 +75,7 @@ class BelkisOne {
       this._initEasterEgg();
       this._initProlog();
       this._initLangToggle();
-      this._initTimeline();
+      this._initTimeline().catch(err => console.warn('[BelkisOne] Timeline unavailable:', err));
 
       this._updateLoading(100);
       setTimeout(() => {
@@ -689,7 +689,9 @@ class BelkisOne {
     if (rgdpEl && eco?.gdpGrowth?.regions) {
       const regions = eco.gdpGrowth.regions
         .map(r => ({
-          name: r.name || r.region || i18n.t('js.unknown'),
+          // Regionsname nach World-Bank-Code übersetzt; Pipeline liefert Deutsch
+          name: (r.code && i18n.t(`region.${r.code}`) !== `region.${r.code}` ? i18n.t(`region.${r.code}`) : null)
+            || r.name || r.region || i18n.t('js.unknown'),
           value: Number(r.value ?? r.gdpGrowth ?? 0)
         }))
         .filter(r => Number.isFinite(r.value));
@@ -698,7 +700,7 @@ class BelkisOne {
         const maxVal = Math.max(...regions.map(r => Math.abs(r.value))) || 1;
         rgdpEl.innerHTML = regions.map(r => `
           <div class="regional-gdp__item">
-            <div class="regional-gdp__name">${r.name}</div>
+            <div class="regional-gdp__name">${this._esc(r.name)}</div>
             <div class="regional-gdp__bar">
               <div class="regional-gdp__fill" style="width:${(Math.abs(r.value) / maxVal * 100).toFixed(0)}%"></div>
             </div>
@@ -1066,29 +1068,27 @@ class BelkisOne {
       const mom = data.momentum;
       if (!mom?.indicators) return;
 
-      // Map indicator names (German) to detail topic IDs
+      // Pipeline-Namen (deutsch, siehe addMomentum in process-data.js) → Detailseite
       const MAIN_INDICATOR_TOPIC_MAP = {
-        'CO2-Konzentration': 'co2',
-        'Temperaturanomalie': 'temperature',
-        'Erneuerbare Energien': 'renewables',
-        'Waldfläche': 'forests',
-        'Waldflache': 'forests',
-        'Artenvielfalt': 'biodiversity',
         'Lebenserwartung': 'health',
         'Kindersterblichkeit': 'health',
-        'Alphabetisierung': 'internet',
+        'CO2-Konzentration': 'co2',
+        'Erneuerbare Energie': 'renewables',
+        'Waldfläche': 'forests',
         'Internet-Zugang': 'internet',
-        'Extreme Armut': 'poverty',
-        'Ungleichheit (Gini)': 'inequality',
-        'Demokratie-Index': 'freedom',
-        'Konflikte': 'conflicts',
-        'Hunger': 'hunger',
-        'Sauberes Wasser': 'health',
-        'Strom-Zugang': 'renewables',
-        'Mobilfunk': 'internet',
-        'Wissenschaftl. Publikationen': 'science',
-        'BIP pro Kopf': 'currencies',
+        'BIP-Wachstum': 'currencies',
+        'Inflation': 'currencies',
         'Arbeitslosigkeit': 'poverty',
+        'BIP pro Kopf': 'inequality',
+        'Mobilfunk': 'internet',
+        'F&E Ausgaben': 'science',
+        'Elektrizitätszugang': 'renewables',
+        'Trinkwasser': 'health',
+        'CO2 pro Kopf': 'co2',
+        'Gesundheitsausgaben': 'health',
+        'Urbanisierung': 'population',
+        'Patentanmeldungen': 'science',
+        'Militärausgaben (% BIP)': 'conflicts',
       };
 
       const momList = document.getElementById('momentum-list');
@@ -1101,8 +1101,8 @@ class BelkisOne {
             style: { transitionDelay: `${i * 60}ms` },
             innerHTML: `
               <span class="momentum-item__arrow" style="color:${isUp ? '#34c759' : '#ff3b30'}">${isUp ? '↑' : '↓'}</span>
-              <span class="momentum-item__name">${ind.name}</span>
-              <span class="momentum-item__change" style="color:${isUp ? '#34c759' : '#ff3b30'}">${ind.change}</span>
+              <span class="momentum-item__name">${this._esc(i18n.indicatorName(ind.name))}</span>
+              <span class="momentum-item__change" style="color:${isUp ? '#34c759' : '#ff3b30'}">${this._esc(ind.change)}</span>
             `
           });
           const topic = MAIN_INDICATOR_TOPIC_MAP[ind.name] || null;
@@ -1148,7 +1148,7 @@ class BelkisOne {
             className: 'comparison-item reveal',
             style: { transitionDelay: `${i * 100}ms` },
             innerHTML: `
-              <span class="comparison-item__name">${item.name}</span>
+              <span class="comparison-item__name">${this._esc(i18n.indicatorName(item.name))}</span>
               <div class="comparison-item__values">
                 <span class="comparison-item__then">${typeof item.then === 'number' ? MathUtils.formatCompact(item.then) : item.then}</span>
                 <span class="comparison-item__arrow">→</span>
@@ -1254,14 +1254,17 @@ class BelkisOne {
       }
     };
 
+    // Texte aus i18n (DE + EN); die Pipeline liefert nur deutsche Strings
+    const items = (key) => i18n.t(key).split('|');
+
     setScores('scenario-bau', sc.businessAsUsual.worldIndex2030, sc.businessAsUsual.worldIndex2050);
-    setList('scenario-bau', sc.businessAsUsual.keyChanges);
+    setList('scenario-bau', items('act9.bauItems'));
 
     setScores('scenario-worst', sc.worstCase.worldIndex2030, sc.worstCase.worldIndex2050);
-    setList('scenario-worst', sc.worstCase.keyChanges);
+    setList('scenario-worst', items('act9.worstItems'));
 
     setScores('scenario-best', sc.bestCase.worldIndex2030, sc.bestCase.worldIndex2050);
-    setList('scenario-best', sc.bestCase.keyChanges);
+    setList('scenario-best', items('act9.bestItems'));
   }
 
   // ─── Sources ───
@@ -1475,10 +1478,10 @@ class BelkisOne {
     const dateLabel = document.getElementById('timeline-date');
     const indexLabel = document.getElementById('timeline-index');
     const startLabel = document.getElementById('timeline-start');
-    if (!el || !range) return;
+    if (!el || !range || !btn || !panel || !dateLabel || !indexLabel || !startLabel) return;
 
     const manifest = await this.dataLoader.loadManifest();
-    if (!manifest.snapshots || manifest.snapshots.length < 2) return;
+    if (!Array.isArray(manifest?.snapshots) || manifest.snapshots.length < 2) return;
 
     // Snapshots: newest-first from manifest. Build a slim lookup for O(1) access.
     const snaps = manifest.snapshots;

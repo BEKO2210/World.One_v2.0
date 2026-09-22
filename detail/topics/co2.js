@@ -192,11 +192,6 @@ function _renderTrendBlock(trendEl) {
       ]),
     ])
   );
-
-  // Listen for timerangechange event (not applicable for emissions bar chart)
-  trendEl.addEventListener('timerangechange', (e) => {
-    console.log('[CO2] timerangechange received, not applicable for emissions bar chart:', e.detail.range);
-  });
 }
 
 // --- Tiles Block --------------------------------------------------------
