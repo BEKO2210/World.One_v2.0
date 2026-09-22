@@ -7,7 +7,7 @@
    Generates:
      - data/cache/temperature.json   (NASA GISTEMP annual anomalies)
      - data/cache/forests.json       (World Bank forest area % history)
-     - data/cache/renewables.json    (World Bank renewable share history)
+     - data/cache/renewables.json    (Ember/OWID renewable electricity share)
      - data/cache/airquality.json    (Open-Meteo multi-city AQI snapshot)
      - data/cache/weather.json       (Open-Meteo major cities snapshot)
      - data/cache/earthquakes.json   (USGS 24h + 7d events)
@@ -132,30 +132,28 @@ async function cacheForests() {
   console.log(`  [forests] ${history.length} years, latest=${latest?.value}% (${latest?.year})`);
 }
 
-// ─── 3. Renewables (World Bank renewable share) ────────────────────
+// ─── 3. Renewables (Anteil erneuerbarer Strom, Ember via Our World in Data) ─
+// World Bank EG.FEC.RNEW.ZS endet 2020; OWID/Ember liefert den Strommix bis
+// zum Vorjahr. Metrik: Anteil erneuerbarer Quellen an der Stromerzeugung.
 async function cacheRenewables() {
-  console.log('  [renewables] Fetching World Bank renewable energy share...');
-  const data = await fetchJSON(`https://api.worldbank.org/v2/country/WLD/indicator/EG.FEC.RNEW.ZS?format=json&per_page=60&date=1990:${CURRENT_YEAR}`);
-  const history = extractWorldBankEntries(data, { roundDigits: 2 });
-  const latest = history.length ? history[history.length - 1] : null;
+  console.log('  [renewables] Fetching OWID/Ember renewable electricity share...');
+  const csv = await fetchText('https://ourworldindata.org/grapher/share-electricity-renewables.csv?useColumnShortNames=true');
+  const history = csv.split('\n')
+    .filter(l => l.startsWith('World,OWID_WRL,'))
+    .map(l => { const [, , year, value] = l.split(','); return { year: Number(year), value: Math.round(Number(value) * 100) / 100 }; })
+    .filter(e => e.year >= 1990 && Number.isFinite(e.value))
+    .sort((a, b) => a.year - b.year);
+  if (!history.length) throw new Error('OWID renewables: keine World-Zeilen');
+  const latest = history[history.length - 1];
+  const source = 'Ember / Our World in Data (Strommix)';
 
   const payload = {
-    renewableEnergy: {
-      current: latest?.value ?? null,
-      year: latest?.year ?? null,
-      unit: '%',
-      source: 'World Bank (EG.FEC.RNEW.ZS)'
-    },
-    share_pct: {
-      value: latest?.value ?? null,
-      year: latest?.year ?? null,
-      unit: '%',
-      source: 'World Bank (EG.FEC.RNEW.ZS)'
-    },
+    renewableEnergy: { current: latest.value, year: latest.year, unit: '%', metric: 'electricity_share', source },
+    share_pct: { value: latest.value, year: latest.year, unit: '%', source },
     history
   };
   saveCache('renewables.json', payload);
-  console.log(`  [renewables] ${history.length} years, latest=${latest?.value}% (${latest?.year})`);
+  console.log(`  [renewables] ${history.length} years, latest=${latest.value}% (${latest.year})`);
 }
 
 // ─── 4. Air quality snapshot (Open-Meteo, multi-city) ─────────────

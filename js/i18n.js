@@ -70,7 +70,7 @@ const translations = {
     'act2.forestLabel': 'WALDFLÄCHE',
     'act2.forestExplain': 'Anteil der Landfläche mit Wald. ~10 Mio Hektar Verlust pro Jahr.',
     'act2.renewableLabel': 'ERNEUERBARE ENERGIEN',
-    'act2.renewableExplain': 'Anteil am Gesamtverbrauch. Wächst exponentiell dank Solar & Wind.',
+    'act2.renewableExplain': 'Anteil an der weltweiten Stromerzeugung. Wächst exponentiell dank Solar & Wind.',
     'act2.airTitle': 'Luftqualität weltweit',
     'act2.airDesc': 'AQI: 0–50 gut, 51–100 moderat, 101–150 ungesund für empfindliche Gruppen, 150+ ungesund',
     'act2.weatherTitle': 'Aktuelle Wetterdaten',
@@ -578,7 +578,7 @@ const translations = {
 
     // ─── Detail: Renewables (Phase 5) ───
     'detail.renewables.title': 'Erneuerbare Energien',
-    'detail.renewables.heroLabel': 'Anteil erneuerbarer Energien',
+    'detail.renewables.heroLabel': 'Erneuerbare im weltweiten Strommix',
     'detail.renewables.heroUnit': '%',
     'detail.renewables.carbonTitle': 'CO2-Intensität Deutschland',
     'detail.renewables.rankingTitle': 'Länder-Ranking',
@@ -1276,7 +1276,7 @@ const translations = {
     'act2.forestLabel': 'FOREST AREA',
     'act2.forestExplain': 'Share of land area covered by forest. ~10M hectares lost per year.',
     'act2.renewableLabel': 'RENEWABLE ENERGY',
-    'act2.renewableExplain': 'Share of total consumption. Growing exponentially thanks to solar & wind.',
+    'act2.renewableExplain': 'Share of global electricity generation. Growing exponentially thanks to solar & wind.',
     'act2.airTitle': 'Air Quality Worldwide',
     'act2.airDesc': 'AQI: 0–50 good, 51–100 moderate, 101–150 unhealthy for sensitive groups, 150+ unhealthy',
     'act2.weatherTitle': 'Current Weather Data',
@@ -1784,7 +1784,7 @@ const translations = {
 
     // ─── Detail: Renewables (Phase 5) ───
     'detail.renewables.title': 'Renewable Energy',
-    'detail.renewables.heroLabel': 'Renewable Energy Share',
+    'detail.renewables.heroLabel': 'Renewables in the global power mix',
     'detail.renewables.heroUnit': '%',
     'detail.renewables.carbonTitle': 'Carbon Intensity Germany',
     'detail.renewables.rankingTitle': 'Country Ranking',
