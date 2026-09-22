@@ -24,7 +24,7 @@ const JOB_FILES = {
   'environment-ext': ['co2-history.json', 'ocean.json', 'solar.json', 'arctic.json'],
   'society-ext': ['population.json', 'freedom.json', 'conflicts.json'],
   'economy-ext': ['currencies.json', 'inequality.json', 'poverty.json'],
-  'progress-ext': ['arxiv-ai.json', 'space-news.json'],
+  'progress-ext': ['arxiv-ai.json', 'space-news.json', 'publications.json'],
   'disasters': ['disasters.json', 'hunger.json'],
   'live-data': [
     'temperature.json', 'forests.json', 'renewables.json',

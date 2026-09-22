@@ -70,6 +70,19 @@ async function fetchSpaceNews() {
   return { articles };
 }
 
+// ─── Wissenschaftliche Fachartikel (World Bank IP.JRN.ARTC.SC, Welt) ───
+async function fetchPublications() {
+  console.log('  Fetching scientific articles (World Bank IP.JRN.ARTC.SC)...');
+  const data = await fetchJSON(`https://api.worldbank.org/v2/country/WLD/indicator/IP.JRN.ARTC.SC?format=json&per_page=60&date=1990:${new Date().getUTCFullYear()}`);
+  const history = (data?.[1] || [])
+    .filter(r => r.value != null)
+    .map(r => ({ year: Number(r.date), value: Math.round(r.value) }))
+    .sort((a, b) => a.year - b.year);
+  if (history.length < 10) throw new Error(`Publications: nur ${history.length} Jahre`);
+  console.log(`  Publications: ${history.length} years, latest ${history[history.length - 1].year}`);
+  return { history, source: 'World Bank / NSF (IP.JRN.ARTC.SC)' };
+}
+
 // ─── Main ───
 async function main() {
   console.log('=== update-progress-ext ===');
@@ -82,6 +95,14 @@ async function main() {
     filesWritten++;
   } catch (err) {
     console.error(`  ERROR arxiv-ai: ${err.message}`);
+  }
+
+  // Publications
+  try {
+    saveCache('publications.json', await fetchPublications());
+    filesWritten++;
+  } catch (err) {
+    console.error(`  ERROR publications: ${err.message}`);
   }
 
   // Space News

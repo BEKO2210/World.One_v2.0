@@ -1405,16 +1405,18 @@ function buildWorldState() {
     },
 
     progress: {
-      publications: {
-        annualTotal: 3200000,
-        history: existing?.progress?.publications?.history || [
-          { year: 1980, value: 500000 }, { year: 1990, value: 900000 },
-          { year: 2000, value: 1400000 }, { year: 2010, value: 2100000 },
-          { year: 2020, value: 2900000 }, { year: 2026, value: 3200000 }
-        ],
-        latestArxiv: arxivData?.papers?.slice(0, 5) || [],
-        source: 'arXiv / Scopus'
-      },
+      // Fachartikel pro Jahr (World Bank/NSF); früher eingefrorene Mischreihe
+      publications: (() => {
+        const pub = readCache('publications.json');
+        const history = Array.isArray(pub?.history) && pub.history.length >= 10 ? pub.history : [];
+        return {
+          annualTotal: latest(history)?.value ?? null,
+          dataYear: latest(history)?.year ?? null,
+          history,
+          latestArxiv: arxivData?.papers?.slice(0, 5) || [],
+          source: pub?.source || 'World Bank / NSF'
+        };
+      })(),
       // Nur gemessene Werte (GitHub Search API); keine Schätzungen für Commits/Entwickler.
       github: {
         reposCreated24h: githubData?.reposCreated24h ?? null,
