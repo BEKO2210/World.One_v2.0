@@ -12,7 +12,7 @@
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 22.09.2026 20:46 UTC
+> **Letzte Aktualisierung:** 22.09.2026 21:08 UTC
 
 ### Sub-Scores
 
@@ -34,7 +34,7 @@
 | Temperaturanomalie | **+1.19°C** | NASA GISTEMP |
 | CO2-Konzentration | **428 ppm** | NOAA |
 | Arktis-Eisfläche | **4.2 Mio km²** (46.2% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **73** | WAQI |
+| Luftqualität (Ø) | AQI **72** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -255,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 22.09.2026 20:46 UTC | 64/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 22.09.2026 21:08 UTC | 64/65 Quellen aktiv
 </sub>
