@@ -26,4 +26,16 @@ export default [
       'no-empty': ['error', { allowEmptyCatch: true }],
     },
   },
+  {
+    // page.evaluate()-Callbacks laufen im Browser
+    files: ['tests/**/*.mjs'],
+    languageOptions: { globals: { ...globals.browser } },
+  },
+  {
+    files: ['scripts/**/*.js'],
+    rules: {
+      'no-unused-vars': ['warn', { args: 'none', caughtErrors: 'none' }],
+      'no-empty': ['error', { allowEmptyCatch: true }],
+    },
+  },
 ];
