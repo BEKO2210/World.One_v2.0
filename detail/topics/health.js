@@ -238,7 +238,7 @@ function _renderTreemap(chartEl) {
         style: {
           color: 'var(--text-secondary)',
           fontSize: '0.75rem',
-          fontFamily: 'var(--font-mono)',
+          fontFamily: 'var(--font-num)',
           whiteSpace: 'nowrap',
           minWidth: '45px',
           textAlign: 'right',

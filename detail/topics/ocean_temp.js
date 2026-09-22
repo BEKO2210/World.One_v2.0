@@ -371,7 +371,7 @@ function _renderCoralThresholds(tilesEl) {
           padding: '6px 10px',
           fontSize: '0.75rem',
           fontWeight: '700',
-          fontFamily: 'var(--font-mono)',
+          fontFamily: 'var(--font-num)',
           whiteSpace: 'nowrap',
           flexShrink: '0',
           minWidth: '70px',

@@ -59,6 +59,17 @@ function _loadScript(src, integrity) {
   });
 }
 
+// ─── Design-Token-Zugriff ───────────────────────────────────
+export function cssVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+function hexToRgb(hex) {
+  const h = (hex || '#888888').replace('#', '');
+  const full = h.length === 3 ? h.split('').map(c => c + c).join('') : h;
+  return { r: parseInt(full.slice(0, 2), 16), g: parseInt(full.slice(2, 4), 16), b: parseInt(full.slice(4, 6), 16) };
+}
+
 // ─── Dark Theme Defaults ────────────────────────────────────
 
 /**
@@ -67,30 +78,35 @@ function _loadScript(src, integrity) {
  * Values matched to existing CSS custom properties from core.css.
  */
 function _applyDarkDefaults() {
-  // Global colors
-  Chart.defaults.color = 'rgba(255, 255, 255, 0.7)';
-  Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.08)';
-  Chart.defaults.backgroundColor = 'rgba(255, 255, 255, 0.04)';
+  // Farben aus den Design-Tokens (core.css), damit Charts dem Theme folgen
+  Chart.defaults.color = cssVar('--text-2');
+  Chart.defaults.borderColor = cssVar('--grid');
+  Chart.defaults.backgroundColor = cssVar('--surface-2');
 
-  // Font matching existing design system (--font-sans)
-  Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif";
+  Chart.defaults.font.family = cssVar('--font-sans') || 'system-ui, sans-serif';
   Chart.defaults.font.size = 12;
+  Chart.defaults.elements.line.borderWidth = 2;
+  Chart.defaults.elements.point.radius = 0;
+  Chart.defaults.elements.point.hoverRadius = 4;
+  Chart.defaults.elements.bar.borderRadius = 4;
 
   // Responsive
   Chart.defaults.responsive = true;
   Chart.defaults.maintainAspectRatio = false;
 
   // Tooltip -- glass-morphism style matching main page
-  Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(18, 18, 26, 0.9)';
-  Chart.defaults.plugins.tooltip.titleColor = '#f0f0f5';
-  Chart.defaults.plugins.tooltip.bodyColor = 'rgba(255, 255, 255, 0.7)';
-  Chart.defaults.plugins.tooltip.borderColor = 'rgba(255, 255, 255, 0.08)';
+  Chart.defaults.plugins.tooltip.backgroundColor = cssVar('--surface-3');
+  Chart.defaults.plugins.tooltip.titleColor = cssVar('--text-1');
+  Chart.defaults.plugins.tooltip.bodyColor = cssVar('--text-2');
+  Chart.defaults.plugins.tooltip.borderColor = cssVar('--line-2');
   Chart.defaults.plugins.tooltip.borderWidth = 1;
   Chart.defaults.plugins.tooltip.cornerRadius = 8;
   Chart.defaults.plugins.tooltip.padding = 10;
 
   // Legend
-  Chart.defaults.plugins.legend.labels.color = 'rgba(255, 255, 255, 0.7)';
+  Chart.defaults.plugins.legend.labels.color = cssVar('--text-2');
+  Chart.defaults.plugins.legend.labels.usePointStyle = true;
+  Chart.defaults.plugins.legend.labels.boxWidth = 8;
 
   // Reduced motion
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -104,15 +120,18 @@ function _applyDarkDefaults() {
  * Section color palette derived from app.js _sectionColors.
  * RGB components for use with toRgba() helper.
  */
-export const CHART_COLORS = {
-  environment: { r: 0, g: 180, b: 216 },
-  society: { r: 232, g: 168, b: 124 },
-  economy: { r: 255, g: 215, b: 0 },
-  progress: { r: 0, g: 255, b: 204 },
-  realtime: { r: 255, g: 59, b: 48 },
-  momentum: { r: 90, g: 200, b: 250 },
-  crisis: { r: 255, g: 107, b: 107 },
+// Themenfarben = Serien der validierten Datenpalette (css/core.css, --series-*).
+// Getter lesen das aktive Theme; Rückgabe bleibt {r,g,b} für toRgba().
+const SERIES_BY_TOPIC = {
+  environment: '--series-3', society: '--series-2', economy: '--series-4',
+  progress: '--series-7', realtime: '--series-1', momentum: '--series-1', crisis: '--series-8',
 };
+export const CHART_COLORS = Object.fromEntries(
+  Object.entries(SERIES_BY_TOPIC).map(([k, v]) => [k, undefined])
+);
+for (const [topic, token] of Object.entries(SERIES_BY_TOPIC)) {
+  Object.defineProperty(CHART_COLORS, topic, { enumerable: true, get: () => hexToRgb(cssVar(token)) });
+}
 
 /**
  * Converts an RGB color object to an rgba() CSS string.

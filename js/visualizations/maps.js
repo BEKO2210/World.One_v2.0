@@ -5,6 +5,7 @@
 import { MathUtils } from '../utils/math.js';
 import { DOMUtils } from '../utils/dom.js';
 import { i18n } from '../i18n.js';
+import { cssVar } from '../utils/chart-manager.js';
 
 // ─── Country data for SVG coloring ───
 // Climate risk: higher = more at risk (based on ND-GAIN vulnerability index approximation)
@@ -127,7 +128,7 @@ export class Maps {
         p.style.fill = colorFn(val);
         p.style.opacity = '0.85';
       } else {
-        p.style.fill = '#1a1a2e';
+        p.style.fill = 'var(--surface-3)';
         p.style.opacity = '0.3';
       }
     });
@@ -161,8 +162,8 @@ export class Maps {
         position: 'absolute', bottom: '8px', left: '8px', zIndex: '5',
         display: 'flex', flexDirection: 'column', gap: '4px',
         padding: '8px 12px', borderRadius: '8px',
-        background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(8px)',
-        fontSize: '11px', color: 'rgba(255,255,255,0.8)', lineHeight: '1.4'
+        background: 'var(--surface-2)', border: '1px solid var(--line-1)',
+        fontSize: '11px', color: 'var(--text-2)', lineHeight: '1.4'
       }
     });
 
@@ -214,8 +215,8 @@ export class Maps {
           style: {
             position: 'absolute', top: '8px', right: '8px',
             padding: '6px 12px', borderRadius: '8px',
-            background: 'rgba(165,0,38,0.85)', color: '#fff',
-            fontSize: '13px', fontWeight: '700', fontFamily: 'var(--font-mono)',
+            background: 'var(--surface-2)', color: 'var(--text-1)', border: '1px solid var(--line-2)',
+            fontSize: '13px', fontWeight: '700', fontFamily: 'var(--font-num)',
             zIndex: '5'
           },
           textContent: `+${envData.temperatureAnomaly.current}°C global`
@@ -303,20 +304,20 @@ export class Maps {
         if (intensity !== undefined) {
           // War = bright red, conflict = orange-red, unrest = dark orange
           if (intensity >= 0.7) {
-            p.style.fill = '#ff2020';
+            p.style.fill = '#a50f15';
             p.style.opacity = '1';
             p.classList.add('map-country--war');
           } else if (intensity >= 0.5) {
-            p.style.fill = '#e05500';
+            p.style.fill = '#cb181d';
             p.style.opacity = '0.95';
             p.classList.add('map-country--conflict');
           } else {
-            p.style.fill = '#cc6600';
+            p.style.fill = '#fb6a4a';
             p.style.opacity = '0.85';
             p.classList.add('map-country--unrest');
           }
         } else {
-          p.style.fill = '#1a1a2e';
+          p.style.fill = 'var(--surface-3)';
           p.style.opacity = '0.3';
           p.classList.remove('map-country--war', 'map-country--conflict', 'map-country--unrest');
         }
@@ -354,8 +355,8 @@ export class Maps {
           style: {
             position: 'absolute', top: '8px', right: '8px',
             padding: '6px 12px', borderRadius: '8px',
-            background: 'rgba(255,59,48,0.85)', color: '#fff',
-            fontSize: '13px', fontWeight: '700', fontFamily: 'var(--font-mono)',
+            background: 'var(--surface-2)', color: 'var(--text-1)', border: '1px solid var(--line-2)',
+            fontSize: '13px', fontWeight: '700', fontFamily: 'var(--font-num)',
             zIndex: '5'
           },
           textContent: i18n.t('map.mioDisplaced', { val: (refugees.total / 1e6).toFixed(1) })
@@ -365,9 +366,9 @@ export class Maps {
     }
 
     Maps._addLegend(container, [
-      { color: '#ff2020', label: i18n.t('map.war') },
-      { color: '#e05500', label: i18n.t('map.conflict') },
-      { color: '#cc6600', label: i18n.t('map.unrest') }
+      { color: '#a50f15', label: i18n.t('map.war') },
+      { color: '#cb181d', label: i18n.t('map.conflict') },
+      { color: '#fb6a4a', label: i18n.t('map.unrest') }
     ]);
   }
 
@@ -422,7 +423,7 @@ export class Maps {
       { color: '#a50f15', label: i18n.t('map.emergency') },
       { color: '#cb181d', label: i18n.t('map.crisis') },
       { color: '#ef3b2c', label: i18n.t('map.stress') },
-      { color: '#1a1a2e', label: i18n.t('map.noData') }
+      { color: cssVar('--surface-3'), label: i18n.t('map.noData') }
     ]);
   }
 
@@ -456,8 +457,8 @@ export class Maps {
           style: {
             position: 'absolute', top: '8px', right: '8px',
             padding: '6px 12px', borderRadius: '8px',
-            background: 'rgba(26,152,80,0.85)', color: '#fff',
-            fontSize: '13px', fontWeight: '700', fontFamily: 'var(--font-mono)',
+            background: 'var(--surface-2)', color: 'var(--text-1)', border: '1px solid var(--line-2)',
+            fontSize: '13px', fontWeight: '700', fontFamily: 'var(--font-num)',
             zIndex: '5'
           },
           textContent: i18n.t('map.forest', { val: envData.forest.current })
@@ -499,8 +500,8 @@ export class Maps {
           style: {
             position: 'absolute', top: '8px', right: '8px',
             padding: '6px 12px', borderRadius: '8px',
-            background: 'rgba(0,104,55,0.85)', color: '#fff',
-            fontSize: '13px', fontWeight: '700', fontFamily: 'var(--font-mono)',
+            background: 'var(--surface-2)', color: 'var(--text-1)', border: '1px solid var(--line-2)',
+            fontSize: '13px', fontWeight: '700', fontFamily: 'var(--font-num)',
             zIndex: '5'
           },
           textContent: i18n.t('map.renewableGlobal', { val: envData.renewableEnergy.current })
@@ -591,9 +592,9 @@ export class Maps {
     const mapEl = DOMUtils.create('div', {
       className: 'map-container',
       style: {
-        background: 'rgba(255,255,255,0.02)',
+        background: 'var(--surface-1)',
         borderRadius: '12px',
-        border: '1px solid rgba(255,255,255,0.06)',
+        border: '1px solid var(--line-1)',
         position: 'relative',
         overflow: 'hidden'
       }
@@ -621,7 +622,7 @@ export class Maps {
         }
       })
       .catch(() => {
-        svgWrapper.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.15);font-size:14px;">${i18n.t('map.worldMap')}</div>`;
+        svgWrapper.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text-3);font-size:14px;">${i18n.t('map.worldMap')}</div>`;
       });
 
     mapEl.appendChild(svgWrapper);

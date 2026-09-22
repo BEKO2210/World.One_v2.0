@@ -6,6 +6,7 @@ import { MathUtils } from '../utils/math.js';
 import { DOMUtils } from '../utils/dom.js';
 import { i18n } from '../i18n.js';
 import { fmtAxis } from '../utils/fmt.js';
+import { cssVar } from '../utils/chart-manager.js';
 
 // Tick-Werte im 1-2-5-Raster, die [min, max] einschließen
 function niceTicks(min, max, count = 5) {
@@ -55,7 +56,7 @@ export class Charts {
     const {
       width = Math.round(containerWidth),
       height = isMobile ? 180 : 300,
-      color = '#00d4ff',
+      color = cssVar('--series-1'),
       fillOpacity = 0.15,
       strokeWidth = isMobile ? 2 : 2.5,
       showArea = true,
@@ -107,10 +108,10 @@ export class Charts {
     for (const val of ticks) {
       const y = yScale(val);
       svg += `<line x1="${padding.left}" y1="${y}" x2="${width - padding.right}" y2="${y}"
-        stroke="rgba(255,255,255,0.05)" stroke-width="1" />`;
+        style="stroke:var(--grid)" stroke-width="1" />`;
       if (showLabels) {
         svg += `<text x="${padding.left - 8}" y="${y + 4}" text-anchor="end"
-          fill="rgba(255,255,255,0.3)" font-size="10" font-family="var(--font-mono)">${fmtAxis(val)}</text>`;
+          style="fill:var(--text-3)" font-size="10" font-family="var(--font-num)">${fmtAxis(val)}</text>`;
       }
     }
 
@@ -124,7 +125,7 @@ export class Charts {
         if (regular || i === last) {
           const anchor = i === last ? 'end' : i === 0 ? 'start' : 'middle';
           svg += `<text x="${xScale(i)}" y="${height - 8}" text-anchor="${anchor}"
-            fill="rgba(255,255,255,0.3)" font-size="10" font-family="var(--font-mono)">${MathUtils.escapeHTML(d.year || d.label || i)}</text>`;
+            style="fill:var(--text-3)" font-size="10" font-family="var(--font-num)">${MathUtils.escapeHTML(d.year || d.label || i)}</text>`;
         }
       });
     }
@@ -157,7 +158,7 @@ export class Charts {
     // Y label
     if (yLabel) {
       // Achsentitel waagerecht über der y-Achse statt gedreht (überlappte die Werte)
-      svg += `<text x="4" y="${padding.top - 12}" fill="rgba(255,255,255,0.45)" font-size="10" text-anchor="start">${MathUtils.escapeHTML(yLabel)}</text>`;
+      svg += `<text x="4" y="${padding.top - 12}" style="fill:var(--text-2)" font-size="10" text-anchor="start">${MathUtils.escapeHTML(yLabel)}</text>`;
     }
 
     svg += '</svg>';
@@ -172,7 +173,7 @@ export class Charts {
     const {
       width = Math.round(containerWidth),
       height = isMobile ? 180 : 250,
-      colorFn = () => '#00d4ff',
+      colorFn = () => cssVar('--series-1'),
       barGap = isMobile ? 2 : 4,
       progress = 1,
       showLabels = true,
@@ -203,7 +204,7 @@ export class Charts {
 
       if (showLabels) {
         svg += `<text x="${x + barWidth / 2}" y="${height - 8}" text-anchor="middle"
-          fill="rgba(255,255,255,0.3)" font-size="9" font-family="var(--font-mono)">${MathUtils.escapeHTML(d.label || d.name || '')}</text>`;
+          style="fill:var(--text-3)" font-size="9" font-family="var(--font-num)">${MathUtils.escapeHTML(d.label || d.name || '')}</text>`;
       }
     });
 
@@ -224,7 +225,7 @@ export class Charts {
         className: 'sentiment-wave__bar',
         style: {
           height: `${Math.max(height, 8)}%`,
-          backgroundColor: isNeg ? 'rgba(255, 59, 48, 0.6)' : 'rgba(52, 199, 89, 0.6)',
+          backgroundColor: isNeg ? 'var(--series-8)' : 'var(--series-3)',
           alignSelf: 'center'
         }
       });
@@ -237,8 +238,8 @@ export class Charts {
     const {
       size = 100,
       strokeWidth = 8,
-      color = '#00d4ff',
-      trackColor = 'rgba(255,255,255,0.06)',
+      color = cssVar('--series-1'),
+      trackColor = cssVar('--line-1'),
       animate = true,
       label = ''
     } = options;
@@ -279,7 +280,7 @@ export class Charts {
     const {
       width = 120,
       height = 70,
-      colors = ['#3b82f6', '#60a5fa', '#fbbf24', '#f97316', '#ef4444']
+      colors = ['--series-1', '--series-3', '--series-4', '--series-2', '--series-8'].map(cssVar)
     } = options;
 
     const cx = width / 2;
@@ -308,7 +309,7 @@ export class Charts {
     svg += `<line x1="${cx}" y1="${cy}" x2="${needleX}" y2="${needleY}"
       stroke="white" stroke-width="2" stroke-linecap="round" />`;
     svg += `<circle cx="${cx}" cy="${cy}" r="3" fill="white" />`;
-    svg += `<text x="${cx}" y="${cy - 8}" text-anchor="middle" fill="white" font-size="14" font-weight="700" font-family="var(--font-mono)">${value}</text>`;
+    svg += `<text x="${cx}" y="${cy - 8}" text-anchor="middle" fill="white" font-size="14" font-weight="700" font-family="var(--font-num)">${value}</text>`;
 
     svg += '</svg>';
     container.innerHTML = svg;
@@ -352,9 +353,9 @@ export class Charts {
 
     container.innerHTML = `
       <div style="width:100%;height:32px;border-radius:8px;overflow:hidden;display:flex;margin-bottom:8px">
-        <div style="width:${freeP}%;background:#34c759;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#000;transition:width 1.5s ease">${Number(freedom.free) || 0}</div>
-        <div style="width:${partlyP}%;background:#ffcc00;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#000;transition:width 1.5s ease">${Number(freedom.partlyFree) || 0}</div>
-        <div style="width:${notFreeP}%;background:#ff3b30;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#000;transition:width 1.5s ease">${Number(freedom.notFree) || 0}</div>
+        <div style="width:${freeP}%;background:var(--status-good);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--surface-0);transition:width 1.5s ease">${Number(freedom.free) || 0}</div>
+        <div style="width:${partlyP}%;background:var(--status-warning);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--surface-0);transition:width 1.5s ease">${Number(freedom.partlyFree) || 0}</div>
+        <div style="width:${notFreeP}%;background:var(--status-critical);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--surface-0);transition:width 1.5s ease">${Number(freedom.notFree) || 0}</div>
       </div>
     `;
   }
@@ -365,7 +366,7 @@ export class Charts {
     const {
       width = container.getBoundingClientRect().width || 200,
       height = 40,
-      color = '#00d4ff',
+      color = cssVar('--series-1'),
       fillOpacity = 0.1,
       strokeWidth = 1.5
     } = options;
