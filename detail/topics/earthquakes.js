@@ -100,14 +100,16 @@ export async function render(blocks) {
   const count24h = usgsSuccess ? quakes24h.length : (fallbackData?.significant_24h?.value ?? 0);
   const largest24h = usgsSuccess
     ? quakes24h.reduce((max, q) => q.magnitude > max ? q.magnitude : max, 0)
-    : 0;
+    : (fallbackData?.significant_24h_events || []).reduce((max, q) => (q.mag > max ? q.mag : max), 0);
+  // Cache enthält nur Beben ab M4.5 — Beschriftung muss zur Zählung passen
+  const unitKey = usgsSuccess ? 'detail.earthquakes.heroUnit' : 'detail.earthquakes.heroUnit45';
   const avgDepth = usgsSuccess && quakes24h.length > 0
     ? quakes24h.reduce((sum, q) => sum + q.depth, 0) / quakes24h.length
     : 0;
   const total7d = usgsSuccess ? quakes7d.length : 0;
 
   // --- 2. Hero Block ---
-  _renderHero(blocks.hero, count24h, largest24h, tier, age);
+  _renderHero(blocks.hero, count24h, largest24h, tier, age, unitKey);
 
   // --- 3. Chart Block (Interactive SVG Earthquake Map) ---
   await _renderMap(blocks.chart, quakes24h, usgsSuccess);
@@ -130,7 +132,7 @@ export async function render(blocks) {
 
 // --- Hero ---------------------------------------------------------------
 
-function _renderHero(heroEl, count24h, largest24h, tier, age) {
+function _renderHero(heroEl, count24h, largest24h, tier, age, unitKey = 'detail.earthquakes.heroUnit') {
   const badge = createTierBadge(tier, { age });
 
   heroEl.appendChild(
@@ -152,7 +154,7 @@ function _renderHero(heroEl, count24h, largest24h, tier, age) {
             marginLeft: '0.5rem',
             color: 'var(--text-secondary)',
           },
-          textContent: i18n.t('detail.earthquakes.heroUnit'),
+          textContent: i18n.t(unitKey),
         }),
       ]),
       largest24h > 0
@@ -294,7 +296,7 @@ function _showPopup(container, quake, event) {
       style: { fontWeight: '700', fontSize: '1.1rem', marginBottom: '4px' },
     }),
     DOMUtils.create('div', {
-      textContent: MathUtils.escapeHTML(quake.place),
+      textContent: quake.place,
       style: { marginBottom: '4px' },
     }),
     DOMUtils.create('div', {
