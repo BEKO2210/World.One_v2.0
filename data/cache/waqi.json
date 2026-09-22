@@ -1,16 +1,31 @@
 {
   "_meta": {
-    "fetched_at": "2026-09-22T21:31:11.870Z",
+    "fetched_at": "2026-09-22T21:36:10.322Z",
     "source": "cache-pipeline",
     "version": "1.0"
   },
   "global_aqi": {
-    "value": 67,
+    "value": 66,
     "unit": "US AQI (WAQI)",
     "year": 2026,
     "source": "WAQI official stations (15 cities)"
   },
   "cleanest": [
+    {
+      "name": "Tokyo",
+      "country": "JP",
+      "station": "Naitōmachi, Shinjuku-ku, Tōkyō-to, Japan (国設東京（新宿）新宿区)",
+      "station_km": 2,
+      "aqi": 13,
+      "dominant_pollutant": "pm10",
+      "pm25": 9,
+      "pm10": 13,
+      "o3": 32.8,
+      "no2": 2.8,
+      "so2": 1.5,
+      "co": 1.2,
+      "time": "2026-09-23T05:00:00+09:00"
+    },
     {
       "name": "São Paulo",
       "country": "BR",
@@ -46,15 +61,15 @@
       "country": "DE",
       "station": "Berlin, Germany",
       "station_km": 0,
-      "aqi": 34,
+      "aqi": 30,
       "dominant_pollutant": "pm25",
-      "pm25": 34,
-      "pm10": 15,
-      "o3": 15.5,
-      "no2": 13.3,
+      "pm25": 30,
+      "pm10": 10,
+      "o3": 15.1,
+      "no2": 10.1,
       "so2": null,
       "co": 0.1,
-      "time": "2026-09-22T21:00:00+02:00"
+      "time": "2026-09-22T22:00:00+02:00"
     },
     {
       "name": "Sydney",
@@ -70,21 +85,6 @@
       "so2": null,
       "co": 0.1,
       "time": "2026-09-23T06:00:00+10:00"
-    },
-    {
-      "name": "Tokyo",
-      "country": "JP",
-      "station": "Naitomachi, Shinjuku, Tokyo, Japan (国設新宿新宿区)",
-      "station_km": 2,
-      "aqi": 38,
-      "dominant_pollutant": "pm25",
-      "pm25": 38,
-      "pm10": 13,
-      "o3": 28.9,
-      "no2": 2.8,
-      "so2": 1.5,
-      "co": 1.2,
-      "time": "2026-09-23T05:00:00+09:00"
     }
   ],
   "worst": [
@@ -166,6 +166,21 @@
   ],
   "stations": [
     {
+      "name": "Tokyo",
+      "country": "JP",
+      "station": "Naitōmachi, Shinjuku-ku, Tōkyō-to, Japan (国設東京（新宿）新宿区)",
+      "station_km": 2,
+      "aqi": 13,
+      "dominant_pollutant": "pm10",
+      "pm25": 9,
+      "pm10": 13,
+      "o3": 32.8,
+      "no2": 2.8,
+      "so2": 1.5,
+      "co": 1.2,
+      "time": "2026-09-23T05:00:00+09:00"
+    },
+    {
       "name": "São Paulo",
       "country": "BR",
       "station": "Parque D.Pedro II, São Paulo, Brazil",
@@ -200,15 +215,15 @@
       "country": "DE",
       "station": "Berlin, Germany",
       "station_km": 0,
-      "aqi": 34,
+      "aqi": 30,
       "dominant_pollutant": "pm25",
-      "pm25": 34,
-      "pm10": 15,
-      "o3": 15.5,
-      "no2": 13.3,
+      "pm25": 30,
+      "pm10": 10,
+      "o3": 15.1,
+      "no2": 10.1,
       "so2": null,
       "co": 0.1,
-      "time": "2026-09-22T21:00:00+02:00"
+      "time": "2026-09-22T22:00:00+02:00"
     },
     {
       "name": "Sydney",
@@ -226,36 +241,6 @@
       "time": "2026-09-23T06:00:00+10:00"
     },
     {
-      "name": "Tokyo",
-      "country": "JP",
-      "station": "Naitomachi, Shinjuku, Tokyo, Japan (国設新宿新宿区)",
-      "station_km": 2,
-      "aqi": 38,
-      "dominant_pollutant": "pm25",
-      "pm25": 38,
-      "pm10": 13,
-      "o3": 28.9,
-      "no2": 2.8,
-      "so2": 1.5,
-      "co": 1.2,
-      "time": "2026-09-23T05:00:00+09:00"
-    },
-    {
-      "name": "Los Angeles",
-      "country": "US",
-      "station": "Los Angeles-North Main Street",
-      "station_km": 2,
-      "aqi": 42,
-      "dominant_pollutant": "pm25",
-      "pm25": 42,
-      "pm10": 25,
-      "o3": 36.8,
-      "no2": 4.9,
-      "so2": 0.5,
-      "co": 3.4,
-      "time": "2026-09-22T12:00:00-07:00"
-    },
-    {
       "name": "Paris",
       "country": "FR",
       "station": "Paris",
@@ -269,6 +254,21 @@
       "so2": 0.6,
       "co": 0.1,
       "time": "2026-09-22T19:00:00+02:00"
+    },
+    {
+      "name": "Los Angeles",
+      "country": "US",
+      "station": "Los Angeles-North Main Street",
+      "station_km": 2,
+      "aqi": 53,
+      "dominant_pollutant": "o3",
+      "pm25": 53,
+      "pm10": 24,
+      "o3": 53.3,
+      "no2": 5.8,
+      "so2": 0.5,
+      "co": 3.4,
+      "time": "2026-09-22T13:00:00-07:00"
     },
     {
       "name": "Shanghai",

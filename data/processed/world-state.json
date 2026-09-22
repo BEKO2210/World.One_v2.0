@@ -1,49 +1,49 @@
 {
   "meta": {
-    "generated": "2026-09-22T21:31:12.693Z",
+    "generated": "2026-09-22T21:36:11.051Z",
     "version": "2.0.0",
     "sources_count": 65,
     "sources_available": 64,
     "sources_success_rate": 98,
-    "next_update": "2026-09-23T03:31:12.693Z",
+    "next_update": "2026-09-23T03:36:11.051Z",
     "realtimePulse": {
-      "environment": -0.85,
+      "environment": -0.87,
       "society": 0,
       "economy": 0.45,
       "progress": 0.8,
       "details": {
-        "quakeCount": 44,
+        "quakeCount": 45,
         "maxMagnitude": 5.3,
-        "avgGlobalTemp": 20.1,
+        "avgGlobalTemp": 20,
         "cryptoFearGreed": 78,
         "arxivPapers": 20
       }
     },
     "cacheFreshness": {
       "environment": {
-        "newest": "2026-09-22T21:31:11.870Z",
-        "oldest": "2026-09-22T21:30:06.324Z",
+        "newest": "2026-09-22T21:36:10.322Z",
+        "oldest": "2026-09-22T21:35:56.287Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 6
       },
       "society": {
-        "newest": "2026-09-22T21:31:12.550Z",
-        "oldest": "2026-09-22T21:29:08.640Z",
+        "newest": "2026-09-22T21:36:10.877Z",
+        "oldest": "2026-09-22T21:34:50.631Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 4
       },
       "economy": {
-        "newest": "2026-09-22T21:31:09.102Z",
-        "oldest": "2026-09-22T21:31:09.102Z",
+        "newest": "2026-09-22T21:36:07.706Z",
+        "oldest": "2026-09-22T21:36:07.706Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 1
       },
       "progress": {
-        "newest": "2026-09-22T21:30:19.602Z",
-        "oldest": "2026-09-22T21:30:18.468Z",
+        "newest": "2026-09-22T21:36:05.757Z",
+        "oldest": "2026-09-22T21:36:04.801Z",
         "newestHours": 0,
         "oldestHours": 0,
         "sourceCount": 2
@@ -55,9 +55,9 @@
     "rawValue": 63.1,
     "label": "POSITIV",
     "zone": "positive",
-    "previous": 66.3,
-    "change": 0.1,
-    "trend": "improving",
+    "previous": 66.4,
+    "change": 0,
+    "trend": "stable",
     "carryingCapacity": {
       "checks": {
         "existence": {
@@ -86,8 +86,8 @@
         },
         "economy": {
           "direction": "expansion",
-          "position": "capacitive",
-          "level": 2
+          "position": "elastic",
+          "level": 1
         },
         "progress": {
           "direction": "expansion",
@@ -102,7 +102,7 @@
       },
       "indicators": {
         "environment": {
-          "bufferDistance": 32.2,
+          "bufferDistance": 32.1,
           "recoveryTime": 0,
           "maintenanceCost": 0.16
         },
@@ -132,24 +132,25 @@
   },
   "subScores": {
     "environment": {
-      "value": 42.4,
+      "value": 42.3,
       "label": "GEMISCHT",
       "zone": "mixed",
       "weight": 0.25,
       "trend": "stable",
-      "change": 0,
+      "change": -0.1,
       "indicators": [
         {
           "name": "Globale Temperaturanomalie",
           "value": "+1.19°C",
           "score": 60,
           "trend": "declining",
-          "fetchedAt": "2026-09-22T21:30:07.023Z",
+          "fetchedAt": "2026-09-22T21:35:57.067Z",
           "ageHours": 0,
           "source": "NASA GISTEMP v4 (base 1951-1980)",
+          "trendMethod": "3y-avg",
           "cadence": "annual",
           "dataAsOf": 2025,
-          "retrievedAt": "2026-09-22T21:30:07.023Z",
+          "retrievedAt": "2026-09-22T21:35:57.067Z",
           "tier": "live"
         },
         {
@@ -157,12 +158,13 @@
           "value": "428 ppm",
           "score": 33,
           "trend": "declining",
-          "fetchedAt": "2026-09-22T21:27:00.986Z",
+          "fetchedAt": "2026-09-22T21:32:52.346Z",
           "ageHours": 0.1,
           "source": "NOAA Mauna Loa",
+          "trendMethod": "3y-avg",
           "cadence": "monthly",
           "dataAsOf": "2026-08",
-          "retrievedAt": "2026-09-22T21:27:00.986Z",
+          "retrievedAt": "2026-09-22T21:32:52.346Z",
           "tier": "live"
         },
         {
@@ -170,12 +172,13 @@
           "value": "31.1%",
           "score": 56,
           "trend": "declining",
-          "fetchedAt": "2026-09-22T21:30:07.139Z",
+          "fetchedAt": "2026-09-22T21:35:57.153Z",
           "ageHours": 0,
           "source": "World Bank / FAO (AG.LND.FRST.ZS)",
+          "trendMethod": "3y-avg",
           "cadence": "annual",
           "dataAsOf": 2023,
-          "retrievedAt": "2026-09-22T21:30:07.139Z",
+          "retrievedAt": "2026-09-22T21:35:57.153Z",
           "tier": "live"
         },
         {
@@ -183,25 +186,26 @@
           "value": "33.76%",
           "score": 56,
           "trend": "improving",
-          "fetchedAt": "2026-09-22T21:30:09.938Z",
+          "fetchedAt": "2026-09-22T21:35:57.323Z",
           "ageHours": 0,
           "source": "Ember / Our World in Data (Strommix)",
+          "trendMethod": "3y-avg",
           "cadence": "annual",
           "dataAsOf": 2025,
-          "retrievedAt": "2026-09-22T21:30:09.938Z",
+          "retrievedAt": "2026-09-22T21:35:57.323Z",
           "tier": "live"
         },
         {
           "name": "Luftqualität (Global Avg AQI)",
-          "value": 73,
+          "value": 70,
           "score": 45,
           "trend": "stable",
-          "fetchedAt": "2026-09-22T21:31:11.870Z",
+          "fetchedAt": "2026-09-22T21:36:10.322Z",
           "ageHours": 0,
           "source": "WAQI official stations (15 cities)",
           "cadence": "realtime",
-          "dataAsOf": "2026-09-22T21:31:11.870Z",
-          "retrievedAt": "2026-09-22T21:31:11.870Z",
+          "dataAsOf": "2026-09-22T21:36:10.322Z",
+          "retrievedAt": "2026-09-22T21:36:10.322Z",
           "tier": "live"
         },
         {
@@ -209,12 +213,13 @@
           "value": "4.75 Mio km²",
           "score": 37,
           "trend": "declining",
-          "fetchedAt": "2026-09-22T21:29:08.381Z",
+          "fetchedAt": "2026-09-22T21:34:50.294Z",
           "ageHours": 0,
           "source": "NSIDC Sea Ice Index v4",
+          "trendMethod": "3y-avg",
           "cadence": "annual",
           "dataAsOf": 2025,
-          "retrievedAt": "2026-09-22T21:29:08.381Z",
+          "retrievedAt": "2026-09-22T21:34:50.294Z",
           "tier": "live"
         },
         {
@@ -222,12 +227,12 @@
           "value": "2 laufend, -6 Pkt",
           "score": 40,
           "trend": "declining",
-          "fetchedAt": "2026-09-22T21:30:06.324Z",
+          "fetchedAt": "2026-09-22T21:35:56.287Z",
           "ageHours": 0,
           "source": "GDACS (JRC/EU)",
           "cadence": "realtime",
-          "dataAsOf": "2026-09-22T21:30:06.324Z",
-          "retrievedAt": "2026-09-22T21:30:06.324Z",
+          "dataAsOf": "2026-09-22T21:35:56.287Z",
+          "retrievedAt": "2026-09-22T21:35:56.287Z",
           "tier": "live"
         }
       ]
@@ -245,12 +250,13 @@
           "value": "73.48 Jahre",
           "score": 67,
           "trend": "improving",
-          "fetchedAt": "2026-09-22T21:30:19.548Z",
+          "fetchedAt": "2026-09-22T21:36:05.585Z",
           "ageHours": 0,
           "source": "World Bank (SP.DYN.LE00.IN)",
+          "trendMethod": "3y-avg",
           "cadence": "annual",
           "dataAsOf": 2024,
-          "retrievedAt": "2026-09-22T21:30:19.548Z",
+          "retrievedAt": "2026-09-22T21:36:05.585Z",
           "tier": "live"
         },
         {
@@ -258,12 +264,13 @@
           "value": "37.4/1000",
           "score": 66,
           "trend": "improving",
-          "fetchedAt": "2026-09-22T21:30:19.548Z",
+          "fetchedAt": "2026-09-22T21:36:05.585Z",
           "ageHours": 0,
           "source": "World Bank (SH.DYN.MORT)",
+          "trendMethod": "3y-avg",
           "cadence": "annual",
           "dataAsOf": 2024,
-          "retrievedAt": "2026-09-22T21:30:19.548Z",
+          "retrievedAt": "2026-09-22T21:36:05.585Z",
           "tier": "live"
         },
         {
@@ -271,12 +278,12 @@
           "value": 59,
           "score": 29,
           "trend": "declining",
-          "fetchedAt": "2026-09-22T21:29:53.428Z",
+          "fetchedAt": "2026-09-22T21:35:42.781Z",
           "ageHours": 0,
           "source": "ACLED/Crisis Group (baseline)",
           "cadence": "monthly",
           "dataAsOf": null,
-          "retrievedAt": "2026-09-22T21:29:53.428Z",
+          "retrievedAt": "2026-09-22T21:35:42.781Z",
           "tier": "static"
         },
         {
@@ -284,12 +291,13 @@
           "value": "91.9%",
           "score": 84,
           "trend": "improving",
-          "fetchedAt": "2026-09-22T21:27:05.382Z",
+          "fetchedAt": "2026-09-22T21:32:57.042Z",
           "ageHours": 0.1,
           "source": "World Bank (raw)",
+          "trendMethod": "3y-avg",
           "cadence": "annual",
           "dataAsOf": 2024,
-          "retrievedAt": "2026-09-22T21:27:05.382Z",
+          "retrievedAt": "2026-09-22T21:32:57.042Z",
           "tier": "live"
         },
         {
@@ -297,12 +305,13 @@
           "value": "73.7%",
           "score": 56,
           "trend": "improving",
-          "fetchedAt": "2026-09-22T21:27:05.414Z",
+          "fetchedAt": "2026-09-22T21:32:57.086Z",
           "ageHours": 0.1,
           "source": "World Bank (raw)",
+          "trendMethod": "3y-avg",
           "cadence": "annual",
           "dataAsOf": 2024,
-          "retrievedAt": "2026-09-22T21:27:05.414Z",
+          "retrievedAt": "2026-09-22T21:32:57.086Z",
           "tier": "live"
         },
         {
@@ -323,12 +332,13 @@
           "value": "84 frei / 55 unfrei",
           "score": 46,
           "trend": "declining",
-          "fetchedAt": "2026-09-22T21:29:08.640Z",
+          "fetchedAt": "2026-09-22T21:34:50.631Z",
           "ageHours": 0,
           "source": "Freedom House - Freedom in the World",
+          "trendMethod": "3y-avg",
           "cadence": "annual",
           "dataAsOf": 2025,
-          "retrievedAt": "2026-09-22T21:29:08.640Z",
+          "retrievedAt": "2026-09-22T21:34:50.631Z",
           "tier": "static"
         }
       ]
@@ -338,20 +348,21 @@
       "label": "POSITIV",
       "zone": "positive",
       "weight": 0.2,
-      "trend": "improving",
-      "change": 0.6,
+      "trend": "stable",
+      "change": 0,
       "indicators": [
         {
           "name": "BIP-Wachstum",
           "value": "2.92%",
           "score": 72,
           "trend": "improving",
-          "fetchedAt": "2026-09-22T21:27:06.359Z",
+          "fetchedAt": "2026-09-22T21:32:57.751Z",
           "ageHours": 0.1,
           "source": "World Bank / IMF",
+          "trendMethod": "3y-avg",
           "cadence": "annual",
           "dataAsOf": 2025,
-          "retrievedAt": "2026-09-22T21:27:06.359Z",
+          "retrievedAt": "2026-09-22T21:32:57.751Z",
           "tier": "live"
         },
         {
@@ -359,38 +370,40 @@
           "value": 42,
           "score": 51,
           "trend": "stable",
-          "fetchedAt": "2026-09-22T21:27:06.394Z",
+          "fetchedAt": "2026-09-22T21:32:57.788Z",
           "ageHours": 0.1,
           "source": "World Bank",
           "cadence": "annual",
           "dataAsOf": null,
-          "retrievedAt": "2026-09-22T21:27:06.394Z",
+          "retrievedAt": "2026-09-22T21:32:57.788Z",
           "tier": "static"
         },
         {
           "name": "Inflation",
           "value": "3%",
           "score": 94,
-          "trend": "stable",
-          "fetchedAt": "2026-09-22T21:27:06.429Z",
+          "trend": "improving",
+          "fetchedAt": "2026-09-22T21:32:57.835Z",
           "ageHours": 0.1,
           "source": "World Bank (FP.CPI.TOTL.ZG)",
+          "trendMethod": "3y-avg",
           "cadence": "annual",
           "dataAsOf": 2025,
-          "retrievedAt": "2026-09-22T21:27:06.429Z",
+          "retrievedAt": "2026-09-22T21:32:57.835Z",
           "tier": "live"
         },
         {
           "name": "Arbeitslosigkeit",
           "value": "4.79%",
           "score": 79,
-          "trend": "stable",
-          "fetchedAt": "2026-09-22T21:27:06.464Z",
+          "trend": "improving",
+          "fetchedAt": "2026-09-22T21:32:57.893Z",
           "ageHours": 0.1,
           "source": "World Bank / ILO",
+          "trendMethod": "3y-avg",
           "cadence": "annual",
           "dataAsOf": 2025,
-          "retrievedAt": "2026-09-22T21:27:06.464Z",
+          "retrievedAt": "2026-09-22T21:32:57.893Z",
           "tier": "live"
         },
         {
@@ -398,12 +411,12 @@
           "value": "10.12%",
           "score": 75,
           "trend": "improving",
-          "fetchedAt": "2026-09-22T21:30:01.139Z",
+          "fetchedAt": "2026-09-22T21:35:53.124Z",
           "ageHours": 0,
           "source": "World Bank PIP ($3.00/Tag, 2021 PPP)",
           "cadence": "annual",
           "dataAsOf": 2024,
-          "retrievedAt": "2026-09-22T21:30:01.139Z",
+          "retrievedAt": "2026-09-22T21:35:53.124Z",
           "tier": "live"
         },
         {
@@ -411,12 +424,12 @@
           "value": "3.63%",
           "score": 70.96000000000001,
           "trend": "stable",
-          "fetchedAt": "2026-09-22T21:31:09.102Z",
+          "fetchedAt": "2026-09-22T21:36:07.706Z",
           "ageHours": 0,
           "source": "FRED (St. Louis Fed)",
           "cadence": "monthly",
           "dataAsOf": "2026-08-01",
-          "retrievedAt": "2026-09-22T21:31:09.102Z",
+          "retrievedAt": "2026-09-22T21:36:07.706Z",
           "tier": "live"
         },
         {
@@ -424,12 +437,12 @@
           "value": "0.25%",
           "score": 80,
           "trend": "stable",
-          "fetchedAt": "2026-09-22T21:31:09.102Z",
+          "fetchedAt": "2026-09-22T21:36:07.706Z",
           "ageHours": 0,
           "source": "FRED (St. Louis Fed)",
           "cadence": "daily",
           "dataAsOf": "2026-09-22",
-          "retrievedAt": "2026-09-22T21:31:09.102Z",
+          "retrievedAt": "2026-09-22T21:36:07.706Z",
           "tier": "live"
         }
       ]
@@ -447,12 +460,13 @@
           "value": "73.6%",
           "score": 82,
           "trend": "improving",
-          "fetchedAt": "2026-09-22T21:30:19.602Z",
+          "fetchedAt": "2026-09-22T21:36:05.757Z",
           "ageHours": 0,
           "source": "World Bank (IT.NET.USER.ZS)",
+          "trendMethod": "3y-avg",
           "cadence": "annual",
           "dataAsOf": 2025,
-          "retrievedAt": "2026-09-22T21:30:19.602Z",
+          "retrievedAt": "2026-09-22T21:36:05.757Z",
           "tier": "live"
         },
         {
@@ -460,12 +474,13 @@
           "value": "87.7%",
           "score": 75,
           "trend": "improving",
-          "fetchedAt": "2026-09-22T21:27:08.764Z",
+          "fetchedAt": "2026-09-22T21:33:00.738Z",
           "ageHours": 0.1,
           "source": "World Bank / UNESCO",
+          "trendMethod": "3y-avg",
           "cadence": "annual",
           "dataAsOf": 2024,
-          "retrievedAt": "2026-09-22T21:27:08.764Z",
+          "retrievedAt": "2026-09-22T21:33:00.738Z",
           "tier": "live"
         },
         {
@@ -473,12 +488,13 @@
           "value": "2.6%",
           "score": 65,
           "trend": "improving",
-          "fetchedAt": "2026-09-22T21:27:08.465Z",
+          "fetchedAt": "2026-09-22T21:33:00.337Z",
           "ageHours": 0.1,
           "source": "World Bank",
+          "trendMethod": "3y-avg",
           "cadence": "annual",
           "dataAsOf": 2023,
-          "retrievedAt": "2026-09-22T21:27:08.465Z",
+          "retrievedAt": "2026-09-22T21:33:00.337Z",
           "tier": "live"
         },
         {
@@ -486,12 +502,13 @@
           "value": "111.5/100",
           "score": 86,
           "trend": "improving",
-          "fetchedAt": "2026-09-22T21:30:19.602Z",
+          "fetchedAt": "2026-09-22T21:36:05.757Z",
           "ageHours": 0,
           "source": "World Bank (IT.CEL.SETS.P2)",
+          "trendMethod": "3y-avg",
           "cadence": "annual",
           "dataAsOf": 2025,
-          "retrievedAt": "2026-09-22T21:30:19.602Z",
+          "retrievedAt": "2026-09-22T21:36:05.757Z",
           "tier": "live"
         },
         {
@@ -499,12 +516,12 @@
           "value": "495 Repos >50k★",
           "score": 80,
           "trend": "improving",
-          "fetchedAt": "2026-09-22T21:27:08.216Z",
+          "fetchedAt": "2026-09-22T21:32:59.992Z",
           "ageHours": 0.1,
           "source": "GitHub",
           "cadence": "daily",
-          "dataAsOf": "2026-09-22T21:27:08.216Z",
-          "retrievedAt": "2026-09-22T21:27:08.216Z",
+          "dataAsOf": "2026-09-22T21:32:59.992Z",
+          "retrievedAt": "2026-09-22T21:32:59.992Z",
           "tier": "live"
         },
         {
@@ -512,12 +529,12 @@
           "value": "405K total",
           "score": 75,
           "trend": "improving",
-          "fetchedAt": "2026-09-22T21:30:18.468Z",
+          "fetchedAt": "2026-09-22T21:36:04.801Z",
           "ageHours": 0,
           "source": "arXiv (cs.AI + cs.LG)",
           "cadence": "daily",
-          "dataAsOf": "2026-09-22T21:30:18.468Z",
-          "retrievedAt": "2026-09-22T21:30:18.468Z",
+          "dataAsOf": "2026-09-22T21:36:04.801Z",
+          "retrievedAt": "2026-09-22T21:36:04.801Z",
           "tier": "live"
         }
       ]
@@ -1540,8 +1557,15 @@
       "source": "NOAA"
     },
     "airQuality": {
-      "globalAvgAQI": 73,
+      "globalAvgAQI": 70,
       "cleanestCities": [
+        {
+          "city": "Tokyo",
+          "country": "JP",
+          "aqi": 13,
+          "lat": null,
+          "lng": null
+        },
         {
           "city": "São Paulo",
           "country": "BR",
@@ -1559,7 +1583,7 @@
         {
           "city": "Berlin",
           "country": "DE",
-          "aqi": 34,
+          "aqi": 30,
           "lat": null,
           "lng": null
         },
@@ -1567,13 +1591,6 @@
           "city": "Sydney",
           "country": "AU",
           "aqi": 34,
-          "lat": null,
-          "lng": null
-        },
-        {
-          "city": "Tokyo",
-          "country": "JP",
-          "aqi": 38,
           "lat": null,
           "lng": null
         }
@@ -2232,7 +2249,7 @@
       "endangered": 55596,
       "criticallyEndangered": 30175,
       "source": "GBIF / IUCN",
-      "fetchedAt": "2026-09-22T21:29:05.250Z",
+      "fetchedAt": "2026-09-22T21:34:47.438Z",
       "ageHours": 0
     },
     "weather": [
@@ -2241,10 +2258,10 @@
         "lat": 52.52,
         "lng": 13.41,
         "current": {
-          "time": "2026-09-22T23:15",
+          "time": "2026-09-22T23:30",
           "interval": 900,
-          "temperature_2m": 12.8,
-          "relative_humidity_2m": 70,
+          "temperature_2m": 12.6,
+          "relative_humidity_2m": 71,
           "wind_speed_10m": 4.7,
           "weather_code": 0
         }
@@ -2254,11 +2271,11 @@
         "lat": 40.71,
         "lng": -74.01,
         "current": {
-          "time": "2026-09-22T17:15",
+          "time": "2026-09-22T17:30",
           "interval": 900,
-          "temperature_2m": 19.2,
-          "relative_humidity_2m": 52,
-          "wind_speed_10m": 19.9,
+          "temperature_2m": 19,
+          "relative_humidity_2m": 51,
+          "wind_speed_10m": 16.1,
           "weather_code": 3
         }
       },
@@ -2267,11 +2284,11 @@
         "lat": 35.68,
         "lng": 139.69,
         "current": {
-          "time": "2026-09-23T06:15",
+          "time": "2026-09-23T06:30",
           "interval": 900,
           "temperature_2m": 21.5,
           "relative_humidity_2m": 80,
-          "wind_speed_10m": 3.9,
+          "wind_speed_10m": 3.4,
           "weather_code": 3
         }
       },
@@ -2280,11 +2297,11 @@
         "lat": -33.87,
         "lng": 151.21,
         "current": {
-          "time": "2026-09-23T07:15",
+          "time": "2026-09-23T07:30",
           "interval": 900,
-          "temperature_2m": 15.5,
-          "relative_humidity_2m": 97,
-          "wind_speed_10m": 4.9,
+          "temperature_2m": 15.7,
+          "relative_humidity_2m": 96,
+          "wind_speed_10m": 4.6,
           "weather_code": 3
         }
       },
@@ -2293,11 +2310,11 @@
         "lat": -23.55,
         "lng": -46.63,
         "current": {
-          "time": "2026-09-22T18:15",
+          "time": "2026-09-22T18:30",
           "interval": 900,
-          "temperature_2m": 18.9,
-          "relative_humidity_2m": 87,
-          "wind_speed_10m": 6.1,
+          "temperature_2m": 18.7,
+          "relative_humidity_2m": 88,
+          "wind_speed_10m": 6.9,
           "weather_code": 51
         }
       },
@@ -2306,11 +2323,11 @@
         "lat": 6.45,
         "lng": 3.4,
         "current": {
-          "time": "2026-09-22T22:15",
+          "time": "2026-09-22T22:30",
           "interval": 900,
           "temperature_2m": 25.2,
           "relative_humidity_2m": 90,
-          "wind_speed_10m": 10.1,
+          "wind_speed_10m": 10.3,
           "weather_code": 80
         }
       },
@@ -2319,11 +2336,11 @@
         "lat": 19.08,
         "lng": 72.88,
         "current": {
-          "time": "2026-09-23T02:45",
+          "time": "2026-09-23T03:00",
           "interval": 900,
           "temperature_2m": 26.6,
-          "relative_humidity_2m": 91,
-          "wind_speed_10m": 1.8,
+          "relative_humidity_2m": 92,
+          "wind_speed_10m": 1.9,
           "weather_code": 3
         }
       },
@@ -2332,12 +2349,12 @@
         "lat": 51.51,
         "lng": -0.13,
         "current": {
-          "time": "2026-09-22T22:15",
+          "time": "2026-09-22T22:30",
           "interval": 900,
-          "temperature_2m": 21.1,
-          "relative_humidity_2m": 60,
-          "wind_speed_10m": 11.9,
-          "weather_code": 3
+          "temperature_2m": 20.7,
+          "relative_humidity_2m": 62,
+          "wind_speed_10m": 11.2,
+          "weather_code": 2
         }
       }
     ],
@@ -3160,7 +3177,7 @@
       "source": "UNHCR Refugee Data Finder (2025)",
       "dataYear": 2025,
       "isFallback": false,
-      "fetchedAt": "2026-09-22T21:29:54.245Z",
+      "fetchedAt": "2026-09-22T21:35:43.637Z",
       "ageHours": 0
     },
     "freedom": {
@@ -5455,7 +5472,7 @@
       "source": "World Bank / NSF (IP.JRN.ARTC.SC)"
     },
     "github": {
-      "reposCreated24h": 838244,
+      "reposCreated24h": 838100,
       "reposOver50kStars": 495,
       "topRepos": [
         {
@@ -5468,7 +5485,7 @@
         {
           "name": "sindresorhus/awesome",
           "stars": 508995,
-          "forks": 36999,
+          "forks": 36998,
           "language": null,
           "updated": "2026-09-22T21:26:00Z"
         },
@@ -5484,7 +5501,7 @@
           "stars": 455979,
           "forks": 46925,
           "language": "TypeScript",
-          "updated": "2026-09-22T21:24:40Z"
+          "updated": "2026-09-22T21:30:21Z"
         },
         {
           "name": "EbookFoundation/free-programming-books",
@@ -5498,14 +5515,14 @@
           "stars": 390259,
           "forks": 82089,
           "language": "TypeScript",
-          "updated": "2026-09-22T21:24:41Z"
+          "updated": "2026-09-22T21:32:29Z"
         },
         {
           "name": "donnemartin/system-design-primer",
-          "stars": 371305,
+          "stars": 371307,
           "forks": 58561,
           "language": "Python",
-          "updated": "2026-09-22T21:11:24Z"
+          "updated": "2026-09-22T21:32:37Z"
         },
         {
           "name": "nilbuild/developer-roadmap",
@@ -5523,14 +5540,14 @@
         },
         {
           "name": "vinta/awesome-python",
-          "stars": 322342,
+          "stars": 322343,
           "forks": 28779,
           "language": "Python",
-          "updated": "2026-09-22T21:19:27Z"
+          "updated": "2026-09-22T21:29:35Z"
         }
       ],
       "source": "GitHub Search API",
-      "fetchedAt": "2026-09-22T21:27:08.216Z",
+      "fetchedAt": "2026-09-22T21:32:59.992Z",
       "dailyCommits": 142000000
     },
     "internet": {
@@ -6067,6 +6084,16 @@
     "earthquakes": {
       "last24h": [
         {
+          "location": "53 km SE of Sand Point, Alaska",
+          "magnitude": 3.5,
+          "depth": 35,
+          "lat": 54.9345,
+          "lng": -160.0285,
+          "time": "2026-09-22T20:50:54.702Z",
+          "tsunami": false,
+          "type": "earthquake"
+        },
+        {
           "location": "46 km E of Union, Philippines",
           "magnitude": 4.6,
           "depth": 10,
@@ -6135,19 +6162,9 @@
           "time": "2026-09-22T16:50:39.491Z",
           "tsunami": false,
           "type": "earthquake"
-        },
-        {
-          "location": "51 km W of Kuqa, China",
-          "magnitude": 4.5,
-          "depth": 10,
-          "lat": 41.7997,
-          "lng": 82.3165,
-          "time": "2026-09-22T16:09:09.440Z",
-          "tsunami": false,
-          "type": "earthquake"
         }
       ],
-      "total24h": 44,
+      "total24h": 45,
       "source": "USGS"
     },
     "newsSentiment": {
@@ -6224,7 +6241,7 @@
         "source": "World Bank"
       },
       {
-        "title": "World Bank: Stronger Water Management Could Unlock Growth, Protect Jobs, and Build Resilience in Tunisia - African Media Agency",
+        "title": "World Bank: Stronger Water Management Could Unlock Growth, Protect Jobs, and Build Resilience in Tunisia - africanmediaagency.com",
         "pubDate": "Tue, 22 Sep 2026 18:07:09 GMT",
         "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNUHU0RU43RGViYVp0bHc0VmVPQ28zWDEtbHBwZ3RtbGhBX2RUa2ZSX2JHd0pWR3BzQ0N6NVdLWFZ1U2RRSWMySnRjU3hjeENDSW9BZjFjNWI2MTU1NWxZeXczMWdBX3dkVlhUWXdJcjR0aDU0TFZ6a0FtNC1FMGRCYXA1Y1Q4TEdSWDBfYWR6cVRsQkFGdmFsWXJ4bldQd3hGazY2Nk5Lb3drRnJxZVBWS19vM2o2M3RxNC0wRjlBUkpjM01TME9feFFKRU00Zw?oc=5",
         "source": "World Bank"
@@ -6335,7 +6352,7 @@
         "sunspots": 76
       }
     ],
-    "lastUpdated": "2026-09-22T21:31:12.693Z"
+    "lastUpdated": "2026-09-22T21:36:11.052Z"
   },
   "momentum": {
     "indicators": [
