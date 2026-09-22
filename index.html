@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://air-quality-api.open-meteo.com https://earthquake.usgs.gov https://api.wheretheiss.at https://services.swpc.noaa.gov; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="World.One — Globales Echtzeit-Analyse-Dashboard. Der Zustand der Welt in einem Scroll-Erlebnis.">
   <meta name="theme-color" content="#0a0a0f">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -118,6 +118,11 @@
         <span class="timeline__index" id="timeline-index"></span>
       </div>
       <input type="range" id="timeline-range" min="0" max="0" value="0" step="1" class="timeline__range">
+      <!-- Mobil: Schrittknöpfe statt Regler (Regler verstellen sich beim Scrollen) -->
+      <div class="timeline__steps">
+        <button type="button" class="timeline__step" data-step="-1" aria-label="Älterer Stand" data-i18n-aria="timeline.older">−</button>
+        <button type="button" class="timeline__step" data-step="1" aria-label="Neuerer Stand" data-i18n-aria="timeline.newer">+</button>
+      </div>
       <div class="timeline__labels">
         <span id="timeline-start">—</span>
         <span id="timeline-end">LIVE</span>

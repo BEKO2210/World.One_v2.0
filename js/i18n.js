@@ -6,6 +6,8 @@ const translations = {
   de: {
     // ─── Loading Screen ───
     'loading.sub': 'Lade Weltdaten …',
+    'timeline.older': 'Älterer Stand',
+    'timeline.newer': 'Neuerer Stand',
     'region.EAS': 'Ostasien & Pazifik',
     'region.ECS': 'Europa & Zentralasien',
     'region.LCN': 'Lateinamerika & Karibik',
@@ -1261,6 +1263,8 @@ const translations = {
   en: {
     // ─── Loading Screen ───
     'loading.sub': 'Loading world data …',
+    'timeline.older': 'Older snapshot',
+    'timeline.newer': 'Newer snapshot',
     'region.EAS': 'East Asia & Pacific',
     'region.ECS': 'Europe & Central Asia',
     'region.LCN': 'Latin America & Caribbean',

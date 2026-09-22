@@ -308,12 +308,14 @@ button {
   line-height: 1.6;
 }
 
+/* Beschreibende Zeilen in Satzschreibweise; Versalien nur für kurze
+   Überschriften-Labels (.section-label, .data-card__label) */
 .text-label {
-  font-size: var(--text-label);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--text-3);
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.5;
+  color: var(--text-2);
 }
 
 /* Zahlen: Inter mit tabellarischen Ziffern (früher Monospace) */

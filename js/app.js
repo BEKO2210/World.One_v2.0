@@ -1552,6 +1552,16 @@ class BelkisOne {
       clearTimeout(debounce);
       debounce = setTimeout(() => loadSnapshot(parseInt(range.value)), 200);
     });
+
+    // Schrittknöpfe (mobil): Regler um ±1 bewegen, gleiche Ereignisse wie Ziehen
+    el.querySelectorAll('.timeline__step').forEach(stepBtn => {
+      stepBtn.addEventListener('click', () => {
+        const next = Math.min(Number(range.max), Math.max(Number(range.min), parseInt(range.value) + Number(stepBtn.dataset.step)));
+        if (next === parseInt(range.value)) return;
+        range.value = String(next);
+        range.dispatchEvent(new Event('input'));
+        range.dispatchEvent(new Event('change'));
+      });
     });
   }
 

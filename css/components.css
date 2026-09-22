@@ -710,3 +710,70 @@
   .top-bar__brand { font-size: 11px; }
   .top-bar__version { font-size: 10px; }
 }
+
+/* ─── Mobile Bottom-Bar ────────────────────────────────────────
+   Vorher schwebten Timeline, Nach-oben und Sprache als drei FABs über
+   dem Inhalt. Unter 640 px liegen sie in einer festen Leiste mit
+   Safe-Area-Abstand; der Inhalt bekommt unten entsprechend Platz. */
+@media (max-width: 640px) {
+  :root { --bottom-bar-h: calc(56px + env(safe-area-inset-bottom, 0px)); }
+  body { padding-bottom: var(--bottom-bar-h); }
+  body::after {
+    content: '';
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    height: var(--bottom-bar-h);
+    background: var(--surface-1);
+    border-top: 1px solid var(--line-1);
+    z-index: 290;
+    pointer-events: none;
+  }
+  .timeline,
+  .lang-toggle-wrapper { bottom: calc(6px + env(safe-area-inset-bottom, 0px)); }
+  .timeline { left: 12px; }
+  .lang-toggle-wrapper { right: 12px; }
+  .scroll-top { bottom: calc(6px + env(safe-area-inset-bottom, 0px)); }
+  .timeline__btn,
+  .lang-toggle,
+  .scroll-top {
+    min-width: 44px;
+    height: 44px;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: none;
+  }
+  .lang-toggle { padding: 0 12px; border-radius: var(--radius-full); }
+}
+
+/* Timeline-Schrittknöpfe: Desktop aus, mobil statt Regler */
+.timeline__steps { display: none; gap: 8px; justify-content: space-between; }
+.timeline__step {
+  flex: 1;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-3);
+  color: var(--text-1);
+  font-size: 20px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.timeline__step:active { background: var(--surface-2); }
+@media (max-width: 640px) {
+  .timeline__range { display: none; }
+  .timeline__steps { display: flex; }
+  .timeline__panel {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    width: auto;
+    max-width: none;
+    bottom: calc(var(--bottom-bar-h) + 8px);
+    background: var(--surface-2);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: var(--elevation-2);
+  }
+}
