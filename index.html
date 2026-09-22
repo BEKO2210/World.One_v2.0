@@ -1186,11 +1186,23 @@
     // Auto-Reload einmal nach Controller-Wechsel: User sieht ohne manuelles
     //   F5 die neue Version (Site hat kein Form-State → safe).
     if ('serviceWorker' in navigator) {
+      // Erstbesuch: Seite hatte noch keinen Controller → clients.claim() löst
+      //   controllerchange aus, ein Reload würde den Loader ein zweites Mal
+      //   zeigen. Nur bei echten Updates neu laden, und nicht vor den Augen
+      //   des Users, sondern erst wenn der Tab in den Hintergrund geht.
+      const _hadController = !!navigator.serviceWorker.controller;
       let _reloaded = false;
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
+      const _reload = () => {
         if (_reloaded) return;
         _reloaded = true;
         window.location.reload();
+      };
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!_hadController || _reloaded) return;
+        if (document.visibilityState === 'hidden') { _reload(); return; }
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'hidden') _reload();
+        });
       });
       navigator.serviceWorker
         .register('service-worker.js', { updateViaCache: 'none' })
