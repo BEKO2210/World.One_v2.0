@@ -681,7 +681,9 @@ const translations = {
     'detail.poverty.eastAsia': 'Ostasien & Pazifik',
     'detail.poverty.latinAmerica': 'Lateinamerika',
     'detail.poverty.europe': 'Europa & Zentralasien',
-    'detail.poverty.middleEast': 'Naher Osten & Nordafrika',
+    'detail.poverty.middleEast': 'Naher Osten, Nordafrika, Afghanistan & Pakistan',
+    'detail.poverty.lineUnit': '3,00 US-$/Tag',
+    'detail.poverty.goalUnit': 'bis 2030',
 
     // ─── Detail: Currencies (Phase 7) ───
     'detail.currencies.title': 'Währungen',
@@ -1899,7 +1901,9 @@ const translations = {
     'detail.poverty.eastAsia': 'East Asia & Pacific',
     'detail.poverty.latinAmerica': 'Latin America',
     'detail.poverty.europe': 'Europe & Central Asia',
-    'detail.poverty.middleEast': 'Middle East & North Africa',
+    'detail.poverty.middleEast': 'Middle East, North Africa, Afghanistan & Pakistan',
+    'detail.poverty.lineUnit': 'US$3.00/day',
+    'detail.poverty.goalUnit': 'by 2030',
 
     // ─── Detail: Currencies (Phase 7) ───
     'detail.currencies.title': 'Currencies',
