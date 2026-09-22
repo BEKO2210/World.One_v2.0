@@ -5,7 +5,7 @@
 const translations = {
   de: {
     // ─── Loading Screen ───
-    'loading.sub': 'Lade Weltdaten aus 65 Quellen',
+    'loading.sub': 'Lade Weltdaten …',
 
     // ─── Navigation ───
     'nav.aria': 'Sektions-Navigation',
@@ -82,7 +82,7 @@ const translations = {
     // ─── Act 3 — Society ───
     'act3.label': 'AKT 05 — GESELLSCHAFT',
     'act3.title': 'Wir Menschen',
-    'act3.desc': '8.2 Milliarden. Konflikte, Flucht, Freiheit, Gesundheit — wie es uns geht.',
+    'act3.desc': '{popBillion} Milliarden. Konflikte, Flucht, Freiheit, Gesundheit — wie es uns geht.',
     'act3.population': 'WELTBEVÖLKERUNG',
     'act3.popContext': '+1% pro Jahr',
     'act3.conflicts': 'AKTIVE KONFLIKTE',
@@ -97,9 +97,9 @@ const translations = {
     'act3.refugeeSource': 'Quelle: UNHCR {currentYear} — Mehr als je zuvor in der Geschichte',
     'act3.freedomTitle': 'Freiheitsindex weltweit',
     'act3.freedomDesc': '195 Länder bewertet nach politischen Rechten & bürgerlichen Freiheiten',
-    'act3.free': 'Frei (83)',
-    'act3.partlyFree': 'Teilweise frei (55)',
-    'act3.notFree': 'Nicht frei (57)',
+    'act3.free': 'Frei ({freeCount})',
+    'act3.partlyFree': 'Teilweise frei ({partlyFreeCount})',
+    'act3.notFree': 'Nicht frei ({notFreeCount})',
     'act3.freedomDecline': '{freedomStreak}. Jahr in Folge mit Rückgang — Freedom House {currentYear}',
     'act3.lifeExpLabel': 'LEBENSERWARTUNG',
     'act3.lifeExpTrend': '+20.8 J. seit 1960',
@@ -115,9 +115,9 @@ const translations = {
     'act4.title': 'Der Motor',
     'act4.desc': 'Reichtum, Armut, Ungleichheit, Handel — die Zahlen hinter dem System.',
     'act4.billionaires': 'Milliardäre weltweit',
-    'act4.billionairesOwn': 'besitzen 45.8% des Weltvermögens',
+    'act4.billionairesOwn': 'besitzen zusammen {billionaireWealthT} Bio. US-$ (Forbes {billionairesYear})',
     'act4.poverty': 'Menschen in extremer Armut',
-    'act4.povertyThreshold': 'unter $2.15 pro Tag',
+    'act4.povertyThreshold': 'unter 3,00 US-$ pro Tag ({povertyYear})',
     'act4.wealthTitle': 'Globale Vermögensverteilung',
     'act4.wealthDesc': 'Das reichste 1% besitzt mehr als die untere Hälfte der Menschheit zusammen.',
     'act4.gdpGrowth': 'BIP-WACHSTUM',
@@ -128,7 +128,7 @@ const translations = {
     'act4.unemploymentContext': 'Weltweite Quote',
     'act4.gdpPerCapita': 'BIP PRO KOPF',
     'act4.gdpPerCapitaContext': 'Durchschnitt',
-    'act4.giniExplain': '0 = Gleichheit, 1 = Ungleichheit. Global: 0.42 — Tendenz sinkend.',
+    'act4.giniExplain': '0 = völlige Gleichheit, 100 = maximale Ungleichheit. Länderwerte laut World Bank.',
     'act4.tradeLabel': 'GLOBALER HANDEL',
     'act4.tradeExplain': 'Handel als % des BIP. Rückläufig seit 2008 durch Protektionismus.',
     'act4.exchangeLabel': 'WECHSELKURSE (USD)',
@@ -664,7 +664,7 @@ const translations = {
 
     // ─── Detail: Poverty (ECON-02) ───
     'detail.poverty.title': 'Armut',
-    'detail.poverty.heroLabel': 'Extreme Armut ($2.15/Tag)',
+    'detail.poverty.heroLabel': 'Extreme Armut (3,00 US-$/Tag)',
     'detail.poverty.heroUnit': '%',
     'detail.poverty.trendTitle': 'Der größte Rückgang der Geschichte',
     'detail.poverty.regionalTitle': 'Armut nach Region',
@@ -1223,7 +1223,7 @@ const translations = {
 
   en: {
     // ─── Loading Screen ───
-    'loading.sub': 'Loading world data from 65 sources',
+    'loading.sub': 'Loading world data …',
 
     // ─── Navigation ───
     'nav.aria': 'Section Navigation',
@@ -1300,7 +1300,7 @@ const translations = {
     // ─── Act 3 — Society ───
     'act3.label': 'ACT 05 — SOCIETY',
     'act3.title': 'We the People',
-    'act3.desc': '8.2 billion. Conflicts, displacement, freedom, health — how we are doing.',
+    'act3.desc': '{popBillion} billion. Conflicts, displacement, freedom, health — how we are doing.',
     'act3.population': 'WORLD POPULATION',
     'act3.popContext': '+1% per year',
     'act3.conflicts': 'ACTIVE CONFLICTS',
@@ -1315,9 +1315,9 @@ const translations = {
     'act3.refugeeSource': 'Source: UNHCR {currentYear} — More than ever in history',
     'act3.freedomTitle': 'Freedom Index Worldwide',
     'act3.freedomDesc': '195 countries rated by political rights & civil liberties',
-    'act3.free': 'Free (83)',
-    'act3.partlyFree': 'Partly free (55)',
-    'act3.notFree': 'Not free (57)',
+    'act3.free': 'Free ({freeCount})',
+    'act3.partlyFree': 'Partly free ({partlyFreeCount})',
+    'act3.notFree': 'Not free ({notFreeCount})',
     'act3.freedomDecline': '{freedomStreak}th consecutive year of decline — Freedom House {currentYear}',
     'act3.lifeExpLabel': 'LIFE EXPECTANCY',
     'act3.lifeExpTrend': '+20.8 yrs since 1960',
@@ -1333,9 +1333,9 @@ const translations = {
     'act4.title': 'The Engine',
     'act4.desc': 'Wealth, poverty, inequality, trade — the numbers behind the system.',
     'act4.billionaires': 'Billionaires worldwide',
-    'act4.billionairesOwn': 'own 45.8% of global wealth',
+    'act4.billionairesOwn': 'own a combined US${billionaireWealthT} trillion (Forbes {billionairesYear})',
     'act4.poverty': 'People in extreme poverty',
-    'act4.povertyThreshold': 'under $2.15 per day',
+    'act4.povertyThreshold': 'under US$3.00 a day ({povertyYear})',
     'act4.wealthTitle': 'Global Wealth Distribution',
     'act4.wealthDesc': 'The richest 1% owns more than the bottom half of humanity combined.',
     'act4.gdpGrowth': 'GDP GROWTH',
@@ -1346,7 +1346,7 @@ const translations = {
     'act4.unemploymentContext': 'Global rate',
     'act4.gdpPerCapita': 'GDP PER CAPITA',
     'act4.gdpPerCapitaContext': 'Average',
-    'act4.giniExplain': '0 = equality, 1 = inequality. Global: 0.42 — trending down.',
+    'act4.giniExplain': '0 = perfect equality, 100 = maximum inequality. Country values from the World Bank.',
     'act4.tradeLabel': 'GLOBAL TRADE',
     'act4.tradeExplain': 'Trade as % of GDP. Declining since 2008 due to protectionism.',
     'act4.exchangeLabel': 'EXCHANGE RATES (USD)',
@@ -1882,7 +1882,7 @@ const translations = {
 
     // ─── Detail: Poverty (ECON-02) ───
     'detail.poverty.title': 'Poverty',
-    'detail.poverty.heroLabel': 'Extreme Poverty ($2.15/day)',
+    'detail.poverty.heroLabel': 'Extreme poverty (US$3.00/day)',
     'detail.poverty.heroUnit': '%',
     'detail.poverty.trendTitle': 'The Greatest Decline in History',
     'detail.poverty.regionalTitle': 'Poverty by Region',
@@ -2454,7 +2454,9 @@ class I18n {
       currentYear:    _now,
       tempLatestYear: _now - 1,   // NASA GISTEMP is annual, one year lag
       popLatestYear:  _now,
-      freedomStreak:  18          // Freedom House 2024 published streak
+      freedomStreak:  18,         // Freedom House 2024 published streak
+      freeCount: '–', partlyFreeCount: '–', notFreeCount: '–', popBillion: '–',
+      billionaireWealthT: '–', billionairesYear: '–', povertyYear: '–'
     };
   }
 

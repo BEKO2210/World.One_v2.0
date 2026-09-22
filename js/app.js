@@ -419,11 +419,25 @@ class BelkisOne {
     const popLatestYear  = popHist.length  ? popHist[popHist.length - 1]?.year  : null;
     const freedomStreak  = data?.society?.freedom?.yearDecline;
 
+    // Zahlen in Fließtexten: aus world-state, nie hartkodiert
+    const locale = i18n.lang === 'en' ? 'en-GB' : 'de-DE';
+    const num = (v, d = 1) => Number.isFinite(v) ? v.toLocaleString(locale, { maximumFractionDigits: d }) : '–';
+    const fr = data?.society?.freedom || {};
+    const w = data?.economy?.wealth || {};
+    const pop = data?.society?.population?.current;
+
     i18n.setGlobalParams({
       currentYear: now,
       tempLatestYear: Number.isFinite(tempLatestYear) ? tempLatestYear : now,
       popLatestYear:  Number.isFinite(popLatestYear)  ? popLatestYear  : now,
-      freedomStreak:  Number.isFinite(freedomStreak)  ? freedomStreak  : 18
+      freedomStreak:  Number.isFinite(freedomStreak)  ? freedomStreak  : 18,
+      freeCount:        num(fr.free, 0),
+      partlyFreeCount:  num(fr.partlyFree, 0),
+      notFreeCount:     num(fr.notFree, 0),
+      popBillion:       num(pop / 1e9, 1),
+      billionaireWealthT: num(w.billionaireWealth / 1e12, 1),
+      billionairesYear: w.billionairesYear ?? '–',
+      povertyYear:      w.extremePovertyYear ?? '–'
     });
   }
 
@@ -431,7 +445,7 @@ class BelkisOne {
   _populateProlog(data) {
     const meta = data.meta;
     if (!meta) return;
-    this._setText('#prolog-sources', meta.sources_count || '49');
+    this._setText('#prolog-sources', meta.sources_count || '–');
     if (meta.sources_available && meta.sources_count) {
       const rate = Math.min(100, Math.round((meta.sources_available / meta.sources_count) * 100));
       this._setText('#prolog-rate', `${rate}%`);
@@ -814,7 +828,7 @@ class BelkisOne {
   _buildPipelineStatus(data) {
     const meta = data.meta;
     if (!meta) return;
-    this._setText('#sources-total', meta.sources_count || '49');
+    this._setText('#sources-total', meta.sources_count || '–');
     this._setText('#sources-success', Math.min(meta.sources_available, meta.sources_count) || '22');
     if (meta.sources_available && meta.sources_count) {
       const rate = Math.min(100, Math.round((meta.sources_available / meta.sources_count) * 100));
@@ -1537,6 +1551,7 @@ class BelkisOne {
 
   _rebuildDynamic(data) {
     this._currentData = data;
+    this._applyDynamicYears(data);
 
     // Re-render prolog title and subtitle (no typewriter on toggle — instant text)
     const prologTitle = document.querySelector('.prolog__title');
