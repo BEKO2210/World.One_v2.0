@@ -201,8 +201,12 @@ export async function render(blocks) {
   const negativeCount = _momentumData.negativeCount || allIndicators.filter(i => i.trend === 'declining').length;
   const totalCount = allIndicators.length;
 
-  // 4. Hero block
-  _renderHero(blocks.hero, momentumScore, positiveCount, negativeCount, totalCount);
+  // 4. Hero block -- world-state.json ist Pipeline-Ausgabe (alle 6 h), kein Live-Abruf
+  const generated = Date.parse(wsData?.meta?.generated);
+  const badge = wsData
+    ? createTierBadge('cache', { age: Number.isFinite(generated) ? Date.now() - generated : null })
+    : createTierBadge('static');
+  _renderHero(blocks.hero, momentumScore, positiveCount, negativeCount, totalCount, badge);
 
   // 5. Chart block -- card grid
   _renderCardGrid(blocks.chart, allIndicators);
@@ -225,8 +229,7 @@ export async function render(blocks) {
 
 // --- Hero ---------------------------------------------------------------
 
-function _renderHero(heroEl, score, positiveCount, negativeCount, totalCount) {
-  const badge = createTierBadge('live');
+function _renderHero(heroEl, score, positiveCount, negativeCount, totalCount, badge) {
   const stableCount = totalCount - positiveCount - negativeCount;
 
   heroEl.appendChild(
