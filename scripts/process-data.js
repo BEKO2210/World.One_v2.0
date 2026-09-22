@@ -502,14 +502,18 @@ function buildWorldState() {
   let disasterPenalty = 0;
   let disasterSource = null;
   let disasterFetchedAt = null;
-  if (disastersCache?.data?.disasters?.length) {
+  let disasterOngoing = 0;
+  // Statischer Fallback (veraltete Beispielliste) fließt nicht in den Score ein.
+  if (disastersCache?.data?.disasters?.length && disastersCache.data.api_status !== 'static_fallback') {
     const list = disastersCache.data.disasters;
     disasterSource = disastersCache.data.source || 'GDACS';
     disasterFetchedAt = disastersCache.fetchedAt;
-    const ongoing = list.filter(d => (d.status || '').toLowerCase() === 'ongoing' || d.status === null).length;
-    const highAlert = list.filter(d => ['Red', 'Orange'].includes(d.alertLevel || d.alert_level)).length;
-    // -1 point per ongoing event, -2 per red/orange, cap at -10
-    disasterPenalty = Math.min(10, ongoing * 1 + highAlert * 2);
+    const ongoingList = list.filter(d => (d.status || '').toLowerCase() === 'ongoing' || d.status === null);
+    // GDACS SEARCH liefert Orange/Red-Events der letzten Monate — nur laufende zählen.
+    const highAlert = ongoingList.filter(d => ['Red', 'Orange'].includes(d.alertLevel || d.alert_level)).length;
+    // -1 point per ongoing event, -2 per ongoing red/orange, cap at -10
+    disasterOngoing = ongoingList.length;
+    disasterPenalty = Math.min(10, ongoingList.length * 1 + highAlert * 2);
   }
 
   // Environment scores
@@ -676,13 +680,15 @@ function buildWorldState() {
     });
   }
 
+  // Früher Math.max(…, existing.activeCount, 59): der Wert konnte dadurch nie
+  // sinken und fror ein. Jetzt: Live-Quelle, wenn vorhanden, sonst die
+  // Baseline (UCDP-Jahreszahl), ausdrücklich als Fallback markiert.
+  const conflictsLive = conflictsCache?.conflict_data?.api_status === 'live';
   const baseConflicts = {
-    activeCount: Math.max(
-      CONFLICT_LOCATIONS_2026.length,
-      conflictsCache?.conflict_data?.active_conflicts || 0,
-      existing?.society?.conflicts?.activeCount || 0,
-      59
-    ),
+    activeCount: conflictsLive && conflictsCache.conflict_data.active_conflicts > 0
+      ? conflictsCache.conflict_data.active_conflicts
+      : Math.max(CONFLICT_LOCATIONS_2026.length, 59),
+    isFallback: !conflictsLive,
     locations: CONFLICT_LOCATIONS_2026,
     countryISOs,
     source: conflictsCache?.conflict_data?.api_status === 'live'
@@ -693,8 +699,11 @@ function buildWorldState() {
     acled: conflictsCache?.conflict_data?.acled || null,
   };
   const conflicts = baseConflicts;
-  // UNHCR Global Trends 2024 (published June 2025)
-  const refugees = existing?.society?.refugees || {
+  // Live: UNHCR Refugee Data Finder (cache-society-ext → refugees.json).
+  // Fallback: letzter bekannter Stand bzw. UNHCR Global Trends 2024 — als
+  // Fallback markiert, damit der Wert nicht still als aktuell durchgeht.
+  const refugeesCache = readCacheFresh('refugees.json');
+  const refugeesFallback = existing?.society?.refugees || {
     total: 120000000, displaced: 43400000, asylumseekers: 7600000,
     flows: [
       { from: 'Sudan', to: 'Chad', count: 2100000 },
@@ -708,6 +717,20 @@ function buildWorldState() {
     ],
     source: 'UNHCR 2024'
   };
+  const rc = refugeesCache?.data;
+  const refugees = (rc?.api_status === 'live' && rc.total > 0)
+    ? {
+        total: rc.total,
+        displaced: rc.idps,
+        asylumseekers: rc.asylum_seekers,
+        refugees: rc.refugees,
+        flows: refugeesFallback.flows || [],
+        source: rc.source || 'UNHCR',
+        dataYear: rc.year,
+        isFallback: false,
+        ...freshness(refugeesCache.fetchedAt, rc.source || 'UNHCR')
+      }
+    : { ...refugeesFallback, isFallback: true };
   // Freedom House Freedom in the World 2026 report
   // Prefer cache if present (updated daily via society-ext job)
   let freedomFetchedAt = null;
@@ -726,6 +749,8 @@ function buildWorldState() {
     freedom.trend = freedomTrend;
     freedom.source = freedomSourceLabel;
   }
+  // Freedom House hat keine API: Jahresbericht, statisch gepflegt.
+  freedom.isStatic = true;
 
   const socLifeScore = normalize(lifeExpCurrent, 50, 85);
   const socMortScore = normalize(childMortCurrent, 100, 5); // lower = better
@@ -1059,21 +1084,30 @@ function buildWorldState() {
   // überall in der UI sichtbar ist (prolog-sources, sources-total, etc.).
   const sourcesTotal = sourcesList.length;
 
-  // Verfügbare Quellen = raw-success + gültige Cache-Files. Wenn Manifest
-  // fehlt (lokaler Lauf), nimm existing oder einen Optimisten-Default.
+  // Verfügbare Quellen = Gesamt minus echte Ausfälle: fehlgeschlagene
+  // Raw-Collectoren (Manifest) plus Caches, die auf einen statischen Fallback
+  // zurückgefallen sind. Früher wurde raw-success + Anzahl Cache-Files
+  // addiert — das ergab immer 65/65 = 100 %, auch bei toten Quellen.
+  // Wenn Manifest fehlt (lokaler Lauf), nimm existing oder den Gesamtwert.
   const manifestSuccess = Number.isFinite(manifest?.success?.length) ? manifest.success.length : null;
   const manifestFailed = Number.isFinite(manifest?.failed?.length) ? manifest.failed.length : 0;
-  // Zähle Cache-Files (jedes = mindestens 1 aggregierte Quelle).
-  let cacheAvailable = 0;
+  const cacheFallbacks = [];
   try {
     if (existsSync(CACHE_DIR)) {
-      const cacheFiles = readdirSync(CACHE_DIR).filter(f => f.endsWith('.json') && f !== 'meta.json');
-      cacheAvailable = cacheFiles.length;
+      for (const f of readdirSync(CACHE_DIR)) {
+        if (!f.endsWith('.json') || f === 'meta.json') continue;
+        const c = readCache(f);
+        const status = c?.api_status ?? c?.conflict_data?.api_status;
+        const src = c?.source ?? c?.conflict_data?.source;
+        if (status === 'static_fallback' || src === 'static_fallback') cacheFallbacks.push(f);
+      }
     }
-  } catch (_) { /* fallback to manifest estimate */ }
+  } catch (_) { /* ohne Cache-Scan nur Manifest-Ausfälle zählen */ }
+  const sourcesFailed = manifestFailed + cacheFallbacks.length;
   const sourcesAvailable = manifestSuccess !== null
-    ? Math.min(sourcesTotal, manifestSuccess + cacheAvailable)
+    ? Math.max(0, sourcesTotal - sourcesFailed)
     : (existing?.meta?.sources_available ?? sourcesTotal);
+  console.log(`  Sources: ${sourcesAvailable}/${sourcesTotal} (raw failed: ${manifestFailed}, cache fallbacks: ${cacheFallbacks.join(', ') || 'none'})`);
   const sourcesRate = sourcesTotal > 0
     ? Math.min(100, Math.round((sourcesAvailable / sourcesTotal) * 100))
     : 100;
@@ -1153,7 +1187,7 @@ function buildWorldState() {
           { name: 'Erneuerbare Energie', value: `${renewableCurrent}%`, score: Math.round(envRenewableScore), trend: 'improving', ...freshness(renewableFetchedAt, renewableSource) },
           { name: 'Luftqualität (Global Avg AQI)', value: globalAvgAQI, score: envAQIScore, trend: 'stable', ...freshness(airFetchedAt, airSource) },
           { name: 'Arktis-Eisfläche', value: '4.2 Mio km²', score: 30, trend: 'declining', ...freshness(null, 'NSIDC (manual baseline)') },
-          ...(disasterSource ? [{ name: 'Aktive Naturkatastrophen', value: `${disastersCache?.data?.disasters?.length || 0} events, -${disasterPenalty} Pkt`, score: Math.max(0, 100 - disasterPenalty * 10), trend: 'declining', ...freshness(disasterFetchedAt, disasterSource) }] : [])
+          ...(disasterSource ? [{ name: 'Aktive Naturkatastrophen', value: `${disasterOngoing} laufend, -${disasterPenalty} Pkt`, score: Math.max(0, 100 - disasterPenalty * 10), trend: 'declining', ...freshness(disasterFetchedAt, disasterSource) }] : [])
         ]
       },
       society: {
