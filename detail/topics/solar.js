@@ -545,6 +545,7 @@ export function getChartConfigs() {
 
   configs.push({
     canvasId: 'solar-cycle-chart',
+    blockId: 'detail-chart',
     config: {
       type: 'line',
       data: {

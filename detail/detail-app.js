@@ -250,13 +250,16 @@ function setupLazyCharts(chartConfigs) {
 
   for (const { canvasId, config, blockId } of chartConfigs) {
     const block = document.getElementById(blockId);
-    if (!block) continue;
+    if (!block) {
+      console.warn(`[DetailApp] Chart block "${blockId}" not found for #${canvasId}`);
+      continue;
+    }
 
     DOMUtils.observe(block, (entry) => {
       if (entry.isIntersecting) {
         ensureChartJs().then(() => {
           createChart(canvasId, config);
-        });
+        }).catch(err => console.warn('[DetailApp] Chart.js unavailable:', err));
       }
     }, { threshold: 0.1, rootMargin: '200px' });
   }

@@ -470,7 +470,7 @@ export function getChartConfigs() {
   // Deforestation causes stacked bar -- lazy loaded
   return [{
     canvasId: 'forests-causes-chart',
-    blockId: 'trend',
+    blockId: 'detail-trend',
     config: {
       type: 'bar',
       data: {
