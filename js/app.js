@@ -75,7 +75,7 @@ class BelkisOne {
       this._initEasterEgg();
       this._initProlog();
       this._initLangToggle();
-      this._initTimeline();
+      this._initTimeline().catch(err => console.warn('[BelkisOne] Timeline unavailable:', err));
 
       this._updateLoading(100);
       setTimeout(() => {
@@ -1066,29 +1066,27 @@ class BelkisOne {
       const mom = data.momentum;
       if (!mom?.indicators) return;
 
-      // Map indicator names (German) to detail topic IDs
+      // Pipeline-Namen (deutsch, siehe addMomentum in process-data.js) → Detailseite
       const MAIN_INDICATOR_TOPIC_MAP = {
-        'CO2-Konzentration': 'co2',
-        'Temperaturanomalie': 'temperature',
-        'Erneuerbare Energien': 'renewables',
-        'Waldfläche': 'forests',
-        'Waldflache': 'forests',
-        'Artenvielfalt': 'biodiversity',
         'Lebenserwartung': 'health',
         'Kindersterblichkeit': 'health',
-        'Alphabetisierung': 'internet',
+        'CO2-Konzentration': 'co2',
+        'Erneuerbare Energie': 'renewables',
+        'Waldfläche': 'forests',
         'Internet-Zugang': 'internet',
-        'Extreme Armut': 'poverty',
-        'Ungleichheit (Gini)': 'inequality',
-        'Demokratie-Index': 'freedom',
-        'Konflikte': 'conflicts',
-        'Hunger': 'hunger',
-        'Sauberes Wasser': 'health',
-        'Strom-Zugang': 'renewables',
-        'Mobilfunk': 'internet',
-        'Wissenschaftl. Publikationen': 'science',
-        'BIP pro Kopf': 'currencies',
+        'BIP-Wachstum': 'currencies',
+        'Inflation': 'currencies',
         'Arbeitslosigkeit': 'poverty',
+        'BIP pro Kopf': 'inequality',
+        'Mobilfunk': 'internet',
+        'F&E Ausgaben': 'science',
+        'Elektrizitätszugang': 'renewables',
+        'Trinkwasser': 'health',
+        'CO2 pro Kopf': 'co2',
+        'Gesundheitsausgaben': 'health',
+        'Urbanisierung': 'population',
+        'Patentanmeldungen': 'science',
+        'Militärausgaben (% BIP)': 'conflicts',
       };
 
       const momList = document.getElementById('momentum-list');
@@ -1101,8 +1099,8 @@ class BelkisOne {
             style: { transitionDelay: `${i * 60}ms` },
             innerHTML: `
               <span class="momentum-item__arrow" style="color:${isUp ? '#34c759' : '#ff3b30'}">${isUp ? '↑' : '↓'}</span>
-              <span class="momentum-item__name">${ind.name}</span>
-              <span class="momentum-item__change" style="color:${isUp ? '#34c759' : '#ff3b30'}">${ind.change}</span>
+              <span class="momentum-item__name">${this._esc(i18n.indicatorName(ind.name))}</span>
+              <span class="momentum-item__change" style="color:${isUp ? '#34c759' : '#ff3b30'}">${this._esc(ind.change)}</span>
             `
           });
           const topic = MAIN_INDICATOR_TOPIC_MAP[ind.name] || null;
@@ -1475,10 +1473,10 @@ class BelkisOne {
     const dateLabel = document.getElementById('timeline-date');
     const indexLabel = document.getElementById('timeline-index');
     const startLabel = document.getElementById('timeline-start');
-    if (!el || !range) return;
+    if (!el || !range || !btn || !panel || !dateLabel || !indexLabel || !startLabel) return;
 
     const manifest = await this.dataLoader.loadManifest();
-    if (!manifest.snapshots || manifest.snapshots.length < 2) return;
+    if (!Array.isArray(manifest?.snapshots) || manifest.snapshots.length < 2) return;
 
     // Snapshots: newest-first from manifest. Build a slim lookup for O(1) access.
     const snaps = manifest.snapshots;

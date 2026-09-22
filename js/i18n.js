@@ -2456,6 +2456,46 @@ const translations = {
   }
 };
 
+// Englische Namen der Pipeline-Indikatoren (Pipeline liefert deutsche Namen)
+const INDICATOR_NAMES_EN = {
+  "Lebenserwartung": "Life expectancy",
+  "Kindersterblichkeit": "Child mortality",
+  "CO2-Konzentration": "CO₂ concentration",
+  "Erneuerbare Energie": "Renewable energy",
+  "Waldfläche": "Forest area",
+  "Internet-Zugang": "Internet access",
+  "BIP-Wachstum": "GDP growth",
+  "Inflation": "Inflation",
+  "Arbeitslosigkeit": "Unemployment",
+  "BIP pro Kopf": "GDP per capita",
+  "Globaler Handel": "Global trade",
+  "Alphabetisierung": "Literacy",
+  "Mobilfunk": "Mobile subscriptions",
+  "F&E Ausgaben": "R&D spending",
+  "Elektrizitätszugang": "Access to electricity",
+  "Trinkwasser": "Drinking water",
+  "CO2 pro Kopf": "CO₂ per capita",
+  "Gesundheitsausgaben": "Health spending",
+  "Urbanisierung": "Urbanisation",
+  "Patentanmeldungen": "Patent applications",
+  "Militärausgaben (% BIP)": "Military spending (% GDP)",
+  "Globale Temperaturanomalie": "Global temperature anomaly",
+  "Luftqualität (Global Avg AQI)": "Air quality (avg AQI)",
+  "Arktis-Eisfläche": "Arctic sea ice",
+  "Aktive Naturkatastrophen": "Active natural disasters",
+  "Aktive Konflikte": "Active conflicts",
+  "Trinkwasserzugang": "Access to drinking water",
+  "Menschen auf der Flucht": "Forcibly displaced people",
+  "Politische Freiheit": "Political freedom",
+  "Gini-Index": "Gini index",
+  "Extreme Armut": "Extreme poverty",
+  "Internet-Durchdringung": "Internet penetration",
+  "F&E Ausgaben (% BIP)": "R&D spending (% GDP)",
+  "Mobilfunkverträge": "Mobile subscriptions",
+  "GitHub Repositories": "GitHub repositories",
+  "Wissenschaftliche Papers": "Scientific papers"
+};
+
 class I18n {
   constructor() {
     this._lang = localStorage.getItem('world-one-lang') || 'de';
@@ -2482,6 +2522,11 @@ class I18n {
   }
 
   get lang() { return this._lang; }
+
+  /** Anzeigename eines Pipeline-Indikators in der aktuellen Sprache */
+  indicatorName(name) {
+    return (this._lang === 'en' && INDICATOR_NAMES_EN[name]) || name;
+  }
 
   set lang(value) {
     if (value !== 'de' && value !== 'en') return;
