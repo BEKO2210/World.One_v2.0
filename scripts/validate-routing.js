@@ -105,7 +105,7 @@ pass(`Main page wires ${uniqMapped.length} unique topics`);
 for (const [topic, key] of Object.entries(titleKeys)) {
   if (topic === '_stub') continue;
   const escaped = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const hit = new RegExp(`['\"]${escaped}['\"]\\s*:`).test(i18nSrc);
+  const hit = new RegExp(`['"]${escaped}['"]\\s*:`).test(i18nSrc);
   if (!hit) fail(`i18n missing titleKey for ${topic}: "${key}"`);
 }
 pass('i18n titleKey coverage checked');

@@ -1,0 +1,47 @@
+name: "PR Checks"
+
+# Prüft jeden PR gegen main: Syntax, ESLint (Fehler), alle Validatoren,
+# Browser-Smoke-Test über Startseite und alle Detailseiten.
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-checks-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install
+        run: |
+          npm ci
+          npm i --no-save eslint@9 globals@15 @eslint/js@9 playwright@1.55
+
+      - name: Syntax (node --check)
+        run: find js detail scripts tests service-worker.js -name '*.js' -o -name '*.mjs' | xargs -n1 node --check
+
+      - name: ESLint
+        run: npx eslint --no-warn-ignored .
+
+      - name: Validators
+        run: for s in scripts/validate-*.js; do echo "::group::$s"; node "$s"; echo "::endgroup::"; done
+
+      - name: Browser smoke test
+        run: |
+          npx playwright install --with-deps chromium
+          python3 -m http.server 8000 >/dev/null 2>&1 &
+          sleep 2
+          BASE=http://localhost:8000 node tests/smoke.mjs
