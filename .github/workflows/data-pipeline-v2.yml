@@ -138,7 +138,7 @@ jobs:
 
       - name: "Phase 2 — Meta aggregate"
         continue-on-error: true
-        run: node scripts/generate-meta.js --job unified-v2 --status success || true
+        run: node scripts/generate-meta.js --job unified-v2 --status success
 
       - name: "Phase 2 — Cache validation"
         continue-on-error: true
@@ -186,6 +186,7 @@ jobs:
           node scripts/validate-fallback.js   2>&1 | tail -5
           node scripts/validate-routing.js    2>&1 | tail -6
           node scripts/validate-score-coverage.js 2>&1 | tail -7
+          node scripts/validate-freshness.js  2>&1 | tail -8
           echo "::endgroup::"
 
       - name: "Phase 4 — Generate README"
