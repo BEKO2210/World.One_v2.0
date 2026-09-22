@@ -1383,12 +1383,13 @@ function buildWorldState() {
         latestArxiv: arxivData?.papers?.slice(0, 5) || [],
         source: 'arXiv / Scopus'
       },
+      // Nur gemessene Werte (GitHub Search API); keine Schätzungen für Commits/Entwickler.
       github: {
-        dailyCommits: 142000000,
-        activeDevs: 120000000,
-        reposCreatedToday: 850000,
+        reposCreated24h: githubData?.reposCreated24h ?? null,
+        reposOver50kStars: githubData?.reposOver50kStars ?? githubData?.totalPublicRepos ?? null,
         topRepos: githubData?.topRepos || [],
-        source: 'GitHub'
+        source: 'GitHub Search API',
+        fetchedAt: githubData?.fetched || null
       },
       internet: {
         penetration: internetCurrent,

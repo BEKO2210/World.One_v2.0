@@ -471,8 +471,19 @@ async function fetchGitHubActivity() {
       language: r.language,
       updated: r.updated_at
     }));
+    // Neue öffentliche Repos der letzten 24 h (Search-API, total_count)
+    const since = new Date(Date.now() - 864e5).toISOString().replace(/\.\d+Z$/, 'Z');
+    let reposCreated24h = null;
+    try {
+      const created = await fetchJSON(`https://api.github.com/search/repositories?q=created:%3E=${since}&per_page=1`, {
+        headers: process.env.GITHUB_TOKEN ? { 'Authorization': `token ${process.env.GITHUB_TOKEN}` } : {}
+      });
+      if (Number.isFinite(created?.total_count)) reposCreated24h = created.total_count;
+    } catch { /* optional */ }
     save('tech', 'github-trending.json', {
       totalPublicRepos: data.total_count,
+      reposOver50kStars: data.total_count,
+      reposCreated24h,
       topRepos: repos,
       fetched: new Date().toISOString()
     });

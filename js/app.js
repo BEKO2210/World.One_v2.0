@@ -402,14 +402,8 @@ class BelkisOne {
     // ─── Progress ───
     set('internet-penetration-value', prog.internet?.penetration, 1, findInd('progress', 'Internet'));
     set('literacy-value',             prog.literacy?.global,      1, findInd('progress', 'Alphabet'));
-    if (prog.github?.dailyCommits != null) {
-      set('github-commits-value', Math.round(prog.github.dailyCommits / 1e6), 0,
-        findInd('progress', 'GitHub'));
-    }
-    if (prog.github?.activeDevs != null) {
-      set('github-devs-value', Math.round(prog.github.activeDevs / 1e6), 0,
-        findInd('progress', 'GitHub'));
-    }
+    set('github-commits-value', prog.github?.reposCreated24h, 0, findInd('progress', 'GitHub'));
+    set('github-devs-value',    prog.github?.reposOver50kStars, 0, findInd('progress', 'GitHub'));
   }
 
   // ─── Dynamische Jahresangaben (Schritt 4) ───
