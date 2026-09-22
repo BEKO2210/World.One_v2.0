@@ -124,7 +124,7 @@ export class Charts {
         if (regular || i === last) {
           const anchor = i === last ? 'end' : i === 0 ? 'start' : 'middle';
           svg += `<text x="${xScale(i)}" y="${height - 8}" text-anchor="${anchor}"
-            fill="rgba(255,255,255,0.3)" font-size="10" font-family="var(--font-mono)">${d.year || d.label || i}</text>`;
+            fill="rgba(255,255,255,0.3)" font-size="10" font-family="var(--font-mono)">${MathUtils.escapeHTML(d.year || d.label || i)}</text>`;
         }
       });
     }
@@ -157,7 +157,7 @@ export class Charts {
     // Y label
     if (yLabel) {
       // Achsentitel waagerecht über der y-Achse statt gedreht (überlappte die Werte)
-      svg += `<text x="4" y="${padding.top - 12}" fill="rgba(255,255,255,0.45)" font-size="10" text-anchor="start">${yLabel}</text>`;
+      svg += `<text x="4" y="${padding.top - 12}" fill="rgba(255,255,255,0.45)" font-size="10" text-anchor="start">${MathUtils.escapeHTML(yLabel)}</text>`;
     }
 
     svg += '</svg>';
@@ -198,12 +198,12 @@ export class Charts {
       svg += `<rect x="${x}" y="${y}" width="${barWidth}" height="${barH}"
         fill="${color}" rx="2" opacity="0.85"
         style="transition: height 1s ease ${i * 30}ms, y 1s ease ${i * 30}ms;">
-        <title>${d.label || d.name}: ${d.value}</title>
+        <title>${MathUtils.escapeHTML(d.label || d.name)}: ${MathUtils.escapeHTML(d.value)}</title>
       </rect>`;
 
       if (showLabels) {
         svg += `<text x="${x + barWidth / 2}" y="${height - 8}" text-anchor="middle"
-          fill="rgba(255,255,255,0.3)" font-size="9" font-family="var(--font-mono)">${d.label || d.name || ''}</text>`;
+          fill="rgba(255,255,255,0.3)" font-size="9" font-family="var(--font-mono)">${MathUtils.escapeHTML(d.label || d.name || '')}</text>`;
       }
     });
 
@@ -352,9 +352,9 @@ export class Charts {
 
     container.innerHTML = `
       <div style="width:100%;height:32px;border-radius:8px;overflow:hidden;display:flex;margin-bottom:8px">
-        <div style="width:${freeP}%;background:#34c759;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#000;transition:width 1.5s ease">${freedom.free}</div>
-        <div style="width:${partlyP}%;background:#ffcc00;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#000;transition:width 1.5s ease">${freedom.partlyFree}</div>
-        <div style="width:${notFreeP}%;background:#ff3b30;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#000;transition:width 1.5s ease">${freedom.notFree}</div>
+        <div style="width:${freeP}%;background:#34c759;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#000;transition:width 1.5s ease">${Number(freedom.free) || 0}</div>
+        <div style="width:${partlyP}%;background:#ffcc00;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#000;transition:width 1.5s ease">${Number(freedom.partlyFree) || 0}</div>
+        <div style="width:${notFreeP}%;background:#ff3b30;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#000;transition:width 1.5s ease">${Number(freedom.notFree) || 0}</div>
       </div>
     `;
   }

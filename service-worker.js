@@ -3,13 +3,14 @@
    Strategy: Network-first for data, Stale-while-revalidate for assets
    ═══════════════════════════════════════════════════════════ */
 
-// IMPORTANT: Bump this version on EVERY deploy so users get fresh code.
-// - data-pipeline workflow auto-bumps this via sed (see .github/workflows/
-//   data-pipeline.yml "Bump service worker cache version").
-// - For direct commits that touch JS/CSS/HTML: bump manually to the current
-//   ISO minute so the new SW supersedes the old one immediately.
+// Version = Hash über den Code (index.html, detail/, js/, css/, assets/,
+// manifest.json). Die Pipeline setzt sie bei jedem Lauf neu; sie ändert
+// sich nur, wenn sich Code ändert — reine Datenläufe laden keine Tabs neu.
 const CACHE_VERSION = '20260922-2203';
 const CACHE_NAME = `worldone-${CACHE_VERSION}`;
+// Daten in eigenem, versionsunabhängigem Cache mit Obergrenze
+const DATA_CACHE = 'worldone-data';
+const DATA_CACHE_MAX = 80;
 const DATA_PATHS = ['/world-state.json', '/manifest.json', '/data/'];
 
 const PRECACHE_ASSETS = [
@@ -28,6 +29,9 @@ const PRECACHE_ASSETS = [
   './js/utils/badge.js',
   './js/utils/chart-manager.js',
   './js/utils/data-loader.js',
+  './js/utils/fmt.js',
+  './js/utils/as-of.js',
+  './js/sw-register.js',
   './js/visualizations/world-indicator.js',
   './js/visualizations/charts.js',
   './js/visualizations/maps.js',
@@ -62,7 +66,7 @@ self.addEventListener('install', (event) => {
 self.addEventListener('activate', (event) => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
-    await Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)));
+    await Promise.all(keys.filter(k => k !== CACHE_NAME && k !== DATA_CACHE).map(k => caches.delete(k)));
     await self.clients.claim();
     // Tell open pages the new SW is live. Registration listener in index.html
     // decides whether to reload (safe because the site has no form state).
@@ -79,6 +83,15 @@ self.addEventListener('message', (event) => {
   if (event.data?.type === 'SKIP_WAITING') self.skipWaiting();
 });
 
+// Älteste Einträge entfernen, bis höchstens max übrig sind
+async function trimCache(name, max) {
+  const cache = await caches.open(name);
+  const keys = await cache.keys();
+  for (let i = 0; i < keys.length - max; i++) await cache.delete(keys[i]);
+}
+
+const offline = () => new Response('', { status: 503, statusText: 'Offline' });
+
 // Fetch strategy
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
@@ -86,19 +99,27 @@ self.addEventListener('fetch', (event) => {
   // Skip non-GET requests
   if (event.request.method !== 'GET') return;
 
-  // Data files: network-first (freshness matters)
+  // Fremde Hosts (Live-APIs, CDN) nicht über den SW leiten
+  if (url.origin !== self.location.origin) return;
+
+  // Data files: network-first (freshness matters); nur erfolgreiche
+  // Antworten cachen (vorher auch 404/500), Cache begrenzt.
   const isData = DATA_PATHS.some(p => url.pathname.includes(p));
 
   if (isData) {
-    event.respondWith(
-      fetch(event.request)
-        .then(response => {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
-          return response;
-        })
-        .catch(() => caches.match(event.request))
-    );
+    event.respondWith((async () => {
+      try {
+        const response = await fetch(event.request);
+        if (response.ok) {
+          const cache = await caches.open(DATA_CACHE);
+          await cache.put(event.request, response.clone());
+          trimCache(DATA_CACHE, DATA_CACHE_MAX);
+        }
+        return response;
+      } catch {
+        return (await caches.match(event.request)) || offline();
+      }
+    })());
     return;
   }
 
@@ -108,11 +129,9 @@ self.addEventListener('fetch', (event) => {
     caches.open(CACHE_NAME).then(cache =>
       cache.match(event.request).then(cached => {
         const networkFetch = fetch(event.request).then(response => {
-          if (response.ok && url.origin === self.location.origin) {
-            cache.put(event.request, response.clone());
-          }
+          if (response.ok) cache.put(event.request, response.clone());
           return response;
-        });
+        }).catch(() => cached || offline());
 
         // Return cached immediately, update in background
         return cached || networkFetch;

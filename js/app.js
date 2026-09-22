@@ -76,6 +76,7 @@ class BelkisOne {
       this._initProlog();
       this._initLangToggle();
       this._initTimeline().catch(err => console.warn('[BelkisOne] Timeline unavailable:', err));
+      this._setText('#footer-year', new Date().getFullYear());
 
       this._updateLoading(100);
       setTimeout(() => {
@@ -459,7 +460,7 @@ class BelkisOne {
     const wi = data.worldIndex;
     const isUp = wi.change >= 0;
     trendEl.innerHTML = `
-      <span style="color:${isUp ? '#34c759' : '#ff3b30'}">${isUp ? '↑' : '↓'} ${isUp ? '+' : ''}${wi.change}</span>
+      <span style="color:${isUp ? '#34c759' : '#ff3b30'}">${isUp ? '↑' : '↓'} ${isUp ? '+' : ''}${this._esc(wi.change)}</span>
       <span class="text-muted"> ${i18n.t('act1.vsPeriod')}</span>
     `;
   }
@@ -732,12 +733,14 @@ class BelkisOne {
     const reposEl = document.getElementById('github-repos');
     if (reposEl && data.progress?.github) {
       const gh = data.progress.github;
-      reposEl.innerHTML = `
+      // Meistgesternte Repos (GitHub Search API); früher Tags zu Feldern,
+      // die es nicht mehr gibt (reposCreatedToday/activeDevs)
+      const top = (gh.topRepos || []).slice(0, 5);
+      reposEl.innerHTML = top.length ? `
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:var(--space-sm);justify-content:center">
-          <span class="github-repo-tag">${MathUtils.formatCompact(gh.reposCreatedToday)} ${i18n.t('js.newRepos')}</span>
-          <span class="github-repo-tag">${MathUtils.formatCompact(gh.activeDevs)} ${i18n.t('js.activeDevs')}</span>
+          ${top.map(r => `<span class="github-repo-tag">${this._esc(r.name)} · ★ ${MathUtils.formatCompact(r.stars)}</span>`).join('')}
         </div>
-      `;
+      ` : '';
     }
 
     // Spaceflight news (dynamic with fallback)
@@ -778,25 +781,19 @@ class BelkisOne {
       solarEl.innerHTML = `<div style="text-align:center">
         <div class="text-mono" style="font-size:28px;color:#ffcc00;margin-bottom:8px">${Number.isFinite(ssn) ? ssn.toFixed(1) : '—'}</div>
         <div class="text-label text-muted">${i18n.t('js.sunspotCount')}</div>
-        <div style="margin-top:12px;font-size:13px;color:var(--text-secondary)">${latestSolar?.date || i18n.t('js.noData')}<br><span class="text-muted">NOAA SWPC</span></div>
+        <div style="margin-top:12px;font-size:13px;color:var(--text-secondary)">${latestSolar?.date ? this._esc(latestSolar.date) : i18n.t('js.noData')}<br><span class="text-muted">NOAA SWPC</span></div>
       </div>`;
     }
 
     const volcanicEl = document.getElementById('volcanic-activity');
     if (volcanicEl) {
+      // Ohne Meldungen kein Ersatzwert (früher: 47 + Beispielnamen)
       const volcanic = Array.isArray(rt.volcanic) ? rt.volcanic : [];
-      const fallbackVolcanic = [
-        { name: 'Kīlauea' },
-        { name: 'Etna' },
-        { name: 'Popocatépetl' }
-      ];
-      const activeVolcanic = volcanic.length ? volcanic : fallbackVolcanic;
-      const activeCount = volcanic.length || 47;
-      const names = activeVolcanic.slice(0, 3).map(v => v.name || v.volcano).filter(Boolean).join(', ');
+      const names = volcanic.slice(0, 3).map(v => v.name || v.volcano).filter(Boolean).join(', ');
       volcanicEl.innerHTML = `<div style="text-align:center">
-        <div class="text-mono" style="font-size:28px;color:#ff9500;margin-bottom:8px">${activeCount}</div>
+        <div class="text-mono" style="font-size:28px;color:#ff9500;margin-bottom:8px">${volcanic.length || '–'}</div>
         <div class="text-label text-muted">${i18n.t('js.activeVolcanoes')}</div>
-        <div style="margin-top:12px;font-size:13px;color:var(--text-secondary)">${names || i18n.t('js.noReports')}<br><span class="text-muted">USGS / Smithsonian${volcanic.length ? '' : ' (Fallback)'} </span></div>
+        <div style="margin-top:12px;font-size:13px;color:var(--text-secondary)">${names ? this._esc(names) : i18n.t('js.noReports')}<br><span class="text-muted">USGS / Smithsonian</span></div>
       </div>`;
     }
 

@@ -37,13 +37,13 @@ on:
   # schedule:
   #   - cron: '30 1 * * *'   # 01:30 UTC täglich
 
+# Rechte pro Job (Build schreibt Daten, Deploy nur Pages)
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: read
 
+# Gemeinsame Gruppe für alle Workflows, die auf main schreiben
 concurrency:
-  group: data-pipeline-v2
+  group: data-write
   cancel-in-progress: false
 
 env:
@@ -53,14 +53,16 @@ jobs:
   unified-pipeline:
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    permissions:
+      contents: write
     steps:
       # ─── Setup ──────────────────────────────────────────────
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 1
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
@@ -193,11 +195,15 @@ jobs:
         continue-on-error: true
         run: node scripts/generate-readme.js
 
-      - name: "Phase 4 — Bump Service-Worker cache version"
+      # SW-Version = Hash über den Code (nicht über Daten). Daten laufen im SW
+      # network-first; eine neue Version nur bei Code-Änderung verhindert,
+      # dass offene Tabs bei jedem Datenlauf (4×/Tag) neu laden.
+      - name: "Phase 4 — Service-Worker cache version from code hash"
         run: |
-          NEW_VERSION="$(date -u '+%Y%m%d-%H%M')"
-          sed -i "s/const CACHE_VERSION = '.*'/const CACHE_VERSION = '${NEW_VERSION}'/" service-worker.js
-          echo "Service Worker version bumped to: ${NEW_VERSION}"
+          CODE_HASH=$(find index.html detail js css assets manifest.json -type f -print0 \
+            | sort -z | xargs -0 sha256sum | sha256sum | cut -c1-12)
+          sed -i "s/const CACHE_VERSION = '.*'/const CACHE_VERSION = '${CODE_HASH}'/" service-worker.js
+          echo "Service Worker version: ${CODE_HASH}"
 
       # ─── Phase 5: Commit + Deploy ────────────────────────────
       - name: "Phase 5 — Commit data + README + SW"
@@ -218,29 +224,37 @@ jobs:
             SUCCESS_PART="${{ steps.collect.outputs.success }}"
             TOTAL_PART="${{ steps.collect.outputs.total }}"
             git commit -m "chore(v2): unified pipeline — Index ${WORLD_INDEX} [${SUCCESS_PART}/${TOTAL_PART} sources + all caches] $(date -u '+%Y-%m-%d %H:%M UTC')"
+            # Kein -X theirs: das hätte fremde Commits überschrieben.
+            pushed=false
             for attempt in 1 2 3; do
-              git push && break
+              if git push; then pushed=true; break; fi
               echo "Push attempt $attempt failed — rebase + retry..."
-              git pull --rebase -X theirs origin $(git branch --show-current) || true
+              git pull --rebase origin $(git branch --show-current) || { git rebase --abort || true; }
               sleep $((attempt * 2))
             done
+            if [ "$pushed" != "true" ]; then
+              echo "::error::Push nach 3 Versuchen fehlgeschlagen"
+              exit 1
+            fi
           fi
 
-      - name: "Phase 6 — Deploy to GitHub Pages"
+      # Nur die Website ausliefern — nicht scripts/, .github/, .planning/,
+      # data/raw oder Markdown-Dateien (vorher: path '.').
+      - name: "Phase 6 — Assemble site (dist/)"
         if: github.event.inputs.skip_deploy != 'true'
-        id: deploy-setup
-        uses: actions/configure-pages@v4
+        run: |
+          mkdir -p dist/data
+          cp -r index.html detail js css assets manifest.json service-worker.js dist/
+          for f in robots.txt sitemap.xml favicon.ico favicon.svg 404.html; do [ -f "$f" ] && cp "$f" dist/ || true; done
+          cp -r data/processed data/cache data/fallback data/history dist/data/
+          rm -f dist/data/processed/world-state.backup*.json
+          echo "dist: $(find dist -type f | wc -l) Dateien, $(du -sh dist | cut -f1)"
 
       - name: "Phase 6 — Upload Pages artifact"
         if: github.event.inputs.skip_deploy != 'true'
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:
-          path: '.'
-
-      - name: "Phase 6 — Deploy"
-        if: github.event.inputs.skip_deploy != 'true'
-        id: deployment
-        uses: actions/deploy-pages@v4
+          path: dist
 
       # ─── Summary ─────────────────────────────────────────────
       - name: Summary
@@ -254,3 +268,19 @@ jobs:
           fi
           echo "- **Cache files:** $(find data/cache -name '*.json' ! -name 'meta.json' | wc -l)" >> $GITHUB_STEP_SUMMARY
           echo "- **Deployed:** ${{ github.event.inputs.skip_deploy != 'true' }}" >> $GITHUB_STEP_SUMMARY
+
+  deploy:
+    needs: unified-pipeline
+    if: github.event.inputs.skip_deploy != 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@1f0c5cde4bc74cd7e1254d0cb4de8d49e9068c7d # v4
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4

@@ -2,6 +2,21 @@
    World.One 2.0 — DOM Utilities
    ═══════════════════════════════════════════════════════════ */
 
+/**
+ * Nur http(s), mailto und relative URLs zulassen — externe Daten (News,
+ * Quellen) dürfen kein javascript:/data: in href/src einschleusen.
+ */
+export function safeUrl(value) {
+  const str = String(value ?? '').trim();
+  if (!str) return '#';
+  try {
+    const u = new URL(str, window.location.href);
+    return ['http:', 'https:', 'mailto:'].includes(u.protocol) ? str : '#';
+  } catch {
+    return '#';
+  }
+}
+
 export const DOMUtils = {
   // ─── Query Shorthand ───
   $(selector, parent = document) {
@@ -19,6 +34,7 @@ export const DOMUtils = {
       if (key === 'className') el.className = value;
       else if (key === 'textContent') el.textContent = value;
       else if (key === 'innerHTML') el.innerHTML = value;
+      else if (key === 'href' || key === 'src') el.setAttribute(key, safeUrl(value));
       else if (key.startsWith('data-')) el.setAttribute(key, value);
       else if (key === 'style' && typeof value === 'object') Object.assign(el.style, value);
       else el.setAttribute(key, value);

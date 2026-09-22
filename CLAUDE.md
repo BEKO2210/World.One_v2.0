@@ -28,4 +28,5 @@ node scripts/validate-score-coverage.js
 - Externe Daten nie ungeescaped per `innerHTML` einfügen.
 - Tier-Badge (`live|cache|static`) muss die tatsächlich genutzte Quelle widerspiegeln.
 - Schema-Änderungen an `world-state.json` nur additiv.
-- Service-Worker-Registrierung ist in `index.html` und `detail/index.html` dupliziert — beide synchron halten.
+- Service-Worker-Registrierung liegt in `js/sw-register.js` (beide Seiten). Keine Inline-Skripte: CSP erlaubt nur `script-src 'self'` + die zwei Chart.js-CDNs (mit SRI).
+- Neue Live-APIs im Frontend brauchen einen Eintrag in `connect-src` der CSP (`index.html` und `detail/index.html`).
