@@ -18,10 +18,13 @@ export function ensureChartJs() {
   if (_chartJsLoaded) return Promise.resolve();
   if (_chartJsLoading) return _chartJsLoading;
 
+  // SRI: der Browser führt die Datei nur aus, wenn der Hash stimmt
   _chartJsLoading = _loadScript(
-    'https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js'
+    'https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js',
+    'sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ'
   ).catch(() => _loadScript(
-    'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js'
+    'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js',
+    'sha384-XcdcwHqIPULERb2yDEM4R0XaQKU3YnDsrTmjACBZyfdVVqjh6xQ4/DCMd7XLcA6Y'
   )).then(() => {
     _chartJsLoaded = true;
     _applyDarkDefaults();
@@ -38,13 +41,18 @@ export function ensureChartJs() {
 /**
  * Injects a script tag and returns a promise that resolves on load.
  * @param {string} src - Script URL
+ * @param {string} [integrity] - SRI-Hash (sha384-…)
  * @returns {Promise<void>}
  */
-function _loadScript(src) {
+function _loadScript(src, integrity) {
   console.log('[ChartManager] Loading:', src);
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
     script.src = src;
+    if (integrity) {
+      script.integrity = integrity;
+      script.crossOrigin = 'anonymous';
+    }
     script.onload = resolve;
     script.onerror = reject;
     document.head.appendChild(script);

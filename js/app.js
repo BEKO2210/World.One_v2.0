@@ -76,6 +76,7 @@ class BelkisOne {
       this._initProlog();
       this._initLangToggle();
       this._initTimeline().catch(err => console.warn('[BelkisOne] Timeline unavailable:', err));
+      this._setText('#footer-year', new Date().getFullYear());
 
       this._updateLoading(100);
       setTimeout(() => {
