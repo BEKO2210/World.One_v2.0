@@ -3,7 +3,7 @@
    Full topic contract: meta, render, getChartConfigs, cleanup
    Data: FAO/World Bank undernourishment trend (cached hunger.json),
          Malnutrition by country (hardcoded ~50 countries),
-         FAO Food Price Index (hardcoded 1990-2025),
+         FAO Food Price Index (hunger.json, Basis 2014-2016 = 100),
          SVG choropleth with 5-level severity classification
    =================================================================== */
 
@@ -45,29 +45,9 @@ const MALNUTRITION_BY_COUNTRY = {
   'NP': 5.7, 'LK': 5.3, 'TH': 7.0, 'VN': 5.7, 'CN': 2.5,
 };
 
-// --- FAO Food Price Index (annual, 1990-2025) ---
-// Source: FAO Food Price Index (base 2014-2016 = 100)
-
-const FAO_FOOD_PRICE_INDEX = [
-  { year: 1990, value: 107.6 }, { year: 1991, value: 105.0 },
-  { year: 1992, value: 106.5 }, { year: 1993, value: 102.7 },
-  { year: 1994, value: 107.1 }, { year: 1995, value: 117.1 },
-  { year: 1996, value: 127.8 }, { year: 1997, value: 113.7 },
-  { year: 1998, value: 105.3 }, { year: 1999, value: 93.0 },
-  { year: 2000, value: 91.1 }, { year: 2001, value: 94.6 },
-  { year: 2002, value: 89.6 }, { year: 2003, value: 97.7 },
-  { year: 2004, value: 112.7 }, { year: 2005, value: 118.0 },
-  { year: 2006, value: 127.2 }, { year: 2007, value: 161.4 },
-  { year: 2008, value: 201.4 }, { year: 2009, value: 160.3 },
-  { year: 2010, value: 188.0 }, { year: 2011, value: 229.9 },
-  { year: 2012, value: 213.3 }, { year: 2013, value: 209.8 },
-  { year: 2014, value: 201.8 }, { year: 2015, value: 164.0 },
-  { year: 2016, value: 161.5 }, { year: 2017, value: 174.6 },
-  { year: 2018, value: 168.4 }, { year: 2019, value: 171.5 },
-  { year: 2020, value: 98.1 }, { year: 2021, value: 125.7 },
-  { year: 2022, value: 143.7 }, { year: 2023, value: 120.8 },
-  { year: 2024, value: 122.2 }, { year: 2025, value: 118.0 },
-];
+// --- FAO Food Price Index: aus hunger.json (offizielle FAO-CSV) ---------
+// Die frühere eingebettete Tabelle mischte die Basen 2002-04 und
+// 2014-16 (Scheinabsturz 171 → 98 im Jahr 2020).
 
 // --- Choropleth Color Function -----------------------------------------
 
@@ -407,8 +387,9 @@ function _renderSources(srcEl) {
 export function getChartConfigs() {
   const configs = [];
 
-  // Build full year range covering both datasets (1990-2025)
-  const allYears = FAO_FOOD_PRICE_INDEX.map(d => d.year);
+  const ffpi = _cacheData?.food_price_index?.annual || [];
+  if (ffpi.length === 0) return configs;
+  const allYears = ffpi.map(d => d.year);
 
   // Build undernourishment data aligned to allYears (starts at 2001)
   const undernourishmentTrend = _cacheData?._undernourishmentTrend ||
@@ -429,7 +410,7 @@ export function getChartConfigs() {
         datasets: [
           {
             label: i18n.t('detail.hunger.trendTitle'),
-            data: FAO_FOOD_PRICE_INDEX.map(d => d.value),
+            data: ffpi.map(d => d.value),
             borderColor: toRgba(CHART_COLORS.crisis),
             backgroundColor: toRgba(CHART_COLORS.crisis, 0.1),
             fill: true,

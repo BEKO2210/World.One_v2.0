@@ -66,47 +66,19 @@ const CATEGORIES = {
   progress:    { color: '#af52de', key: 'detail.momentum_detail.categoryProg' },
 };
 
-// --- Sparkline Function ------------------------------------------------
+// --- Trend-Symbol ------------------------------------------------------
+// Früher eine „Sparkline“ aus Sinus-Rauschen je Trendwort — sah wie Daten
+// aus, war aber keine. Jetzt nur Richtung + Wort.
 
-function _createSparkline(trend, color, width = 80, height = 24) {
-  const svg = DOMUtils.createSVG('svg', {
-    viewBox: `0 0 ${width} ${height}`,
-    width: String(width),
-    height: String(height),
-    style: 'display:block;flex-shrink:0;',
+const TREND_GLYPH = { improving: '\u25B2', declining: '\u25BC', stable: '\u25B6' };
+
+function _createTrendMark(trend) {
+  const t = TREND_GLYPH[trend] ? trend : 'stable';
+  const color = t === 'improving' ? '#34c759' : t === 'declining' ? '#ff3b30' : 'var(--text-secondary)';
+  return DOMUtils.create('span', {
+    textContent: `${TREND_GLYPH[t]} ${i18n.t(`detail.momentum_detail.trend_${t}`)}`,
+    style: { color, fontSize: '0.75rem', fontWeight: '600', whiteSpace: 'nowrap' },
   });
-
-  // Generate 10 representative points based on trend direction
-  const pts = [];
-  for (let i = 0; i < 10; i++) {
-    const t = i / 9; // 0 to 1
-    const noise = (Math.sin(i * 2.7 + 1.3) * 0.12); // deterministic noise
-    let base;
-    if (trend === 'improving') {
-      base = 0.7 - t * 0.5 + noise; // goes from high Y (bottom) to low Y (top)
-    } else if (trend === 'declining') {
-      base = 0.3 + t * 0.5 + noise; // goes from low Y (top) to high Y (bottom)
-    } else {
-      base = 0.5 + noise; // oscillates around center
-    }
-    // Clamp to 0.05 - 0.95 range
-    base = Math.max(0.05, Math.min(0.95, base));
-    const x = (i / 9) * width;
-    const y = base * height;
-    pts.push(`${x.toFixed(1)},${y.toFixed(1)}`);
-  }
-
-  svg.appendChild(DOMUtils.createSVG('polyline', {
-    points: pts.join(' '),
-    fill: 'none',
-    stroke: color,
-    'stroke-width': '1.5',
-    'stroke-linecap': 'round',
-    'stroke-linejoin': 'round',
-    'stroke-opacity': '0.8',
-  }));
-
-  return svg;
 }
 
 // --- Assessment Function -----------------------------------------------
@@ -197,8 +169,10 @@ export async function render(blocks) {
   _momentumData = subScores.momentum || { value: 0, positiveCount: 0, negativeCount: 0, totalIndicators: 0 };
 
   const momentumScore = _momentumData.value || 0;
-  const positiveCount = _momentumData.positiveCount || allIndicators.filter(i => i.trend === 'improving').length;
-  const negativeCount = _momentumData.negativeCount || allIndicators.filter(i => i.trend === 'declining').length;
+  // Zähler aus denselben Indikatoren wie Karten und Balken (vorher aus
+  // einer anderen Liste: Hero 17/6/4 vs. Balken 13/6/8)
+  const positiveCount = allIndicators.filter(i => i.trend === 'improving').length;
+  const negativeCount = allIndicators.filter(i => i.trend === 'declining').length;
   const totalCount = allIndicators.length;
 
   // 4. Hero block -- world-state.json ist Pipeline-Ausgabe (alle 6 h), kein Live-Abruf
@@ -206,7 +180,7 @@ export async function render(blocks) {
   const badge = wsData
     ? createTierBadge('cache', { age: Number.isFinite(generated) ? Date.now() - generated : null })
     : createTierBadge('static');
-  _renderHero(blocks.hero, momentumScore, positiveCount, negativeCount, totalCount, badge);
+  _renderHero(blocks.hero, momentumScore, positiveCount, negativeCount, totalCount, badge, _momentumData.totalIndicators || 0);
 
   // 5. Chart block -- card grid
   _renderCardGrid(blocks.chart, allIndicators);
@@ -229,7 +203,7 @@ export async function render(blocks) {
 
 // --- Hero ---------------------------------------------------------------
 
-function _renderHero(heroEl, score, positiveCount, negativeCount, totalCount, badge) {
+function _renderHero(heroEl, score, positiveCount, negativeCount, totalCount, badge, seriesCount) {
   const stableCount = totalCount - positiveCount - negativeCount;
 
   heroEl.appendChild(
@@ -243,15 +217,15 @@ function _renderHero(heroEl, score, positiveCount, negativeCount, totalCount, ba
           marginBottom: 'var(--space-xs)',
         },
       }, [
-        score.toFixed(1),
+        String(Math.round(score)),
         DOMUtils.create('span', {
           style: {
             fontSize: '1.5rem',
             fontWeight: '400',
-            marginLeft: '0.5rem',
+            marginLeft: '0.25rem',
             color: 'var(--text-secondary)',
           },
-          textContent: '/100',
+          textContent: '%',
         }),
       ]),
       DOMUtils.create('div', {
@@ -263,7 +237,7 @@ function _renderHero(heroEl, score, positiveCount, negativeCount, totalCount, ba
         },
       }, [
         DOMUtils.create('span', {
-          textContent: i18n.t('detail.momentum_detail.heroLabel'),
+          textContent: i18n.t('detail.momentum_detail.heroLabel', { n: seriesCount }),
           style: { color: 'var(--text-secondary)', fontSize: '1rem' },
         }),
         badge,
@@ -379,8 +353,7 @@ function _buildMiniCard(indicator) {
       })
     : null;
 
-  // SVG sparkline
-  const sparkline = _createSparkline(indicator.trend || 'stable', catConfig.color);
+  const sparkline = _createTrendMark(indicator.trend);
 
   // Assessment badge
   const assessBadge = DOMUtils.create('span', {

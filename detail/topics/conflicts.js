@@ -377,7 +377,7 @@ function _showConflictPopup(container, country, event) {
     },
   }, [
     DOMUtils.create('div', {
-      textContent: MathUtils.escapeHTML(country.name),
+      textContent: country.name,
       style: { fontWeight: '700', fontSize: '1rem', marginBottom: '4px' },
     }),
     DOMUtils.create('div', {

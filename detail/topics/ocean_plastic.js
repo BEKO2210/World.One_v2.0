@@ -31,8 +31,10 @@ let _cacheData = null;
 const PLASTIC_STATS = {
   total_mt: 170,           // million tonnes in ocean
   annual_input_mt: 11,     // million tonnes per year
-  daily_input_kg: 23_000_000, // kg per day
 };
+// Tageswert aus dem Jahreswert abgeleitet (vorher unabhängig 23 Mio kg =
+// nur 8,4 Mio t/Jahr): 11 Mio t / 365 ≈ 30,1 Mio kg pro Tag
+PLASTIC_STATS.daily_input_kg = Math.round(PLASTIC_STATS.annual_input_mt * 1e9 / 365);
 
 // --- Five Major Garbage Patches ----------------------------------------
 // cx/cy are SVG coordinates in a 1000x500 viewBox

@@ -1532,8 +1532,33 @@ function buildWorldState() {
     'GitHub Repositories':           { cadence: 'daily',    dataAsOf: githubData?.fetched || null },
     'Wissenschaftliche Papers':      { cadence: 'daily',    dataAsOf: scienceFetchedAt || arxivData?.fetched || null },
   };
+  // Trendpfeile aus der berechneten Momentum-Analyse (3-Jahres-Mittel),
+  // statt fest eingetragener 'improving'/'declining' je Indikator.
+  const computedTrend = new Map(finalMomentum.map(m => [m.name, m.direction]));
+  const TREND_ALIAS = {
+    'Internet-Durchdringung': 'Internet-Zugang', 'F&E Ausgaben (% BIP)': 'F&E Ausgaben',
+    'Mobilfunkverträge': 'Mobilfunk', 'Trinkwasserzugang': 'Trinkwasser'
+  };
+  // Weitere Reihen mit gleicher Methode, ohne den Momentum-Score zu ändern
+  const trend3y = (history, higherIsBetter, key = 'value') => {
+    const h = (history || []).filter(e => Number.isFinite(e?.[key]));
+    if (h.length < 6) return null;
+    const avg = a => a.reduce((sum, e) => sum + e[key], 0) / a.length;
+    const change = avg(h.slice(-3)) - avg(h.slice(-6, -3));
+    if (change === 0) return 'stable';
+    return (higherIsBetter ? change > 0 : change < 0) ? 'improving' : 'declining';
+  };
+  const extraTrend = {
+    'Globale Temperaturanomalie': trend3y(tempHistory, false),
+    'Arktis-Eisfläche': trend3y(arcticIce.history, true),
+    'Politische Freiheit': trend3y(freedom.trend, true, 'score'),
+  };
+  for (const [name, t] of Object.entries(extraTrend)) if (t) computedTrend.set(name, t);
+
   for (const cat of ['environment', 'society', 'economy', 'progress']) {
     for (const ind of worldState.subScores[cat].indicators) {
+      const t = computedTrend.get(TREND_ALIAS[ind.name] || ind.name);
+      if (t) { ind.trend = t; ind.trendMethod = '3y-avg'; }
       const m = INDICATOR_META[ind.name] || {};
       const retrievedAt = ind.fetchedAt || null;
       const fresh = retrievedAt && (Date.now() - Date.parse(retrievedAt)) < 36 * 36e5;

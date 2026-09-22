@@ -5,7 +5,7 @@
    Output: data/cache/disasters.json, hunger.json
    ═══════════════════════════════════════════════════════════════ */
 
-import { fetchJSON, extractWorldBankEntries, saveCache } from './cache-utils.js';
+import { fetchJSON, fetchText, extractWorldBankEntries, saveCache } from './cache-utils.js';
 
 // ─── Disasters (ReliefWeb API or static fallback) ───
 async function fetchDisasters() {
@@ -87,6 +87,30 @@ async function fetchHunger() {
 }
 
 // ─── Main ───
+// ─── FAO Food Price Index (offizielle CSV, Basis 2014-2016 = 100) ───
+async function fetchFoodPrices() {
+  console.log('  Fetching FAO Food Price Index...');
+  const csv = await fetchText('https://www.fao.org/media/docs/worldfoodsituationlibraries/default-document-library/food_price_indices_data.csv');
+  const monthly = csv.split('\n')
+    .map(l => l.split(','))
+    .filter(c => /^\d{4}-\d{2}$/.test(c[0]) && Number(c[1]) > 0)
+    .map(c => ({ month: c[0], value: Number(c[1]) }));
+  if (monthly.length < 120) throw new Error(`FAO FFPI: nur ${monthly.length} Monate`);
+  // Jahresmittel nur für vollständige Jahre
+  const byYear = new Map();
+  for (const m of monthly) {
+    const y = Number(m.month.slice(0, 4));
+    if (!byYear.has(y)) byYear.set(y, []);
+    byYear.get(y).push(m.value);
+  }
+  const annual = [...byYear.entries()]
+    .filter(([, v]) => v.length === 12)
+    .map(([year, v]) => ({ year, value: Math.round(v.reduce((a, b) => a + b, 0) / 12 * 10) / 10 }));
+  const last = monthly[monthly.length - 1];
+  console.log(`  FAO FFPI: ${annual.length} full years, latest ${last.month} = ${last.value}`);
+  return { annual, latest_month: last, base: '2014-2016 = 100', source: 'FAO Food Price Index' };
+}
+
 async function main() {
   console.log('=== update-disasters ===');
   let filesWritten = 0;
@@ -103,6 +127,11 @@ async function main() {
   // Hunger
   try {
     const hungerData = await fetchHunger();
+    try {
+      hungerData.food_price_index = await fetchFoodPrices();
+    } catch (err) {
+      console.error(`  WARN food prices: ${err.message}`);
+    }
     saveCache('hunger.json', hungerData);
     filesWritten++;
   } catch (err) {
