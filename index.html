@@ -1190,7 +1190,7 @@
       //   controllerchange aus, ein Reload würde den Loader ein zweites Mal
       //   zeigen. Nur bei echten Updates neu laden, und nicht vor den Augen
       //   des Users, sondern erst wenn der Tab in den Hintergrund geht.
-      const _hadController = !!navigator.serviceWorker.controller;
+      let _hadController = !!navigator.serviceWorker.controller;
       let _reloaded = false;
       const _reload = () => {
         if (_reloaded) return;
@@ -1198,7 +1198,8 @@
         window.location.reload();
       };
       navigator.serviceWorker.addEventListener('controllerchange', () => {
-        if (!_hadController || _reloaded) return;
+        if (!_hadController) { _hadController = true; return; }
+        if (_reloaded) return;
         if (document.visibilityState === 'hidden') { _reload(); return; }
         document.addEventListener('visibilitychange', () => {
           if (document.visibilityState === 'hidden') _reload();
