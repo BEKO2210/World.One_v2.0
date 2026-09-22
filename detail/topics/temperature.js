@@ -182,27 +182,26 @@ const TOOLTIP_STYLE = {
 // --- Render ------------------------------------------------------------
 
 export async function render(blocks) {
-  // 1. Data fetching -- attempt cache, fallback to hardcoded.
-  // Fallback 1.19 matches latest NASA GISTEMP annual anomaly (2025).
-  let anomaly = 1.19;
+  // 1. Data: temperature.json (NASA GISTEMP-Reihe aus der Pipeline);
+  // die eingebettete Reihe ANNUAL_ANOMALIES nur, wenn kein Cache da ist.
   let tier = 'static';
   let age = null;
-
+  let history = null;
   try {
     const result = await fetchTopicData('temperature');
-    if (result && result.data && result.data.anomaly) {
-      anomaly = result.data.anomaly.value || 1.45;
+    if (Array.isArray(result?.data?.history) && result.data.history.length >= 50) {
+      history = result.data.history;
       tier = result.tier;
       age = result.age;
     }
-  } catch (_err) {
-    // Use static fallback
-  }
+  } catch (_err) { /* eingebettete Reihe */ }
 
-  _allAnomalies = ANNUAL_ANOMALIES;
+  _allAnomalies = history || ANNUAL_ANOMALIES;
+  const latest = _allAnomalies[_allAnomalies.length - 1];
+  const anomaly = latest.value;
 
   // 2. Hero block
-  _renderHero(blocks.hero, anomaly, tier, age);
+  _renderHero(blocks.hero, anomaly, tier, age, latest.year);
 
   // 3. Chart block -- Warming Stripes
   _renderWarmingStripes(blocks.chart);
@@ -225,9 +224,9 @@ export async function render(blocks) {
 
 // --- Hero ---------------------------------------------------------------
 
-function _renderHero(heroEl, anomaly, tier, age) {
+function _renderHero(heroEl, anomaly, tier, age, year) {
   const tempColor = MathUtils.tempToColor(anomaly);
-  const badge = createTierBadge(tier, { age });
+  const badge = createTierBadge(tier, { age, dataAsOf: year, cadence: 'annual', source: 'NASA GISTEMP v4' });
 
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'temp-hero' }, [
@@ -277,7 +276,7 @@ function _renderHero(heroEl, anomaly, tier, age) {
 // --- Warming Stripes (DOM-based, no Chart.js) ---------------------------
 
 function _renderWarmingStripes(chartEl) {
-  const n = ANNUAL_ANOMALIES.length;
+  const n = _allAnomalies.length;
 
   // Heading
   chartEl.appendChild(
@@ -319,7 +318,7 @@ function _renderWarmingStripes(chartEl) {
 
   // Create individual stripes
   for (let i = 0; i < n; i++) {
-    const entry = ANNUAL_ANOMALIES[i];
+    const entry = _allAnomalies[i];
     const color = MathUtils.tempToColor(entry.value);
 
     const stripe = DOMUtils.create('div', {
