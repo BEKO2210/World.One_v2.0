@@ -70,6 +70,34 @@ function hexToRgb(hex) {
   return { r: parseInt(full.slice(0, 2), 16), g: parseInt(full.slice(2, 4), 16), b: parseInt(full.slice(4, 6), 16) };
 }
 
+// ─── CSS-Variablen in Chart-Konfigurationen ────────────────
+// Canvas kennt kein var(--…). Dieses Plugin ersetzt vor jedem Update
+// Farbwerte der Form 'var(--token)' durch den aktuellen Tokenwert, damit
+// Topics überall Design-Tokens verwenden können (auch im Light Mode).
+function _resolveVars(node, depth = 0) {
+  if (depth > 6 || node == null) return node;
+  if (typeof node === 'string') return node.startsWith('var(--') ? (cssVar(node.slice(4, -1).split(',')[0].trim()) || node) : node;
+  if (Array.isArray(node)) {
+    for (let i = 0; i < node.length; i++) node[i] = _resolveVars(node[i], depth + 1);
+    return node;
+  }
+  if (typeof node === 'object' && !(node instanceof Node) && Object.getPrototypeOf(node) === Object.prototype) {
+    for (const k of Object.keys(node)) {
+      if (k === 'data' && depth > 0) continue; // Datenpunkte nicht anfassen
+      node[k] = _resolveVars(node[k], depth + 1);
+    }
+  }
+  return node;
+}
+
+const cssVarPlugin = {
+  id: 'cssVars',
+  beforeUpdate(chart) {
+    (chart.config.data?.datasets || []).forEach(ds => _resolveVars(ds));
+    _resolveVars(chart.config.options);
+  },
+};
+
 // ─── Dark Theme Defaults ────────────────────────────────────
 
 /**
@@ -78,6 +106,8 @@ function hexToRgb(hex) {
  * Values matched to existing CSS custom properties from core.css.
  */
 function _applyDarkDefaults() {
+  Chart.register(cssVarPlugin);
+
   // Farben aus den Design-Tokens (core.css), damit Charts dem Theme folgen
   Chart.defaults.color = cssVar('--text-2');
   Chart.defaults.borderColor = cssVar('--grid');

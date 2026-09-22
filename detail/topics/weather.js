@@ -95,9 +95,9 @@ const WMO_CODES = {
 const wmoDescription = (code) => i18n.t(`detail.weather.wmo${code}`) || `WMO ${code}`;
 
 function severityColor(severity) {
-  if (severity >= 4) return '#ff3b30';   // Red -- severe
-  if (severity >= 3) return '#ff9500';   // Orange -- heavy
-  if (severity >= 2) return '#ffcc00';   // Yellow -- moderate
+  if (severity >= 4) return 'var(--status-critical)';   // Red -- severe
+  if (severity >= 3) return 'var(--status-serious)';   // Orange -- heavy
+  if (severity >= 2) return 'var(--status-warning)';   // Yellow -- moderate
   return 'var(--text-secondary)';        // Gray -- normal
 }
 
@@ -202,11 +202,11 @@ function _updateHeroExtremes(heroEl, cityResults) {
       }, [
         DOMUtils.create('span', {
           textContent: `${hottest.name}: ${fmtNumber(hottest.currentTemp, { decimals: 1 })}\u00B0C`,
-          style: { color: '#ff3b30', fontWeight: '600' },
+          style: { color: 'var(--status-critical)', fontWeight: '600' },
         }),
         DOMUtils.create('span', {
           textContent: `${coldest.name}: ${fmtNumber(coldest.currentTemp, { decimals: 1 })}\u00B0C`,
-          style: { color: '#5ac8fa', fontWeight: '600' },
+          style: { color: 'var(--accent)', fontWeight: '600' },
         }),
       ])
     );
@@ -333,7 +333,7 @@ function _buildCityCard(city) {
   return DOMUtils.create('div', {
     style: {
       padding: '12px 14px',
-      background: 'rgba(255, 255, 255, 0.04)',
+      background: 'var(--surface-2)',
       borderRadius: '8px',
       borderLeft: warnInfo ? `3px solid ${borderColor}` : '3px solid transparent',
     },
@@ -373,7 +373,7 @@ function _buildCityCard(city) {
             borderRadius: '4px',
             display: 'inline-block',
             background: severityColor(warnInfo.severity),
-            color: warnInfo.severity >= 3 ? '#fff' : '#1a1a2e',
+            color: warnInfo.severity >= 3 ? 'var(--text-1)' : 'var(--surface-3)',
           },
         })
       : null,
@@ -451,10 +451,10 @@ function _renderWarnings(trendEl, cityResults) {
       DOMUtils.create('div', {
         style: {
           padding: '16px',
-          background: 'rgba(52, 199, 89, 0.08)',
+          background: 'var(--status-good-soft)',
           borderRadius: '8px',
           border: '1px solid rgba(52, 199, 89, 0.2)',
-          color: 'rgba(52, 199, 89, 0.9)',
+          color: 'var(--status-good)',
           fontSize: '0.9rem',
           textAlign: 'center',
         },
@@ -471,7 +471,7 @@ function _renderWarnings(trendEl, cityResults) {
         alignItems: 'center',
         gap: '10px',
         padding: '8px 12px',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         marginBottom: '6px',
         borderLeft: `3px solid ${severityColor(w.severity)}`,
@@ -489,7 +489,7 @@ function _renderWarnings(trendEl, cityResults) {
           padding: '2px 8px',
           borderRadius: '4px',
           background: severityColor(w.severity),
-          color: w.severity >= 3 ? '#fff' : '#1a1a2e',
+          color: w.severity >= 3 ? 'var(--text-1)' : 'var(--surface-3)',
         },
       }),
     ])
@@ -548,7 +548,7 @@ function _renderTiles(tilesEl, cityResults) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },

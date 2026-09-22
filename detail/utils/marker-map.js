@@ -12,7 +12,7 @@ import { DOMUtils } from '../../js/utils/dom.js';
  * @returns {Promise<{wrapper: HTMLElement, overlay: SVGElement, geoToXY: Function, svgWidth: number, svgHeight: number}|null>}
  */
 export async function createMarkerMap(options = {}) {
-  const { background = 'rgba(255,255,255,0.02)' } = options;
+  const { background = 'var(--surface-1)' } = options;
 
   const basePath = window.location.pathname.includes('/detail') ? '../' : '';
   let svgText = null;
@@ -39,7 +39,7 @@ export async function createMarkerMap(options = {}) {
       borderRadius: '12px',
       overflow: 'hidden',
       background,
-      border: '1px solid rgba(255,255,255,0.06)',
+      border: '1px solid var(--line-1)',
     },
   });
 
@@ -61,8 +61,8 @@ export async function createMarkerMap(options = {}) {
     // Style country paths for dark theme background
     const paths = baseSvg.querySelectorAll('path');
     for (const p of paths) {
-      p.style.fill = 'rgba(255,255,255,0.06)';
-      p.style.stroke = 'rgba(255,255,255,0.12)';
+      p.style.fill = 'var(--surface-3)';
+      p.style.stroke = 'var(--line-2)';
       p.style.strokeWidth = '0.3';
     }
   }

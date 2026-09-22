@@ -74,10 +74,10 @@ const PH_TREND = [
 function _getPhScaleItems() {
   return [
     { ph: 0,    label: i18n.t('detail.ocean_ph.phBatteryAcid'),         color: '#d50000' },
-    { ph: 1,    label: i18n.t('detail.ocean_ph.phStomachAcid'),         color: '#e53935' },
-    { ph: 3,    label: i18n.t('detail.ocean_ph.phVinegar'),             color: '#ff6d00' },
+    { ph: 1,    label: i18n.t('detail.ocean_ph.phStomachAcid'),         color: 'var(--status-critical)' },
+    { ph: 3,    label: i18n.t('detail.ocean_ph.phVinegar'),             color: 'var(--status-serious)' },
     { ph: 5.5,  label: i18n.t('detail.ocean_ph.phRain'),               color: '#ffab00' },
-    { ph: 7,    label: i18n.t('detail.ocean_ph.phPureWater'),           color: '#00c853' },
+    { ph: 7,    label: i18n.t('detail.ocean_ph.phPureWater'),           color: 'var(--status-good)' },
     { ph: 8.08, label: i18n.t('detail.ocean_ph.phCurrentOcean'),        color: '#2979ff' },
     { ph: 8.25, label: i18n.t('detail.ocean_ph.phPreIndustrialOcean'),  color: '#0d47a1' },
     { ph: 10,   label: i18n.t('detail.ocean_ph.phSoap'),               color: '#6200ea' },
@@ -162,7 +162,7 @@ function _renderHero(heroEl, tier, age) {
           fontSize: '3.5rem',
           fontWeight: '700',
           lineHeight: '1.1',
-          color: '#5ac8fa',
+          color: 'var(--accent)',
           marginBottom: 'var(--space-xs)',
         },
         textContent: fmtNumber(currentPH, { decimals: 2 }),
@@ -177,7 +177,7 @@ function _renderHero(heroEl, tier, age) {
       }, [
         DOMUtils.create('span', {
           textContent: `${fmtNumber(change, { decimals: 2 })} ${i18n.t('detail.ocean_ph.vsPreIndustrial')}`,
-          style: { color: '#ff9500', fontSize: '1rem', fontWeight: '600' },
+          style: { color: 'var(--status-serious)', fontSize: '1rem', fontWeight: '600' },
         }),
       ]),
       DOMUtils.create('div', {
@@ -239,13 +239,13 @@ async function _renderPHChart(chartEl) {
       datasets: [{
         label: i18n.t('detail.ocean_ph.phLabel'),
         data: values,
-        borderColor: '#5ac8fa',
+        borderColor: 'var(--accent)',
         backgroundColor: 'rgba(90, 200, 250, 0.15)',
         fill: true,
         tension: 0.3,
         pointRadius: 3,
         pointHitRadius: 8,
-        pointBackgroundColor: '#5ac8fa',
+        pointBackgroundColor: 'var(--accent)',
         borderWidth: 2,
       }],
     },
@@ -278,14 +278,14 @@ async function _renderPHChart(chartEl) {
               type: 'line',
               yMin: 8.25,
               yMax: 8.25,
-              borderColor: 'rgba(255,255,255,0.4)',
+              borderColor: 'var(--line-2)',
               borderWidth: 1,
               borderDash: [6, 4],
               label: {
                 display: true,
                 content: i18n.t('detail.ocean_ph.chartPreIndustrial'),
                 position: 'start',
-                color: 'rgba(255,255,255,0.6)',
+                color: 'var(--text-2)',
                 font: { size: 10 },
               },
             },
@@ -413,7 +413,7 @@ function _renderImpactCards(tilesEl) {
 
   ACIDIFICATION_IMPACTS.forEach(impact => {
     const atRisk = impact.threshold >= 8.08;
-    const borderColor = atRisk ? '#ff9500' : '#ff3b30';
+    const borderColor = atRisk ? 'var(--status-serious)' : 'var(--status-critical)';
     const desc = lang === 'de' ? impact.desc_de : impact.desc_en;
 
     grid.appendChild(
@@ -503,14 +503,14 @@ function _renderComparison(compEl) {
       label: i18n.t('detail.ocean_ph.compCurrentLabel'),
       ph: '8.08',
       acidity: i18n.t('detail.ocean_ph.compCurrentAcidity'),
-      color: '#ff9500',
+      color: 'var(--status-serious)',
       desc: i18n.t('detail.ocean_ph.compCurrentDesc'),
     },
     {
       label: i18n.t('detail.ocean_ph.compProjectedLabel'),
       ph: '7.75',
       acidity: i18n.t('detail.ocean_ph.compProjectedAcidity'),
-      color: '#ff3b30',
+      color: 'var(--status-critical)',
       desc: i18n.t('detail.ocean_ph.compProjectedDesc'),
     },
   ];

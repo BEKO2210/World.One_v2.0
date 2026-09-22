@@ -64,14 +64,14 @@ const DISASTER_TRENDS = [
 // --- Disaster Type Colors -----------------------------------------------
 
 const DISASTER_TYPE_COLORS = {
-  'Earthquake': { color: '#ff9500', icon: '\u{1F30D}' },
-  'Flood': { color: '#5ac8fa', icon: '\u{1F30A}' },
+  'Earthquake': { color: 'var(--status-serious)', icon: '\u{1F30D}' },
+  'Flood': { color: 'var(--accent)', icon: '\u{1F30A}' },
   'Cyclone': { color: '#af52de', icon: '\u{1F300}' },
-  'Heat Wave': { color: '#ff3b30', icon: '\u{1F321}' },
+  'Heat Wave': { color: 'var(--status-critical)', icon: '\u{1F321}' },
   'Wildfire': { color: '#ff6b35', icon: '\u{1F525}' },
   'Typhoon': { color: '#007aff', icon: '\u{1F300}' },
   'Drought': { color: '#c7a44a', icon: '\u{2600}' },
-  'Complex Emergency': { color: '#8e8e93', icon: '\u{26A0}' },
+  'Complex Emergency': { color: 'var(--text-2)', icon: '\u{26A0}' },
 };
 
 // --- Number formatting helper -------------------------------------------
@@ -178,7 +178,7 @@ function _renderTimeline(chartEl, disasters) {
   });
 
   sorted.forEach((event, idx) => {
-    const typeInfo = DISASTER_TYPE_COLORS[event.type] || { color: '#8e8e93', icon: '\u{26A0}' };
+    const typeInfo = DISASTER_TYPE_COLORS[event.type] || { color: 'var(--text-2)', icon: '\u{26A0}' };
     const details = DISASTER_DETAILS[event.name] || null;
 
     // Format date
@@ -195,7 +195,7 @@ function _renderTimeline(chartEl, disasters) {
     const countryText = event.countries ? event.countries.join(', ') : 'Unknown';
 
     // Status indicator
-    const statusColor = event.status === 'ongoing' ? '#ff3b30' : 'var(--text-secondary)';
+    const statusColor = event.status === 'ongoing' ? 'var(--status-critical)' : 'var(--text-secondary)';
     const statusText = event.status === 'ongoing' ? 'ONGOING' : 'Past';
 
     const card = DOMUtils.create('div', {
@@ -203,7 +203,7 @@ function _renderTimeline(chartEl, disasters) {
         display: 'flex',
         gap: 'var(--space-sm)',
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         borderLeft: `4px solid ${typeInfo.color}`,
         marginLeft: idx % 2 === 0 ? '0' : '12px',
@@ -353,13 +353,13 @@ function _renderTiles(tilesEl, disasters) {
       label: i18n.t('detail.disasters.tileDamage'),
       value: `$${fmtNumber(totalDamage, { decimals: 0 })}B+`,
       unit: 'total',
-      accent: '#ff9500',
+      accent: 'var(--status-serious)',
     },
     {
       label: i18n.t('detail.disasters.tileType'),
       value: mostCommonType,
       unit: `${maxCount} events`,
-      accent: DISASTER_TYPE_COLORS[mostCommonType]?.color || '#8e8e93',
+      accent: DISASTER_TYPE_COLORS[mostCommonType]?.color || 'var(--text-2)',
     },
   ];
 
@@ -367,7 +367,7 @@ function _renderTiles(tilesEl, disasters) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },
@@ -435,15 +435,15 @@ function _buildComparisonGrid() {
   const items = [
     { label: '1970s Events', value: '711', accent: toRgba(CHART_COLORS.crisis, 0.5) },
     { label: '2010s Events', value: '3,165', accent: toRgba(CHART_COLORS.crisis, 0.95) },
-    { label: '1970s Cost', value: '$131B', accent: 'rgba(255,149,0,0.5)' },
-    { label: '2010s Cost', value: '$1,413B', accent: 'rgba(255,149,0,0.95)' },
+    { label: '1970s Cost', value: '$131B', accent: 'var(--status-serious)' },
+    { label: '2010s Cost', value: '$1,413B', accent: 'var(--status-serious)' },
   ];
 
   const cells = items.map(({ label, value, accent }) =>
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },

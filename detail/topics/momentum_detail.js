@@ -61,9 +61,9 @@ const INDICATOR_TOPIC_MAP = {
 // --- Category Config ---------------------------------------------------
 
 const CATEGORIES = {
-  environment: { color: '#34c759', key: 'detail.momentum_detail.categoryEnv' },
-  society:     { color: '#5ac8fa', key: 'detail.momentum_detail.categorySoc' },
-  economy:     { color: '#ff9500', key: 'detail.momentum_detail.categoryEcon' },
+  environment: { color: 'var(--status-good)', key: 'detail.momentum_detail.categoryEnv' },
+  society:     { color: 'var(--accent)', key: 'detail.momentum_detail.categorySoc' },
+  economy:     { color: 'var(--status-serious)', key: 'detail.momentum_detail.categoryEcon' },
   progress:    { color: '#af52de', key: 'detail.momentum_detail.categoryProg' },
 };
 
@@ -75,7 +75,7 @@ const TREND_GLYPH = { improving: '\u25B2', declining: '\u25BC', stable: '\u25B6'
 
 function _createTrendMark(trend) {
   const t = TREND_GLYPH[trend] ? trend : 'stable';
-  const color = t === 'improving' ? '#34c759' : t === 'declining' ? '#ff3b30' : 'var(--text-secondary)';
+  const color = t === 'improving' ? 'var(--status-good)' : t === 'declining' ? 'var(--status-critical)' : 'var(--text-secondary)';
   return DOMUtils.create('span', {
     textContent: `${TREND_GLYPH[t]} ${i18n.t(`detail.momentum_detail.trend_${t}`)}`,
     style: { color, fontSize: '0.75rem', fontWeight: '600', whiteSpace: 'nowrap' },
@@ -86,12 +86,12 @@ function _createTrendMark(trend) {
 
 function _assessIndicator(score, trend) {
   if (score >= 70 && trend === 'improving') {
-    return { label: i18n.t('detail.momentum_detail.cardImproving'), color: '#34c759' };
+    return { label: i18n.t('detail.momentum_detail.cardImproving'), color: 'var(--status-good)' };
   }
   if (score >= 50 && trend !== 'declining') {
-    return { label: i18n.t('detail.momentum_detail.cardStable'), color: '#ffcc00' };
+    return { label: i18n.t('detail.momentum_detail.cardStable'), color: 'var(--status-warning)' };
   }
-  return { label: i18n.t('detail.momentum_detail.cardDeclining'), color: '#ff3b30' };
+  return { label: i18n.t('detail.momentum_detail.cardDeclining'), color: 'var(--status-critical)' };
 }
 
 // --- Base Path Helper --------------------------------------------------
@@ -251,9 +251,9 @@ function _renderHero(heroEl, score, positiveCount, negativeCount, totalCount, ba
           flexWrap: 'wrap',
         },
       }, [
-        _createCountBadge('\u25B2', positiveCount, '#34c759', i18n.t('detail.momentum_detail.cardImproving')),
-        _createCountBadge('\u25BA', stableCount, '#ffcc00', i18n.t('detail.momentum_detail.cardStable')),
-        _createCountBadge('\u25BC', negativeCount, '#ff3b30', i18n.t('detail.momentum_detail.cardDeclining')),
+        _createCountBadge('\u25B2', positiveCount, 'var(--status-good)', i18n.t('detail.momentum_detail.cardImproving')),
+        _createCountBadge('\u25BA', stableCount, 'var(--status-warning)', i18n.t('detail.momentum_detail.cardStable')),
+        _createCountBadge('\u25BC', negativeCount, 'var(--status-critical)', i18n.t('detail.momentum_detail.cardDeclining')),
       ]),
     ])
   );
@@ -312,13 +312,13 @@ function _buildMiniCard(indicator) {
   let trendArrow, trendColor;
   if (indicator.trend === 'improving') {
     trendArrow = '\u25B2'; // up triangle
-    trendColor = '#34c759';
+    trendColor = 'var(--status-good)';
   } else if (indicator.trend === 'declining') {
     trendArrow = '\u25BC'; // down triangle
-    trendColor = '#ff3b30';
+    trendColor = 'var(--status-critical)';
   } else {
     trendArrow = '\u25BA'; // right triangle (stable)
-    trendColor = '#ffcc00';
+    trendColor = 'var(--status-warning)';
   }
 
   // Score badge
@@ -332,7 +332,7 @@ function _buildMiniCard(indicator) {
       height: '20px',
       padding: '0 6px',
       borderRadius: '10px',
-      background: 'rgba(255,255,255,0.08)',
+      background: 'var(--surface-2)',
       color: 'var(--text-secondary)',
       fontSize: '0.7rem',
       fontWeight: '600',
@@ -347,8 +347,8 @@ function _buildMiniCard(indicator) {
           fontSize: '0.7rem',
           fontWeight: '600',
           color: indicator.change.startsWith('-')
-            ? (indicator.trend === 'improving' ? '#34c759' : '#ff3b30')
-            : (indicator.trend === 'declining' ? '#ff3b30' : '#34c759'),
+            ? (indicator.trend === 'improving' ? 'var(--status-good)' : 'var(--status-critical)')
+            : (indicator.trend === 'declining' ? 'var(--status-critical)' : 'var(--status-good)'),
           marginLeft: '4px',
         },
       })
@@ -366,7 +366,7 @@ function _buildMiniCard(indicator) {
       fontSize: '0.65rem',
       fontWeight: '700',
       background: assessment.color,
-      color: assessment.color === '#ffcc00' ? '#1a1a2e' : '#fff',
+      color: assessment.color === 'var(--status-warning)' ? 'var(--surface-3)' : 'var(--text-1)',
     },
   });
 
@@ -482,9 +482,9 @@ function _renderTrendBar(trendEl, indicators) {
   const total = indicators.length || 1;
 
   const segments = [
-    { count: improving, color: '#34c759', label: i18n.t('detail.momentum_detail.cardImproving') },
-    { count: stable,    color: '#ffcc00', label: i18n.t('detail.momentum_detail.cardStable') },
-    { count: declining, color: '#ff3b30', label: i18n.t('detail.momentum_detail.cardDeclining') },
+    { count: improving, color: 'var(--status-good)', label: i18n.t('detail.momentum_detail.cardImproving') },
+    { count: stable,    color: 'var(--status-warning)', label: i18n.t('detail.momentum_detail.cardStable') },
+    { count: declining, color: 'var(--status-critical)', label: i18n.t('detail.momentum_detail.cardDeclining') },
   ];
 
   // Stacked horizontal bar
@@ -499,7 +499,7 @@ function _renderTrendBar(trendEl, indicators) {
         justifyContent: 'center',
         fontSize: '0.75rem',
         fontWeight: '700',
-        color: s.color === '#ffcc00' ? '#1a1a2e' : '#fff',
+        color: s.color === 'var(--status-warning)' ? 'var(--surface-3)' : 'var(--text-1)',
         minWidth: s.count > 0 ? '32px' : '0',
       },
       textContent: String(s.count),
@@ -578,7 +578,7 @@ function _renderTiles(tilesEl, subScores) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
         borderTop: `3px solid ${accent}`,

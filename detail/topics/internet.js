@@ -212,7 +212,7 @@ function _renderCounters(chartEl) {
         flex: '1',
         minWidth: '140px',
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         border: '1px solid rgba(255,255,255,0.08)',
         textAlign: 'center',
@@ -281,7 +281,7 @@ async function _renderChoropleth(tilesEl) {
       tooltipFn,
       legendItems,
       title: i18n.t('detail.internet.mapTitle'),
-      defaultColor: 'rgba(255,255,255,0.04)',
+      defaultColor: 'var(--text-3)',
     });
 
     if (result && result.cleanup) {
@@ -318,7 +318,7 @@ function _renderExplanationWithTiles(explEl) {
       label: i18n.t('detail.internet.tileGrowth'),
       value: '~3%',
       unit: '/yr',
-      accent: '#4caf50',
+      accent: 'var(--status-good)',
     },
   ];
 
@@ -326,7 +326,7 @@ function _renderExplanationWithTiles(explEl) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },

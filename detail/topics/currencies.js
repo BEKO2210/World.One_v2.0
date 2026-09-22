@@ -106,7 +106,7 @@ function _renderHero(heroEl, rates, tier, age) {
       DOMUtils.create('div', {
         style: {
           padding: 'var(--space-xs)',
-          background: 'rgba(255,255,255,0.04)',
+          background: 'var(--surface-2)',
           borderRadius: '6px',
           textAlign: 'center',
         },
@@ -191,7 +191,7 @@ function _renderConverter(chartEl, rates) {
       width: '100%',
       padding: '10px 12px',
       fontSize: '1.1rem',
-      background: 'rgba(255,255,255,0.06)',
+      background: 'var(--surface-2)',
       border: '1px solid rgba(255,255,255,0.15)',
       borderRadius: '6px',
       color: 'var(--text-primary)',
@@ -209,7 +209,7 @@ function _renderConverter(chartEl, rates) {
   const resultEl = DOMUtils.create('div', {
     style: {
       padding: 'var(--space-sm)',
-      background: 'rgba(255,255,255,0.04)',
+      background: 'var(--surface-2)',
       borderRadius: '8px',
       textAlign: 'center',
       marginTop: 'var(--space-sm)',
@@ -305,7 +305,7 @@ function _createSelect(options, defaultVal) {
       width: '100%',
       padding: '8px 10px',
       fontSize: '1rem',
-      background: 'rgba(255,255,255,0.06)',
+      background: 'var(--surface-2)',
       border: '1px solid rgba(255,255,255,0.15)',
       borderRadius: '6px',
       color: 'var(--text-primary)',
@@ -318,7 +318,7 @@ function _createSelect(options, defaultVal) {
     const opt = DOMUtils.create('option', {
       value: key,
       textContent: key,
-      style: { background: '#1a1a2e', color: '#fff' },
+      style: { background: 'var(--surface-3)', color: 'var(--text-1)' },
     });
     if (key === defaultVal) opt.selected = true;
     select.appendChild(opt);
@@ -476,7 +476,7 @@ function _renderTiles(tilesEl, rates, history, highInflation) {
       label: i18n.t('detail.currencies.tileVolatile'),
       value: top ? top.code : '–',
       unit: top ? `${fmtPct(top.inflation)} (${top.year})` : '',
-      accent: '#d32f2f',
+      accent: 'var(--status-critical)',
     },
     {
       label: i18n.t('detail.currencies.tileTracked'),
@@ -490,7 +490,7 @@ function _renderTiles(tilesEl, rates, history, highInflation) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },
@@ -592,7 +592,7 @@ function _renderHyperinflation(explEl, list) {
             height: '24px',
             borderRadius: '50%',
             background: badgeColor,
-            color: '#fff',
+            color: 'var(--text-1)',
             fontSize: '0.75rem',
             fontWeight: '700',
           },

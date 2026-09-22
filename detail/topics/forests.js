@@ -56,9 +56,9 @@ const FOREST_LOSS = [
 // --- Deforestation Causes (FAO Global Forest Resources Assessment) ------
 
 const DEFORESTATION_CAUSES = [
-  { cause: 'Agriculture expansion', pct: 73, color: '#e65100' },
+  { cause: 'Agriculture expansion', pct: 73, color: 'var(--status-serious)' },
   { cause: 'Logging (commercial)', pct: 10, color: '#795548' },
-  { cause: 'Wildfires', pct: 8, color: '#f44336' },
+  { cause: 'Wildfires', pct: 8, color: 'var(--status-critical)' },
   { cause: 'Urbanization', pct: 5, color: '#9e9e9e' },
   { cause: 'Infrastructure', pct: 4, color: '#607d8b' },
 ];
@@ -274,7 +274,7 @@ function _renderTiles(tilesEl) {
       label: i18n.t('detail.forests.tileRate'),
       value: '-0.09%',
       unit: '/year',
-      accent: '#d32f2f',
+      accent: 'var(--status-critical)',
     },
   ];
 
@@ -282,7 +282,7 @@ function _renderTiles(tilesEl) {
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },
@@ -379,7 +379,7 @@ function _renderComparison(compEl) {
         style: {
           flex: '1',
           height: '20px',
-          background: 'rgba(255, 255, 255, 0.06)',
+          background: 'var(--surface-2)',
           borderRadius: '4px',
           overflow: 'hidden',
         },

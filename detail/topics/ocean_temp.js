@@ -50,10 +50,10 @@ const REGIONAL_SST_ANOMALY = {
 // --- Coral Bleaching Thresholds (NOAA Coral Reef Watch) ----------------
 
 const CORAL_THRESHOLDS = [
-  { min: 0,  max: 4,  labelKey: 'detail.ocean_temp.dhwWatch',   descKey: 'detail.ocean_temp.dhwWatchDesc',   color: '#fbc02d', icon: '👁' },
-  { min: 4,  max: 8,  labelKey: 'detail.ocean_temp.dhwWarning', descKey: 'detail.ocean_temp.dhwWarningDesc', color: '#ff9800', icon: '⚠' },
-  { min: 8,  max: 12, labelKey: 'detail.ocean_temp.dhwAlert1',  descKey: 'detail.ocean_temp.dhwAlert1Desc',  color: '#f44336', icon: '🔴' },
-  { min: 12, max: 20, labelKey: 'detail.ocean_temp.dhwAlert2',  descKey: 'detail.ocean_temp.dhwAlert2Desc',  color: '#b71c1c', icon: '💀' },
+  { min: 0,  max: 4,  labelKey: 'detail.ocean_temp.dhwWatch',   descKey: 'detail.ocean_temp.dhwWatchDesc',   color: 'var(--status-warning)', icon: '👁' },
+  { min: 4,  max: 8,  labelKey: 'detail.ocean_temp.dhwWarning', descKey: 'detail.ocean_temp.dhwWarningDesc', color: 'var(--status-serious)', icon: '⚠' },
+  { min: 8,  max: 12, labelKey: 'detail.ocean_temp.dhwAlert1',  descKey: 'detail.ocean_temp.dhwAlert1Desc',  color: 'var(--status-critical)', icon: '🔴' },
+  { min: 12, max: 20, labelKey: 'detail.ocean_temp.dhwAlert2',  descKey: 'detail.ocean_temp.dhwAlert2Desc',  color: 'var(--status-critical)', icon: '💀' },
 ];
 
 // --- Render ------------------------------------------------------------
@@ -99,7 +99,7 @@ export async function render(blocks) {
 
 function _renderHero(heroEl, latest, tier, age) {
   const sign = latest.anomaly >= 0 ? '+' : '';
-  const color = latest.anomaly >= 0.5 ? '#ff3b30' : '#ff9500';
+  const color = latest.anomaly >= 0.5 ? 'var(--status-critical)' : 'var(--status-serious)';
   const badge = createTierBadge(tier, { age, year: tier === 'static' ? latest.year : null });
 
   heroEl.appendChild(
@@ -223,14 +223,14 @@ async function _renderSSTChart(chartEl, sstData) {
               type: 'line',
               yMin: 0,
               yMax: 0,
-              borderColor: 'rgba(255,255,255,0.3)',
+              borderColor: 'var(--line-2)',
               borderWidth: 1,
               borderDash: [6, 4],
               label: {
                 display: true,
                 content: i18n.t('detail.ocean_temp.baseline'),
                 position: 'start',
-                color: 'rgba(255,255,255,0.5)',
+                color: 'var(--text-3)',
                 font: { size: 10 },
               },
             },
@@ -260,7 +260,7 @@ function _renderMilestones(trendEl, sstData, latest) {
       i18n.t('detail.ocean_temp.warmestYear'),
       `${warmest.year}`,
       `+${fmtNumber(warmest.anomaly, { decimals: 2 })} \u00B0C`,
-      '#ff3b30'
+      'var(--status-critical)'
     ));
   }
 
@@ -280,7 +280,7 @@ function _renderMilestones(trendEl, sstData, latest) {
       i18n.t('detail.ocean_temp.rateOfWarming'),
       `+${fmtNumber(slopePerDecade, { decimals: 2 })} \u00B0C`,
       i18n.t('detail.ocean_temp.perDecade'),
-      '#ff9500'
+      'var(--status-serious)'
     ));
   }
 
@@ -293,7 +293,7 @@ function _renderMilestones(trendEl, sstData, latest) {
       i18n.t('detail.ocean_temp.sincePreIndustrial'),
       `+${fmtNumber(diff, { decimals: 2 })} \u00B0C`,
       i18n.t('detail.ocean_temp.vsAverage'),
-      '#ff6b6b'
+      'var(--status-critical)'
     ));
   }
 
@@ -357,7 +357,7 @@ function _renderCoralThresholds(tilesEl) {
     const isCurrent = currentDHW >= t.min && currentDHW < t.max;
     return DOMUtils.create('div', {
       style: {
-        background: isCurrent ? `${t.color}18` : 'var(--card-bg, rgba(255,255,255,0.04))',
+        background: isCurrent ? `color-mix(in srgb, ${t.color} 10%, transparent)` : 'var(--surface-2)',
         border: isCurrent ? `2px solid ${t.color}` : '1px solid rgba(255,255,255,0.06)',
         borderRadius: '12px',
         padding: 'var(--space-sm) var(--space-md)',
@@ -371,7 +371,7 @@ function _renderCoralThresholds(tilesEl) {
       DOMUtils.create('div', {
         style: {
           background: t.color,
-          color: t.color === '#fbc02d' ? '#1a1a2e' : '#fff',
+          color: t.color === 'var(--status-warning)' ? 'var(--surface-3)' : 'var(--text-1)',
           borderRadius: '8px',
           padding: '6px 10px',
           fontSize: '0.75rem',
@@ -418,7 +418,7 @@ function _renderCoralThresholds(tilesEl) {
             fontSize: '0.75rem',
             fontWeight: '600',
             color: 'var(--text-primary)',
-            background: 'rgba(255,255,255,0.08)',
+            background: 'var(--surface-2)',
             display: 'inline-block',
             padding: '2px 8px',
             borderRadius: '4px',
@@ -446,7 +446,7 @@ function _renderCoralThresholds(tilesEl) {
         top: '-4px',
         width: '4px',
         height: '16px',
-        background: '#fff',
+        background: 'var(--surface-inverse)',
         borderRadius: '2px',
         boxShadow: '0 0 6px rgba(255,255,255,0.5)',
       },

@@ -49,9 +49,17 @@ export const DOMUtils = {
   // ─── Create SVG Element ───
   createSVG(tag, attrs = {}) {
     const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    const varStyles = [];
     for (const [key, value] of Object.entries(attrs)) {
-      el.setAttribute(key, value);
+      // var(--token) gilt in SVG-Präsentationsattributen nicht → als Style setzen
+      // (nach der Schleife, damit ein 'style'-Attribut sie nicht überschreibt)
+      if (typeof value === 'string' && value.includes('var(--') && ['fill', 'stroke', 'stop-color', 'color'].includes(key)) {
+        varStyles.push([key, value]);
+      } else {
+        el.setAttribute(key, value);
+      }
     }
+    for (const [key, value] of varStyles) el.style.setProperty(key, value);
     return el;
   },
 

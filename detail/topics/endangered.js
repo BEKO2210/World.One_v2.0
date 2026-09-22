@@ -33,9 +33,9 @@ let _cacheData = null;
 const IUCN_CATEGORIES = [
   { code: 'EX', color: '#000000', count: 905 },
   { code: 'EW', color: '#3d0c11', count: 83 },
-  { code: 'CR', color: '#cc3333', count: 0 },
-  { code: 'EN', color: '#cc6633', count: 0 },
-  { code: 'VU', color: '#cc9900', count: 0 },
+  { code: 'CR', color: 'var(--status-critical)', count: 0 },
+  { code: 'EN', color: 'var(--status-serious)', count: 0 },
+  { code: 'VU', color: 'var(--status-warning)', count: 0 },
   { code: 'NT', color: '#99cc33', count: 8500 },
   { code: 'LC', color: '#33cc33', count: 67000 },
 ];
@@ -268,9 +268,9 @@ function _renderCategoryBars(trendEl, cr, en, vu, total) {
   );
 
   const threatened = [
-    { code: 'CR', name: i18n.t('detail.endangered.iucn.CR'), count: cr, color: '#cc3333' },
-    { code: 'EN', name: i18n.t('detail.endangered.iucn.EN'), count: en, color: '#cc6633' },
-    { code: 'VU', name: i18n.t('detail.endangered.iucn.VU'), count: vu, color: '#cc9900' },
+    { code: 'CR', name: i18n.t('detail.endangered.iucn.CR'), count: cr, color: 'var(--status-critical)' },
+    { code: 'EN', name: i18n.t('detail.endangered.iucn.EN'), count: en, color: 'var(--status-serious)' },
+    { code: 'VU', name: i18n.t('detail.endangered.iucn.VU'), count: vu, color: 'var(--status-warning)' },
   ];
 
   threatened.forEach(cat => {
@@ -281,7 +281,7 @@ function _renderCategoryBars(trendEl, cr, en, vu, total) {
       DOMUtils.create('div', {
         style: {
           padding: 'var(--space-sm)',
-          background: 'rgba(255,255,255,0.04)',
+          background: 'var(--surface-2)',
           borderRadius: '8px',
           marginBottom: 'var(--space-xs)',
         },
@@ -304,7 +304,7 @@ function _renderCategoryBars(trendEl, cr, en, vu, total) {
                 justifyContent: 'center',
                 fontSize: '0.7rem',
                 fontWeight: '700',
-                color: '#fff',
+                color: 'var(--text-1)',
                 flexShrink: '0',
               },
             }),
@@ -322,7 +322,7 @@ function _renderCategoryBars(trendEl, cr, en, vu, total) {
         DOMUtils.create('div', {
           style: {
             height: '8px',
-            background: 'rgba(255,255,255,0.06)',
+            background: 'var(--surface-2)',
             borderRadius: '4px',
             overflow: 'hidden',
             marginBottom: '0.25rem',
@@ -358,9 +358,9 @@ function _renderSpeciesExamples(tilesEl, cr, en, vu) {
   );
 
   const sections = [
-    { code: 'CR', name: i18n.t('detail.endangered.iucn.CR'), count: cr, color: '#cc3333' },
-    { code: 'EN', name: i18n.t('detail.endangered.iucn.EN'), count: en, color: '#cc6633' },
-    { code: 'VU', name: i18n.t('detail.endangered.iucn.VU'), count: vu, color: '#cc9900' },
+    { code: 'CR', name: i18n.t('detail.endangered.iucn.CR'), count: cr, color: 'var(--status-critical)' },
+    { code: 'EN', name: i18n.t('detail.endangered.iucn.EN'), count: en, color: 'var(--status-serious)' },
+    { code: 'VU', name: i18n.t('detail.endangered.iucn.VU'), count: vu, color: 'var(--status-warning)' },
   ];
 
   sections.forEach(sec => {
@@ -370,7 +370,7 @@ function _renderSpeciesExamples(tilesEl, cr, en, vu) {
       DOMUtils.create('div', {
         style: {
           padding: '0.35rem var(--space-sm)',
-          background: 'rgba(255,255,255,0.03)',
+          background: 'var(--surface-2)',
           borderRadius: '6px',
           marginBottom: '0.25rem',
           display: 'flex',
@@ -394,7 +394,7 @@ function _renderSpeciesExamples(tilesEl, cr, en, vu) {
         style: {
           marginBottom: 'var(--space-md)',
           padding: 'var(--space-sm)',
-          background: 'rgba(255,255,255,0.04)',
+          background: 'var(--surface-2)',
           borderRadius: '8px',
           borderLeft: `4px solid ${sec.color}`,
         },
@@ -420,7 +420,7 @@ function _renderSpeciesExamples(tilesEl, cr, en, vu) {
               justifyContent: 'center',
               fontSize: '0.65rem',
               fontWeight: '700',
-              color: '#fff',
+              color: 'var(--text-1)',
               flexShrink: '0',
             },
           }),
@@ -481,14 +481,14 @@ function _renderAssessedComparison(compEl) {
       label: i18n.t('detail.endangered.knownSpecies'),
       count: 2100000,
       formatted: i18n.t('detail.endangered.knownSpeciesFormatted'),
-      color: '#cc9900',
+      color: 'var(--status-warning)',
       widthPct: 100,
     },
     {
       label: i18n.t('detail.endangered.estimatedTotal'),
       count: 8700000,
       formatted: i18n.t('detail.endangered.estimatedTotalFormatted'),
-      color: '#cc3333',
+      color: 'var(--status-critical)',
       widthPct: 100,
     },
   ];
@@ -503,7 +503,7 @@ function _renderAssessedComparison(compEl) {
       style: {
         padding: 'var(--space-sm)',
         marginBottom: 'var(--space-xs)',
-        background: 'rgba(255,255,255,0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         borderLeft: `4px solid ${layer.color}`,
       },
@@ -524,7 +524,7 @@ function _renderAssessedComparison(compEl) {
       DOMUtils.create('div', {
         style: {
           height: '12px',
-          background: 'rgba(255,255,255,0.06)',
+          background: 'var(--surface-2)',
           borderRadius: '6px',
           overflow: 'hidden',
         },

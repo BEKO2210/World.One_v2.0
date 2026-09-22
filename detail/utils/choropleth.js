@@ -60,8 +60,8 @@ const CLASS_TO_ISO = {
 
 const TOOLTIP_STYLE = {
   position: 'absolute',
-  background: 'rgba(18,18,26,0.9)',
-  border: '1px solid rgba(255,255,255,0.08)',
+  background: 'var(--surface-3)',
+  border: '1px solid var(--line-2)',
   borderRadius: '8px',
   padding: '8px 12px',
   color: 'var(--text-primary)',
@@ -91,7 +91,7 @@ export async function renderChoropleth(container, options) {
     tooltipFn,
     legendItems,
     title,
-    defaultColor = 'rgba(255,255,255,0.05)',
+    defaultColor = 'var(--surface-3)',
   } = options;
 
   // Optional title heading
@@ -133,8 +133,8 @@ export async function renderChoropleth(container, options) {
       position: 'relative',
       borderRadius: '12px',
       overflow: 'hidden',
-      background: 'rgba(255,255,255,0.02)',
-      border: '1px solid rgba(255,255,255,0.06)',
+      background: 'var(--surface-1)',
+      border: '1px solid var(--line-1)',
       marginBottom: 'var(--space-sm)',
     },
   });
@@ -205,7 +205,7 @@ export async function renderChoropleth(container, options) {
     if (value !== undefined) {
       path.style.fill = colorFn(value);
       path.style.opacity = '0.85';
-      path.style.stroke = 'rgba(255,255,255,0.15)';
+      path.style.stroke = 'var(--text-2)';
       path.style.strokeWidth = '0.3';
       path.style.cursor = 'pointer';
       path.style.transition = 'opacity 0.15s ease';
@@ -238,7 +238,7 @@ export async function renderChoropleth(container, options) {
       // No data -- dim styling
       path.style.fill = defaultColor;
       path.style.opacity = '0.3';
-      path.style.stroke = 'rgba(255,255,255,0.05)';
+      path.style.stroke = 'var(--line-1)';
       path.style.strokeWidth = '0.2';
     }
   }

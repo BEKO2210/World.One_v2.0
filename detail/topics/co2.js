@@ -212,7 +212,7 @@ function _renderTiles(tilesEl, currentPpm, annualIncrease, totalEmissions, preIn
     DOMUtils.create('div', {
       style: {
         padding: 'var(--space-sm)',
-        background: 'rgba(255, 255, 255, 0.04)',
+        background: 'var(--surface-2)',
         borderRadius: '8px',
         textAlign: 'center',
       },
@@ -363,7 +363,7 @@ function _buildGreenhouseInfographic() {
       flexDirection: 'column',
       gap: '0.25rem',
       padding: 'var(--space-sm)',
-      background: 'rgba(255, 255, 255, 0.02)',
+      background: 'var(--surface-2)',
       borderRadius: '12px',
       border: '1px solid rgba(255, 255, 255, 0.06)',
     },
