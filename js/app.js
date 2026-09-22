@@ -996,12 +996,16 @@ class BelkisOne {
 
     const sentWave = document.getElementById('sentiment-wave');
     if (sentWave && rt.newsSentiment) {
-      Charts.sentimentWave(sentWave, rt.newsSentiment.history24h);
+      Charts.sentimentWave(sentWave, rt.newsSentiment.distribution || rt.newsSentiment.history24h);
     }
 
-    // Sentiment label
-    this._setText('#sentiment-score', rt.newsSentiment?.score ?? '-0.42');
-    this._setText('#sentiment-label', `(${rt.newsSentiment?.label || i18n.t('js.slightlyNeg')})`);
+    // Sentiment label: aus dem Score abgeleitet, ohne Score kein Wert
+    const sScore = rt.newsSentiment?.score;
+    const sKey = !Number.isFinite(sScore) ? 'js.sentimentNA'
+      : sScore <= -2 ? 'js.sentimentNeg' : sScore < -0.3 ? 'js.slightlyNeg'
+      : sScore <= 0.3 ? 'js.sentimentNeutral' : 'js.sentimentPos';
+    this._setText('#sentiment-score', Number.isFinite(sScore) ? sScore.toFixed(2) : '—');
+    this._setText('#sentiment-label', `(${i18n.t(sKey)})`);
 
     // Fear & Greed
     const fgGauge = document.getElementById('fear-greed-gauge');

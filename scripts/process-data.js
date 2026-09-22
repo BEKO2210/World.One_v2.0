@@ -262,6 +262,17 @@ function applyCarryingCapacity(rawIndex, scores, trends, momentumIndicators) {
 // Adds ±0.5–3 points per category based on current real-time data
 // ═══════════════════════════════════════════════════════════════
 
+// GDELT tonechart = Histogramm [{bin, count}] → gewichteter Mittelwert.
+function gdeltToneScore(data) {
+  const bins = Array.isArray(data?.tonechart) ? data.tonechart : null;
+  if (!bins) return Number.isFinite(data?.score) ? data.score : null;
+  let n = 0, sum = 0;
+  for (const b of bins) {
+    if (Number.isFinite(b.bin) && Number.isFinite(b.count)) { n += b.count; sum += b.bin * b.count; }
+  }
+  return n > 0 ? Math.round(sum / n * 100) / 100 : null;
+}
+
 function calculateRealtimePulse({ earthquakeData, weatherData, volcanicData, gdeltTone, cryptoData, githubData, arxivData }) {
   const pulse = { environment: 0, society: 0, economy: 0, progress: 0, details: {} };
 
@@ -304,9 +315,7 @@ function calculateRealtimePulse({ earthquakeData, weatherData, volcanicData, gde
 
   // ─── SOCIETY PULSE ───
   // News sentiment (GDELT tone): negative tone = penalty, positive = bonus
-  const sentimentScore = typeof gdeltTone?.data === 'object'
-    ? (gdeltTone.data.score ?? null)
-    : null;
+  const sentimentScore = gdeltToneScore(gdeltTone?.data);
   if (sentimentScore !== null) {
     // GDELT tone typically ranges -3 to +3, centered around -0.5
     // Shift so that -0.5 is neutral
@@ -989,7 +998,8 @@ function buildWorldState() {
   };
   const pulseWeather = weatherData || { cities: existing?.environment?.weather || [] };
   const pulseVolcanic = volcanicData || { alerts: existing?.realtime?.volcanic || [] };
-  const pulseSentiment = gdeltTone || (existing?.realtime?.newsSentiment ? { data: existing.realtime.newsSentiment } : null);
+  // Kein Rückgriff auf den alten Wert: ohne frische GDELT-Daten kein Stimmungs-Signal.
+  const pulseSentiment = gdeltTone || null;
   const pulseCrypto = cryptoData || (existing?.economy?.cryptoFearGreed ? { current: existing.economy.cryptoFearGreed } : null);
   const pulseGithub = githubData || existing?.progress?.github || null;
   const pulseArxiv = arxivData || { papers: existing?.progress?.publications?.latestArxiv || [] };
@@ -1410,17 +1420,15 @@ function buildWorldState() {
         total24h: earthquakeData?.count || 0,
         source: 'USGS'
       },
-      newsSentiment: gdeltTone?.data ? {
-        score: typeof gdeltTone.data === 'object' ? (gdeltTone.data.score ?? -0.42) : -0.42,
-        label: 'Leicht Negativ',
-        history24h: Array.isArray(gdeltTone.data) ? gdeltTone.data.slice(-12).map(d => d.tone ?? d.value ?? -0.4) :
-          [-0.3, -0.5, -0.4, -0.6, -0.3, -0.4, -0.5, -0.3, -0.4, -0.6, -0.5, -0.4],
-        source: 'GDELT'
-      } : (existing?.realtime?.newsSentiment || {
-        score: -0.42, label: 'Leicht Negativ',
-        history24h: [-0.3, -0.5, -0.4, -0.6, -0.3, -0.4, -0.5, -0.3, -0.4, -0.6, -0.5, -0.4],
-        source: 'GDELT'
-      }),
+      newsSentiment: (() => {
+        const score = gdeltToneScore(gdeltTone?.data);
+        if (score == null) return { score: null, distribution: [], history24h: [], source: 'GDELT', unavailable: true };
+        // Tonverteilung −10…+10: Vorzeichen = Stimmung, Betrag = Artikelzahl
+        const counts = new Map((gdeltTone.data.tonechart || []).map(b => [b.bin, b.count]));
+        const distribution = [];
+        for (let bin = -10; bin <= 10; bin++) distribution.push((bin < 0 ? -1 : 1) * (counts.get(bin) || 0));
+        return { score, distribution, history24h: [], source: 'GDELT', fetchedAt: gdeltTone.fetched || null };
+      })(),
       cryptoFearGreed: {
         value: cryptoData?.current?.value || existing?.realtime?.cryptoFearGreed?.value || 38,
         label: cryptoData?.current?.label || 'Fear',

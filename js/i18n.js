@@ -294,6 +294,10 @@ const translations = {
     'js.giniIndex': 'Gini-Index',
     'js.publications': 'Publikationen',
     'js.slightlyNeg': 'Leicht Negativ',
+    'js.sentimentNeg': 'Negativ',
+    'js.sentimentNeutral': 'Neutral',
+    'js.sentimentPos': 'Positiv',
+    'js.sentimentNA': 'keine aktuellen Daten',
     'js.improved': 'Verbessert',
     'js.worsened': 'Verschlechtert',
 
@@ -1503,6 +1507,10 @@ const translations = {
     'js.giniIndex': 'Gini Index',
     'js.publications': 'Publications',
     'js.slightlyNeg': 'Slightly Negative',
+    'js.sentimentNeg': 'Negative',
+    'js.sentimentNeutral': 'Neutral',
+    'js.sentimentPos': 'Positive',
+    'js.sentimentNA': 'no current data',
     'js.improved': 'Improved',
     'js.worsened': 'Worsened',
 

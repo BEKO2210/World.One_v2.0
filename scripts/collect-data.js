@@ -542,7 +542,8 @@ async function fetchGDELTNews() {
   } catch { /* ignore */ }
   save('realtime', 'gdelt-news.json', { articles, fetched: new Date().toISOString() });
 
-  // Also fetch tone data for sentiment
+  // Also fetch tone data for sentiment. GDELT erlaubt eine Anfrage pro 5 s.
+  await new Promise(r => setTimeout(r, 6000));
   try {
     const tone = await fetchJSON('https://api.gdeltproject.org/api/v2/doc/doc?query=world&mode=tonechart&format=json&timespan=24h');
     save('realtime', 'gdelt-tone.json', { data: tone, fetched: new Date().toISOString() });
