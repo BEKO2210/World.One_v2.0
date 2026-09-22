@@ -1,9 +1,8 @@
 /* ===================================================================
    World.One 2.0 -- Currencies Topic Module (ECON-03)
    Full topic contract: meta, render, getChartConfigs, cleanup
-   Data: Open Exchange Rates API (cached currencies.json),
-         12-month hardcoded EUR/USD and USD/CNY trends,
-         Hyperinflation countries with annual inflation rates
+   Data: currencies.json — Open ER API (aktuelle Kurse), EZB-Referenz-
+         kurse 12 Monate (Frankfurter), höchste Inflationsraten (World Bank)
    Visualizations: Exchange rate hero with tier badge, client-side
                    currency converter, 12-month line charts,
                    hyperinflation highlight section
@@ -30,31 +29,22 @@ export const meta = {
 let _chartData = null;
 let _converterCleanup = null;
 
-// --- 12-Month Hardcoded Data (Apr 2025 - Mar 2026) --------------------
-
-const MONTHLY_LABELS = ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar'];
-
-const EUR_USD_12M = [0.91, 0.92, 0.93, 0.92, 0.91, 0.90, 0.91, 0.92, 0.93, 0.92, 0.91, 0.92];
-const USD_CNY_12M = [7.21, 7.24, 7.20, 7.18, 7.22, 7.25, 7.23, 7.20, 7.24, 7.26, 7.22, 7.24];
-
-// --- Hyperinflation Countries ------------------------------------------
-
-const HYPERINFLATION = [
-  { country: 'Venezuela', code: 'VES', inflation: '~230%', severity: 'extreme' },
-  { country: 'Zimbabwe', code: 'ZWL', inflation: '~560%', severity: 'extreme' },
-  { country: 'Argentina', code: 'ARS', inflation: '~140%', severity: 'high' },
-  { country: 'Turkey', code: 'TRY', inflation: '~65%', severity: 'high' },
-  { country: 'Lebanon', code: 'LBP', inflation: '~170%', severity: 'extreme' },
-];
-
-// --- Key Exchange Rate Pairs for Hero -----------------------------------
+// --- Key Exchange Rate Pairs (Marktkonvention) --------------------------
+// rates sind USD-basiert (1 USD = x Fremdwährung). EUR und GBP werden
+// üblich als Fremdwährung/USD notiert (Kehrwert), JPY/CNY als USD/x.
 
 const HERO_PAIRS = [
-  { label: 'EUR/USD', rateKey: 'EUR' },
-  { label: 'GBP/USD', rateKey: 'GBP' },
-  { label: 'JPY/USD', rateKey: 'JPY' },
-  { label: 'CNY/USD', rateKey: 'CNY' },
+  { label: 'EUR/USD', rateKey: 'EUR', invert: true },
+  { label: 'GBP/USD', rateKey: 'GBP', invert: true },
+  { label: 'USD/JPY', rateKey: 'JPY', invert: false },
+  { label: 'USD/CNY', rateKey: 'CNY', invert: false },
 ];
+
+const quote = (pair, rates) => {
+  const r = rates?.[pair.rateKey];
+  if (!Number.isFinite(r) || r <= 0) return null;
+  return pair.invert ? 1 / r : r;
+};
 
 // --- Render ------------------------------------------------------------
 
@@ -62,11 +52,7 @@ export async function render(blocks) {
   // 1. Fetch cached currencies data
   const { data, tier, age } = await fetchTopicData('currencies');
 
-  const rates = data && data.rates ? data.rates : {
-    EUR: 0.92, GBP: 0.79, JPY: 149.5, CNY: 7.24,
-    INR: 83.5, BRL: 5.25, RUB: 83.6, KRW: 1350,
-    CHF: 0.88, AUD: 1.53, CAD: 1.37, MXN: 17.2,
-  };
+  const rates = data?.rates || {};
 
   // Store chart data for getChartConfigs
   _chartData = { rates, tier, age };
@@ -78,13 +64,13 @@ export async function render(blocks) {
   _renderConverter(blocks.chart, rates);
 
   // 4. Trend block -- 12-month line charts (EUR/USD, USD/CNY)
-  await _renderTrendCharts(blocks.trend);
+  await _renderTrendCharts(blocks.trend, data?.history || []);
 
   // 5. Tiles block
-  _renderTiles(blocks.tiles, rates);
+  _renderTiles(blocks.tiles, rates, data?.history || [], data?.high_inflation || []);
 
   // 6. Explanation block -- Hyperinflation highlight
-  _renderHyperinflation(blocks.explanation);
+  _renderHyperinflation(blocks.explanation, data?.high_inflation || []);
 
   // 7. Comparison block
   _renderComparison(blocks.comparison);
@@ -98,9 +84,9 @@ export async function render(blocks) {
 function _renderHero(heroEl, rates, tier, age) {
   const badge = createTierBadge(tier, { age });
 
-  // Primary EUR/USD rate as the big number
-  const eurRate = rates.EUR || 0.92;
-  const formatted = MathUtils.formatNumber(eurRate);
+  // EUR/USD (US-$ je Euro) als große Zahl
+  const eurUsd = quote(HERO_PAIRS[0], rates);
+  const formatted = eurUsd != null ? eurUsd.toFixed(4) : '–';
 
   const pairsContainer = DOMUtils.create('div', {
     style: {
@@ -112,8 +98,8 @@ function _renderHero(heroEl, rates, tier, age) {
   });
 
   for (const pair of HERO_PAIRS) {
-    const rate = rates[pair.rateKey];
-    if (rate === undefined) continue;
+    const rate = quote(pair, rates);
+    if (rate == null) continue;
     pairsContainer.appendChild(
       DOMUtils.create('div', {
         style: {
@@ -128,7 +114,7 @@ function _renderHero(heroEl, rates, tier, age) {
           style: { color: 'var(--text-secondary)', fontSize: '0.8rem', marginBottom: '2px' },
         }),
         DOMUtils.create('div', {
-          textContent: MathUtils.formatNumber(rate),
+          textContent: rate.toFixed(rate < 10 ? 4 : 2),
           style: {
             color: toRgba(CHART_COLORS.economy),
             fontSize: '1.25rem',
@@ -341,7 +327,13 @@ function _createSelect(options, defaultVal) {
 
 // --- Trend Block (12-Month Line Charts) ---------------------------------
 
-async function _renderTrendCharts(trendEl) {
+async function _renderTrendCharts(trendEl, history) {
+  if (!history.length) return;
+  const labels = history.map(h => new Date(h.date + 'T00:00:00Z')
+    .toLocaleDateString(i18n.lang === 'en' ? 'en-GB' : 'de-DE', { month: 'short', year: '2-digit', timeZone: 'UTC' }));
+  const eurUsd = history.map(h => (h.EUR > 0 ? Math.round(1 / h.EUR * 10000) / 10000 : null));
+  const usdCny = history.map(h => h.CNY ?? null);
+
   // EUR/USD chart
   trendEl.appendChild(
     DOMUtils.create('div', {}, [
@@ -380,10 +372,10 @@ async function _renderTrendCharts(trendEl) {
   createChart('currencies-eurusd-canvas', {
     type: 'line',
     data: {
-      labels: MONTHLY_LABELS,
+      labels,
       datasets: [{
         label: 'EUR/USD',
-        data: EUR_USD_12M,
+        data: eurUsd,
         borderColor: toRgba(CHART_COLORS.economy),
         backgroundColor: toRgba(CHART_COLORS.economy, 0.15),
         fill: true,
@@ -394,16 +386,16 @@ async function _renderTrendCharts(trendEl) {
         borderWidth: 2,
       }],
     },
-    options: _lineChartOptions('EUR/USD', 0.88, 0.96),
+    options: _lineChartOptions('EUR/USD'),
   });
 
   createChart('currencies-usdcny-canvas', {
     type: 'line',
     data: {
-      labels: MONTHLY_LABELS,
+      labels,
       datasets: [{
         label: 'USD/CNY',
-        data: USD_CNY_12M,
+        data: usdCny,
         borderColor: toRgba(CHART_COLORS.economy),
         backgroundColor: toRgba(CHART_COLORS.economy, 0.15),
         fill: true,
@@ -414,11 +406,12 @@ async function _renderTrendCharts(trendEl) {
         borderWidth: 2,
       }],
     },
-    options: _lineChartOptions('USD/CNY', 7.1, 7.35),
+    options: _lineChartOptions('USD/CNY'),
   });
 }
 
-function _lineChartOptions(yLabel, yMin, yMax) {
+// y-Achse passt sich den Daten an (vorher feste Grenzen, aktueller Kurs lag außerhalb)
+function _lineChartOptions(yLabel) {
   return {
     animation: {
       duration: 1200,
@@ -429,8 +422,7 @@ function _lineChartOptions(yLabel, yMin, yMax) {
         grid: { display: false },
       },
       y: {
-        min: yMin,
-        max: yMax,
+        grace: '5%',
         title: {
           display: true,
           text: yLabel,
@@ -450,22 +442,35 @@ function _lineChartOptions(yLabel, yMin, yMax) {
 
 // --- Tiles Block --------------------------------------------------------
 
-function _renderTiles(tilesEl, rates) {
-  // Find strongest (lowest rate vs USD = most valuable) and count
-  const rateEntries = Object.entries(rates);
-  const count = rateEntries.length;
+function _renderTiles(tilesEl, rates, history, highInflation) {
+  const count = Object.keys(rates).length;
+
+  // Größte Bewegung gegenüber dem US-Dollar im 12-Monats-Verlauf
+  const first = history[0];
+  const last = history[history.length - 1];
+  let move = null;
+  if (first && last) {
+    for (const code of ['EUR', 'GBP', 'JPY', 'CNY']) {
+      if (!(first[code] > 0 && last[code] > 0)) continue;
+      // Wert der Währung in USD: steigt, wenn weniger Einheiten je USD nötig sind
+      const pct = (first[code] / last[code] - 1) * 100;
+      if (!move || Math.abs(pct) > Math.abs(move.pct)) move = { code, pct };
+    }
+  }
+  const top = highInflation[0];
+  const fmtPct = (v) => `${v > 0 ? '+' : ''}${v.toLocaleString(i18n.lang === 'en' ? 'en-GB' : 'de-DE', { maximumFractionDigits: 1 })} %`;
 
   const tileData = [
     {
-      label: i18n.t('detail.currencies.tileStrong'),
-      value: 'CHF',
-      unit: `1 USD = ${MathUtils.formatNumber(rates.CHF || 0.88)} CHF`,
+      label: i18n.t('detail.currencies.tileMove'),
+      value: move ? move.code : '–',
+      unit: move ? `${fmtPct(move.pct)} ${i18n.t('detail.currencies.vsUsd12m')}` : '',
       accent: toRgba(CHART_COLORS.economy),
     },
     {
       label: i18n.t('detail.currencies.tileVolatile'),
-      value: 'TRY / ARS',
-      unit: i18n.t('detail.currencies.hyperTitle'),
+      value: top ? top.code : '–',
+      unit: top ? `${fmtPct(top.inflation)} (${top.year})` : '',
       accent: '#d32f2f',
     },
     {
@@ -517,7 +522,8 @@ function _renderTiles(tilesEl, rates) {
 
 // --- Explanation Block (Hyperinflation Highlight) -------------------------
 
-function _renderHyperinflation(explEl) {
+function _renderHyperinflation(explEl, list) {
+  if (!list.length) return;
   explEl.appendChild(
     DOMUtils.create('h2', {
       textContent: i18n.t('detail.currencies.hyperTitle'),
@@ -525,7 +531,9 @@ function _renderHyperinflation(explEl) {
     })
   );
 
-  const cards = HYPERINFLATION.map(({ country, code, inflation, severity }) => {
+  const cards = list.map(({ country, code, inflation: pct, year }) => {
+    const severity = pct >= 100 ? 'extreme' : 'high';
+    const inflation = `${pct.toLocaleString(i18n.lang === 'en' ? 'en-GB' : 'de-DE')} % (${year})`;
     const badgeColor = severity === 'extreme'
       ? 'rgba(211, 47, 47, 0.85)'
       : 'rgba(245, 124, 0, 0.85)';
