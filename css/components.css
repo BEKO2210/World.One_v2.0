@@ -717,8 +717,9 @@
    Safe-Area-Abstand; der Inhalt bekommt unten entsprechend Platz. */
 @media (max-width: 640px) {
   :root { --bottom-bar-h: calc(56px + env(safe-area-inset-bottom, 0px)); }
-  body { padding-bottom: var(--bottom-bar-h); }
-  body::after {
+  /* nur auf der Hauptseite (Detailseiten haben keine dieser Buttons) */
+  body:has(#lang-toggle) { padding-bottom: var(--bottom-bar-h); }
+  body:has(#lang-toggle)::after {
     content: '';
     position: fixed;
     left: 0; right: 0; bottom: 0;
