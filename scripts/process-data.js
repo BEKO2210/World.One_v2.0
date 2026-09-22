@@ -827,6 +827,16 @@ function buildWorldState() {
 
   // FRED live cache (present only when FRED_API_KEY secret is set)
   const fredCache = readCacheFresh('fred.json');
+
+  // Extreme Armut: World Bank PIP, $3.00/Tag (poverty.json, cache-economy-ext)
+  const povertyCache = readCacheFresh('poverty.json');
+  const povLatest = povertyCache?.data?.latest;
+  const poverty = povLatest?.pct > 0
+    ? { pct: povLatest.pct, people: povLatest.people, year: povLatest.year,
+        first: povertyCache.data.poverty_trend?.[0] || null,
+        source: povertyCache.data.source || 'World Bank PIP', isFallback: false }
+    : { pct: null, people: existing?.economy?.wealth?.extremePoverty ?? null, year: null, first: null,
+        source: 'World Bank PIP (letzter Stand)', isFallback: true };
   const fredSource = fredCache?.data?.series?.UNRATE?.label
     ? 'FRED (St. Louis Fed)'
     : null;
@@ -1094,7 +1104,7 @@ function buildWorldState() {
 
   // ─── BUILD comparison2000 (always recalculate with fresh data) ───
   const comparison2000 = [
-    { name: 'Extreme Armut', then: 1700000000, now: 648000000, improved: true },
+    ...(poverty.first?.people && poverty.people ? [{ name: 'Extreme Armut', then: poverty.first.people, now: poverty.people, improved: poverty.people < poverty.first.people }] : []),
     { name: 'Kindersterblichkeit', then: 76, now: childMortCurrent, improved: childMortCurrent < 76 },
     { name: 'Lebenserwartung', then: 67, now: lifeExpCurrent, improved: lifeExpCurrent > 67 },
     { name: 'Internet-Nutzer', then: 6.7, now: internetCurrent, improved: internetCurrent > 6.7 },
@@ -1248,7 +1258,7 @@ function buildWorldState() {
           { name: 'Gini-Index', value: giniCurrent, score: Math.round(ecoGiniScore), trend: 'stable', ...freshness(giniData?.fetched, 'World Bank') },
           { name: 'Inflation', value: `${inflationCurrent}%`, score: Math.round(ecoInflScore), trend: 'stable', ...freshness(fredFetchedAt || inflationData?.fetched, fredUsInflation != null ? 'FRED + World Bank (avg)' : 'World Bank') },
           { name: 'Arbeitslosigkeit', value: `${unemploymentCurrent}%`, score: Math.round(ecoUnempScore), trend: 'stable', ...freshness(unemploymentData?.fetched, 'World Bank / ILO') },
-          { name: 'Extreme Armut', value: '8.5%', score: 55, trend: 'improving', ...freshness(null, 'World Bank (static baseline)') },
+          ...(poverty.pct != null ? [{ name: 'Extreme Armut', value: `${poverty.pct}%`, score: Math.round(normalize(poverty.pct, 40, 0)), trend: 'improving', ...freshness(povertyCache?.fetchedAt, poverty.source) }] : []),
           ...(fredFedFunds != null ? [{ name: 'Fed Funds Rate', value: `${fredFedFunds}%`, score: Math.max(0, 100 - fredFedFunds * 8), trend: 'stable', ...freshness(fredFetchedAt, fredSource) }] : []),
           ...(fredYieldSpread != null ? [{ name: '10Y-2Y Yield Spread', value: `${fredYieldSpread}%`, score: fredYieldSpread < 0 ? 20 : 80, trend: fredYieldSpread < 0 ? 'declining' : 'stable', ...freshness(fredFetchedAt, fredSource) }] : [])
         ]
@@ -1365,10 +1375,20 @@ function buildWorldState() {
     },
 
     economy: {
-      wealth: existing?.economy?.wealth || {
-        billionaires: 2781, billionaireWealth: 14200000000000,
-        extremePoverty: 648000000, top1Percent: 45.8, bottom50Percent: 2.1,
-        source: 'World Bank / Oxfam'
+      // Forbes hat keine API: Jahresliste, statisch gepflegt (Forbes, 10.03.2026).
+      // Vermögensanteile: World Inequality Database, statisch.
+      wealth: {
+        billionaires: 3428, billionaireWealth: 20100000000000,
+        billionairesYear: 2026, billionairesSource: "Forbes World's Billionaires 2026",
+        top1Percent: existing?.economy?.wealth?.top1Percent ?? 45.8,
+        bottom50Percent: existing?.economy?.wealth?.bottom50Percent ?? 2.1,
+        source: 'Forbes / World Bank PIP',
+        isStatic: true,
+        extremePoverty: poverty.people,
+        extremePovertyPct: poverty.pct,
+        extremePovertyYear: poverty.year,
+        povertyLineUsd: 3.0,
+        povertySource: poverty.source
       },
       gdpGrowth: {
         global: gdpGrowth,
@@ -1505,7 +1525,7 @@ function buildWorldState() {
     'Gini-Index':                    { cadence: 'annual',   dataAsOf: yearOf(giniHistory), tier: giniHistory.length ? undefined : 'static' },
     'Inflation':                     { cadence: 'annual',   dataAsOf: yearOf(inflationData?.history) },
     'Arbeitslosigkeit':              { cadence: 'annual',   dataAsOf: yearOf(unemploymentData?.history) },
-    'Extreme Armut':                 { cadence: 'annual',   dataAsOf: null, tier: 'static' },
+    'Extreme Armut':                 { cadence: 'annual',   dataAsOf: poverty.year },
     'Fed Funds Rate':                { cadence: 'monthly',  dataAsOf: fredCache?.data?.series?.FEDFUNDS?.latest?.date || null },
     '10Y-2Y Yield Spread':           { cadence: 'daily',    dataAsOf: fredCache?.data?.series?.T10Y2Y?.latest?.date || null },
     'Internet-Durchdringung':        { cadence: 'annual',   dataAsOf: yearOf(internetHistory) },
