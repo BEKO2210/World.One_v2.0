@@ -14,6 +14,7 @@ import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { renderChoropleth } from '../utils/choropleth.js';
 import { fmtNumber } from '../../js/utils/fmt.js';
+import { createEmptyState } from '../../js/utils/empty-state.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -79,7 +80,11 @@ export async function render(blocks) {
   await _renderChoropleth(blocks.chart);
 
   // --- 4. Trend Block (FAO Food Price + Undernourishment dual-axis) ---
-  _renderTrendCanvas(blocks.trend, undernourishmentTrend);
+  if (data?.food_price_index?.annual?.length) {
+    _renderTrendCanvas(blocks.trend, undernourishmentTrend);
+  } else {
+    blocks.trend.appendChild(createEmptyState({ title: i18n.t('detail.hunger.trendTitle') }));
+  }
 
   // --- 5. Tiles Block ---
   _renderTiles(blocks.tiles);

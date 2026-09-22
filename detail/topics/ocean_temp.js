@@ -14,6 +14,7 @@ import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { renderChoropleth } from '../utils/choropleth.js';
 import { fmtNumber } from '../../js/utils/fmt.js';
+import { createEmptyState } from '../../js/utils/empty-state.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -149,7 +150,10 @@ function _renderHero(heroEl, latest, tier, age) {
 // --- Chart Block (SST Anomaly Timeline 1880-present) -------------------
 
 async function _renderSSTChart(chartEl, sstData) {
-  if (sstData.length === 0) return;
+  if (sstData.length === 0) {
+    chartEl.appendChild(createEmptyState({ title: i18n.t('detail.ocean_temp.trendTitle') }));
+    return;
+  }
 
   chartEl.appendChild(
     DOMUtils.create('div', {}, [

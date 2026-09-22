@@ -15,6 +15,7 @@ import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { fmtNumber } from '../../js/utils/fmt.js';
+import { createEmptyState } from '../../js/utils/empty-state.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -329,7 +330,10 @@ function _createSelect(options, defaultVal) {
 // --- Trend Block (12-Month Line Charts) ---------------------------------
 
 async function _renderTrendCharts(trendEl, history) {
-  if (!history.length) return;
+  if (!history.length) {
+    trendEl.appendChild(createEmptyState({ title: i18n.t('detail.currencies.chartEURUSD') }));
+    return;
+  }
   const labels = history.map(h => new Date(h.date + 'T00:00:00Z')
     .toLocaleDateString(i18n.lang === 'en' ? 'en-GB' : 'de-DE', { month: 'short', year: '2-digit', timeZone: 'UTC' }));
   const eurUsd = history.map(h => (h.EUR > 0 ? Math.round(1 / h.EUR * 10000) / 10000 : null));

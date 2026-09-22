@@ -778,3 +778,38 @@
     box-shadow: var(--elevation-2);
   }
 }
+
+/* ─── Empty State ─── */
+.empty-state__title {
+  color: var(--text-1);
+  margin: 0 0 var(--space-sm);
+  font-size: var(--text-sub);
+  font-weight: 600;
+}
+.empty-state__body {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border: 1px dashed var(--line-2);
+  border-radius: var(--radius-md);
+  background: var(--surface-1);
+}
+.empty-state__icon {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-3);
+  color: var(--text-3);
+  font-size: 16px;
+}
+.empty-state__text {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}

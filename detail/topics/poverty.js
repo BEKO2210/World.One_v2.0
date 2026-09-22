@@ -13,6 +13,7 @@ import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { fmtNumber } from '../../js/utils/fmt.js';
+import { createEmptyState } from '../../js/utils/empty-state.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -269,7 +270,10 @@ async function _renderRegional(trendEl, regions) {
   const series = REGIONS
     .map(r => ({ ...r, data: regions?.[r.code] || [] }))
     .filter(r => r.data.length > 0);
-  if (series.length === 0) return;
+  if (series.length === 0) {
+    trendEl.appendChild(createEmptyState({ title: i18n.t('detail.poverty.regionalTitle') }));
+    return;
+  }
 
   trendEl.appendChild(
     DOMUtils.create('div', {}, [
