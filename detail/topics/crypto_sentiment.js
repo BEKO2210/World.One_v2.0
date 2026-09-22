@@ -129,11 +129,11 @@ export async function render(blocks) {
     // keep hardcoded fallback
   }
 
-  _chartData = { series };
   const today = series[series.length - 1];
   const stats = _computeStats(series);
 
-  _chartData = { today, stats };
+  // series muss erhalten bleiben: getChartConfigs zeichnet daraus den Verlauf
+  _chartData = { series, today, stats };
 
   // 1. Hero block
   _renderHero(blocks.hero, today, tier, age);
@@ -160,7 +160,10 @@ export async function render(blocks) {
 // --- Hero ---------------------------------------------------------------
 
 function _renderHero(heroEl, today, tier, age) {
-  const badge = createTierBadge(tier || 'static', { year: 2026, age });
+  // Ohne Cache ist die eingebettete Reihe ein Beispielverlauf, keine Messung
+  const badge = tier === 'static'
+    ? createTierBadge('static', { estimate: true, source: 'alternative.me' })
+    : createTierBadge(tier, { age, source: 'alternative.me' });
   const bgColor = _fgColor(today.value);
 
   heroEl.appendChild(
