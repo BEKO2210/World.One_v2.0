@@ -4,7 +4,7 @@ import js from '@eslint/js';
 import globals from 'globals';
 
 export default [
-  { ignores: ['node_modules/**', 'data/**', 'dist/**', 'graphify-out/**'] },
+  { ignores: ['node_modules/**', 'data/**', 'dist/**', 'graphify-out/**', 'assets/vendor/**'] },
   js.configs.recommended,
   {
     files: ['js/**/*.js', 'detail/**/*.js', 'service-worker.js'],

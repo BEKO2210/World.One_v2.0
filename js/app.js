@@ -15,6 +15,7 @@ import { DOMUtils } from './utils/dom.js';
 import { createTierBadge } from './utils/badge.js';
 import { cssVar } from './utils/chart-manager.js';
 import { initClimateStory, initWealthStory, initRefugeeStory } from './visualizations/story.js';
+import { initHeroGlobe } from './visualizations/globe.js';
 import { fmtNumber } from './utils/fmt.js';
 import { formatAsOf } from './utils/as-of.js';
 import { i18n } from './i18n.js';
@@ -462,6 +463,8 @@ class BelkisOne {
   // ─── Prolog meta ───
   // Hero: „66,4 von 100.“ + Einordnung + ehrliche Meta-Zeile
   _populateProlog(data) {
+    // Globus lädt selbst im Leerlauf nach (three.js erst dann)
+    initHeroGlobe(document.querySelector('.prolog__globe'), data);
     const wi = data.worldIndex;
     if (Number.isFinite(wi?.value)) {
       this._setText('#prolog-index', fmtNumber(wi.value, { decimals: 1 }));
