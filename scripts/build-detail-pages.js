@@ -64,7 +64,7 @@ for (const topic of topics) {
   const page = template
     .replace('<!DOCTYPE html>', '<!DOCTYPE html>\n<!-- Generiert von scripts/build-detail-pages.js — nicht von Hand ändern -->')
     .replace(/<html lang="de"([^>]*)>/, `<html lang="de"$1 data-topic="${topic}">`)
-    .replace(/  <title>[^<]*<\/title>/, head)
+    .replace(/ {2}<title>[^<]*<\/title>/, head)
     // mit <base href="../"> zeigte „#detail-main“ auf /detail/ statt auf diese Seite
     .replace('href="#detail-main"', `href="${topic}/#detail-main"`);
   if (!page.includes(`data-topic="${topic}"`) || !page.includes('<base href="../">')) {
