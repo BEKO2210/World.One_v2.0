@@ -1653,7 +1653,7 @@ class BelkisOne {
 
     // Re-render detail link tooltips for new language
     document.querySelectorAll('.detail-link[data-tooltip]').forEach(el => {
-      el.dataset.tooltip = i18n.t('main.clickForDetails');
+      el.dataset.tooltip = i18n.t(el.dataset.scrollTo ? 'main.toSection' : 'main.clickForDetails');
     });
 
     // Update world indicator with new data
@@ -1690,8 +1690,9 @@ class BelkisOne {
       { selector: '#life-expectancy-chart', topic: 'health', wrapClosest: '.data-card' },
 
       // Act 4 -- Economy
-      { selector: '.wealth-comparison', topic: 'inequality' },
-      // Override: the "extreme poverty" side of wealth-comparison navigates to the poverty topic
+      // Je Hälfte ein eigener Link (vorher Gesamtblock + verschachtelte Armuts-Hälfte
+      // → zwei „Details“-Hinweise übereinander)
+      { selector: '.wealth-comparison__side:nth-child(1)', topic: 'inequality' },
       { selector: '.wealth-comparison__side:nth-child(3)', topic: 'poverty' },
       { selector: '#gini-chart', topic: 'inequality', wrapClosest: '.data-card' },
       { selector: '#exchange-rates', topic: 'currencies', wrapClosest: '.data-card' },
@@ -1756,7 +1757,7 @@ class BelkisOne {
       el.classList.add('detail-link');
       el.setAttribute('role', 'link');
       el.setAttribute('tabindex', '0');
-      el.dataset.tooltip = i18n.t('main.clickForDetails');
+      el.dataset.tooltip = i18n.t('main.toSection');
       count++;
     });
 
