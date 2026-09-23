@@ -1195,60 +1195,59 @@
   opacity: 0.4;
 }
 
-/* ─── Detail Link Hover States ─── */
+/* ─── Detail-Links: sichtbarer Hinweis + Druck-Feedback ───
+   Früher nur ein Hover-Tooltip — am Handy gibt es kein Hover, klickbare
+   Blöcke sahen aus wie statischer Text. Jetzt trägt jeder Link-Block
+   unten rechts „Details ›“ (Sprung-Links „Zum Abschnitt ↓“, Listenzeilen
+   einen Chevron) im normalen Fluss, damit nichts überdeckt wird. */
 .detail-link {
   cursor: pointer;
   position: relative;
-  transition:
-    filter var(--duration-fast) var(--ease-out-quart),
-    box-shadow var(--duration-fast) var(--ease-out-quart);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform var(--duration-fast) var(--ease-out-quart);
 }
 
-.detail-link:hover,
-.detail-link:focus-visible {
-  filter: brightness(1.1);
-  box-shadow: none;
+.detail-link::after {
+  content: attr(data-tooltip) "\00a0\203A";
+  display: block;
+  margin-top: var(--space-sm);
+  text-align: right;
+  font-size: var(--text-label);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--accent);
+  pointer-events: none;
+}
+.detail-link[data-scroll-to]::after { content: attr(data-tooltip) "\00a0\2193"; }
+/* zentrierte Blöcke: Hinweis mittig unter dem Inhalt */
+.text-center.detail-link::after,
+.wealth-comparison__side.detail-link::after,
+.refugee-counter.detail-link::after { text-align: center; }
+
+/* Listenzeilen: nur Chevron am Zeilenende */
+.momentum-item.detail-link::after {
+  content: "\203A";
+  margin: 0 0 0 var(--space-xs);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--text-3);
+  align-self: center;
 }
 
+.detail-link:hover::after { text-decoration: underline; text-underline-offset: 3px; }
+.momentum-item.detail-link:hover::after { text-decoration: none; color: var(--accent); }
+
+/* Druck-Feedback (Touch + Maus) */
+.detail-link:active { transform: scale(0.985); }
+
 .detail-link:focus-visible {
-  outline: 2px solid var(--progress);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
-/* Tooltip positioned inside bottom-right to avoid overflow:hidden clipping on .data-card and .widget */
-.detail-link::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 8px;
-  right: 8px;
-  padding: 3px 8px;
-  background: color-mix(in srgb, var(--surface-0) 85%, transparent);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--line-1);
-  border-radius: 4px;
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity var(--duration-fast) ease;
-  z-index: 10;
-}
-
-.detail-link:hover::after {
-  opacity: 1;
-}
-
-/* Reduced motion: skip brightness filter, use outline instead */
 @media (prefers-reduced-motion: reduce) {
   .detail-link { transition: none; }
-  .detail-link:hover {
-    filter: none;
-    outline: 2px solid var(--progress);
-    outline-offset: 2px;
-  }
-  .detail-link::after { transition: none; }
+  .detail-link:active { transform: none; opacity: 0.85; }
 }
 
 /* Teilwert steht als Zahl unter dem Ring — nicht doppelt im Ring */
