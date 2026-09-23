@@ -57,8 +57,15 @@ function getFreedomData() {
   ];
 
   console.log(`  Freedom: ${global_trend.length} years of data`);
+  // Kennzahlen aus „Freedom in the World 2026“ (Berichtsjahr 2025), wörtlich:
+  // „Global freedom declined for the 20th consecutive year in 2025.“
+  // „Today, 88 of the world's 195 countries are rated Free.“
+  // „In 2005, 45 countries were rated Not Free; today that number is 59.“
+  // https://freedomhouse.org/report/freedom-world/2026/growing-shadow-autocracy
+  const report = { edition: 2026, dataYear: 2025, declineYears: 20, free: 88, partlyFree: 195 - 88 - 59, notFree: 59 };
   return {
     global_trend,
+    report,
     source: 'Freedom House - Freedom in the World',
     note: 'Static dataset -- Freedom House has no public API'
   };

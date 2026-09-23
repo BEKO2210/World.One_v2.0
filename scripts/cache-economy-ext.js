@@ -127,6 +127,8 @@ const WID_SERIES = {
   wealthTop1: 'https://ourworldindata.org/grapher/wealth-share-richest.csv?useColumnShortNames=true&quantile=richest_1pct',
   wealthTop10: 'https://ourworldindata.org/grapher/wealth-share-richest.csv?useColumnShortNames=true&quantile=richest_10pct',
   incomeTop1: 'https://ourworldindata.org/grapher/income-share-top-1-before-tax-wid.csv?useColumnShortNames=true',
+  // Gini der Welt als eine Bevölkerung (0–1, wird auf 0–100 skaliert)
+  giniIncome: 'https://ourworldindata.org/grapher/gini-coefficient-before-tax-wid.csv?useColumnShortNames=true',
 };
 
 async function fetchWealthShares() {
@@ -136,7 +138,11 @@ async function fetchWealthShares() {
     const csv = await fetchText(url);
     const history = csv.split('\n')
       .filter(l => l.startsWith('World,OWID_WRL,'))
-      .map(l => { const [, , year, value] = l.split(','); return { year: Number(year), value: Math.round(Number(value) * 10) / 10 }; })
+      .map(l => {
+        const [, , year, raw] = l.split(',');
+        const value = key === 'giniIncome' ? Number(raw) * 100 : Number(raw);
+        return { year: Number(year), value: Math.round(value * 10) / 10 };
+      })
       .filter(e => e.year >= 1995 && Number.isFinite(e.value))
       .sort((a, b) => a.year - b.year);
     if (!history.length) throw new Error(`WID ${key}: keine World-Zeilen`);

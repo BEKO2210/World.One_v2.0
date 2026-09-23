@@ -84,7 +84,7 @@ class I18n {
       currentYear:    _now,
       tempLatestYear: _now - 1,   // NASA GISTEMP is annual, one year lag
       popLatestYear:  _now,
-      freedomStreak:  18,         // Freedom House 2024 published streak
+      freedomStreak:  20,         // Freedom in the World 2026: 20. Jahr in Folge (Berichtsjahr 2025)
       freeCount: '–', partlyFreeCount: '–', notFreeCount: '–', popBillion: '–',
       billionaireWealthT: '–', billionairesYear: '–', povertyYear: '–', sourcesCount: '–'
     };

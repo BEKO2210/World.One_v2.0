@@ -108,11 +108,12 @@ export async function render(blocks) {
   if (Number.isFinite(top1)) WEALTH_STATS.top1_pct = top1;
   if (Number.isFinite(top10)) WEALTH_STATS.top10_pct = top10;
 
-  // Hero Gini value: hardcoded global estimate (no world_trend in cache)
-  const globalGini = 38.5;
+  // Hero: Gini der Welt als eine Bevölkerung (WID, vor Steuern). Die World
+  // Bank führt keinen Welt-Gini; die frühere 38,5 war ein fester Schätzwert.
+  const gini = data?.wid?.giniIncome?.at(-1) || null;
 
   // 2. Hero block
-  _renderHero(blocks.hero, globalGini, tier, age);
+  _renderHero(blocks.hero, gini, tier, age);
 
   // 3. Chart block -- 100-person wealth distribution grid (CSS animated)
   _renderWealthGrid(blocks.chart);
@@ -135,10 +136,9 @@ export async function render(blocks) {
 
 // --- Hero ---------------------------------------------------------------
 
-function _renderHero(heroEl, giniValue, tier, age) {
-  // Use 'static' tier with year 2024 since global Gini is hardcoded
-  const badge = createTierBadge('static', { year: 2024 });
-  const formatted = fmtNumber(giniValue, { decimals: 1 });
+function _renderHero(heroEl, gini, tier, age) {
+  const badge = createTierBadge(gini ? tier : 'static', { age, dataAsOf: gini?.year ?? null, cadence: 'annual' });
+  const formatted = gini ? fmtNumber(gini.value, { decimals: 1 }) : '–';
 
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'inequality-hero' }, [

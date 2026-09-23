@@ -447,7 +447,7 @@ class BelkisOne {
       currentYear: now,
       tempLatestYear: Number.isFinite(tempLatestYear) ? tempLatestYear : now,
       popLatestYear:  Number.isFinite(popLatestYear)  ? popLatestYear  : now,
-      freedomStreak:  Number.isFinite(freedomStreak)  ? freedomStreak  : 18,
+      freedomStreak:  Number.isFinite(freedomStreak)  ? freedomStreak  : 20,
       freeCount:        num(fr.free, 0),
       partlyFreeCount:  num(fr.partlyFree, 0),
       notFreeCount:     num(fr.notFree, 0),

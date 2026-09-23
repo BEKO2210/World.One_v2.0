@@ -27,6 +27,10 @@ export const meta = {
 
 // --- Module State ------------------------------------------------------
 
+// Freedom in the World 2026: 20. Jahr in Folge (Berichtsjahr 2025)
+let _declineYears = 20;
+let _declineDataYear = 2025;
+
 let _trendChart = null;
 let _chartData = null;
 let _choroplethCleanup = null;
@@ -54,6 +58,9 @@ const FREEDOM_COUNTRY_SCORES = {
 export async function render(blocks) {
   // 1. Fetch cached freedom data
   const { data, tier, age } = await fetchTopicData('freedom');
+  // Rückgangsjahre aus dem Jahresbericht (freedom.json → report)
+  _declineYears = data?.report?.declineYears ?? _declineYears;
+  _declineDataYear = data?.report?.dataYear ?? _declineDataYear;
 
   // Extract global_trend from cache data
   const globalTrend = data?.global_trend || [];
@@ -254,7 +261,7 @@ function _renderTrendText(trendEl) {
           color: 'var(--text-primary)',
           marginBottom: 'var(--space-xs)',
         },
-        textContent: '18',
+        textContent: String(_declineYears),
       }),
       DOMUtils.create('p', {
         textContent: i18n.t('detail.freedom.trendDesc'),
@@ -294,8 +301,8 @@ function _renderTiles(tilesEl) {
     },
     {
       label: i18n.t('detail.freedom.tileDecline'),
-      value: '18',
-      unit: '2006-2025',
+      value: String(_declineYears),
+      unit: `${_declineDataYear - _declineYears + 1}–${_declineDataYear}`,
       accent: toRgba(CHART_COLORS.society),
     },
   ];

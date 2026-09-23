@@ -783,6 +783,16 @@ function buildWorldState() {
     freedom.trend = freedomTrend;
     freedom.source = freedomSourceLabel;
   }
+  // Länderzahlen und Rückgangsjahre aus dem Jahresbericht (freedom.json → report);
+  // vorher blieb der Stand aus existing ewig stehen (84/56/55, 18 Jahre)
+  const fr = freedomCache?.data?.report;
+  if (fr) {
+    Object.assign(freedom, {
+      free: fr.free, partlyFree: fr.partlyFree, notFree: fr.notFree,
+      yearDecline: fr.declineYears, dataYear: fr.dataYear,
+      source: `Freedom House – Freedom in the World ${fr.edition}`,
+    });
+  }
   // Freedom House hat keine API: Jahresbericht, statisch gepflegt.
   freedom.isStatic = true;
 
