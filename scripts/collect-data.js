@@ -160,10 +160,14 @@ async function fetchNOAACO2() {
     if (!yearly[m.year]) yearly[m.year] = [];
     yearly[m.year].push(m.value);
   }
-  const history = Object.entries(yearly).map(([year, vals]) => ({
-    year: parseInt(year),
-    value: Math.round(vals.reduce((a, b) => a + b, 0) / vals.length * 10) / 10
-  }));
+  // Nur vollständige Jahre: ein Teiljahr (Jan–Aug) läge wegen des
+  // Saison-Maximums im Mai systematisch über dem echten Jahresmittel.
+  const history = Object.entries(yearly)
+    .filter(([, vals]) => vals.length === 12)
+    .map(([year, vals]) => ({
+      year: parseInt(year),
+      value: Math.round(vals.reduce((a, b) => a + b, 0) / vals.length * 10) / 10
+    }));
   const current = monthly.length > 0 ? monthly[monthly.length - 1].value : null;
   save('environment', 'co2.json', { current, history, monthly: monthly.slice(-24), fetched: new Date().toISOString() });
 }

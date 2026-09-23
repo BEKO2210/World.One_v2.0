@@ -98,6 +98,42 @@ const cssVarPlugin = {
   },
 };
 
+// ─── Endwert-Beschriftung (Chart-Standard) ─────────────────
+// Liniendiagramme mit bis zu drei Serien bekommen am letzten Punkt den
+// Wert direkt beschriftet (Textfarbe, nicht Serienfarbe). Abschaltbar
+// über options.plugins.endLabel = false.
+const endLabelPlugin = {
+  id: 'endLabel',
+  afterDatasetsDraw(chart, _args, opts) {
+    if (chart.config.type !== 'line' || opts === false || opts?.display === false) return;
+    const visible = chart.data.datasets.map((ds, i) => [ds, i]).filter(([, i]) => chart.isDatasetVisible(i));
+    if (!visible.length || visible.length > 3) return;
+    const { ctx, chartArea } = chart;
+    const lang = document.documentElement.lang === 'en' ? 'en-GB' : 'de-DE';
+    ctx.save();
+    ctx.font = `600 12px ${cssVar('--font-sans') || 'sans-serif'}`;
+    ctx.fillStyle = cssVar('--text-1');
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'bottom';
+    for (const [ds, i] of visible) {
+      const meta = chart.getDatasetMeta(i);
+      let idx = ds.data.length - 1;
+      while (idx >= 0 && (ds.data[idx] == null || (typeof ds.data[idx] === 'object' && ds.data[idx].y == null))) idx--;
+      const point = meta.data[idx];
+      if (!point) continue;
+      const raw = ds.data[idx];
+      const v = typeof raw === 'object' ? raw.y : raw;
+      if (!Number.isFinite(Number(v))) continue;
+      const abs = Math.abs(v);
+      const digits = Number.isInteger(opts?.decimals) ? opts.decimals : abs >= 100 ? 0 : abs >= 10 ? 1 : 2;
+      const text = new Intl.NumberFormat(lang, { minimumFractionDigits: Number.isInteger(opts?.decimals) ? digits : 0, maximumFractionDigits: digits }).format(v);
+      const y = Math.max(chartArea.top + 14, point.y - 8);
+      ctx.fillText(text, Math.min(point.x - 4, chartArea.right), y);
+    }
+    ctx.restore();
+  },
+};
+
 // ─── Dark Theme Defaults ────────────────────────────────────
 
 /**
@@ -106,7 +142,7 @@ const cssVarPlugin = {
  * Values matched to existing CSS custom properties from core.css.
  */
 function _applyDarkDefaults() {
-  Chart.register(cssVarPlugin);
+  Chart.register(cssVarPlugin, endLabelPlugin);
 
   // Farben aus den Design-Tokens (core.css), damit Charts dem Theme folgen
   Chart.defaults.color = cssVar('--text-2');

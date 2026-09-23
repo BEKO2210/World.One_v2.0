@@ -435,6 +435,7 @@ function _lineChartOptions(yLabel) {
       },
     },
     plugins: {
+      endLabel: { decimals: 4 },
       legend: { display: false },
       tooltip: {
         callbacks: {

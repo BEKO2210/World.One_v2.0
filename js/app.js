@@ -14,6 +14,7 @@ import { MathUtils } from './utils/math.js';
 import { DOMUtils } from './utils/dom.js';
 import { createTierBadge } from './utils/badge.js';
 import { cssVar } from './utils/chart-manager.js';
+import { initClimateStory } from './visualizations/story.js';
 import { fmtNumber } from './utils/fmt.js';
 import { formatAsOf } from './utils/as-of.js';
 import { i18n } from './i18n.js';
@@ -875,6 +876,13 @@ class BelkisOne {
     }
   }
 
+  // Quellzeile unter Diagrammen: „Quelle: X · Jahreswert 2025“
+  _sourceLine(name, history) {
+    const year = Array.isArray(history) && history.length ? history[history.length - 1]?.year : null;
+    const asOf = year ? formatAsOf(year, 'annual') : null;
+    return [`${i18n.t('badge.sourceLabel')}: ${name}`, asOf].filter(Boolean).join(' · ');
+  }
+
   // ─── Sparklines ───
   _buildSparklines(data) {
     const env = data.environment;
@@ -912,20 +920,8 @@ class BelkisOne {
       this._envBuilt = true;
       const env = data.environment;
 
-      const stripesEl = document.getElementById('warming-stripes');
-      if (stripesEl && env?.temperatureAnomaly?.history) {
-        Charts.warmingStripes(stripesEl, env.temperatureAnomaly.history);
-      }
-
-      const co2Chart = document.getElementById('co2-chart');
-      if (co2Chart && env?.co2?.history) {
-        Charts.lineChart(co2Chart, env.co2.history, {
-          color: cssVar('--series-2'),
-          height: 200,
-          showArea: true,
-          yLabel: 'ppm'
-        });
-      }
+      // Scrollytelling ersetzt Wärmestreifen- und CO2-Block (js/visualizations/story.js)
+      initClimateStory(document.getElementById('climate-story'), env);
     }
   }
 
@@ -964,6 +960,8 @@ class BelkisOne {
       const lifeChart = document.getElementById('life-expectancy-chart');
       if (lifeChart && soc?.lifeExpectancy?.history) {
         Charts.lineChart(lifeChart, soc.lifeExpectancy.history, {
+          source: this._sourceLine('World Bank', soc.lifeExpectancy.history),
+          unit: i18n.t('js.years'),
           color: cssVar('--series-1'),
           height: 200,
           yLabel: i18n.t('js.years')
@@ -986,6 +984,8 @@ class BelkisOne {
       const giniChart = document.getElementById('gini-chart');
       if (giniChart && eco?.gini?.history) {
         Charts.lineChart(giniChart, eco.gini.history, {
+          source: this._sourceLine('World Bank', eco.gini.history),
+          unit: '',
           color: cssVar('--series-4'),
           height: 180,
           yLabel: i18n.t('js.giniIndex'),
@@ -1004,6 +1004,8 @@ class BelkisOne {
       const pubChart = document.getElementById('publications-chart');
       if (pubChart && prog?.publications?.history) {
         Charts.lineChart(pubChart, prog.publications.history, {
+          source: this._sourceLine('World Bank / NSF', prog.publications.history),
+          unit: '',
           color: cssVar('--series-7'),
           height: 200,
           showArea: true,
@@ -1014,6 +1016,8 @@ class BelkisOne {
       const netChart = document.getElementById('internet-chart');
       if (netChart && prog?.internet?.history) {
         Charts.lineChart(netChart, prog.internet.history, {
+          source: this._sourceLine('World Bank / ITU', prog.internet.history),
+          unit: '%',
           color: cssVar('--series-1'),
           height: 200,
           showArea: true,
@@ -1678,8 +1682,6 @@ class BelkisOne {
       // Act 2 -- Environment
       { selector: '#akt-environment .bento-grid--2 .data-card--featured', topic: 'co2' },
       { selector: '#akt-environment .bento-grid--2 .data-card:not(.data-card--featured)', topic: 'temperature' },
-      { selector: '#co2-chart', topic: 'co2', wrapClosest: '.reveal' },
-      { selector: '#warming-stripes', topic: 'temperature', wrapClosest: '.reveal' },
       { selector: '#akt-environment .bento-grid--3 .data-card:nth-child(1)', topic: 'temperature' },
       { selector: '#akt-environment .bento-grid--3 .data-card:nth-child(2)', topic: 'forests' },
       { selector: '#akt-environment .bento-grid--3 .data-card:nth-child(3)', topic: 'renewables' },
