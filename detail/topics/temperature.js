@@ -227,7 +227,6 @@ export async function render(blocks) {
 // --- Hero ---------------------------------------------------------------
 
 function _renderHero(heroEl, anomaly, tier, age, year) {
-  const tempColor = MathUtils.tempToColor(anomaly);
   const badge = createTierBadge(tier, { age, dataAsOf: year, cadence: 'annual', source: 'NASA GISTEMP v4' });
 
   heroEl.appendChild(
@@ -238,7 +237,7 @@ function _renderHero(heroEl, anomaly, tier, age, year) {
           fontSize: '3.5rem',
           fontWeight: '700',
           lineHeight: '1.1',
-          color: tempColor,
+          color: 'var(--text-primary)',
           marginBottom: 'var(--space-xs)',
         },
       }, [
@@ -269,7 +268,7 @@ function _renderHero(heroEl, anomaly, tier, age, year) {
       ]),
       DOMUtils.create('div', {
         textContent: i18n.t('detail.temperature.baselinePeriod'),
-        style: { color: 'var(--text-secondary)', fontSize: '0.8rem', opacity: '0.7' },
+        style: { color: 'var(--text-secondary)', fontSize: '0.8rem' },
       }),
     ])
   );
@@ -359,7 +358,6 @@ function _renderWarmingStripes(chartEl) {
       padding: '4px 0',
       fontSize: '0.7rem',
       color: 'var(--text-secondary)',
-      opacity: '0.6',
     },
   }, [
     DOMUtils.create('span', { textContent: '1880' }),
@@ -407,7 +405,7 @@ function _renderTippingPoints(trendEl) {
     crossed: 'var(--status-critical)',
     imminent: 'var(--status-serious)',
     risk: 'var(--status-warning)',
-    distant: 'rgba(255,255,255,0.3)',
+    distant: 'var(--text-3)',
   };
 
   const statusLabels = {
@@ -700,7 +698,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.environment, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: `1px solid ${toRgba(CHART_COLORS.environment, 0.3)}`,
         },

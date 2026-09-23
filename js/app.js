@@ -1157,7 +1157,7 @@ class BelkisOne {
         if (mom.indicators.length > MAX_MAIN) {
           momList.appendChild(DOMUtils.create('a', {
             className: 'momentum-more',
-            href: 'detail/?topic=momentum_detail',
+            href: 'detail/momentum_detail/',
             textContent: i18n.t('act8.showAll', { n: mom.indicators.length }),
           }));
         }
@@ -1782,7 +1782,7 @@ class BelkisOne {
       if (link.dataset.topic) {
         // Save scroll position before navigating to detail page
         try { sessionStorage.setItem('worldone-scroll-y', String(window.scrollY)); } catch {}
-        window.location.href = `detail/?topic=${link.dataset.topic}`;
+        window.location.href = `detail/${link.dataset.topic}/`;
       } else if (link.dataset.scrollTo) {
         DOMUtils.scrollTo(`#${link.dataset.scrollTo}`);
       }
@@ -1802,7 +1802,7 @@ class BelkisOne {
 
       if (link.dataset.topic) {
         try { sessionStorage.setItem('worldone-scroll-y', String(window.scrollY)); } catch {}
-        window.location.href = `detail/?topic=${link.dataset.topic}`;
+        window.location.href = `detail/${link.dataset.topic}/`;
       } else if (link.dataset.scrollTo) {
         DOMUtils.scrollTo(`#${link.dataset.scrollTo}`);
       }

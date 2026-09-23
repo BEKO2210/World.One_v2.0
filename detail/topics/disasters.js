@@ -369,6 +369,7 @@ function _renderTiles(tilesEl, disasters) {
         padding: 'var(--space-sm)',
         background: 'var(--surface-2)',
         borderRadius: '8px',
+        boxShadow: accent ? `inset 0 3px 0 ${accent}` : 'none',
         textAlign: 'center',
       },
     }, [
@@ -379,7 +380,7 @@ function _renderTiles(tilesEl, disasters) {
       DOMUtils.create('div', {
         textContent: value,
         style: {
-          color: accent || 'var(--text-primary)',
+          color: 'var(--text-primary)',
           fontSize: '1.5rem',
           fontWeight: '600',
         },
@@ -450,7 +451,7 @@ function _buildComparisonGrid() {
     }, [
       DOMUtils.create('div', {
         textContent: value,
-        style: { color: accent, fontSize: '1.3rem', fontWeight: '700', marginBottom: '4px' },
+        style: { color: 'var(--text-primary)', fontSize: '1.3rem', fontWeight: '700', marginBottom: '4px' },
       }),
       DOMUtils.create('div', {
         textContent: label,
@@ -496,7 +497,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.crisis, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: '1px solid ' + toRgba(CHART_COLORS.crisis, 0.3),
         },

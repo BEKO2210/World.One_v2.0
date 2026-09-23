@@ -364,11 +364,10 @@
   display: block;
   width: 100%;
   margin-top: 2px;
-  font-size: 0.6rem;
-  color: var(--text-muted, rgba(235, 235, 245, 0.5));
+  font-size: 0.6875rem;
+  color: var(--text-3);
   text-align: center;
   letter-spacing: 0.02em;
-  opacity: 0.75;
   cursor: help;
 }
 
@@ -885,11 +884,11 @@
   border-color: var(--accent);
   color: var(--text-primary);
 }
-.crisis-layer-btn[data-layer="climate"].is-active { border-color: var(--series-8); color: var(--series-8); }
-.crisis-layer-btn[data-layer="conflicts"].is-active { border-color: var(--status-critical); color: var(--status-critical); }
-.crisis-layer-btn[data-layer="hunger"].is-active { border-color: var(--series-2); color: var(--series-2); }
-.crisis-layer-btn[data-layer="nature"].is-active { border-color: var(--series-3); color: var(--series-3); }
-.crisis-layer-btn[data-layer="energy"].is-active { border-color: var(--series-6); color: var(--series-6); }
+.crisis-layer-btn[data-layer="climate"].is-active { border-color: var(--series-8); color: var(--text-1); }
+.crisis-layer-btn[data-layer="conflicts"].is-active { border-color: var(--status-critical); color: var(--text-1); }
+.crisis-layer-btn[data-layer="hunger"].is-active { border-color: var(--series-2); color: var(--text-1); }
+.crisis-layer-btn[data-layer="nature"].is-active { border-color: var(--series-3); color: var(--text-1); }
+.crisis-layer-btn[data-layer="energy"].is-active { border-color: var(--series-6); color: var(--text-1); }
 
 /* ─── AKT 9: SZENARIEN ─── */
 .akt-scenarios {
@@ -1397,10 +1396,10 @@
   border: 1px solid var(--line-1);
   border-radius: var(--radius-lg);
   background: var(--surface-1);
-  opacity: 0.45;
-  transition: opacity var(--duration-normal) ease;
+  transition: border-color var(--duration-normal) ease;
 }
-.story__step.is-active .story__card { opacity: 1; }
+/* aktiver Schritt: Akzentrahmen (Deckkraft senken würde den Kontrast brechen) */
+.story__step.is-active .story__card { border-color: var(--accent); }
 .story__title { font-size: var(--text-sub); font-weight: 600; margin-bottom: var(--space-xs); color: var(--text-1); }
 .story__card p { color: var(--text-2); line-height: 1.6; }
 
@@ -1413,7 +1412,7 @@
   }
   .story__steps { padding: 0 0 20vh; position: relative; z-index: 2; }
   .story__step { min-height: 80vh; align-items: flex-end; padding-bottom: 8vh; }
-  .story__card { opacity: 1; box-shadow: var(--elevation-2); }
+  .story__card { box-shadow: var(--elevation-2); }
 }
 .story__stripes.warming-stripes { height: 100%; margin: 0; }
 /* overflow:hidden würde sticky verhindern; clip schneidet ohne Scroll-Container */

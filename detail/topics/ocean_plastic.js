@@ -499,7 +499,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: 'rgba(0, 180, 216, 0.9)',
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: '1px solid rgba(0, 180, 216, 0.3)',
         },

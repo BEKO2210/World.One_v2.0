@@ -272,7 +272,7 @@ function _renderIUCN(trendEl, cr, en, vu) {
         justifyContent: 'center',
         fontSize: '0.7rem',
         fontWeight: '600',
-        color: cat.code === 'VU' ? 'var(--surface-3)' : 'var(--text-1)',
+        color: 'var(--text-on-status)',
       },
       textContent: cat.code,
     })
@@ -314,7 +314,7 @@ function _renderIUCN(trendEl, cr, en, vu) {
             justifyContent: 'center',
             fontSize: '0.7rem',
             fontWeight: '700',
-            color: cat.code === 'VU' ? 'var(--surface-3)' : 'var(--text-1)',
+            color: 'var(--text-on-status)',
             flexShrink: '0',
           },
           textContent: cat.code,
@@ -500,7 +500,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.environment, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: `1px solid ${toRgba(CHART_COLORS.environment, 0.3)}`,
         },

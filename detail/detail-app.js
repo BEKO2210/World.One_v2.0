@@ -31,7 +31,8 @@ async function init() {
 
   // Parse URL parameters
   const params = new URLSearchParams(window.location.search);
-  const topic = params.get('topic');
+  // ?topic= (alte Links) oder statische Seite detail/<topic>/ (data-topic)
+  const topic = params.get('topic') || document.documentElement.dataset.topic || null;
   const lang = params.get('lang');
 
   // Apply language if provided
@@ -110,7 +111,14 @@ async function loadTopic(topicId) {
     }
 
     // Update page title
-    document.title = `World.One - ${titleText}`;
+    document.title = `${titleText} — World.One`;
+    // alte ?topic=-Links: Canonical auf die statische Seite detail/<topic>/
+    if (!document.querySelector('link[rel="canonical"]')) {
+      const link = document.createElement('link');
+      link.rel = 'canonical';
+      link.href = new URL(`${topicId}/`, new URL('./', window.location.href)).href;
+      document.head.appendChild(link);
+    }
 
     // Setup lazy chart loading if module provides configs
     setupLazyCharts(module.getChartConfigs());
@@ -150,7 +158,7 @@ function renderErrorState(type, topicId) {
   if (messageEl) messageEl.textContent = message;
 
   // Update page title
-  document.title = `World.One - ${i18n.t('detail.error.title')}`;
+  document.title = `${i18n.t('detail.error.title')} — World.One`;
 }
 
 // ─── Navigation Controls ─────────────────────────────────────
@@ -222,7 +230,7 @@ function setupNavControls() {
         const titleText = i18n.t(_currentTopic.meta.titleKey);
         const breadcrumbEl = document.getElementById('detail-breadcrumb-topic');
         if (breadcrumbEl) breadcrumbEl.textContent = titleText;
-        document.title = `World.One - ${titleText}`;
+        document.title = `${titleText} — World.One`;
       }
     });
   }

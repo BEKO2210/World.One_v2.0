@@ -380,6 +380,7 @@ function _renderTiles(tilesEl) {
         padding: 'var(--space-sm)',
         background: 'rgba(255, 255, 255, 0.04)',
         borderRadius: '8px',
+        boxShadow: accent ? `inset 0 3px 0 ${accent}` : 'none',
         textAlign: 'center',
       },
     }, [
@@ -390,7 +391,7 @@ function _renderTiles(tilesEl) {
       DOMUtils.create('div', {
         textContent: value,
         style: {
-          color: accent || 'var(--text-primary)',
+          color: 'var(--text-primary)',
           fontSize: '1.5rem',
           fontWeight: '600',
         },
@@ -459,7 +460,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.progress, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: '1px solid ' + toRgba(CHART_COLORS.progress, 0.3),
         },

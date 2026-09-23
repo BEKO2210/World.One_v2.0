@@ -118,7 +118,7 @@ function _renderHero(heroEl, rates, tier, age) {
         DOMUtils.create('div', {
           textContent: fmtNumber(rate, { decimals: rate < 10 ? 4 : 2 }),
           style: {
-            color: toRgba(CHART_COLORS.economy),
+            color: 'var(--text-primary)',
             fontSize: '1.25rem',
             fontWeight: '600',
           },
@@ -185,6 +185,7 @@ function _renderConverter(chartEl, rates) {
   const amountInput = DOMUtils.create('input', {
     type: 'number',
     value: '100',
+    'aria-label': i18n.t('detail.currencies.amountLabel'),
     min: '0',
     step: 'any',
     style: {
@@ -201,9 +202,9 @@ function _renderConverter(chartEl, rates) {
   });
 
   // From select
-  const fromSelect = _createSelect(currencyKeys, 'EUR');
+  const fromSelect = _createSelect(currencyKeys, 'EUR', i18n.t('detail.currencies.fromLabel'));
   // To select
-  const toSelect = _createSelect(currencyKeys, 'JPY');
+  const toSelect = _createSelect(currencyKeys, 'JPY', i18n.t('detail.currencies.toLabel'));
 
   // Result display
   const resultEl = DOMUtils.create('div', {
@@ -222,7 +223,7 @@ function _renderConverter(chartEl, rates) {
     DOMUtils.create('div', {
       className: 'converter-result-value',
       style: {
-        color: toRgba(CHART_COLORS.economy),
+        color: 'var(--text-primary)',
         fontSize: '1.5rem',
         fontWeight: '600',
       },
@@ -299,8 +300,9 @@ function _renderConverter(chartEl, rates) {
   doConvert();
 }
 
-function _createSelect(options, defaultVal) {
+function _createSelect(options, defaultVal, label) {
   const select = DOMUtils.create('select', {
+    'aria-label': label,
     style: {
       width: '100%',
       padding: '8px 10px',
@@ -493,6 +495,7 @@ function _renderTiles(tilesEl, rates, history, highInflation) {
         padding: 'var(--space-sm)',
         background: 'var(--surface-2)',
         borderRadius: '8px',
+        boxShadow: accent ? `inset 0 3px 0 ${accent}` : 'none',
         textAlign: 'center',
       },
     }, [
@@ -503,7 +506,7 @@ function _renderTiles(tilesEl, rates, history, highInflation) {
       DOMUtils.create('div', {
         textContent: value,
         style: {
-          color: accent || 'var(--text-primary)',
+          color: 'var(--text-primary)',
           fontSize: '1.5rem',
           fontWeight: '600',
         },
@@ -541,8 +544,8 @@ function _renderHyperinflation(explEl, list) {
     const severity = pct >= 100 ? 'extreme' : 'high';
     const inflation = `${pct.toLocaleString(i18n.lang === 'en' ? 'en-GB' : 'de-DE')} % (${year})`;
     const badgeColor = severity === 'extreme'
-      ? 'rgba(211, 47, 47, 0.85)'
-      : 'rgba(245, 124, 0, 0.85)';
+      ? 'var(--status-critical)'
+      : 'var(--status-serious)';
     const bgColor = severity === 'extreme'
       ? 'rgba(211, 47, 47, 0.08)'
       : 'rgba(245, 124, 0, 0.08)';
@@ -661,7 +664,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.economy, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: '1px solid ' + toRgba(CHART_COLORS.economy, 0.3),
         },

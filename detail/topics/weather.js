@@ -373,7 +373,7 @@ function _buildCityCard(city) {
             borderRadius: '4px',
             display: 'inline-block',
             background: severityColor(warnInfo.severity),
-            color: warnInfo.severity >= 3 ? 'var(--text-1)' : 'var(--surface-3)',
+            color: 'var(--text-on-status)',
           },
         })
       : null,
@@ -489,7 +489,7 @@ function _renderWarnings(trendEl, cityResults) {
           padding: '2px 8px',
           borderRadius: '4px',
           background: severityColor(w.severity),
-          color: w.severity >= 3 ? 'var(--text-1)' : 'var(--surface-3)',
+          color: 'var(--text-on-status)',
         },
       }),
     ])
@@ -635,7 +635,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.realtime, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: `1px solid ${toRgba(CHART_COLORS.realtime, 0.3)}`,
         },

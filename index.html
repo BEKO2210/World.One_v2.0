@@ -4,8 +4,24 @@
   <meta charset="UTF-8">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://earthquake.usgs.gov https://api.wheretheiss.at https://services.swpc.noaa.gov; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="World.One — Globales Echtzeit-Analyse-Dashboard. Der Zustand der Welt in einem Scroll-Erlebnis.">
-  <meta name="theme-color" content="#0a0a0f">
+  <meta name="description" content="Wie geht es der Welt? Ein Index aus 27 Indikatoren zu Umwelt, Gesellschaft, Wirtschaft und Fortschritt – offene Daten, alle 6 Stunden aktualisiert, jede Zahl mit Quelle und Stand.">
+  <meta name="theme-color" content="#0b0c0e" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f8f9fa" media="(prefers-color-scheme: light)">
+  <link rel="canonical" href="https://beko2210.github.io/World.One_v2.0/">
+  <link rel="icon" type="image/png" href="assets/icon/icon-192.png">
+  <link rel="sitemap" type="application/xml" href="sitemap.xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="World.One">
+  <meta property="og:title" content="World.One — Der Zustand der Welt">
+  <meta property="og:description" content="Ein Index aus 27 Indikatoren zu Umwelt, Gesellschaft, Wirtschaft und Fortschritt. Offene Daten, alle 6 Stunden aktualisiert.">
+  <meta property="og:url" content="https://beko2210.github.io/World.One_v2.0/">
+  <meta property="og:image" content="https://beko2210.github.io/World.One_v2.0/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:locale:alternate" content="en_GB">
+  <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "name": "World.One", "url": "https://beko2210.github.io/World.One_v2.0/", "inLanguage": ["de", "en"], "description": "Der Zustand der Welt in einer Zahl: ein Index aus Umwelt, Gesellschaft, Wirtschaft und Fortschritt, aus offenen Daten alle 6 Stunden neu berechnet."}, {"@type": "Dataset", "name": "World.One World State", "description": "World Index und Indikatoren (Temperatur, CO₂, Armut, Konflikte, Flucht u. a.) mit Quelle, Messzeitpunkt (dataAsOf) und Aktualität je Wert, alle 6 Stunden aus öffentlichen Quellen berechnet.", "url": "https://beko2210.github.io/World.One_v2.0/", "license": "https://opensource.org/licenses/MIT", "isAccessibleForFree": true, "creator": {"@type": "Person", "name": "Belkis Aslani"}, "temporalCoverage": "1880/..", "spatialCoverage": "Welt", "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://beko2210.github.io/World.One_v2.0/data/processed/world-state.json"}]}]}</script>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="manifest.json">
@@ -188,36 +204,36 @@
       </div>
 
       <!-- Sub-Scores -->
-      <div class="sub-scores reveal-stagger" role="list" aria-label="Sub-Scores" data-i18n-aria="act1.subScoresLabel">
-        <div class="sub-score reveal" data-subscore="environment" role="listitem">
+      <div class="sub-scores reveal-stagger" aria-label="Sub-Scores" data-i18n-aria="act1.subScoresLabel">
+        <div class="sub-score reveal" data-subscore="environment">
           <span class="sub-score__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
           <div class="sub-score__gauge"></div>
           <span class="sub-score__value text-mono">0</span>
           <span class="sub-score__name" data-i18n="act1.sub.environment">Umwelt</span>
           <span class="sub-score__detail" data-i18n="act1.sub.weight25">25% Gewichtung</span>
         </div>
-        <div class="sub-score reveal" data-subscore="society" role="listitem">
+        <div class="sub-score reveal" data-subscore="society">
           <span class="sub-score__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
           <div class="sub-score__gauge"></div>
           <span class="sub-score__value text-mono">0</span>
           <span class="sub-score__name" data-i18n="act1.sub.society">Gesellschaft</span>
           <span class="sub-score__detail" data-i18n="act1.sub.weight25">25% Gewichtung</span>
         </div>
-        <div class="sub-score reveal" data-subscore="economy" role="listitem">
+        <div class="sub-score reveal" data-subscore="economy">
           <span class="sub-score__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
           <div class="sub-score__gauge"></div>
           <span class="sub-score__value text-mono">0</span>
           <span class="sub-score__name" data-i18n="act1.sub.economy">Wirtschaft</span>
           <span class="sub-score__detail" data-i18n="act1.sub.weight20">20% Gewichtung</span>
         </div>
-        <div class="sub-score reveal" data-subscore="progress" role="listitem">
+        <div class="sub-score reveal" data-subscore="progress">
           <span class="sub-score__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
           <div class="sub-score__gauge"></div>
           <span class="sub-score__value text-mono">0</span>
           <span class="sub-score__name" data-i18n="act1.sub.progress">Fortschritt</span>
           <span class="sub-score__detail" data-i18n="act1.sub.weight20">20% Gewichtung</span>
         </div>
-        <div class="sub-score reveal" data-subscore="momentum" role="listitem">
+        <div class="sub-score reveal" data-subscore="momentum">
           <span class="sub-score__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span>
           <div class="sub-score__gauge"></div>
           <span class="sub-score__value text-mono">0</span>
@@ -819,7 +835,7 @@
           </div>
           <div class="widget__body">
             <p class="text-micro text-muted" style="margin-bottom:var(--space-xs)" data-i18n="act6.newsDesc">UN, WHO, BBC, Al Jazeera, Guardian, DW, NASA, ReliefWeb u.a.</p>
-            <div class="news-list" id="global-news"></div>
+            <div class="news-list" id="global-news" tabindex="0" role="region" aria-label="Nachrichten" data-i18n-aria="act6.newsRegion"></div>
           </div>
         </div>
       </div>
@@ -845,7 +861,7 @@
       </div>
 
       <h3 class="text-sub text-center reveal" data-i18n="act7.keyIndicators">20 Schlüssel-Indikatoren</h3>
-      <div id="momentum-list" class="momentum-list" role="list"></div>
+      <div id="momentum-list" class="momentum-list"></div>
 
       <div class="momentum-summary reveal" id="momentum-summary">
         <span data-counter data-target="0">–</span> /
@@ -856,7 +872,7 @@
       <div class="reveal" style="margin-top:var(--space-2xl)">
         <h3 class="text-sub text-center" data-i18n="act7.vsToday">Die Welt 2000 vs. Heute</h3>
         <p class="text-label text-muted text-center" style="margin-bottom:var(--space-md)" data-i18n="act7.vsTodayDesc">25 Jahre Veränderung — die Fakten</p>
-        <div id="comparison-grid" class="comparison-grid" role="list"></div>
+        <div id="comparison-grid" class="comparison-grid"></div>
       </div>
 
       <!-- Gauge -->
@@ -1005,7 +1021,7 @@
       <!-- Liste eingeklappt: 65 Karten waren mobil ~6000 px lang -->
       <details class="sources-more">
         <summary class="sources-more__summary" data-i18n="act10.showAll">Alle Quellen anzeigen</summary>
-        <div id="sources-grid" class="sources-grid" role="list"></div>
+        <div id="sources-grid" class="sources-grid"></div>
       </details>
 
       <div class="methodology-note reveal">

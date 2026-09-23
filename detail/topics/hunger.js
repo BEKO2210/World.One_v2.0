@@ -320,17 +320,13 @@ function _buildComparisonBars() {
             height: '100%',
             background: color,
             borderRadius: '4px',
-            display: 'flex',
-            alignItems: 'center',
-            paddingLeft: '8px',
           },
-        }, [
-          DOMUtils.create('span', {
-            textContent: `${value}%`,
-            style: { color: 'var(--text-1)', fontSize: '0.75rem', fontWeight: '600' },
-          }),
-        ]),
+        }),
       ]),
+      DOMUtils.create('span', {
+        textContent: `${value}%`,
+        style: { color: 'var(--text-primary)', fontSize: '0.75rem', fontWeight: '600', width: '44px', flexShrink: '0', textAlign: 'right', fontVariantNumeric: 'tabular-nums' },
+      }),
     ])
   );
 
@@ -367,7 +363,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.crisis, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: '1px solid ' + toRgba(CHART_COLORS.crisis, 0.3),
         },

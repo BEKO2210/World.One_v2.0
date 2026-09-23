@@ -289,7 +289,7 @@ function _buildGreenhouseInfographic() {
     }),
     DOMUtils.create('span', {
       textContent: i18n.t('detail.co2.solarRadiation'),
-      style: { color: 'rgba(255, 215, 0, 0.9)', fontSize: '0.85rem', fontWeight: '600' },
+      style: { color: 'var(--text-1)', fontSize: '0.85rem', fontWeight: '600' },
     }),
   ]);
 
@@ -297,7 +297,7 @@ function _buildGreenhouseInfographic() {
     style: {
       textAlign: 'center',
       fontSize: '1.2rem',
-      color: 'rgba(255, 215, 0, 0.6)',
+      color: 'var(--text-2)',
       padding: '0.25rem 0',
     },
     textContent: '\u2193 \u2193 \u2193',
@@ -317,7 +317,7 @@ function _buildGreenhouseInfographic() {
   }, [
     DOMUtils.create('span', {
       textContent: i18n.t('detail.co2.greenhouseGases'),
-      style: { color: 'rgba(0, 180, 216, 0.9)', fontSize: '0.85rem', fontWeight: '600' },
+      style: { color: 'var(--text-1)', fontSize: '0.85rem', fontWeight: '600' },
     }),
     DOMUtils.create('span', {
       style: { color: 'var(--text-secondary)', fontSize: '0.75rem', marginLeft: '0.5rem' },
@@ -329,7 +329,7 @@ function _buildGreenhouseInfographic() {
     style: {
       textAlign: 'center',
       fontSize: '1.2rem',
-      color: 'rgba(255, 107, 107, 0.6)',
+      color: 'var(--text-2)',
       padding: '0.25rem 0',
     },
     textContent: `\u2193 ${i18n.t('detail.co2.irRadiation')} \u2191`,
@@ -353,7 +353,7 @@ function _buildGreenhouseInfographic() {
     }),
     DOMUtils.create('span', {
       textContent: i18n.t('detail.co2.earthAbsorbs'),
-      style: { color: 'rgba(0, 255, 100, 0.9)', fontSize: '0.85rem', fontWeight: '600' },
+      style: { color: 'var(--text-1)', fontSize: '0.85rem', fontWeight: '600' },
     }),
   ]);
 
@@ -452,7 +452,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.environment, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: `1px solid ${toRgba(CHART_COLORS.environment, 0.3)}`,
         },

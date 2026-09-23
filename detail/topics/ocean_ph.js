@@ -377,7 +377,7 @@ function _renderPHScale(trendEl) {
         DOMUtils.create('div', {}, [
           DOMUtils.create('div', {
             textContent: `pH ${item.ph}`,
-            style: { fontSize: '0.85rem', fontWeight: '600', color: item.color },
+            style: { fontSize: '0.85rem', fontWeight: '600', color: 'var(--text-primary)' },
           }),
           DOMUtils.create('div', {
             textContent: item.label,
@@ -540,11 +540,11 @@ function _renderComparison(compEl) {
         }),
         DOMUtils.create('div', {
           textContent: `pH ${c.ph}`,
-          style: { fontSize: '2rem', fontWeight: '700', color: c.color, marginBottom: '4px' },
+          style: { fontSize: '2rem', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '4px' },
         }),
         DOMUtils.create('div', {
           textContent: c.acidity,
-          style: { fontSize: '0.85rem', fontWeight: '600', color: c.color, marginBottom: 'var(--space-xs)' },
+          style: { fontSize: '0.85rem', fontWeight: '600', color: 'var(--text-primary)', marginBottom: 'var(--space-xs)' },
         }),
         DOMUtils.create('p', {
           textContent: c.desc,
@@ -576,7 +576,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.environment, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: `1px solid ${toRgba(CHART_COLORS.environment, 0.3)}`,
         },

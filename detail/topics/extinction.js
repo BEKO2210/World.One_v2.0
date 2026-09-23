@@ -401,7 +401,7 @@ function _renderTaxonomicTiles(tilesEl) {
       ]),
       DOMUtils.create('div', {
         textContent: `${g.extinct} ${i18n.t('detail.extinction.speciesExtinctSince1500')}`,
-        style: { color: 'var(--text-secondary)', fontSize: '0.75rem' },
+        style: { color: 'var(--text-primary)', fontSize: '0.75rem' },
       }),
     ]);
   });
@@ -467,7 +467,7 @@ function _renderDrivers() {
       }),
       DOMUtils.create('span', {
         textContent: `~${d.pct}%`,
-        style: { color: 'var(--text-secondary)', fontSize: '0.8rem', opacity: '0.7' },
+        style: { color: 'var(--text-secondary)', fontSize: '0.8rem' },
       }),
     ])
   );
@@ -599,7 +599,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.environment, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: `1px solid ${toRgba(CHART_COLORS.environment, 0.3)}`,
         },

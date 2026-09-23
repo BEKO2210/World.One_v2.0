@@ -118,7 +118,6 @@ function _renderHero(heroEl, latestValue, startValue, tier, age, latestYear) {
             color: 'var(--text-secondary)',
             fontSize: '1.25rem',
             textDecoration: 'line-through',
-            opacity: '0.7',
           },
         }),
         DOMUtils.create('span', {
@@ -379,6 +378,7 @@ function _renderTiles(tilesEl, latestValue, startValue, people, trend) {
         padding: 'var(--space-sm)',
         background: 'var(--surface-2)',
         borderRadius: '8px',
+        boxShadow: accent ? `inset 0 3px 0 ${accent}` : 'none',
         textAlign: 'center',
       },
     }, [
@@ -389,7 +389,7 @@ function _renderTiles(tilesEl, latestValue, startValue, people, trend) {
       DOMUtils.create('div', {
         textContent: value,
         style: {
-          color: accent || 'var(--text-primary)',
+          color: 'var(--text-primary)',
           fontSize: '1.5rem',
           fontWeight: '600',
         },
@@ -458,7 +458,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.economy, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: '1px solid ' + toRgba(CHART_COLORS.economy, 0.3),
         },

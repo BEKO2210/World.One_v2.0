@@ -5,9 +5,10 @@
 
 import { MathUtils } from '../utils/math.js';
 
-// Unsplash-Bilder: Hochwertige S/W Fotografien (lizenzfrei)
+// Erde aus dem All (Unsplash, photo-1451187580459, Unsplash-Lizenz), selbst
+// gehostet als WebP in Graustufen — kein externer Abruf, 27 KB mobil / 73 KB
 const SECTION_IMAGES = {
-  prolog: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80&auto=format'     // Erde aus dem All
+  prolog: window.innerWidth <= 960 ? 'assets/prolog-earth-960.webp' : 'assets/prolog-earth.webp'
 };
 
 export class CinematicScroll {

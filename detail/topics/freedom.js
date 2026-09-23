@@ -251,7 +251,7 @@ function _renderTrendText(trendEl) {
         style: {
           fontSize: '2rem',
           fontWeight: '700',
-          color: toRgba(CHART_COLORS.society),
+          color: 'var(--text-primary)',
           marginBottom: 'var(--space-xs)',
         },
         textContent: '18',
@@ -306,6 +306,7 @@ function _renderTiles(tilesEl) {
         padding: 'var(--space-sm)',
         background: 'var(--surface-2)',
         borderRadius: '8px',
+        boxShadow: accent ? `inset 0 3px 0 ${accent}` : 'none',
         textAlign: 'center',
       },
     }, [
@@ -316,7 +317,7 @@ function _renderTiles(tilesEl) {
       DOMUtils.create('div', {
         textContent: value,
         style: {
-          color: accent || 'var(--text-primary)',
+          color: 'var(--text-primary)',
           fontSize: '1.5rem',
           fontWeight: '600',
         },
@@ -402,7 +403,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.society, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: '1px solid ' + toRgba(CHART_COLORS.society, 0.3),
         },
