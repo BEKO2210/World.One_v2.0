@@ -66,7 +66,9 @@ for (const topic of topics) {
     .replace(/<html lang="de"([^>]*)>/, `<html lang="de"$1 data-topic="${topic}">`)
     .replace(/ {2}<title>[^<]*<\/title>/, head)
     // mit <base href="../"> zeigte „#detail-main“ auf /detail/ statt auf diese Seite
-    .replace('href="#detail-main"', `href="${topic}/#detail-main"`);
+    .replace('href="#detail-main"', `href="${topic}/#detail-main"`)
+    // Seitentitel ohne JavaScript sichtbar (Suchmaschinen, Vorschau)
+    .replace('<h1 class="detail-title" id="detail-title"></h1>', `<h1 class="detail-title" id="detail-title">${esc(title)}</h1>`);
   if (!page.includes(`data-topic="${topic}"`) || !page.includes('<base href="../">')) {
     throw new Error(`Vorlage passt nicht (lang/title-Zeile geändert?) für ${topic}`);
   }
