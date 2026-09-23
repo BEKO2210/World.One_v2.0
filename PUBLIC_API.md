@@ -90,7 +90,12 @@ GitHub-Pages-Traffic-Limits: ~100 GB/Monat soft limit).
       value, label, zone, weight (0.25), trend, change,
       indicators: [{
         name, value, score, trend, source,
-        fetchedAt?, ageHours?                 // freshness metadata
+        trendMethod?,                         // z. B. "3y-avg" (berechneter Trend)
+        cadence,      // realtime | daily | monthly | annual
+        dataAsOf,     // Zeitraum des Werts: 2025 | "2026-08" | ISO-Datum
+        retrievedAt,  // wann die Pipeline den Wert geholt hat (ISO)
+        tier,         // live | cache | static — tatsächlich genutzte Quelle
+        fetchedAt?, ageHours?                 // Alt-Felder, bleiben erhalten
       }, …]
     }
     society:   same shape (weight 0.25)
@@ -120,6 +125,37 @@ GitHub-Pages-Traffic-Limits: ~100 GB/Monat soft limit).
 
 Jede Ebene ist optional (Processor füllt mit Fallbacks). Ein
 Consumer sollte defensiv zugreifen (`data.worldIndex?.value ?? null`).
+
+### 4.1 Aktualität und Herkunft je Indikator
+
+Jeder Indikator trägt vier Felder, mit denen sich ein Wert korrekt zitieren lässt:
+
+| Feld | Bedeutung | Beispiel |
+|---|---|---|
+| `dataAsOf` | Zeitraum, für den der Wert gilt — nicht der Abrufzeitpunkt. Jahr (Zahl), Monat (`"YYYY-MM"`) oder ISO-Datum | `2025`, `"2026-08"` |
+| `cadence` | Wie oft die Quelle neue Werte veröffentlicht | `annual` |
+| `retrievedAt` | Wann die World.One-Pipeline den Wert abgerufen hat | `"2026-09-23T01:36:17Z"` |
+| `tier` | Woher der Wert tatsächlich stammt | `live` |
+
+`tier`:
+
+- `live` — frisch von der Originalquelle in diesem Pipeline-Lauf.
+- `cache` — letzter erfolgreicher Abruf (`data/cache/*.json`), weil die Quelle gerade nicht antwortet.
+- `static` — dokumentierter Referenzwert (`data/fallback/static-values.json`), wenn weder Live noch Cache verfügbar sind.
+
+Garantie: Ein als `live` markierter Wert ist nie älter als 3× seine Kadenz
+(`realtime` 18 h, `daily` 3 Tage, `monthly` ~3 Monate, `annual` ~3 Jahre)
+und nicht seit 30 Tagen eingefroren. `scripts/validate-freshness.js` prüft
+das bei jedem Lauf; verletzt ein Wert die Regel, schlägt die Pipeline fehl.
+
+Zitierbeispiel: *„Globale Temperaturanomalie +1,19 °C (Stand 2025, NASA
+GISTEMP v4, abgerufen über World.One am 23.09.2026).“*
+
+```js
+const ind = data.subScores.environment.indicators
+  .find(i => i.name.startsWith('Globale Temperatur'));
+if (ind.tier !== 'live') console.warn(`${ind.name}: ${ind.tier}, Stand ${ind.dataAsOf}`);
+```
 
 ---
 
