@@ -30,7 +30,13 @@ async function check(path, label) {
   page.on('framenavigated', f => { if (f === page.mainFrame()) navigations++; });
   page.on('pageerror', e => problems.push(`pageerror: ${e.message.slice(0, 140)}`));
   page.on('console', m => {
-    if (m.type() === 'error' && /Content Security Policy|Refused to/.test(m.text())) problems.push(`csp: ${m.text().slice(0, 140)}`);
+    if (m.type() !== 'error') return;
+    const t = m.text();
+    if (/Content Security Policy|Refused to/.test(t)) problems.push(`csp: ${t.slice(0, 140)}`);
+    // App-Fehler, die per console.error statt als Exception gemeldet werden
+    // (z. B. „[DetailApp] Failed to load topic“). Netzwerk-/SW-Meldungen
+    // externer Quellen sind kein Code-Fehler und werden ignoriert.
+    else if (!/Failed to load resource|Service Worker|net::ERR|\[SW\]/.test(t)) problems.push(`console: ${t.split('\n')[0].slice(0, 140)}`);
   });
   page.on('response', r => {
     const u = r.url();
