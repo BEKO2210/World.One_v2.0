@@ -239,11 +239,18 @@
         <p class="section-desc" data-i18n="act2.desc">Temperatur, CO2, Luft, Eis, Wald, Erneuerbare — die Vitaldaten unserer Erde.</p>
       </div>
 
-      <!-- Warming Stripes -->
-      <div class="reveal" style="margin-top:var(--space-xl)">
-        <h3 class="text-sub" data-i18n="act2.tempTitle">Temperaturanomalie 1880–2026</h3>
-        <p class="text-label text-muted" style="margin-bottom:var(--space-sm)" data-i18n="act2.tempDesc">Jeder Streifen = ein Jahr. Blau = kühler, Rot = wärmer als der Durchschnitt (1951–1980).</p>
-        <div id="warming-stripes" class="warming-stripes" role="img" aria-label="Warming Stripes Visualisierung"></div>
+      <!-- Scrollytelling: Klima in drei Schritten -->
+      <div class="story" id="climate-story">
+        <div class="story__graphic" aria-hidden="true">
+          <div class="story__layer"><div class="story__stripes warming-stripes"></div></div>
+          <div class="story__layer"></div>
+          <div class="story__layer"></div>
+        </div>
+        <div class="story__steps">
+          <div class="story__step" data-step="0"><div class="story__card"><h3 class="story__title" data-i18n="story.climate.title1">Ein Streifen pro Jahr</h3><p data-story-text="0"></p></div></div>
+          <div class="story__step" data-step="1"><div class="story__card"><h3 class="story__title" data-i18n="story.climate.title2">Mehr CO₂ in der Luft</h3><p data-story-text="1"></p></div></div>
+          <div class="story__step" data-step="2"><div class="story__card"><h3 class="story__title" data-i18n="story.climate.title3">Die 1,5-Grad-Grenze</h3><p data-story-text="2"></p></div></div>
+        </div>
       </div>
 
       <!-- CO2 + Temperature Bento -->
@@ -273,11 +280,6 @@
         </div>
       </div>
 
-      <!-- CO2 Full Chart -->
-      <div class="reveal" style="margin-top:var(--space-lg)">
-        <h3 class="text-sub" data-i18n="act2.co2ChartTitle">CO2-Konzentration über die Zeit</h3>
-        <div id="co2-chart" class="chart-container" role="img" aria-label="CO2-Konzentration über Zeit"></div>
-      </div>
 
       <!-- Arctic + Forest + Renewables -->
       <div class="bento-grid bento-grid--3 reveal-stagger" style="margin-top:var(--space-xl)">

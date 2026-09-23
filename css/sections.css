@@ -1357,3 +1357,64 @@
   font-weight: 500;
 }
 .momentum-more:hover { background: var(--accent-soft); color: var(--accent); }
+
+/* ─── Scrollytelling (Klima) ────────────────────────────────────
+   Desktop: Grafik links sticky, Schritte rechts. Mobil: Grafik oben
+   sticky, Schrittkarten ziehen darunter vorbei. */
+.story {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+.story__graphic {
+  position: sticky;
+  top: calc(50vh - 190px);
+  height: 380px;
+  align-self: start;
+  border: 1px solid var(--line-1);
+  border-radius: var(--radius-lg);
+  background: var(--surface-1);
+  padding: var(--space-sm);
+}
+.story__layer {
+  position: absolute;
+  inset: var(--space-sm);
+  opacity: 0;
+  transition: opacity var(--duration-slow) ease;
+  pointer-events: none;
+}
+.story__layer.is-active { opacity: 1; pointer-events: auto; }
+.story__stripes { height: 100%; border-radius: var(--radius-sm); overflow: hidden; }
+.story__steps { padding: 20vh 0 30vh; }
+.story__step {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+}
+.story__card {
+  padding: var(--space-md);
+  border: 1px solid var(--line-1);
+  border-radius: var(--radius-lg);
+  background: var(--surface-1);
+  opacity: 0.45;
+  transition: opacity var(--duration-normal) ease;
+}
+.story__step.is-active .story__card { opacity: 1; }
+.story__title { font-size: var(--text-sub); font-weight: 600; margin-bottom: var(--space-xs); color: var(--text-1); }
+.story__card p { color: var(--text-2); line-height: 1.6; }
+
+@media (max-width: 800px) {
+  .story { grid-template-columns: 1fr; gap: 0; }
+  .story__graphic {
+    top: 64px;
+    height: 44vh;
+    z-index: 1;
+  }
+  .story__steps { padding: 0 0 20vh; position: relative; z-index: 2; }
+  .story__step { min-height: 80vh; align-items: flex-end; padding-bottom: 8vh; }
+  .story__card { opacity: 1; box-shadow: var(--elevation-2); }
+}
+.story__stripes.warming-stripes { height: 100%; margin: 0; }
+/* overflow:hidden würde sticky verhindern; clip schneidet ohne Scroll-Container */
+.section:has(.story) { overflow: clip; }

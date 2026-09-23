@@ -44,6 +44,7 @@ const PRECACHE_ASSETS = [
   './js/visualizations/particles.js',
   './js/visualizations/counters.js',
   './js/visualizations/cinematic.js',
+  './js/visualizations/story.js',
   './assets/icon/icon-192.png',
   './assets/icon/icon-512.png',
   './detail/index.html',
