@@ -5,7 +5,7 @@
 import { MathUtils } from '../utils/math.js';
 import { DOMUtils } from '../utils/dom.js';
 import { i18n } from '../i18n.js';
-import { fmtAxis } from '../utils/fmt.js';
+import { fmtAxis, fmtNumber } from '../utils/fmt.js';
 import { cssVar } from '../utils/chart-manager.js';
 
 // Tick-Werte im 1-2-5-Raster, die [min, max] einschließen
@@ -60,11 +60,14 @@ export class Charts {
       fillOpacity = 0.15,
       strokeWidth = isMobile ? 2 : 2.5,
       showArea = true,
-      showDots = isMobile ? false : true,
+      showDots = false,          // Punkte je Wert sind Rauschen; Endwert wird beschriftet
       showLabels = true,
       animate = true,
       progress = 1,
       yLabel = '',
+      unit = '',                 // Einheit für die Endwert-Beschriftung
+      refLine = null,            // { value, label } — gestrichelte Referenzlinie
+      source = '',               // Quellzeile unter dem Diagramm
       padding = isMobile ? { top: 24, right: 10, bottom: 30, left: 52 } : { top: 28, right: 20, bottom: 40, left: 62 }
     } = options;
 
@@ -73,8 +76,9 @@ export class Charts {
 
     const values = data.map(d => Number(d.value)).filter(Number.isFinite);
     if (values.length < 2) return;
-    const rawMin = Math.min(...values);
-    const rawMax = Math.max(...values);
+    const refVal = Number.isFinite(refLine?.value) ? refLine.value : null;
+    const rawMin = Math.min(...values, ...(refVal != null ? [refVal] : []));
+    const rawMax = Math.max(...values, ...(refVal != null ? [refVal] : []));
     // „Runde“ Achsenwerte (1-2-5-Raster), Achse endet auf einem Tick
     const ticks = niceTicks(rawMin, rawMax, 5);
     const minVal = ticks[0];
@@ -161,8 +165,29 @@ export class Charts {
       svg += `<text x="4" y="${padding.top - 12}" style="fill:var(--text-2)" font-size="10" text-anchor="start">${MathUtils.escapeHTML(yLabel)}</text>`;
     }
 
+    // Referenzlinie (z. B. Pariser 1,5-°C-Schwelle)
+    if (refVal != null) {
+      const ry = yScale(refVal);
+      svg += `<line x1="${padding.left}" y1="${ry}" x2="${width - padding.right}" y2="${ry}" style="stroke:var(--status-critical)" stroke-width="1.5" stroke-dasharray="5 4" />`;
+      if (refLine.label) {
+        svg += `<text x="${padding.left + 6}" y="${ry - 6}" font-size="11" font-weight="600" style="fill:var(--status-critical)">${MathUtils.escapeHTML(refLine.label)}</text>`;
+      }
+    }
+
+    // Kern-Annotation: letzter Wert direkt am Linienende (statt Legende)
+    const last = points[points.length - 1];
+    const lastVal = Number(data[data.length - 1]?.value);
+    if (last && Number.isFinite(lastVal)) {
+      const decimals = Math.abs(lastVal) >= 100 ? 0 : 1;
+      const label = `${fmtNumber(lastVal, { decimals })}${unit ? ' ' + unit : ''}`;
+      svg += `<circle cx="${last.x}" cy="${last.y}" r="4" fill="${color}" style="stroke:var(--surface-1)" stroke-width="2" />`;
+      svg += `<text x="${last.x - 8}" y="${Math.max(12, last.y - 10)}" text-anchor="end" font-size="12" font-weight="600" style="fill:var(--text-1)">${MathUtils.escapeHTML(label)}</text>`;
+    }
+
     svg += '</svg>';
-    container.innerHTML = svg;
+    container.innerHTML = svg + (source
+      ? `<p class="chart-source">${MathUtils.escapeHTML(source)}</p>`
+      : '');
   }
 
   // ─── Bar Chart ───
