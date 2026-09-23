@@ -6,7 +6,7 @@
 // Version = Hash über den Code (index.html, detail/, js/, css/, assets/,
 // manifest.json). Die Pipeline setzt sie bei jedem Lauf neu; sie ändert
 // sich nur, wenn sich Code ändert — reine Datenläufe laden keine Tabs neu.
-const CACHE_VERSION = 'eafab006855b';
+const CACHE_VERSION = '6826f8fb2e5b';
 const CACHE_NAME = `worldone-${CACHE_VERSION}`;
 // Daten in eigenem, versionsunabhängigem Cache mit Obergrenze
 const DATA_CACHE = 'worldone-data';

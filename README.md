@@ -12,14 +12,14 @@
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 23.09.2026 01:18 UTC
+> **Letzte Aktualisierung:** 23.09.2026 01:36 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
 | 🟡 Umwelt | **42.6**/100 | → +0 | 25% |
-| 🟡 Gesellschaft | **55.7**/100 | → -0.1 | 25% |
+| 🟡 Gesellschaft | **55.7**/100 | → +0 | 25% |
 | 🟢 Wirtschaft | **74.1**/100 | → +0 | 20% |
 | 🟢 Fortschritt | **78.1**/100 | → +0 | 20% |
 | 🔵 Momentum | **81**/100 | → +0 | 10% |
@@ -94,7 +94,7 @@
 - **Patentanmeldungen**: +1.2%
 
 #### ❌ Verschlechtert sich (4)
-- **CO2-Konzentration**: +2.1%
+- **CO2-Konzentration**: +1.9%
 - **Waldfläche**: -0.2%
 - **CO2 pro Kopf**: +1.4%
 - **Militärausgaben (% BIP)**: +5.3%
@@ -255,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 23.09.2026 01:18 UTC | 64/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 23.09.2026 01:36 UTC | 64/65 Quellen aktiv
 </sub>
