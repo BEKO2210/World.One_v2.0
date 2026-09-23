@@ -5,21 +5,21 @@
 
 ---
 
-## 🌍 Welt-Indikator: 66.4 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 66.5 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  66.4/100  ↑ +0
+█████████████░░░░░░░  66.5/100  ↑ +0.1
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 23.09.2026 04:34 UTC
+> **Letzte Aktualisierung:** 23.09.2026 07:35 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
 | 🟡 Umwelt | **42.5**/100 | → +0 | 25% |
-| 🟡 Gesellschaft | **55.7**/100 | → +0 | 25% |
+| 🟡 Gesellschaft | **56.1**/100 | ↑ +0.4 | 25% |
 | 🟢 Wirtschaft | **74.1**/100 | → +0 | 20% |
 | 🟢 Fortschritt | **78.1**/100 | → +0 | 20% |
 | 🔵 Momentum | **81**/100 | → +0 | 10% |
@@ -34,7 +34,7 @@
 | Temperaturanomalie | **+1.19°C** | NASA GISTEMP |
 | CO2-Konzentration | **428 ppm** | NOAA |
 | Arktis-Eisfläche | **4.75 Mio km²** (38.1% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **67** | WAQI |
+| Luftqualität (Ø) | AQI **65** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -42,7 +42,7 @@
 | Aktive Konflikte | **59** | ACLED |
 | Menschen auf der Flucht | **108.9 Mio** | UNHCR |
 | Lebenserwartung | **73.48 Jahre** | WHO |
-| Freiheitsindex | 84 frei / 56 teilw. / 55 unfrei | Freedom House |
+| Freiheitsindex | 88 frei / 48 teilw. / 59 unfrei | Freedom House |
 
 ### 💰 Wirtschaft
 | Indikator | Wert | Quelle |
@@ -255,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 23.09.2026 04:34 UTC | 64/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 23.09.2026 07:35 UTC | 64/65 Quellen aktiv
 </sub>
