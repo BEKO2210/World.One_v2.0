@@ -144,28 +144,6 @@
   56% { transform: scale(1); }
 }
 
-/* Orb Animations */
-@keyframes orbCoreBreath {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow: none;
-  }
-  50% {
-    transform: scale(1.15);
-    box-shadow: none;
-  }
-}
-
-@keyframes orbRingSpin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes prologBrandIn {
-  from { opacity: 0; letter-spacing: 0.5em; }
-  to { opacity: 1; letter-spacing: 0.35em; }
-}
-
 /* ─── Scroll Hint ─── */
 @keyframes scrollHintFloat {
   0%, 100% {
@@ -210,19 +188,6 @@
     transform: translateY(0);
     opacity: 1;
   }
-}
-
-/* ─── Typewriter ─── */
-.typewriter {
-  overflow: hidden;
-  white-space: nowrap;
-  border-right: 2px solid var(--text-primary);
-  animation: typewriterBlink 1s step-end infinite;
-}
-
-@keyframes typewriterBlink {
-  0%, 100% { border-color: var(--text-primary); }
-  50% { border-color: transparent; }
 }
 
 /* ─── Particle Glow ─── */

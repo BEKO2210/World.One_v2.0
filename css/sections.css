@@ -62,12 +62,11 @@
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background: radial-gradient(
-    ellipse at 50% 50%,
-    transparent 30%,
-    rgba(10, 10, 15, 0.4) 100%
-  );
+  background: none;
 }
+
+/* Abgedunkelte Hintergrundfotos passen nur zum dunklen Theme */
+:root[data-theme="light"] .cinematic-bg { display: none; }
 
 /* ─── PROLOG ─── */
 .prolog {
@@ -94,110 +93,41 @@
   align-items: center;
 }
 
-.prolog__brand {
-  font-size: var(--text-micro);
-  font-weight: 600;
-  letter-spacing: 0.35em;
+.prolog__overline {
+  font-size: var(--text-label);
+  font-weight: 500;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-3);
-  margin-bottom: var(--space-lg);
-  opacity: 0;
-  animation: prologBrandIn 1.5s ease 0.3s forwards;
+  margin-bottom: var(--space-md);
 }
-
-.prolog__title {
-  font-size: clamp(1.5rem, 4vw, 3rem);
-  font-weight: 300;
-  color: var(--text-primary);
-  opacity: 0;
-  letter-spacing: 0.02em;
-  transition: opacity 0.8s ease;
-  min-height: 1.4em;
-}
-
-.prolog__title.is-typing {
-  opacity: 1;
-}
-
-.prolog__subtitle {
-  font-size: clamp(0.85rem, 2vw, 1.1rem);
-  color: var(--text-muted);
-  margin-top: var(--space-md);
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 1s ease, transform 1s ease;
-  letter-spacing: 0.04em;
-  font-weight: 300;
-}
-
-.prolog__subtitle.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Orb Animation */
-.prolog__orb {
-  position: relative;
-  width: 80px;
-  height: 80px;
-  margin: 0 auto var(--space-xl);
+.prolog__headline {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  align-items: baseline;
   justify-content: center;
+  gap: 0 0.25em;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  color: var(--text-1);
 }
-
-.prolog__orb-core {
-  width: 16px;
-  height: 16px;
-  background: var(--text-primary);
-  border-radius: 50%;
-  animation: orbCoreBreath 3s ease-in-out infinite;
-  box-shadow:
-    0 0 20px rgba(255, 255, 255, 0.5),
-    0 0 60px rgba(0, 212, 255, 0.2),
-    0 0 100px rgba(0, 212, 255, 0.1);
+.prolog__index {
+  font-size: clamp(5rem, 16vw, 11rem);
+  font-variant-numeric: tabular-nums;
 }
-
-.prolog__orb-ring {
-  position: absolute;
-  border-radius: 50%;
-  border: 1px solid var(--line-2);
-  animation: orbRingSpin 8s linear infinite;
+.prolog__of {
+  font-size: clamp(2rem, 6vw, 4rem);
+  color: var(--text-2);
+  letter-spacing: -0.02em;
 }
-
-.prolog__orb-ring--1 {
-  width: 50px;
-  height: 50px;
-  border-color: var(--accent-soft);
-  animation-duration: 6s;
-}
-
-.prolog__orb-ring--2 {
-  width: 70px;
-  height: 70px;
-  border-color: var(--line-1);
-  animation-duration: 10s;
-  animation-direction: reverse;
-}
-
-.prolog__orb-ring--3 {
-  width: 90px;
-  height: 90px;
-  border-color: var(--status-good-soft);
-  animation-duration: 14s;
-  border-style: dashed;
-}
-
-@media (max-width: 640px) {
-  .prolog__orb {
-    width: 60px;
-    height: 60px;
-    margin-bottom: var(--space-lg);
-  }
-  .prolog__orb-core { width: 12px; height: 12px; }
-  .prolog__orb-ring--1 { width: 36px; height: 36px; }
-  .prolog__orb-ring--2 { width: 52px; height: 52px; }
-  .prolog__orb-ring--3 { width: 68px; height: 68px; }
+.prolog__lede {
+  max-width: 36rem;
+  margin-top: var(--space-md);
+  font-size: clamp(1rem, 1.6vw, 1.1875rem);
+  line-height: 1.55;
+  color: var(--text-2);
+  text-wrap: pretty;
 }
 
 /* ─── AKT 1: WELT-INDIKATOR ─── */
@@ -1226,12 +1156,6 @@
   /* Source cards stack nicely */
   .sources-grid {
     grid-template-columns: 1fr;
-  }
-
-  /* Typewriter: allow wrapping on mobile */
-  .typewriter {
-    white-space: normal;
-    overflow: visible;
   }
 
   /* Momentum items */

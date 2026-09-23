@@ -8,7 +8,7 @@ import { ParticleSystem } from './visualizations/particles.js';
 import { WorldIndicator } from './visualizations/world-indicator.js';
 import { Charts } from './visualizations/charts.js';
 import { Maps } from './visualizations/maps.js';
-import { Counter, CounterManager, Typewriter } from './visualizations/counters.js';
+import { Counter, CounterManager } from './visualizations/counters.js';
 import { CinematicScroll } from './visualizations/cinematic.js';
 import { MathUtils } from './utils/math.js';
 import { DOMUtils } from './utils/dom.js';
@@ -450,13 +450,33 @@ class BelkisOne {
   }
 
   // ─── Prolog meta ───
+  // Hero: „66,4 von 100.“ + Einordnung + ehrliche Meta-Zeile
   _populateProlog(data) {
+    const wi = data.worldIndex;
+    if (Number.isFinite(wi?.value)) {
+      this._setText('#prolog-index', fmtNumber(wi.value, { decimals: 1 }));
+      const zone = MathUtils.getZone(wi.value);
+      const idx = document.getElementById('prolog-index');
+      if (idx) idx.style.color = zone.color;
+      const n = ['environment', 'society', 'economy', 'progress']
+        .reduce((sum, c) => sum + (data.subScores?.[c]?.indicators?.length || 0), 0);
+      const change = Number(wi.change);
+      const key = Number.isFinite(change) && change !== 0 ? 'prolog.lede' : 'prolog.ledeNoChange';
+      this._setText('#prolog-lede', i18n.t(key, {
+        n, zone: zone.label.charAt(0) + zone.label.slice(1).toLowerCase(),
+        change: fmtNumber(change, { decimals: 1, sign: true })
+      }));
+    }
     const meta = data.meta;
     if (!meta) return;
-    this._setText('#prolog-sources', meta.sources_count || '–');
     if (meta.sources_available && meta.sources_count) {
-      const rate = Math.min(100, Math.round((meta.sources_available / meta.sources_count) * 100));
-      this._setText('#prolog-rate', `${rate}%`);
+      this._setText('#prolog-sources', `${meta.sources_available}/${meta.sources_count}`);
+    }
+    if (meta.generated) {
+      const d = new Date(meta.generated);
+      this._setText('#prolog-rate', d.toLocaleString(i18n.lang === 'en' ? 'en-GB' : 'de-DE', {
+        day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+      }));
     }
   }
 
@@ -1315,28 +1335,7 @@ class BelkisOne {
 
   // ─── Prolog Animation ───
   _initProlog() {
-    const title = document.querySelector('.prolog__title');
-    if (title) {
-      setTimeout(() => title.classList.add('is-typing'), 1400);
-
-      const prologText = i18n.t('prolog.title');
-      const tw = new Typewriter(title, {
-        text: prologText,
-        speed: 70,
-        delay: 1500
-      });
-      tw.start();
-
-      const subtitle = document.querySelector('.prolog__subtitle');
-      if (subtitle) {
-        const textLength = prologText.length;
-        const typingDuration = 1500 + textLength * 85;
-        setTimeout(() => {
-          subtitle.textContent = i18n.t('prolog.subtitle');
-          subtitle.classList.add('is-visible');
-        }, typingDuration);
-      }
-    }
+    // Hero ist datengetrieben (_populateProlog); keine Schreibmaschinen-Animation mehr
   }
 
   // ─── Interactions ───
@@ -1571,15 +1570,7 @@ class BelkisOne {
     this._currentData = data;
     this._applyDynamicYears(data);
 
-    // Re-render prolog title and subtitle (no typewriter on toggle — instant text)
-    const prologTitle = document.querySelector('.prolog__title');
-    if (prologTitle) {
-      prologTitle.textContent = i18n.t('prolog.title');
-    }
-    const prologSub = document.querySelector('.prolog__subtitle');
-    if (prologSub) {
-      prologSub.textContent = i18n.t('prolog.subtitle');
-    }
+    this._populateProlog(data);
 
     // Re-render timestamp
     const tsEls = document.querySelectorAll('.timestamp');
