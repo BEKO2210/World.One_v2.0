@@ -5,7 +5,7 @@ Ausführlicher Zustand, Historie und Score-Datenfluss: `CLOUDE.md`. Aktuelle Roa
 
 ## Struktur
 - `index.html` + `js/app.js` — Hauptseite (15 Scroll-Sektionen), lädt `data/processed/world-state.json`.
-- `detail/index.html?topic=<id>` + `detail/detail-app.js` + `detail/topics/*.js` — Detailseiten
+- `detail/<id>/index.html` (generiert aus `detail/index.html` via `node scripts/build-detail-pages.js`, nach Änderungen an der Vorlage oder an Titeln neu erzeugen; PR-Check prüft das) + `detail/detail-app.js` + `detail/topics/*.js` — Detailseiten
   (3-Tier Live → `data/cache/*.json` → `data/fallback/static-values.json`).
 - `scripts/` — `collect-data.js` → `process-data.js` (Score) + `cache-*.js`; `validate-*.js`.
 - `.github/workflows/data-pipeline-v2.yml` — einziger geplanter Workflow (alle 6 h), committet Daten und

@@ -453,7 +453,7 @@ function _buildMiniCard(indicator) {
   // Click-to-topic navigation for clickable cards
   if (topicId) {
     card.addEventListener('click', () => {
-      window.location.href = _basePath() + 'detail/?topic=' + topicId;
+      window.location.href = _basePath() + 'detail/' + topicId + '/';
     });
     card.addEventListener('mouseenter', () => {
       card.style.background = hoverBg;

@@ -69,8 +69,10 @@ async function check(path, label) {
 }
 
 await check('/', 'index');
-for (const t of TOPICS) await check(`/detail/?topic=${t}`, t);
+// statische Seiten detail/<topic>/ (Hauptweg) + ein alter ?topic=-Link
+for (const t of TOPICS) await check(`/detail/${t}/`, t);
+await check('/detail/?topic=co2', 'co2 (?topic=)');
 await browser.close();
 
-console.log(`\n${TOPICS.length + 1 - failures.length}/${TOPICS.length + 1} Seiten ohne Befund`);
+console.log(`\n${TOPICS.length + 2 - failures.length}/${TOPICS.length + 2} Seiten ohne Befund`);
 if (failures.length) process.exit(1);

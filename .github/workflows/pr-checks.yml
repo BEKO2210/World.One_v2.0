@@ -39,6 +39,9 @@ jobs:
       - name: Validators
         run: for s in scripts/validate-*.js; do echo "::group::$s"; node "$s"; echo "::endgroup::"; done
 
+      - name: Static detail pages up to date
+        run: node scripts/build-detail-pages.js --check
+
       - name: Browser smoke test
         run: |
           npx playwright install --with-deps chromium
