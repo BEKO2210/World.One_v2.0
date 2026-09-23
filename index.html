@@ -846,8 +846,8 @@
       <div id="momentum-list" class="momentum-list" role="list"></div>
 
       <div class="momentum-summary reveal" id="momentum-summary">
-        <span  data-counter data-target="16">0</span> /
-        <span data-counter data-target="20">0</span> <span data-i18n="act7.trendsPositive">Trends positiv</span>
+        <span data-counter data-target="0">–</span> /
+        <span data-counter data-target="0">–</span> <span data-i18n="act7.trendsPositive">Trends positiv</span>
       </div>
 
       <!-- 2000 vs Today -->
@@ -983,7 +983,7 @@
       <!-- Pipeline Status -->
       <div class="pipeline-status reveal" style="margin-bottom:var(--space-xl)">
         <div class="pipeline-status__item">
-          <span class="pipeline-status__value" id="sources-total">65</span>
+          <span class="pipeline-status__value" id="sources-total">–</span>
           <span class="pipeline-status__label" data-i18n="act10.sources">Quellen</span>
         </div>
         <div class="pipeline-status__item">
@@ -1000,7 +1000,11 @@
         </div>
       </div>
 
-      <div id="sources-grid" class="sources-grid reveal-stagger" role="list"></div>
+      <!-- Liste eingeklappt: 65 Karten waren mobil ~6000 px lang -->
+      <details class="sources-more">
+        <summary class="sources-more__summary" data-i18n="act10.showAll">Alle Quellen anzeigen</summary>
+        <div id="sources-grid" class="sources-grid" role="list"></div>
+      </details>
 
       <div class="methodology-note reveal">
         <h3 class="text-sub" style="margin-bottom:var(--space-sm)" data-i18n="act10.methodTitle">Methodik</h3>

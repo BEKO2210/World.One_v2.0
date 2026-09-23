@@ -86,7 +86,7 @@ class I18n {
       popLatestYear:  _now,
       freedomStreak:  18,         // Freedom House 2024 published streak
       freeCount: '–', partlyFreeCount: '–', notFreeCount: '–', popBillion: '–',
-      billionaireWealthT: '–', billionairesYear: '–', povertyYear: '–'
+      billionaireWealthT: '–', billionairesYear: '–', povertyYear: '–', sourcesCount: '–'
     };
   }
 

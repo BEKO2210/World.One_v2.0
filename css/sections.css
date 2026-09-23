@@ -808,7 +808,8 @@
 
 @media (max-width: 640px) {
   .comparison-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-xs);
   }
 }
 
@@ -1318,3 +1319,41 @@
 
 /* Teilwert steht als Zahl unter dem Ring — nicht doppelt im Ring */
 .sub-score .gauge__value { display: none; }
+
+/* ─── Quellenliste (eingeklappt) ─── */
+.sources-more { margin-top: var(--space-md); }
+.sources-more__summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  min-height: 44px;
+  padding: 0 var(--space-md);
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-full);
+  color: var(--text-1);
+  font-weight: 500;
+  cursor: pointer;
+  list-style: none;
+  width: fit-content;
+  margin: 0 auto;
+}
+.sources-more__summary::-webkit-details-marker { display: none; }
+.sources-more__summary::after { content: '▾'; color: var(--text-3); }
+.sources-more[open] .sources-more__summary::after { content: '▴'; }
+.sources-more__summary:hover { background: var(--surface-2); }
+.sources-more[open] .sources-grid { margin-top: var(--space-md); }
+
+/* Link zur vollständigen Momentum-Liste */
+.momentum-more {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin-top: var(--space-xs);
+  border-radius: var(--radius-full);
+  color: var(--accent);
+  font-weight: 500;
+}
+.momentum-more:hover { background: var(--accent-soft); color: var(--accent); }

@@ -480,7 +480,7 @@
   .prolog__meta { padding: var(--space-xs) var(--space-sm); gap: var(--space-sm); flex-wrap: wrap; justify-content: center; }
   .prolog__meta-divider { display: none; }
   .infra-bar { grid-template-columns: 80px 1fr 40px; }
-  .exchange-rates { grid-template-columns: 1fr; }
+  .exchange-rates { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .btn { padding: 14px 24px; min-height: 48px; }
 }
 
@@ -704,7 +704,7 @@
 @media (max-width: 640px) {
   .scroll-top { bottom: 12px; width: 44px; height: 44px; }
   .scroll-top__arrow { width: 14px; height: 14px; }
-  .air-quality-grid { grid-template-columns: 1fr; }
+  .air-quality-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .weather-grid { grid-template-columns: repeat(2, 1fr); }
   .aqi-card__value { font-size: 12px; }
   .top-bar__brand { font-size: 11px; }
