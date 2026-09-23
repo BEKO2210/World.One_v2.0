@@ -38,6 +38,7 @@ const PRECACHE_ASSETS = [
   './i18n/de.json',
   './i18n/en.json',
   './assets/fonts/inter-latin.woff2',
+  './assets/prolog-earth-960.webp',
   './js/visualizations/world-indicator.js',
   './js/visualizations/charts.js',
   './js/visualizations/maps.js',
