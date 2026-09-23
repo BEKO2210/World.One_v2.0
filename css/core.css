@@ -65,6 +65,7 @@
   --text-2: var(--gray-400);         /* Sekundärtext ≥ 9:1 */
   --text-3: var(--gray-500);         /* Hinweise     ≥ 6,5:1 */
   --text-on-accent: var(--gray-980);
+  --text-on-status: var(--gray-980);   /* Text auf gefüllten Status-/Serienflächen */
 
   --line-1: rgba(255, 255, 255, 0.08);   /* Haarlinie */
   --line-2: rgba(255, 255, 255, 0.14);   /* Kante, betont */
@@ -187,16 +188,17 @@
   --text-2: var(--gray-700);
   --text-3: #5f6368;
   --text-on-accent: var(--gray-0);
+  --text-on-status: var(--gray-0);
   --line-1: rgba(32, 33, 36, 0.10);
   --line-2: rgba(32, 33, 36, 0.18);
   --grid: rgba(32, 33, 36, 0.08);
   --accent: var(--blue-700);
   --accent-strong: #174ea6;
   --accent-soft: rgba(26, 115, 232, 0.10);
-  --status-good: #188038;
+  --status-good: #0d652d;
   --status-warning: #955000;
-  --status-serious: #c2410c;
-  --status-critical: #c5221f;
+  --status-serious: #a8380b;
+  --status-critical: #b3261e;
   --status-good-soft: rgba(24, 128, 56, 0.10);
   --status-warning-soft: rgba(176, 96, 0, 0.10);
   --status-critical-soft: rgba(197, 34, 31, 0.10);

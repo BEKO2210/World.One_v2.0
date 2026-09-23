@@ -366,7 +366,7 @@ function _buildMiniCard(indicator) {
       fontSize: '0.65rem',
       fontWeight: '700',
       background: assessment.color,
-      color: assessment.color === 'var(--status-warning)' ? 'var(--surface-3)' : 'var(--text-1)',
+      color: 'var(--text-on-status)',
     },
   });
 
@@ -499,7 +499,7 @@ function _renderTrendBar(trendEl, indicators) {
         justifyContent: 'center',
         fontSize: '0.75rem',
         fontWeight: '700',
-        color: s.color === 'var(--status-warning)' ? 'var(--surface-3)' : 'var(--text-1)',
+        color: 'var(--text-on-status)',
         minWidth: s.count > 0 ? '32px' : '0',
       },
       textContent: String(s.count),
@@ -658,7 +658,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.momentum, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: '1px solid ' + toRgba(CHART_COLORS.momentum, 0.3),
         },

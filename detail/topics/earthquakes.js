@@ -162,7 +162,7 @@ function _renderHero(heroEl, count24h, largest24h, tier, age, unitKey = 'detail.
         ? DOMUtils.create('div', {
             style: {
               fontSize: '1.1rem',
-              color: toRgba(CHART_COLORS.realtime, 0.9),
+              color: 'var(--text-primary)',
               marginBottom: 'var(--space-xs)',
               fontWeight: '600',
             },
@@ -508,7 +508,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.realtime, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: `1px solid ${toRgba(CHART_COLORS.realtime, 0.3)}`,
         },

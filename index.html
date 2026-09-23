@@ -204,36 +204,36 @@
       </div>
 
       <!-- Sub-Scores -->
-      <div class="sub-scores reveal-stagger" role="list" aria-label="Sub-Scores" data-i18n-aria="act1.subScoresLabel">
-        <div class="sub-score reveal" data-subscore="environment" role="listitem">
+      <div class="sub-scores reveal-stagger" aria-label="Sub-Scores" data-i18n-aria="act1.subScoresLabel">
+        <div class="sub-score reveal" data-subscore="environment">
           <span class="sub-score__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
           <div class="sub-score__gauge"></div>
           <span class="sub-score__value text-mono">0</span>
           <span class="sub-score__name" data-i18n="act1.sub.environment">Umwelt</span>
           <span class="sub-score__detail" data-i18n="act1.sub.weight25">25% Gewichtung</span>
         </div>
-        <div class="sub-score reveal" data-subscore="society" role="listitem">
+        <div class="sub-score reveal" data-subscore="society">
           <span class="sub-score__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
           <div class="sub-score__gauge"></div>
           <span class="sub-score__value text-mono">0</span>
           <span class="sub-score__name" data-i18n="act1.sub.society">Gesellschaft</span>
           <span class="sub-score__detail" data-i18n="act1.sub.weight25">25% Gewichtung</span>
         </div>
-        <div class="sub-score reveal" data-subscore="economy" role="listitem">
+        <div class="sub-score reveal" data-subscore="economy">
           <span class="sub-score__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
           <div class="sub-score__gauge"></div>
           <span class="sub-score__value text-mono">0</span>
           <span class="sub-score__name" data-i18n="act1.sub.economy">Wirtschaft</span>
           <span class="sub-score__detail" data-i18n="act1.sub.weight20">20% Gewichtung</span>
         </div>
-        <div class="sub-score reveal" data-subscore="progress" role="listitem">
+        <div class="sub-score reveal" data-subscore="progress">
           <span class="sub-score__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
           <div class="sub-score__gauge"></div>
           <span class="sub-score__value text-mono">0</span>
           <span class="sub-score__name" data-i18n="act1.sub.progress">Fortschritt</span>
           <span class="sub-score__detail" data-i18n="act1.sub.weight20">20% Gewichtung</span>
         </div>
-        <div class="sub-score reveal" data-subscore="momentum" role="listitem">
+        <div class="sub-score reveal" data-subscore="momentum">
           <span class="sub-score__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span>
           <div class="sub-score__gauge"></div>
           <span class="sub-score__value text-mono">0</span>
@@ -835,7 +835,7 @@
           </div>
           <div class="widget__body">
             <p class="text-micro text-muted" style="margin-bottom:var(--space-xs)" data-i18n="act6.newsDesc">UN, WHO, BBC, Al Jazeera, Guardian, DW, NASA, ReliefWeb u.a.</p>
-            <div class="news-list" id="global-news"></div>
+            <div class="news-list" id="global-news" tabindex="0" role="region" aria-label="Nachrichten" data-i18n-aria="act6.newsRegion"></div>
           </div>
         </div>
       </div>
@@ -861,7 +861,7 @@
       </div>
 
       <h3 class="text-sub text-center reveal" data-i18n="act7.keyIndicators">20 Schlüssel-Indikatoren</h3>
-      <div id="momentum-list" class="momentum-list" role="list"></div>
+      <div id="momentum-list" class="momentum-list"></div>
 
       <div class="momentum-summary reveal" id="momentum-summary">
         <span data-counter data-target="0">–</span> /
@@ -872,7 +872,7 @@
       <div class="reveal" style="margin-top:var(--space-2xl)">
         <h3 class="text-sub text-center" data-i18n="act7.vsToday">Die Welt 2000 vs. Heute</h3>
         <p class="text-label text-muted text-center" style="margin-bottom:var(--space-md)" data-i18n="act7.vsTodayDesc">25 Jahre Veränderung — die Fakten</p>
-        <div id="comparison-grid" class="comparison-grid" role="list"></div>
+        <div id="comparison-grid" class="comparison-grid"></div>
       </div>
 
       <!-- Gauge -->
@@ -1021,7 +1021,7 @@
       <!-- Liste eingeklappt: 65 Karten waren mobil ~6000 px lang -->
       <details class="sources-more">
         <summary class="sources-more__summary" data-i18n="act10.showAll">Alle Quellen anzeigen</summary>
-        <div id="sources-grid" class="sources-grid" role="list"></div>
+        <div id="sources-grid" class="sources-grid"></div>
       </details>
 
       <div class="methodology-note reveal">

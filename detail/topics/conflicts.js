@@ -796,7 +796,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.society, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: `1px solid ${toRgba(CHART_COLORS.society, 0.3)}`,
         },

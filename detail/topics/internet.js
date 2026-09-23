@@ -229,7 +229,7 @@ function _renderCounters(chartEl) {
       valueEl,
       DOMUtils.create('div', {
         textContent: `~${MathUtils.formatCompact(dailyRate)}/day`,
-        style: { color: 'var(--text-secondary)', fontSize: '0.7rem', marginTop: '4px', opacity: '0.7' },
+        style: { color: 'var(--text-secondary)', fontSize: '0.7rem', marginTop: '4px' },
       }),
     ]);
   });
@@ -409,7 +409,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.progress, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: '1px solid ' + toRgba(CHART_COLORS.progress, 0.3),
         },

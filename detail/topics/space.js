@@ -318,7 +318,7 @@ function _renderCrew(trendEl, crew) {
               padding: '2px 8px',
               borderRadius: '4px',
               background: toRgba(CHART_COLORS.progress, 0.2),
-              color: toRgba(CHART_COLORS.progress),
+              color: 'var(--text-primary)',
               letterSpacing: '0.05em',
             },
           })
@@ -587,7 +587,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.progress, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: `1px solid ${toRgba(CHART_COLORS.progress, 0.3)}`,
         },

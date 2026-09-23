@@ -155,7 +155,7 @@ function _renderHero(heroEl, latestPop, growthRate, tier, age) {
       ]),
       DOMUtils.create('div', {
         textContent: i18n.t('detail.population.liveCounter'),
-        style: { color: 'var(--text-secondary)', fontSize: '0.8rem', opacity: '0.7' },
+        style: { color: 'var(--text-secondary)', fontSize: '0.8rem' },
       }),
     ])
   );
@@ -299,7 +299,7 @@ async function _renderPyramid(trendEl) {
         borderRadius: '20px',
         border: 'none',
         background: isActive ? toRgba(CHART_COLORS.society, 0.2) : 'transparent',
-        color: isActive ? toRgba(CHART_COLORS.society) : 'var(--text-muted)',
+        color: isActive ? 'var(--text-primary)' : 'var(--text-muted)',
         cursor: 'pointer',
         fontSize: '0.8rem',
         fontWeight: isActive ? '700' : '400',
@@ -330,7 +330,7 @@ async function _renderPyramid(trendEl) {
     for (const b of yearBtns) {
       const isActive = parseInt(b.getAttribute('data-year'), 10) === year;
       b.style.background = isActive ? toRgba(CHART_COLORS.society, 0.2) : 'transparent';
-      b.style.color = isActive ? toRgba(CHART_COLORS.society) : 'var(--text-muted)';
+      b.style.color = isActive ? 'var(--text-primary)' : 'var(--text-muted)';
       b.style.fontWeight = isActive ? '700' : '400';
     }
     _updatePyramid(year);
@@ -571,7 +571,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.society, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: `1px solid ${toRgba(CHART_COLORS.society, 0.3)}`,
         },

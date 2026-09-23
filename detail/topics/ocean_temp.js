@@ -371,7 +371,7 @@ function _renderCoralThresholds(tilesEl) {
       DOMUtils.create('div', {
         style: {
           background: t.color,
-          color: t.color === 'var(--status-warning)' ? 'var(--surface-3)' : 'var(--text-1)',
+          color: 'var(--text-on-status)',
           borderRadius: '8px',
           padding: '6px 10px',
           fontSize: '0.75rem',
@@ -387,7 +387,7 @@ function _renderCoralThresholds(tilesEl) {
         DOMUtils.create('div', { textContent: `${t.min}–${t.max}` }),
         DOMUtils.create('div', {
           textContent: i18n.t('detail.ocean_temp.dhwUnit'),
-          style: { fontSize: '0.65rem', opacity: '0.8' },
+          style: { fontSize: '0.65rem' },
         }),
       ]),
       // Right: label + description
@@ -546,7 +546,7 @@ function _renderSources(srcEl) {
         rel: 'noopener',
         textContent: label,
         style: {
-          color: toRgba(CHART_COLORS.environment, 0.9),
+          color: 'var(--accent)',
           textDecoration: 'none',
           borderBottom: `1px solid ${toRgba(CHART_COLORS.environment, 0.3)}`,
         },
