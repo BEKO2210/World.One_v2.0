@@ -12,6 +12,21 @@ import { fmtNumber } from '../utils/fmt.js';
 import { cssVar } from '../utils/chart-manager.js';
 
 const _observers = new Map(); // root → IntersectionObserver
+const MOBILE = '(max-width: 800px)';
+
+// Mobil: keine Sticky-Grafik (Karte verdeckte sie, Ebene passte nicht zum
+// gelesenen Text), sondern je Schritt Grafik + Text als Einheit.
+// Muss vor dem Zeichnen laufen, damit Diagramme ihre Endgröße messen.
+function stackOnMobile(root) {
+  if (!window.matchMedia(MOBILE).matches || root.classList.contains('story--stacked')) return;
+  root.classList.add('story--stacked');
+  const layers = root.querySelectorAll('.story__layer');
+  root.querySelectorAll('.story__card').forEach((card, i) => {
+    if (!layers[i]) return;
+    layers[i].setAttribute('aria-hidden', 'true');
+    card.prepend(layers[i]);
+  });
+}
 
 // Vorindustrielles Referenzmittel: 1880–1900 (übliche Näherung bei GISTEMP)
 function preindustrialMean(temp) {
@@ -31,6 +46,7 @@ export function initClimateStory(root, env) {
     return;
   }
 
+  stackOnMobile(root);
   const layers = root.querySelectorAll('.story__layer');
   const lastT = temp[temp.length - 1];
   const firstC = co2[0];
@@ -83,12 +99,20 @@ function bindSteps(root) {
     layers.forEach((l, k) => l.classList.toggle('is-active', k === i));
     steps.forEach((s, k) => s.classList.toggle('is-active', k === i));
   };
-  activate(0);
   _observers.get(root)?.disconnect();
+  if (root.classList.contains('story--stacked')) {
+    layers.forEach(l => l.classList.add('is-active'));
+    return;
+  }
+  activate(0);
+  // Auslöser ist die Karte, nicht der (höhere) Schritt-Container: sonst
+  // wechselte die Grafik, während noch die vorige Karte gelesen wird.
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) activate(Number(e.target.dataset.step)); });
+    entries.forEach(e => {
+      if (e.isIntersecting) activate(Number(e.target.closest('.story__step').dataset.step));
+    });
   }, { rootMargin: '-45% 0px -45% 0px' });
-  steps.forEach(s => observer.observe(s));
+  steps.forEach(s => observer.observe(s.querySelector('.story__card') || s));
   _observers.set(root, observer);
 }
 
@@ -148,6 +172,7 @@ export function initWealthStory(root, wealth) {
     return;
   }
 
+  stackOnMobile(root);
   const layers = root.querySelectorAll('.story__layer');
   const t = (key, p) => i18n.t(key, p);
   const f1 = (v) => fmtNumber(v, { decimals: 1 });

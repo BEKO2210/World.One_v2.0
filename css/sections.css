@@ -1348,6 +1348,17 @@
   .story__steps { padding: 0 0 20vh; position: relative; z-index: 2; }
   .story__step { min-height: 80vh; align-items: flex-end; padding-bottom: 8vh; }
   .story__card { box-shadow: var(--elevation-2); }
+
+  /* gestapelt (story.js stackOnMobile): Grafik + Text je Schritt */
+  .story--stacked .story__graphic { display: none; }
+  .story--stacked .story__steps { padding: 0; }
+  .story--stacked .story__step { min-height: 0; padding: 0 0 var(--space-md); }
+  .story--stacked .story__card { box-shadow: none; }
+  .story--stacked .story__layer {
+    position: relative; inset: auto; opacity: 1;
+    margin-bottom: var(--space-md);
+  }
+  .story--stacked .story__stripes.warming-stripes { height: 200px; }
 }
 .story__stripes.warming-stripes { height: 100%; margin: 0; }
 
