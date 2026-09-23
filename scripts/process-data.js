@@ -769,7 +769,13 @@ function buildWorldState() {
   // Prefer cache if present (updated daily via society-ext job)
   let freedomFetchedAt = null;
   let freedomSourceLabel = 'Freedom House 2026';
-  const freedomTrend = freedomCache?.data?.global_trend;
+  // trend = Anteil freier Länder und Gebiete in % (höher = besser; Feld
+  // „score“ bleibt für trend3y/dataAsOf). Vorher eine ausgedachte
+  // „globale Punktzahl“ 47 → 42,3, die Freedom House nicht veröffentlicht.
+  const statusTrend = freedomCache?.data?.status_trend;
+  const freedomTrend = Array.isArray(statusTrend) && statusTrend.length
+    ? statusTrend.map(r => ({ year: r.year, score: Math.round(r.free / (r.free + r.partlyFree + r.notFree) * 1000) / 10 }))
+    : null;
   if (Array.isArray(freedomTrend) && freedomTrend.length > 0) {
     freedomFetchedAt = freedomCache.fetchedAt;
     freedomSourceLabel = freedomCache.data.source || 'Freedom House (cache)';
@@ -781,6 +787,8 @@ function buildWorldState() {
   };
   if (Array.isArray(freedomTrend)) {
     freedom.trend = freedomTrend;
+    freedom.statusTrend = statusTrend;
+    freedom.popFreeShare = freedomCache.data.pop_free_share || null;
     freedom.source = freedomSourceLabel;
   }
   // Länderzahlen und Rückgangsjahre aus dem Jahresbericht (freedom.json → report);
@@ -790,6 +798,7 @@ function buildWorldState() {
     Object.assign(freedom, {
       free: fr.free, partlyFree: fr.partlyFree, notFree: fr.notFree,
       yearDecline: fr.declineYears, dataYear: fr.dataYear,
+      trendDecline: fr.declined > fr.improved,
       source: `Freedom House – Freedom in the World ${fr.edition}`,
     });
   }
@@ -1581,7 +1590,9 @@ function buildWorldState() {
   const extraTrend = {
     'Globale Temperaturanomalie': trend3y(tempHistory, false),
     'Arktis-Eisfläche': trend3y(arcticIce.history, true),
-    'Politische Freiheit': trend3y(freedom.trend, true, 'score'),
+    // Politische Freiheit: Richtung aus dem Jahresbericht (mehr Länder mit
+    // Rückschritt als mit Fortschritt = Rückgang), nicht aus dem Anteil
+    // freier Länder — der ist 2023–2025 gestiegen, misst aber etwas anderes.
   };
   for (const [name, t] of Object.entries(extraTrend)) if (t) computedTrend.set(name, t);
 
