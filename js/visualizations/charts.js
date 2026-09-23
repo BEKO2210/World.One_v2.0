@@ -4,7 +4,6 @@
 
 import { MathUtils } from '../utils/math.js';
 import { DOMUtils } from '../utils/dom.js';
-import { i18n } from '../i18n.js';
 import { fmtAxis, fmtNumber } from '../utils/fmt.js';
 import { cssVar } from '../utils/chart-manager.js';
 
@@ -68,6 +67,7 @@ export class Charts {
       unit = '',                 // Einheit für die Endwert-Beschriftung
       refLine = null,            // { value, label } — gestrichelte Referenzlinie
       source = '',               // Quellzeile unter dem Diagramm
+      yMin = null,               // Achse mindestens bis hier (z. B. 0 bei Anteilen)
       padding = isMobile ? { top: 24, right: 10, bottom: 30, left: 52 } : { top: 28, right: 20, bottom: 40, left: 62 }
     } = options;
 
@@ -77,7 +77,7 @@ export class Charts {
     const values = data.map(d => Number(d.value)).filter(Number.isFinite);
     if (values.length < 2) return;
     const refVal = Number.isFinite(refLine?.value) ? refLine.value : null;
-    const rawMin = Math.min(...values, ...(refVal != null ? [refVal] : []));
+    const rawMin = Math.min(...values, ...(refVal != null ? [refVal] : []), ...(Number.isFinite(yMin) ? [yMin] : []));
     const rawMax = Math.max(...values, ...(refVal != null ? [refVal] : []));
     // „Runde“ Achsenwerte (1-2-5-Raster), Achse endet auf einem Tick
     const ticks = niceTicks(rawMin, rawMax, 5);
@@ -124,8 +124,9 @@ export class Charts {
       const labelStep = Math.max(1, Math.floor(data.length / 6));
       const last = data.length - 1;
       data.forEach((d, i) => {
-        // regulärer Tick nicht zu dicht vor dem letzten Label (sonst Überlappung)
-        const regular = i % labelStep === 0 && last - i >= labelStep * 0.6;
+        // regulärer Tick nicht zu dicht vor dem letzten Label (sonst Überlappung;
+        // ~44 px = zwei vierstellige Jahreszahlen bei 10 px Schrift)
+        const regular = i % labelStep === 0 && xScale(last) - xScale(i) >= 44;
         if (regular || i === last) {
           const anchor = i === last ? 'end' : i === 0 ? 'start' : 'middle';
           svg += `<text x="${xScale(i)}" y="${height - 8}" text-anchor="${anchor}"
@@ -338,33 +339,6 @@ export class Charts {
 
     svg += '</svg>';
     container.innerHTML = svg;
-  }
-
-  // ─── Inequality Bar ───
-  static inequalityBar(container, topPercent, bottomPercent, progress = 1) {
-    const top = Number.isFinite(topPercent) ? topPercent : 45.8;
-    const bottom = Number.isFinite(bottomPercent) && bottomPercent > 0 ? bottomPercent : 2.1;
-    const topW = top * MathUtils.clamp(progress, 0, 1);
-    const bottomW = bottom * MathUtils.clamp(progress, 0, 1);
-    const scale = top > 0 ? 100 / top : 1;
-
-    container.innerHTML = `
-      <div class="inequality-bar__row">
-        <div class="inequality-bar__label">${i18n.t('chart.top1')}</div>
-        <div class="inequality-bar__track">
-          <div class="inequality-bar__fill inequality-bar__fill--top" style="width:${topW * scale}%"></div>
-        </div>
-        <div class="inequality-bar__pct inequality-bar__pct--top">${top.toFixed(1)}%</div>
-      </div>
-      <div class="inequality-bar__row">
-        <div class="inequality-bar__label">${i18n.t('chart.bottom50')}</div>
-        <div class="inequality-bar__track">
-          <div class="inequality-bar__fill inequality-bar__fill--bottom" style="width:${bottomW * scale}%"></div>
-        </div>
-        <div class="inequality-bar__pct">${bottom.toFixed(1)}%</div>
-      </div>
-      <div class="inequality-bar__ratio">${(top / bottom).toFixed(0)}${i18n.t('chart.timesMore')}</div>
-    `;
   }
 
   // ─── Freedom Index Bar ───

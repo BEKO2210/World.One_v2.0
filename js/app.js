@@ -14,7 +14,7 @@ import { MathUtils } from './utils/math.js';
 import { DOMUtils } from './utils/dom.js';
 import { createTierBadge } from './utils/badge.js';
 import { cssVar } from './utils/chart-manager.js';
-import { initClimateStory } from './visualizations/story.js';
+import { initClimateStory, initWealthStory } from './visualizations/story.js';
 import { fmtNumber } from './utils/fmt.js';
 import { formatAsOf } from './utils/as-of.js';
 import { i18n } from './i18n.js';
@@ -976,10 +976,8 @@ class BelkisOne {
       this._economyBuilt = true;
       const eco = data.economy;
 
-      const ineqBar = document.getElementById('inequality-bar');
-      if (ineqBar && eco?.wealth) {
-        Charts.inequalityBar(ineqBar, eco.wealth.top1Percent, eco.wealth.bottom50Percent);
-      }
+      // Scrollytelling ersetzt den Ungleichheits-Balken (js/visualizations/story.js)
+      initWealthStory(document.getElementById('wealth-story'), eco?.wealth);
 
       const giniChart = document.getElementById('gini-chart');
       if (giniChart && eco?.gini?.history) {
@@ -1701,7 +1699,6 @@ class BelkisOne {
       { selector: '.wealth-comparison', topic: 'inequality' },
       // Override: the "extreme poverty" side of wealth-comparison navigates to the poverty topic
       { selector: '.wealth-comparison__side:nth-child(3)', topic: 'poverty' },
-      { selector: '#inequality-bar', topic: 'inequality', wrapClosest: '.reveal' },
       { selector: '#gini-chart', topic: 'inequality', wrapClosest: '.data-card' },
       { selector: '#exchange-rates', topic: 'currencies', wrapClosest: '.data-card' },
 
