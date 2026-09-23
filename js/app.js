@@ -14,7 +14,7 @@ import { MathUtils } from './utils/math.js';
 import { DOMUtils } from './utils/dom.js';
 import { createTierBadge } from './utils/badge.js';
 import { cssVar } from './utils/chart-manager.js';
-import { initClimateStory, initWealthStory } from './visualizations/story.js';
+import { initClimateStory, initWealthStory, initRefugeeStory } from './visualizations/story.js';
 import { fmtNumber } from './utils/fmt.js';
 import { formatAsOf } from './utils/as-of.js';
 import { i18n } from './i18n.js';
@@ -648,17 +648,11 @@ class BelkisOne {
             <div class="data-card__value data-card__value--sm">${MathUtils.formatCompact(r.asylumseekers)}</div>
           </div>
         </div>
-        ${r.flows ? `<div style="margin-top:var(--space-md)">
-          <div class="text-label text-muted" style="margin-bottom:var(--space-xs)">${i18n.t('js.flightRoutes')}</div>
-          ${r.flows.slice(0, 5).map(f => `
-            <div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--line-1);font-size:13px">
-              <span>${this._esc(f.from)} → ${this._esc(f.to)}</span>
-              <span class="text-mono" style="color:var(--warning)">${MathUtils.formatCompact(f.count)}</span>
-            </div>
-          `).join('')}
-        </div>` : ''}
       `;
     }
+
+    // Scrollytelling ersetzt die Liste der Fluchtrouten (js/visualizations/story.js)
+    initRefugeeStory(document.getElementById('refugee-story'), soc.refugees);
 
     // Infrastructure bars
     const infraData = [

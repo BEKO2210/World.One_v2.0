@@ -3,6 +3,7 @@
    Grafik bleibt stehen (sticky), Textschritte ziehen vorbei.
    Klima:   1 Wärmestreifen · 2 CO₂-Anstieg · 3 Temperatur mit 1,5-°C-Schwelle
    Vermögen: 1 Anteil reichstes 1 % · 2 Menschen vs. Vermögen · 3 Einkommen vs. Vermögen
+   Flucht:  1 Wer flieht · 2 größte Ströme (Karte) · 3 größte Aufnahmeländer
    Alle Zahlen im Text werden aus den Reihen berechnet.
    ═══════════════════════════════════════════════════════════ */
 
@@ -10,6 +11,7 @@ import { Charts } from './charts.js';
 import { i18n } from '../i18n.js';
 import { fmtNumber } from '../utils/fmt.js';
 import { cssVar } from '../utils/chart-manager.js';
+import { projectWorld } from '../utils/geo.js';
 
 const _observers = new Map(); // root → IntersectionObserver
 const MOBILE = '(max-width: 800px)';
@@ -111,7 +113,7 @@ function bindSteps(root) {
     entries.forEach(e => {
       if (e.isIntersecting) activate(Number(e.target.closest('.story__step').dataset.step));
     });
-  }, { rootMargin: '-45% 0px -45% 0px' });
+  }, { rootMargin: '-74% 0px -25% 0px' }); // Linie bei 75 %: Wechsel, sobald die Karte auftaucht
   steps.forEach(s => observer.observe(s.querySelector('.story__card') || s));
   _observers.set(root, observer);
 }
@@ -227,6 +229,170 @@ export function initWealthStory(root, wealth) {
     shareBar(`${t('story.wealth.wealth')} ${last.year} · ${f1(last.value)} %`, [{ ...top, value: last.value }, { ...other, value: 100 - last.value }]),
     shareLegend([top, other]),
     sourceNote(src),
+  );
+  layers[2].appendChild(box3);
+
+  bindSteps(root);
+}
+
+// Ländername in der Seitensprache (ISO2 → Intl), sonst UNHCR-Name
+function countryName(iso2, fallback) {
+  try {
+    return new Intl.DisplayNames([i18n.lang], { type: 'region' }).of(iso2) || fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+const SVG_NS = 'http://www.w3.org/2000/svg';
+
+async function flowMap(layer, flows, note) {
+  const res = await fetch('assets/maps/world.svg');
+  if (!res.ok) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'flow-map';
+  wrap.innerHTML = await res.text();
+  const svg = wrap.querySelector('svg');
+  if (!svg) return;
+  svg.removeAttribute('width');
+  svg.removeAttribute('height');
+  svg.setAttribute('class', 'flow-map__svg');
+  svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+
+  const max = Math.max(...flows.map(f => f.count));
+  const g = document.createElementNS(SVG_NS, 'g');
+  g.setAttribute('class', 'flow-map__flows');
+  // kleinste zuerst, damit große Ströme obenauf liegen
+  [...flows].reverse().forEach(f => {
+    const a = projectWorld(f.fromLatLng[0], f.fromLatLng[1]);
+    const b = projectWorld(f.toLatLng[0], f.toLatLng[1]);
+    const dx = b.x - a.x, dy = b.y - a.y;
+    const dist = Math.hypot(dx, dy) || 1;
+    // Bogen: Kontrollpunkt senkrecht zur Verbindung, Höhe ∝ Distanz
+    const bend = Math.max(12, dist * 0.3);
+    const cx = (a.x + b.x) / 2 - (dy / dist) * bend;
+    const cy = (a.y + b.y) / 2 + (dx / dist) * bend;
+    const path = document.createElementNS(SVG_NS, 'path');
+    path.setAttribute('d', `M${a.x.toFixed(1)},${a.y.toFixed(1)} Q${cx.toFixed(1)},${cy.toFixed(1)} ${b.x.toFixed(1)},${b.y.toFixed(1)}`);
+    path.setAttribute('class', 'flow-map__arc');
+    path.style.strokeWidth = (6 + 18 * Math.sqrt(f.count / max)).toFixed(1);
+    const title = document.createElementNS(SVG_NS, 'title');
+    title.textContent = `${countryName(f.fromIso2, f.from)} → ${countryName(f.toIso2, f.to)}: ${fmtNumber(f.count / 1e6, { decimals: 2 })} ${i18n.t('story.refugees.mio')}`;
+    path.appendChild(title);
+    g.appendChild(path);
+    const origin = document.createElementNS(SVG_NS, 'circle');
+    origin.setAttribute('cx', a.x.toFixed(1));
+    origin.setAttribute('cy', a.y.toFixed(1));
+    origin.setAttribute('r', '7');
+    origin.setAttribute('class', 'flow-map__origin');
+    g.appendChild(origin);
+    const dot = document.createElementNS(SVG_NS, 'circle');
+    dot.setAttribute('cx', b.x.toFixed(1));
+    dot.setAttribute('cy', b.y.toFixed(1));
+    dot.setAttribute('r', '9');
+    dot.setAttribute('class', 'flow-map__host');
+    g.appendChild(dot);
+  });
+  svg.appendChild(g);
+  const legend = document.createElement('ul');
+  legend.className = 'share-legend flow-map__legend';
+  [['origin', 'story.refugees.legendOrigin'], ['host', 'story.refugees.legendHost']].forEach(([cls, key]) => {
+    const li = document.createElement('li');
+    const mark = document.createElement('span');
+    mark.className = `flow-map__mark flow-map__mark--${cls}`;
+    li.append(mark, document.createTextNode(i18n.t(key)));
+    legend.appendChild(li);
+  });
+  layer.replaceChildren(wrap, legend, sourceNote(note));
+}
+
+function rankBars(items) {
+  const max = Math.max(...items.map(it => it.value));
+  const list = document.createElement('ol');
+  list.className = 'rank-bars';
+  items.forEach(it => {
+    const li = document.createElement('li');
+    const head = document.createElement('div');
+    head.className = 'rank-bars__head';
+    const name = document.createElement('span');
+    name.textContent = it.label;
+    const val = document.createElement('span');
+    val.className = 'rank-bars__value';
+    val.textContent = it.valueText;
+    head.append(name, val);
+    const track = document.createElement('div');
+    track.className = 'rank-bars__track';
+    const bar = document.createElement('div');
+    bar.className = 'rank-bars__bar';
+    bar.style.width = `${(it.value / max) * 100}%`;
+    track.appendChild(bar);
+    li.append(head, track);
+    list.appendChild(li);
+  });
+  return list;
+}
+
+/**
+ * @param {HTMLElement} root - .story-Container
+ * @param {Object} refugees - world-state.society.refugees
+ */
+export function initRefugeeStory(root, refugees) {
+  const r = refugees;
+  const flows = (r?.flows || []).filter(f => f.fromLatLng && f.toLatLng && f.fromIso2).slice(0, 8);
+  const hosts = r?.topHosts || [];
+  if (!root || !r?.total || r.flowsFallback || flows.length < 3 || hosts.length < 3 || !r.crossBorderTotal) {
+    if (root) root.hidden = true;
+    return;
+  }
+
+  stackOnMobile(root);
+  const layers = root.querySelectorAll('.story__layer');
+  layers.forEach(l => l.replaceChildren()); // wird bei Neu-Render erneut aufgerufen
+  const t = (key, p) => i18n.t(key, p);
+  const mio = (v) => fmtNumber(v / 1e6, { decimals: 1 });
+  const pct = (v) => fmtNumber(v / r.total * 100, { decimals: 0 });
+  const src = `${t('badge.sourceLabel')}: UNHCR Refugee Data Finder · ${t('story.wealth.asOf', { year: r.dataYear })}`;
+  const name = (iso2, fb) => countryName(iso2, fb);
+  const [f1, f2] = flows;
+  const top5 = hosts.reduce((s, h) => s + h.count, 0);
+
+  root.querySelector('[data-story-text="0"]').textContent = t('story.refugees.step1', {
+    year: r.dataYear, total: mio(r.total), idpsPct: pct(r.displaced),
+  });
+  root.querySelector('[data-story-text="1"]').textContent = t('story.refugees.step2', {
+    from1: name(f1.fromIso2, f1.from), to1: name(f1.toIso2, f1.to), n1: mio(f1.count),
+    from2: name(f2.fromIso2, f2.from), to2: name(f2.toIso2, f2.to), n2: mio(f2.count),
+  });
+  root.querySelector('[data-story-text="2"]').textContent = t('story.refugees.step3', {
+    cross: mio(r.crossBorderTotal), h1: name(hosts[0].iso2, hosts[0].name), h2: name(hosts[1].iso2, hosts[1].name),
+    h3: name(hosts[2].iso2, hosts[2].name), share: fmtNumber(top5 / r.crossBorderTotal * 100, { decimals: 0 }),
+  });
+
+  // Ebene 1: Zusammensetzung
+  const groups = [
+    { key: 'idps', value: r.displaced, series: 2 },
+    { key: 'refugees', value: r.refugees, series: 1 },
+    { key: 'asylum', value: r.asylumseekers, series: 3 },
+    { key: 'other', value: r.otherInNeed || 0, series: 7 },
+  ].map(g => ({ ...g, label: t(`story.refugees.cat.${g.key}`), value: g.value / r.total * 100 }));
+  const box = document.createElement('div');
+  box.className = 'share-bars';
+  box.append(
+    shareBar(`${t('story.refugees.total')} ${r.dataYear} · ${mio(r.total)} ${i18n.t('story.refugees.mio')}`, groups),
+    shareLegend(groups.map(g => ({ ...g, label: `${g.label} · ${fmtNumber(g.value, { decimals: 0 })} %` }))),
+    sourceNote(src),
+  );
+  layers[0].appendChild(box);
+
+  // Ebene 2: Karte
+  flowMap(layers[1], flows, `${src} · ${t('story.refugees.mapNote')}`);
+
+  // Ebene 3: Aufnahmeländer
+  const box3 = document.createElement('div');
+  box3.className = 'share-bars';
+  box3.append(
+    rankBars(hosts.map(h => ({ label: name(h.iso2, h.name), value: h.count, valueText: `${mio(h.count)} ${i18n.t('story.refugees.mio')}` }))),
+    sourceNote(`${src} · ${t('story.refugees.hostNote')}`),
   );
   layers[2].appendChild(box3);
 
