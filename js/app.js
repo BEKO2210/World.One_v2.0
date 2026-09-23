@@ -1466,15 +1466,14 @@ class BelkisOne {
     container.innerHTML = '';
     sections.forEach(sec => {
       const label = i18n.t(sec.key);
-      const dot = DOMUtils.create('div', {
+      const dot = DOMUtils.create('button', {
+        type: 'button',
         className: 'nav-dot',
         'data-target': sec.id,
         innerHTML: `<span class="nav-dot__label" data-i18n="${sec.key}">${label}</span>`
       });
-      dot.setAttribute('role', 'button');
       dot.setAttribute('aria-label', i18n.t('nav.jumpTo', { label }));
       dot.setAttribute('data-i18n-aria-key', sec.key);
-      dot.setAttribute('tabindex', '0');
       container.appendChild(dot);
     });
   }

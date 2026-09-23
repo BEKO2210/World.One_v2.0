@@ -109,6 +109,8 @@ async function loadTopic(topicId) {
     if (breadcrumbEl) {
       breadcrumbEl.textContent = titleText;
     }
+    const h1El = document.getElementById('detail-title');
+    if (h1El) h1El.textContent = titleText;
 
     // Update page title
     document.title = `${titleText} — World.One`;
@@ -230,6 +232,8 @@ function setupNavControls() {
         const titleText = i18n.t(_currentTopic.meta.titleKey);
         const breadcrumbEl = document.getElementById('detail-breadcrumb-topic');
         if (breadcrumbEl) breadcrumbEl.textContent = titleText;
+        const h1El = document.getElementById('detail-title');
+        if (h1El) h1El.textContent = titleText;
         document.title = `${titleText} — World.One`;
       }
     });

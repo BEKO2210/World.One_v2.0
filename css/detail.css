@@ -88,6 +88,15 @@
 }
 
 /* ─── 2. Detail Page Layout ─── */
+.detail-title {
+  margin: 0;
+  font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--text-1);
+}
+
 .detail-page {
   max-width: var(--max-width);
   margin: 0 auto;
