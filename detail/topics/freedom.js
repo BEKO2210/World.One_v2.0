@@ -1,7 +1,9 @@
 /* ===================================================================
    World.One 2.0 -- Freedom Topic Module (SOC-04)
    Full topic contract: meta, render, getChartConfigs, cleanup
-   Data: Freedom House global score trend (cached freedom.json),
+   Data: Freedom House status counts 1972+ and population share in free
+         countries (freedom.json, via Our World in Data), FIW 2026 report
+         figures (freedom.json → report),
          Freedom House country scores (hardcoded ~60 countries),
          SVG choropleth with 3-color classification (free/partly/not free)
    =================================================================== */
@@ -11,7 +13,7 @@ import { DOMUtils } from '../../js/utils/dom.js';
 import { MathUtils } from '../../js/utils/math.js';
 import { fetchTopicData } from '../../js/utils/data-loader.js';
 import { createTierBadge } from '../../js/utils/badge.js';
-import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
+import { ensureChartJs, createChart, CHART_COLORS, toRgba, cssVar } from '../../js/utils/chart-manager.js';
 import { renderChoropleth } from '../utils/choropleth.js';
 import { fmtNumber } from '../../js/utils/fmt.js';
 
@@ -32,7 +34,8 @@ let _declineYears = 20;
 let _declineDataYear = 2025;
 
 let _trendChart = null;
-let _chartData = null;
+let _chartData = null;   // status_trend: Länder und Gebiete je Status und Jahr
+let _report = null;      // Kennzahlen aus dem Jahresbericht (195 Staaten)
 let _choroplethCleanup = null;
 
 // --- Freedom House Country Scores (ISO-2 -> 0-100, ~60 countries) ------
@@ -62,28 +65,16 @@ export async function render(blocks) {
   _declineYears = data?.report?.declineYears ?? _declineYears;
   _declineDataYear = data?.report?.dataYear ?? _declineDataYear;
 
-  // Extract global_trend from cache data
-  const globalTrend = data?.global_trend || [];
-  const latestScore = globalTrend.length > 0
-    ? globalTrend[globalTrend.length - 1].score
-    : 42.3;
-
-  // Store full trend data for time range filtering
-  _chartData = globalTrend.length > 0 ? globalTrend : [
-    { year: 2006, score: 47 }, { year: 2007, score: 46.8 }, { year: 2008, score: 46.5 },
-    { year: 2009, score: 46.2 }, { year: 2010, score: 45.8 }, { year: 2011, score: 45.5 },
-    { year: 2012, score: 45.2 }, { year: 2013, score: 44.8 }, { year: 2014, score: 44.5 },
-    { year: 2015, score: 44.1 }, { year: 2016, score: 43.8 }, { year: 2017, score: 43.5 },
-    { year: 2018, score: 43.2 }, { year: 2019, score: 43.0 }, { year: 2020, score: 42.8 },
-    { year: 2021, score: 42.7 }, { year: 2022, score: 42.6 }, { year: 2023, score: 42.5 },
-    { year: 2024, score: 42.4 }, { year: 2025, score: 42.3 },
-  ];
+  // Freedom House via OWID: Status je Jahr + Bevölkerungsanteil in freien Ländern
+  _chartData = data?.status_trend?.length ? data.status_trend : null;
+  _report = data?.report || null;
+  const popShare = data?.pop_free_share?.at(-1) || null;
 
   // --- 2. Hero Block ---
-  _renderHero(blocks.hero, latestScore, tier, age);
+  _renderHero(blocks.hero, popShare, tier, age);
 
-  // --- 3. Chart Block (18-year decline trend) ---
-  await _renderTrend(blocks.chart);
+  // --- 3. Chart Block (Länder nach Status seit 1972) ---
+  if (_chartData) await _renderTrend(blocks.chart);
 
   // --- 4. Trend Block (supplementary text) ---
   _renderTrendText(blocks.trend);
@@ -103,9 +94,9 @@ export async function render(blocks) {
 
 // --- Hero ---------------------------------------------------------------
 
-function _renderHero(heroEl, score, tier, age) {
-  const badge = createTierBadge(tier, { age });
-  const formatted = fmtNumber(Number(score), { decimals: 1 });
+function _renderHero(heroEl, popShare, tier, age) {
+  const badge = createTierBadge(popShare ? tier : 'static', { age, dataAsOf: popShare?.year ?? null, cadence: 'annual' });
+  const formatted = popShare ? fmtNumber(popShare.value, { decimals: 1 }) : '–';
 
   heroEl.appendChild(
     DOMUtils.create('div', { className: 'freedom-hero' }, [
@@ -147,13 +138,13 @@ function _renderHero(heroEl, score, tier, age) {
   );
 }
 
-// --- Chart Block (18-Year Decline Trend) --------------------------------
+// --- Chart Block (Länder und Gebiete nach Status) -----------------------
 
 async function _renderTrend(chartEl) {
   chartEl.appendChild(
     DOMUtils.create('div', {}, [
       DOMUtils.create('h2', {
-        textContent: i18n.t('detail.freedom.trendTitle'),
+        textContent: i18n.t('detail.freedom.statusTitle', { from: _chartData[0].year, to: _chartData.at(-1).year }),
         style: { color: 'var(--text-primary)', margin: '0 0 var(--space-sm)' },
       }),
       DOMUtils.create('div', {
@@ -192,50 +183,57 @@ async function _renderTrend(chartEl) {
     }
 
     _trendChart.data.labels = filtered.map(d => String(d.year));
-    _trendChart.data.datasets[0].data = filtered.map(d => d.score);
+    STATUS.forEach((st, i) => { _trendChart.data.datasets[i].data = filtered.map(d => d[st.key]); });
     _trendChart.update('none');
   });
 }
+
+// Gestapelt von unten: frei, teilweise frei, nicht frei (Statusfarben)
+const STATUS = [
+  { key: 'free', label: 'detail.freedom.free', color: '--status-good' },
+  { key: 'partlyFree', label: 'detail.freedom.partlyFree', color: '--status-warning' },
+  { key: 'notFree', label: 'detail.freedom.notFree', color: '--status-critical' },
+];
 
 function _createTrendChart(trendData) {
   return createChart('freedom-trend-chart', {
     type: 'line',
     data: {
       labels: trendData.map(d => String(d.year)),
-      datasets: [{
-        label: i18n.t('detail.freedom.heroLabel'),
-        data: trendData.map(d => d.score),
-        borderColor: toRgba(CHART_COLORS.society),
-        backgroundColor: toRgba(CHART_COLORS.society, 0.15),
-        fill: true,
-        tension: 0.3,
-        pointRadius: 2,
+      datasets: STATUS.map((st, i) => ({
+        label: i18n.t(st.label),
+        data: trendData.map(d => d[st.key]),
+        borderColor: cssVar(st.color),
+        backgroundColor: cssVar(st.color) + 'b3',   // 70 % Deckkraft
+        fill: i === 0 ? 'origin' : '-1',
+        tension: 0,
+        pointRadius: 0,
         pointHitRadius: 8,
-        pointBackgroundColor: toRgba(CHART_COLORS.society),
-        borderWidth: 2,
-      }],
+        borderWidth: 1,
+      })),
     },
     options: {
+      interaction: { mode: 'index', intersect: false },
       scales: {
         x: {
           grid: { display: false },
-          ticks: { maxTicksLimit: 10, maxRotation: 45 },
+          ticks: { maxTicksLimit: 8, maxRotation: 0 },
         },
         y: {
-          min: 30,
-          max: 55,
+          stacked: true,
+          min: 0,
           title: {
             display: true,
-            text: i18n.t('detail.freedom.heroUnit'),
+            text: i18n.t('detail.freedom.axisCount'),
           },
         },
       },
       plugins: {
-        legend: { display: false },
+        legend: { display: true, position: 'bottom', labels: { usePointStyle: true, boxWidth: 8, boxHeight: 8, padding: 16 } },
         tooltip: {
           callbacks: {
             title: (items) => items[0]?.label || '',
-            label: (item) => `${i18n.t('detail.freedom.heroLabel')}: ${fmtNumber(item.parsed.y, { decimals: 1 })}`,
+            label: (item) => `${item.dataset.label}: ${fmtNumber(item.parsed.y, { decimals: 0 })}`,
           },
         },
       },
@@ -264,7 +262,9 @@ function _renderTrendText(trendEl) {
         textContent: String(_declineYears),
       }),
       DOMUtils.create('p', {
-        textContent: i18n.t('detail.freedom.trendDesc'),
+        textContent: i18n.t('detail.freedom.trendDesc', {
+          dataYear: _declineDataYear, declined: _report?.declined ?? '–', improved: _report?.improved ?? '–',
+        }),
         style: { color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: '1.7', margin: '0' },
       }),
     ])
@@ -274,29 +274,29 @@ function _renderTrendText(trendEl) {
 // --- Tiles Block --------------------------------------------------------
 
 function _renderTiles(tilesEl) {
-  // Count from FREEDOM_COUNTRY_SCORES
-  const entries = Object.values(FREEDOM_COUNTRY_SCORES);
-  const freeCount = entries.filter(v => v >= 70).length;
-  const partlyFreeCount = entries.filter(v => v >= 35 && v < 70).length;
-  const notFreeCount = entries.filter(v => v < 35).length;
+  // Länderzahlen aus dem Jahresbericht (195 Staaten, ohne Gebiete)
+  const freeCount = _report?.free ?? '–';
+  const partlyFreeCount = _report?.partlyFree ?? '–';
+  const notFreeCount = _report?.notFree ?? '–';
+  const ofStates = i18n.t('detail.freedom.ofStates');
 
   const tileData = [
     {
       label: i18n.t('detail.freedom.tileFree'),
       value: String(freeCount),
-      unit: i18n.t('detail.freedom.heroUnit'),
+      unit: ofStates,
       accent: 'var(--status-good)',
     },
     {
       label: i18n.t('detail.freedom.tilePartly'),
       value: String(partlyFreeCount),
-      unit: i18n.t('detail.freedom.heroUnit'),
+      unit: ofStates,
       accent: 'var(--status-warning)',
     },
     {
       label: i18n.t('detail.freedom.tileNotFree'),
       value: String(notFreeCount),
-      unit: i18n.t('detail.freedom.heroUnit'),
+      unit: ofStates,
       accent: 'var(--status-critical)',
     },
     {
@@ -398,6 +398,14 @@ function _renderSources(srcEl) {
       label: 'Freedom House',
       url: 'https://freedomhouse.org/countries/freedom-world/scores',
     },
+    {
+      label: 'Freedom House – Freedom in the World 2026',
+      url: 'https://freedomhouse.org/report/freedom-world/2026/growing-shadow-autocracy',
+    },
+    {
+      label: 'Our World in Data – Freedom House',
+      url: 'https://ourworldindata.org/grapher/free-countries-fh',
+    },
   ];
 
   const sourceItems = sources.map(({ label, url }) =>
@@ -449,5 +457,6 @@ export function cleanup() {
   }
 
   _chartData = null;
+  _report = null;
   console.log('[Freedom] cleanup()');
 }
