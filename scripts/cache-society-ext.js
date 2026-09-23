@@ -324,7 +324,14 @@ async function fetchRefugees() {
     // API nicht führt) — daher etwas niedriger als die Global-Trends-Zahl.
     const total = refugees + asylumSeekers + idps + oip;
     console.log(`  Refugees: ${year} total ${(total / 1e6).toFixed(1)}M`);
+    let bilateral = {};
+    try {
+      bilateral = await fetchRefugeeFlows(year);
+    } catch (err) {
+      console.warn(`  WARN refugee flows: ${err.message}`);
+    }
     return {
+      ...bilateral,
       year,
       total,
       refugees,
@@ -338,6 +345,44 @@ async function fetchRefugees() {
     };
   }
   throw new Error('UNHCR returned no data for the last 4 years');
+}
+
+// Herkunft → Aufnahmeland (Flüchtlinge + Asylsuchende + weitere Schutz-
+// bedürftige „oip“, z. B. Venezolaner in Kolumbien). Binnenvertriebene
+// zählen nicht als grenzüberschreitende Bewegung. ISO2 für Karte + Namen.
+async function fetchRefugeeFlows(year) {
+  const [pairs, hosts, countries, wbCountries] = await Promise.all([
+    fetchJSON(`https://api.unhcr.org/population/v1/population/?year=${year}&coo_all=true&coa_all=true&limit=10000`, { timeout: 30000, retries: 1 }),
+    fetchJSON(`https://api.unhcr.org/population/v1/population/?year=${year}&coa_all=true&limit=400`, { timeout: 20000, retries: 1 }),
+    fetchJSON('https://api.unhcr.org/population/v1/countries/?limit=400', { timeout: 20000, retries: 1 }),
+    // Hauptstadt-Koordinaten für die Kartenbögen (World Bank Länderliste)
+    fetchJSON('https://api.worldbank.org/v2/country?format=json&per_page=400', { timeout: 20000, retries: 1 }).catch(() => null),
+  ]);
+  const capital = Object.fromEntries((wbCountries?.[1] || [])
+    .filter(c => c.latitude && c.longitude)
+    .map(c => [c.iso2Code, [Number(c.latitude), Number(c.longitude)]]));
+  const iso2 = Object.fromEntries((countries?.items || []).map(c => [c.iso, c.iso2]));
+  const num = (v) => (Number.isFinite(Number(v)) ? Number(v) : 0);
+  const known = (iso) => iso && iso !== '-' && iso !== 'UNK' && iso2[iso];
+  const moves = (pairs?.items || [])
+    .filter(it => it.coo_iso !== it.coa_iso && known(it.coo_iso) && known(it.coa_iso))
+    .map(it => ({
+      from: it.coo_name.trim(), fromIso2: iso2[it.coo_iso],
+      to: it.coa_name.trim(), toIso2: iso2[it.coa_iso],
+      count: num(it.refugees) + num(it.asylum_seekers) + num(it.oip),
+    }))
+    .filter(f => f.count > 0);
+  if (moves.length < 20) throw new Error(`nur ${moves.length} Paare`);
+  // Aufnahmeländer: UNHCR-Summe je Land (inkl. unbekannter Herkunft)
+  const hostList = (hosts?.items || [])
+    .filter(it => known(it.coa_iso))
+    .map(it => ({ name: it.coa_name.trim(), iso2: iso2[it.coa_iso], count: num(it.refugees) + num(it.asylum_seekers) + num(it.oip) }));
+  const crossBorder = hostList.reduce((s, h) => s + h.count, 0);
+  const flows = [...moves].sort((a, b) => b.count - a.count).slice(0, 10)
+    .map(f => ({ ...f, fromLatLng: capital[f.fromIso2] || null, toLatLng: capital[f.toIso2] || null }));
+  const top_hosts = hostList.sort((a, b) => b.count - a.count).slice(0, 5);
+  console.log(`  Refugee flows: ${moves.length} Paare, größter ${flows[0].from} → ${flows[0].to}`);
+  return { flows, top_hosts, cross_border_total: crossBorder };
 }
 
 // ─── Main ───

@@ -752,7 +752,13 @@ function buildWorldState() {
         displaced: rc.idps,
         asylumseekers: rc.asylum_seekers,
         refugees: rc.refugees,
-        flows: refugeesFallback.flows || [],
+        otherInNeed: rc.other_in_need ?? null,
+        // Ströme/Aufnahmeländer aus UNHCR (Herkunft → Aufnahmeland); ohne
+        // Live-Paare bleibt der letzte Stand, markiert über flowsFallback
+        flows: rc.flows?.length ? rc.flows : (refugeesFallback.flows || []),
+        flowsFallback: !rc.flows?.length,
+        topHosts: rc.top_hosts || refugeesFallback.topHosts || [],
+        crossBorderTotal: rc.cross_border_total ?? refugeesFallback.crossBorderTotal ?? null,
         source: rc.source || 'UNHCR',
         dataYear: rc.year,
         isFallback: false,
