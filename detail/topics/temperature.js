@@ -13,6 +13,7 @@ import { fetchTopicData, fetchWithTimeout } from '../../js/utils/data-loader.js'
 import { createTierBadge } from '../../js/utils/badge.js';
 import { ensureChartJs, createChart, CHART_COLORS, toRgba } from '../../js/utils/chart-manager.js';
 import { renderChoropleth } from '../utils/choropleth.js';
+import { fmtNumber } from '../../js/utils/fmt.js';
 
 // --- Meta (DETAIL-03 contract) ----------------------------------------
 
@@ -621,7 +622,7 @@ function _renderExplanation(explEl) {
 async function _renderChoropleth(compEl) {
   const { wrapper, cleanup: mapCleanup } = await renderChoropleth(compEl, {
     dataMap: REGIONAL_WARMING,
-    colorFn: (value) => MathUtils.tempToColor(value),
+    colorFn: (value) => _warmingColor(value),
     tooltipFn: (iso, value) => {
       const name = ISO_NAMES[iso] || iso;
       const sign = value >= 0 ? '+' : '';
@@ -644,56 +645,31 @@ async function _renderChoropleth(compEl) {
   );
 }
 
+// Quantil-Klassen: jede Klasse enthält etwa gleich viele Länder. Die alte
+// Skala reichte bis +1,0 °C — alle Länder (0,8–3,0 °C) waren dunkelrot.
+const WARMING_COLORS = ['#fee5d9', '#fcae91', '#fb6a4a', '#de2d26', '#a50f15'];
+const WARMING_BREAKS = (() => {
+  const v = Object.values(REGIONAL_WARMING).sort((a, b) => a - b);
+  return [0.2, 0.4, 0.6, 0.8].map(q => v[Math.floor(q * (v.length - 1))]);
+})();
+
+function _warmingColor(value) {
+  const i = WARMING_BREAKS.findIndex(b => value <= b);
+  return WARMING_COLORS[i === -1 ? WARMING_COLORS.length - 1 : i];
+}
+
 function _renderColorLegend(container) {
-  // Gradient bar from blue (-0.5) to red (+3.0)
-  const steps = 20;
-  const minVal = -0.5;
-  const maxVal = 3.0;
-
-  const gradientCells = [];
-  for (let i = 0; i < steps; i++) {
-    const val = minVal + (maxVal - minVal) * (i / (steps - 1));
-    gradientCells.push(
-      DOMUtils.create('div', {
-        style: {
-          flex: '1',
-          height: '14px',
-          background: MathUtils.tempToColor(val),
-        },
-      })
-    );
-  }
-
-  const gradientBar = DOMUtils.create('div', {
-    style: {
-      display: 'flex',
-      borderRadius: '4px',
-      overflow: 'hidden',
-      border: '1px solid rgba(255,255,255,0.06)',
-    },
-  }, gradientCells);
-
-  const labels = DOMUtils.create('div', {
-    style: {
-      display: 'flex',
-      justifyContent: 'space-between',
-      fontSize: '0.7rem',
-      color: 'var(--text-secondary)',
-      marginTop: '2px',
-      opacity: '0.7',
-    },
+  const vals = Object.values(REGIONAL_WARMING);
+  const bounds = [Math.min(...vals), ...WARMING_BREAKS, Math.max(...vals)];
+  const items = WARMING_COLORS.map((color, i) => DOMUtils.create('div', {
+    style: { display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.75rem', color: 'var(--text-2)' },
   }, [
-    DOMUtils.create('span', { textContent: '-0.5\u00B0C' }),
-    DOMUtils.create('span', { textContent: '0\u00B0C' }),
-    DOMUtils.create('span', { textContent: '+1.5\u00B0C' }),
-    DOMUtils.create('span', { textContent: '+3.0\u00B0C' }),
-  ]);
-
-  container.appendChild(
-    DOMUtils.create('div', {
-      style: { marginTop: 'var(--space-xs)', maxWidth: '400px' },
-    }, [gradientBar, labels])
-  );
+    DOMUtils.create('span', { style: { width: '14px', height: '14px', borderRadius: '3px', background: color, flex: 'none' } }),
+    `${fmtNumber(bounds[i], { decimals: 1 })}–${fmtNumber(bounds[i + 1], { decimals: 1 })} °C`,
+  ]));
+  container.appendChild(DOMUtils.create('div', {
+    style: { display: 'flex', flexWrap: 'wrap', gap: '8px 16px', justifyContent: 'center', marginTop: 'var(--space-xs)' },
+  }, items));
 }
 
 // --- Sources Block -------------------------------------------------------
