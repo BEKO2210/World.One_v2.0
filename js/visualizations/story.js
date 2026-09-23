@@ -111,7 +111,7 @@ function bindSteps(root) {
     entries.forEach(e => {
       if (e.isIntersecting) activate(Number(e.target.closest('.story__step').dataset.step));
     });
-  }, { rootMargin: '-45% 0px -45% 0px' });
+  }, { rootMargin: '-74% 0px -25% 0px' }); // Linie bei 75 %: Wechsel, sobald die Karte auftaucht
   steps.forEach(s => observer.observe(s.querySelector('.story__card') || s));
   _observers.set(root, observer);
 }
