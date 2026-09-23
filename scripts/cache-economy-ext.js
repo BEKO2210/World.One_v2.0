@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /* ═══════════════════════════════════════════════════════════════
    World.One — Economy Extended Cache Generator
-   Fetches currency exchange rates, Gini inequality, and poverty data
+   Fetches currency exchange rates, Gini inequality, WID wealth shares and poverty data
    Output: data/cache/currencies.json, inequality.json, poverty.json
    ═══════════════════════════════════════════════════════════════ */
 
-import { fetchJSON, extractWorldBankEntries, saveCache } from './cache-utils.js';
+import { fetchJSON, fetchText, extractWorldBankEntries, saveCache } from './cache-utils.js';
 
 const MAJOR_CURRENCIES = ['EUR', 'GBP', 'JPY', 'CNY', 'INR', 'BRL', 'RUB', 'KRW', 'CHF', 'AUD', 'CAD', 'MXN'];
 const TOP10_COUNTRIES = 'USA;CHN;IND;BRA;DEU;GBR;ZAF;NGA;RUS;JPN';
@@ -119,6 +119,33 @@ async function fetchInequality() {
   return { world_trend, country_latest };
 }
 
+// ─── Vermögens-/Einkommensanteile (World Inequality Database via OWID) ───
+// Weltreihen: Vermögensanteil der reichsten 1 % und 10 %, Einkommensanteil
+// (vor Steuern) der reichsten 1 %. WID liefert keine offene API; OWID
+// veröffentlicht dieselben Reihen als CSV.
+const WID_SERIES = {
+  wealthTop1: 'https://ourworldindata.org/grapher/wealth-share-richest.csv?useColumnShortNames=true&quantile=richest_1pct',
+  wealthTop10: 'https://ourworldindata.org/grapher/wealth-share-richest.csv?useColumnShortNames=true&quantile=richest_10pct',
+  incomeTop1: 'https://ourworldindata.org/grapher/income-share-top-1-before-tax-wid.csv?useColumnShortNames=true',
+};
+
+async function fetchWealthShares() {
+  console.log('  Fetching wealth/income shares (WID via OWID)...');
+  const out = { source: 'World Inequality Database (WID.world) via Our World in Data' };
+  for (const [key, url] of Object.entries(WID_SERIES)) {
+    const csv = await fetchText(url);
+    const history = csv.split('\n')
+      .filter(l => l.startsWith('World,OWID_WRL,'))
+      .map(l => { const [, , year, value] = l.split(','); return { year: Number(year), value: Math.round(Number(value) * 10) / 10 }; })
+      .filter(e => e.year >= 1995 && Number.isFinite(e.value))
+      .sort((a, b) => a.year - b.year);
+    if (!history.length) throw new Error(`WID ${key}: keine World-Zeilen`);
+    out[key] = history;
+    console.log(`  WID ${key}: ${history.length} Jahre, ${history.at(-1).year} = ${history.at(-1).value} %`);
+  }
+  return out;
+}
+
 // ─── Poverty Headcount (World Bank PIP, $3.00/Tag, 2021 PPP) ───
 // Seit Juni 2025 gilt $3.00 als internationale Armutsgrenze; die alte
 // WDI-Reihe SI.POV.DDAY ($2.15) ist überholt. PIP liefert Welt und Regionen.
@@ -171,6 +198,11 @@ async function main() {
   // Inequality
   try {
     const ineqData = await fetchInequality();
+    try {
+      ineqData.wid = await fetchWealthShares();
+    } catch (err) {
+      console.warn(`  WARN wealth shares: ${err.message}`);
+    }
     saveCache('inequality.json', ineqData);
     filesWritten++;
   } catch (err) {

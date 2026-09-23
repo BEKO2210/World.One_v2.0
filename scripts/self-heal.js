@@ -178,8 +178,7 @@ function main() {
   ensureField(data, 'society.lifeExpectancy.global', 73.4, 'Life expectancy');
   ensureField(data, 'society.lifeExpectancy.history', [], 'Life exp history');
 
-  ensureField(data, 'economy.wealth.top1Percent', 45.8, 'Top 1%');
-  ensureField(data, 'economy.wealth.bottom50Percent', 2.1, 'Bottom 50%');
+  ensureField(data, 'economy.wealth.top1Percent', 36.4, 'Top 1%');   // WID 2024
   ensureField(data, 'economy.gdpGrowth.global', 3.1, 'GDP growth');
   ensureField(data, 'economy.gdpGrowth.regions', [], 'GDP regions');
   ensureField(data, 'economy.gini.history', [], 'Gini history');
