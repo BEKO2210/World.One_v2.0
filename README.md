@@ -12,16 +12,16 @@
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 23.09.2026 02:52 UTC
+> **Letzte Aktualisierung:** 23.09.2026 03:47 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟡 Umwelt | **42.5**/100 | → -0.1 | 25% |
-| 🟡 Gesellschaft | **55.8**/100 | → +0.1 | 25% |
+| 🟡 Umwelt | **42.5**/100 | → +0 | 25% |
+| 🟡 Gesellschaft | **55.8**/100 | → +0 | 25% |
 | 🟢 Wirtschaft | **74.1**/100 | → +0 | 20% |
-| 🟢 Fortschritt | **78.1**/100 | → +0 | 20% |
+| 🟢 Fortschritt | **77.8**/100 | ↓ -0.3 | 20% |
 | 🔵 Momentum | **81**/100 | → +0 | 10% |
 
 ---
@@ -34,7 +34,7 @@
 | Temperaturanomalie | **+1.19°C** | NASA GISTEMP |
 | CO2-Konzentration | **428 ppm** | NOAA |
 | Arktis-Eisfläche | **4.75 Mio km²** (38.1% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **71** | WAQI |
+| Luftqualität (Ø) | AQI **66** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -50,7 +50,7 @@
 | BIP-Wachstum | **2.92%** | IMF |
 | Gini-Index | **42** | World Bank |
 | Extreme Armut | **824.3 Mio** | World Bank |
-| Milliardäre | **3.4K** (45.8% Vermögen) | Oxfam |
+| Milliardäre | **3.4K** (36.4% Vermögen) | Forbes 2026 / WID |
 
 ### 🚀 Fortschritt
 | Indikator | Wert | Quelle |
@@ -64,7 +64,7 @@
 | Indikator | Wert | Quelle |
 |-----------|------|--------|
 | Erdbeben (24h) | **8** Beben M2.5+ | USGS |
-| Nachrichten-Sentiment | **-0.36** (—) | GDELT |
+| Nachrichten-Sentiment | **-0.35** (—) | GDELT |
 | Crypto Fear & Greed | **71/100** (Greed) | Alternative.me |
 
 ---
@@ -255,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 23.09.2026 02:52 UTC | 64/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 23.09.2026 03:47 UTC | 63/65 Quellen aktiv
 </sub>
