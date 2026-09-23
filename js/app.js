@@ -377,6 +377,14 @@ class BelkisOne {
       return arr.find(i => (i.name || '').toLowerCase().includes(nameContains.toLowerCase())) || null;
     };
 
+    // ─── Momentum-Zusammenfassung (sonst liefen die Platzhalter 16/20) ───
+    const momInd = data.momentum?.indicators || [];
+    const momEls = document.querySelectorAll('#momentum-summary [data-counter]');
+    if (momInd.length && momEls.length === 2) {
+      momEls[0].dataset.target = String(momInd.filter(i => i.direction === 'improving').length);
+      momEls[1].dataset.target = String(momInd.length);
+    }
+
     // ─── Epilog: World Index (HTML-Platzhalter sonst bereits animiert) ───
     const epilogEl = document.querySelector('.epilog__value');
     if (epilogEl && Number.isFinite(Number(data.worldIndex?.value))) {
@@ -445,7 +453,8 @@ class BelkisOne {
       popBillion:       num(pop / 1e9, 1),
       billionaireWealthT: num(w.billionaireWealth / 1e12, 1),
       billionairesYear: w.billionairesYear ?? '–',
-      povertyYear:      w.extremePovertyYear ?? '–'
+      povertyYear:      w.extremePovertyYear ?? '–',
+      sourcesCount:     Array.isArray(data?.dataSources) ? data.dataSources.length : '–'
     });
   }
 
@@ -855,7 +864,7 @@ class BelkisOne {
     const meta = data.meta;
     if (!meta) return;
     this._setText('#sources-total', meta.sources_count || '–');
-    this._setText('#sources-success', Math.min(meta.sources_available, meta.sources_count) || '22');
+    this._setText('#sources-success', Math.min(meta.sources_available, meta.sources_count) || '–');
     if (meta.sources_available && meta.sources_count) {
       const rate = Math.min(100, Math.round((meta.sources_available / meta.sources_count) * 100));
       this._setText('#sources-rate', `${rate}%`);
@@ -1026,7 +1035,7 @@ class BelkisOne {
     const eqList = document.getElementById('earthquake-list');
     if (eqList && rt.earthquakes?.last24h) {
       eqList.innerHTML = '';
-      rt.earthquakes.last24h.slice(0, 8).forEach(eq => {
+      rt.earthquakes.last24h.slice(0, 5).forEach(eq => {
         const mag = Number(eq.magnitude) || 0;
         const color = mag >= 5 ? 'var(--status-critical)' : mag >= 4 ? 'var(--status-warning)' : 'var(--text-3)';
         const li = DOMUtils.create('li', {
@@ -1118,7 +1127,9 @@ class BelkisOne {
       const momList = document.getElementById('momentum-list');
       if (momList) {
         momList.innerHTML = '';
-        mom.indicators.forEach((ind, i) => {
+        // Startseite zeigt 8 Trends; alle 21 auf der Momentum-Detailseite
+        const MAX_MAIN = 8;
+        mom.indicators.slice(0, MAX_MAIN).forEach((ind, i) => {
           const isUp = ind.direction === 'improving';
           const item = DOMUtils.create('div', {
             className: 'momentum-item reveal swoosh-right',
@@ -1139,6 +1150,13 @@ class BelkisOne {
           }
           momList.appendChild(item);
         });
+        if (mom.indicators.length > MAX_MAIN) {
+          momList.appendChild(DOMUtils.create('a', {
+            className: 'momentum-more',
+            href: 'detail/?topic=momentum_detail',
+            textContent: i18n.t('act8.showAll', { n: mom.indicators.length }),
+          }));
+        }
         this.scrollEngine.observeReveals(momList);
       }
 
