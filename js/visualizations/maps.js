@@ -6,6 +6,7 @@ import { MathUtils } from '../utils/math.js';
 import { DOMUtils } from '../utils/dom.js';
 import { i18n } from '../i18n.js';
 import { cssVar } from '../utils/chart-manager.js';
+import { projectWorld } from '../utils/geo.js';
 
 // ─── Country data for SVG coloring ───
 // Climate risk: higher = more at risk (based on ND-GAIN vulnerability index approximation)
@@ -136,6 +137,7 @@ export class Maps {
 
   // ─── Clear overlays (points, flows, legends, tooltips) ───
   static _clearOverlays(container) {
+    container.querySelector('.conflict-circles')?.remove();
     const overlay = container.querySelector('.map-overlay');
     if (overlay) overlay.innerHTML = '';
     const flowSvg = container.querySelector('.flow-svg');
@@ -292,36 +294,47 @@ export class Maps {
       });
     }
 
-    // Color all SVG country paths
+    // Länder neutral; Konflikte als proportionale Kreise an ihrem Ort.
+    // Früher wurden ganze Länder eingefärbt — große Flächen (Russland)
+    // dominierten, kleine Kriegsgebiete (Gaza, Libanon) verschwanden.
     const svg = container.querySelector('.map-svg-wrapper svg');
     if (svg) {
       svg.style.opacity = '1';
       svg.querySelectorAll('path').forEach(p => {
-        const iso = Maps._getISO(p);
-        const intensity = iso ? CONFLICT_COUNTRIES[iso] : undefined;
         p.style.transition = 'fill 0.8s ease, opacity 0.8s ease';
-
-        if (intensity !== undefined) {
-          // War = bright red, conflict = orange-red, unrest = dark orange
-          if (intensity >= 0.7) {
-            p.style.fill = '#a50f15';
-            p.style.opacity = '1';
-            p.classList.add('map-country--war');
-          } else if (intensity >= 0.5) {
-            p.style.fill = '#cb181d';
-            p.style.opacity = '0.95';
-            p.classList.add('map-country--conflict');
-          } else {
-            p.style.fill = '#fb6a4a';
-            p.style.opacity = '0.85';
-            p.classList.add('map-country--unrest');
-          }
-        } else {
-          p.style.fill = 'var(--surface-3)';
-          p.style.opacity = '0.3';
-          p.classList.remove('map-country--war', 'map-country--conflict', 'map-country--unrest');
-        }
+        p.style.fill = 'var(--surface-3)';
+        p.style.opacity = '1';
+        p.classList.remove('map-country--war', 'map-country--conflict', 'map-country--unrest');
       });
+
+      svg.querySelector('.conflict-circles')?.remove();
+      const vb = svg.viewBox?.baseVal;
+      const W = vb?.width || 1000;
+      const H = vb?.height || 500;
+      const maxR = W * 0.02;
+      const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.setAttribute('class', 'conflict-circles');
+      const typeColor = { war: '#a50f15', conflict: '#cb181d', unrest: '#fb6a4a' };
+      // größte zuerst, damit kleine Kreise obenauf liegen
+      [...locations]
+        .filter(c => Number.isFinite(c.lat) && Number.isFinite(c.lng))
+        .sort((a, b) => (b.intensity || 0) - (a.intensity || 0))
+        .forEach(c => {
+          const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          const pos = projectWorld(c.lat, c.lng, W, H);
+          circle.setAttribute('cx', pos.x.toFixed(1));
+          circle.setAttribute('cy', pos.y.toFixed(1));
+          circle.setAttribute('r', (maxR * Math.sqrt(Math.max(0.05, c.intensity || 0.3))).toFixed(1));
+          circle.setAttribute('fill', typeColor[c.type] || typeColor.unrest);
+          circle.setAttribute('fill-opacity', '0.85');
+          circle.style.stroke = 'var(--surface-1)';
+          circle.style.strokeWidth = String(W * 0.002);
+          const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+          title.textContent = c.name;
+          circle.appendChild(title);
+          g.appendChild(circle);
+        });
+      svg.appendChild(g);
     }
 
     // Tooltip data for conflict countries (shown on click)
