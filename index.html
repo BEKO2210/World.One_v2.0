@@ -569,11 +569,22 @@
         </div>
       </div>
 
-      <!-- Inequality -->
-      <div class="reveal" style="margin-top:var(--space-xl)">
+      <!-- Scrollytelling: Vermögen in drei Schritten (js/visualizations/story.js) -->
+      <div style="margin-top:var(--space-xl)">
         <h3 class="text-sub" data-i18n="act4.wealthTitle">Globale Vermögensverteilung</h3>
-        <p class="text-label text-muted" style="margin-bottom:var(--space-sm)" data-i18n="act4.wealthDesc">Das reichste 1% besitzt mehr als die untere Hälfte der Menschheit zusammen.</p>
-        <div id="inequality-bar" class="inequality-bar"></div>
+        <p class="text-label text-muted" data-i18n="act4.wealthDesc">Anteile am Weltvermögen nach Gruppen, 1995 bis heute.</p>
+      </div>
+      <div class="story" id="wealth-story">
+        <div class="story__graphic" aria-hidden="true">
+          <div class="story__layer"></div>
+          <div class="story__layer"></div>
+          <div class="story__layer"></div>
+        </div>
+        <div class="story__steps">
+          <div class="story__step" data-step="0"><div class="story__card"><h3 class="story__title" data-i18n="story.wealth.title1">Das reichste 1 %</h3><p data-story-text="0"></p></div></div>
+          <div class="story__step" data-step="1"><div class="story__card"><h3 class="story__title" data-i18n="story.wealth.title2">Menschen und Vermögen</h3><p data-story-text="1"></p></div></div>
+          <div class="story__step" data-step="2"><div class="story__card"><h3 class="story__title" data-i18n="story.wealth.title3">Einkommen gegen Vermögen</h3><p data-story-text="2"></p></div></div>
+        </div>
       </div>
 
       <!-- Economy Stats -->

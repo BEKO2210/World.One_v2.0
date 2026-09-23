@@ -146,7 +146,7 @@ ${['environment|Umwelt|25', 'society|Gesellschaft|25', 'economy|Wirtschaft|20', 
 | BIP-Wachstum | **${safe(eco.gdpGrowth?.global)}%** | IMF |
 | Gini-Index | **${safe(eco.gini?.globalAvg)}** | World Bank |
 | Extreme Armut | **${eco.wealth?.extremePoverty ? formatCompact(eco.wealth.extremePoverty) : '—'}** | World Bank |
-| Milliardäre | **${eco.wealth?.billionaires ? formatCompact(eco.wealth.billionaires) : '—'}** (${safe(eco.wealth?.top1Percent)}% Vermögen) | Oxfam |
+| Milliardäre | **${eco.wealth?.billionaires ? formatCompact(eco.wealth.billionaires) : '—'}** (${safe(eco.wealth?.top1Percent)}% Vermögen) | Forbes 2026 / WID |
 
 ### 🚀 Fortschritt
 | Indikator | Wert | Quelle |

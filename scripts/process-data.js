@@ -838,6 +838,11 @@ function buildWorldState() {
         source: povertyCache.data.source || 'World Bank PIP', isFallback: false }
     : { pct: null, people: existing?.economy?.wealth?.extremePoverty ?? null, year: null, first: null,
         source: 'World Bank PIP (letzter Stand)', isFallback: true };
+  // Vermögens-/Einkommensanteile: World Inequality Database (inequality.json → wid)
+  const wid = readCache('inequality.json')?.wid;
+  const widTop1 = wid?.wealthTop1?.at(-1) || null;
+  const prevWealth = existing?.economy?.wealth?.wealthShareYear ? existing.economy.wealth : null;
+
   const fredSource = fredCache?.data?.series?.UNRATE?.label
     ? 'FRED (St. Louis Fed)'
     : null;
@@ -1373,12 +1378,19 @@ function buildWorldState() {
 
     economy: {
       // Forbes hat keine API: Jahresliste, statisch gepflegt (Forbes, 10.03.2026).
-      // Vermögensanteile: World Inequality Database, statisch.
+      // Vermögensanteile: World Inequality Database (jährlich, via OWID).
+      // bottom50Percent hatte keine belegbare Quelle (2,1 vs. 1,3 %) → null.
       wealth: {
         billionaires: 3428, billionaireWealth: 20100000000000,
         billionairesYear: 2026, billionairesSource: "Forbes World's Billionaires 2026",
-        top1Percent: existing?.economy?.wealth?.top1Percent ?? 45.8,
-        bottom50Percent: existing?.economy?.wealth?.bottom50Percent ?? 2.1,
+        top1Percent: widTop1?.value ?? prevWealth?.top1Percent ?? null,
+        top10Percent: wid?.wealthTop10?.at(-1)?.value ?? prevWealth?.top10Percent ?? null,
+        incomeTop1Percent: wid?.incomeTop1?.at(-1)?.value ?? prevWealth?.incomeTop1Percent ?? null,
+        wealthShareYear: widTop1?.year ?? prevWealth?.wealthShareYear ?? null,
+        wealthShareSource: wid?.source ?? prevWealth?.wealthShareSource ?? null,
+        wealthShares: wid ? { wealthTop1: wid.wealthTop1, wealthTop10: wid.wealthTop10, incomeTop1: wid.incomeTop1 }
+          : prevWealth?.wealthShares ?? null,
+        bottom50Percent: null,
         source: 'Forbes / World Bank PIP',
         isStatic: true,
         extremePoverty: poverty.people,

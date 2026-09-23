@@ -201,16 +201,6 @@ export class CinematicScroll {
         break;
       }
 
-      case 'akt-economy': {
-        // Economy: Inequality bar dramatic reveal
-        const bar = section.querySelector('.inequality-bar');
-        if (bar) {
-          const clipProgress = MathUtils.clamp(normalized * 1.5, 0, 1);
-          bar.style.clipPath = `inset(0 ${(1 - clipProgress) * 100}% 0 0)`;
-        }
-        break;
-      }
-
       case 'akt-scenarios': {
         // Scenarios: Stagger cards with 3D perspective
         const cards = section.querySelectorAll('.scenario');
