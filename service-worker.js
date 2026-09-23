@@ -131,7 +131,27 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Assets: stale-while-revalidate
+  // Code (HTML, JS, CSS, i18n): network-first. Mit stale-while-revalidate
+  // bekam ein Handy nach einem Deploy neues HTML mit altem/teilweise
+  // aktualisiertem JS — Story-Markup ohne passenden Code, leere Karten.
+  // Dateinamen tragen keinen Hash, also muss der Code gemeinsam frisch sein.
+  const isCode = event.request.mode === 'navigate' || url.pathname.endsWith('/')
+    || /\.(html|js|mjs|css|json)$/.test(url.pathname);
+  if (isCode) {
+    event.respondWith((async () => {
+      const cache = await caches.open(CACHE_NAME);
+      try {
+        const response = await fetch(event.request);
+        if (response.ok) cache.put(event.request, response.clone());
+        return response;
+      } catch {
+        return (await cache.match(event.request)) || (await caches.match(event.request)) || offline();
+      }
+    })());
+    return;
+  }
+
+  // Übrige Assets (Bilder, Schriften, Karte): stale-while-revalidate
   // Serve cached version instantly, then fetch fresh version in background
   event.respondWith(
     caches.open(CACHE_NAME).then(cache =>
