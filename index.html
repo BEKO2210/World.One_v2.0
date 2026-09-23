@@ -492,7 +492,21 @@
         <div class="refugee-counter__number" id="refugee-counter-value" data-counter data-target="120000000" data-suffix="compact">0</div>
         <div class="refugee-counter__label" data-i18n="act3.refugeeLabel">Menschen auf der Flucht weltweit</div>
         <div class="refugee-counter__breakdown" id="refugee-breakdown"></div>
-        <p class="text-micro text-muted" style="margin-top:var(--space-xs)" data-i18n="act3.refugeeSource">Quelle: UNHCR 2026 — Mehr als je zuvor in der Geschichte</p>
+        <p class="text-micro text-muted" style="margin-top:var(--space-xs)" data-i18n="act3.refugeeSource">Quelle: UNHCR Refugee Data Finder</p>
+      </div>
+
+      <!-- Scrollytelling: Flucht in drei Schritten (js/visualizations/story.js) -->
+      <div class="story" id="refugee-story">
+        <div class="story__graphic" aria-hidden="true">
+          <div class="story__layer"></div>
+          <div class="story__layer"></div>
+          <div class="story__layer"></div>
+        </div>
+        <div class="story__steps">
+          <div class="story__step" data-step="0"><div class="story__card"><h3 class="story__title" data-i18n="story.refugees.title1">Wer flieht</h3><p data-story-text="0"></p></div></div>
+          <div class="story__step" data-step="1"><div class="story__card"><h3 class="story__title" data-i18n="story.refugees.title2">Die größten Ströme</h3><p data-story-text="1"></p></div></div>
+          <div class="story__step" data-step="2"><div class="story__card"><h3 class="story__title" data-i18n="story.refugees.title3">Wer aufnimmt</h3><p data-story-text="2"></p></div></div>
+        </div>
       </div>
 
       <!-- Freedom -->
