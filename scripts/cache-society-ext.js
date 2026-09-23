@@ -34,7 +34,24 @@ async function fetchPopulation() {
 const OWID_FH = {
   status: 'https://ourworldindata.org/grapher/free-countries-fh.csv?useColumnShortNames=true',
   people: 'https://ourworldindata.org/grapher/people-living-in-free-countries-fh.csv?useColumnShortNames=true',
+  regime: 'https://ourworldindata.org/grapher/political-regime-fh.csv?useColumnShortNames=true',   // 0 nicht frei, 1 teilweise, 2 frei
+  score: 'https://ourworldindata.org/grapher/freedom-score-fh.csv?useColumnShortNames=true',       // Gesamtpunktzahl 0–100
 };
+
+// Neuestes Jahr je Land: ISO3 → { year, [col]: Zahl }
+function latestByCountry(csv, col) {
+  const [header, ...lines] = csv.trim().split('\n');
+  const cols = header.split(',');
+  const iCode = cols.indexOf('code'), iYear = cols.indexOf('year'), iVal = cols.indexOf(col);
+  const out = {};
+  for (const l of lines) {
+    const f = l.split(',');
+    const code = f[iCode], year = Number(f[iYear]), val = Number(f[iVal]);
+    if (!/^[A-Z]{3}$/.test(code) || !Number.isFinite(val) || f[iVal] === '') continue;
+    if (!out[code] || out[code].year < year) out[code] = { year, value: val };
+  }
+  return out;
+}
 
 function worldRows(csv) {
   const [header, ...lines] = csv.trim().split('\n');
@@ -46,7 +63,10 @@ function worldRows(csv) {
 
 async function getFreedomData() {
   console.log('  Fetching freedom data (Freedom House via OWID)...');
-  const [statusCsv, peopleCsv] = await Promise.all([fetchText(OWID_FH.status), fetchText(OWID_FH.people)]);
+  const [statusCsv, peopleCsv, regimeCsv, scoreCsv, wbCountries] = await Promise.all([
+    fetchText(OWID_FH.status), fetchText(OWID_FH.people), fetchText(OWID_FH.regime), fetchText(OWID_FH.score),
+    fetchJSON('https://api.worldbank.org/v2/country?format=json&per_page=400', { timeout: 20000, retries: 1 }),
+  ]);
 
   const status_trend = worldRows(statusCsv).map(r => ({
     year: Number(r.year),
@@ -61,8 +81,18 @@ async function getFreedomData() {
     return { year: Number(r.year), value: Math.round(Number(r.pop_regime__category_free) / total * 1000) / 10 };
   }).filter(r => Number.isFinite(r.value) && r.value > 0);
 
-  if (status_trend.length < 20 || pop_free_share.length < 20) {
-    throw new Error(`OWID Freedom House: zu wenige Jahre (${status_trend.length}/${pop_free_share.length})`);
+  // Status + Punktzahl je Land für die Karte (ISO2, Karte arbeitet mit ISO2)
+  const iso2 = Object.fromEntries((wbCountries?.[1] || []).map(c => [c.id, c.iso2Code]));
+  const regime = latestByCountry(regimeCsv, 'regime');
+  const score = latestByCountry(scoreCsv, 'total_score');
+  const countries = {};
+  for (const [iso3, r] of Object.entries(regime)) {
+    if (!iso2[iso3]) continue;
+    countries[iso2[iso3]] = { status: r.value, score: score[iso3]?.value ?? null, year: r.year };
+  }
+
+  if (status_trend.length < 20 || pop_free_share.length < 20 || Object.keys(countries).length < 150) {
+    throw new Error(`OWID Freedom House: zu wenig Daten (${status_trend.length}/${pop_free_share.length}/${Object.keys(countries).length})`);
   }
   const last = status_trend.at(-1);
   console.log(`  Freedom: ${status_trend[0].year}–${last.year}, ${last.year}: ${last.free}/${last.partlyFree}/${last.notFree}, Bevölkerung frei ${pop_free_share.at(-1).value} %`);
@@ -78,9 +108,11 @@ async function getFreedomData() {
     edition: 2026, dataYear: 2025, declineYears: 20,
     free: 88, partlyFree: 195 - 88 - 59, notFree: 59, declined: 54, improved: 35,
   };
+  console.log(`  Freedom: ${Object.keys(countries).length} Länder mit Status für die Karte`);
   return {
     status_trend,
     pop_free_share,
+    countries,
     report,
     source: 'Freedom House – Freedom in the World (via Our World in Data)',
     note: 'status_trend zählt Länder und Gebiete, report nur die 195 Staaten',

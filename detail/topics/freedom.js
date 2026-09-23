@@ -4,7 +4,7 @@
    Data: Freedom House status counts 1972+ and population share in free
          countries (freedom.json, via Our World in Data), FIW 2026 report
          figures (freedom.json → report),
-         Freedom House country scores (hardcoded ~60 countries),
+         Freedom House status + score per country (freedom.json → countries),
          SVG choropleth with 3-color classification (free/partly/not free)
    =================================================================== */
 
@@ -38,23 +38,9 @@ let _chartData = null;   // status_trend: Länder und Gebiete je Status und Jahr
 let _report = null;      // Kennzahlen aus dem Jahresbericht (195 Staaten)
 let _choroplethCleanup = null;
 
-// --- Freedom House Country Scores (ISO-2 -> 0-100, ~60 countries) ------
-// Source: Freedom House Freedom in the World 2025
-
-const FREEDOM_COUNTRY_SCORES = {
-  // Free (70-100)
-  FI: 100, NO: 100, SE: 100, DK: 97, NZ: 99, CA: 98, AU: 95, DE: 94,
-  UK: 93, FR: 90, JP: 96, KR: 83, US: 83, PT: 96, IE: 97, NL: 97,
-  CH: 96, AT: 93, BE: 96, ES: 90, IT: 90, CZ: 91, PL: 82, TW: 94,
-  CL: 93, UY: 97, CR: 91, GH: 80, SN: 71,
-  // Partly Free (35-69)
-  MX: 60, BR: 73, IN: 66, ID: 58, CO: 63, PH: 56, NG: 43, KE: 48,
-  UA: 50, GE: 58, HU: 66, TN: 36, BD: 39, PK: 37, TH: 36,
-  // Not Free (0-34)
-  CN: 9, RU: 13, SA: 7, EG: 18, IR: 12, TR: 32, VN: 19, MM: 9,
-  AF: 8, KP: 3, ER: 2, SY: 1, CU: 12, VE: 14, BY: 8, AZ: 7,
-  TJ: 8, TM: 2, LA: 12, KH: 24, ET: 20, SD: 4, TD: 11, CD: 16,
-};
+// Karte: Status + Punktzahl je Land aus freedom.json → countries (ISO-2),
+// Freedom House via Our World in Data. Früher ~60 feste Länder.
+let _countries = null;
 
 // --- Render ------------------------------------------------------------
 
@@ -68,6 +54,7 @@ export async function render(blocks) {
   // Freedom House via OWID: Status je Jahr + Bevölkerungsanteil in freien Ländern
   _chartData = data?.status_trend?.length ? data.status_trend : null;
   _report = data?.report || null;
+  _countries = data?.countries && Object.keys(data.countries).length ? data.countries : null;
   const popShare = data?.pop_free_share?.at(-1) || null;
 
   // --- 2. Hero Block ---
@@ -86,7 +73,7 @@ export async function render(blocks) {
   _renderExplanation(blocks.explanation);
 
   // --- 7. Comparison Block (Freedom Choropleth) ---
-  await _renderMap(blocks.comparison);
+  if (_countries) await _renderMap(blocks.comparison);
 
   // --- 8. Sources Block ---
   _renderSources(blocks.sources);
@@ -361,14 +348,20 @@ function _renderExplanation(explEl) {
 // --- Comparison Block (Freedom Choropleth) --------------------------------
 
 async function _renderMap(compEl) {
-  function colorFn(score) {
-    if (score >= 70) return 'var(--status-good)';   // Free (green)
-    if (score >= 35) return 'var(--status-warning)';   // Partly Free (yellow)
-    return 'var(--status-critical)';                     // Not Free (red)
+  // Farbe folgt dem offiziellen Status (nicht einer Punkt-Schwelle)
+  const STATUS_COLOR = ['var(--status-critical)', 'var(--status-warning)', 'var(--status-good)'];
+  const STATUS_LABEL = ['detail.freedom.notFree', 'detail.freedom.partlyFree', 'detail.freedom.free'];
+  let names = null;
+  try { names = new Intl.DisplayNames([i18n.lang], { type: 'region' }); } catch { /* Fallback: ISO-Code */ }
+
+  function colorFn(c) {
+    return STATUS_COLOR[c.status] || 'var(--surface-3)';
   }
 
-  function tooltipFn(iso, val) {
-    return `${iso}: ${val}/100`;
+  function tooltipFn(iso, c) {
+    const name = names?.of(iso) || iso;
+    const score = c.score != null ? ` · ${c.score}/100` : '';
+    return `${name}: ${i18n.t(STATUS_LABEL[c.status])}${score}`;
   }
 
   const legendItems = [
@@ -378,7 +371,7 @@ async function _renderMap(compEl) {
   ];
 
   const result = await renderChoropleth(compEl, {
-    dataMap: FREEDOM_COUNTRY_SCORES,
+    dataMap: _countries,
     colorFn,
     tooltipFn,
     legendItems,
@@ -458,5 +451,6 @@ export function cleanup() {
 
   _chartData = null;
   _report = null;
+  _countries = null;
   console.log('[Freedom] cleanup()');
 }
