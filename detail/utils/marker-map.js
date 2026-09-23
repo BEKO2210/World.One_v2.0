@@ -4,6 +4,7 @@
    =================================================================== */
 
 import { DOMUtils } from '../../js/utils/dom.js';
+import { projectWorld } from '../../js/utils/geo.js';
 
 /**
  * Create a world map with an SVG overlay for markers.
@@ -80,9 +81,8 @@ export async function createMarkerMap(options = {}) {
 
   // Geo coordinate to SVG coordinate mapper
   function geoToXY(lat, lng) {
-    const x = ((lng + 180) / 360) * svgWidth;
-    const y = ((90 - lat) / 180) * svgHeight;
-    return { x, y };
+    // world.svg ist Robinson-projiziert (js/utils/geo.js), nicht equirektangulär
+    return projectWorld(lat, lng, svgWidth, svgHeight);
   }
 
   return { wrapper, overlay, geoToXY, svgWidth, svgHeight };
