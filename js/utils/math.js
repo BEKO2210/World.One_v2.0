@@ -4,6 +4,7 @@
 
 import { i18n } from '../i18n.js';
 import { fmtNumber } from './fmt.js';
+import { cssVar } from './chart-manager.js';
 
 export const MathUtils = {
   // ─── Clamping ───
@@ -132,12 +133,13 @@ export const MathUtils = {
   },
 
   // ─── Get zone info from score ───
+  // Farbe = aufgelöster Status-Token des aktiven Themes (auch in SVG-Attributen nutzbar)
   getZone(score) {
-    if (score <= 20) return { label: i18n.t('act1.zone.critical'), zone: 'critical', color: '#ff3b30' };
-    if (score <= 40) return { label: i18n.t('act1.zone.concerning'), zone: 'concerning', color: '#ff9500' };
-    if (score <= 60) return { label: i18n.t('act1.zone.mixed'), zone: 'mixed', color: '#ffcc00' };
-    if (score <= 80) return { label: i18n.t('act1.zone.positive'), zone: 'positive', color: '#34c759' };
-    return { label: i18n.t('act1.zone.excellent'), zone: 'excellent', color: '#00d4ff' };
+    if (score <= 20) return { label: i18n.t('act1.zone.critical'), zone: 'critical', color: cssVar('--status-critical') };
+    if (score <= 40) return { label: i18n.t('act1.zone.concerning'), zone: 'concerning', color: cssVar('--status-serious') };
+    if (score <= 60) return { label: i18n.t('act1.zone.mixed'), zone: 'mixed', color: cssVar('--status-warning') };
+    if (score <= 80) return { label: i18n.t('act1.zone.positive'), zone: 'positive', color: cssVar('--status-good') };
+    return { label: i18n.t('act1.zone.excellent'), zone: 'excellent', color: cssVar('--accent') };
   },
 
   // ─── Get color for temperature anomaly ───

@@ -8,7 +8,7 @@ import { ParticleSystem } from './visualizations/particles.js';
 import { WorldIndicator } from './visualizations/world-indicator.js';
 import { Charts } from './visualizations/charts.js';
 import { Maps } from './visualizations/maps.js';
-import { Counter, CounterManager, Typewriter } from './visualizations/counters.js';
+import { Counter, CounterManager } from './visualizations/counters.js';
 import { CinematicScroll } from './visualizations/cinematic.js';
 import { MathUtils } from './utils/math.js';
 import { DOMUtils } from './utils/dom.js';
@@ -377,6 +377,14 @@ class BelkisOne {
       return arr.find(i => (i.name || '').toLowerCase().includes(nameContains.toLowerCase())) || null;
     };
 
+    // ─── Momentum-Zusammenfassung (sonst liefen die Platzhalter 16/20) ───
+    const momInd = data.momentum?.indicators || [];
+    const momEls = document.querySelectorAll('#momentum-summary [data-counter]');
+    if (momInd.length && momEls.length === 2) {
+      momEls[0].dataset.target = String(momInd.filter(i => i.direction === 'improving').length);
+      momEls[1].dataset.target = String(momInd.length);
+    }
+
     // ─── Epilog: World Index (HTML-Platzhalter sonst bereits animiert) ───
     const epilogEl = document.querySelector('.epilog__value');
     if (epilogEl && Number.isFinite(Number(data.worldIndex?.value))) {
@@ -445,18 +453,39 @@ class BelkisOne {
       popBillion:       num(pop / 1e9, 1),
       billionaireWealthT: num(w.billionaireWealth / 1e12, 1),
       billionairesYear: w.billionairesYear ?? '–',
-      povertyYear:      w.extremePovertyYear ?? '–'
+      povertyYear:      w.extremePovertyYear ?? '–',
+      sourcesCount:     Array.isArray(data?.dataSources) ? data.dataSources.length : '–'
     });
   }
 
   // ─── Prolog meta ───
+  // Hero: „66,4 von 100.“ + Einordnung + ehrliche Meta-Zeile
   _populateProlog(data) {
+    const wi = data.worldIndex;
+    if (Number.isFinite(wi?.value)) {
+      this._setText('#prolog-index', fmtNumber(wi.value, { decimals: 1 }));
+      const zone = MathUtils.getZone(wi.value);
+      const idx = document.getElementById('prolog-index');
+      if (idx) idx.style.color = zone.color;
+      const n = ['environment', 'society', 'economy', 'progress']
+        .reduce((sum, c) => sum + (data.subScores?.[c]?.indicators?.length || 0), 0);
+      const change = Number(wi.change);
+      const key = Number.isFinite(change) && change !== 0 ? 'prolog.lede' : 'prolog.ledeNoChange';
+      this._setText('#prolog-lede', i18n.t(key, {
+        n, zone: zone.label.charAt(0) + zone.label.slice(1).toLowerCase(),
+        change: fmtNumber(change, { decimals: 1, sign: true })
+      }));
+    }
     const meta = data.meta;
     if (!meta) return;
-    this._setText('#prolog-sources', meta.sources_count || '–');
     if (meta.sources_available && meta.sources_count) {
-      const rate = Math.min(100, Math.round((meta.sources_available / meta.sources_count) * 100));
-      this._setText('#prolog-rate', `${rate}%`);
+      this._setText('#prolog-sources', `${meta.sources_available}/${meta.sources_count}`);
+    }
+    if (meta.generated) {
+      const d = new Date(meta.generated);
+      this._setText('#prolog-rate', d.toLocaleString(i18n.lang === 'en' ? 'en-GB' : 'de-DE', {
+        day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'
+      }));
     }
   }
 
@@ -835,7 +864,7 @@ class BelkisOne {
     const meta = data.meta;
     if (!meta) return;
     this._setText('#sources-total', meta.sources_count || '–');
-    this._setText('#sources-success', Math.min(meta.sources_available, meta.sources_count) || '22');
+    this._setText('#sources-success', Math.min(meta.sources_available, meta.sources_count) || '–');
     if (meta.sources_available && meta.sources_count) {
       const rate = Math.min(100, Math.round((meta.sources_available / meta.sources_count) * 100));
       this._setText('#sources-rate', `${rate}%`);
@@ -1006,7 +1035,7 @@ class BelkisOne {
     const eqList = document.getElementById('earthquake-list');
     if (eqList && rt.earthquakes?.last24h) {
       eqList.innerHTML = '';
-      rt.earthquakes.last24h.slice(0, 8).forEach(eq => {
+      rt.earthquakes.last24h.slice(0, 5).forEach(eq => {
         const mag = Number(eq.magnitude) || 0;
         const color = mag >= 5 ? 'var(--status-critical)' : mag >= 4 ? 'var(--status-warning)' : 'var(--text-3)';
         const li = DOMUtils.create('li', {
@@ -1098,7 +1127,9 @@ class BelkisOne {
       const momList = document.getElementById('momentum-list');
       if (momList) {
         momList.innerHTML = '';
-        mom.indicators.forEach((ind, i) => {
+        // Startseite zeigt 8 Trends; alle 21 auf der Momentum-Detailseite
+        const MAX_MAIN = 8;
+        mom.indicators.slice(0, MAX_MAIN).forEach((ind, i) => {
           const isUp = ind.direction === 'improving';
           const item = DOMUtils.create('div', {
             className: 'momentum-item reveal swoosh-right',
@@ -1119,6 +1150,13 @@ class BelkisOne {
           }
           momList.appendChild(item);
         });
+        if (mom.indicators.length > MAX_MAIN) {
+          momList.appendChild(DOMUtils.create('a', {
+            className: 'momentum-more',
+            href: 'detail/?topic=momentum_detail',
+            textContent: i18n.t('act8.showAll', { n: mom.indicators.length }),
+          }));
+        }
         this.scrollEngine.observeReveals(momList);
       }
 
@@ -1315,28 +1353,7 @@ class BelkisOne {
 
   // ─── Prolog Animation ───
   _initProlog() {
-    const title = document.querySelector('.prolog__title');
-    if (title) {
-      setTimeout(() => title.classList.add('is-typing'), 1400);
-
-      const prologText = i18n.t('prolog.title');
-      const tw = new Typewriter(title, {
-        text: prologText,
-        speed: 70,
-        delay: 1500
-      });
-      tw.start();
-
-      const subtitle = document.querySelector('.prolog__subtitle');
-      if (subtitle) {
-        const textLength = prologText.length;
-        const typingDuration = 1500 + textLength * 85;
-        setTimeout(() => {
-          subtitle.textContent = i18n.t('prolog.subtitle');
-          subtitle.classList.add('is-visible');
-        }, typingDuration);
-      }
-    }
+    // Hero ist datengetrieben (_populateProlog); keine Schreibmaschinen-Animation mehr
   }
 
   // ─── Interactions ───
@@ -1571,15 +1588,7 @@ class BelkisOne {
     this._currentData = data;
     this._applyDynamicYears(data);
 
-    // Re-render prolog title and subtitle (no typewriter on toggle — instant text)
-    const prologTitle = document.querySelector('.prolog__title');
-    if (prologTitle) {
-      prologTitle.textContent = i18n.t('prolog.title');
-    }
-    const prologSub = document.querySelector('.prolog__subtitle');
-    if (prologSub) {
-      prologSub.textContent = i18n.t('prolog.subtitle');
-    }
+    this._populateProlog(data);
 
     // Re-render timestamp
     const tsEls = document.querySelectorAll('.timestamp');

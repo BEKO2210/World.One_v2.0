@@ -834,6 +834,7 @@ function buildWorldState() {
   const poverty = povLatest?.pct > 0
     ? { pct: povLatest.pct, people: povLatest.people, year: povLatest.year,
         first: povertyCache.data.poverty_trend?.[0] || null,
+        y2000: (povertyCache.data.poverty_trend || []).find(p => p.year === 2000) || null,
         source: povertyCache.data.source || 'World Bank PIP', isFallback: false }
     : { pct: null, people: existing?.economy?.wealth?.extremePoverty ?? null, year: null, first: null,
         source: 'World Bank PIP (letzter Stand)', isFallback: true };
@@ -1099,7 +1100,8 @@ function buildWorldState() {
 
   // ─── BUILD comparison2000 (always recalculate with fresh data) ───
   const comparison2000 = [
-    ...(poverty.first?.people && poverty.people ? [{ name: 'Extreme Armut', then: poverty.first.people, now: poverty.people, improved: poverty.people < poverty.first.people }] : []),
+    // Vergleichsjahr 2000 (wie die übrigen Einträge), nicht der erste PIP-Wert 1990
+    ...(poverty.y2000?.people && poverty.people ? [{ name: 'Extreme Armut', then: poverty.y2000.people, now: poverty.people, improved: poverty.people < poverty.y2000.people }] : []),
     { name: 'Kindersterblichkeit', then: 76, now: childMortCurrent, improved: childMortCurrent < 76 },
     { name: 'Lebenserwartung', then: 67, now: lifeExpCurrent, improved: lifeExpCurrent > 67 },
     { name: 'Internet-Nutzer', then: 6.7, now: internetCurrent, improved: internetCurrent > 6.7 },
