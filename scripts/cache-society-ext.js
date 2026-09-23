@@ -6,7 +6,7 @@
            refugees.json
    ═══════════════════════════════════════════════════════════════ */
 
-import { fetchJSON, extractWorldBankEntries, saveCache } from './cache-utils.js';
+import { fetchJSON, fetchText, extractWorldBankEntries, saveCache } from './cache-utils.js';
 
 // ─── Population (World Bank) ───
 async function fetchPopulation() {
@@ -26,48 +26,64 @@ async function fetchPopulation() {
   return { total, urban_percent };
 }
 
-// ─── Freedom (Static pre-processed dataset) ───
-function getFreedomData() {
-  console.log('  Loading freedom data (static dataset)...');
+// ─── Freedom (Freedom House via Our World in Data) ───
+// Freedom House hat keine API. OWID veröffentlicht die Einstufungen
+// (frei / teilweise frei / nicht frei) aller Länder und Gebiete seit 1972
+// und die Bevölkerung je Status. Die frühere „globale Punktzahl“ 47 → 42,3
+// gab es bei Freedom House nicht; sie ist entfernt.
+const OWID_FH = {
+  status: 'https://ourworldindata.org/grapher/free-countries-fh.csv?useColumnShortNames=true',
+  people: 'https://ourworldindata.org/grapher/people-living-in-free-countries-fh.csv?useColumnShortNames=true',
+};
 
-  // Freedom House Global Freedom Score (aggregate "world" score)
-  // Source: Freedom House "Freedom in the World" annual reports 2006-2025
-  // No API available -- data updates once per year
-  const global_trend = [
-    { year: 2006, score: 47.0 },
-    { year: 2007, score: 46.8 },
-    { year: 2008, score: 46.5 },
-    { year: 2009, score: 46.2 },
-    { year: 2010, score: 45.9 },
-    { year: 2011, score: 45.7 },
-    { year: 2012, score: 45.5 },
-    { year: 2013, score: 45.2 },
-    { year: 2014, score: 44.9 },
-    { year: 2015, score: 44.6 },
-    { year: 2016, score: 44.2 },
-    { year: 2017, score: 43.9 },
-    { year: 2018, score: 43.6 },
-    { year: 2019, score: 43.4 },
-    { year: 2020, score: 43.2 },
-    { year: 2021, score: 43.0 },
-    { year: 2022, score: 42.9 },
-    { year: 2023, score: 42.7 },
-    { year: 2024, score: 42.5 },
-    { year: 2025, score: 42.3 }
-  ];
+function worldRows(csv) {
+  const [header, ...lines] = csv.trim().split('\n');
+  const cols = header.split(',');
+  return lines
+    .filter(l => l.startsWith('World,OWID_WRL,'))
+    .map(l => Object.fromEntries(l.split(',').map((v, i) => [cols[i], v])));
+}
 
-  console.log(`  Freedom: ${global_trend.length} years of data`);
+async function getFreedomData() {
+  console.log('  Fetching freedom data (Freedom House via OWID)...');
+  const [statusCsv, peopleCsv] = await Promise.all([fetchText(OWID_FH.status), fetchText(OWID_FH.people)]);
+
+  const status_trend = worldRows(statusCsv).map(r => ({
+    year: Number(r.year),
+    free: Number(r.num_regime__category_free),
+    partlyFree: Number(r.num_regime__category_partly_free),
+    notFree: Number(r.num_regime__category_not_free),
+  })).filter(r => [r.year, r.free, r.partlyFree, r.notFree].every(Number.isFinite));
+
+  // Anteil der Weltbevölkerung in freien Ländern (alle Kategorien im Nenner)
+  const pop_free_share = worldRows(peopleCsv).map(r => {
+    const total = Object.entries(r).filter(([k]) => k.startsWith('pop_regime')).reduce((s, [, v]) => s + (Number(v) || 0), 0);
+    return { year: Number(r.year), value: Math.round(Number(r.pop_regime__category_free) / total * 1000) / 10 };
+  }).filter(r => Number.isFinite(r.value) && r.value > 0);
+
+  if (status_trend.length < 20 || pop_free_share.length < 20) {
+    throw new Error(`OWID Freedom House: zu wenige Jahre (${status_trend.length}/${pop_free_share.length})`);
+  }
+  const last = status_trend.at(-1);
+  console.log(`  Freedom: ${status_trend[0].year}–${last.year}, ${last.year}: ${last.free}/${last.partlyFree}/${last.notFree}, Bevölkerung frei ${pop_free_share.at(-1).value} %`);
+
   // Kennzahlen aus „Freedom in the World 2026“ (Berichtsjahr 2025), wörtlich:
   // „Global freedom declined for the 20th consecutive year in 2025.“
   // „Today, 88 of the world's 195 countries are rated Free.“
   // „In 2005, 45 countries were rated Not Free; today that number is 59.“
+  // „A total of 54 countries experienced deterioration … while only 35
+  //  countries registered improvements.“
   // https://freedomhouse.org/report/freedom-world/2026/growing-shadow-autocracy
-  const report = { edition: 2026, dataYear: 2025, declineYears: 20, free: 88, partlyFree: 195 - 88 - 59, notFree: 59 };
+  const report = {
+    edition: 2026, dataYear: 2025, declineYears: 20,
+    free: 88, partlyFree: 195 - 88 - 59, notFree: 59, declined: 54, improved: 35,
+  };
   return {
-    global_trend,
+    status_trend,
+    pop_free_share,
     report,
-    source: 'Freedom House - Freedom in the World',
-    note: 'Static dataset -- Freedom House has no public API'
+    source: 'Freedom House – Freedom in the World (via Our World in Data)',
+    note: 'status_trend zählt Länder und Gebiete, report nur die 195 Staaten',
   };
 }
 
@@ -408,7 +424,7 @@ async function main() {
 
   // Freedom
   try {
-    const freedomData = getFreedomData();
+    const freedomData = await getFreedomData();
     saveCache('freedom.json', freedomData);
     filesWritten++;
   } catch (err) {
