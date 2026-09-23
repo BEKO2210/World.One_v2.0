@@ -1,8 +1,8 @@
 /* ===================================================================
    World.One 2.0 -- Inequality Topic Module (ECON-01)
    Full topic contract: meta, render, getChartConfigs, cleanup
-   Data: World Bank SI.POV.GINI (income), Credit Suisse Global Wealth
-         Report 2024 (wealth), Oxfam/Forbes (billionaires)
+   Data: World Bank SI.POV.GINI (income), World Inequality Database
+         (wealth shares, via inequality.json → wid), Forbes 2026 (billionaires)
    Visualizations: Hero Gini index, 100-person wealth distribution grid
                    (CSS animated), Gini ranking bar chart with
                    income/wealth toggle, billionaire/wealth context tiles
@@ -80,14 +80,16 @@ const WEALTH_GINI = [
   { country: 'Suriname', code: 'SR', gini: 82.0 },
 ];
 
-// --- Wealth Distribution Stats (Oxfam/Credit Suisse/Forbes 2025) ------
+// --- Wealth Distribution Stats ------------------------------------------
+// Vermögensanteile: World Inequality Database (Stand 2024); werden in render()
+// durch die Reihen aus inequality.json (wid) ersetzt, sobald vorhanden.
+// Milliardäre: Forbes World's Billionaires 2026 (keine API, wie process-data.js).
 
 const WEALTH_STATS = {
-  top1_pct: 45.8,           // Top 1% owns 45.8% of global wealth
-  top10_pct: 76.0,          // Top 10% owns 76% of global wealth
-  bottom50_pct: 1.3,        // Bottom 50% owns 1.3%
-  billionaires: 3028,       // Forbes 2025
-  billionaire_wealth_t: 16.1, // $16.1 trillion total
+  top1_pct: 36.4,
+  top10_pct: 73.8,
+  billionaires: 3428,
+  billionaire_wealth_t: 20.1,
 };
 
 // --- Render ------------------------------------------------------------
@@ -100,6 +102,11 @@ export async function render(blocks) {
   if (data && data.country_latest && data.country_latest.length) {
     _chartData = { cacheCountries: data.country_latest };
   }
+
+  const top1 = data?.wid?.wealthTop1?.at(-1)?.value;
+  const top10 = data?.wid?.wealthTop10?.at(-1)?.value;
+  if (Number.isFinite(top1)) WEALTH_STATS.top1_pct = top1;
+  if (Number.isFinite(top10)) WEALTH_STATS.top10_pct = top10;
 
   // Hero Gini value: hardcoded global estimate (no world_trend in cache)
   const globalGini = 38.5;
@@ -219,11 +226,11 @@ function _renderWealthGrid(chartEl) {
   setTimeout(() => {
     for (let i = 0; i < 100; i++) {
       if (i === 0) {
-        // Top 1% -- gold glow, represents 45.8% of wealth
+        // Top 1% -- gold glow, represents WEALTH_STATS.top1_pct of wealth
         circles[i].style.background = toRgba(CHART_COLORS.economy, 1);
         circles[i].style.boxShadow = '0 0 8px ' + toRgba(CHART_COLORS.economy, 0.7);
       } else if (i < 10) {
-        // Top 10% -- gold, represents 76% of wealth
+        // Top 10% -- gold, represents WEALTH_STATS.top10_pct of wealth
         circles[i].style.background = toRgba(CHART_COLORS.economy, 0.6);
       }
       // Bottom 90% stays dim (rgba(255,255,255,0.12))
@@ -234,20 +241,26 @@ function _renderWealthGrid(chartEl) {
   const legendEl = DOMUtils.create('div', {
     style: {
       display: 'flex',
+      flexWrap: 'wrap',
       justifyContent: 'center',
-      gap: 'var(--space-md)',
+      gap: 'var(--space-xs) var(--space-md)',
       marginTop: 'var(--space-sm)',
       fontSize: '0.85rem',
     },
   }, [
     _createLegendItem(
       toRgba(CHART_COLORS.economy, 1),
-      i18n.t('detail.inequality.richPerson') + ' (' + WEALTH_STATS.top1_pct + '%)',
+      i18n.t('detail.inequality.richPerson') + ' (' + fmtNumber(WEALTH_STATS.top1_pct, { decimals: 1 }) + ' %)',
       true
     ),
     _createLegendItem(
-      'rgba(255,255,255,0.12)',
-      i18n.t('detail.inequality.poorPerson') + ' (' + WEALTH_STATS.bottom50_pct + '%)',
+      toRgba(CHART_COLORS.economy, 0.6),
+      i18n.t('detail.inequality.next9Person') + ' (' + fmtNumber(WEALTH_STATS.top10_pct - WEALTH_STATS.top1_pct, { decimals: 1 }) + ' %)',
+      false
+    ),
+    _createLegendItem(
+      'var(--line-2)',
+      i18n.t('detail.inequality.poorPerson') + ' (' + fmtNumber(100 - WEALTH_STATS.top10_pct, { decimals: 1 }) + ' %)',
       false
     ),
   ]);
@@ -278,7 +291,7 @@ function _createLegendItem(color, label, hasGlow) {
     DOMUtils.create('span', { style: dotStyle }),
     DOMUtils.create('span', {
       textContent: label,
-      style: { color: 'var(--text-secondary)' },
+      style: { color: 'var(--text-secondary)', whiteSpace: 'nowrap' },
     }),
   ]);
 }
@@ -437,17 +450,17 @@ function _renderTiles(tilesEl) {
     },
     {
       label: i18n.t('detail.inequality.tileTop1'),
-      value: WEALTH_STATS.top1_pct + '%',
+      value: fmtNumber(WEALTH_STATS.top1_pct, { decimals: 1 }) + ' %',
       accent: toRgba(CHART_COLORS.economy),
     },
     {
-      label: i18n.t('detail.inequality.tileBottom50'),
-      value: WEALTH_STATS.bottom50_pct + '%',
-      accent: 'var(--status-critical)',
+      label: i18n.t('detail.inequality.tileTop10'),
+      value: fmtNumber(WEALTH_STATS.top10_pct, { decimals: 1 }) + ' %',
+      accent: toRgba(CHART_COLORS.economy),
     },
     {
       label: i18n.t('detail.inequality.tileGap'),
-      value: '$' + WEALTH_STATS.billionaire_wealth_t + 'T',
+      value: fmtNumber(WEALTH_STATS.billionaire_wealth_t, { decimals: 1 }) + ' ' + i18n.t('detail.inequality.trillionUsd'),
       accent: toRgba(CHART_COLORS.economy),
     },
   ];
@@ -519,12 +532,12 @@ function _renderSources(srcEl) {
       url: 'https://data.worldbank.org/indicator/SI.POV.GINI',
     },
     {
-      label: 'Forbes -- Billionaires 2025',
+      label: 'Forbes -- Billionaires 2026',
       url: 'https://www.forbes.com/billionaires/',
     },
     {
-      label: 'Oxfam -- Inequality Inc.',
-      url: 'https://www.oxfam.org/en/research/inequality-inc',
+      label: 'World Inequality Database (WID.world)',
+      url: 'https://wid.world/',
     },
   ];
 
