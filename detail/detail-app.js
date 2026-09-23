@@ -36,7 +36,7 @@ async function init() {
 
   // Apply language if provided
   if (lang === 'de' || lang === 'en') {
-    i18n.lang = lang;
+    await i18n.setLanguage(lang);
   }
 
   // Initialize i18n (apply translations to DOM)
@@ -208,8 +208,8 @@ function setupNavControls() {
   // Language toggle
   const langBtn = document.getElementById('detail-lang-toggle');
   if (langBtn) {
-    langBtn.addEventListener('click', () => {
-      i18n.toggle();
+    langBtn.addEventListener('click', async () => {
+      await i18n.toggle();
 
       // Update lang label (show the OTHER language as option)
       const langLabel = langBtn.querySelector('.detail-nav__lang-label');
