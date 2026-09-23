@@ -200,7 +200,7 @@ jobs:
       # dass offene Tabs bei jedem Datenlauf (4×/Tag) neu laden.
       - name: "Phase 4 — Service-Worker cache version from code hash"
         run: |
-          CODE_HASH=$(find index.html detail js css assets manifest.json -type f -print0 \
+          CODE_HASH=$(find index.html detail js css assets i18n manifest.json -type f -print0 \
             | sort -z | xargs -0 sha256sum | sha256sum | cut -c1-12)
           sed -i "s/const CACHE_VERSION = '.*'/const CACHE_VERSION = '${CODE_HASH}'/" service-worker.js
           echo "Service Worker version: ${CODE_HASH}"
@@ -244,7 +244,7 @@ jobs:
         if: github.event.inputs.skip_deploy != 'true'
         run: |
           mkdir -p dist/data
-          cp -r index.html detail js css assets manifest.json service-worker.js dist/
+          cp -r index.html detail js css assets i18n manifest.json service-worker.js dist/
           for f in robots.txt sitemap.xml favicon.ico favicon.svg 404.html; do [ -f "$f" ] && cp "$f" dist/ || true; done
           cp -r data/processed data/cache data/fallback data/history dist/data/
           rm -f dist/data/processed/world-state.backup*.json

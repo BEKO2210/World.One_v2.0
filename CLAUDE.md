@@ -28,7 +28,7 @@ Dieselben Prüfungen laufen als `.github/workflows/pr-checks.yml` auf jedem PR.
 
 ## Regeln
 - Ein Thema pro Commit; alle Validatoren grün.
-- `js/i18n.js` immer DE + EN gleichzeitig ändern.
+- Übersetzungen: `i18n/de.json` und `i18n/en.json` immer gemeinsam ändern (gleiche Schlüssel). `js/i18n.js` lädt nur die aktive Sprache.
 - Keine Doppeldaten: Werte aus `world-state.json`/Cache lesen, nie in HTML/Topics hartkodieren.
 - Externe Daten nie ungeescaped per `innerHTML` einfügen.
 - Tier-Badge (`live|cache|static`) muss die tatsächlich genutzte Quelle widerspiegeln.

@@ -1466,8 +1466,8 @@ class BelkisOne {
     // Initialize i18n (applies stored language)
     i18n.init();
 
-    btn.addEventListener('click', () => {
-      i18n.toggle();
+    btn.addEventListener('click', async () => {
+      await i18n.toggle();   // lädt die andere Sprachdatei beim ersten Wechsel
       // Re-render dynamic content that uses i18n.t()
       this._rebuildDynamic(this._currentData);
     });
@@ -1820,7 +1820,11 @@ class BelkisOne {
 }
 
 // ─── Boot ───
-document.addEventListener('DOMContentLoaded', () => {
+// i18n.js lädt die Sprachdatei per Top-Level-await; dadurch kann
+// DOMContentLoaded schon vorbei sein, wenn dieses Modul ausgeführt wird.
+function boot() {
   const app = new BelkisOne();
   app.init();
-});
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+else boot();

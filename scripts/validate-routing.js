@@ -23,7 +23,8 @@ const ROOT = join(__dirname, '..');
 const DETAIL_APP = join(ROOT, 'detail', 'detail-app.js');
 const TOPICS_DIR = join(ROOT, 'detail', 'topics');
 const MAIN_APP = join(ROOT, 'js', 'app.js');
-const I18N = join(ROOT, 'js', 'i18n.js');
+// Übersetzungen liegen seit dem Split in i18n/de.json + i18n/en.json
+const I18N_FILES = ['de', 'en'].map(l => join(ROOT, 'i18n', `${l}.json`));
 
 let errors = 0;
 let warnings = 0;
@@ -36,7 +37,7 @@ console.log('\nValidating routing integrity...\n');
 // ─── Load sources ───
 const detailAppSrc = readFileSync(DETAIL_APP, 'utf8');
 const mainAppSrc = readFileSync(MAIN_APP, 'utf8');
-const i18nSrc = readFileSync(I18N, 'utf8');
+const i18nSrc = I18N_FILES.map(f => readFileSync(f, 'utf8')).join('\n');
 
 // ─── 1. Extract VALID_TOPICS allowlist ───
 const allowlistMatch = detailAppSrc.match(/const\s+VALID_TOPICS\s*=\s*\[([\s\S]*?)\]/);

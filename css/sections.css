@@ -340,22 +340,25 @@
   margin-top: var(--space-xl);
 }
 
+/* 5 Teilwerte ohne Lücke: Tablet 3 + 2 (zweite Reihe füllt die Breite),
+   mobil 2 + 2 + 1 (letzter über volle Breite) statt 5 Zeilen untereinander */
 @media (max-width: 1024px) {
   .sub-scores {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
+  .sub-score { grid-column: span 2; }
+  .sub-score:nth-child(4),
+  .sub-score:nth-child(5) { grid-column: span 3; }
 }
 
 @media (max-width: 680px) {
   .sub-scores {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-xs);
   }
-}
-
-@media (max-width: 420px) {
-  .sub-scores {
-    grid-template-columns: 1fr;
-  }
+  .sub-score,
+  .sub-score:nth-child(4) { grid-column: span 1; }
+  .sub-score:nth-child(5) { grid-column: 1 / -1; }
 }
 
 .sub-score {
@@ -1388,3 +1391,6 @@
   }
   .detail-link::after { transition: none; }
 }
+
+/* Teilwert steht als Zahl unter dem Ring — nicht doppelt im Ring */
+.sub-score .gauge__value { display: none; }
