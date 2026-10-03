@@ -5,24 +5,24 @@
 
 ---
 
-## 🌍 Welt-Indikator: 66.9 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 66.5 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  66.9/100  ↑ +0.4
+█████████████░░░░░░░  66.5/100  ↓ -0.4
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 03.10.2026 16:09 UTC
+> **Letzte Aktualisierung:** 03.10.2026 20:54 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟡 Umwelt | **44.9**/100 | ↑ +2.5 | 25% |
+| 🟡 Umwelt | **42.6**/100 | ↓ -2.3 | 25% |
 | 🟡 Gesellschaft | **56.1**/100 | → +0 | 25% |
 | 🟢 Wirtschaft | **74.1**/100 | → +0 | 20% |
 | 🟢 Fortschritt | **78.1**/100 | → +0 | 20% |
-| 🟢 Momentum | **80**/100 | ↓ -1 | 10% |
+| 🔵 Momentum | **81**/100 | ↑ +1 | 10% |
 
 ---
 
@@ -34,7 +34,7 @@
 | Temperaturanomalie | **+1.19°C** | NASA GISTEMP |
 | CO2-Konzentration | **428 ppm** | NOAA |
 | Arktis-Eisfläche | **4.81 Mio km²** (37.3% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **49** | WAQI |
+| Luftqualität (Ø) | AQI **62** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -69,16 +69,17 @@
 
 ---
 
-## 📈 Momentum: 16/20 Trends positiv
+## 📈 Momentum: 17/21 Trends positiv
 
 <details>
-<summary>Alle 20 Indikatoren anzeigen</summary>
+<summary>Alle 21 Indikatoren anzeigen</summary>
 
-#### ✅ Verbessert sich (16)
+#### ✅ Verbessert sich (17)
 - **Lebenserwartung**: +1.6%
 - **Kindersterblichkeit**: -2.3%
 - **Erneuerbare Energie**: +12.2%
 - **Internet-Zugang**: +12.1%
+- **BIP-Wachstum**: +23.3%
 - **Inflation**: -12.0%
 - **Arbeitslosigkeit**: -19.1%
 - **BIP pro Kopf**: +14.0%
@@ -254,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 03.10.2026 16:09 UTC | 60/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 03.10.2026 20:54 UTC | 64/65 Quellen aktiv
 </sub>
