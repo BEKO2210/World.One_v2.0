@@ -5,24 +5,24 @@
 
 ---
 
-## 🌍 Welt-Indikator: 67 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 67.9 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  67/100  ↑ +0.5
+██████████████░░░░░░  67.9/100  ↑ +0.9
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 04.10.2026 05:19 UTC
+> **Letzte Aktualisierung:** 04.10.2026 12:07 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟡 Umwelt | **45.3**/100 | ↑ +2.7 | 25% |
-| 🟡 Gesellschaft | **56.2**/100 | → +0.1 | 25% |
-| 🟢 Wirtschaft | **74**/100 | → -0.1 | 20% |
+| 🟡 Umwelt | **47.8**/100 | ↑ +2.5 | 25% |
+| 🟡 Gesellschaft | **56.1**/100 | → -0.1 | 25% |
+| 🟢 Wirtschaft | **74**/100 | → +0 | 20% |
 | 🟢 Fortschritt | **78.1**/100 | → +0 | 20% |
-| 🟢 Momentum | **80**/100 | ↓ -1 | 10% |
+| 🔵 Momentum | **81**/100 | ↑ +1 | 10% |
 
 ---
 
@@ -34,7 +34,7 @@
 | Temperaturanomalie | **+1.19°C** | NASA GISTEMP |
 | CO2-Konzentration | **428 ppm** | NOAA |
 | Arktis-Eisfläche | **4.81 Mio km²** (37.3% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **63** | WAQI |
+| Luftqualität (Ø) | AQI **50** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -69,12 +69,12 @@
 
 ---
 
-## 📈 Momentum: 16/20 Trends positiv
+## 📈 Momentum: 17/21 Trends positiv
 
 <details>
-<summary>Alle 20 Indikatoren anzeigen</summary>
+<summary>Alle 21 Indikatoren anzeigen</summary>
 
-#### ✅ Verbessert sich (16)
+#### ✅ Verbessert sich (17)
 - **Lebenserwartung**: +1.6%
 - **Kindersterblichkeit**: -2.3%
 - **Erneuerbare Energie**: +12.2%
@@ -88,6 +88,7 @@
 - **Mobilfunk**: +3.8%
 - **F&E Ausgaben**: +10.8%
 - **Elektrizitätszugang**: +1.1%
+- **Trinkwasser**: +2.7%
 - **Gesundheitsausgaben**: +1.1%
 - **Urbanisierung**: +1.4%
 - **Patentanmeldungen**: +1.2%
@@ -254,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 04.10.2026 05:19 UTC | 62/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 04.10.2026 12:07 UTC | 64/65 Quellen aktiv
 </sub>
