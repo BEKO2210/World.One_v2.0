@@ -5,21 +5,21 @@
 
 ---
 
-## 🌍 Welt-Indikator: 65.8 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 65.7 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  65.8/100  ↓ -0.6
+█████████████░░░░░░░  65.7/100  ↓ -0.1
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 19.10.2026 06:41 UTC
+> **Letzte Aktualisierung:** 19.10.2026 12:29 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟠 Umwelt | **39.9**/100 | ↓ -2.5 | 25% |
-| 🟡 Gesellschaft | **56.1**/100 | → +0.1 | 25% |
+| 🟠 Umwelt | **39.4**/100 | ↓ -0.5 | 25% |
+| 🟡 Gesellschaft | **56**/100 | → -0.1 | 25% |
 | 🟢 Wirtschaft | **73.9**/100 | → +0 | 20% |
 | 🟢 Fortschritt | **78.1**/100 | → +0 | 20% |
 | 🔵 Momentum | **81**/100 | → +0 | 10% |
@@ -34,7 +34,7 @@
 | Temperaturanomalie | **+1.18°C** | NASA GISTEMP |
 | CO2-Konzentration | **426 ppm** | NOAA |
 | Arktis-Eisfläche | **4.81 Mio km²** (37.3% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **61** | WAQI |
+| Luftqualität (Ø) | AQI **55** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -64,7 +64,7 @@
 | Indikator | Wert | Quelle |
 |-----------|------|--------|
 | Erdbeben (24h) | **8** Beben M2.5+ | USGS |
-| Nachrichten-Sentiment | **-0.42** (—) | GDELT |
+| Nachrichten-Sentiment | **-0.64** (—) | GDELT |
 | Crypto Fear & Greed | **59/100** (Greed) | Alternative.me |
 
 ---
@@ -255,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 19.10.2026 06:41 UTC | 64/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 19.10.2026 12:29 UTC | 64/65 Quellen aktiv
 </sub>
