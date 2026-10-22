@@ -12,15 +12,15 @@
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 22.10.2026 00:47 UTC
+> **Letzte Aktualisierung:** 22.10.2026 06:31 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟡 Umwelt | **45.8**/100 | → +0 | 25% |
-| 🟡 Gesellschaft | **56.1**/100 | → +0 | 25% |
-| 🟢 Wirtschaft | **74.1**/100 | → +0.1 | 20% |
+| 🟡 Umwelt | **45.7**/100 | → -0.1 | 25% |
+| 🟡 Gesellschaft | **56.2**/100 | → +0.1 | 25% |
+| 🟢 Wirtschaft | **74.1**/100 | → +0 | 20% |
 | 🟢 Fortschritt | **78.1**/100 | → +0 | 20% |
 | 🔵 Momentum | **81**/100 | → +0 | 10% |
 
@@ -34,7 +34,7 @@
 | Temperaturanomalie | **+1.18°C** | NASA GISTEMP |
 | CO2-Konzentration | **426 ppm** | NOAA |
 | Arktis-Eisfläche | **4.81 Mio km²** (37.3% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **54** | WAQI |
+| Luftqualität (Ø) | AQI **59** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -64,7 +64,7 @@
 | Indikator | Wert | Quelle |
 |-----------|------|--------|
 | Erdbeben (24h) | **8** Beben M2.5+ | USGS |
-| Nachrichten-Sentiment | **-0.42** (—) | GDELT |
+| Nachrichten-Sentiment | **-0.33** (—) | GDELT |
 | Crypto Fear & Greed | **68/100** (Greed) | Alternative.me |
 
 ---
@@ -255,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 22.10.2026 00:47 UTC | 63/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 22.10.2026 06:31 UTC | 63/65 Quellen aktiv
 </sub>
