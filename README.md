@@ -8,11 +8,11 @@
 ## 🌍 Welt-Indikator: 66.2 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  66.2/100  ↑ +1.3
+█████████████░░░░░░░  66.2/100  ↑ +0
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 24.10.2026 12:23 UTC
+> **Letzte Aktualisierung:** 24.10.2026 18:20 UTC
 
 ### Sub-Scores
 
@@ -34,7 +34,7 @@
 | Temperaturanomalie | **+1.18°C** | NASA GISTEMP |
 | CO2-Konzentration | **426 ppm** | NOAA |
 | Arktis-Eisfläche | **4.81 Mio km²** (37.3% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **66** | WAQI |
+| Luftqualität (Ø) | AQI **63** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -64,7 +64,7 @@
 | Indikator | Wert | Quelle |
 |-----------|------|--------|
 | Erdbeben (24h) | **8** Beben M2.5+ | USGS |
-| Nachrichten-Sentiment | **-0.38** (—) | GDELT |
+| Nachrichten-Sentiment | **-0.42** (—) | GDELT |
 | Crypto Fear & Greed | **51/100** (Neutral) | Alternative.me |
 
 ---
@@ -255,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 24.10.2026 12:23 UTC | 63/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 24.10.2026 18:20 UTC | 64/65 Quellen aktiv
 </sub>
