@@ -5,21 +5,21 @@
 
 ---
 
-## 🌍 Welt-Indikator: 66.5 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 64.9 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  66.5/100  ↓ -0.4
+█████████████░░░░░░░  64.9/100  ↓ -1.6
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 24.10.2026 00:43 UTC
+> **Letzte Aktualisierung:** 24.10.2026 06:29 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟡 Umwelt | **42.8**/100 | → +0 | 25% |
-| 🟡 Gesellschaft | **56.1**/100 | → +0 | 25% |
+| 🟡 Umwelt | **42.1**/100 | ↓ -0.7 | 25% |
+| 🟡 Gesellschaft | **55.7**/100 | ↓ -0.4 | 25% |
 | 🟢 Wirtschaft | **73.8**/100 | → +0 | 20% |
 | 🟢 Fortschritt | **78.1**/100 | → +0 | 20% |
 | 🔵 Momentum | **81**/100 | → +0 | 10% |
@@ -34,7 +34,7 @@
 | Temperaturanomalie | **+1.18°C** | NASA GISTEMP |
 | CO2-Konzentration | **426 ppm** | NOAA |
 | Arktis-Eisfläche | **4.81 Mio km²** (37.3% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **62** | WAQI |
+| Luftqualität (Ø) | AQI **68** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -255,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 24.10.2026 00:43 UTC | 64/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 24.10.2026 06:29 UTC | 64/65 Quellen aktiv
 </sub>
