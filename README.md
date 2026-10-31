@@ -5,24 +5,24 @@
 
 ---
 
-## 🌍 Welt-Indikator: 65.1 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 67.1 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  65.1/100  ↓ -2.1
+█████████████░░░░░░░  67.1/100  ↑ +2
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 31.10.2026 05:07 UTC
+> **Letzte Aktualisierung:** 31.10.2026 12:01 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟡 Umwelt | **45.7**/100 | → -0.2 | 25% |
+| 🟡 Umwelt | **45.6**/100 | → -0.1 | 25% |
 | 🟡 Gesellschaft | **56.1**/100 | → +0 | 25% |
-| 🟢 Wirtschaft | **67.1**/100 | ↓ -6.4 | 20% |
+| 🟢 Wirtschaft | **73.5**/100 | ↑ +6.4 | 20% |
 | 🟢 Fortschritt | **78.1**/100 | → +0 | 20% |
-| 🟢 Momentum | **77.8**/100 | ↓ -3.2 | 10% |
+| 🔵 Momentum | **81**/100 | ↑ +3.2 | 10% |
 
 ---
 
@@ -34,7 +34,7 @@
 | Temperaturanomalie | **+1.18°C** | NASA GISTEMP |
 | CO2-Konzentration | **426 ppm** | NOAA |
 | Arktis-Eisfläche | **4.81 Mio km²** (37.3% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **63** | WAQI |
+| Luftqualität (Ø) | AQI **68** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -69,17 +69,20 @@
 
 ---
 
-## 📈 Momentum: 14/18 Trends positiv
+## 📈 Momentum: 17/21 Trends positiv
 
 <details>
-<summary>Alle 18 Indikatoren anzeigen</summary>
+<summary>Alle 21 Indikatoren anzeigen</summary>
 
-#### ✅ Verbessert sich (14)
+#### ✅ Verbessert sich (17)
 - **Lebenserwartung**: +1.6%
 - **Kindersterblichkeit**: -2.3%
 - **Erneuerbare Energie**: +12.2%
 - **Internet-Zugang**: +12.1%
 - **BIP-Wachstum**: +23.3%
+- **Inflation**: -12.0%
+- **Arbeitslosigkeit**: -19.1%
+- **BIP pro Kopf**: +14.0%
 - **Globaler Handel**: +7.5%
 - **Alphabetisierung**: +0.7%
 - **Mobilfunk**: +3.8%
@@ -252,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 31.10.2026 05:07 UTC | 61/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 31.10.2026 12:01 UTC | 64/65 Quellen aktiv
 </sub>
