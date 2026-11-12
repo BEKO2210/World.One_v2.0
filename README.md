@@ -5,24 +5,24 @@
 
 ---
 
-## 🌍 Welt-Indikator: 67.2 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 64.4 / 100 🟢 POSITIV
 
 ```
-█████████████░░░░░░░  67.2/100  ↓ -0.3
+█████████████░░░░░░░  64.4/100  ↓ -2.8
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 12.11.2026 15:05 UTC
+> **Letzte Aktualisierung:** 12.11.2026 23:46 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟡 Umwelt | **45.9**/100 | ↓ -0.8 | 25% |
-| 🟡 Gesellschaft | **56.1**/100 | → +0 | 25% |
-| 🟢 Wirtschaft | **73.5**/100 | → +0 | 20% |
+| 🟡 Umwelt | **45.8**/100 | → -0.1 | 25% |
+| 🟡 Gesellschaft | **56.4**/100 | ↑ +0.3 | 25% |
+| 🟢 Wirtschaft | **67.1**/100 | ↓ -6.4 | 20% |
 | 🟢 Fortschritt | **78.1**/100 | → +0 | 20% |
-| 🔵 Momentum | **81**/100 | → +0 | 10% |
+| 🟢 Momentum | **75**/100 | ↓ -6 | 10% |
 
 ---
 
@@ -31,10 +31,10 @@
 ### 🌡️ Umwelt
 | Indikator | Wert | Quelle |
 |-----------|------|--------|
-| Temperaturanomalie | **+1.18°C** | NASA GISTEMP |
+| Temperaturanomalie | **+1.19°C** | NASA GISTEMP |
 | CO2-Konzentration | **426 ppm** | NOAA |
 | Arktis-Eisfläche | **4.81 Mio km²** (37.3% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **87** | WAQI |
+| Luftqualität (Ø) | AQI **99** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
@@ -64,26 +64,21 @@
 | Indikator | Wert | Quelle |
 |-----------|------|--------|
 | Erdbeben (24h) | **8** Beben M2.5+ | USGS |
-| Nachrichten-Sentiment | **-0.42** (—) | GDELT |
+| Nachrichten-Sentiment | **-0.03** (—) | GDELT |
 | Crypto Fear & Greed | **28/100** (Fear) | Alternative.me |
 
 ---
 
-## 📈 Momentum: 17/21 Trends positiv
+## 📈 Momentum: 12/16 Trends positiv
 
 <details>
-<summary>Alle 21 Indikatoren anzeigen</summary>
+<summary>Alle 16 Indikatoren anzeigen</summary>
 
-#### ✅ Verbessert sich (17)
+#### ✅ Verbessert sich (12)
 - **Lebenserwartung**: +1.6%
 - **Kindersterblichkeit**: -2.3%
 - **Erneuerbare Energie**: +12.2%
 - **Internet-Zugang**: +12.1%
-- **BIP-Wachstum**: +23.3%
-- **Inflation**: -12.0%
-- **Arbeitslosigkeit**: -19.1%
-- **BIP pro Kopf**: +14.0%
-- **Globaler Handel**: +7.5%
 - **Alphabetisierung**: +0.7%
 - **Mobilfunk**: +3.8%
 - **F&E Ausgaben**: +10.8%
@@ -96,7 +91,7 @@
 #### ❌ Verschlechtert sich (4)
 - **CO2-Konzentration**: +1.9%
 - **Waldfläche**: -0.2%
-- **CO2 pro Kopf**: +3.1%
+- **CO2 pro Kopf**: +1.4%
 - **Militärausgaben (% BIP)**: +8.6%
 
 </details>
@@ -255,5 +250,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 12.11.2026 15:05 UTC | 58/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 12.11.2026 23:46 UTC | 57/65 Quellen aktiv
 </sub>
