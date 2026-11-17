@@ -5,21 +5,21 @@
 
 ---
 
-## 🌍 Welt-Indikator: 67.9 / 100 🟢 POSITIV
+## 🌍 Welt-Indikator: 66.3 / 100 🟢 POSITIV
 
 ```
-██████████████░░░░░░  67.9/100  ↑ +0.9
+█████████████░░░░░░░  66.3/100  ↓ -1.6
 ```
 
 > Berechnet aus hunderten Datenpunkten. Kein KI-Modell — reiner Code, reale Daten.
-> **Letzte Aktualisierung:** 16.11.2026 05:50 UTC
+> **Letzte Aktualisierung:** 17.11.2026 01:53 UTC
 
 ### Sub-Scores
 
 | Kategorie | Score | Trend | Gewichtung |
 |-----------|-------|-------|------------|
-| 🟡 Umwelt | **48.6**/100 | ↑ +3.2 | 25% |
-| 🟡 Gesellschaft | **56.1**/100 | → +0 | 25% |
+| 🟡 Umwelt | **42.6**/100 | ↓ -6 | 25% |
+| 🟡 Gesellschaft | **56**/100 | → -0.1 | 25% |
 | 🟢 Wirtschaft | **73.2**/100 | → +0 | 20% |
 | 🟢 Fortschritt | **78.1**/100 | → +0 | 20% |
 | 🔵 Momentum | **81**/100 | → +0 | 10% |
@@ -34,13 +34,13 @@
 | Temperaturanomalie | **+1.19°C** | NASA GISTEMP |
 | CO2-Konzentration | **426 ppm** | NOAA |
 | Arktis-Eisfläche | **4.81 Mio km²** (37.3% verloren) | NSIDC |
-| Luftqualität (Ø) | AQI **80** | WAQI |
+| Luftqualität (Ø) | AQI **70** | WAQI |
 
 ### 👥 Gesellschaft
 | Indikator | Wert | Quelle |
 |-----------|------|--------|
 | Aktive Konflikte | **59** | ACLED |
-| Menschen auf der Flucht | **108.9 Mio** | UNHCR |
+| Menschen auf der Flucht | **109.2 Mio** | UNHCR |
 | Lebenserwartung | **73.48 Jahre** | WHO |
 | Freiheitsindex | 88 frei / 48 teilw. / 59 unfrei | Freedom House |
 
@@ -64,8 +64,8 @@
 | Indikator | Wert | Quelle |
 |-----------|------|--------|
 | Erdbeben (24h) | **8** Beben M2.5+ | USGS |
-| Nachrichten-Sentiment | **-0.42** (—) | GDELT |
-| Crypto Fear & Greed | **10/100** (Extreme Fear) | Alternative.me |
+| Nachrichten-Sentiment | **-0.23** (—) | GDELT |
+| Crypto Fear & Greed | **12/100** (Extreme Fear) | Alternative.me |
 
 ---
 
@@ -157,71 +157,71 @@ world-one/
 
 | Quelle | Vertrauen | Letztes Update |
 |--------|-----------|----------------|
-| [NASA GISTEMP](https://data.giss.nasa.gov/gistemp/) | ⭐⭐⭐ | 2026-11-16 |
-| [NOAA (CO2)](https://gml.noaa.gov/ccgg/trends/) | ⭐⭐⭐ | 2026-11-16 |
-| [NOAA Mauna Loa CO2 Monthly](https://gml.noaa.gov/webdata/ccgg/trends/co2/) | ⭐⭐⭐ | 2026-11-16 |
-| [NOAA NCEI (Ocean SST)](https://www.ncei.noaa.gov/) | ⭐⭐⭐ | 2026-11-16 |
-| [NOAA NCEI (Monthly Temp)](https://www.ncei.noaa.gov/) | ⭐⭐⭐ | 2026-11-16 |
-| [NOAA STAR (Sea Level)](https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/) | ⭐⭐⭐ | 2026-11-16 |
-| [NASA Sea Level](https://sealevel.nasa.gov/) | ⭐⭐⭐ | 2026-11-16 |
-| [NOAA Coral Reef Watch](https://coralreefwatch.noaa.gov/) | ⭐⭐⭐ | 2026-11-16 |
-| [Open-Meteo](https://open-meteo.com/) | ⭐⭐ | 2026-11-16 |
-| [Open-Meteo (Air Quality)](https://air-quality-api.open-meteo.com/) | ⭐⭐ | 2026-11-16 |
-| [WAQI (Air Quality)](https://aqicn.org/) | ⭐⭐⭐ | 2026-11-16 |
-| [World Bank (Environment)](https://data.worldbank.org/) | ⭐⭐⭐ | 2026-11-16 |
-| [World Bank (Forest Area)](https://data.worldbank.org/indicator/AG.LND.FRST.ZS) | ⭐⭐⭐ | 2026-11-16 |
-| [World Bank (Renewable Energy)](https://data.worldbank.org/indicator/EG.FEC.RNEW.ZS) | ⭐⭐⭐ | 2026-11-16 |
-| [NSIDC (Arktis)](https://nsidc.org/) | ⭐⭐⭐ | 2026-11-16 |
-| [Our World in Data (CO2 backup)](https://ourworldindata.org/co2-emissions) | ⭐⭐⭐ | 2026-11-16 |
-| [GBIF (Biodiversity)](https://www.gbif.org/) | ⭐⭐⭐ | 2026-11-16 |
-| [IUCN Red List](https://www.iucnredlist.org/) | ⭐⭐⭐ | 2026-11-16 |
-| [World Bank (Society)](https://data.worldbank.org/) | ⭐⭐⭐ | 2026-11-16 |
-| [World Bank (Health: Life Exp/DTP3)](https://data.worldbank.org/topic/health) | ⭐⭐⭐ | 2026-11-16 |
-| [World Bank (Hunger)](https://data.worldbank.org/indicator/SN.ITK.DEFC.ZS) | ⭐⭐⭐ | 2026-11-16 |
-| [ACLED (Konflikte)](https://acleddata.com/) | ⭐⭐⭐ | 2026-11-16 |
-| [UCDP (Uppsala Conflict)](https://ucdp.uu.se/) | ⭐⭐⭐ | 2026-11-16 |
-| [ReliefWeb (Conflicts)](https://reliefweb.int/) | ⭐⭐⭐ | 2026-11-16 |
-| [UNHCR](https://data.unhcr.org/) | ⭐⭐⭐ | 2026-11-16 |
-| [Freedom House](https://freedomhouse.org/) | ⭐⭐⭐ | 2026-11-16 |
-| [GDELT (Conflicts)](https://www.gdeltproject.org/) | ⭐⭐ | 2026-11-16 |
-| [disease.sh (COVID)](https://disease.sh/) | ⭐⭐ | 2026-11-16 |
-| [disease.sh (Global Outbreaks)](https://disease.sh/) | ⭐⭐ | 2026-11-16 |
-| [World Bank (Economy)](https://data.worldbank.org/) | ⭐⭐⭐ | 2026-11-16 |
-| [IMF WEO](https://www.imf.org/en/Publications/WEO) | ⭐⭐⭐ | 2026-11-16 |
-| [FRED (St. Louis Fed)](https://fred.stlouisfed.org/) | ⭐⭐⭐ | 2026-11-16 |
-| [Alternative.me (Fear & Greed)](https://alternative.me/crypto/) | ⭐⭐ | 2026-11-16 |
-| [CoinGecko (Crypto)](https://www.coingecko.com/) | ⭐⭐ | 2026-11-16 |
-| [Exchange Rate API (USD)](https://open.er-api.com/) | ⭐⭐ | 2026-11-16 |
-| [Exchange Rate API (EUR)](https://open.er-api.com/) | ⭐⭐ | 2026-11-16 |
-| [Forbes / Oxfam (Wealth)](https://www.forbes.com/billionaires/) | ⭐⭐⭐ | 2026-11-16 |
-| [World Bank (Tech)](https://data.worldbank.org/) | ⭐⭐⭐ | 2026-11-16 |
-| [World Bank (Internet/Mobile)](https://data.worldbank.org/indicator/IT.NET.USER.ZS) | ⭐⭐⭐ | 2026-11-16 |
-| [World Bank (R&D Spending)](https://data.worldbank.org/indicator/GB.XPD.RSDV.GD.ZS) | ⭐⭐⭐ | 2026-11-16 |
-| [GitHub API](https://api.github.com/) | ⭐⭐ | 2026-11-16 |
-| [arXiv](https://arxiv.org/) | ⭐⭐⭐ | 2026-11-16 |
-| [Spaceflight News](https://spaceflightnewsapi.net/) | ⭐⭐ | 2026-11-16 |
-| [ISS Tracker (Open Notify)](http://api.open-notify.org/) | ⭐⭐ | 2026-11-16 |
-| [USGS Earthquakes](https://earthquake.usgs.gov/) | ⭐⭐⭐ | 2026-11-16 |
-| [USGS Volcanoes](https://volcanoes.usgs.gov/) | ⭐⭐⭐ | 2026-11-16 |
-| [GDACS (Disaster Alert EU)](https://www.gdacs.org/) | ⭐⭐⭐ | 2026-11-16 |
-| [NOAA Space Weather](https://www.swpc.noaa.gov/) | ⭐⭐⭐ | 2026-11-16 |
-| [GDELT Project](https://www.gdeltproject.org/) | ⭐⭐ | 2026-11-16 |
-| [NewsAPI (world/climate/conflict)](https://newsapi.org/) | ⭐⭐ | 2026-11-16 |
-| [UN News (RSS)](https://news.un.org/) | ⭐⭐⭐ | 2026-11-16 |
-| [WHO News (RSS)](https://www.who.int/) | ⭐⭐⭐ | 2026-11-16 |
-| [UNHCR (RSS)](https://www.unhcr.org/) | ⭐⭐⭐ | 2026-11-16 |
-| [ReliefWeb (RSS)](https://reliefweb.int/) | ⭐⭐⭐ | 2026-11-16 |
-| [NASA (RSS)](https://www.nasa.gov/) | ⭐⭐⭐ | 2026-11-16 |
-| [NASA Earth Observatory](https://earthobservatory.nasa.gov/) | ⭐⭐⭐ | 2026-11-16 |
-| [ESA (RSS)](https://www.esa.int/) | ⭐⭐⭐ | 2026-11-16 |
-| [NOAA Climate.gov (RSS)](https://www.climate.gov/) | ⭐⭐⭐ | 2026-11-16 |
-| [BBC World (RSS)](https://www.bbc.com/news/world) | ⭐⭐⭐ | 2026-11-16 |
-| [DW News (RSS)](https://www.dw.com/) | ⭐⭐⭐ | 2026-11-16 |
-| [Al Jazeera (RSS)](https://www.aljazeera.com/) | ⭐⭐⭐ | 2026-11-16 |
-| [Guardian World (RSS)](https://www.theguardian.com/world) | ⭐⭐⭐ | 2026-11-16 |
-| [France24 (RSS)](https://www.france24.com/) | ⭐⭐⭐ | 2026-11-16 |
-| [World Bank News (Google News)](https://news.google.com/) | ⭐⭐ | 2026-11-16 |
-| [IMF News (Google News)](https://news.google.com/) | ⭐⭐ | 2026-11-16 |
+| [NASA GISTEMP](https://data.giss.nasa.gov/gistemp/) | ⭐⭐⭐ | 2026-11-17 |
+| [NOAA (CO2)](https://gml.noaa.gov/ccgg/trends/) | ⭐⭐⭐ | 2026-11-17 |
+| [NOAA Mauna Loa CO2 Monthly](https://gml.noaa.gov/webdata/ccgg/trends/co2/) | ⭐⭐⭐ | 2026-11-17 |
+| [NOAA NCEI (Ocean SST)](https://www.ncei.noaa.gov/) | ⭐⭐⭐ | 2026-11-17 |
+| [NOAA NCEI (Monthly Temp)](https://www.ncei.noaa.gov/) | ⭐⭐⭐ | 2026-11-17 |
+| [NOAA STAR (Sea Level)](https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/) | ⭐⭐⭐ | 2026-11-17 |
+| [NASA Sea Level](https://sealevel.nasa.gov/) | ⭐⭐⭐ | 2026-11-17 |
+| [NOAA Coral Reef Watch](https://coralreefwatch.noaa.gov/) | ⭐⭐⭐ | 2026-11-17 |
+| [Open-Meteo](https://open-meteo.com/) | ⭐⭐ | 2026-11-17 |
+| [Open-Meteo (Air Quality)](https://air-quality-api.open-meteo.com/) | ⭐⭐ | 2026-11-17 |
+| [WAQI (Air Quality)](https://aqicn.org/) | ⭐⭐⭐ | 2026-11-17 |
+| [World Bank (Environment)](https://data.worldbank.org/) | ⭐⭐⭐ | 2026-11-17 |
+| [World Bank (Forest Area)](https://data.worldbank.org/indicator/AG.LND.FRST.ZS) | ⭐⭐⭐ | 2026-11-17 |
+| [World Bank (Renewable Energy)](https://data.worldbank.org/indicator/EG.FEC.RNEW.ZS) | ⭐⭐⭐ | 2026-11-17 |
+| [NSIDC (Arktis)](https://nsidc.org/) | ⭐⭐⭐ | 2026-11-17 |
+| [Our World in Data (CO2 backup)](https://ourworldindata.org/co2-emissions) | ⭐⭐⭐ | 2026-11-17 |
+| [GBIF (Biodiversity)](https://www.gbif.org/) | ⭐⭐⭐ | 2026-11-17 |
+| [IUCN Red List](https://www.iucnredlist.org/) | ⭐⭐⭐ | 2026-11-17 |
+| [World Bank (Society)](https://data.worldbank.org/) | ⭐⭐⭐ | 2026-11-17 |
+| [World Bank (Health: Life Exp/DTP3)](https://data.worldbank.org/topic/health) | ⭐⭐⭐ | 2026-11-17 |
+| [World Bank (Hunger)](https://data.worldbank.org/indicator/SN.ITK.DEFC.ZS) | ⭐⭐⭐ | 2026-11-17 |
+| [ACLED (Konflikte)](https://acleddata.com/) | ⭐⭐⭐ | 2026-11-17 |
+| [UCDP (Uppsala Conflict)](https://ucdp.uu.se/) | ⭐⭐⭐ | 2026-11-17 |
+| [ReliefWeb (Conflicts)](https://reliefweb.int/) | ⭐⭐⭐ | 2026-11-17 |
+| [UNHCR](https://data.unhcr.org/) | ⭐⭐⭐ | 2026-11-17 |
+| [Freedom House](https://freedomhouse.org/) | ⭐⭐⭐ | 2026-11-17 |
+| [GDELT (Conflicts)](https://www.gdeltproject.org/) | ⭐⭐ | 2026-11-17 |
+| [disease.sh (COVID)](https://disease.sh/) | ⭐⭐ | 2026-11-17 |
+| [disease.sh (Global Outbreaks)](https://disease.sh/) | ⭐⭐ | 2026-11-17 |
+| [World Bank (Economy)](https://data.worldbank.org/) | ⭐⭐⭐ | 2026-11-17 |
+| [IMF WEO](https://www.imf.org/en/Publications/WEO) | ⭐⭐⭐ | 2026-11-17 |
+| [FRED (St. Louis Fed)](https://fred.stlouisfed.org/) | ⭐⭐⭐ | 2026-11-17 |
+| [Alternative.me (Fear & Greed)](https://alternative.me/crypto/) | ⭐⭐ | 2026-11-17 |
+| [CoinGecko (Crypto)](https://www.coingecko.com/) | ⭐⭐ | 2026-11-17 |
+| [Exchange Rate API (USD)](https://open.er-api.com/) | ⭐⭐ | 2026-11-17 |
+| [Exchange Rate API (EUR)](https://open.er-api.com/) | ⭐⭐ | 2026-11-17 |
+| [Forbes / Oxfam (Wealth)](https://www.forbes.com/billionaires/) | ⭐⭐⭐ | 2026-11-17 |
+| [World Bank (Tech)](https://data.worldbank.org/) | ⭐⭐⭐ | 2026-11-17 |
+| [World Bank (Internet/Mobile)](https://data.worldbank.org/indicator/IT.NET.USER.ZS) | ⭐⭐⭐ | 2026-11-17 |
+| [World Bank (R&D Spending)](https://data.worldbank.org/indicator/GB.XPD.RSDV.GD.ZS) | ⭐⭐⭐ | 2026-11-17 |
+| [GitHub API](https://api.github.com/) | ⭐⭐ | 2026-11-17 |
+| [arXiv](https://arxiv.org/) | ⭐⭐⭐ | 2026-11-17 |
+| [Spaceflight News](https://spaceflightnewsapi.net/) | ⭐⭐ | 2026-11-17 |
+| [ISS Tracker (Open Notify)](http://api.open-notify.org/) | ⭐⭐ | 2026-11-17 |
+| [USGS Earthquakes](https://earthquake.usgs.gov/) | ⭐⭐⭐ | 2026-11-17 |
+| [USGS Volcanoes](https://volcanoes.usgs.gov/) | ⭐⭐⭐ | 2026-11-17 |
+| [GDACS (Disaster Alert EU)](https://www.gdacs.org/) | ⭐⭐⭐ | 2026-11-17 |
+| [NOAA Space Weather](https://www.swpc.noaa.gov/) | ⭐⭐⭐ | 2026-11-17 |
+| [GDELT Project](https://www.gdeltproject.org/) | ⭐⭐ | 2026-11-17 |
+| [NewsAPI (world/climate/conflict)](https://newsapi.org/) | ⭐⭐ | 2026-11-17 |
+| [UN News (RSS)](https://news.un.org/) | ⭐⭐⭐ | 2026-11-17 |
+| [WHO News (RSS)](https://www.who.int/) | ⭐⭐⭐ | 2026-11-17 |
+| [UNHCR (RSS)](https://www.unhcr.org/) | ⭐⭐⭐ | 2026-11-17 |
+| [ReliefWeb (RSS)](https://reliefweb.int/) | ⭐⭐⭐ | 2026-11-17 |
+| [NASA (RSS)](https://www.nasa.gov/) | ⭐⭐⭐ | 2026-11-17 |
+| [NASA Earth Observatory](https://earthobservatory.nasa.gov/) | ⭐⭐⭐ | 2026-11-17 |
+| [ESA (RSS)](https://www.esa.int/) | ⭐⭐⭐ | 2026-11-17 |
+| [NOAA Climate.gov (RSS)](https://www.climate.gov/) | ⭐⭐⭐ | 2026-11-17 |
+| [BBC World (RSS)](https://www.bbc.com/news/world) | ⭐⭐⭐ | 2026-11-17 |
+| [DW News (RSS)](https://www.dw.com/) | ⭐⭐⭐ | 2026-11-17 |
+| [Al Jazeera (RSS)](https://www.aljazeera.com/) | ⭐⭐⭐ | 2026-11-17 |
+| [Guardian World (RSS)](https://www.theguardian.com/world) | ⭐⭐⭐ | 2026-11-17 |
+| [France24 (RSS)](https://www.france24.com/) | ⭐⭐⭐ | 2026-11-17 |
+| [World Bank News (Google News)](https://news.google.com/) | ⭐⭐ | 2026-11-17 |
+| [IMF News (Google News)](https://news.google.com/) | ⭐⭐ | 2026-11-17 |
 
 ## 🚀 Setup
 
@@ -255,5 +255,5 @@ Dieses Projekt wurde gebaut um zu überdauern. Die GitHub Actions Pipeline:
 ---
 
 <sub>
-Auto-generiert von der World.One Pipeline | 16.11.2026 05:50 UTC | 63/65 Quellen aktiv
+Auto-generiert von der World.One Pipeline | 17.11.2026 01:53 UTC | 64/65 Quellen aktiv
 </sub>
